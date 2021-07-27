@@ -1,0 +1,6 @@
+/dist
+.nuxt
+config-overrides.js
+node_modules
+samples/*/build
+samples/next/*.js

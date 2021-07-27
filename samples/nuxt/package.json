@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "nuxt": "2.15.7"
+    },
+    "scripts": {
+        "build": "nuxt build",
+        "serve": "nuxt"
+    },
+    "license": "MIT"
+}

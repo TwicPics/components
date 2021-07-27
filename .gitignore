@@ -1,0 +1,9 @@
+/*.log
+.DS_Store
+.next
+.nuxt
+dist
+node_modules
+samples/*/build
+samples/next/esm.js
+samples/next/style.css
