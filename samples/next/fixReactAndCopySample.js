@@ -12,8 +12,3 @@ if ( !reactPackage.exports ) {
     };
     writeFile( require.resolve( `react/package.json` ), JSON.stringify( reactPackage, null, `  ` ) );
 }
-
-const copy = async file => writeFile( file, await readFile( `../../dist/sample-next/${ file }`, `utf8` ) );
-
-copy( `esm.js` );
-copy( `style.css` );

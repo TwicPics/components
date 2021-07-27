@@ -1,6 +1,7 @@
-/dist
 .nuxt
 config-overrides.js
+dist
+next.config.js
 node_modules
 samples/*/build
 samples/next/*.js

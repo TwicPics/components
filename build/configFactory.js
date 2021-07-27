@@ -1,8 +1,8 @@
+import __dirname from "./__dirname.js";
 import { createRequire } from "module";
 import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFile, unlink, writeFile } from "fs/promises";
 
-const __dirname = dirname( fileURLToPath( import.meta.url ) );
 const { "version": packageVersion } = createRequire( import.meta.url )( `../package.json` );
 
 const rGrandParent = /^\.\.\/\.\./;
@@ -12,7 +12,14 @@ const sourcemapPathTransform =
         `https://raw.githubusercontent.com/twicpics/components/${ packageVersion }`
     );
 
+const rJS = /\.js$/;
+
 const namedFormats = new Set( [ `iife`, `umd` ] );
+
+const formatRename = new Map( [
+    [ `cjs`, `index` ],
+    [ `esm`, `module` ],
+] );
 
 import { babel } from "@rollup/plugin-babel";
 import cleaner from "./cleaner.js";
@@ -35,7 +42,7 @@ export default (
     "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.js` }`,
     "output": formats.map( format => ( {
         "exports": `named`,
-        "file": `${ __dirname }/../dist/${ framework }/${ format }.js`,
+        "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.js`,
         format,
         "globals": ( namedFormats.has( format ) && globals ) || undefined,
         "name": namedFormats.has( format ) ? `TwicPics` : undefined,
@@ -54,5 +61,18 @@ export default (
         cleaner( [ [ /\nfunction _extends\(\) \{\n(?:.|\n)+?\n\}\n/g, `\nconst _extends = Object.assign;\n` ] ] ),
         terser(),
         ...plugins,
+        {
+            "writeBundle": async ( { file, format } ) => {
+                const cssFile = file.replace( rJS, `.css` );
+                const cssMinFile = file.replace( rJS, `.min.css` );
+                if ( format === formats[ 0 ] ) {
+                    await writeFile( `${ dirname( file ) }/style.css`, await readFile( cssMinFile, `utf8` ) );
+                }
+                await Promise.all( [
+                    unlink( cssFile ),
+                    unlink( cssMinFile ),
+                ] );
+            },
+        },
     ],
 } );

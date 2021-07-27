@@ -1,8 +1,4 @@
 {
-    "author": "TwicPics <hello@twic.pics>",
-    "bugs": {
-        "url": "https://github.com/twicpics/components/issues"
-    },
     "devDependencies": {
         "@babel/core": "7.14.8",
         "@babel/preset-env": "7.14.8",
@@ -14,6 +10,7 @@
         "eslint-config-creative-area": "0.11.1",
         "eslint-plugin-react": "7.24.0",
         "eslint-plugin-vue": "7.14.0",
+        "fs-extra": "10.0.0",
         "magic-string": "0.25.7",
         "rollup": "2.53.3",
         "rollup-plugin-css-porter": "1.0.2",
@@ -39,29 +36,10 @@
             ]
         }
     },
-    "homepage": "https://github.com/twicpics/components",
-    "keywords": [
-        "component",
-        "front-end",
-        "image",
-        "next",
-        "nuxt",
-        "react",
-        "twicpics",
-        "video",
-        "vue"
-    ],
     "license": "MIT",
-    "name": "@twicpics/components",
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/twicpics/components.git"
-    },
     "scripts": {
-        "build": "node build",
-        "test": "eslint ."
+        "build": "$npm_execpath && node build",
+        "test": "$npm_execpath && eslint ."
     },
-    "type": "module",
-    "version": "0.1.0"
+    "type": "module"
 }

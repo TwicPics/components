@@ -1,10 +1,11 @@
 {
     "dependencies": {
+        "@twicpics/components": "file:../../dist",
         "nuxt": "2.15.7"
     },
     "scripts": {
-        "build": "nuxt build",
-        "serve": "nuxt"
+        "build": "$npm_execpath && nuxt build",
+        "serve": "$npm_execpath && nuxt"
     },
     "license": "MIT"
 }

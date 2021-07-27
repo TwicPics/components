@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Sample from "../../Sample.jsx";
+import Sample from "@twicpics/components-sample/Sample.jsx";
 
-import { installTwicPics } from "../../../dist/react/esm.js";
+import { installTwicPics } from "@twicpics/components/react";
+import "@twicpics/components/react/style.css";
+import "@twicpics/components-sample/Sample.css";
 
 installTwicPics( {
     "domain": `https://demo.twic.pics`,

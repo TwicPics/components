@@ -5,13 +5,17 @@
         "not dead"
     ],
     "dependencies": {
+        "@moxy/next-compile-node-modules": "2.1.1",
+        "@twicpics/components": "file:../../dist",
+        "@twicpics/components-sample": "file:../_",
         "next": "11.0.1",
         "react": "17.0.2",
         "react-dom": "17.0.2"
     },
     "license": "MIT",
     "scripts": {
-        "build": "node fixReactAndCopySample && next build",
-        "serve": "node fixReactAndCopySample && next dev"
+        "build": "$npm_execpath && next build",
+        "postinstall": "node fixReactAndCopySample",
+        "serve": "$npm_execpath && next dev"
     }
 }

@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 
-import Main from "../Sample.vue";
-import Twicpics from "../../dist/vue3/esm.js";
-import "../../dist/vue3/style.css";
+import Main from "../_/Sample.vue";
+import Twicpics from "@twicpics/components/vue3";
+import "@twicpics/components/vue3/style.css";
 
 const app = createApp( Main );
 

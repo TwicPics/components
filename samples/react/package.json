@@ -5,6 +5,8 @@
         "not dead"
     ],
     "dependencies": {
+        "@twicpics/components": "file:../../dist",
+        "@twicpics/components-sample": "file:../_",
         "react": "17.0.2",
         "react-app-rewired": "2.1.8",
         "react-dom": "17.0.2",
@@ -12,7 +14,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
-        "serve": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start"
+        "build": "$npm_execpath && SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
+        "serve": "$npm_execpath && SKIP_PREFLIGHT_CHECK=true react-app-rewired start"
     }
 }

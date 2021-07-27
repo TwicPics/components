@@ -1,8 +1,8 @@
 import Vue from "vue";
 
-import Main from "../Sample.vue";
-import Twicpics from "../../dist/vue2/esm.js";
-import "../../dist/vue2/style.css";
+import Main from "../_/Sample.vue";
+import Twicpics from "@twicpics/components/vue2";
+import "@twicpics/components/vue2/style.css";
 
 Vue.use( Twicpics, {
     "domain": `https://demo.twic.pics`,

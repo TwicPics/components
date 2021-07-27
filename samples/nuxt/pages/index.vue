@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Sample from "../../Sample";
+import Sample from "../../_/Sample.vue";
 
 export default {
     "components": {

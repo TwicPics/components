@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "@twicpics/components": "file:../../dist"
+    },
+    "name": "@twicpics/components-sample",
+    "private": true,
+    "version": "0.1.0"
+}

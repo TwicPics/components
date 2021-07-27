@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
+import __dirname from "./__dirname.js";
+import cleanSamples from "./cleanSamples.js";
 import configFactory from "./configFactory.js";
-import { dirname } from 'path';
-import { readFile, unlink, writeFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
+import { remove } from "fs-extra";
 import { rollup } from "rollup";
 import vue2 from "rollup-plugin-vue2";
 import vue3 from "rollup-plugin-vue";
@@ -17,16 +19,6 @@ const units = [
         "presets": [ `@babel/preset-react` ],
     },
     {
-        "external": [
-            `prop-types`,
-            `react`,
-        ],
-        "framework": `sample-next`,
-        "presets": [ `@babel/preset-react` ],
-        "sourceFile": `samples/Sample.jsx`,
-    },
-
-    {
         "framework": `vue2`,
         "plugins": [ vue2() ],
         "sourceDir": `vue`,
@@ -40,6 +32,8 @@ const units = [
 ];
 
 ( async () => {
+    console.log( `clearing dist directory...` );
+    await remove( `${ __dirname }/../dist` );
     console.log( `generating components for ${
         units.map( ( { framework } ) => framework ).join( `, ` )
     } (${
@@ -53,18 +47,18 @@ const units = [
             await Promise.all( options.output.map( bundle.generate ) );
             await Promise.all( options.output.map( bundle.write ) );
             await bundle.close();
-            const dir = dirname( options.output[ 0 ].file );
-            await writeFile(
-                `${ dir }/style.css`,
-                await readFile( `${ dir }/${ formats[ 0 ] }.min.css`, `utf8` )
-            );
-            await Promise.all( formats.flatMap( format => [
-                unlink( `${ dir }/${ format }.css` ),
-                unlink( `${ dir }/${ format }.min.css` ),
-            ] ) );
             console.log( `${ framework } components generated` );
         } catch ( error ) {
             console.error( `${ framework } components generation error:`, error );
         }
     } ) );
+    console.log( `generating package.json with mappings...` );
+    const packageJSON = JSON.parse( await readFile( `${ __dirname }/package.template.json`, `utf8` ) );
+    packageJSON.exports = Object.fromEntries( units.flatMap( ( { framework } ) => [
+        [ `./${ framework }`, `./${ framework }/module.js` ],
+        [ `./${ framework }/style.css`, `./${ framework }/style.css` ],
+    ] ) );
+    await writeFile( `${ __dirname }/../dist/package.json`, JSON.stringify( packageJSON, null, `  ` ) );
+    console.log( `cleaning dependencies in samples subdirectory...` );
+    await cleanSamples();
 } )();

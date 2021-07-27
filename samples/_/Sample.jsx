@@ -1,11 +1,6 @@
 import React from "react";
 
-import { installTwicPics as install, TwicImg } from "../dist/react/esm.js";
-import "../dist/react/style.css";
-import "./Sample.css";
-
-// for next
-export const installTwicPics = install;
+import { TwicImg } from "@twicpics/components/react";
 
 const Sample = () => (
     <main>
