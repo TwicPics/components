@@ -3,7 +3,7 @@ import { createRequire } from "module";
 import { dirname } from 'path';
 import { readFile, unlink, writeFile } from "fs/promises";
 
-const { "version": packageVersion } = createRequire( import.meta.url )( `../package.json` );
+const { "version": packageVersion } = createRequire( import.meta.url )( `./package.template.json` );
 
 const rGrandParent = /^\.\.\/\.\./;
 const sourcemapPathTransform =
@@ -13,8 +13,6 @@ const sourcemapPathTransform =
     );
 
 const rJS = /\.js$/;
-
-const namedFormats = new Set( [ `iife`, `umd` ] );
 
 const formatRename = new Map( [
     [ `cjs`, `index` ],
@@ -29,7 +27,7 @@ import { terser } from "rollup-plugin-terser";
 
 export default (
     // eslint-disable-next-line no-shadow
-    { external = [], framework, globals, plugins = [], presets = [], sourceDir = framework, sourceFile },
+    { external = [], framework, plugins = [], presets = [], sourceDir = framework, sourceFile },
     ...formats
 ) => ( {
     "acorn": {
@@ -44,8 +42,6 @@ export default (
         "exports": `named`,
         "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.js`,
         format,
-        "globals": ( namedFormats.has( format ) && globals ) || undefined,
-        "name": namedFormats.has( format ) ? `TwicPics` : undefined,
         "sourcemap": true,
         sourcemapPathTransform,
     } ) ),
