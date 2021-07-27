@@ -4,8 +4,8 @@
         "nuxt": "2.15.7"
     },
     "scripts": {
-        "build": "$npm_execpath && nuxt build",
-        "serve": "$npm_execpath && nuxt"
+        "build": "$npm_execpath install && nuxt build",
+        "serve": "$npm_execpath install && nuxt"
     },
     "license": "MIT"
 }

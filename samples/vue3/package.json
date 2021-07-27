@@ -15,7 +15,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "$npm_execpath && vue-cli-service build index.js",
-        "serve": "$npm_execpath && vue-cli-service serve index.js"
+        "build": "$npm_execpath install && vue-cli-service build index.js",
+        "serve": "$npm_execpath install && vue-cli-service serve index.js"
     }
 }

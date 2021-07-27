@@ -14,8 +14,8 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "$npm_execpath && next build",
+        "build": "$npm_execpath install && next build",
         "postinstall": "node fixReactAndCopySample",
-        "serve": "$npm_execpath && next dev"
+        "serve": "$npm_execpath install && next dev"
     }
 }

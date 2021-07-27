@@ -38,8 +38,8 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "$npm_execpath && node build",
-        "test": "$npm_execpath && eslint ."
+        "build": "$npm_execpath install && node build",
+        "test": "$npm_execpath install && eslint ."
     },
     "type": "module"
 }

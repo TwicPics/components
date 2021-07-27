@@ -14,7 +14,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "$npm_execpath && SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
-        "serve": "$npm_execpath && SKIP_PREFLIGHT_CHECK=true react-app-rewired start"
+        "build": "$npm_execpath install && SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
+        "serve": "$npm_execpath install && SKIP_PREFLIGHT_CHECK=true react-app-rewired start"
     }
 }
