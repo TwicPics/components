@@ -59,6 +59,16 @@ const units = [
         [ `./${ framework }/style.css`, `./${ framework }/style.css` ],
     ] ) );
     await writeFile( `${ __dirname }/../dist/package.json`, JSON.stringify( packageJSON, null, `  ` ) );
+    console.log( `adding README.md...` );
+    await writeFile(
+        `${ __dirname }/../dist/README.md`,
+        await readFile( `${ __dirname }/../documentation/README.md` )
+    );
+    console.log( `adding LICENSE...` );
+    await writeFile(
+        `${ __dirname }/../dist/LICENSE`,
+        await readFile( `${ __dirname }/../LICENSE` )
+    );
     console.log( `cleaning dependencies in samples subdirectory...` );
     await cleanSamples();
 } )();

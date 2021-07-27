@@ -1,23 +1,21 @@
 {
-    "author": "TwicPics <hello@twic.pics>",
+    "author": "TwicPics <hello@twic.pics> (https://www.twicpics.com)",
     "bugs": {
         "url": "https://github.com/twicpics/components/issues"
     },
     "homepage": "https://github.com/twicpics/components",
     "keywords": [
-        "component",
-        "front-end",
-        "image",
-        "next",
-        "nuxt",
+        "component library",
+        "next js",
+        "nuxt js",
         "react",
+        "responsive image",
         "twicpics",
-        "video",
-        "vue"
+        "ui library",
+        "vue js"
     ],
     "license": "MIT",
     "name": "@twicpics/components",
-    "private": true,
     "repository": {
         "type": "git",
         "url": "git://github.com/twicpics/components.git"
