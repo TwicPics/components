@@ -43,7 +43,7 @@ _the full documentation will come very soon_
 
 ## Example
 
-You can find usage examples for all supported frameworks [here](https://github.com/twicpics/components/samples).
+You can find usage examples for all supported frameworks [here](https://github.com/twicpics/components/tree/main/samples).
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
