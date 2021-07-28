@@ -1,7 +1,5 @@
 "use strict";
 
-const baseDir = require( `path` ).resolve( `${ __dirname }/..` );
-
 const ModuleScopePlugin = require( `react-dev-utils/ModuleScopePlugin` );
 
 const rBabel = /\/babel-loader\//;
@@ -16,7 +14,7 @@ module.exports = config => {
         ) {
             // we want to build files from /samples and up
             if ( rule.include ) {
-                rule.include = baseDir;
+                rule.include = __dirname;
             }
             // and we want to use build presets
             rule.options.presets[ 0 ][ 0 ] = require.resolve( `@babel/preset-react` );
