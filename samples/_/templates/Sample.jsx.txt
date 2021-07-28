@@ -1,0 +1,9 @@
+import React from "react";
+
+import { TwicImg } from "@twicpics/components/react";
+
+const Sample = () => (
+    ###
+);
+
+export default Sample;

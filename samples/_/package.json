@@ -3,12 +3,15 @@
         "@twicpics/components": "file:../../dist"
     },
     "exports": {
-        "Sample.css": "./Sample.css",
-        "Sample.jsx": "./Sample.jsx",
-        "Sample.svelte": "./Sample.svelte",
-        "Sample.vue": "./Sample.vue"
+        "./Sample.css": "./Sample.css",
+        "./Sample.jsx": "./Sample.jsx",
+        "./Sample.svelte": "./Sample.svelte",
+        "./Sample.vue": "./Sample.vue"
     },
     "name": "@twicpics/components-sample",
     "private": true,
+    "scripts": {
+        "preinstall": "node preinstall"
+    },
     "version": "0.1.0"
 }
