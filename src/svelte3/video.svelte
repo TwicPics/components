@@ -15,8 +15,6 @@
     import { styleToString } from "./utils";
 
     // svelte-ignore unused-export-let
-    export let alt = undefined;
-    // svelte-ignore unused-export-let
     export let bot = undefined;
     // svelte-ignore unused-export-let
     export let focus = undefined;
@@ -47,12 +45,12 @@
 <script>
     $$props = Object.assign( {
         "mode": `cover`,
+        "placeholder": `preview`,
         "position": `center`,
         "transition": true,
     }, $$props );
 
-    let attributes = {
-        "alt": computeAlt( $$props ),
+    const attributes = {
         "style": styleToString( computeStyle( $$props ) ),
         "width": computeWidth( $$props ),
         "height": computeHeight( $$props ),
@@ -61,8 +59,8 @@
         ...computeDataSrc( $$props ),
         ...computeDataStep( $$props ),
     };
-    let _wrapperClass = computeWrapperClass( $$props );
-    let _wrapperStyle = styleToString( computeWrapperStyle( $$props ) );
+    const _wrapperClass = computeWrapperClass( $$props );
+    const _wrapperStyle = styleToString( computeWrapperStyle( $$props ) );
 </script>
 
 <div

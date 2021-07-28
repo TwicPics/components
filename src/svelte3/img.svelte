@@ -47,11 +47,12 @@
 <script>
     $$props = Object.assign( {
         "mode": `cover`,
+        "placeholder": `preview`,
         "position": `center`,
         "transition": true,
     }, $$props );
 
-    let attributes = {
+    const attributes = {
         "alt": computeAlt( $$props ),
         "style": styleToString( computeStyle( $$props ) ),
         "width": computeWidth( $$props ),
@@ -61,8 +62,8 @@
         ...computeDataSrc( $$props ),
         ...computeDataStep( $$props ),
     };
-    let _wrapperClass = computeWrapperClass( $$props );
-    let _wrapperStyle = styleToString( computeWrapperStyle( $$props ) );
+    const _wrapperClass = computeWrapperClass( $$props );
+    const _wrapperStyle = styleToString( computeWrapperStyle( $$props ) );
 </script>
 
 <div
