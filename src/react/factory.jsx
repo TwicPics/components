@@ -37,26 +37,29 @@ const defaultPropsWithAlt = {
     ...defaultProps,
 };
 
+const { oneOf, string } = PropTypes;
+
+const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
+
 const propTypes = {
-    "alt": PropTypes.string,
-    "bot": PropTypes.string,
-    "focus": PropTypes.string,
-    "height": PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] ),
-    "mode": PropTypes.oneOf( [ `contain`, `cover` ] ),
-    "placeholder": PropTypes.oneOf( [ `preview`, `meancolor`, `maincolor`, `none` ] ),
-    "position": PropTypes.string,
-    "ratio": PropTypes.string,
-    "src": PropTypes.string.isRequired,
-    "step": PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] ),
+    "bot": string,
+    "focus": string,
+    "height": number,
+    "mode": oneOf( [ `contain`, `cover` ] ),
+    "placeholder": oneOf( [ `preview`, `meancolor`, `maincolor`, `none` ] ),
+    "position": string,
+    "ratio": string,
+    "src": string.isRequired,
+    "step": number,
     "transition": PropTypes.bool,
-    "transitionDuration": PropTypes.string,
-    "transitionTimingFunction": PropTypes.string,
-    "transitionDelay": PropTypes.string,
-    "width": PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] ),
+    "transitionDuration": string,
+    "transitionTimingFunction": string,
+    "transitionDelay": string,
+    "width": number,
 };
 
 const propTypesWithAlt = {
-    "alt": PropTypes.string,
+    "alt": string,
     ...propTypes,
 };
 
