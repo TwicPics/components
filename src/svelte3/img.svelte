@@ -1,4 +1,4 @@
-<script>
+<script context="module">
     import {
         computeAlt,
         computeDataBot,
@@ -12,49 +12,65 @@
         computeWrapperStyle,
     } from "../_/compute.js";
 
-    export let alt = undefined;
-    export let bot = undefined;
-    export let focus = undefined;
-    export let height = undefined;
-    export let mode = `cover`;
-    export let placeholder = `preview`;
-    export let position = `center`;
-    export let ratio = undefined;
-    export let step = undefined;
-    export let transition = true;
-    export let transitionDelay = undefined;
-    export let transitionDuration = undefined;
-    export let transitionTimingFunction = undefined;
-    export let width = undefined;
+    import { styleToString } from "./utils";
 
-    $: _alt = computeAlt( { alt } );
-    $: _dataBot = computeDataBot( { bot } );
-    $: _dataFocus = computeDataFocus( { focus, mode } );
-    $: _dataSrc = computeDataSrc( { src } );
-    $: _dataStep = computeDataStep( { step } );
-    $: _height = computeHeight( { height } );
-    $: _style = computeStyle(
-        { mode, position, transition, transitionDelay, transitionDuration, transitionTimingFunction }
-    );
-    $: _width = computeWidth( { width } );
-    $: _wrapperClass = computeWrapperClass( { transition } );
-    $: _wrapperStyle = computeWrapperStyle(
-        { focus, height, mode, position, placeholder, ratio, src, width }
-    );
+    // svelte-ignore unused-export-let
+    export let alt = undefined;
+    // svelte-ignore unused-export-let
+    export let bot = undefined;
+    // svelte-ignore unused-export-let
+    export let focus = undefined;
+    // svelte-ignore unused-export-let
+    export let height = undefined;
+    // svelte-ignore unused-export-let
+    export let mode = undefined;
+    // svelte-ignore unused-export-let
+    export let placeholder = undefined;
+    // svelte-ignore unused-export-let
+    export let position = undefined;
+    // svelte-ignore unused-export-let
+    export let ratio = undefined;
+    // svelte-ignore unused-export-let
+    export let step = undefined;
+    // svelte-ignore unused-export-let
+    export let transition = undefined;
+    // svelte-ignore unused-export-let
+    export let transitionDelay = undefined;
+    // svelte-ignore unused-export-let
+    export let transitionDuration = undefined;
+    // svelte-ignore unused-export-let
+    export let transitionTimingFunction = undefined;
+    // svelte-ignore unused-export-let
+    export let width = undefined;
+</script>
+
+<script>
+    $$props = Object.assign( {
+        "mode": `cover`,
+        "position": `center`,
+        "transition": true,
+    }, $$props );
+
+    let attributes = {
+        "alt": computeAlt( $$props ),
+        "style": styleToString( computeStyle( $$props ) ),
+        "width": computeWidth( $$props ),
+        "height": computeHeight( $$props ),
+        ...computeDataBot( $$props ),
+        ...computeDataFocus( $$props ),
+        ...computeDataSrc( $$props ),
+        ...computeDataStep( $$props ),
+    };
+    let _wrapperClass = computeWrapperClass( $$props );
+    let _wrapperStyle = styleToString( computeWrapperStyle( $$props ) );
 </script>
 
 <div
-    class={_wrapperClass}
-    style={_wrapperStyle}
+    class={ _wrapperClass }
+    style={ _wrapperStyle }
 >
+    <!-- svelte-ignore a11y-missing-attribute -->
     <img
-        alt={ _alt }
-        style={ _style }
-        width={ _width }
-        height={ _height }
-        { ..._dataBot }
-        { ..._dataFocus }
-        { ..._dataSrc }
-        { ..._dataStep }
-    >
+        { ...attributes }
+    />
 </div>

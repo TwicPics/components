@@ -4,6 +4,6 @@
 .nuxt
 dist
 node_modules
-samples/*/build
-samples/*/package-lock.json
-samples/*/yarn.lock
+samples/**/build
+samples/**/package-lock.json
+samples/**/yarn.lock
