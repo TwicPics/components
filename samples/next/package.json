@@ -16,6 +16,6 @@
     "scripts": {
         "build": "$npm_execpath install && next build",
         "postinstall": "node fixReact",
-        "serve": "$npm_execpath install && next dev"
+        "serve": "$npm_execpath install && next dev -p 3000"
     }
 }

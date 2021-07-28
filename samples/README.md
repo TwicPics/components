@@ -22,4 +22,4 @@ All sample projects make use of the sample component.
 
 You must first build `@twicpics/components` using `yarn build` at the root of the repository.
 
-Then, for each sample project, enter the corresponding directory, type `yarn serve` and point your browser towards the local URL displayed on screen.
+Then, for each sample project, enter the corresponding directory, type `yarn serve` and point your browser towards `http://localhost:3000`.

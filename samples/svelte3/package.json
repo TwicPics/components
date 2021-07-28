@@ -2,7 +2,7 @@
     "scripts": {
         "build": "$npm_execpath install && rollup -c",
         "serve": "$npm_execpath install && rollup -c -w",
-        "start": "sirv public --no-clear"
+        "start": "sirv public --no-clear --port 3000"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "19.0.2",
