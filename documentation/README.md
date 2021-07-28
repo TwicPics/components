@@ -22,7 +22,8 @@ With [TwicPics](https://www.twicpics.com/), developers only deal with high-resol
 [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) currently supports:
 
 - [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/) (2 & 3)
+- [Vue.js](https://vuejs.org/) (version 2 to 3)
+- [Svelte](https://svelte.dev/) (version 3)
 - [Next.js](https://nextjs.org/)
 - [Nuxt.js](https://nuxtjs.org/)
 

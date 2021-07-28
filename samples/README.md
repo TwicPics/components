@@ -12,6 +12,7 @@ This directory contains sample projects for all supported frameworks.
 | `samples/next` | [Next.js](https://nextjs.org/) sample project |
 | `samples/nuxt` | [Nuxt.js](https://nuxtjs.org/) sample project |
 | `samples/react` | [React](https://reactjs.org/) sample project |
+| `samples/svelte3` | [Svelte](https://svelte.dev/) version __3__ sample project |
 | `samples/vue2` | [Vue.js](https://vuejs.org/) version __2__ sample project |
 | `samples/vue3` | [Vue.js](https://vuejs.org/) version __3__ sample project |
 
