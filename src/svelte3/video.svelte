@@ -1,6 +1,5 @@
 <script context="module">
     import {
-        computeAlt,
         computeDataBot,
         computeDataFocus,
         computeDataSrc,
