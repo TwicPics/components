@@ -2,7 +2,8 @@ import { config } from "./install.js";
 
 const MIN_CONTAIN_AREA = 12000;
 
-const rAlt = /\/([^/?#.]+)[^/?#]*(?:[?#].*)?$/;
+const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
+const rImage = /^(image:)?\/?/;
 const rStartSlash = /^\//;
 
 const computeFocus = component => ( ( component.mode === `cover` ) && component.focus ) || undefined;
@@ -31,7 +32,7 @@ const computePlaceholderTransform = component => {
 
 const computePosition = ( { mode, position } ) => ( ( ( mode === `contain` ) && position ) || `center` );
 
-export const computeMediaAlt = component => {
+export const computeAlt = component => {
     let { alt } = component;
     if ( !alt ) {
         const tmp = rAlt.exec( component.src );
@@ -40,28 +41,25 @@ export const computeMediaAlt = component => {
     return alt;
 };
 
-export const computeMediaDataBot = component => ( {
+export const computeDataBot = component => ( {
     [ `data-${ config.class }-bot` ]: component.bot || undefined,
 } );
 
-export const computeMediaDataFocus = component => ( {
+export const computeDataFocus = component => ( {
     [ `data-${ config.class }-focus` ]: computeFocus( component ),
 } );
 
-export const computeMediaDataSrc = component => ( {
-    [ `data-${ config.class }-src` ]: `image:${ component.src }`,
+export const computeDataSrc = component => ( {
+    [ `data-${ config.class }-src` ]: component.src.replace( rImage, `image:` ),
 } );
 
-export const computeMediaDataStep = component => ( {
+export const computeDataStep = component => ( {
     [ `data-${ config.class }-step` ]: component.step || undefined,
 } );
 
-export const computeMediaHeight = ( { height } ) => height || undefined;
+export const computeHeight = ( { height } ) => height || undefined;
 
-export const computeMediaSource =
-    component => `${ config.domain }/v1/${ computePlaceholderTransform( component ) }/placeholder:transparent`;
-
-export const computeMediaStyle = component => {
+export const computeStyle = component => {
     const { mode, transition, transitionDelay, transitionDuration, transitionTimingFunction } = component;
     return {
         "objectFit": mode,
@@ -78,7 +76,7 @@ export const computeMediaStyle = component => {
     };
 };
 
-export const computeMediaWidth = ( { width } ) => width || undefined;
+export const computeWidth = ( { width } ) => width || undefined;
 
 export const computeWrapperClass = ( { transition } ) => `twic-w${ transition ? ` twic-t-fade` : `` }`;
 
