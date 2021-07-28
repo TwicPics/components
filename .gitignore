@@ -1,9 +1,9 @@
-/*.log
+/samples/**/.next
+/samples/**/.nuxt
+/samples/**/build
+/samples/**/package-lock.json
+/samples/**/yarn.lock
+*.log
 .DS_Store
-.next
-.nuxt
 dist
 node_modules
-samples/**/build
-samples/**/package-lock.json
-samples/**/yarn.lock

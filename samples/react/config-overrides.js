@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign, strict */
+/* global __dirname, module, require */
 "use strict";
 
 const ModuleScopePlugin = require( `react-dev-utils/ModuleScopePlugin` );

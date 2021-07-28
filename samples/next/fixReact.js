@@ -1,3 +1,5 @@
+/* eslint-disable strict */
+/* globals require */
 "use strict";
 
 const reactPackage = require( `react/package.json` );

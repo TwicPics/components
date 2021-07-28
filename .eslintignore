@@ -1,8 +1,4 @@
-.nuxt
-config-overrides.js
+/samples/**/.next
+/samples/**/.nuxt
+/samples/**/build
 dist
-next.config.js
-node_modules
-samples/**/build
-samples/**/*.config.js
-samples/next/*.js
