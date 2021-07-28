@@ -1,6 +1,7 @@
 <script>
-/* eslint-disable vue/one-component-per-file */
+import { callWithThis, defineProp, defineStringProp } from "./utils.js";
 import {
+    computeAlt,
     computeDataBot,
     computeDataFocus,
     computeDataSrc,
@@ -12,108 +13,41 @@ import {
     computeWrapperStyle,
 } from "../_/compute.js";
 
-const rDigit = /^\d+$/;
-const rMode = /^(?:contain|cover)$/;
-const rPlaceholder = /^(?:maincolor|meancolor|none|preview)$/;
-const rRatio = /^\d+\/\d+$/;
+const numberProp = defineProp( [ Number, String ], /^\d+$/ );
+const stringProp = defineStringProp();
 
 export default {
     "props": {
-        "alt": {
-            "type": String,
-            "default": undefined,
-        },
-        "bot": {
-            "type": String,
-            "default": undefined,
-        },
-        "focus": {
-            "type": String,
-            "default": undefined,
-        },
-        "height": {
-            "type": [ String, Number ],
-            "default": undefined,
-            "validator": value => rDigit.test( value ),
-        },
-        "mode": {
-            "type": String,
-            "default": `cover`,
-            "validator": value => rMode.test( value ),
-        },
-        "placeholder": {
-            "type": String,
-            "default": `preview`,
-            "validator": value => rPlaceholder.test( value ),
-        },
-        "position": {
-            "type": String,
-            "default": `center`,
-        },
-        "ratio": {
-            "type": String,
-            "default": undefined,
-            "validator": value => ( !value || rRatio.test( value ) ),
-        },
+        "bot": stringProp,
+        "focus": stringProp,
+        "height": numberProp,
+        "mode": defineStringProp( /^(?:contain|cover)$/, `cover` ),
+        "placeholder": defineStringProp( /^(?:maincolor|meancolor|none|preview)$/, `preview` ),
+        "position": defineStringProp( undefined, `center` ),
+        "ratio": defineStringProp( /^\d+\/\d+$/ ),
+        // eslint-disable-next-line vue/require-prop-types
         "src": {
-            "type": String,
+            ...stringProp,
             "required": true,
         },
-        "step": {
-            "type": [ String, Number ],
-            "default": undefined,
-            "validator": value => rDigit.test( value ),
-        },
-        "transition": {
-            "type": Boolean,
-            "default": true,
-        },
-        "transitionDuration": {
-            "type": String,
-            "default": undefined,
-        },
-        "transitionTimingFunction": {
-            "type": String,
-            "default": undefined,
-        },
-        "transitionDelay": {
-            "type": String,
-            "default": undefined,
-        },
-        "width": {
-            "type": [ String, Number ],
-            "default": undefined,
-            "validator": value => rDigit.test( value ),
-        },
+        "step": numberProp,
+        "transition": defineProp( Boolean, undefined, true ),
+        "transitionDuration": stringProp,
+        "transitionTimingFunction": stringProp,
+        "transitionDelay": stringProp,
+        "width": numberProp,
     },
     "computed": {
-        _dataBot() {
-            return computeDataBot( this );
-        },
-        _dataFocus() {
-            return computeDataFocus( this );
-        },
-        _dataSrc() {
-            return computeDataSrc( this );
-        },
-        _dataStep() {
-            return computeDataStep( this );
-        },
-        _height() {
-            return computeHeight( this );
-        },
-        _style() {
-            return computeStyle( this );
-        },
-        _width() {
-            return computeWidth( this );
-        },
-        _wrapperClass() {
-            return computeWrapperClass( this );
-        },
-        _wrapperStyle() {
-            return computeWrapperStyle( this );
-        },
+        "_alt": callWithThis( computeAlt ),
+        "_dataBot": callWithThis( computeDataBot ),
+        "_dataFocus": callWithThis( computeDataFocus ),
+        "_dataSrc": callWithThis( computeDataSrc ),
+        "_dataStep": callWithThis( computeDataStep ),
+        "_height": callWithThis( computeHeight ),
+        "_style": callWithThis( computeStyle ),
+        "_width": callWithThis( computeWidth ),
+        "_wrapperClass": callWithThis( computeWrapperClass ),
+        "_wrapperStyle": callWithThis( computeWrapperStyle ),
     },
 };
 
