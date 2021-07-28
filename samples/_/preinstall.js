@@ -6,7 +6,7 @@ const rMain = /###/;
 
 const rDependency = /\/node_modules\/@twicpics\/components-sample$/;
 
-// only postintall if a dependency
+// only install if a dependency itself
 if ( !rDependency.test( __dirname ) ) {
     // eslint-disable-next-line no-console
     console.error( `cannot install if not a dependency` );
