@@ -1,6 +1,6 @@
 <script context="module">
     import { TwicImg } from "@twicpics/components/svelte3";
-    import "../../_/Sample.css";
+    import "./Sample.css";
 </script>
 
 <main>

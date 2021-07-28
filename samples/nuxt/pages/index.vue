@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Sample from "../../_/Sample.vue";
+import Sample from "@twicpics/components-sample/Sample.vue";
 
 export default {
     "components": {

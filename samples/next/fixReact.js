@@ -1,7 +1,7 @@
 "use strict";
 
 const reactPackage = require( `react/package.json` );
-const { readFile, writeFile } = require( `fs/promises` );
+const { writeFile } = require( `fs/promises` );
 
 if ( !reactPackage.exports ) {
     reactPackage.exports = {

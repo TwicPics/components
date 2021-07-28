@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "@twicpics/components": "file:../../dist",
+        "@twicpics/components-sample": "file:../_",
         "nuxt": "2.15.7"
     },
     "scripts": {

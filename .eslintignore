@@ -3,5 +3,6 @@ config-overrides.js
 dist
 next.config.js
 node_modules
-samples/*/build
+samples/**/build
+samples/**/*.config.js
 samples/next/*.js

@@ -1,5 +1,5 @@
 import { installTwicPics } from "@twicpics/components/svelte3";
-import Sample from "./Sample.svelte";
+import Sample from "@twicpics/components-sample/Sample.svelte";
 
 import "@twicpics/components/svelte3/style.css";
 
