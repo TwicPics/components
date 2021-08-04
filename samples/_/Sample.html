@@ -1,25 +1,52 @@
 <main>
-    <TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
-    <TwicImg
-        src="football.jpg"
-        ratio="16/9"
-        step="100"
-        placeholder="meancolor"
-    />
-    <TwicImg
-        src="/football.jpg"
-        alt="custom alt attribute"
-        step="100"
-        focus="auto"
-        width="500"
-        height="800"
-        placeholder="none"
-    />
-    <TwicImg
-        src="football.jpg"
-        ratio="16/9"
-        step="100"
-        mode="contain"
-        position="left"
-    />
+    <h1>Usages</h1>
+    <h2>ratio (mode="cover")</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" focus="auto" />
+            <caption>no ratio (1/1)</caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" focus="auto" ratio="16/9" />
+            <caption>ratio="16/9"</caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" focus="auto" ratio="4/3" />
+            <caption>ratio="4/3"</caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" focus="auto" width="800" height="600" />
+            <caption>width="800" height="600" (4/3)</caption>
+        </div>
+    </div>
+    <h2>ratio (mode="contain")</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" mode="contain" ratio="4/3" />
+            <caption>ratio="4/3"</caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" mode="contain" ratio="16/9" />
+            <caption>ratio="16/9"</caption>
+        </div>
+    </div>
+    <h2>position (mode="contain")</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" mode="contain" position="top" ratio="4/3" />
+            <caption>top</caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" mode="contain" position="bottom" ratio="4/3" />
+            <caption>bottom </caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" mode="contain" position="left" ratio="16/9" />
+            <caption>left</caption>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg"  mode="contain" position="right" ratio="16/9" />
+            <caption>right</caption>
+        </div>
+    </div>
 </main>

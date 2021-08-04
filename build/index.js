@@ -4,19 +4,12 @@ import cleanSamples from "./cleanSamples.js";
 import configFactory from "./configFactory.js";
 import { readFile, writeFile } from "fs/promises";
 import { remove } from "fs-extra";
+import replacer from "./replacer.js";
 import { rollup } from "rollup";
 import svelte from "rollup-plugin-svelte";
-import { compile as _sv3Compile, preprocess as sv3Preprocess } from "svelte3/compiler";
+import sveltePreprocessor from "svelte-preprocess";
 import vue2 from "rollup-plugin-vue2";
 import vue3 from "rollup-plugin-vue";
-
-const sv3Compile = ( code, _options ) => {
-    const options = {
-        ..._options,
-    };
-    delete options.svelte;
-    return _sv3Compile( code, options );
-};
 
 const formats = [ `cjs`, `esm` ];
 const units = [
@@ -26,18 +19,24 @@ const units = [
             `react`,
         ],
         "framework": `react`,
-        "presets": [ `@babel/preset-react` ],
     },
     {
         "external": [ `svelte/internal` ],
         "framework": `svelte3`,
         "plugins": [
             svelte( {
-                "svelte": {
-                    "compile": sv3Compile,
-                    "preprocess": sv3Preprocess,
-                    "version": 3,
-                },
+                "extensions": [ `.svelte` ],
+                "preprocess": sveltePreprocessor(),
+            } ),
+            replacer( {
+                "include": /(?:^|[/.])factory\.svelte$/,
+                "replacers": [
+                    [ /\nexport default .+/, `` ],
+                    [ /"img"/g, `MEDIA_TAG` ],
+                    [ /(?=\nfunction create_fragment\()/, `\nexport default MEDIA_TAG => {` ],
+                    [ /(?=\nclass \S+ )/, `\nreturn (` ],
+                    [ /$/, `);}` ],
+                ],
             } ),
         ],
     },

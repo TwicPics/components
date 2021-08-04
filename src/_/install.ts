@@ -1,24 +1,16 @@
-const PARAMS = {
-    "anticipation": `anticipation`,
-    "class": `class`,
-    "maxdpr": `max-dpr`,
-    "path": `path`,
-    "step": `step`,
-};
+import type { Config, OptionalString } from "./types";
 
-const translateKey = key => {
-    const lowerCaseKey = key.toLowerCase();
-    return PARAMS.hasOwnProperty( lowerCaseKey ) ? PARAMS[ lowerCaseKey ] : undefined;
-};
-
-export const config = {
+export const config: {
+    domain: OptionalString,
+    class: string,
+} = {
     "domain": undefined,
     "class": `twic`,
 };
 
 const rDomain = /^https?:\/\/[^/]+$/;
 
-export default ( inputConfig = {} ) => {
+export default ( inputConfig: Config ): void => {
     if ( config.domain ) {
         throw new Error( `cannot install TwicPics script twice` );
     }
@@ -34,13 +26,13 @@ export default ( inputConfig = {} ) => {
     const parts = [ `${ domain }/?v1` ];
 
     Object.entries( inputConfig ).forEach( ( [ key, value ] ) => {
-        // eslint-disable-next-line no-param-reassign
-        if ( ( key = translateKey( key ) ) ) {
-            if ( key === `class` ) {
-                config.class = value;
-            }
-            parts.push( `${ key }=${ value }` );
+        let actualKey = key;
+        if ( key === `class` ) {
+            config.class = `{ $value }`;
+        } else if ( key === `maxDPR` ) {
+            actualKey = `max-dpr`;
         }
+        parts.push( `${ actualKey }=${ value }` );
     } );
 
     Object.freeze( config );

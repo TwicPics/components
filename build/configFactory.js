@@ -2,6 +2,10 @@ import __dirname from "./__dirname.js";
 import { createRequire } from "module";
 import { dirname } from 'path';
 import { readFile, unlink, writeFile } from "fs/promises";
+import { remove } from "fs-extra";
+import { rollup } from "rollup";
+
+const MINIFY_PASSES = 3;
 
 const { "version": packageVersion } = createRequire( import.meta.url )( `./package.template.json` );
 
@@ -16,18 +20,19 @@ const rJS = /\.js$/;
 
 const formatRename = new Map( [
     [ `cjs`, `index` ],
+    [ `es`, `module` ],
     [ `esm`, `module` ],
 ] );
 
-import { babel } from "@rollup/plugin-babel";
-import cleaner from "./cleaner.js";
 import css from 'rollup-plugin-css-porter';
-import noderesolve from "@rollup/plugin-node-resolve";
+import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
+import typeScript from "@rollup/plugin-typescript";
+import replacer from "./replacer.js";
 
 export default (
     // eslint-disable-next-line no-shadow
-    { external = [], framework, plugins = [], presets = [], sourceDir = framework, sourceFile },
+    { external = [], framework, plugins = [], sourceDir = framework, sourceFile },
     ...formats
 ) => ( {
     "acorn": {
@@ -37,7 +42,7 @@ export default (
         `Object.assign`,
         ...external,
     ],
-    "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.js` }`,
+    "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.ts` }`,
     "output": formats.map( format => ( {
         "exports": `named`,
         "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.js`,
@@ -46,17 +51,18 @@ export default (
         sourcemapPathTransform,
     } ) ),
     "plugins": [
-        noderesolve(),
+        typeScript( {
+            "tsconfig": `${ __dirname }/../tsconfig.json`,
+        } ),
         css( {
             "minified": true,
         } ),
-        babel( {
-            "babelHelpers": `bundled`,
-            presets,
-        } ),
-        cleaner( [ [ /\nfunction _extends\(\) \{\n(?:.|\n)+?\n\}\n/g, `\nconst _extends = Object.assign;\n` ] ] ),
-        terser(),
         ...plugins,
+        terser( {
+            "compress": {
+                "passes": MINIFY_PASSES,
+            },
+        } ),
         {
             "writeBundle": async ( { file, format } ) => {
                 const cssFile = file.replace( rJS, `.css` );
@@ -68,6 +74,27 @@ export default (
                     unlink( cssFile ),
                     unlink( cssMinFile ),
                 ] );
+            },
+        },
+        {
+            "writeBundle": async ( { format } ) => {
+                const bundle = await rollup( {
+                    "input": `${ __dirname }/../dist/${ framework }/dts/${ sourceDir }/index.d.ts`,
+                    "plugins": [
+                        replacer( {
+                            "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
+                        } ),
+                        dts()
+                    ],
+                } );
+                const outputConfig = {
+                    "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.d.ts`,
+                    format,
+                };
+                await bundle.generate( outputConfig );
+                await bundle.write( outputConfig );
+                await bundle.close();
+                await remove( `${ __dirname }/../dist/${ framework }/dts` );
             },
         },
     ],

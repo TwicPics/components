@@ -1,3 +1,5 @@
+import type { Attributes, Mode, Placeholder } from "../_/types";
+
 import "../_/style.css";
 
 import {
@@ -11,12 +13,14 @@ import {
     computeWidth,
     computeWrapperClass,
     computeWrapperStyle,
-} from "../_/compute.js";
+} from "../_/compute";
 
+// eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
 
-const defaultProps = {
+const defaultProps: Attributes = {
+    "alt": undefined,
     "bot": undefined,
     "focus": undefined,
     "height": undefined,
@@ -24,6 +28,7 @@ const defaultProps = {
     "placeholder": `preview`,
     "position": `center`,
     "ratio": undefined,
+    "src": undefined,
     "step": undefined,
     "transition": true,
     "transitionDelay": undefined,
@@ -32,21 +37,17 @@ const defaultProps = {
     "width": undefined,
 };
 
-const defaultPropsWithAlt = {
-    "alt": undefined,
-    ...defaultProps,
-};
-
 const { oneOf, string } = PropTypes;
 
 const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
 
 const propTypes = {
+    "alt": string,
     "bot": string,
     "focus": string,
     "height": number,
-    "mode": oneOf( [ `contain`, `cover` ] ),
-    "placeholder": oneOf( [ `preview`, `meancolor`, `maincolor`, `none` ] ),
+    "mode": oneOf< Mode >( [ `contain`, `cover` ] as const ),
+    "placeholder": oneOf< Placeholder >( [ `preview`, `meancolor`, `maincolor`, `none` ] as const ),
     "position": string,
     "ratio": string,
     "src": string.isRequired,
@@ -58,13 +59,9 @@ const propTypes = {
     "width": number,
 };
 
-const propTypesWithAlt = {
-    "alt": string,
-    ...propTypes,
-};
-
-export default ( Tag, withAlt ) => {
-    const Component = attributes => (
+export default ( Tag: `img` | `video`, withAlt?: boolean ):
+    React.ComponentType< Attributes > => {
+    const Component = ( attributes: Attributes ) => (
         <div className = { computeWrapperClass( attributes ) } style = { computeWrapperStyle( attributes ) }>
             <Tag
                 alt = { withAlt ? computeAlt( attributes ) : undefined }
@@ -86,7 +83,7 @@ export default ( Tag, withAlt ) => {
             />
         </div>
     );
-    Component.defaultProps = withAlt ? defaultPropsWithAlt : defaultProps;
-    Component.propTypes = withAlt ? propTypesWithAlt : propTypes;
+    Component.defaultProps = defaultProps;
+    Component.propTypes = propTypes;
     return Component;
 };

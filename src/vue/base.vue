@@ -1,5 +1,5 @@
-<script>
-import { callWithThis, defineProp, defineStringProp } from "./utils.js";
+<script lang="ts">
+import { callWithThis, defineProp, defineStringProp, numberProp, requiredStringProp, stringProp } from "./utils";
 import {
     computeAlt,
     computeDataBot,
@@ -11,13 +11,11 @@ import {
     computeWidth,
     computeWrapperClass,
     computeWrapperStyle,
-} from "../_/compute.js";
-
-const numberProp = defineProp( [ Number, String ], /^\d+$/ );
-const stringProp = defineStringProp();
+} from "../_/compute";
 
 export default {
     "props": {
+        "alt": stringProp,
         "bot": stringProp,
         "focus": stringProp,
         "height": numberProp,
@@ -25,11 +23,7 @@ export default {
         "placeholder": defineStringProp( /^(?:maincolor|meancolor|none|preview)$/, `preview` ),
         "position": defineStringProp( undefined, `center` ),
         "ratio": defineStringProp( /^\d+\/\d+$/ ),
-        // eslint-disable-next-line vue/require-prop-types
-        "src": {
-            ...stringProp,
-            "required": true,
-        },
+        "src": requiredStringProp,
         "step": numberProp,
         "transition": defineProp( Boolean, undefined, true ),
         "transitionDuration": stringProp,
@@ -50,15 +44,12 @@ export default {
         "_wrapperStyle": callWithThis( computeWrapperStyle ),
     },
 };
-
 </script>
-
 <template>
     <div
         :class="_wrapperClass"
         :style="_wrapperStyle"
     >
-        <!-- eslint-disable-next-line vue/require-component-is -->
         <component
             :is="_is"
             :alt="_alt"
@@ -74,5 +65,4 @@ export default {
         />
     </div>
 </template>
-
 <style src="../_/style.css"></style>
