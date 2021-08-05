@@ -14,7 +14,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "$npm_execpath install && SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
-        "serve": "$npm_execpath install && SKIP_PREFLIGHT_CHECK=true PORT=3000 react-app-rewired start"
+        "build": "$npm_execpath install && DISABLE_ESLINT_PLUGIN=true SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
+        "serve": "$npm_execpath install && DISABLE_ESLINT_PLUGIN=true SKIP_PREFLIGHT_CHECK=true PORT=3000 react-app-rewired start"
     }
 }
