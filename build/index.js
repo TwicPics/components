@@ -49,6 +49,13 @@ const units = [
         "external": [ `vue` ],
         "framework": `vue3`,
         "plugins": [ vue3() ],
+        "post":
+            code =>
+                code
+                    .replace( /PluginFunction(?:<[^>]+>)?/g, `Plugin` )
+                    .split( `\n` )
+                    .filter( line => /(declare const|export|import) /.test( line ) )
+                    .join( `\n` ),
         "sourceDir": `vue`,
     },
 ];

@@ -1,13 +1,10 @@
+import type Vue from "vue";
 import Base from "./base.vue";
 
 const { computed } = Base as any;
 
-export interface ComponentFactory {
-    component( name: string, config: Record< string, unknown > ): unknown,
-}
-
-export default ( Vue: ComponentFactory, name: string, tag: string ): void => {
-    Vue.component(
+export default ( VueObject: typeof Vue, name: string, tag: string ): void => {
+    VueObject.component(
         name,
         {
             ...Base,

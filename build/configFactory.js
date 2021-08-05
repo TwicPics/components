@@ -32,7 +32,7 @@ import replacer from "./replacer.js";
 
 export default (
     // eslint-disable-next-line no-shadow
-    { external = [], framework, plugins = [], sourceDir = framework, sourceFile },
+    { external = [], framework, plugins = [], post, sourceDir = framework, sourceFile },
     ...formats
 ) => ( {
     "acorn": {
@@ -79,12 +79,20 @@ export default (
         {
             "writeBundle": async ( { format } ) => {
                 const bundle = await rollup( {
+                    external,
                     "input": `${ __dirname }/../dist/${ framework }/dts/${ sourceDir }/index.d.ts`,
                     "plugins": [
                         replacer( {
                             "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
                         } ),
-                        dts()
+                        dts(),
+                        {
+                            "writeBundle": async ( { file } ) => {
+                                if ( post ) {
+                                    await writeFile( file, post( await readFile( file, `utf8` ) ) );
+                                }
+                            }
+                        },
                     ],
                 } );
                 const outputConfig = {

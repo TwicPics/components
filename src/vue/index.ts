@@ -1,11 +1,12 @@
 import type { Config } from "../_/types";
-import { ComponentFactory, default as register } from "./register";
+import type { PluginFunction, default as Vue } from "vue";
 import { default as install } from "../_/install";
+import register from "./register";
 
-export default {
-    "install": ( Vue: ComponentFactory, config: Config ): void => {
-        install( config );
-        register( Vue, `TwicImg`, `img` );
-        register( Vue, `TwicVideo`, `video` );
-    },
+const plugin: PluginFunction< Config > = ( VueObject: typeof Vue, config: Config ): void => {
+    install( config );
+    register( VueObject, `TwicImg`, `img` );
+    register( VueObject, `TwicVideo`, `video` );
 };
+
+export default plugin;
