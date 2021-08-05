@@ -1,3 +1,4 @@
+// /(\s)class="/g => "$1className=\""
 import React from "react";
 
 import { TwicImg } from "@twicpics/components/react";
