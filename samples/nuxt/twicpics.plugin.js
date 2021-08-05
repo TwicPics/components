@@ -1,9 +1,9 @@
 import Vue from "vue";
 
-import Twicpics from "@twicpics/components/vue2";
+import TwicPics from "@twicpics/components/vue2";
 import "@twicpics/components/vue2/style.css";
 
-Vue.use( Twicpics, {
+Vue.use( TwicPics, {
     "domain": `https://demo.twic.pics`,
     "anticipation": 0.5,
     "step": 100,

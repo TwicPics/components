@@ -1,12 +1,12 @@
 import { createApp } from "vue";
 
 import Main from "@twicpics/components-sample/Sample.vue";
-import Twicpics from "@twicpics/components/vue3";
+import TwicPics from "@twicpics/components/vue3";
 import "@twicpics/components/vue3/style.css";
 
 const app = createApp( Main );
 
-app.use( Twicpics, {
+app.use( TwicPics, {
     "domain": `https://demo.twic.pics`,
     "anticipation": 0.5,
     "step": 100,
