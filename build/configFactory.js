@@ -2,7 +2,7 @@ import __dirname from "./__dirname.js";
 import { createRequire } from "module";
 import { dirname } from 'path';
 import { readFile, unlink, writeFile } from "fs/promises";
-import { remove } from "fs-extra";
+import { copy, remove } from "fs-extra";
 import { rollup } from "rollup";
 
 const MINIFY_PASSES = 3;
@@ -21,7 +21,6 @@ const rJS = /\.js$/;
 const formatRename = new Map( [
     [ `cjs`, `index` ],
     [ `es`, `module` ],
-    [ `esm`, `module` ],
 ] );
 
 import css from 'rollup-plugin-css-porter';
@@ -68,7 +67,7 @@ export default (
                 const cssFile = file.replace( rJS, `.css` );
                 const cssMinFile = file.replace( rJS, `.min.css` );
                 if ( format === formats[ 0 ] ) {
-                    await writeFile( `${ dirname( file ) }/style.css`, await readFile( cssMinFile, `utf8` ) );
+                    await copy( cssMinFile, `${ dirname( file ) }/style.css` );
                 }
                 await Promise.all( [
                     unlink( cssFile ),
@@ -78,31 +77,38 @@ export default (
         },
         {
             "writeBundle": async ( { format } ) => {
-                const bundle = await rollup( {
-                    external,
-                    "input": `${ __dirname }/../dist/${ framework }/dts/${ sourceDir }/index.d.ts`,
-                    "plugins": [
-                        replacer( {
-                            "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
-                        } ),
-                        dts(),
-                        {
-                            "writeBundle": async ( { file } ) => {
-                                if ( post ) {
-                                    await writeFile( file, post( await readFile( file, `utf8` ) ) );
+                if ( format === formats[ 0 ] ) {
+                    const bundle = await rollup( {
+                        external,
+                        "input": `${ __dirname }/../dist/${ framework }/dts/${ sourceDir }/index.d.ts`,
+                        "plugins": [
+                            replacer( {
+                                "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
+                            } ),
+                            dts(),
+                            {
+                                "writeBundle": async ( { file } ) => {
+                                    if ( post ) {
+                                        await writeFile( file, post( await readFile( file, `utf8` ) ) );
+                                    }
                                 }
-                            }
-                        },
-                    ],
-                } );
-                const outputConfig = {
-                    "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.d.ts`,
-                    format,
-                };
-                await bundle.generate( outputConfig );
-                await bundle.write( outputConfig );
-                await bundle.close();
-                await remove( `${ __dirname }/../dist/${ framework }/dts` );
+                            },
+                        ],
+                    } );
+                    const file = `${ __dirname }/../dist/${ framework }/dts/bundle.d.ts`;
+                    const outputConfig = {
+                        file,
+                        "format": `es`,
+                    };
+                    await bundle.generate( outputConfig );
+                    await bundle.write( outputConfig );
+                    await bundle.close();
+                    await Promise.all( formats.map( f => copy(
+                        file,
+                        `${ __dirname }/../dist/${ framework }/${ formatRename.get( f ) || f }.d.ts`
+                    ) ) );
+                    await remove( `${ __dirname }/../dist/${ framework }/dts` );
+                }
             },
         },
     ],

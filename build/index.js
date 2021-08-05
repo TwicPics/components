@@ -11,7 +11,7 @@ import sveltePreprocessor from "svelte-preprocess";
 import vue2 from "rollup-plugin-vue2";
 import vue3 from "rollup-plugin-vue";
 
-const formats = [ `cjs`, `esm` ];
+const formats = [ `cjs`, `es` ];
 const units = [
     {
         "external": [
