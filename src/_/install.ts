@@ -1,4 +1,4 @@
-import type { Config, OptionalString } from "./types";
+import type { OptionalString, Options } from "./types";
 
 export const config: {
     domain: OptionalString,
@@ -10,12 +10,12 @@ export const config: {
 
 const rDomain = /^https?:\/\/[^/]+$/;
 
-export default ( inputConfig: Config ): void => {
+export default ( options: Options ): void => {
     if ( config.domain ) {
         throw new Error( `cannot install TwicPics script twice` );
     }
 
-    const { domain } = inputConfig;
+    const { domain } = options;
 
     if ( !domain || !rDomain.test( domain ) ) {
         throw new Error( `invalid domain "${ domain }": cannot install TwicPics script` );
@@ -25,7 +25,7 @@ export default ( inputConfig: Config ): void => {
 
     const parts = [ `${ domain }/?v1` ];
 
-    Object.entries( inputConfig ).forEach( ( [ key, value ] ) => {
+    Object.entries( options ).forEach( ( [ key, value ] ) => {
         let actualKey = key;
         if ( key === `class` ) {
             config.class = `{ $value }`;

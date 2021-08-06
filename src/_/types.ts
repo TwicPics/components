@@ -21,7 +21,7 @@ export type Attributes = {
     width?: OptionalNumber
 };
 
-export type Config = {
+export type Options = {
     anticipation?: OptionalNumber,
     class?: OptionalString,
     domain: string,
