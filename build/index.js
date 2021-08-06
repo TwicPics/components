@@ -5,7 +5,7 @@ import configFactory from "./configFactory.js";
 import { readFile, writeFile } from "fs/promises";
 import { remove } from "fs-extra";
 import replacer from "./replacer.js";
-import { rollup } from "rollup";
+import rollup from "./rollup.js";
 import svelte from "rollup-plugin-svelte";
 import sveltePreprocessor from "svelte-preprocess";
 import vue2 from "rollup-plugin-vue2";
@@ -70,15 +70,18 @@ const units = [
     })...` );
     await Promise.all( units.map( async unit => {
         const { framework } = unit;
+        const { component, typeScript } = configFactory( unit, ...formats );
         try {
-            const options = configFactory( unit, ...formats );
-            const bundle = await rollup( options );
-            await Promise.all( options.output.map( bundle.generate ) );
-            await Promise.all( options.output.map( bundle.write ) );
-            await bundle.close();
+            await rollup( component );
             console.log( `${ framework } components generated` );
         } catch ( error ) {
             console.error( `${ framework } components generation error:`, error );
+        }
+        try {
+            await rollup( typeScript );
+            console.log( `${ framework } types descriptions generated` );
+        } catch ( error ) {
+            console.error( `${ framework } types descriptions generation error:`, error );
         }
     } ) );
     console.log( `generating package.json with mappings...` );

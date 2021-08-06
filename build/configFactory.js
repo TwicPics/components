@@ -34,75 +34,67 @@ export default (
     { external = [], framework, plugins = [], post, sourceDir = framework, sourceFile },
     ...formats
 ) => ( {
-    "acorn": {
-        "ecmaVersion": 2022,
-    },
-    "external": [
-        `Object.assign`,
-        ...external,
-    ],
-    "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.ts` }`,
-    "output": formats.map( format => ( {
-        "exports": `named`,
-        "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.js`,
-        format,
-        "sourcemap": true,
-        sourcemapPathTransform,
-    } ) ),
-    "plugins": [
-        typeScript( {
-            "tsconfig": `${ __dirname }/../tsconfig.json`,
-        } ),
-        css( {
-            "minified": true,
-        } ),
-        ...plugins,
-        terser( {
-            "compress": {
-                "passes": MINIFY_PASSES,
-            },
-        } ),
-        {
-            "writeBundle": async ( { file, format } ) => {
-                const cssFile = file.replace( rJS, `.css` );
-                const cssMinFile = file.replace( rJS, `.min.css` );
-                if ( format === formats[ 0 ] ) {
-                    await copy( cssMinFile, `${ dirname( file ) }/style.css` );
-                }
-                await Promise.all( [
-                    unlink( cssFile ),
-                    unlink( cssMinFile ),
-                ] );
-            },
+    "component": {
+        "acorn": {
+            "ecmaVersion": 2022,
         },
-        {
-            "writeBundle": async ( { format } ) => {
-                if ( format === formats[ 0 ] ) {
-                    const bundle = await rollup( {
-                        external,
-                        "input": `${ __dirname }/../dist/${ framework }/dts/${ sourceDir }/index.d.ts`,
-                        "plugins": [
-                            replacer( {
-                                "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
-                            } ),
-                            dts(),
-                            {
-                                "writeBundle": async ( { file } ) => {
-                                    if ( post ) {
-                                        await writeFile( file, post( await readFile( file, `utf8` ) ) );
-                                    }
-                                }
-                            },
-                        ],
-                    } );
-                    const file = `${ __dirname }/../dist/${ framework }/dts/bundle.d.ts`;
-                    const outputConfig = {
-                        file,
-                        "format": `es`,
-                    };
-                    await bundle.generate( outputConfig );
-                    await bundle.write( outputConfig );
-                    await bundle.close();
+        "external": [
+            `Object.assign`,
+            ...external,
+        ],
+        "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.ts` }`,
+        "output": formats.map( format => ( {
+            "exports": `named`,
+            "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.js`,
+            format,
+            "sourcemap": true,
+            sourcemapPathTransform,
+        } ) ),
+        "plugins": [
+            typeScript( {
+                "tsconfig": `${ __dirname }/../tsconfig.json`,
+            } ),
+            css( {
+                "minified": true,
+            } ),
+            ...plugins,
+            terser( {
+                "compress": {
+                    "passes": MINIFY_PASSES,
+                },
+            } ),
+            {
+                "writeBundle": async ( { file, format } ) => {
+                    const cssFile = file.replace( rJS, `.css` );
+                    const cssMinFile = file.replace( rJS, `.min.css` );
+                    if ( format === formats[ 0 ] ) {
+                        await copy( cssMinFile, `${ dirname( file ) }/style.css` );
+                    }
+                    await Promise.all( [
+                        unlink( cssFile ),
+                        unlink( cssMinFile ),
+                    ] );
+                },
+            },
+        ],
+    },
+    "typeScript": {
+        external,
+        "input": `${ __dirname }/../dist/${ framework }/dts/${ sourceDir }/index.d.ts`,
+        "output": {
+            "file": `${ __dirname }/../dist/${ framework }/dts/bundle.d.ts`,
+            "format": `es`,
+        },
+        "plugins": [
+            replacer( {
+                "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
+            } ),
+            dts(),
+            {
+                "writeBundle": async ( { file } ) => {
+                    if ( post ) {
+                        await writeFile( file, post( await readFile( file, `utf8` ) ) );
+                    }
                     await Promise.all( formats.map( f => copy(
                         file,
                         `${ __dirname }/../dist/${ framework }/${ formatRename.get( f ) || f }.d.ts`
@@ -110,6 +102,6 @@ export default (
                     await remove( `${ __dirname }/../dist/${ framework }/dts` );
                 }
             },
-        },
-    ],
-} );
+        ],
+    },
+} );
