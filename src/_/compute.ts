@@ -52,19 +52,19 @@ export const computeAlt =
         _computeAlt( alt, src );
 
 export const _computeDataBot =
-    ( bot: OptionalString ): Record< string, string > => ( {
+    ( bot: OptionalString ): Record< string, OptionalString > => ( {
         [ `data-${ config.class }-bot` ]: bot || undefined,
     } );
 export const computeDataBot =
-    ( { bot }: { bot?: OptionalString } ): Record< string, string > =>
+    ( { bot }: { bot?: OptionalString } ): Record< string, OptionalString > =>
         _computeDataBot( bot );
 
 export const _computeDataFocus =
-    ( focus: OptionalString, mode: Mode ): Record< string, string > => ( {
+    ( focus: OptionalString, mode: Mode ): Record< string, OptionalString > => ( {
         [ `data-${ config.class }-focus` ]: mode === `contain` ? undefined : _computeFocus( focus, mode ),
     } );
 export const computeDataFocus =
-    ( { focus, mode }: { focus?: OptionalString, mode: Mode } ): Record< string, string > =>
+    ( { focus, mode }: { focus?: OptionalString, mode: Mode } ): Record< string, OptionalString > =>
         _computeDataFocus( focus, mode );
 
 export const _computeDataSrc =
@@ -100,9 +100,9 @@ export const _computeStyle = (
 ): {
     objectFit: Mode,
     objectPosition: string,
-    transitionDelay?: OptionalString,
-    transitionDuration?: OptionalString,
-    transitionTimingFunction?: OptionalString,
+    transitionDelay?: string,
+    transitionDuration?: string,
+    transitionTimingFunction?: string,
 // eslint-disable-next-line max-params
 } => ( {
     "objectFit": mode,
@@ -157,9 +157,9 @@ export const _computeWrapperStyle = (
     src: string,
     width: OptionalNumber
 ): {
-    backgroundImage: OptionalString,
+    backgroundImage?: string,
     backgroundPosition: string,
-    backgroundSize: Mode,
+    backgroundSize?: string,
     paddingTop: string,
 // eslint-disable-next-line max-params
 } => {

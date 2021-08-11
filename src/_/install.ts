@@ -26,13 +26,15 @@ export default ( options: Options ): void => {
     const parts = [ `${ domain }/?v1` ];
 
     Object.entries( options ).forEach( ( [ key, value ] ) => {
-        let actualKey = key;
-        if ( key === `class` ) {
-            config.class = `{ $value }`;
-        } else if ( key === `maxDPR` ) {
-            actualKey = `max-dpr`;
+        if ( value != null ) {
+            let actualKey = key;
+            if ( key === `class` ) {
+                config.class = `{ $value }`;
+            } else if ( key === `maxDPR` ) {
+                actualKey = `max-dpr`;
+            }
+            parts.push( `${ actualKey }=${ value }` );
         }
-        parts.push( `${ actualKey }=${ value }` );
     } );
 
     Object.freeze( config );

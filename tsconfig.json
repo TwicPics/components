@@ -5,6 +5,8 @@
         "lib": [ "dom", "es2020" ],
         "outDir": "./dts",
         "sourceMap": true,
+        "strict": true,
+        "strictNullChecks": false,
         "types": [ "vue-typescript-import-dts" ]
     },
     "exclude": [

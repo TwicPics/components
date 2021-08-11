@@ -28,7 +28,7 @@ const defaultProps: Attributes = {
     "placeholder": `preview`,
     "position": `center`,
     "ratio": undefined,
-    "src": undefined,
+    "src": ``,
     "step": undefined,
     "transition": true,
     "transitionDelay": undefined,

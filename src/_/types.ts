@@ -18,7 +18,7 @@ export type Attributes = {
     transitionDelay?: OptionalString,
     transitionDuration?: OptionalString,
     transitionTimingFunction?: OptionalString,
-    width?: OptionalNumber
+    width?: OptionalNumber,
 };
 
 export type Options = {

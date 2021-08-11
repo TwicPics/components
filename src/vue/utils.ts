@@ -1,11 +1,8 @@
 import type { OptionalNumber, OptionalString } from "../_/types";
 import type { ComputedOptions, PropType, PropOptions } from "vue/types/options";
 
-export type FunctionForThis< T > = ( self: Record< string, unknown > ) => T;
-export type ComputedFunction< T > = () => ComputedOptions< T >;
-
-export const callWithThis = < T >( fn: FunctionForThis< T > ): ComputedFunction< T > => function() {
-    return fn( this );
+export const callWithThis = < P, R >( fn: ( self: P ) => R ): ( () => ComputedOptions< R > ) => function( this: P ) {
+    return fn( this ) as ComputedOptions< R >;
 };
 
 type BaseType = BooleanConstructor | NumberConstructor | StringConstructor;
