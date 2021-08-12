@@ -1,4 +1,5 @@
 import type { OptionalString, Options } from "./types";
+import { installerError } from "./utils";
 
 export const config: {
     domain: OptionalString,
@@ -12,13 +13,13 @@ const rDomain = /^https?:\/\/[^/]+$/;
 
 export default ( options: Options ): void => {
     if ( config.domain ) {
-        throw new Error( `cannot install TwicPics script twice` );
+        installerError( `install function already called` );
     }
 
     const { domain } = options;
 
     if ( !domain || !rDomain.test( domain ) ) {
-        throw new Error( `invalid domain "${ domain }": cannot install TwicPics script` );
+        installerError( `invalid domain "${ domain }"` );
     }
 
     config.domain = domain;
