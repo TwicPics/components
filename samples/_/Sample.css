@@ -5,16 +5,16 @@ body {
 }
 
 main {
-    max-width: 1000px;
     margin: auto;
+    max-width: 1000px;
 }
 
 .samples {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
-    max-width: 1280px;
     margin: 1rem 0;
+    max-width: 1280px;
 }
 
 @media ( min-width: 600px ) {
@@ -28,10 +28,10 @@ main {
     position: relative;
 }
 
-.item > caption {
+.item > span {
     position: absolute;
     color: #00FFA3;
-    top: 0.5rem;
+    display: block;
     left: 0.5rem;
     text-shadow:
         -1px  0   0 #342d4e,
@@ -42,7 +42,8 @@ main {
          1px -1px 0 #342d4e,
          0    1px 0 #342d4e,
          0   -1px 0 #342d4e;
- }
+    top: 0.5rem;
+}
 
 .twic-w {
     align-self: start;
