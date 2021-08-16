@@ -1,4 +1,5 @@
 import type { Attributes, Mode, Placeholder } from "../_/types";
+import { isBrowser } from "../_/utils"; 
 
 import "../_/style.css";
 
@@ -9,6 +10,7 @@ import {
     computeDataSrc,
     computeDataStep,
     computeHeight,
+    computeNoScriptSrc,
     computeStyle,
     computeWidth,
     computeWrapperClass,
@@ -63,6 +65,20 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
     React.ComponentType< Attributes > => {
     const Component = ( attributes: Attributes ) => (
         <div className = { computeWrapperClass( attributes ) } style = { computeWrapperStyle( attributes ) }>
+            {
+                isBrowser ? `` : (
+                    <noscript>
+                        <Tag
+                            alt = { withAlt ? computeAlt( attributes ) : undefined }
+                            src = { computeNoScriptSrc( attributes ) }
+                            style = { computeStyle( attributes ) }
+                            width = { computeWidth( attributes ) }
+                            height = { computeHeight( attributes ) }
+                            loading = "lazy"
+                        />
+                    </noscript>
+                )
+            }
             <Tag
                 alt = { withAlt ? computeAlt( attributes ) : undefined }
                 style = { computeStyle( attributes ) }

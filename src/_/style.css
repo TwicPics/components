@@ -1,24 +1,32 @@
 .twic-w {
-    position: relative;
-    width: 100%;
     background-repeat: no-repeat;
     padding-top: 100%;
+    position: relative;
+    width: 100%;
 }
 
-.twic-w > * {
-    position: absolute;
+.twic-w > *, .twic-w >noscript > * {
     display: block;
-    top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .twic-t-fade > * {
-    transition-property: opacity;
-    will-change: opacity;
     opacity: 0;
     transition-delay: 0ms;
     transition-duration: 400ms;
+    transition-property: opacity;
     transition-timing-function: ease;
+    will-change: opacity;
+}
+
+.twic-t-fade > * + * {
+    display: none;
+}
+
+.twic-t-fade > noscript {
+    opacity: 1;
 }

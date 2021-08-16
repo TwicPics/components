@@ -3,8 +3,6 @@ import type { Mode, OptionalNumber, OptionalString, Placeholder } from "./types"
 
 import { config } from "./install.js";
 
-const MIN_CONTAIN_AREA = 12000;
-
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 const rImage = /^(image:)?\/?/;
 
@@ -18,20 +16,15 @@ const _computeRatio =
         ( ratio ? ratio.split( `/` ) : ( ( width && height ) ? [ width, height ] : [ 1, 1 ] ) )
             .map( x => Number( x ) );
 
-// eslint-disable-next-line id-length
+const TARGET_SIZE = 800;
+
 const _computePlaceholderTransform =
-    ( mode: Mode, ratio: Array< number > ): string => {
-        if ( mode === `cover` ) {
-            return `cover=${ ratio.join( `:` ) }`;
-        }
-        let [ w, h ] = ratio;
-        const area = w * h;
-        if ( area < MIN_CONTAIN_AREA ) {
-            const mult = Math.ceil( MIN_CONTAIN_AREA / area );
-            w *= mult;
-            h *= mult;
-        }
-        return `contain=${ w }x${ h }`;
+    ( computedRatio: Array< number >, mode: Mode ): string => {
+        let [ w, h ] = computedRatio;
+        const mult = TARGET_SIZE / Math.max( w, h );
+        w = Math.max( 1, Math.round( w * mult ) );
+        h = Math.max( 1, Math.round( h * mult ) );
+        return `${ mode }=${ w }x${ h }`;
     };
 
 const _computePosition =
@@ -90,6 +83,55 @@ export const computeHeight =
     ( { height }: { height?: OptionalNumber } ): OptionalNumber =>
         _computeHeight( height );
 
+const __computeNoScriptSrc = (
+    computedRatio: Array< number >,
+    focus: OptionalString,
+    mode: Mode,
+    src: string
+): string => {
+    const { domain } = config;
+    const focusPoint = _computeFocus( focus, mode );
+    return `${
+        domain
+    }/${
+        src.replace( rImage, `` )
+    }?twic=v1${
+        focusPoint ? `/focus=${ focusPoint }` : ``
+    }/${
+        _computePlaceholderTransform( computedRatio, mode )
+    }`;
+}
+
+export const _computeNoScriptSrc = (
+    focus: OptionalString,
+    height: OptionalNumber,
+    mode: Mode,
+    ratio: OptionalString,
+    src: string,
+    width: OptionalNumber
+): string => __computeNoScriptSrc(
+    _computeRatio( height, ratio, width ),
+    focus,
+    mode,
+    src
+);
+
+export const computeNoScriptSrc = ( component: {
+    focus?: OptionalString,
+    height?: OptionalNumber,
+    mode: Mode,
+    ratio?: OptionalString,
+    src: string,
+    width?: OptionalNumber
+} ): string => _computeNoScriptSrc(
+    component.focus,
+    component.height,
+    component.mode,
+    component.ratio,
+    component.src,
+    component.width
+);
+        
 export const _computeStyle = (
     mode: Mode,
     position: OptionalString,
@@ -178,16 +220,8 @@ export const _computeWrapperStyle = (
     };
     const apiOutput = ( placeholder !== `none` ) && placeholder;
     if ( apiOutput ) {
-        const { domain } = config;
-        const focusPoint = _computeFocus( focus, mode );
         styles.backgroundImage = `url(${
-            domain
-        }/${
-            src.replace( rImage, `` )
-        }?twic=v1${
-            focusPoint ? `/focus=${ focusPoint }` : ``
-        }/${
-            _computePlaceholderTransform( mode, computedRatio )
+            __computeNoScriptSrc( computedRatio, focus, mode, src )
         }/output=${
             apiOutput
         })`;

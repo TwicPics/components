@@ -6,12 +6,15 @@
         _computeDataSrc,
         _computeDataStep,
         _computeHeight,
+        _computeNoScriptSrc,
         _computeStyle,
         _computeWidth,
         _computeWrapperClass,
         _computeWrapperStyle,
     } from "../_/compute";
-    
+
+    import { isBrowser } from "../_/utils";
+
     import { styleToString } from "./utils";
 
     import type { Mode, OptionalNumber, OptionalString, Placeholder } from "../_/types";
@@ -40,6 +43,7 @@
     $: _dataSrc = _computeDataSrc( src );
     $: _dataStep = _computeDataStep( step );
     $: _height = _computeHeight( height );
+    $: _noScriptSrc = !isBrowser && _computeNoScriptSrc( focus, height, mode, ratio, src, width );
     $: _style = styleToString( _computeStyle(
         mode,
         position,
@@ -66,6 +70,18 @@
     class={ _wrapperClass }
     style={ _wrapperStyle }
 >
+    {#if _noScriptSrc}
+        <noscript>
+            <img
+                alt={ _alt }
+                src={ _noScriptSrc }
+                style={ _style }
+                width={ _width }
+                height={ _height }
+                loading="lazy"
+            />
+        </noscript>
+    {/if}
     <img
         alt={ _alt }
         style={ _style }

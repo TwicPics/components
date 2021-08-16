@@ -1,5 +1,5 @@
 import type { OptionalString, Options } from "./types";
-import { installerError } from "./utils";
+import { installerError, isBrowser } from "./utils";
 
 export const config: {
     domain: OptionalString,
@@ -41,7 +41,7 @@ export default ( options: Options ): void => {
     Object.freeze( config );
 
     // not done in SSR
-    if ( typeof document !== `undefined` ) {
+    if ( isBrowser ) {
         const link = document.createElement( `link` );
         link.rel = `preconnect`;
         link.href = domain;
