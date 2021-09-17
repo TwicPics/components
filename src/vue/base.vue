@@ -53,7 +53,7 @@ export default {
         :class="_wrapperClass"
         :style="_wrapperStyle"
     >
-        <noscript v-if="_noScriptSrc">
+        <component v-if="_noScriptSrc" :is="noscript">
             <component
                 :is="_is"
                 :alt="_alt"
@@ -64,7 +64,7 @@ export default {
                 loading="lazy"
                 
             />
-        </noscript>
+        </component>
         <component
             :is="_is"
             :alt="_alt"
