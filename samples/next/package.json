@@ -8,14 +8,13 @@
         "@moxy/next-compile-node-modules": "2.1.1",
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "next": "11.0.1",
+        "next": "11.1.2",
         "react": "17.0.2",
         "react-dom": "17.0.2"
     },
     "license": "MIT",
     "scripts": {
         "build": "$npm_execpath install && next export",
-        "postinstall": "node fixReact",
         "serve": "$npm_execpath install && next build && next start -p 3000"
     }
 }
