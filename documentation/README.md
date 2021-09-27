@@ -56,7 +56,7 @@ import { installTwicPics } from "@twicpics/components/react";
 import "@twicpics/components/react/style.css";
 
 installTwicPics( {
-  domain: "https://<your-domain>.twic.pics"
+  "domain": "https://<your-domain>.twic.pics"
 } );
 
 ReactDOM.render(
@@ -93,7 +93,7 @@ import TwicPics from "@twicpics/components/vue2";
 import "@twicpics/components/vue2/style.css";
 
 Vue.use( TwicPics, {
-  domain: "https://<your-domain>.twic.pics"
+  "domain": "https://<your-domain>.twic.pics"
 } );
 
 new Vue( {
