@@ -13,7 +13,7 @@ if ( !rDependency.test( __dirname ) ) {
     process.exit( 1 );
 }
 
-const rTransform = /^\/\/\s*\/((?:\\.|[^\/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+")\s*$/mg;
+const rTransform = /^\/\/\s*\/((?:\\.|[^/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+")\s*$/mg;
 
 ( async () => {
     const htmlPromise = readFile( `${ __dirname }/Sample.html`, `utf8` );
@@ -21,14 +21,14 @@ const rTransform = /^\/\/\s*\/((?:\\.|[^\/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+
         const replacers = [];
         let content =
             ( await readFile( `${ __dirname }/templates/${ file }`, `utf8` ) )
-            .replace( rMain, await htmlPromise )
-            .replace( rTransform, ( _, regExpExpression, regExpFlags, string ) => {
-                replacers.push( {
-                    "regExp": new RegExp( regExpExpression, regExpFlags ),
-                    "transform": JSON.parse( string ),
+                .replace( rMain, await htmlPromise )
+                .replace( rTransform, ( _, regExpExpression, regExpFlags, string ) => {
+                    replacers.push( {
+                        "regExp": new RegExp( regExpExpression, regExpFlags ),
+                        "transform": JSON.parse( string ),
+                    } );
+                    return ``;
                 } );
-                return ``;
-            } );
         if ( replacers.length ) {
             for ( const { regExp, transform } of replacers ) {
                 content = content.replace( regExp, transform );

@@ -3,7 +3,6 @@ import { createRequire } from "module";
 import { dirname } from 'path';
 import { readFile, unlink, writeFile } from "fs/promises";
 import { copy, remove } from "fs-extra";
-import { rollup } from "rollup";
 
 const MINIFY_PASSES = 3;
 
@@ -87,7 +86,7 @@ export default (
         },
         "plugins": [
             replacer( {
-                "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ]
+                "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ],
             } ),
             dts(),
             {
@@ -100,8 +99,8 @@ export default (
                         `${ __dirname }/../dist/${ framework }/${ formatRename.get( f ) || f }.d.ts`
                     ) ) );
                     await remove( `${ __dirname }/../dist/${ framework }/dts` );
-                }
+                },
             },
         ],
     },
-} );
+} );

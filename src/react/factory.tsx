@@ -1,5 +1,5 @@
 import type { Attributes, Mode, Placeholder } from "../_/types";
-import { isBrowser } from "../_/utils"; 
+import { isBrowser } from "../_/utils";
 
 import "../_/style.css";
 

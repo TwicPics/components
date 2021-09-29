@@ -1,14 +1,15 @@
 import type Vue from "vue";
 import Base from "./base.vue";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { computed } = Base as any;
 
-export default ( VueObject: typeof Vue, name: string, tag: string ): void => {
+export default ( VueObject: typeof Vue, componentName: string, tag: string ): void => {
     VueObject.component(
-        name,
+        componentName,
         {
             ...Base,
-            name,
+            "name": componentName,
             "computed": {
                 "_is": () => tag,
                 ...computed,

@@ -1,4 +1,4 @@
-/* eslint no-shadow: [ "error", { "allow": [ "focus" ] } ] */
+/* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { Mode, OptionalNumber, OptionalString, Placeholder } from "./types";
 
 import { config } from "./install.js";
@@ -18,6 +18,7 @@ const _computeRatio =
 
 const TARGET_SIZE = 800;
 
+// eslint-disable-next-line id-length
 const _computePlaceholderTransform =
     ( computedRatio: Array< number >, mode: Mode ): string => {
         let [ w, h ] = computedRatio;
@@ -100,7 +101,7 @@ const __computeNoScriptSrc = (
     }/${
         _computePlaceholderTransform( computedRatio, mode )
     }`;
-}
+};
 
 export const _computeNoScriptSrc = (
     focus: OptionalString,
@@ -109,6 +110,7 @@ export const _computeNoScriptSrc = (
     ratio: OptionalString,
     src: string,
     width: OptionalNumber
+// eslint-disable-next-line max-params
 ): string => __computeNoScriptSrc(
     _computeRatio( height, ratio, width ),
     focus,
@@ -131,7 +133,7 @@ export const computeNoScriptSrc = ( component: {
     component.src,
     component.width
 );
-        
+
 export const _computeStyle = (
     mode: Mode,
     position: OptionalString,

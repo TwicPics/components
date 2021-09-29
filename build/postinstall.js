@@ -7,8 +7,8 @@ import { readFile, writeFile } from "fs/promises";
         content => (
             /,outDir: undefined,/.test( content ) ?
                 content :
-                content.replace( /(\ballowNonTsExtensions: true,)/, "$1outDir: undefined," )
-        )
+                content.replace( /(\ballowNonTsExtensions: true,)/, `$1outDir: undefined,` )
+        ),
     ],
 ].map( async ( [ filename, patcher ] ) => {
     await writeFile( filename, patcher( await readFile( filename, `utf8` ) ) );

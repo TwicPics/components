@@ -1,7 +1,8 @@
 import type { OptionalNumber, OptionalString } from "../_/types";
 import type { ComputedOptions, PropType, PropOptions } from "vue/types/options";
 
-export const callWithThis = < P, R >( fn: ( self: P ) => R ): ( () => ComputedOptions< R > ) => function( this: P ) {
+export const callWithThis = < P, R >( fn: ( _this: P ) => R ): ( () => ComputedOptions< R > ) => function( this: P ) {
+    // eslint-disable-next-line no-invalid-this
     return fn( this ) as ComputedOptions< R >;
 };
 

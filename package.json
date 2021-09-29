@@ -5,8 +5,8 @@
         "@tsconfig/svelte": "2.0.1",
         "@types/prop-types": "15.7.4",
         "@types/react": "17.0.24",
-        "@typescript-eslint/parser": "4.31.2",
-        "@typescript-eslint/eslint-plugin": "4.31.2",
+        "@typescript-eslint/parser": "4.32.0",
+        "@typescript-eslint/eslint-plugin": "4.32.0",
         "@vue/compiler-sfc": "3.2.19",
         "eslint": "7.32.0",
         "eslint-config-creative-area": "0.11.1",
@@ -33,19 +33,32 @@
         },
         "extends": [
             "eslint:recommended",
-            "plugin:@typescript-eslint/eslint-recommended",
-            "plugin:@typescript-eslint/recommended",
-            "plugin:react/recommended",
-            "plugin:vue/vue3-recommended",
             "creative-area/es2020/module"
         ],
-        "override": [
+        "overrides": [
             {
-                "files": [ "*.js" ],
+                "files": [ "*.svelte", "*.ts", "*.tsx", "*.vue" ],
                 "extends": [
-                    "eslint:recommended",
+                    "plugin:@typescript-eslint/eslint-recommended",
+                    "plugin:@typescript-eslint/recommended",
+                    "plugin:react/recommended",
+                    "plugin:vue/vue3-recommended",
                     "creative-area/es2020/module"
-                ]
+                ],
+                "rules": {
+                    "@typescript-eslint/no-shadow": [ "error" ],
+                    "@typescript-eslint/no-unused-vars": [ "error" ],
+                    "prefer-named-capture-group": "off",
+                    "vue/html-indent": [
+                        "error",
+                        4
+                    ]
+                },
+                "settings": {
+                    "react": {
+                        "version": "17"
+                    }
+                }
             }
         ],
         "parser": "vue-eslint-parser",
@@ -56,15 +69,7 @@
             "@typescript-eslint"
         ],
         "rules": {
-            "@typescript-eslint/no-shadow": [ "error" ],
-            "@typescript-eslint/no-unused-vars": [ "error" ],
-            "no-shadow": "off",
-            "no-unused-vars": "off",
-            "prefer-named-capture-group": "off",
-            "vue/html-indent": [
-                "error",
-                4
-            ]
+            "prefer-named-capture-group": "off"
         }
     },
     "license": "MIT",
