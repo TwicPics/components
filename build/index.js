@@ -87,7 +87,13 @@ const units = [
     console.log( `generating package.json with mappings...` );
     const packageJSON = JSON.parse( await readFile( `${ __dirname }/package.template.json`, `utf8` ) );
     packageJSON.exports = Object.fromEntries( units.flatMap( ( { framework } ) => [
-        [ `./${ framework }`, `./${ framework }/module.js` ],
+        [
+            `./${ framework }`,
+            {
+                "require": `./${ framework }/index.js`,
+                "default": `./${ framework }/module.js`,
+            },
+        ],
         [ `./${ framework }/style.css`, `./${ framework }/style.css` ],
     ] ) );
     await writeFile( `${ __dirname }/../dist/package.json`, JSON.stringify( packageJSON, null, `  ` ) );
