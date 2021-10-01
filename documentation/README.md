@@ -1,11 +1,9 @@
-<img align="right" width="25%" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
-
 # [TwicPics Components](https://www.npmjs.com/package/@twicpics/components)
 
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]
 
-[TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is a web component library that brings the power of [TwicPics](https://www.twicpics.com/) to your favorite web framework.
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/main/documentation/cover.png)
 
 ## What is [TwicPics](https://www.twicpics.com/)?
 
