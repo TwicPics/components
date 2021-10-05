@@ -54,7 +54,7 @@ export default {
         :style="_wrapperStyle"
     >
         <component
-            :is="noscript"
+            :is="`noscript`"
             v-if="_noScriptSrc"
         >
             <component
