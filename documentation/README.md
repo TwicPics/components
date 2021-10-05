@@ -194,6 +194,9 @@ This component can be used in place of an `img` element.
   position="<css position>"
   placeholder="<none|preview|meancolor|maincolor>"
   transition="<boolean>"
+  transitionDelay="<String>"
+  transitionDuration="<String>"
+  transitionTimingFunction="<String>"
   step="<integer>"
 />
 ```
@@ -230,6 +233,9 @@ This component can be used in place of a `video` element.
   position="<css position>"
   placeholder="<none|preview|meancolor|maincolor>"
   transition="<boolean>"
+  transitionDelay="<String>"
+  transitionDuration="<String>"
+  transitionTimingFunction="<String>"
   step="<integer>"
 />
 ```
