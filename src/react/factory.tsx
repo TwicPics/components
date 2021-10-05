@@ -64,7 +64,11 @@ const propTypes = {
 export default ( Tag: `img` | `video`, withAlt?: boolean ):
     React.ComponentType< Attributes > => {
     const Component = ( attributes: Attributes ) => (
-        <div className = { computeWrapperClass( attributes ) } style = { computeWrapperStyle( attributes ) }>
+        <div
+            className = { computeWrapperClass( attributes ) }
+            style = { computeWrapperStyle( attributes ) }
+            suppressHydrationWarning
+        >
             {
                 isBrowser ? `` : (
                     <noscript>
