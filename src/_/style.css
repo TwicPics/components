@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-.twic-w > *, .twic-w >noscript > * {
+.twic-w > *, .twic-w > noscript > * {
     display: block;
     left: 0;
     height: 100%;
@@ -23,7 +23,7 @@
     will-change: opacity;
 }
 
-.twic-t-fade > * + * {
+.twic-t-fade > noscript + * {
     display: none;
 }
 
