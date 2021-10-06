@@ -3,6 +3,7 @@
 /samples/**/build
 /samples/**/package-lock.json
 /samples/**/yarn.lock
+/samples/webcomponent/index.html
 *.log
 .DS_Store
 dist

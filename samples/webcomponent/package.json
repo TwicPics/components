@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "@twicpics/components": "file:../../dist",
+        "@twicpics/components-sample": "file:../_",
+        "static-server": "2.2.1"
+    },
+    "license": "MIT",
+    "scripts": {
+        "serve": "$npm_execpath install && node serve"
+    },
+    "type": "module"
+}

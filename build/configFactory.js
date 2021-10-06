@@ -1,8 +1,8 @@
 import __dirname from "./__dirname.js";
+import { copy, remove } from "fs-extra";
 import { createRequire } from "module";
 import { dirname } from 'path';
 import { readFile, unlink, writeFile } from "fs/promises";
-import { copy, remove } from "fs-extra";
 
 const MINIFY_PASSES = 3;
 
@@ -50,6 +50,9 @@ export default (
             sourcemapPathTransform,
         } ) ),
         "plugins": [
+            replacer( {
+                "replacer": [ /\bFRAMEWORK([^:])/, `${ JSON.stringify( framework ) }$1` ],
+            } ),
             typeScript( {
                 "tsconfig": `${ __dirname }/../tsconfig.json`,
             } ),
@@ -66,7 +69,16 @@ export default (
                 "writeBundle": async ( { file, format } ) => {
                     const cssFile = file.replace( rJS, `.css` );
                     const cssMinFile = file.replace( rJS, `.min.css` );
-                    if ( format === formats[ 0 ] ) {
+                    const cssMin = await readFile( cssMinFile, `utf8` );
+                    let inlineStyle = false;
+                    await writeFile( file, ( await readFile( file, `utf8` ) ).replace(
+                        `/*STYLE*/`,
+                        () => {
+                            inlineStyle = true;
+                            return JSON.stringify( cssMin ).slice( 1, -1 );
+                        }
+                    ) );
+                    if ( !inlineStyle && ( format === formats[ 0 ] ) ) {
                         await copy( cssMinFile, `${ dirname( file ) }/style.css` );
                     }
                     await Promise.all( [

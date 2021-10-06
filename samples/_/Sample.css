@@ -28,6 +28,10 @@ main {
     position: relative;
 }
 
+.item > *:first-child {
+    background-color: #00FFA3;
+}
+
 .item > span {
     position: absolute;
     color: #00FFA3;
@@ -43,11 +47,6 @@ main {
          0    1px 0 #342d4e,
          0   -1px 0 #342d4e;
     top: 0.5rem;
-}
-
-.twic-w {
-    align-self: start;
-    background-color: #00FFA3;
 }
 
 h1 {

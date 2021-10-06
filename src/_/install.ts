@@ -1,6 +1,8 @@
 import type { OptionalString, Options } from "./types";
 import { installerError, isBrowser } from "./utils";
 
+declare const FRAMEWORK: string;
+
 export const config: {
     domain: OptionalString,
     class: string,
@@ -8,6 +10,8 @@ export const config: {
     "domain": undefined,
     "class": `twic`,
 };
+
+export const classBasedStyle = (): string => `.twic-t-fade>.${ config.class }-done{opacity:1}`;
 
 const rDomain = /^https?:\/\/[^/]+$/;
 
@@ -42,6 +46,7 @@ export default ( options: Options ): void => {
 
     // not done in SSR
     if ( isBrowser ) {
+
         const link = document.createElement( `link` );
         link.rel = `preconnect`;
         link.href = domain;
@@ -51,11 +56,13 @@ export default ( options: Options ): void => {
         script.defer = true;
         script.src = parts.join( `&` );
 
-        const style = document.createElement( `style` );
-        style.innerText = `.twic-t-fade>.${ config.class }-done{opacity:1}`;
-
         document.head.appendChild( link );
         document.head.appendChild( script );
-        document.head.appendChild( style );
+
+        if ( FRAMEWORK !== `webcomponent` ) {
+            const style = document.createElement( `style` );
+            style.innerText = classBasedStyle();
+            document.head.appendChild( style );
+        }
     }
 };

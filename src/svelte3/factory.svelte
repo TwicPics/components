@@ -1,5 +1,8 @@
+<svelte:options tag={null}/>
+
 <script context="module" lang="ts">
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars, vue/comment-directive */
+import { classBasedStyle } from "../_/install";
+
 import {
     _computeAlt,
     _computeDataBot,
@@ -16,9 +19,13 @@ import {
 
 import { isBrowser } from "../_/utils";
 
+import { element, append, onMount } from "svelte/internal";
+
 import { styleToString } from "./utils";
 
 import type { Mode, OptionalNumber, OptionalString, Placeholder } from "../_/types";
+
+declare const FRAMEWORK: string;
 declare const MEDIA_TAG: string;
 </script>
 <script lang="ts">
@@ -65,9 +72,22 @@ $: _wrapperStyle = styleToString( _computeWrapperStyle(
     src,
     width
 ) );
+
+let container: HTMLDivElement;
+
+if ( FRAMEWORK === `webcomponent` ) {
+    onMount( () => {
+        const { parentNode } = container;
+        ( parentNode as ShadowRoot ).host.setAttribute( `data-twic-component`, `` );
+        const style = element( `style` );
+        style.textContent = `:host{display:block}/*STYLE*/${ classBasedStyle() }`;
+        append( parentNode, style );
+    } );
+}
 </script>
 
 <div
+    bind:this={ container }
     class={ _wrapperClass }
     style={ _wrapperStyle }
 >
