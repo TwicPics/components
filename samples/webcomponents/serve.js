@@ -9,8 +9,8 @@ await writeFile(
     `<script type="module">${
         ( await readFile( resolve( rootDir, `index.js` ), `utf8` ) )
             .replace(
-                `@twicpics/components/webcomponent`,
-                `./node_modules/@twicpics/components/webcomponent/module.js`
+                `@twicpics/components/webcomponents`,
+                `./node_modules/@twicpics/components/webcomponents/module.js`
             )
     }</script><style>${
         await readFile( resolve( sampleDir, `Sample.css` ), `utf8` )

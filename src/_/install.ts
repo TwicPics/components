@@ -1,5 +1,5 @@
 import type { OptionalString, Options } from "./types";
-import { isBrowser, isWebComponent } from "./utils";
+import { isBrowser, isWebComponents } from "./utils";
 
 export const config: {
     domain: OptionalString,
@@ -84,7 +84,7 @@ export default ( options: Options ): void => {
         document.head.appendChild( link );
         document.head.appendChild( script );
 
-        if ( !isWebComponent ) {
+        if ( !isWebComponents ) {
             const style = document.createElement( `style` );
             style.innerText = configBasedStyle();
             document.head.appendChild( style );

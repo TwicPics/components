@@ -17,7 +17,7 @@ import {
     _computeWrapperStyle,
 } from "../_/compute";
 
-import { isBrowser, isWebComponent } from "../_/utils";
+import { isBrowser, isWebComponents } from "../_/utils";
 
 import { element, append, onMount } from "svelte/internal";
 
@@ -74,7 +74,7 @@ $: _wrapperStyle = styleToString( _computeWrapperStyle(
 
 let container: HTMLDivElement;
 
-if ( isWebComponent ) {
+if ( isWebComponents ) {
     onMount( () => {
         const { parentNode } = container;
         markComponentsChain( parentNode as Element );

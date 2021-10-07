@@ -16,7 +16,7 @@ const formats = [ `cjs`, `es` ];
 
 const svelteUnitFactory = ( customElement = false ) => ( {
     "external": customElement ? [] : [ `svelte/internal` ],
-    "framework": customElement ? `webcomponent` : `svelte3`,
+    "framework": customElement ? `webcomponents` : `svelte3`,
     "plugins": [
         ...( customElement ? [ nodeResolve() ] : [] ),
         svelte( {

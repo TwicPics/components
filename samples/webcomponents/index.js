@@ -1,4 +1,4 @@
-import { installTwicPics, TwicImg } from "@twicpics/components/webcomponent";
+import { installTwicPics, TwicImg } from "@twicpics/components/webcomponents";
 
 installTwicPics( {
     "domain": `https://demo.twic.pics`,
