@@ -107,6 +107,25 @@ new Vue( {
 </template>
 ```
 
+__Changing components names__
+
+You can change how components are named using the `TwicImg` and/or `TwicVideo` options when calling `use`:
+
+```js
+Vue.use( TwicPics, {
+  "domain": "https://<your-domain>.twic.pics",
+  "TwicImg": "Batman"
+} );
+```
+
+You can then reference the component using the alternate name:
+
+```html
+<template>
+  <Batman src="path/to/your/image"/>
+</template>
+```
+
 ### Vue 3.x
 
 #### `main.js`
@@ -133,6 +152,25 @@ app.mount( `#root` );
 ```html
 <template>
   <TwicImg src="path/to/your/image"/>
+</template>
+```
+
+__Changing components names__
+
+You can change how components are named using the `TwicImg` and/or `TwicVideo` options when calling `use`:
+
+```js
+app.use( TwicPics, {
+  "domain": "https://<your-domain>.twic.pics",
+  "TwicImg": "Batman"
+} );
+```
+
+You can then reference the component using the alternate name:
+
+```html
+<template>
+  <Batman src="path/to/your/image"/>
 </template>
 ```
 
