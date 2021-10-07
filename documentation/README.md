@@ -19,11 +19,9 @@ With [TwicPics](https://www.twicpics.com/), developers only deal with high-resol
 
 [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) currently supports:
 
-- [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/) (version 2 to 3)
+- [React](https://reactjs.org/) and [Next.js](https://nextjs.org/)
 - [Svelte](https://svelte.dev/) (version 3)
-- [Next.js](https://nextjs.org/)
-- [Nuxt.js](https://nuxtjs.org/)
+- [Vue.js](https://vuejs.org/) (version 2 to 3) and [Nuxt.js](https://nuxtjs.org/)
 
 ## Installation
 
@@ -76,6 +74,35 @@ const Root = () => (
 );
 
 export default Root;
+```
+
+### Svelte 3.x
+
+#### `main.js`
+
+```js
+import Root from "./root.svelte";
+
+import { installTwicPics } from "@twicpics/components/svelte3";
+import "@twicpics/components/svelte3/style.css";
+
+installTwicPics( {
+  "domain": `https://<your-domain>.twic.pics`
+} );
+
+export default new Root( {
+  "target": document.getElementById( "root" ),
+} );
+```
+
+#### `root.svelte`
+
+```html
+<script context="module">
+  import { TwicImg } from "@twicpics/components/svelte3";
+</script>
+
+<TwicImg src="path/to/your/image"/>
 ```
 
 ### Vue 2.x
@@ -172,35 +199,6 @@ You can then reference the component using the alternate name:
 <template>
   <Batman src="path/to/your/image"/>
 </template>
-```
-
-### Svelte 3.x
-
-#### `main.js`
-
-```js
-import Root from "./root.svelte";
-
-import { installTwicPics } from "@twicpics/components/svelte3";
-import "@twicpics/components/svelte3/style.css";
-
-installTwicPics( {
-  "domain": `https://<your-domain>.twic.pics`
-} );
-
-export default new Root( {
-  "target": document.getElementById( "root" ),
-} );
-```
-
-#### `root.svelte`
-
-```html
-<script context="module">
-  import { TwicImg } from "@twicpics/components/svelte3";
-</script>
-
-<TwicImg src="path/to/your/image"/>
 ```
 
 ## Setup Options
