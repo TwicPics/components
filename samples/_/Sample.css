@@ -30,6 +30,7 @@ main {
 
 .item > *:first-child {
     background-color: #00FFA3;
+    display: block;
 }
 
 .item > span {

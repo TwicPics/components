@@ -79,7 +79,7 @@ if ( isWebComponents ) {
         const { parentNode } = container;
         markComponentsChain( parentNode as Element );
         const style = element( `style` );
-        style.textContent = `:host{display:block}/*STYLE*/${ configBasedStyle() }`;
+        style.textContent = `/*STYLE*/${ configBasedStyle() }`;
         append( parentNode, style );
     } );
 }
