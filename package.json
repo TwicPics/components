@@ -41,7 +41,7 @@
         ],
         "overrides": [
             {
-                "files": [ "*.svelte", "*.ts", "*.tsx", "*.vue" ],
+                "files": [ "*.jsx", "*.svelte", "*.ts", "*.tsx", "*.vue" ],
                 "extends": [
                     "plugin:@typescript-eslint/eslint-recommended",
                     "plugin:@typescript-eslint/recommended",
@@ -52,6 +52,8 @@
                 "rules": {
                     "@typescript-eslint/no-shadow": [ "error" ],
                     "@typescript-eslint/no-unused-vars": [ "error" ],
+                    "@typescript-eslint/no-use-before-define": [ "error" ],
+                    "no-use-before-define": "off",
                     "prefer-named-capture-group": "off",
                     "vue/comment-directive": "off",
                     "vue/html-indent": [
