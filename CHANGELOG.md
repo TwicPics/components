@@ -1,3 +1,5 @@
+<img align="right" width="25%" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
+
 # TwicPics Components CHANGELOG
 
 ## 0.4.0
