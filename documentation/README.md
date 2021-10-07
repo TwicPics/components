@@ -35,11 +35,6 @@ To add the package to your project, type one of:
 
 depending on which package manager you fancy.
 
-If you wish to test the freshest, unstable iteration of the package, grab the `next` version:
-
-- `npm add @twicpics/components@next`
-- `yarn add @twicpics/components@next`
-
 ## Setup and Usage
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
