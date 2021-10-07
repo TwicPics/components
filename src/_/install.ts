@@ -1,7 +1,5 @@
 import type { OptionalString, Options } from "./types";
-import { installerError, isBrowser } from "./utils";
-
-declare const FRAMEWORK: string;
+import { isBrowser, isWebComponent } from "./utils";
 
 export const config: {
     domain: OptionalString,
@@ -11,19 +9,46 @@ export const config: {
     "class": `twic`,
 };
 
-export const classBasedStyle = (): string => `.twic-t-fade>.${ config.class }-done{opacity:1}`;
+export const configBasedStyle = (): string => `.twic-t-fade>.${ config.class }-done{opacity:1}`;
+export const markComponentsChain = ( item: Element ): undefined => {
+    const attributeName = `data-${ config.class }-component`;
+    while ( item ) {
+        const { parentNode } = item;
+        const isHost = !parentNode && ( item instanceof ShadowRoot );
+        if ( isHost ) {
+            if ( ( item as unknown as ShadowRoot ).mode === `closed` ) {
+                throw new Error( `cannot use TwicPics components in closed ShadowRoot` );
+            }
+            // eslint-disable-next-line no-param-reassign
+            item = ( item as unknown as ShadowRoot ).host;
+        } else {
+            // eslint-disable-next-line no-param-reassign
+            item = ( parentNode as Element );
+        }
+        if ( isHost && item ) {
+            if ( item.hasAttribute( attributeName ) ) {
+                return;
+            }
+            item.setAttribute( attributeName, `` );
+        }
+    }
+};
 
 const rDomain = /^https?:\/\/[^/]+$/;
 
+export const installError = ( msg: string ): never => {
+    throw new Error( `impossible to install TwicPics: ${ msg }` );
+};
+
 export default ( options: Options ): void => {
     if ( config.domain ) {
-        installerError( `install function already called` );
+        installError( `install function already called` );
     }
 
     const { domain } = options;
 
     if ( !domain || !rDomain.test( domain ) ) {
-        installerError( `invalid domain "${ domain }"` );
+        installError( `invalid domain "${ domain }"` );
     }
 
     config.domain = domain;
@@ -59,9 +84,9 @@ export default ( options: Options ): void => {
         document.head.appendChild( link );
         document.head.appendChild( script );
 
-        if ( FRAMEWORK !== `webcomponent` ) {
+        if ( !isWebComponent ) {
             const style = document.createElement( `style` );
-            style.innerText = classBasedStyle();
+            style.innerText = configBasedStyle();
             document.head.appendChild( style );
         }
     }

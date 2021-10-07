@@ -3,7 +3,7 @@ export type OptionalNumber = number | string | undefined;
 export type OptionalString = string | undefined;
 export type Placeholder = `preview` | `meancolor` | `maincolor` | `none`;
 
-export type Attributes = {
+export interface Attributes {
     alt?: OptionalString,
     bot?: OptionalString,
     focus?: OptionalString,
@@ -19,13 +19,13 @@ export type Attributes = {
     transitionDuration?: OptionalString,
     transitionTimingFunction?: OptionalString,
     width?: OptionalNumber,
-};
+}
 
-export type Options = {
+export interface Options {
     anticipation?: OptionalNumber,
     class?: OptionalString,
     domain: string,
     maxDPR?: OptionalNumber,
     path?: OptionalString,
     step?: OptionalNumber,
-};
+}

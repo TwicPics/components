@@ -1,5 +1,7 @@
-export const installerError = ( msg: string ): never => {
-    throw new Error( `impossible to install TwicPics: ${ msg }` );
-};
+declare const FRAMEWORK: string;
 
-export const isBrowser = Boolean( ( typeof document !== `undefined` ) && document.createElement && document.head );
+export const isWebComponent = ( FRAMEWORK === `webcomponent` );
+
+export const isBrowser =
+    isWebComponent || ( Boolean( ( typeof document !== `undefined` ) && document.createElement && document.head ) );
+

@@ -1,7 +1,7 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
-import { classBasedStyle } from "../_/install";
+import { configBasedStyle, markComponentsChain } from "../_/install";
 
 import {
     _computeAlt,
@@ -17,7 +17,7 @@ import {
     _computeWrapperStyle,
 } from "../_/compute";
 
-import { isBrowser } from "../_/utils";
+import { isBrowser, isWebComponent } from "../_/utils";
 
 import { element, append, onMount } from "svelte/internal";
 
@@ -25,7 +25,6 @@ import { styleToString } from "./utils";
 
 import type { Mode, OptionalNumber, OptionalString, Placeholder } from "../_/types";
 
-declare const FRAMEWORK: string;
 declare const MEDIA_TAG: string;
 </script>
 <script lang="ts">
@@ -75,12 +74,12 @@ $: _wrapperStyle = styleToString( _computeWrapperStyle(
 
 let container: HTMLDivElement;
 
-if ( FRAMEWORK === `webcomponent` ) {
+if ( isWebComponent ) {
     onMount( () => {
         const { parentNode } = container;
-        ( parentNode as ShadowRoot ).host.setAttribute( `data-twic-component`, `` );
+        markComponentsChain( parentNode as Element );
         const style = element( `style` );
-        style.textContent = `:host{display:block}/*STYLE*/${ classBasedStyle() }`;
+        style.textContent = `:host{display:block}/*STYLE*/${ configBasedStyle() }`;
         append( parentNode, style );
     } );
 }
