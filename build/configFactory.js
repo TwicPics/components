@@ -108,9 +108,10 @@ export default (
                         typeDefinitions = post( typeDefinitions );
                     }
                     typeDefinitions = typeDefinitions.replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
-                    await Promise.all( formats.map( f => writeFile(
+                    const ref = `export*from'./${ formatRename.get( formats[ 0 ] ) || formats[ 0 ] }';`;
+                    await Promise.all( formats.map( ( f, isCopy ) => writeFile(
                         `${ __dirname }/../dist/${ framework }/${ formatRename.get( f ) || f }.d.ts`,
-                        typeDefinitions
+                        isCopy ? ref : typeDefinitions
                     ) ) );
                     await remove( `${ __dirname }/../dist/${ framework }/dts` );
                 },
