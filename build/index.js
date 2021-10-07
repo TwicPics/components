@@ -37,6 +37,23 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             ],
         } ),
     ],
+    "post": customElement && (
+        code =>
+            code
+                .split( `\n` )
+                // eslint-disable-next-line no-magic-numbers
+                .slice( 2 )
+                .filter( line => {
+                    const tmp = /^declare type (\S+)/.exec( line );
+                    return !tmp || /^Optional/.test( tmp[ 1 ] );
+                } )
+                .map( line => line.replace(
+                    ` svelte.SvelteComponentTyped<Attributes, undefined, undefined>;`,
+                    ` CustomElementConstructor;`
+                ) )
+                .join( `\n` )
+                .replace( /\ninterface Attributes \{[^}]+\}/, `` )
+    ),
     "sourceDir": `svelte3`,
 } );
 const units = [
@@ -51,6 +68,11 @@ const units = [
     {
         "framework": `vue2`,
         "plugins": [ vue2() ],
+        "post":
+            code =>
+                code
+                    .replace( /\n\}\s+interface Options extends Options\$1 \{/, `` )
+                    .replace( `Options$1`, `Options` ),
         "sourceDir": `vue`,
     },
     {
