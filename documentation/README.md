@@ -22,6 +22,7 @@ With [TwicPics](https://www.twicpics.com/), developers only deal with high-resol
 - [React](https://reactjs.org/) and [Next.js](https://nextjs.org/)
 - [Svelte](https://svelte.dev/) (version 3)
 - [Vue.js](https://vuejs.org/) (version 2 to 3) and [Nuxt.js](https://nuxtjs.org/)
+- [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 
 ## Installation
 
@@ -199,6 +200,30 @@ You can then reference the component using the alternate name:
 <template>
   <Batman src="path/to/your/image"/>
 </template>
+```
+
+## Web Components
+
+If you intend to use the TwicPics components inside other custom elements, all Shadow DOM up the hierarchy must be opened.
+
+#### `index.js`
+
+```js
+import { installTwicPics, TwicImg } from "@twicpics/components/webcomponents";
+
+installTwicPics( {
+  "domain": `https://<your-domain>.twic.pics`
+} );
+
+customElements.define( `twic-img`, TwicImg );
+```
+
+#### `index.html`
+
+```html
+<body>
+  <twic-img src="path/to/your/image"/>
+</body>
 ```
 
 ## Setup Options
