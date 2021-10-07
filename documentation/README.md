@@ -50,7 +50,7 @@ import ReactDOM from "react-dom";
 import Root from "./root.jsx";
 
 import { installTwicPics } from "@twicpics/components/react";
-import "@twicpics/components/react/style.css";
+import "@twicpics/components/style.css";
 
 installTwicPics( {
   "domain": "https://<your-domain>.twic.pics"
@@ -85,7 +85,7 @@ export default Root;
 import Root from "./root.svelte";
 
 import { installTwicPics } from "@twicpics/components/svelte3";
-import "@twicpics/components/svelte3/style.css";
+import "@twicpics/components/style.css";
 
 installTwicPics( {
   "domain": `https://<your-domain>.twic.pics`
@@ -116,7 +116,7 @@ import Vue from "vue";
 import Root from "./root.vue";
 
 import TwicPics from "@twicpics/components/vue2";
-import "@twicpics/components/vue2/style.css";
+import "@twicpics/components/style.css";
 
 Vue.use( TwicPics, {
   "domain": "https://<your-domain>.twic.pics"
@@ -164,7 +164,7 @@ import { createApp } from "vue";
 import Root from "./root.vue";
 
 import TwicPics from "@twicpics/components/vue3";
-import "@twicpics/components/vue3/style.css";
+import "@twicpics/components/style.css";
 
 const app = createApp( Root );
 
@@ -204,7 +204,7 @@ You can then reference the component using the alternate name:
 
 ## Web Components
 
-If you intend to use the TwicPics components inside other custom elements, all Shadow DOM up the hierarchy must be opened.
+__WARNING__: every single Shadow DOM the TwicPics components are descendants of must be opened. That's the only way the TwicPics Script will be able to reach them.
 
 #### `index.js`
 

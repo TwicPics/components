@@ -1,7 +1,7 @@
 import { installTwicPics } from "@twicpics/components/svelte3";
 import Sample from "@twicpics/components-sample/Sample.svelte";
 
-import "@twicpics/components/svelte3/style.css";
+import "@twicpics/components/style.css";
 
 installTwicPics( {
     "domain": `https://demo.twic.pics`,

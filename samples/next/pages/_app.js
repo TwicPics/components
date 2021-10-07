@@ -1,6 +1,6 @@
 import Sample from "@twicpics/components-sample/Sample.jsx";
 import { installTwicPics } from "@twicpics/components/react";
-import "@twicpics/components/react/style.css";
+import "@twicpics/components/style.css";
 import "@twicpics/components-sample/Sample.css";
 
 installTwicPics( {

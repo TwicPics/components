@@ -2,9 +2,9 @@
 import __dirname from "./__dirname.js";
 import cleanSamples from "./cleanSamples.js";
 import configFactory from "./configFactory.js";
+import { copy, remove } from "fs-extra";
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { readFile, writeFile } from "fs/promises";
-import { remove } from "fs-extra";
 import replacer from "./replacer.js";
 import rollup from "./rollup.js";
 import svelte from "rollup-plugin-svelte";
@@ -114,18 +114,23 @@ await Promise.all( units.map( async unit => {
         console.error( `${ framework } types descriptions generation error:`, error );
     }
 } ) );
+console.log( `de-duplicating css..` );
+await copy( `${ __dirname }/../dist/${ units[ 0 ].framework }/style.css`, `${ __dirname }/../dist/style.css` );
+await Promise.all( units.map(
+    ( { framework } ) => remove( `${ __dirname }/../dist/${ framework }/style.css` ).catch( () => undefined )
+) );
 console.log( `generating package.json with mappings...` );
 const packageJSON = JSON.parse( await readFile( `${ __dirname }/package.template.json`, `utf8` ) );
-packageJSON.exports = Object.fromEntries( units.flatMap( ( { framework } ) => [
-    [
+packageJSON.exports = Object.fromEntries( [
+    [ `./style.css`, `./style.css` ],
+    ...units.map( ( { framework } ) => [
         `./${ framework }`,
         {
             "import": `./${ framework }/module.js`,
             "require": `./${ framework }/index.js`,
         },
-    ],
-    [ `./${ framework }/style.css`, `./${ framework }/style.css` ],
-] ) );
+    ] ),
+] );
 await writeFile( `${ __dirname }/../dist/package.json`, JSON.stringify( packageJSON, null, `  ` ) );
 console.log( `adding README.md...` );
 await writeFile(
