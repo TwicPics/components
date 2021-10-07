@@ -3,6 +3,7 @@
     "bugs": {
         "url": "https://github.com/twicpics/components/issues"
     },
+    "description": "A Web component library that brings the power of TwicPics to your favorite web framework.",
     "homepage": "https://github.com/twicpics/components",
     "keywords": [
         "component library",
