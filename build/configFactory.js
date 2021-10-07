@@ -30,7 +30,7 @@ import replacer from "./replacer.js";
 
 export default (
     // eslint-disable-next-line no-shadow
-    { external = [], framework, plugins = [], post, sourceDir = framework, sourceFile },
+    { external = [], framework, plugins = [], postDefinitions, sourceDir = framework, sourceFile },
     ...formats
 ) => ( {
     "component": {
@@ -104,8 +104,8 @@ export default (
             {
                 "writeBundle": async ( { file } ) => {
                     let typeDefinitions = await readFile( file, `utf8` );
-                    if ( post ) {
-                        typeDefinitions = post( typeDefinitions );
+                    if ( postDefinitions ) {
+                        typeDefinitions = postDefinitions( typeDefinitions );
                     }
                     typeDefinitions = typeDefinitions.replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
                     const ref = `export*from'./${ formatRename.get( formats[ 0 ] ) || formats[ 0 ] }';`;
