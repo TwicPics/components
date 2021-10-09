@@ -10,14 +10,13 @@ import {
     _computeDataSrc,
     _computeDataStep,
     _computeHeight,
-    _computeNoScriptSrc,
     _computeStyle,
     _computeWidth,
     _computeWrapperClass,
     _computeWrapperStyle,
 } from "../_/compute";
 
-import { isBrowser, isWebComponents } from "../_/utils";
+import { isWebComponents } from "../_/utils";
 
 import { element, append, onMount } from "svelte/internal";
 
@@ -50,7 +49,6 @@ $: _dataFocus = _computeDataFocus( focus, mode );
 $: _dataSrc = _computeDataSrc( src );
 $: _dataStep = _computeDataStep( step );
 $: _height = _computeHeight( height );
-$: _noScriptSrc = !isBrowser && _computeNoScriptSrc( focus, height, mode, ratio, src, width );
 $: _style = styleToString( _computeStyle(
     mode,
     position,
@@ -90,18 +88,6 @@ if ( isWebComponents ) {
     class={ _wrapperClass }
     style={ _wrapperStyle }
 >
-    {#if _noScriptSrc}
-        <noscript>
-            <img
-                alt={ _alt }
-                src={ _noScriptSrc }
-                style={ _style }
-                width={ _width }
-                height={ _height }
-                loading="lazy"
-            />
-        </noscript>
-    {/if}
     <img
         alt={ _alt }
         style={ _style }

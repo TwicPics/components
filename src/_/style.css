@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-.twic-w > *, .twic-w > noscript > * {
+.twic-w > * {
     display: block;
     left: 0;
     height: 100%;
@@ -21,12 +21,4 @@
     transition-property: opacity;
     transition-timing-function: ease;
     will-change: opacity;
-}
-
-.twic-t-fade > noscript + * {
-    display: none;
-}
-
-.twic-t-fade > noscript {
-    opacity: 1;
 }

@@ -7,13 +7,11 @@ import {
     computeDataSrc,
     computeDataStep,
     computeHeight,
-    computeNoScriptSrc,
     computeStyle,
     computeWidth,
     computeWrapperClass,
     computeWrapperStyle,
 } from "../_/compute";
-import { isBrowser } from "../_/utils";
 
 export default {
     "props": {
@@ -40,7 +38,6 @@ export default {
         "_dataSrc": callWithThis( computeDataSrc ),
         "_dataStep": callWithThis( computeDataStep ),
         "_height": callWithThis( computeHeight ),
-        "_noScriptSrc": isBrowser ? ( () => undefined ) : callWithThis( computeNoScriptSrc ),
         "_style": callWithThis( computeStyle ),
         "_width": callWithThis( computeWidth ),
         "_wrapperClass": callWithThis( computeWrapperClass ),
@@ -53,20 +50,6 @@ export default {
         :class="_wrapperClass"
         :style="_wrapperStyle"
     >
-        <component
-            :is="`noscript`"
-            v-if="_noScriptSrc"
-        >
-            <component
-                :is="_is"
-                :alt="_alt"
-                :src="_noScriptSrc"
-                :style="_style"
-                :width="_width"
-                :height="_height"
-                loading="lazy"
-            />
-        </component>
         <component
             :is="_is"
             :alt="_alt"
