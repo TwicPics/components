@@ -2,6 +2,10 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.4.1
+
+- __bug__: removes `<noscript>` tags generation in SSR mode. Hydration is too heavy handed in most frameworks.
+
 ## 0.4.0
 
 - __breaking__: de-duplicates `style.css`
