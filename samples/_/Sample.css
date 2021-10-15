@@ -60,13 +60,11 @@ h2, caption {
 
 /* style driven */
 .style-driven {
-    --twic-ratio: calc( 20 / 9 );
+    --twic-ratio: calc( 20/9 );
 }
 @media ( min-width: 800px ) {
     .style-driven {
-        --twic-ratio: initial;
-        --twic-width: 800;
-        --twic-height: 600;
+        --twic-ratio: calc( 4/3 );
         --twic-mode: contain;
         --twic-position: top left;
     }
