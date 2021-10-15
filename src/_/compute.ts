@@ -1,36 +1,16 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, OptionalNumber, OptionalString, Placeholder } from "./types";
+import type { Mode, OptionalBoolean, OptionalMode, OptionalNumber, OptionalPlaceholder, OptionalString } from "./types";
 
 import { config } from "./install.js";
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 const rImage = /^(image:)?\/?/;
 
-const _computeFocus =
-    ( focus: OptionalString, mode: Mode ): OptionalString =>
-        ( ( mode === `cover` ) && focus ) || undefined;
-
 const _computeRatio =
     ( height: OptionalNumber, ratio: OptionalString, width: OptionalNumber ): Array< number > =>
         // eslint-disable-next-line no-nested-ternary
         ( ratio ? ratio.split( `/` ) : ( ( width && height ) ? [ width, height ] : [ 1, 1 ] ) )
             .map( x => Number( x ) );
-
-const TARGET_SIZE = 800;
-
-// eslint-disable-next-line id-length
-const _computePlaceholderTransform =
-    ( computedRatio: Array< number >, mode: Mode ): string => {
-        let [ w, h ] = computedRatio;
-        const mult = TARGET_SIZE / Math.max( w, h );
-        w = Math.max( 1, Math.round( w * mult ) );
-        h = Math.max( 1, Math.round( h * mult ) );
-        return `${ mode }=${ w }x${ h }`;
-    };
-
-const _computePosition =
-    ( mode: Mode, position: OptionalString ): string =>
-        ( ( ( mode === `contain` ) && position ) || `center` );
 
 export const _computeAlt =
     ( alt: OptionalString, src: string ): string => {
@@ -45,76 +25,67 @@ export const computeAlt =
     ( { alt, src }: { alt?: OptionalString, src: string } ): string =>
         _computeAlt( alt, src );
 
-export const _computeDataBot =
-    ( bot: OptionalString ): Record< string, OptionalString > => ( {
-        [ `data-${ config.class }-bot` ]: bot || undefined,
-    } );
-export const computeDataBot =
-    ( { bot }: { bot?: OptionalString } ): Record< string, OptionalString > =>
-        _computeDataBot( bot );
+export const _computeData = (
+    bot: OptionalString,
+    focus: OptionalString,
+    src: string,
+    step: OptionalNumber
+): Record< string, OptionalString > => ( {
+    [ `data-${ config.class }-bot` ]: ( bot && bot.trim() ) || undefined,
+    [ `data-${ config.class }-focus` ]: ( focus && focus.trim() ) || undefined,
+    [ `data-${ config.class }-src` ]: src.replace( rImage, `image:` ),
+    [ `data-${ config.class }-step` ]: ( step && ( step > 0 ) && `${ step }` ) || undefined,
+} );
 
-export const _computeDataFocus =
-    ( focus: OptionalString, mode: Mode ): Record< string, OptionalString > => ( {
-        [ `data-${ config.class }-focus` ]: mode === `contain` ? undefined : _computeFocus( focus, mode ),
-    } );
-export const computeDataFocus =
-    ( { focus, mode }: { focus?: OptionalString, mode: Mode } ): Record< string, OptionalString > =>
-        _computeDataFocus( focus, mode );
-
-export const _computeDataSrc =
-    ( src: string ): Record< string, string > => ( {
-        [ `data-${ config.class }-src` ]: src.replace( rImage, `image:` ),
-    } );
-export const computeDataSrc =
-    ( { src }: { src: string } ): Record< string, string > =>
-        _computeDataSrc( src );
-
-export const _computeDataStep =
-    ( step: OptionalNumber ): Record< string, OptionalNumber > => ( {
-        [ `data-${ config.class }-step` ]: step || undefined,
-    } );
-export const computeDataStep =
-    ( { step }: { step?: OptionalNumber } ): Record< string, OptionalNumber > =>
-        _computeDataStep( step );
-
-export const _computeHeight =
-    ( height: OptionalNumber ): OptionalNumber =>
-        ( height || undefined );
-export const computeHeight =
-    ( { height }: { height?: OptionalNumber } ): OptionalNumber =>
-        _computeHeight( height );
+export const computeData = ( component: {
+    bot?: OptionalString,
+    focus?: OptionalString,
+    src: string,
+    step?: OptionalNumber
+} ): Record< string, OptionalString > => _computeData(
+    component.bot,
+    component.focus,
+    component.src,
+    component.step
+);
 
 export const _computeStyle = (
-    mode: Mode,
+    mode: OptionalMode,
     position: OptionalString,
-    transition: boolean,
+    transition: OptionalBoolean,
     transitionDelay: OptionalString,
     transitionDuration: OptionalString,
     transitionTimingFunction: OptionalString
-): {
-    objectFit: Mode,
-    objectPosition: string,
-    transitionDelay?: string,
-    transitionDuration?: string,
-    transitionTimingFunction?: string,
 // eslint-disable-next-line max-params
-} => ( {
-    "objectFit": mode,
-    "objectPosition": _computePosition( mode, position ),
-    ...(
-        transition ?
-            {
-                transitionDelay,
-                transitionDuration,
-                transitionTimingFunction,
-            } :
-            {}
-    ),
-} );
+): Record< string, string > => {
+    const style: Record< string, string > = {};
+    if ( mode !== undefined ) {
+        style.objectFit = mode;
+    }
+    if ( position !== undefined ) {
+        style.objectPosition = position;
+    }
+    if ( transition === false ) {
+        style.transitionDelay = `0`;
+        style.transitionDuration = `0`;
+    } else {
+        if ( transitionDelay !== undefined ) {
+            style.transitionDelay = transitionDelay;
+        }
+        if ( transitionDuration !== undefined ) {
+            style.transitionDuration = transitionDuration;
+        }
+        if ( transitionTimingFunction !== undefined ) {
+            style.transitionTimingFunction = transitionTimingFunction;
+        }
+    }
+    return style;
+};
+
 export const computeStyle = ( component: {
-    mode: Mode,
+    mode?: Mode,
     position?: OptionalString,
-    transition: boolean,
+    transition?: boolean,
     transitionDelay?: OptionalString,
     transitionDuration?: OptionalString,
     transitionTimingFunction?: OptionalString
@@ -127,81 +98,64 @@ export const computeStyle = ( component: {
     component.transitionTimingFunction
 );
 
-export const _computeWidth =
-    ( width: OptionalNumber ): OptionalNumber =>
-        ( width || undefined );
-export const computeWidth =
-    ( { width }: { width?: OptionalNumber } ): OptionalNumber =>
-        _computeWidth( width );
+export const _computeWrapperClass = (
+    className?: OptionalString
+): string => `twic-w${ className ? ` ${ className }` : `` }`;
 
-export const _computeWrapperClass =
-    ( transition: boolean ): string =>
-        `twic-w${ transition ? ` twic-t-fade` : `` }`;
-export const computeWrapperClass =
-    ( { transition }: { transition: boolean } ): string =>
-        _computeWrapperClass( transition );
+export const _computeWrapperData = (
+    focus: OptionalString,
+    placeholder: OptionalPlaceholder,
+    src: string
+): Record< string, string > => ( ( ( placeholder === undefined ) || ( placeholder === `none` ) ) ? {} : {
+    [ `data-${ config.class }-background` ]: `url(${ JSON.stringify( src.replace( rImage, `image:` ) ) })`,
+    [ `data-${ config.class }-eager` ]: ``,
+    [ `data-${ config.class }-focus` ]: ( focus && focus.trim() ) || undefined,
+    [ `data-${ config.class }-step` ]: `1000`,
+    [ `data-${ config.class }-transform` ]: `*/output=${ placeholder }`,
+} );
+
+export const computeWrapperData = ( component: {
+    focus?: OptionalString,
+    placeholder?: OptionalPlaceholder,
+    src: string
+} ): Record< string, string > => _computeWrapperData(
+    component.focus,
+    component.placeholder,
+    component.src
+);
 
 export const _computeWrapperStyle = (
-    focus: OptionalString,
     height: OptionalNumber,
-    mode: Mode,
-    placeholder: Placeholder | undefined,
+    mode: OptionalMode,
     position: OptionalString,
     ratio: OptionalString,
-    src: string,
     width: OptionalNumber
-): {
-    backgroundImage?: string,
-    backgroundPosition: string,
-    backgroundSize?: string,
-    paddingTop: string,
 // eslint-disable-next-line max-params
-} => {
-    const computedRatio = _computeRatio( height, ratio, width );
-    const styles: {
-        backgroundImage: OptionalString,
-        backgroundPosition: string,
-        backgroundSize: Mode,
-        paddingTop: string,
-    } = {
-        "backgroundImage": undefined,
-        "backgroundPosition": _computePosition( mode, position ),
-        "backgroundSize": mode,
-        // eslint-disable-next-line no-magic-numbers
-        "paddingTop": `${ ( ( computedRatio[ 1 ] * 100 ) / computedRatio[ 0 ] ).toFixed( 10 ) }%`,
-    };
-    const apiOutput = ( placeholder !== `none` ) && placeholder;
-    if ( apiOutput ) {
-        styles.backgroundImage = `url(${
-            config.domain
-        }/${
-            src.replace( rImage, `` )
-        }?twic=v1${
-            focus ? `/focus=${ focus }` : ``
-        }/${
-            _computePlaceholderTransform( computedRatio, mode )
-        }/output=${
-            apiOutput
-        })`;
+): Record< string, string > => {
+    const style: Record< string, string > = {};
+    if ( mode !== undefined ) {
+        style.backgroundSize = mode;
     }
-    return styles;
+    if ( position !== undefined ) {
+        style.backgroundPosition = position;
+    }
+    if ( ( ratio !== undefined ) || ( ( width !== undefined ) && ( height !== undefined ) ) ) {
+        const computedRatio = _computeRatio( height, ratio, width );
+        // eslint-disable-next-line no-magic-numbers
+        style.paddingTop = `${ ( computedRatio[ 1 ] * 100 ) / computedRatio[ 0 ] }%`;
+    }
+    return style;
 };
 export const computeWrapperStyle = ( component: {
-    focus?: OptionalString,
     height?: OptionalNumber,
-    mode: Mode,
-    placeholder?: Placeholder,
+    mode?: Mode,
     position?: OptionalString,
     ratio?: OptionalString,
-    src: string,
     width?: OptionalNumber
 } ): Record< string, string > => _computeWrapperStyle(
-    component.focus,
     component.height,
     component.mode,
-    component.placeholder,
     component.position,
     component.ratio,
-    component.src,
     component.width
 );

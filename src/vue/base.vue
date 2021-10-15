@@ -2,14 +2,9 @@
 import { callWithThis, defineProp, defineStringProp, numberProp, requiredStringProp, stringProp } from "./utils";
 import {
     computeAlt,
-    computeDataBot,
-    computeDataFocus,
-    computeDataSrc,
-    computeDataStep,
-    computeHeight,
+    computeData,
     computeStyle,
-    computeWidth,
-    computeWrapperClass,
+    computeWrapperData,
     computeWrapperStyle,
 } from "../_/compute";
 
@@ -19,13 +14,13 @@ export default {
         "bot": stringProp,
         "focus": stringProp,
         "height": numberProp,
-        "mode": defineStringProp( /^(?:contain|cover)$/, `cover` ),
+        "mode": defineStringProp( /^(?:contain|cover)$/ ),
         "placeholder": defineStringProp( /^(?:maincolor|meancolor|none|preview)$/, `preview` ),
-        "position": defineStringProp( undefined, `center` ),
-        "ratio": defineStringProp( /^\d+\/\d+$/ ),
+        "position": stringProp,
+        "ratio": defineStringProp( /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/ ),
         "src": requiredStringProp,
         "step": numberProp,
-        "transition": defineProp( Boolean, undefined, true ),
+        "transition": defineProp( Boolean ),
         "transitionDuration": stringProp,
         "transitionTimingFunction": stringProp,
         "transitionDelay": stringProp,
@@ -33,22 +28,18 @@ export default {
     },
     "computed": {
         "_alt": callWithThis( computeAlt ),
-        "_dataBot": callWithThis( computeDataBot ),
-        "_dataFocus": callWithThis( computeDataFocus ),
-        "_dataSrc": callWithThis( computeDataSrc ),
-        "_dataStep": callWithThis( computeDataStep ),
-        "_height": callWithThis( computeHeight ),
+        "_dataAttributes": callWithThis( computeData ),
         "_style": callWithThis( computeStyle ),
-        "_width": callWithThis( computeWidth ),
-        "_wrapperClass": callWithThis( computeWrapperClass ),
+        "_wrapperData": callWithThis( computeWrapperData ),
         "_wrapperStyle": callWithThis( computeWrapperStyle ),
     },
 };
 </script>
 <template>
     <div
-        :class="_wrapperClass"
+        class="twic-w"
         :style="_wrapperStyle"
+        v-bind="{ ..._wrapperData }"
     >
         <component
             :is="_is"
@@ -56,12 +47,7 @@ export default {
             :style="_style"
             :width="_width"
             :height="_height"
-            v-bind="{
-                ..._dataBot,
-                ..._dataFocus,
-                ..._dataSrc,
-                ..._dataStep,
-            }"
+            v-bind="{ ..._dataAttributes }"
         />
     </div>
 </template>

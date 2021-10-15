@@ -8,7 +8,7 @@ const getDefaultConfig = (): Config => ( {
 
 export let config = getDefaultConfig();
 
-export const configBasedStyle = (): string => `.twic-t-fade>.${ config.class }-done{opacity:1}`;
+export const configBasedStyle = (): string => `.twic-w>.${ config.class }-done{opacity:1}`;
 export const markComponentsChain = ( item: Element ): undefined => {
     const attributeName = `data-${ config.class }-component`;
     while ( item ) {

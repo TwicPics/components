@@ -1,20 +1,23 @@
 export type Mode = `contain` | `cover`;
-export type OptionalNumber = number | string | undefined;
-export type OptionalString = string | undefined;
 export type Placeholder = `preview` | `meancolor` | `maincolor` | `none`;
+export type OptionalBoolean = boolean | undefined;
+export type OptionalMode = Mode | undefined;
+export type OptionalNumber = number | string | undefined;
+export type OptionalPlaceholder = Placeholder | undefined;
+export type OptionalString = string | undefined;
 
 export interface Attributes {
     alt?: OptionalString,
     bot?: OptionalString,
     focus?: OptionalString,
     height?: OptionalNumber,
-    mode: Mode,
-    placeholder?: Placeholder,
+    mode?: OptionalMode,
+    placeholder?: OptionalPlaceholder,
     position?: OptionalString,
     ratio?: OptionalString,
     step?: OptionalNumber,
     src: string,
-    transition: boolean,
+    transition?: OptionalBoolean,
     transitionDelay?: OptionalString,
     transitionDuration?: OptionalString,
     transitionTimingFunction?: OptionalString,

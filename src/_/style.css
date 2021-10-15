@@ -1,24 +1,41 @@
 .twic-w {
+    /* constant */
     background-repeat: no-repeat;
-    padding-top: 100%;
+    display: block;
     position: relative;
+    /* defaults */
+    background-size: cover;
+    background-position: center;
+    padding-top: 100%;
     width: 100%;
+    /* variables */
+    --twic-ratio: calc( var( --twic-width, var( --twic-height, 1 ) ) / var( --twic-height, var( --twic-width, 1 ) ) );
+    background-size: var( --twic-mode, cover );
+    background-position: var( --twic-position, center );
+    padding-top: calc( 100% / var( --twic-ratio, 1 ) );
 }
 
 .twic-w > * {
+    /* constant */
     display: block;
     left: 0;
     height: 100%;
+    opacity: 0;
     position: absolute;
     top: 0;
-    width: 100%;
-}
-
-.twic-t-fade > * {
-    opacity: 0;
-    transition-delay: 0ms;
-    transition-duration: 400ms;
     transition-property: opacity;
-    transition-timing-function: ease;
+    width: 100%;
     will-change: opacity;
+    /* defaults */
+    object-fit: cover;
+    object-position: center;
+    transition-delay: 0;
+    transition-duration: 400ms;
+    transition-timing-function: ease;
+    /* variables */
+    object-fit: var( --twic-mode, cover );
+    object-position: var( --twic-position, center );
+    transition-delay: var( --twic-transition-delay, 0 );
+    transition-duration: var( --twic-transition-duration, 400ms );
+    transition-timing-function: var( --twic-transition-timing-function, ease );
 }

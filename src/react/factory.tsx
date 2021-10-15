@@ -1,32 +1,33 @@
-import type { Attributes, Mode, Placeholder } from "../_/types";
+import type { Attributes as BaseAttributes, Mode, OptionalString, Placeholder } from "../_/types";
 
 import "../_/style.css";
 
 import {
+    _computeWrapperClass,
     computeAlt,
-    computeDataBot,
-    computeDataFocus,
-    computeDataSrc,
-    computeDataStep,
-    computeHeight,
+    computeData,
     computeStyle,
-    computeWidth,
-    computeWrapperClass,
     computeWrapperStyle,
+    computeWrapperData,
 } from "../_/compute";
 
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
 
+export interface Attributes extends BaseAttributes {
+    className?: OptionalString,
+}
+
 const defaultProps: Attributes = {
     "alt": undefined,
     "bot": undefined,
+    "className": undefined,
     "focus": undefined,
     "height": undefined,
-    "mode": `cover`,
+    "mode": undefined,
     "placeholder": `preview`,
-    "position": `center`,
+    "position": undefined,
     "ratio": undefined,
     "src": ``,
     "step": undefined,
@@ -44,6 +45,7 @@ const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
 const propTypes = {
     "alt": string,
     "bot": string,
+    "className": string,
     "focus": string,
     "height": number,
     "mode": oneOf< Mode >( [ `contain`, `cover` ] as const ),
@@ -63,26 +65,14 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
     React.ComponentType< Attributes > => {
     const Component = ( attributes: Attributes ) => (
         <div
-            className = { computeWrapperClass( attributes ) }
+            className = { _computeWrapperClass( attributes.className ) }
             style = { computeWrapperStyle( attributes ) }
+            { ...computeWrapperData( attributes ) }
         >
             <Tag
                 alt = { withAlt ? computeAlt( attributes ) : undefined }
                 style = { computeStyle( attributes ) }
-                width = { computeWidth( attributes ) }
-                height = { computeHeight( attributes ) }
-                {
-                    ...computeDataSrc( attributes )
-                }
-                {
-                    ...computeDataFocus( attributes )
-                }
-                {
-                    ...computeDataBot( attributes )
-                }
-                {
-                    ...computeDataStep( attributes )
-                }
+                { ...computeData( attributes ) }
             />
         </div>
     );
