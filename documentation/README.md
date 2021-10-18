@@ -208,7 +208,7 @@ You can then reference the component using the alternate name:
 </template>
 ```
 
-## Web Components
+### Web Components
 
 __WARNING__: every single Shadow DOM the TwicPics components are descendants of must be opened. That's the only way the TwicPics Script will be able to reach them.
 
