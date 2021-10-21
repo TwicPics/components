@@ -22,6 +22,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             "replacers": [
                 [ /\nexport default .+/, `` ],
                 [ /"img"/g, `MEDIA_TAG` ],
+                [ /"span"/g, `"style"` ],
                 [ /(?=\nfunction create_fragment\()/, `\nexport default MEDIA_TAG => {` ],
                 [ /(?=\nclass \S+ )/, `\nreturn (` ],
                 [ /$/, `);}` ],

@@ -1,5 +1,6 @@
 import type { Options, Config } from "./types";
-import { isBrowser, isWebComponents } from "./utils";
+import { createElement } from "./dom";
+import { isBrowser, isWebComponents, logError, throwError } from "./utils";
 
 const getDefaultConfig = (): Config => ( {
     "domain": undefined,
@@ -35,18 +36,18 @@ export const markComponentsChain = ( item: Element ): undefined => {
 
 const rDomain = /^https?:\/\/[^/]+$/;
 
-export const installError = ( msg: string ): never => {
-    throw new Error( `impossible to install TwicPics: ${ msg }` );
-};
-
 export default ( options: Options ): void => {
+
+    if ( !options ) {
+        throwError( `install options not provided` );
+    }
 
     const hasPreviousInstall = config.domain;
 
     const { domain, "class": _class } = options;
 
     if ( !domain || !rDomain.test( domain ) ) {
-        installError( `invalid domain "${ domain }"` );
+        throwError( `install domain "${ domain }" is invalid` );
     }
 
     config = getDefaultConfig();
@@ -57,36 +58,47 @@ export default ( options: Options ): void => {
     if ( isBrowser ) {
 
         if ( hasPreviousInstall ) {
-            installError( `install function already called` );
+            logError( `install function called multiple times` );
+            return;
         }
 
         const parts = [ `${ domain }/?v1` ];
+
         Object.entries( options ).forEach( ( [ key, value ] ) => {
             if ( value != null ) {
                 let actualKey = key;
-                if ( key === `maxDPR` ) {
+                if ( key === `class` ) {
+                    config.class = `{ $value }`;
+                } else if ( key === `maxDPR` ) {
                     actualKey = `max-dpr`;
                 }
-                parts.push( `${ actualKey }=${ value }` );
+                if ( key !== `domain` ) {
+                    parts.push( `${ actualKey }=${ value }` );
+                }
             }
         } );
 
-        const link = document.createElement( `link` );
-        link.rel = `preconnect`;
-        link.href = domain;
-
-        const script = document.createElement( `script` );
-        script.async = true;
-        script.defer = true;
-        script.src = parts.join( `&` );
-
-        document.head.appendChild( link );
-        document.head.appendChild( script );
-
-        if ( !isWebComponents ) {
-            const style = document.createElement( `style` );
-            style.innerText = configBasedStyle();
-            document.head.appendChild( style );
-        }
+        createElement( [
+            document.head,
+            0,
+            [
+                [
+                    `link`,
+                    {
+                        "rel": `preconnect`,
+                        "href": domain,
+                    },
+                ],
+                [
+                    `script`,
+                    {
+                        "async": ``,
+                        "defer": ``,
+                        "src": parts.join( `&` ),
+                    },
+                ],
+                isWebComponents ? undefined : [ `style`, 0, configBasedStyle() ],
+            ],
+        ] );
     }
 };

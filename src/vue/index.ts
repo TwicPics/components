@@ -1,21 +1,19 @@
-import type { Options as BaseOptions, OptionalString } from "../_/types";
+import type { Options as BaseOptions } from "../_/types";
 import type { PluginFunction, default as Vue } from "vue";
-import { default as install, installError } from "../_/install";
+import { default as install } from "../_/install";
 import register from "./register";
+import { throwError } from "../_/utils";
 
 interface Options extends BaseOptions {
-    TwicImg?: OptionalString,
-    TwicVideo?: OptionalString,
+    TwicImg?: string,
+    TwicVideo?: string,
 }
 
 const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Options ): void => {
-    if ( !options ) {
-        installError( `no option provided` );
-    }
-    if ( options.TwicImg && ( options.TwicImg === options.TwicVideo ) ) {
-        installError( `TwicImg and TwicVideo components must have different names` );
-    }
     install( options );
+    if ( options.TwicImg && ( options.TwicImg === options.TwicVideo ) ) {
+        throwError( `vue - TwicImg and TwicVideo components must have different names` );
+    }
     register( VueObject, options.TwicImg || `TwicImg`, `img` );
     register( VueObject, options.TwicVideo || `TwicVideo`, `video` );
 };

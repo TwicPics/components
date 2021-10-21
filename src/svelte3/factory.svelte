@@ -2,80 +2,111 @@
 
 <script context="module" lang="ts">
 import { configBasedStyle, markComponentsChain } from "../_/install";
-
+import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
+import { getParent } from "../_/dom";
+import { handlePlaceholder, unhandlePlaceholder } from "../_/placeholder";
 import {
-    _computeAlt,
-    _computeData,
-    _computeStyle,
-    _computeWrapperClass,
-    _computeWrapperData,
-    _computeWrapperStyle,
-} from "../_/compute";
+    parseAlt,
+    parseBot,
+    parseClassName,
+    parseFocus,
+    parseMode,
+    parsePlaceholder,
+    parsePosition,
+    parseRatio,
+    parseSrc,
+    parseStep,
+    parseTransition,
+    parseTransitionDelay,
+    parseTransitionDuration,
+    parseTransitionTimingFunction,
+} from "../_/parse";
 
-import { isWebComponents } from "../_/utils";
+import { isBrowser, isWebComponents } from "../_/utils";
 
-import { element, append, onMount } from "svelte/internal";
+import { onDestroy, onMount } from "svelte/internal";
 
 import { styleToString } from "./utils";
 
-import type { Attributes as BaseAttributes, Mode, OptionalNumber, OptionalString, Placeholder } from "../_/types";
+import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
 
 export interface Attributes extends BaseAttributes {
-    class?: OptionalString,
+    class?: string,
 }
 
 declare const MEDIA_TAG: string;
 </script>
 <script lang="ts">
-export let alt: OptionalString = undefined;
-export let bot: OptionalString = undefined;
-let className: OptionalString = undefined;
+export let alt: string = undefined;
+export let bot: string = undefined;
+let className: string = undefined;
 export { className as class };
-export let focus: OptionalString = undefined;
-export let height: OptionalNumber = undefined;
+export let focus: string = undefined;
 export let mode: Mode = undefined;
-export let placeholder: Placeholder = `preview`;
-export let position: OptionalString = undefined;
-export let ratio: OptionalString = undefined;
+export let placeholder: Placeholder = undefined;
+export let position: string = undefined;
+export let ratio: number | string = undefined;
 export let src: string;
-export let step: OptionalNumber = undefined;
+export let step: number = undefined;
 export let transition: boolean = true;
-export let transitionDelay: OptionalString = undefined;
-export let transitionDuration: OptionalString = undefined;
-export let transitionTimingFunction: OptionalString = undefined;
-export let width: OptionalString = undefined;
+export let transitionDelay: string = undefined;
+export let transitionDuration: string = undefined;
+export let transitionTimingFunction: string = undefined;
 
-$: _alt = ( MEDIA_TAG === "video" ? undefined : _computeAlt( alt, src ) );
-$: _data = _computeData( bot, focus, src, step );
-$: _style = styleToString( _computeStyle(
-    mode,
-    position,
-    transition,
-    transitionDelay,
-    transitionDuration,
-    transitionTimingFunction
+let wrapper: HTMLDivElement;
+
+$: parsedAlt = parseAlt( alt );
+$: parsedBot = parseBot( bot );
+$: parsedFocus = parseFocus( focus );
+$: parsedMode = parseMode( mode );
+$: parsedPlaceholder = parsePlaceholder( placeholder );
+$: parsedPosition = parsePosition( position );
+$: parsedRatio = parseRatio( ratio );
+$: parsedSrc = parseSrc( src );
+$: parsedStep = parseStep( step );
+$: parsedTransition = parseTransition( transition );
+$: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
+$: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
+$: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
+
+$: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
+$: _data = computeData( parsedBot, parsedFocus, parsedSrc, parsedStep );
+$: _style = styleToString( computeStyle(
+    parsedMode,
+    parsedPosition,
+    parsedTransition,
+    parsedTransitionDelay,
+    parsedTransitionDuration,
+    parsedTransitionTimingFunction
 ) );
-$: _wrapperData = _computeWrapperData( focus, placeholder, src );
-$: _wrapperStyle = styleToString( _computeWrapperStyle( height, mode, position, ratio, width ) );
+$: _wrapperStyle = styleToString( computeWrapperStyle(
+    wrapper,
+    parsedFocus,
+    parsedMode,
+    parsedPlaceholder,
+    parsedPosition,
+    parsedRatio,
+    parsedSrc
+) );
 
-let container: HTMLDivElement;
-
-if ( isWebComponents ) {
+if ( isBrowser ) {
     onMount( () => {
-        const { parentNode } = container;
-        markComponentsChain( parentNode as Element );
-        const style = element( `style` );
-        style.textContent = `/*STYLE*/${ configBasedStyle() }`;
-        append( parentNode, style );
+        handlePlaceholder( wrapper );
+        if ( isWebComponents ) {
+            markComponentsChain( wrapper.parentNode as Element );
+        }
     } );
+    onDestroy( () => unhandlePlaceholder( wrapper ) );
 }
 </script>
 
+{#if isWebComponents }
+<span>/*STYLE*/{ configBasedStyle() }</span>
+{/if}
 <div
-    bind:this = { container }
-    class = { _computeWrapperClass( isWebComponents ? undefined : className ) }
+    bind:this = { wrapper }
+    class = { computeWrapperClass( isWebComponents ? undefined : parseClassName( className ) ) }
     style = { _wrapperStyle }
-    { ..._wrapperData }
 >
     <img
         alt = { _alt }

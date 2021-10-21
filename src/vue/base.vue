@@ -1,21 +1,49 @@
-<script lang="ts">
-import { callWithThis, defineProp, defineStringProp, numberProp, requiredStringProp, stringProp } from "./utils";
+<script>
 import {
-    computeAlt,
-    computeData,
-    computeStyle,
-    computeWrapperData,
-    computeWrapperStyle,
-} from "../_/compute";
+    callWithProps,
+    defineProp,
+    defineStringProp,
+    numberProp,
+    parseFactory,
+    requiredStringProp,
+    stringProp,
+} from "./utils";
+import { computeAlt, computeData, computeStyle, computeWrapperStyle } from "../_/compute";
+import { handlePlaceholder, unhandlePlaceholder } from "../_/placeholder";
+import { rValidPlaceholder } from "../_/types";
+
+import {
+    parseAlt,
+    parseBot,
+    parseFocus,
+    parseMode,
+    parsePlaceholder,
+    parsePosition,
+    parseRatio,
+    parseSrc,
+    parseStep,
+    parseTransition,
+    parseTransitionDelay,
+    parseTransitionDuration,
+    parseTransitionTimingFunction,
+} from "../_/parse";
+
+const getPDataAndDelete = c => {
+    const data = c._p;
+    // eslint-disable-next-line no-param-reassign
+    delete c._p;
+    return data;
+};
+// eslint-disable-next-line no-param-reassign
+const getWrapperOrCallback = c => c.$refs.w || ( data => ( c._p = data ) );
 
 export default {
     "props": {
         "alt": stringProp,
         "bot": stringProp,
         "focus": stringProp,
-        "height": numberProp,
         "mode": defineStringProp( /^(?:contain|cover)$/ ),
-        "placeholder": defineStringProp( /^(?:maincolor|meancolor|none|preview)$/, `preview` ),
+        "placeholder": defineStringProp( rValidPlaceholder, `preview` ),
         "position": stringProp,
         "ratio": defineStringProp( /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/ ),
         "src": requiredStringProp,
@@ -24,29 +52,59 @@ export default {
         "transitionDuration": stringProp,
         "transitionTimingFunction": stringProp,
         "transitionDelay": stringProp,
-        "width": numberProp,
     },
     "computed": {
-        "_alt": callWithThis( computeAlt ),
-        "_dataAttributes": callWithThis( computeData ),
-        "_style": callWithThis( computeStyle ),
-        "_wrapperData": callWithThis( computeWrapperData ),
-        "_wrapperStyle": callWithThis( computeWrapperStyle ),
+        "parsedAlt": parseFactory( parseAlt, `alt` ),
+        "parsedBot": parseFactory( parseBot, `bot` ),
+        "parsedFocus": parseFactory( parseFocus, `focus` ),
+        "parsedMode": parseFactory( parseMode, `mode` ),
+        "parsedPlaceholder": parseFactory( parsePlaceholder, `placeholder` ),
+        "parsedPosition": parseFactory( parsePosition, `position` ),
+        "parsedRatio": parseFactory( parseRatio, `ratio` ),
+        "parsedSrc": parseFactory( parseSrc, `src` ),
+        "parsedStep": parseFactory( parseStep, `step` ),
+        "parsedTransition": parseFactory( parseTransition, `transition` ),
+        "parsedTransitionDelay": parseFactory( parseTransitionDelay, `transitionDelay` ),
+        "parsedTransitionDuration": parseFactory( parseTransitionDuration, `transitionDuration` ),
+        "parsedTransitionTimingFunction": parseFactory( parseTransitionTimingFunction, `transitionTimingFunction` ),
+        "_alt": callWithProps( computeAlt, `parsedAlt`, `parsedSrc` ),
+        "_dataAttributes": callWithProps( computeData, `parsedBot`, `parsedFocus`, `parsedSrc`, `parsedStep` ),
+        "_style": callWithProps(
+            computeStyle,
+            `parsedMode`,
+            `parsedPosition`,
+            `parsedTransition`,
+            `parsedTransitionDelay`,
+            `parsedTransitionDuration`,
+            `parsedTransitionTimingFunction`
+        ),
+        "_wrapperStyle": callWithProps(
+            computeWrapperStyle,
+            getWrapperOrCallback,
+            `parsedFocus`,
+            `parsedMode`,
+            `parsedPlaceholder`,
+            `parsedPosition`,
+            `parsedRatio`,
+            `parsedSrc`
+        ),
     },
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    "mounted": callWithProps( handlePlaceholder, getWrapperOrCallback, getPDataAndDelete ),
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    "unmounted": callWithProps( unhandlePlaceholder, getWrapperOrCallback ),
 };
 </script>
 <template>
     <div
+        ref="w"
         class="twic-w"
         :style="_wrapperStyle"
-        v-bind="{ ..._wrapperData }"
     >
         <component
             :is="_is"
             :alt="_alt"
             :style="_style"
-            :width="_width"
-            :height="_height"
             v-bind="{ ..._dataAttributes }"
         />
     </div>

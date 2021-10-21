@@ -1,22 +1,34 @@
-import type { Attributes as BaseAttributes, Mode, OptionalString, Placeholder } from "../_/types";
+import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
 
 import "../_/style.css";
 
+import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
+
+import { handlePlaceholder, PlaceholderData, unhandlePlaceholder } from "../_/placeholder";
+
 import {
-    _computeWrapperClass,
-    computeAlt,
-    computeData,
-    computeStyle,
-    computeWrapperStyle,
-    computeWrapperData,
-} from "../_/compute";
+    parseAlt,
+    parseBot,
+    parseClassName,
+    parseFocus,
+    parseMode,
+    parsePlaceholder,
+    parsePosition,
+    parseRatio,
+    parseSrc,
+    parseStep,
+    parseTransition,
+    parseTransitionDelay,
+    parseTransitionDuration,
+    parseTransitionTimingFunction,
+} from "../_/parse";
 
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
 
 export interface Attributes extends BaseAttributes {
-    className?: OptionalString,
+    className?: string,
 }
 
 const defaultProps: Attributes = {
@@ -24,18 +36,16 @@ const defaultProps: Attributes = {
     "bot": undefined,
     "className": undefined,
     "focus": undefined,
-    "height": undefined,
     "mode": undefined,
-    "placeholder": `preview`,
+    "placeholder": undefined,
     "position": undefined,
     "ratio": undefined,
-    "src": ``,
+    "src": undefined,
     "step": undefined,
-    "transition": true,
+    "transition": undefined,
     "transitionDelay": undefined,
     "transitionDuration": undefined,
     "transitionTimingFunction": undefined,
-    "width": undefined,
 };
 
 const { oneOf, string } = PropTypes;
@@ -47,7 +57,6 @@ const propTypes = {
     "bot": string,
     "className": string,
     "focus": string,
-    "height": number,
     "mode": oneOf< Mode >( [ `contain`, `cover` ] as const ),
     "placeholder": oneOf< Placeholder >( [ `preview`, `meancolor`, `maincolor`, `none` ] as const ),
     "position": string,
@@ -55,27 +64,94 @@ const propTypes = {
     "src": string.isRequired,
     "step": number,
     "transition": PropTypes.bool,
+    "transitionDelay": string,
     "transitionDuration": string,
     "transitionTimingFunction": string,
-    "transitionDelay": string,
-    "width": number,
 };
 
 export default ( Tag: `img` | `video`, withAlt?: boolean ):
     React.ComponentType< Attributes > => {
-    const Component = ( attributes: Attributes ) => (
-        <div
-            className = { _computeWrapperClass( attributes.className ) }
-            style = { computeWrapperStyle( attributes ) }
-            { ...computeWrapperData( attributes ) }
-        >
-            <Tag
-                alt = { withAlt ? computeAlt( attributes ) : undefined }
-                style = { computeStyle( attributes ) }
-                { ...computeData( attributes ) }
-            />
-        </div>
-    );
+    class Component extends React.Component< Attributes > {
+        static defaultProps: Attributes;
+        static propTypes: {
+            alt: PropTypes.Requireable<string>;
+            bot: PropTypes.Requireable<string>;
+            className: PropTypes.Requireable<string>;
+            focus: PropTypes.Requireable<string>;
+            mode: PropTypes.Requireable<Mode>;
+            placeholder: PropTypes.Requireable<Placeholder>;
+            position: PropTypes.Requireable<string>;
+            ratio: PropTypes.Requireable<number | string>;
+            src: PropTypes.Validator<string>;
+            step: PropTypes.Requireable<number | string>;
+            transition: PropTypes.Requireable<boolean>;
+            transitionDelay: PropTypes.Requireable<string>;
+            transitionDuration: PropTypes.Requireable<string>;
+            transitionTimingFunction: PropTypes.Requireable<string>;
+        };
+        private _p: PlaceholderData;
+        private _w: React.RefObject< HTMLDivElement >;
+        constructor( attributes: Attributes ) {
+            super( attributes );
+            this._w = React.createRef();
+        }
+        componentDidMount() {
+            const { _p } = this;
+            delete this._p;
+            handlePlaceholder( this._w.current, _p );
+        }
+        componentWillUnmount() {
+            unhandlePlaceholder( this._w.current );
+        }
+        render() {
+            let { props } = this;
+            const alt = parseAlt( props.alt );
+            const bot = parseBot( props.bot );
+            const className = parseClassName( props.className );
+            const focus = parseFocus( props.focus );
+            const mode = parseMode( props.mode );
+            const placeholder = parsePlaceholder( props.placeholder );
+            const position = parsePosition( props.position );
+            const ratio = parseRatio( props.ratio );
+            const src = parseSrc( props.src );
+            const step = parseStep( props.step );
+            const transition = parseTransition( props.transition );
+            const transitionDelay = parseTransitionDelay( props.transitionDelay );
+            const transitionDuration = parseTransitionDuration( props.transitionDuration );
+            const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
+            return (
+            <div
+                ref={ this._w }
+                className = { computeWrapperClass( className ) }
+                style = { computeWrapperStyle(
+                    this._w.current || ( ( data: PlaceholderData ): void => {
+                        this._p = data;
+                    } ),
+                    focus,
+                    mode,
+                    placeholder,
+                    position,
+                    ratio,
+                    src
+                ) }
+            >
+                <Tag
+                    alt = { withAlt ? computeAlt( alt, src ) : undefined }
+                    style = {
+                        computeStyle(
+                            mode,
+                            position,
+                            transition,
+                            transitionDelay,
+                            transitionDuration,
+                            transitionTimingFunction
+                        ) }
+                    { ...computeData( bot, focus, src, step ) }
+                />
+            </div>
+            );
+        }
+    }
     Component.defaultProps = defaultProps;
     Component.propTypes = propTypes;
     return Component;
