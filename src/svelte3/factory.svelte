@@ -3,7 +3,6 @@
 <script context="module" lang="ts">
 import { configBasedStyle, markComponentsChain } from "../_/install";
 import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
-import { getParent } from "../_/dom";
 import { handlePlaceholder, unhandlePlaceholder } from "../_/placeholder";
 import {
     parseAlt,

@@ -29,8 +29,6 @@ export const logError = ( message: string ): void => {
     console.error( buildErrorMessage( message ) );
 };
 
-export const noop = (): void => undefined;
-
 export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };
