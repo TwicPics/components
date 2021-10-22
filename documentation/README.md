@@ -255,8 +255,6 @@ This component can be used in place of an `img` element.
   src="<path>" (mandatory)
   alt="<string>"
   ratio="<ratio>"
-  width="<integer>"
-  height="<integer>"
   mode="<contain|cover>"
   focus="<auto|coordinates>"
   position="<css position>"
@@ -273,18 +271,16 @@ This component can be used in place of an `img` element.
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | based on `src` |
 | `focus` | Only useful in `cover` mode. Can be `auto` or coordinates. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. | `String` | |
-| `height` | See `ratio`. | `Integer` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. | `String` | `preview` |
 | `position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `String` | `center` |
-| `ratio` | Unitless `width/height` value pair. You can either use `ratio` or `width` and `height` to set the aspect-ratio of the area your image will be in. If both are used, `ratio` wins. A squared area will be created by default. | `String` | `1/1` | |
+| `ratio` | Unitless `width/height` value pair. A squared area will be created by default. | `String` | `1/1` | |
 | `src` | Path to the image. Providing it is __mandatory__. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Whether or not to reveal images with a fade in effect once they have been loaded. | `Boolean` | `true` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-| `width` | See `ratio`. | `Integer` | |
 
 ### `TwicVideo`
 
@@ -294,8 +290,6 @@ This component can be used in place of a `video` element.
 <TwicVideo
   src="<path>" (mandatory)
   ratio="<ratio>"
-  width="<integer>"
-  height="<integer>"
   mode="<contain|cover>"
   focus="<auto|coordinates>"
   position="<css position>"
@@ -311,18 +305,16 @@ This component can be used in place of a `video` element.
 | Attribute | Description | Type | Default |
 |:-|:-|:-|:-|
 | `focus` | Only useful in `cover` mode. Can be `auto` or coordinates. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. | `String` | |
-| `height` | See `ratio`. | `Integer` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. | `String` | `preview` |
 | `position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `String` | `center` |
-| `ratio` | Unitless `width/height` value pair. You can either use `ratio` or `width` and `height` to set the aspect-ratio of the area your image will be in. If both are used, `ratio` wins. A squared area will be created by default. | `String` | `1/1` |
+| `ratio` | Unitless `width/height` value pair. A squared area will be created by default. | `String` | `1/1` | |
 | `src` | Path to the video. Providing it is __mandatory__. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Whether or not to reveal images with a fade in effect once they have been loaded. | `Boolean` | `true` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-| `width` | See `ratio`. | `Integer` | |
 
 ## Example
 
