@@ -1,11 +1,11 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import { isValidMode, isValidPlaceholder, Mode, Placeholder } from "./types";
-import { logError } from "./utils";
+import { Mode, Placeholder, rValidMode, rValidPlaceholder, rValidRatio } from "./types";
+import { logError, regExpFinderFactory, trimRegExpFactory } from "./utils";
 
 const rImage = /^(image:)?\/?/;
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
-const trimOrUndefined = ( value: string ): string => ( value && value.trim() ) || undefined;
+const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+` ) );
 
 export const parseAlt = trimOrUndefined;
 
@@ -15,15 +15,9 @@ export const parseClassName = trimOrUndefined;
 
 export const parseFocus = trimOrUndefined;
 
-export const parseMode = ( value: Mode | string ): Mode => {
-    const trimmed = trimOrUndefined( value );
-    return trimmed && isValidMode( trimmed ) ? trimmed as Mode : undefined;
-};
+export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
-export const parsePlaceholder = ( value: Placeholder | string ): Placeholder => {
-    const trimmed = trimOrUndefined( value );
-    return trimmed && isValidPlaceholder( trimmed ) ? trimmed as Placeholder : `preview`;
-};
+export const parsePlaceholder = regExpFinderFactory< Placeholder >( rValidPlaceholder );
 
 export const parsePosition = trimOrUndefined;
 
@@ -32,8 +26,13 @@ export const parseRatio = ( value: number | string ): number => {
     if ( typeof value === `number` ) {
         number = value;
     } else if ( value ) {
-        const [ width, height ] = value.split( `/` ).map( Number );
-        number = ( ( height === undefined ) ? 1 : height ) / width;
+        const parsed = rValidRatio.exec( value );
+        if ( parsed ) {
+            const [ , , width, height ] = parsed;
+            number = height ? ( Number( height ) / Number( width ) ) : Number( width );
+        } else {
+            number = 1;
+        }
     }
     return isPositiveNumber( number ) ? number : undefined;
 };

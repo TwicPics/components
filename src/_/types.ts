@@ -1,3 +1,5 @@
+import { trimRegExpFactory } from "./utils";
+
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 
@@ -26,14 +28,21 @@ export interface Options {
     step?: number,
 }
 
-
 export interface Config {
     class: string,
-    domain: OptionalString,
+    domain?: string,
 }
-export const rValidMode = /^(?:contain|cover)$/;
-export const isValidMode = ( value: Mode | string ): boolean => rValidMode.test( value );
 
-export const rValidPlaceholder = /^(?:maincolor|meancolor|none|preview)$/;
-export const isValidPlaceholder = ( value: Placeholder | string ): boolean => rValidPlaceholder.test( value );
+
+const validFactory = < T >( regExp: RegExp ) => ( value: T | string ): boolean => regExp.test( value as string );
+
+export const validModes = [ `contain`, `cover` ];
+export const rValidMode = trimRegExpFactory( validModes );
+export const isValidMode = validFactory< Mode >( rValidMode );
+
+export const validPlaceholders = [ `maincolor`, `meancolor`, `none`, `preview` ];
+export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
+export const isValidPlaceholder = validFactory< Placeholder >( rValidPlaceholder );
+
+export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*\\/\\s*(\\d+(?:\\.\\d+)?))?` );
 

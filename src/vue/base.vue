@@ -10,7 +10,7 @@ import {
 } from "./utils";
 import { computeAlt, computeData, computeStyle, computeWrapperStyle } from "../_/compute";
 import { handlePlaceholder, unhandlePlaceholder } from "../_/placeholder";
-import { rValidPlaceholder } from "../_/types";
+import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/types";
 
 import {
     parseAlt,
@@ -42,10 +42,10 @@ export default {
         "alt": stringProp,
         "bot": stringProp,
         "focus": stringProp,
-        "mode": defineStringProp( /^(?:contain|cover)$/ ),
-        "placeholder": defineStringProp( rValidPlaceholder, `preview` ),
+        "mode": defineStringProp( rValidMode ),
+        "placeholder": defineStringProp( rValidPlaceholder ),
         "position": stringProp,
-        "ratio": defineStringProp( /^\d+(?:\.\d+)?\/\d+(?:\.\d+)?$/ ),
+        "ratio": defineStringProp( rValidRatio ),
         "src": requiredStringProp,
         "step": numberProp,
         "transition": defineProp( Boolean ),

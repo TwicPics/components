@@ -32,3 +32,14 @@ export const logError = ( message: string ): void => {
 export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };
+
+export const regExpFinderFactory = < T = string >( regExp: RegExp ) => ( expression: T | string ): T => {
+    let found;
+    if ( expression ) {
+        ( expression as string ).replace( regExp, ( _, value ) => ( found = value ) );
+    }
+    return found;
+};
+
+export const trimRegExpFactory = ( items: Array< string > | string ): RegExp =>
+    new RegExp( `^\\s*(${ Array.isArray( items ) ? items.join( `|` ) : items })\\s*$` );
