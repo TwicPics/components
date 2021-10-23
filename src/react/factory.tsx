@@ -1,11 +1,8 @@
-import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
-
 import "../_/style.css";
 
+import { Attributes as BaseAttributes, Mode, Placeholder, validModes, validPlaceholders } from "../_/types";
 import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
-
-import { handlePlaceholder, PlaceholderData, unhandlePlaceholder } from "../_/placeholder";
-
+import { createPlaceholderHandler, PlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
     parseBot,
@@ -57,8 +54,8 @@ const propTypes = {
     "bot": string,
     "className": string,
     "focus": string,
-    "mode": oneOf< Mode >( [ `contain`, `cover` ] as const ),
-    "placeholder": oneOf< Placeholder >( [ `preview`, `meancolor`, `maincolor`, `none` ] as const ),
+    "mode": oneOf< Mode >( validModes ),
+    "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
     "ratio": string,
     "src": string.isRequired,
@@ -89,23 +86,22 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             transitionDuration: PropTypes.Requireable<string>;
             transitionTimingFunction: PropTypes.Requireable<string>;
         };
-        private _p: PlaceholderData;
+        private _p: PlaceholderHandler;
         private _w: React.RefObject< HTMLDivElement >;
         constructor( attributes: Attributes ) {
             super( attributes );
+            this._p = createPlaceholderHandler();
             this._w = React.createRef();
         }
         componentDidMount() {
-            const { _p } = this;
-            delete this._p;
-            handlePlaceholder( this._w.current, _p );
+            this._p.setWrapper( this._w.current );
         }
         componentWillUnmount() {
-            unhandlePlaceholder( this._w.current );
+            this._p.delete();
         }
         render() {
             let { props } = this;
-            const alt = parseAlt( props.alt );
+            const alt = withAlt && parseAlt( props.alt );
             const bot = parseBot( props.bot );
             const className = parseClassName( props.className );
             const focus = parseFocus( props.focus );
@@ -123,17 +119,17 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             <div
                 ref={ this._w }
                 className = { computeWrapperClass( className ) }
-                style = { computeWrapperStyle(
-                    this._w.current || ( ( data: PlaceholderData ): void => {
-                        this._p = data;
-                    } ),
-                    focus,
-                    mode,
-                    placeholder,
-                    position,
-                    ratio,
-                    src
-                ) }
+                style = {
+                    computeWrapperStyle(
+                        focus,
+                        mode,
+                        placeholder,
+                        position,
+                        ratio,
+                        src,
+                        this._p.setData,
+                    )
+                }
             >
                 <Tag
                     alt = { withAlt ? computeAlt( alt, src ) : undefined }
@@ -148,6 +144,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                         ) }
                     { ...computeData( bot, focus, src, step ) }
                 />
+                <div><div /></div>
             </div>
             );
         }

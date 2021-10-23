@@ -1,8 +1,6 @@
 declare const FRAMEWORK: string;
 
-export const TWICPICS_COMPONENTS_NAME = `twicpics-components`;
-
-const buildErrorMessage = ( message: string ): string => `${ TWICPICS_COMPONENTS_NAME }: ${ message }`;
+const buildErrorMessage = ( message: string ): string => `twicpics-components ${ message }`;
 
 export const wait = ( ms = 0 ): Promise< void > => new Promise< void >(
     resolve => ( ( ms > 0 ) ? setTimeout( resolve, ms ) : resolve() )
@@ -29,17 +27,23 @@ export const logError = ( message: string ): void => {
     console.error( buildErrorMessage( message ) );
 };
 
+export const logWarning = ( message: string ): void => {
+    // eslint-disable-next-line no-console
+    console.warn( buildErrorMessage( message ) );
+};
+
 export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };
 
-export const regExpFinderFactory = < T = string >( regExp: RegExp ) => ( expression: T | string ): T => {
-    let found;
-    if ( expression ) {
-        ( expression as string ).replace( regExp, ( _, value ) => ( found = value ) );
-    }
-    return found;
-};
+export const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
+    ( value: T | string ): T => {
+        let found;
+        if ( value ) {
+            ( value as string ).replace( regExp, ( _, v ) => ( found = v ) );
+        }
+        return filter ? filter( found ) : found;
+    };
 
 export const trimRegExpFactory = ( items: Array< string > | string ): RegExp =>
     new RegExp( `^\\s*(${ Array.isArray( items ) ? items.join( `|` ) : items })\\s*$` );

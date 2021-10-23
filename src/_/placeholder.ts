@@ -2,9 +2,8 @@
 import type { Mode, Placeholder } from "./types";
 
 import { config } from "./install";
-import { createElement, cssWithoutPx, deleteElementData, getElementData, getFirstChild, getLastChild } from "./dom";
-import { debounce } from "./utils";
-import { observe, unobserve } from "./observers";
+import { cssWithoutPx, getFirstChild, getLastChild } from "./dom";
+import { debounce, isBrowser, logWarning } from "./utils";
 import { parseMode } from "./parse";
 
 const PLACEHOLDER_DIM = 1000;
@@ -18,13 +17,13 @@ export interface PlaceholderData {
 }
 
 const computeWrapperBackground = (
-    element: HTMLDivElement,
+    element: Element,
     { focus, mode, placeholder, ratio, src }: PlaceholderData
 ): string => {
-    if ( placeholder === `none` ) {
-        return undefined;
+    if ( !placeholder || !src ) {
+        return ``;
     }
-    const computedStyle = window.getComputedStyle( getFirstChild( getLastChild( element ) ) );
+    const computedStyle = getComputedStyle( element );
     let height = PLACEHOLDER_DIM;
     let width = PLACEHOLDER_DIM;
     if ( ratio === undefined ) {
@@ -37,72 +36,88 @@ const computeWrapperBackground = (
     }
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
-    const actualMode = mode || parseMode( computedStyle.backgroundSize );
+    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
     return `${
-        ( ( actualMode !== `contain` ) && focus ) ? `focus=${ focus }/` : ``
+        ( ( actualMode === `cover` ) && focus ) ? `focus=${ focus }/` : ``
     }${
-        actualMode || `cover`
+        actualMode
     }=${
         width
     }x${
         height
     }/output=${
-        placeholder || `preview`
+        placeholder
     }/${
         src
     }`;
 };
 
-const bgFactory = ( element: HTMLDivElement ) => {
-    let oldWrapperBackground = ``;
-    return debounce( () => {
-        const data = getElementData( element ).bgd as PlaceholderData;
-        if ( data ) {
-            const wrapperBackground = computeWrapperBackground( element, data );
-            if ( wrapperBackground !== oldWrapperBackground ) {
-                oldWrapperBackground = wrapperBackground;
-                // eslint-disable-next-line no-param-reassign
-                element.style.backgroundImage = wrapperBackground ? `url(${ JSON.stringify(
-                    `${ config.domain }/v1/${ wrapperBackground }`
-                ) })` : `none`;
-            }
+const PRIVATE_KEY = ` TPCWBG ${ Math.random() } ${ Date.now() } `;
+
+const resizeObserver: false | ResizeObserver =
+    isBrowser &&
+    ( typeof ResizeObserver !== `undefined` ) &&
+    new ResizeObserver( ( records: Array< ResizeObserverEntry > ): void => {
+        for ( const { target } of records ) {
+            ( target as unknown as Record< string, () => void > )[ PRIVATE_KEY ]();
         }
     } );
-};
 
-export const setPlaceholderData = ( element: HTMLDivElement, data: PlaceholderData ): void => {
-    const elementData = getElementData( element );
-    elementData.bgd = data;
-    const bg = elementData.bg as ( () => void );
-    if ( bg ) {
-        bg();
-    }
-};
+if ( isBrowser && !resizeObserver ) {
+    logWarning( `ResizeObserver not found` );
+}
 
-export const handlePlaceholder = ( element: HTMLDivElement, data?: PlaceholderData ): void => {
-    if ( observe ) {
-        const elementData = getElementData( element );
-        if ( data ) {
-            elementData.bgd = data;
-        }
-        if ( !elementData.bg ) {
-            createElement( {
-                ".": element,
-                ">": {
-                    ">": {},
-                },
+export interface PlaceholderHandler {
+    delete: () => void,
+    setData: ( data: PlaceholderData ) => void,
+    setWrapper: ( wrapper: HTMLDivElement ) => void,
+}
+export const createPlaceholderHandler = (
+    handler: ( backgroundImage: string ) => void = undefined
+): PlaceholderHandler => {
+    let element: Element;
+    let savedWrapperBackground: string;
+    let savedData: PlaceholderData;
+    let refresh: () => void;
+    return {
+        "delete": (): void => {
+            if ( element ) {
+                if ( resizeObserver ) {
+                    resizeObserver.unobserve( element );
+                }
+                delete ( element as unknown as Record< string, unknown > )[ PRIVATE_KEY ];
+            }
+        },
+        "setData": ( data: PlaceholderData ): void => {
+            savedData = data;
+            if ( refresh ) {
+                refresh();
+            }
+        },
+        "setWrapper": ( wrapper: HTMLDivElement ): void => {
+            Object.defineProperty( ( element = getFirstChild( getLastChild( wrapper ) ) ), PRIVATE_KEY, {
+                "configurable": true,
+                "value": ( refresh = debounce( () => {
+                    if ( element && savedData ) {
+                        const wrapperBackground = computeWrapperBackground( element, savedData );
+                        if ( wrapperBackground !== savedWrapperBackground ) {
+                            savedWrapperBackground = wrapperBackground;
+                            const backgroundImage = `url(${ JSON.stringify(
+                                `${ config.domain }/v1/${ wrapperBackground }`
+                            ) })`;
+                            if ( handler ) {
+                                handler( backgroundImage );
+                            } else {
+                                // eslint-disable-next-line no-param-reassign
+                                wrapper.style.backgroundImage = backgroundImage;
+                            }
+                        }
+                    }
+                } ) ),
             } );
-            const bg: () => void = bgFactory( element );
-            elementData.bg = bg;
-            observe( element );
-            bg();
-        }
-    }
-};
-
-export const unhandlePlaceholder = ( element: HTMLDivElement ): void => {
-    if ( unobserve ) {
-        unobserve( element );
-        deleteElementData( element );
-    }
+            if ( resizeObserver ) {
+                resizeObserver.observe( element );
+            }
+        },
+    };
 };

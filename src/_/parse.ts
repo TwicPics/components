@@ -5,7 +5,7 @@ import { logError, regExpFinderFactory, trimRegExpFactory } from "./utils";
 const rImage = /^(image:)?\/?/;
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
-const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+` ) );
+const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 
 export const parseAlt = trimOrUndefined;
 
@@ -17,7 +17,11 @@ export const parseFocus = trimOrUndefined;
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
-export const parsePlaceholder = regExpFinderFactory< Placeholder >( rValidPlaceholder );
+export const parsePlaceholder = regExpFinderFactory< Placeholder >(
+    rValidPlaceholder,
+    // eslint-disable-next-line no-nested-ternary
+    ( value: Placeholder ) => ( value ? ( ( value === `none` ) ? undefined : value ) : `preview` )
+);
 
 export const parsePosition = trimOrUndefined;
 
@@ -29,7 +33,7 @@ export const parseRatio = ( value: number | string ): number => {
         const parsed = rValidRatio.exec( value );
         if ( parsed ) {
             const [ , , width, height ] = parsed;
-            number = height ? ( Number( height ) / Number( width ) ) : Number( width );
+            number = ( height ? Number( height ) : 1 ) / Number( width );
         } else {
             number = 1;
         }
@@ -51,7 +55,7 @@ export const parseSrc = ( value: string ): string => {
     value = trimOrUndefined( value );
     if ( !value ) {
         logError( `src is mandatory` );
-        return ``;
+        return undefined;
     }
     return value.replace( rImage, `image:` );
 };
@@ -60,7 +64,7 @@ export const parseTransition = ( value: boolean | string ): boolean => {
     if ( typeof value !== `boolean` ) {
         const trimmed = trimOrUndefined( value );
         // eslint-disable-next-line no-param-reassign
-        value = !trimmed || Boolean( trimmed );
+        value = !( trimmed && ( trimmed === `false` ) );
     }
     return value;
 };

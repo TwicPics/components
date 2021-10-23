@@ -32,17 +32,18 @@ export interface Config {
     class: string,
     domain?: string,
 }
+const validFactory = < T >( regExp: RegExp ) => ( value: T | string ): boolean => regExp.test( String( value ) );
 
-
-const validFactory = < T >( regExp: RegExp ) => ( value: T | string ): boolean => regExp.test( value as string );
-
-export const validModes = [ `contain`, `cover` ];
+export const validModes: Array< Mode > = [ `contain`, `cover` ];
 export const rValidMode = trimRegExpFactory( validModes );
 export const isValidMode = validFactory< Mode >( rValidMode );
 
-export const validPlaceholders = [ `maincolor`, `meancolor`, `none`, `preview` ];
+export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor`, `none`, `preview` ];
 export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
 export const isValidPlaceholder = validFactory< Placeholder >( rValidPlaceholder );
 
 export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*\\/\\s*(\\d+(?:\\.\\d+)?))?` );
 
+export const validTransition = [ `false`, `true` ];
+export const rValidTransition = trimRegExpFactory( validTransition );
+export const isValidTransition = validFactory< boolean >( rValidTransition );

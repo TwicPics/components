@@ -1,6 +1,6 @@
 import type { Options, Config } from "./types";
 import { createElement } from "./dom";
-import { isBrowser, isWebComponents, logError, throwError } from "./utils";
+import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
 
 const getDefaultConfig = (): Config => ( {
     "domain": undefined,
@@ -58,12 +58,11 @@ export default ( options: Options ): void => {
     if ( isBrowser ) {
 
         if ( hasPreviousInstall ) {
-            logError( `install function called multiple times` );
+            logWarning( `install function called multiple times` );
             return;
         }
 
         const parts = [ `${ domain }/?v1` ];
-
         Object.entries( options ).forEach( ( [ key, value ] ) => {
             if ( value != null ) {
                 let actualKey = key;

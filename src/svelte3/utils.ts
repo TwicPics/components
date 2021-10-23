@@ -1,9 +1,4 @@
-const rCamelCase = /([A-Z])/g;
-
-export const styleToString = ( object: Record< string, string > ): string => (
-    object ?
-        Object.entries( object )
-            .map( ( [ k, v ] ) => `${ k.replace( rCamelCase, ( _, l ) => `-${ l.toLowerCase() }` ) }:${ v }` )
-            .join( `;` ) :
-        ``
-);
+export const styleToString = ( properties: Record< string, string > ): string =>
+    Object.entries( properties )
+        .flatMap( ( [ p, v ] ) => ( v ? [ `${ p }:${ v };` ] : [] ) )
+        .join( `` );

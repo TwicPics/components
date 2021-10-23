@@ -1,9 +1,8 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { Mode, Placeholder } from "./types";
+import type { PlaceholderData } from "./placeholder";
 
 import { config } from "./install";
-import { isBrowser } from "./utils";
-import { PlaceholderData, setPlaceholderData } from "./placeholder";
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
@@ -22,12 +21,22 @@ export const computeData = (
     focus: string,
     src: string,
     step: number
-): Record< string, string > => ( {
-    [ `data-${ config.class }-bot` ]: ( bot && bot.trim() ) || undefined,
-    [ `data-${ config.class }-focus` ]: ( focus && focus.trim() ) || undefined,
-    [ `data-${ config.class }-src` ]: src,
-    [ `data-${ config.class }-step` ]: ( step && ( step > 0 ) && `${ step }` ) || undefined,
-} );
+): Record< string, string > => {
+    const attributes: Record< string, string > = {};
+    if ( bot ) {
+        attributes[ `data-${ config.class }-bot` ] = bot;
+    }
+    if ( focus ) {
+        attributes[ `data-${ config.class }-focus` ] = focus;
+    }
+    if ( src ) {
+        attributes[ `data-${ config.class }-src` ] = src;
+    }
+    if ( step !== undefined ) {
+        attributes[ `data-${ config.class }-step` ] = String( step );
+    }
+    return attributes;
+};
 
 export const computeStyle = (
     mode: Mode,
@@ -36,68 +45,38 @@ export const computeStyle = (
     transitionDelay: string,
     transitionDuration: string,
     transitionTimingFunction: string
-): Record< string, string > => {
-    const style: Record< string, string > = {};
-    if ( mode !== undefined ) {
-        style.objectFit = mode;
-    }
-    if ( position !== undefined ) {
-        style.objectPosition = position;
-    }
-    if ( transition === false ) {
-        style.transitionDelay = `0`;
-        style.transitionDuration = `0`;
-    } else {
-        if ( transitionDelay !== undefined ) {
-            style.transitionDelay = transitionDelay;
-        }
-        if ( transitionDuration !== undefined ) {
-            style.transitionDuration = transitionDuration;
-        }
-        if ( transitionTimingFunction !== undefined ) {
-            style.transitionTimingFunction = transitionTimingFunction;
-        }
-    }
-    return style;
-};
+): Record< string, string > => ( {
+    "object-fit": mode || ``,
+    "object-position": position || ``,
+    "transition-delay": ( transition && transitionDelay ) || `0`,
+    "transition-duration": ( transition && transitionDuration ) || `0`,
+    "transition-timing-function": transitionTimingFunction || ``,
+} );
 
 export const computeWrapperClass = (
     className?: string
 ): string => `twic-w${ className ? ` ${ className }` : `` }`;
 
 export const computeWrapperStyle = (
-    element: HTMLDivElement | ( ( data: PlaceholderData ) => void ),
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
     position: string,
     ratio: number,
-    src: string
+    src: string,
+    placeholderDataHandler: ( ( data: PlaceholderData ) => void )
 ): Record< string, string > => {
-    const style: Record< string, string > = {};
-    if ( mode !== undefined ) {
-        style.backgroundSize = mode;
-    }
-    if ( position !== undefined ) {
-        style.backgroundPosition = position;
-    }
-    if ( ( ratio !== undefined ) ) {
+    placeholderDataHandler( {
+        focus,
+        mode,
+        placeholder,
+        ratio,
+        src,
+    } );
+    return {
+        "background-size": mode || ``,
+        "background-position": position || ``,
         // eslint-disable-next-line no-magic-numbers
-        style.paddingTop = `${ ratio * 100 }%`;
-    }
-    if ( isBrowser && element ) {
-        const data = {
-            focus,
-            mode,
-            placeholder,
-            ratio,
-            src,
-        };
-        if ( element instanceof HTMLDivElement ) {
-            setPlaceholderData( element, data );
-        } else {
-            element( data );
-        }
-    }
-    return style;
+        "padding-top": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
+    };
 };

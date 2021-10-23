@@ -12,7 +12,7 @@ interface Options extends BaseOptions {
 const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Options ): void => {
     install( options );
     if ( options.TwicImg && ( options.TwicImg === options.TwicVideo ) ) {
-        throwError( `vue - TwicImg and TwicVideo components must have different names` );
+        throwError( `TwicImg and TwicVideo components must have different names` );
     }
     register( VueObject, options.TwicImg || `TwicImg`, `img` );
     register( VueObject, options.TwicVideo || `TwicVideo`, `video` );

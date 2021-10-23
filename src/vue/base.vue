@@ -1,17 +1,7 @@
 <script>
-import {
-    callWithProps,
-    defineProp,
-    defineStringProp,
-    numberProp,
-    parseFactory,
-    requiredStringProp,
-    stringProp,
-} from "./utils";
+import { defineProp, defineStringProp, intProp, requiredStringProp, stringProp } from "./props";
 import { computeAlt, computeData, computeStyle, computeWrapperStyle } from "../_/compute";
-import { handlePlaceholder, unhandlePlaceholder } from "../_/placeholder";
-import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/types";
-
+import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
     parseBot,
@@ -27,72 +17,76 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
+import { rValidMode, rValidPlaceholder, rValidRatio, rValidTransition } from "../_/types";
 
-const getPDataAndDelete = c => {
-    const data = c._p;
-    // eslint-disable-next-line no-param-reassign
-    delete c._p;
-    return data;
+const callFactory = ( func, _args ) => {
+    const args = _args.map( arg => ( ( typeof arg === `function` ) ? {
+        "f": arg,
+    } : {
+        "s": `p_${ arg }`,
+    } ) );
+    return function() {
+        // eslint-disable-next-line no-invalid-this
+        return func( ...args.map( ( { f, s } ) => ( f ? f( this ) : this[ s ] ) ) );
+    };
 };
-// eslint-disable-next-line no-param-reassign
-const getWrapperOrCallback = c => c.$refs.w || ( data => ( c._p = data ) );
+
+const computed = {};
+const props = {};
+
+for ( const [ propName, type, parseMethod ] of [
+    [ `alt`, stringProp, parseAlt ],
+    [ `bot`, stringProp, parseBot ],
+    [ `focus`, stringProp, parseFocus ],
+    [ `mode`, defineStringProp( rValidMode ), parseMode ],
+    [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder ],
+    [ `position`, stringProp, parsePosition ],
+    [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
+    [ `src`, requiredStringProp, parseSrc ],
+    [ `step`, intProp, parseStep ],
+    [ `transition`, defineProp( Boolean, rValidTransition ), parseTransition ],
+    [ `transitionDelay`, stringProp, parseTransitionDelay ],
+    [ `transitionDuration`, stringProp, parseTransitionDuration ],
+    [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
+] ) {
+    computed[ `p_${ propName }` ] = function() {
+        return parseMethod( this[ propName ] );
+    };
+    props[ propName ] = type;
+}
+
+for ( const [ propName, func, args ] of [
+    [ `_alt`, computeAlt, [ `alt`, `src` ] ],
+    [ `_dataAttributes`, computeData, [ `bot`, `focus`, `src`, `step` ] ],
+    [
+        `_style`,
+        computeStyle,
+        [ `mode`, `position`, `transition`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
+    ],
+    [
+        `_wrapperStyle`,
+        computeWrapperStyle,
+        [ `focus`, `mode`, `placeholder`, `position`, `ratio`, `src`, c => c._p.setData ],
+    ],
+] ) {
+    computed[ propName ] = callFactory( func, args );
+}
 
 export default {
-    "props": {
-        "alt": stringProp,
-        "bot": stringProp,
-        "focus": stringProp,
-        "mode": defineStringProp( rValidMode ),
-        "placeholder": defineStringProp( rValidPlaceholder ),
-        "position": stringProp,
-        "ratio": defineStringProp( rValidRatio ),
-        "src": requiredStringProp,
-        "step": numberProp,
-        "transition": defineProp( Boolean ),
-        "transitionDuration": stringProp,
-        "transitionTimingFunction": stringProp,
-        "transitionDelay": stringProp,
-    },
-    "computed": {
-        "parsedAlt": parseFactory( parseAlt, `alt` ),
-        "parsedBot": parseFactory( parseBot, `bot` ),
-        "parsedFocus": parseFactory( parseFocus, `focus` ),
-        "parsedMode": parseFactory( parseMode, `mode` ),
-        "parsedPlaceholder": parseFactory( parsePlaceholder, `placeholder` ),
-        "parsedPosition": parseFactory( parsePosition, `position` ),
-        "parsedRatio": parseFactory( parseRatio, `ratio` ),
-        "parsedSrc": parseFactory( parseSrc, `src` ),
-        "parsedStep": parseFactory( parseStep, `step` ),
-        "parsedTransition": parseFactory( parseTransition, `transition` ),
-        "parsedTransitionDelay": parseFactory( parseTransitionDelay, `transitionDelay` ),
-        "parsedTransitionDuration": parseFactory( parseTransitionDuration, `transitionDuration` ),
-        "parsedTransitionTimingFunction": parseFactory( parseTransitionTimingFunction, `transitionTimingFunction` ),
-        "_alt": callWithProps( computeAlt, `parsedAlt`, `parsedSrc` ),
-        "_dataAttributes": callWithProps( computeData, `parsedBot`, `parsedFocus`, `parsedSrc`, `parsedStep` ),
-        "_style": callWithProps(
-            computeStyle,
-            `parsedMode`,
-            `parsedPosition`,
-            `parsedTransition`,
-            `parsedTransitionDelay`,
-            `parsedTransitionDuration`,
-            `parsedTransitionTimingFunction`
-        ),
-        "_wrapperStyle": callWithProps(
-            computeWrapperStyle,
-            getWrapperOrCallback,
-            `parsedFocus`,
-            `parsedMode`,
-            `parsedPlaceholder`,
-            `parsedPosition`,
-            `parsedRatio`,
-            `parsedSrc`
-        ),
+    props,
+    computed,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    beforeCreate() {
+        this._p = createPlaceholderHandler();
     },
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    "mounted": callWithProps( handlePlaceholder, getWrapperOrCallback, getPDataAndDelete ),
+    mounted() {
+        this._p.setWrapper( this.$refs.w );
+    },
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    "unmounted": callWithProps( unhandlePlaceholder, getWrapperOrCallback ),
+    unmounted() {
+        this._p.delete();
+    },
 };
 </script>
 <template>
@@ -107,6 +101,7 @@ export default {
             :style="_style"
             v-bind="{ ..._dataAttributes }"
         />
+        <div><div /></div>
     </div>
 </template>
 <style src="../_/style.css"></style>

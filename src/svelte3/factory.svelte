@@ -1,9 +1,13 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
+import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
+
 import { configBasedStyle, markComponentsChain } from "../_/install";
 import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
-import { handlePlaceholder, unhandlePlaceholder } from "../_/placeholder";
+import { createPlaceholderHandler } from "../_/placeholder";
+import { isBrowser, isWebComponents } from "../_/utils";
+import { onDestroy, onMount } from "svelte/internal";
 import {
     parseAlt,
     parseBot,
@@ -20,14 +24,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
-
-import { isBrowser, isWebComponents } from "../_/utils";
-
-import { onDestroy, onMount } from "svelte/internal";
-
 import { styleToString } from "./utils";
-
-import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
 
 export interface Attributes extends BaseAttributes {
     class?: string,
@@ -54,6 +51,11 @@ export let transitionTimingFunction: string = undefined;
 
 let wrapper: HTMLDivElement;
 
+let _wrapperBackgroundImage: string;
+const placeholderHandler = createPlaceholderHandler( bgImage => {
+    _wrapperBackgroundImage = bgImage && `background-image:${ bgImage }`;
+} );
+
 $: parsedAlt = parseAlt( alt );
 $: parsedBot = parseBot( bot );
 $: parsedFocus = parseFocus( focus );
@@ -79,23 +81,23 @@ $: _style = styleToString( computeStyle(
     parsedTransitionTimingFunction
 ) );
 $: _wrapperStyle = styleToString( computeWrapperStyle(
-    wrapper,
     parsedFocus,
     parsedMode,
     parsedPlaceholder,
     parsedPosition,
     parsedRatio,
-    parsedSrc
+    parsedSrc,
+    placeholderHandler.setData,
 ) );
 
 if ( isBrowser ) {
     onMount( () => {
-        handlePlaceholder( wrapper );
+        placeholderHandler.setWrapper( wrapper );
         if ( isWebComponents ) {
             markComponentsChain( wrapper.parentNode as Element );
         }
     } );
-    onDestroy( () => unhandlePlaceholder( wrapper ) );
+    onDestroy( placeholderHandler.delete );
 }
 </script>
 
@@ -105,11 +107,12 @@ if ( isBrowser ) {
 <div
     bind:this = { wrapper }
     class = { computeWrapperClass( isWebComponents ? undefined : parseClassName( className ) ) }
-    style = { _wrapperStyle }
+    style = "{ _wrapperStyle }{ _wrapperBackgroundImage }"
 >
     <img
         alt = { _alt }
         style = { _style }
         { ..._data }
     />
+    <div><div /></div>
 </div>
