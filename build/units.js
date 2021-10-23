@@ -13,6 +13,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
         svelte( {
             "compilerOptions": {
                 customElement,
+                "hydratable": !customElement,
             },
             "extensions": [ `.svelte` ],
             "preprocess": sveltePreprocessor(),
