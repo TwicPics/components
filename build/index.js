@@ -6,6 +6,10 @@ import { copy, remove } from "fs-extra";
 import { readFile, writeFile } from "fs/promises";
 import rollup from "./rollup.js";
 import units from "./units.js";
+import {
+    buildComponents as buildAngularComponents,
+    exportsPackageJson as exportsAngularPackageJson,
+} from "./angular/angularBuilder.js";
 
 const formats = [ `cjs`, `es` ];
 
@@ -40,6 +44,13 @@ await Promise.all( units.map(
     ( { framework } ) => remove( `${ __dirname }/../dist/${ framework }/style.css` ).catch( () => undefined )
 ) );
 
+try {
+    await buildAngularComponents();
+    console.log( `angular components generated` );
+} catch ( error ) {
+    console.error( `angular components generation error:`, error );
+}
+
 console.log( `generating package.json with mappings...` );
 const packageJSON = JSON.parse( await readFile( `${ __dirname }/package.template.json`, `utf8` ) );
 packageJSON.exports = Object.fromEntries( [
@@ -51,6 +62,7 @@ packageJSON.exports = Object.fromEntries( [
             "require": `./${ framework }/index.js`,
         },
     ] ),
+    ...await exportsAngularPackageJson(),
 ] );
 await writeFile( `${ __dirname }/../dist/package.json`, JSON.stringify( packageJSON, null, `  ` ) );
 

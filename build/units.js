@@ -1,4 +1,4 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replacer from "./replacer.js";
 import svelte from "rollup-plugin-svelte";
 import sveltePreprocessor from "svelte-preprocess";

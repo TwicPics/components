@@ -116,36 +116,36 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const transitionDuration = parseTransitionDuration( props.transitionDuration );
             const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
             return (
-            <div
-                ref={ this._w }
-                className = { computeWrapperClass( className ) }
-                style = {
-                    computeWrapperStyle(
-                        focus,
-                        mode,
-                        placeholder,
-                        position,
-                        ratio,
-                        src,
-                        this._p.setData,
-                    )
-                }
-            >
-                <Tag
-                    alt = { withAlt ? computeAlt( alt, src ) : undefined }
+                <div
+                    ref={ this._w }
+                    className = { computeWrapperClass( className ) }
                     style = {
-                        computeStyle(
+                        computeWrapperStyle(
+                            focus,
                             mode,
+                            placeholder,
                             position,
-                            transition,
-                            transitionDelay,
-                            transitionDuration,
-                            transitionTimingFunction
-                        ) }
-                    { ...computeData( bot, focus, src, step ) }
-                />
-                <div><div /></div>
-            </div>
+                            ratio,
+                            src,
+                            this._p.setData
+                        )
+                    }
+                >
+                    <Tag
+                        alt = { withAlt ? computeAlt( alt, src ) : undefined }
+                        style = {
+                            computeStyle(
+                                mode,
+                                position,
+                                transition,
+                                transitionDelay,
+                                transitionDuration,
+                                transitionTimingFunction
+                            ) }
+                        { ...computeData( bot, focus, src, step ) }
+                    />
+                    <div><div /></div>
+                </div>
             );
         }
     }

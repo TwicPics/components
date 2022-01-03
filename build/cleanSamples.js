@@ -2,7 +2,10 @@ import __dirname from "./__dirname.js";
 import { readdir, stat } from "fs/promises";
 import { remove } from "fs-extra";
 
-const toDelete = new Set( [ `.next`, `.nuxt`, `build`, `dist`, `node_modules`, `package-lock.json`, `yarn.lock` ] );
+const toDelete = new Set( [
+    `.angular`, `.next`, `.nuxt`, `build`, `dist`, `node_modules`,
+    `package-lock.json`, `yarn.lock`,
+] );
 
 const clean = async dir => Promise.all(
     ( await readdir( dir ) ).map( file => {

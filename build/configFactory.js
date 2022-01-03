@@ -1,7 +1,7 @@
 import __dirname from "./__dirname.js";
 import { copy, remove } from "fs-extra";
 import { createRequire } from "module";
-import { dirname } from 'path';
+import { dirname } from "path";
 import { readFile, unlink, writeFile } from "fs/promises";
 
 const MINIFY_PASSES = 3;
@@ -22,7 +22,7 @@ const formatRename = new Map( [
     [ `es`, `module` ],
 ] );
 
-import css from 'rollup-plugin-css-porter';
+import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import typeScript from "@rollup/plugin-typescript";

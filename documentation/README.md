@@ -19,6 +19,7 @@ With [TwicPics](https://www.twicpics.com/), developers only deal with high-resol
 
 [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) currently supports:
 
+- [Angular](https://angular.io/) (version 12 to 13)
 - [React](https://reactjs.org/) and [Next.js](https://nextjs.org/)
 - [Svelte](https://svelte.dev/) (version 3)
 - [Vue.js](https://vuejs.org/) (version 2 to 3) and [Nuxt.js](https://nuxtjs.org/)
@@ -231,6 +232,59 @@ customElements.define( `twic-img`, TwicImg );
 <body>
   <twic-img src="path/to/your/image"/>
 </body>
+```
+
+### Angular 12+
+__WARNING__: while importing angular components, you will have to select the targeted version
+eg : 
+```ts
+import {xxx} from @twicpics/components/angular12
+``` 
+or 
+```ts
+import {xxx} from @twicpics/components/angular13
+```
+#### `app.module.ts`
+You need to import the TwicPicsComponentsModule within your app.module.ts file.
+```ts
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppComponent } from "./app.component";
+import { TwicPicsComponentsModule } from "@twicpics/components/angular<your-targeted-version>";
+
+@NgModule( {
+    "declarations": [ AppComponent ],
+    "imports": [
+        BrowserModule,
+        TwicPicsComponentsModule,
+    ],
+    "providers": [],
+    "bootstrap": [ AppComponent ],
+} )
+export class AppModule { }
+```
+
+#### `app.component.ts`
+You will need to configure TwicPicComponent 
+```ts
+import { Component } from "@angular/core";
+import { installTwicPics } from "@twicpics/components/angular<your-targeted-version>";
+@Component( {
+    "selector": `app-root`,
+    "templateUrl": `./app.component.html`,
+} )
+export class AppComponent {
+}
+
+installTwicPics( {
+    // domain is mandatory
+    "domain": "https://<your-domain>.twic.pics"
+} );
+```
+
+#### `<your-component-within-app.module>.component.html`
+```html
+<TwicImg src="path/to/your/image"></TwicImg>
 ```
 
 ## Setup Options

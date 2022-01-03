@@ -4,7 +4,11 @@
 /samples/**/package-lock.json
 /samples/**/yarn.lock
 /samples/webcomponents/index.html
+/samples/angular*/**/app.component.html
+/build/angular/_templates/angular*/twicpics-components/src
 *.log
 .DS_Store
 dist
 node_modules
+.angular
+.history

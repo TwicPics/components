@@ -1,4 +1,5 @@
 /samples/**/.next
 /samples/**/.nuxt
 /samples/**/build
+/samples/**/polyfills.ts
 dist
