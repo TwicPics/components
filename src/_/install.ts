@@ -67,7 +67,7 @@ export default ( options: Options ): void => {
             if ( value != null ) {
                 let actualKey = key;
                 if ( key === `class` ) {
-                    config.class = `{ $value }`;
+                    config.class = `${ value }`;
                 } else if ( key === `maxDPR` ) {
                     actualKey = `max-dpr`;
                 }
