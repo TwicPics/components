@@ -29,3 +29,8 @@ export interface Options {
     path?: OptionalString,
     step?: OptionalNumber,
 }
+
+export interface Config {
+    class: string,
+    domain: OptionalString,
+}
