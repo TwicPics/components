@@ -46,11 +46,11 @@ export const computeStyle = (
     transitionDuration: string,
     transitionTimingFunction: string
 ): Record< string, string > => ( {
-    "object-fit": mode || ``,
-    "object-position": position || ``,
-    "transition-delay": ( transition && transitionDelay ) || `0`,
-    "transition-duration": ( transition && transitionDuration ) || `0`,
-    "transition-timing-function": transitionTimingFunction || ``,
+    "objectFit": mode || ``,
+    "objectPosition": position || ``,
+    "transitionDelay": ( transition && transitionDelay ) || `0`,
+    "transitionDuration": ( transition && transitionDuration ) || `0`,
+    "transitionTimingFunction": transitionTimingFunction || ``,
 } );
 
 export const computeWrapperClass = (
@@ -74,9 +74,9 @@ export const computeWrapperStyle = (
         src,
     } );
     return {
-        "background-size": mode || ``,
-        "background-position": position || ``,
+        "backgroundSize": mode || ``,
+        "backgroundPosition": position || ``,
         // eslint-disable-next-line no-magic-numbers
-        "padding-top": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
+        "paddingTop": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
     };
 };
