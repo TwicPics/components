@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import __dirname from "./__dirname.js";
-import cleanSamples from "./cleanSamples.js";
+import clean from "./clean.js";
 import configFactory from "./configFactory.js";
 import { copy, remove } from "fs-extra";
 import { readFile, writeFile } from "fs/promises";
@@ -78,5 +78,4 @@ await writeFile(
     await readFile( `${ __dirname }/../LICENSE` )
 );
 
-console.log( `cleaning dependencies in samples subdirectory...` );
-await cleanSamples();
+await clean();

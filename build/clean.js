@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import __dirname from "./__dirname.js";
 import { readdir, stat } from "fs/promises";
 import { remove } from "fs-extra";
@@ -18,4 +19,9 @@ const clean = async dir => Promise.all(
     } )
 );
 
-export default () => clean( `${ __dirname }/../samples` );
+export default () => {
+    console.log( `cleaning dependencies in samples subdirectory...` );
+    clean( `${ __dirname }/../samples` );
+    console.log( `cleaning dependencies in tests subdirectory...` );
+    clean( `${ __dirname }/../tests` );
+};
