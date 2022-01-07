@@ -2,12 +2,7 @@ import type { Options, Config } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
 
-const getDefaultConfig = (): Config => ( {
-    "domain": undefined,
-    "class": `twic`,
-} );
-
-export let config = getDefaultConfig();
+export let config: Config;
 
 export const configBasedStyle = (): string => `.twic-w>.${ config.class }-done{opacity:1 !important}`;
 export const markComponentsChain = ( item: Element ): undefined => {
@@ -42,7 +37,7 @@ export default ( options: Options ): void => {
         throwError( `install options not provided` );
     }
 
-    const hasPreviousInstall = config.domain;
+    const hasPreviousInstall = config && config.domain;
 
     const { domain, "class": _class } = options;
 
@@ -50,9 +45,10 @@ export default ( options: Options ): void => {
         throwError( `install domain "${ domain }" is invalid` );
     }
 
-    config = getDefaultConfig();
-    config.domain = domain;
-    config.class = _class || config.class;
+    config = {
+        domain,
+        "class": _class || `twic`,
+    };
 
     // not done in SSR
     if ( isBrowser ) {
