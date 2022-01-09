@@ -1,6 +1,12 @@
 <img align="right" width="25%" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
 
 # TwicPics Components CHANGELOG
+## 0.5.0
+- __feature__: it's now possible to setup component using pure `CSS`
+- __feature__: supports `Angular 12+`
+- __feature__: allows passing `className` prop to `React` and `Svelte` components
+- __bug__: fixes `install function already called` error on server side when modifying the class calling the installTwicPics method in `Next`
+- __bug__: fixes custom class setting on `installTwicPics`
 
 ## 0.4.1
 

@@ -40,8 +40,140 @@ depending on which package manager you fancy.
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
-### React
+### Angular 12+
 
+__WARNING__: while importing angular components, you will have to select the targeted version
+eg : 
+```ts
+import {xxx} from @twicpics/components/angular12
+``` 
+or 
+```ts
+import {xxx} from @twicpics/components/angular13
+```
+#### `app.module.ts`
+
+You need to import the TwicPicsComponentsModule within your app.module.ts file.
+```ts
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppComponent } from "./app.component";
+import { TwicPicsComponentsModule } from "@twicpics/components/angular<your-targeted-version>";
+
+@NgModule( {
+    "declarations": [ AppComponent ],
+    "imports": [
+        BrowserModule,
+        TwicPicsComponentsModule,
+    ],
+    "providers": [],
+    "bootstrap": [ AppComponent ],
+} )
+export class AppModule { }
+```
+
+#### `app.component.ts`
+
+You will need to configure TwicPicComponents
+```ts
+import { Component } from "@angular/core";
+import { installTwicPics } from "@twicpics/components/angular<your-targeted-version>";
+@Component( {
+    "selector": `app-root`,
+    "templateUrl": `./app.component.html`,
+} )
+export class AppComponent {
+}
+
+installTwicPics( {
+    // domain is mandatory
+    "domain": "https://<your-domain>.twic.pics"
+} );
+```
+
+#### `<your-component-within-app.module>.component.html`
+
+```html
+<TwicImg src="path/to/your/image"></TwicImg>
+```
+
+### Next
+
+#### `_app.js`
+
+```js
+import { installTwicPics } from "@twicpics/components/react";
+import "@twicpics/components/style.css";
+
+installTwicPics({
+     // domain is mandatory
+    "domain": "https://<your-domain>.twic.pics"
+});
+
+function MyApp({ Component, pageProps }) {
+    return <Component {...pageProps} />
+}
+
+export default MyApp
+```
+__WARNING__: editing the file containing the call to the `installTwicPics` method in watch mode (*ie* `npm|yarn next dev` ) will lead to the __warning__ message `install function called multiple times` on the browser console.  
+You will need to __manually reload__ the page in your browser for any changes made to the twic-pics module configuration to take effect on the client side.  
+This only concerns the file containing the call to the `installTwicPics` method and is only a penalty when modifying the configuration options.
+
+
+#### `index.js`
+
+```js
+import { TwicImg } from "@twicpics/components/react";
+export default function Home() {
+    return (
+            ...
+            <TwicImg src="path/to/your/image"></TwicImg>
+            ...
+    );
+}
+```
+### Nuxt
+
+#### `twicpics.plugin.js`
+
+You will have to create a `twicpics.plugin.js` file
+```js
+import Vue from "vue";
+import TwicPics from "@twicpics/components/vue2";
+import "@twicpics/components/style.css";
+
+Vue.use( TwicPics, {
+    // domain is mandatory
+    "domain": "https://<your-domain>.twic.pics"
+} );
+```
+
+#### `nuxt.config.js`
+
+```js
+export default {
+    ...
+    "plugins": [ `~/<path-to-your-plug-in>/twicpics.plugin.js` ],
+    ...
+};
+```
+
+#### `index.vue`
+
+```html
+<template>
+    ...
+    <TwicImg src="path/to/your/image"></TwicImg>
+    ...
+</template>
+
+<script>
+export default {};
+</script>
+```
+
+### React
 #### `main.jsx`
 
 ```jsx
@@ -67,6 +199,7 @@ ReactDOM.render(
 ```
 
 #### `root.jsx`
+
 ```jsx
 import React from "react";
 
@@ -234,59 +367,6 @@ customElements.define( `twic-img`, TwicImg );
 </body>
 ```
 
-### Angular 12+
-__WARNING__: while importing angular components, you will have to select the targeted version
-eg : 
-```ts
-import {xxx} from @twicpics/components/angular12
-``` 
-or 
-```ts
-import {xxx} from @twicpics/components/angular13
-```
-#### `app.module.ts`
-You need to import the TwicPicsComponentsModule within your app.module.ts file.
-```ts
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppComponent } from "./app.component";
-import { TwicPicsComponentsModule } from "@twicpics/components/angular<your-targeted-version>";
-
-@NgModule( {
-    "declarations": [ AppComponent ],
-    "imports": [
-        BrowserModule,
-        TwicPicsComponentsModule,
-    ],
-    "providers": [],
-    "bootstrap": [ AppComponent ],
-} )
-export class AppModule { }
-```
-
-#### `app.component.ts`
-You will need to configure TwicPicComponent 
-```ts
-import { Component } from "@angular/core";
-import { installTwicPics } from "@twicpics/components/angular<your-targeted-version>";
-@Component( {
-    "selector": `app-root`,
-    "templateUrl": `./app.component.html`,
-} )
-export class AppComponent {
-}
-
-installTwicPics( {
-    // domain is mandatory
-    "domain": "https://<your-domain>.twic.pics"
-} );
-```
-
-#### `<your-component-within-app.module>.component.html`
-```html
-<TwicImg src="path/to/your/image"></TwicImg>
-```
-
 ## Setup Options
 
 | Option | Description | Type | Default |
@@ -366,9 +446,158 @@ This component can be used in place of a `video` element.
 | `src` | Path to the video. Providing it is __mandatory__. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Whether or not to reveal images with a fade in effect once they have been loaded. | `Boolean` | `true` |
-| `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
-| `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
-| `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
+| `transitionDelay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `String` | `0ms` |
+| `transitionDuration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `String` | `400ms` |
+| `transitionTimingFunction` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `String` | `ease` |
+
+## Style driven components
+
+What about setting up your components using ``pure CSS`` ?
+
+### `A simple example`
+
+`styles.css`
+
+```CSS
+.your-style-driven-class
+{
+    --twic-ratio: calc(16/9); // notice calc function
+    --twic-mode:contain;
+    --twic-position: right;
+     margin:20px; // you can of course add classical css
+}
+
+.your-style-driven-class .super-wide
+{
+    --twic-ratio: calc(36/9); // notice calc function
+}
+
+.your-style-driven-class #your-id
+{
+  --twic-ratio: calc(21/9); // notice calc function
+  --twic-mode:cover;
+  --twic-transition-delay: 5ms;
+  --twic-transition-duration: 1000ms;
+  --twic-transition-timing-function:ease-out;
+}
+```
+
+`template.html`
+
+```html
+<div class="your-style-driven-class">
+    <TwicImg 
+        id="your-id" 
+        src="path/to/your/image">
+    </TwicImg>
+    <TwicImg src="path/to/your-second/image"></TwicImg>
+    <TwicImg 
+        src="path/to/your-third/image" 
+        ratio="1/1"  <!---the component attribute overrides the css style--->  
+    ></TwicImg>
+    <TwicImg 
+        class="super-wide"
+        src="path/to/your-fourth/image">
+    </TwicImg>
+</div>
+```
+
+### Responsive Design
+
+Style driven setting components facilitate the development and maintenance of responsive design interfaces.  
+
+`styles.css`
+
+```css
+.your-style-driven-class
+{
+    // xs
+    --twic-ratio:1.9;
+}
+
+// you can define your own breakpoints values
+@media (min-width: <your-custom-break-point>) {
+    // your custom break point value
+    .your-style-driven-class
+    {
+      --twic-transition-timing-function:linear;
+    }
+}
+
+@media (min-width: 640px) {
+    // sm
+    .your-style-driven-class
+    {
+      --twic-mode:contain;
+    }
+}
+
+@media (min-width: 768px) {
+    // md
+    .your-style-driven-class
+    {
+        --twic-mode:cover;
+        --twic-ratio: calc(4/3);
+    }
+}
+
+@media (min-width: 1024px) {
+    // lg
+    .your-style-driven-class
+    {
+        --twic-ratio: calc(16/9);
+    }
+}
+
+@media (min-width: 1280px) {
+    // xl
+    .your-style-driven-class
+    {
+        --twic-ratio: calc(21/9);
+    }
+}
+
+@media (min-width: 1536px) {
+    // 2xl
+    .your-style-driven-class
+    {
+        --twic-ratio: calc(36/9);
+    }
+}
+```
+
+`template.html`
+
+Your template can now be simplified as follows.  
+ 
+```html
+<TwicImg
+    class="my-first-style-driven"
+    src="path/to/your/image">
+</TwicImg>
+```
+
+### Definition of css rules
+
+```css
+<your-style-driven-selector> {
+    --twic-mode: <contain|cover>;
+    --twic-position: <css position>;
+    --twic-ratio: <ratio>; // pure number or calc function
+    --twic-transition-delay: <string>;
+    --twic-transition-duration: <string>;
+    --twic-transition-timing-function:<string>;
+}
+```
+
+| Attribute | Description | Type | Default |
+|:-|:-|:-|:-|
+| `--twic-mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
+| `--twic-position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `String` | `center` |
+| `--twic-ratio` | Unitless `width/height` value pair (as in `calc(4/3)` ___Warning___ do not forget calc). If `height` is not specified, it is assumed to be `1`. A square area will be created by default. | `Number` | `1` | |
+| `--twic-transition-delay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `String` | `0ms` |
+| `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `String` | `400ms` |
+| `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `String` | `ease` |
 
 ## Example
 
