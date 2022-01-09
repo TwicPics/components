@@ -28,10 +28,6 @@ export interface Options {
     step?: number,
 }
 
-export interface Config {
-    class: string,
-    domain?: string,
-}
 const validFactory = < T >( regExp: RegExp ) => ( value: T | string ): boolean => regExp.test( String( value ) );
 
 export const validModes: Array< Mode > = [ `contain`, `cover` ];

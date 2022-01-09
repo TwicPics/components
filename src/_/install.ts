@@ -1,8 +1,19 @@
-import type { Options, Config } from "./types";
+import type { Options } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
 
-export let config: Config;
+/**
+ * default class used in config object
+ */
+const defaultClass = `twic`;
+
+export const config: {
+    domain: string,
+    class: string,
+} = {
+    "domain": undefined,
+    "class": defaultClass,
+};
 
 export const configBasedStyle = (): string => `.twic-w>.${ config.class }-done{opacity:1 !important}`;
 export const markComponentsChain = ( item: Element ): undefined => {
@@ -45,10 +56,8 @@ export default ( options: Options ): void => {
         throwError( `install domain "${ domain }" is invalid` );
     }
 
-    config = {
-        domain,
-        "class": _class || `twic`,
-    };
+    config.domain = domain;
+    config.class = _class || defaultClass;
 
     // not done in SSR
     if ( isBrowser ) {
@@ -62,9 +71,7 @@ export default ( options: Options ): void => {
         Object.entries( options ).forEach( ( [ key, value ] ) => {
             if ( value != null ) {
                 let actualKey = key;
-                if ( key === `class` ) {
-                    config.class = `${ value }`;
-                } else if ( key === `maxDPR` ) {
+                if ( key === `maxDPR` ) {
                     actualKey = `max-dpr`;
                 }
                 if ( key !== `domain` ) {

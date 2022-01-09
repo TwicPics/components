@@ -2,4 +2,8 @@
 /samples/**/.nuxt
 /samples/**/build
 /samples/**/polyfills.ts
+/tests/**/.next
+/tests/**/.nuxt
+/tests/**/build
+/tests/**/polyfills.ts
 dist

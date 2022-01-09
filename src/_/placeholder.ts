@@ -81,6 +81,9 @@ export interface PlaceholderHandler {
 export const createPlaceholderHandler = (
     handler: ( backgroundImage: string ) => void = undefined
 ): PlaceholderHandler => {
+    if ( !config.domain ) {
+        logWarning( `domain has not been configured ` );
+    }
     let element: Element;
     let savedWrapperBackground: string;
     let savedData: PlaceholderData;
@@ -104,7 +107,7 @@ export const createPlaceholderHandler = (
             Object.defineProperty( ( element = wrapper ), PRIVATE_KEY, {
                 "configurable": true,
                 "value": ( refresh = debounce( () => {
-                    if ( element && savedData ) {
+                    if ( element && config.domain && savedData ) {
                         const wrapperBackground = computeWrapperBackground( element, savedData );
                         if ( wrapperBackground && ( wrapperBackground !== savedWrapperBackground ) ) {
                             savedWrapperBackground = wrapperBackground;

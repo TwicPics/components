@@ -5,6 +5,7 @@
 ## 0.5.1
 
 - __bug__: fixes placeholder=`none`
+- __feature__: display of a warning message in the browser console when components are used without initialization phase : `domain has not been configured`.
 
 ## 0.5.0
 
