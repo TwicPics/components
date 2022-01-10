@@ -450,154 +450,141 @@ This component can be used in place of a `video` element.
 | `transitionDuration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `String` | `400ms` |
 | `transitionTimingFunction` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `String` | `ease` |
 
-## Style driven components
+## Style-Driven Approach
 
-What about setting up your components using ``pure CSS`` ?
+You can set up components using pure CSS and the power of [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 
-### `A simple example`
+### Example
 
 `styles.css`
 
 ```CSS
-.your-style-driven-class
-{
-    --twic-ratio: calc(16/9); // notice calc function
-    --twic-mode:contain;
-    --twic-position: right;
-     margin:20px; // you can of course add classical css
+.style-driven {
+  --twic-ratio: calc( 16/9 );
+  --twic-mode: contain;
+  --twic-position: right;
+    width: 500px; // regular CSS can also be used
 }
 
-.your-style-driven-class .super-wide
-{
-    --twic-ratio: calc(36/9); // notice calc function
+.super-wide {
+  --twic-ratio: calc( 36/9 );
 }
 
-.your-style-driven-class #your-id
-{
-  --twic-ratio: calc(21/9); // notice calc function
-  --twic-mode:cover;
+#custom-animation {
+  --twic-ratio: calc( 21/9 );
+  --twic-mode: cover;
   --twic-transition-delay: 5ms;
   --twic-transition-duration: 1000ms;
-  --twic-transition-timing-function:ease-out;
+  --twic-transition-timing-function: ease-out;
 }
 ```
 
 `template.html`
 
 ```html
-<div class="your-style-driven-class">
-    <TwicImg 
-        id="your-id" 
-        src="path/to/your/image">
-    </TwicImg>
-    <TwicImg src="path/to/your-second/image"></TwicImg>
-    <TwicImg 
-        src="path/to/your-third/image" 
-        ratio="1/1"  <!---the component attribute overrides the css style--->  
-    ></TwicImg>
-    <TwicImg 
-        class="super-wide"
-        src="path/to/your-fourth/image">
-    </TwicImg>
-</div>
+<TwicImg 
+  id="custom-animation"
+  src="path/to/your/image"
+></TwicImg>
+
+<TwicImg
+  class="style-driven"
+  src="path/to/your-second/image"
+></TwicImg>
+
+<TwicImg 
+    class="super-wide"
+    src="path/to/your-fourth/image"
+></TwicImg>
+
+<!---
+    Attributes take precedence over CSS.
+    In the next example, ratio will be 1 and NOT calc(16/9)
+--->
+<TwicImg 
+  class="style-driven"
+  src="path/to/your-third/image" 
+  ratio="1"
+></TwicImg>
 ```
 
-### Responsive Design
+### Responsive Example
 
-Style driven setting components facilitate the development and maintenance of responsive design interfaces.  
+Setting up components using CSS enables hassle-free responsive designs.
 
 `styles.css`
 
 ```css
-.your-style-driven-class
-{
-    // xs
-    --twic-ratio:1.9;
+.style-driven {
+  --twic-ratio: 1.9;
 }
 
-// you can define your own breakpoints values
-@media (min-width: <your-custom-break-point>) {
-    // your custom break point value
-    .your-style-driven-class
-    {
-      --twic-transition-timing-function:linear;
-    }
+@media ( min-width: 640px ) {
+  .style-driven {
+    --twic-mode: contain;
+  }
 }
 
-@media (min-width: 640px) {
-    // sm
-    .your-style-driven-class
-    {
-      --twic-mode:contain;
-    }
-}
-
-@media (min-width: 768px) {
-    // md
-    .your-style-driven-class
-    {
-        --twic-mode:cover;
-        --twic-ratio: calc(4/3);
-    }
+@media ( min-width: 768px ) {
+  .style-driven {
+    --twic-mode: cover;
+    --twic-ratio: calc( 4/3 );
+  }
 }
 
 @media (min-width: 1024px) {
-    // lg
-    .your-style-driven-class
-    {
-        --twic-ratio: calc(16/9);
-    }
+  .style-driven {
+    --twic-ratio: calc( 16/9 );
+  }
 }
 
-@media (min-width: 1280px) {
-    // xl
-    .your-style-driven-class
-    {
-        --twic-ratio: calc(21/9);
-    }
+@media ( min-width: 1280px ) {
+  .style-driven {
+    --twic-ratio: calc( 21/9 );
+  }
 }
 
-@media (min-width: 1536px) {
-    // 2xl
-    .your-style-driven-class
-    {
-        --twic-ratio: calc(36/9);
-    }
+@media ( min-width: 1536px ) {
+  .style-driven {
+    --twic-ratio: calc( 36/9 );
+  }
 }
 ```
 
 `template.html`
 
-Your template can now be simplified as follows.  
+Your HTML features a single component that will follow your CSS directives and behave responsively.
  
 ```html
 <TwicImg
-    class="my-first-style-driven"
-    src="path/to/your/image">
-</TwicImg>
+  class="style-driven"
+  src="path/to/your/image"
+></TwicImg>
 ```
 
-### Definition of css rules
+### CSS Variables
 
 ```css
-<your-style-driven-selector> {
-    --twic-mode: <contain|cover>;
-    --twic-position: <css position>;
-    --twic-ratio: <ratio>; // pure number or calc function
-    --twic-transition-delay: <string>;
-    --twic-transition-duration: <string>;
-    --twic-transition-timing-function:<string>;
+<selector> {
+  --twic-ratio: <ratio>;
+  --twic-mode: <contain|cover>;
+  --twic-position: <css position>;
+  --twic-transition-delay: <string>;
+  --twic-transition-duration: <string>;
+  --twic-transition-timing-function:<string>;
 }
 ```
 
-| Attribute | Description | Type | Default |
+Each CSS variable corresponds to one of the components attributes listed in the [Components section](#components). If present, the attribute takes precedence over the corresponding CSS variable.
+
+| Variable | Description | HTML Attribute | Default |
 |:-|:-|:-|:-|
-| `--twic-mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
-| `--twic-position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `String` | `center` |
-| `--twic-ratio` | Unitless `width/height` value pair (as in `calc(4/3)` ___Warning___ do not forget calc). If `height` is not specified, it is assumed to be `1`. A square area will be created by default. | `Number` | `1` | |
-| `--twic-transition-delay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `String` | `0ms` |
-| `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `String` | `400ms` |
-| `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `String` | `ease` |
+| `--twic-mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `mode` | `cover` |
+| `--twic-position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `position` | `center` |
+| `--twic-ratio` | Floating point value corresponding to a unitless `width/height` ratio (as in `calc(4/3)` or `1.333`). Ratio will correspond to a square area by default. | `ratio` | `1` |
+| `--twic-transition-delay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `transitionDelay` | `0ms` |
+| `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `transitionDuration` | `400ms` |
+| `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
 
 ## Example
 
