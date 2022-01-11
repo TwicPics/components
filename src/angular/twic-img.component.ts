@@ -15,7 +15,6 @@ import { parseAlt, parseSrc } from "../_/parse";
                     [twicPicsAttributes]="getElementAttributes()"
                     [ngStyle]="getElementStyle()"
             >
-            <div><div></div></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],

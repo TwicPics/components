@@ -144,7 +144,6 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                             ) }
                         { ...computeData( bot, focus, src, step ) }
                     />
-                    <div><div /></div>
                 </div>
             );
         }

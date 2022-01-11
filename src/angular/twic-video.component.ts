@@ -13,7 +13,6 @@ import { TwicBaseComponent } from "./twic-base.component";
                     [ngStyle]="getElementStyle()"
             >
             </video>
-            <div><div></div></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],

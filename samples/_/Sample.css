@@ -60,12 +60,49 @@ h2, caption {
 
 /* style driven */
 .style-driven {
-    --twic-ratio: calc( 20/9 );
+    --twic-ratio: calc(2/3);
+    --twic-mode: cover;
 }
-@media ( min-width: 800px ) {
-    .style-driven {
-        --twic-ratio: calc( 4/3 );
+
+
+@media (min-width: 640px) {
+    .style-driven
+    {
+        --twic-ratio: calc(1);
+    }
+}
+
+@media (min-width: 768px) {
+    .style-driven
+    {
+        --twic-ratio: calc(4/3);
         --twic-mode: contain;
         --twic-position: top left;
     }
 }
+
+@media (min-width: 1024px) {
+    .style-driven
+    {
+        --twic-ratio: calc(1 + 0.85);
+    }
+}
+
+
+@media (min-width: 1280px) {
+    .style-driven
+    {
+        --twic-ratio: calc(1.85);
+        --twic-mode: cover;
+    }
+}
+
+
+@media (min-width: 1536px) {
+    .style-driven
+    {
+        --twic-ratio: calc(21/9);
+    }
+}
+
+

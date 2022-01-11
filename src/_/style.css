@@ -21,6 +21,8 @@
     background-size: var( --twic-mode, cover );
     background-position: var( --twic-position, center );
     padding-top: calc( 100% / var( --twic-ratio, 1 ) );
+    /* trick to get ratio easily */
+    font-size: calc( 1px / var( --twic-ratio, 1 ) );
 }
 /* IMG OR VIDEO */
 .twic-w > * {
@@ -46,28 +48,4 @@
     transition-delay: var( --twic-transition-delay, 0 );
     transition-duration: var( --twic-transition-duration, 400ms );
     transition-timing-function: var( --twic-transition-timing-function, ease );
-}
-/* FOR OBSERVERS */
-.twic-w > div {
-    /* constants */
-    left: -2000px;
-    overflow: hidden;
-    position: fixed;
-    top: -2000px;
-    visibility: hidden;
-    width: 1000px;
-    height: 1000px;
-}
-.twic-w > div > div {
-    /* constants */
-    background-image: none;
-    box-sizing: content-box;
-    /* defaults */
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    /* variables */
-    background-size: var( --twic-mode, cover );
-    height: calc( 100% / var( --twic-ratio, 1 ) );
-    width: calc( 100% * var( --twic-ratio, 1 ) );
 }

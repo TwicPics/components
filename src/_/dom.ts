@@ -35,7 +35,3 @@ export const createElement = ( data: CreationData ): HTMLElement => {
 
 const rPx = /px$/;
 export const cssWithoutPx = ( css: string ): number => Number( css.replace( rPx, `` ) );
-
-export const getFirstChild = ( element: Element ): Element => element.firstElementChild;
-export const getLastChild = ( element: Element ): Element => element.lastElementChild;
-export const getParent = ( element: Node ): Element => element.parentElement;

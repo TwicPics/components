@@ -101,7 +101,6 @@ export default {
             :style="_style"
             v-bind="{ ..._dataAttributes }"
         />
-        <div><div /></div>
     </div>
 </template>
 <style src="../_/style.css"></style>

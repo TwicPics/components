@@ -114,5 +114,4 @@ if ( isBrowser ) {
         style = { _style }
         { ..._data }
     />
-    <div><div /></div>
 </div>

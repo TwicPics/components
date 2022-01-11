@@ -2,7 +2,7 @@
 import type { Mode, Placeholder } from "./types";
 
 import { config } from "./install";
-import { cssWithoutPx, getFirstChild, getLastChild } from "./dom";
+import { cssWithoutPx } from "./dom";
 import { debounce, isBrowser, logWarning } from "./utils";
 import { parseMode } from "./parse";
 
@@ -23,19 +23,25 @@ const computeWrapperBackground = (
     if ( !placeholder || !src ) {
         return ``;
     }
+
     const computedStyle = getComputedStyle( element );
+    // trick to get ratio easily from css :
+    // we use fontSize (an otherwise unusable property in this context)
+    // to store the result of the calculation tha ratio through a css variable.
+    const _ratio = ratio ?? cssWithoutPx( computedStyle.fontSize );
+
     let height = PLACEHOLDER_DIM;
     let width = PLACEHOLDER_DIM;
-    if ( ratio === undefined ) {
-        height = Math.min( height, cssWithoutPx( computedStyle.height ) );
-        width = Math.min( width, cssWithoutPx( computedStyle.width ) );
-    } else if ( ratio < 1 ) {
-        height *= ratio;
+
+    if ( _ratio < 1 ) {
+        height *= _ratio;
     } else {
-        width /= ratio;
+        width /= _ratio;
     }
+
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
+
     const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
     return `${
         ( ( actualMode === `cover` ) && focus ) ? `focus=${ focus }/` : ``
@@ -95,7 +101,7 @@ export const createPlaceholderHandler = (
             }
         },
         "setWrapper": ( wrapper: HTMLDivElement ): void => {
-            Object.defineProperty( ( element = getFirstChild( getLastChild( wrapper ) ) ), PRIVATE_KEY, {
+            Object.defineProperty( ( element = wrapper ), PRIVATE_KEY, {
                 "configurable": true,
                 "value": ( refresh = debounce( () => {
                     if ( element && savedData ) {
