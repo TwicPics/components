@@ -100,7 +100,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             this._p.delete();
         }
         render() {
-            let { props } = this;
+            const { props } = this;
             const alt = withAlt && parseAlt( props.alt );
             const bot = parseBot( props.bot );
             const className = parseClassName( props.className );

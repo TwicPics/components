@@ -18,12 +18,6 @@
         "start": "react-scripts start",
         "serve": "yarn install && react-scripts start"
     },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
     "browserslist": {
         "production": [
             ">0.2%",

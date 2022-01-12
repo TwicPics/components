@@ -6,16 +6,16 @@
                 src="https://assets.twicpics.com/examples/football.jpg"
                 ratio="21/9"
                 mode="cover"
-                focus="200x200">
-            </TwicImg>
+                focus="200x200"
+            />
         </div>
         <div>
             <TwicImg
                 src="https://assets.twicpics.com/examples/football.jpg"
                 ratio="4/3"
                 mode="contain"
-                focus="auto">
-            </TwicImg>
+                focus="auto"
+            />
         </div>
     </main>
 </template>
