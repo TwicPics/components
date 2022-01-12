@@ -1,4 +1,5 @@
 /build/angular/_templates/angular*/twicpics-components/src
+/build/angular/_templates/angular*/yarn.lock
 /samples/**/.next
 /samples/**/.nuxt
 /samples/**/build
@@ -12,4 +13,3 @@
 .history
 dist
 node_modules
-yarn.lock
