@@ -2,7 +2,7 @@ import __dirname from "./__dirname.js";
 import { copy, remove } from "fs-extra";
 import { dirname } from "path";
 import { readFile, unlink, writeFile } from "fs/promises";
-import { gitHubRootPath } from "./utils/gitHubUtils.js";
+import { gitHubRootPath } from "./version.js";
 
 const MINIFY_PASSES = 3;
 

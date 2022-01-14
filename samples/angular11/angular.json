@@ -1,12 +1,9 @@
 {
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "cli": {
-        "analytics": false
-    },
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "angular12": {
+        "angular11": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -23,23 +20,18 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-builders/custom-webpack:browser",
+                    "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "customWebpackConfig": {
-                            "path": "./extra-webpack.config.cjs",
-                            "mergeRules": {
-                                "module": {
-                                    "rules": "prepend"
-                                }
-                            },
-                            "replaceDuplicatePlugins": true
-                        },
                         "outputPath": "dist/angularSample",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
-                        "assets": [],
+                        "aot": true,
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
                         "styles": [
                             "src/styles.scss"
                         ],
@@ -47,6 +39,19 @@
                     },
                     "configurations": {
                         "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -58,50 +63,29 @@
                                     "maximumWarning": "2kb",
                                     "maximumError": "4kb"
                                 }
-                            ],
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "outputHashing": "all"
-                        },
-                        "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": false,
-                            "extractLicenses": false,
-                            "sourceMap": {
-                                "scripts": true,
-                                "styles": true,
-                                "vendor": true
-                            },
-                            "namedChunks": true
+                            ]
                         }
-                    },
-                    "defaultConfiguration": "production"
+                    }
                 },
                 "serve": {
-                    "builder": "@angular-builders/custom-webpack:dev-server",
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "angular11:build"
+                    },
                     "configurations": {
                         "production": {
-                            "browserTarget": "angular12:build:production"
-                        },
-                        "development": {
-                            "browserTarget": "angular12:build:development"
+                            "browserTarget": "angular11:build:production"
                         }
-                    },
-                    "defaultConfiguration": "development"
+                    }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "angular12:build"
+                        "browserTarget": "angular11:build"
                     }
                 }
             }
         }
     },
-    "defaultProject": "angular12"
+    "defaultProject": "angular11"
 }

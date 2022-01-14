@@ -2,20 +2,20 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "twicpics-components": {
+        "lib": {
             "projectType": "library",
-            "root": "twicpics-components",
-            "sourceRoot": "twicpics-components/src",
+            "root": "lib",
+            "sourceRoot": "lib/src",
             "prefix": "",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
-                        "project": "twicpics-components/ng-package.json"
+                        "project": "lib/ng-package.json"
                     },
                     "configurations": {
                         "production": {
-                            "tsConfig": "twicpics-components/tsconfig.lib.prod.json"
+                            "tsConfig": "lib/tsconfig.lib.prod.json"
                         }
                     },
                     "defaultConfiguration": "production"
@@ -23,5 +23,5 @@
             }
         }
     },
-    "defaultProject": "twicpics-components"
+    "defaultProject": "lib"
 }

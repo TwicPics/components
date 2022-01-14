@@ -2,9 +2,10 @@
 
 # TwicPics Components CHANGELOG
 
-## 0.5.3
+## 0.6.0
 
 - __chore__: optimizing the size of `Angular` libraries 
+- __feature__: supports `Angular 11`
 
 ## 0.5.2
 
@@ -14,6 +15,7 @@
 
 - __bug__: fixes placeholder=`none`
 - __feature__: display of a warning message in the browser console when components are used without initialization phase : `domain has not been configured`.
+
 
 ## 0.5.0
 

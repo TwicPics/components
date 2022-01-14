@@ -1,11 +1,13 @@
 {
-    "name": "twicpics-components",
+    "name": "lib",
     "version": "0.0.1",
+    "license": "MIT",
     "peerDependencies": {
         "@angular/common": "^12.2.0",
         "@angular/core": "^12.2.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
-    }
+    },
+    "sideEffects": false
 }

@@ -10,4 +10,4 @@ You must first build `@twicpics/components` using `yarn build` at the root of th
 
 Then, type `yarn serve` and point your browser towards `http://localhost:3000`.
 
-Check the browser console for warnings messages : `twicpics-components.mjs:61 twicpics-components domain is mandatory and is not defined !` should be displayed.
+Check the browser console for warnings messages : `module.mjs:61 twicpics-components domain is mandatory and is not defined !` should be displayed.

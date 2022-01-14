@@ -10,6 +10,7 @@ import {
     buildComponents as buildAngularComponents,
     exportsPackageJson as exportsAngularPackageJson,
 } from "./angular/angularBuilder.js";
+import { getJsonFromPath, writeJson } from "./json.js";
 
 const formats = [ `cjs`, `es` ];
 
@@ -52,7 +53,7 @@ try {
 }
 
 console.log( `generating package.json with mappings...` );
-const packageJSON = JSON.parse( await readFile( `${ __dirname }/package.template.json`, `utf8` ) );
+const packageJSON = await getJsonFromPath( `${ __dirname }/package.template.json` );
 packageJSON.exports = Object.fromEntries( [
     [ `./style.css`, `./style.css` ],
     ...units.map( ( { framework } ) => [
@@ -64,7 +65,7 @@ packageJSON.exports = Object.fromEntries( [
     ] ),
     ...await exportsAngularPackageJson(),
 ] );
-await writeFile( `${ __dirname }/../dist/package.json`, JSON.stringify( packageJSON, null, `  ` ) );
+await writeJson( `${ __dirname }/../dist/package.json`, packageJSON );
 
 console.log( `adding README.md...` );
 await writeFile(

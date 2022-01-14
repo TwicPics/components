@@ -19,7 +19,7 @@ With [TwicPics](https://www.twicpics.com/), developers only deal with high-resol
 
 [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) currently supports:
 
-- [Angular](https://angular.io/) (version 12 to 13)
+- [Angular](https://angular.io/) (version 11 to 13)
 - [React](https://reactjs.org/) and [Next.js](https://nextjs.org/)
 - [Svelte](https://svelte.dev/) (version 3)
 - [Vue.js](https://vuejs.org/) (version 2 to 3) and [Nuxt.js](https://nuxtjs.org/)
@@ -40,17 +40,14 @@ depending on which package manager you fancy.
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
-### Angular 12+
+### Angular 11+
 
 __WARNING__: while importing angular components, you will have to select the targeted version
 eg : 
 ```ts
-import {xxx} from @twicpics/components/angular12
+import {xxx} from @twicpics/components/angular11
 ``` 
-or 
-```ts
-import {xxx} from @twicpics/components/angular13
-```
+
 #### `app.module.ts`
 
 You need to import the TwicPicsComponentsModule within your app.module.ts file.
