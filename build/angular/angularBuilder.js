@@ -39,6 +39,7 @@ const getProjectsByDirectory = async angularDirectory => {
  * 3 - copy common directory (_) to library project to build
  * 4 - launch official ng build
  * 5 - replace FRAMEWORK by ANGULAR in build library
+ * 6 - clean working directory
  * @param angularDirectory : directory of related project to build
  * @param projectName : name of library
  * @param project : data from angular.json
@@ -91,6 +92,10 @@ const buildAngularProject = async ( angularDirectory, angularConfig ) => {
     } catch ( error ) {
         console.error( `Angular replacemeny error occurred:`, error );
     }
+
+    // 6 - clean working directory
+    // remove tmp source
+    await remove( masterDestinationPath );
 
 };
 
