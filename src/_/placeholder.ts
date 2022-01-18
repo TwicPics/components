@@ -106,7 +106,7 @@ export const createPlaceholderHandler = (
                 "value": ( refresh = debounce( () => {
                     if ( element && savedData ) {
                         const wrapperBackground = computeWrapperBackground( element, savedData );
-                        if ( wrapperBackground !== savedWrapperBackground ) {
+                        if ( wrapperBackground && ( wrapperBackground !== savedWrapperBackground ) ) {
                             savedWrapperBackground = wrapperBackground;
                             const backgroundImage = `url(${ JSON.stringify(
                                 `${ config.domain }/v1/${ wrapperBackground }`

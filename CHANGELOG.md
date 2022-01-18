@@ -2,6 +2,10 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.5.1
+
+- __bug__: fixes placeholder=`none`
+
 ## 0.5.0
 
 - __breaking__: removes `width` and `height` attributes
