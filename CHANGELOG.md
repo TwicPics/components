@@ -2,6 +2,10 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.5.3
+
+- __chore__: optimizing the size of `Angular` libraries 
+
 ## 0.5.2
 
 - __bug__: fixes `ratio issue` on `Svelte` 

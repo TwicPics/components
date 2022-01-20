@@ -1,18 +1,16 @@
 import __dirname from "./__dirname.js";
 import { copy, remove } from "fs-extra";
-import { createRequire } from "module";
 import { dirname } from "path";
 import { readFile, unlink, writeFile } from "fs/promises";
+import { gitHubRootPath } from "./utils/gitHubUtils.js";
 
 const MINIFY_PASSES = 3;
-
-const { "version": packageVersion } = createRequire( import.meta.url )( `./package.template.json` );
 
 const rGrandParent = /^\.\.\/\.\./;
 const sourcemapPathTransform =
     path => path.replace(
         rGrandParent,
-        `https://raw.githubusercontent.com/twicpics/components/${ packageVersion }`
+        gitHubRootPath
     );
 
 const rJS = /\.js$/;
