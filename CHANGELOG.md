@@ -2,6 +2,10 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.5.2
+
+- __bug__: fixes `ratio issue` on `Svelte` 
+
 ## 0.5.1
 
 - __bug__: fixes placeholder=`none`
