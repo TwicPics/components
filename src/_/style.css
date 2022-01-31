@@ -39,13 +39,13 @@
     /* defaults */
     object-fit: cover;
     object-position: center;
-    transition-delay: 0;
+    transition-delay: 0s;
     transition-duration: 400ms;
     transition-timing-function: ease;
     /* variables */
     object-fit: var( --twic-mode, cover );
     object-position: var( --twic-position, center );
-    transition-delay: var( --twic-transition-delay, 0 );
+    transition-delay: var( --twic-transition-delay, 0s );
     transition-duration: var( --twic-transition-duration, 400ms );
     transition-timing-function: var( --twic-transition-timing-function, ease );
 }

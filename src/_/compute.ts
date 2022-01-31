@@ -38,6 +38,7 @@ export const computeData = (
     return attributes;
 };
 
+/* eslint-disable dot-notation */
 export const computeStyle = (
     mode: Mode,
     position: string,
@@ -45,18 +46,32 @@ export const computeStyle = (
     transitionDelay: string,
     transitionDuration: string,
     transitionTimingFunction: string
-): Record< string, string > => ( {
-    "objectFit": mode || ``,
-    "objectPosition": position || ``,
-    "transitionDelay": ( transition && transitionDelay ) || `0`,
-    "transitionDuration": ( transition && transitionDuration ) || `0`,
-    "transitionTimingFunction": transitionTimingFunction || ``,
-} );
+): Record< string, string > => {
+    const computedStyle: Record< string, string > = {};
+    if ( mode ) {
+        computedStyle[ `objectFit` ] = mode;
+    }
+    if ( position ) {
+        computedStyle[ `objectPosition` ] = position;
+    }
+    if ( transition && transitionDelay ) {
+        computedStyle[ `transitionDelay` ] = transitionDelay;
+    }
+    if ( transition && transitionDuration ) {
+        computedStyle[ `transitionDuration` ] = transitionDuration;
+    }
+    if ( transitionTimingFunction ) {
+        computedStyle[ `transitionTimingFunction` ] = transitionTimingFunction;
+    }
+    return computedStyle;
+};
+/* eslint-enable dot-notation */
 
 export const computeWrapperClass = (
     className?: string
 ): string => `twic-w${ className ? ` ${ className }` : `` }`;
 
+/* eslint-disable dot-notation */
 export const computeWrapperStyle = (
     focus: string,
     mode: Mode,
@@ -66,6 +81,7 @@ export const computeWrapperStyle = (
     src: string,
     placeholderDataHandler: ( ( data: PlaceholderData ) => void )
 ): Record< string, string > => {
+    const computedWrapperStyle: Record< string, string > = {};
     placeholderDataHandler( {
         focus,
         mode,
@@ -73,10 +89,15 @@ export const computeWrapperStyle = (
         ratio,
         src,
     } );
-    return {
-        "backgroundSize": mode || ``,
-        "backgroundPosition": position || ``,
-        // eslint-disable-next-line no-magic-numbers
-        "paddingTop": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
-    };
+
+    if ( mode ) {
+        computedWrapperStyle[ `backgroundSize` ] = mode;
+    }
+    if ( position ) {
+        computedWrapperStyle[ `backgroundPosition` ] = position;
+    }
+    // eslint-disable-next-line no-magic-numbers
+    computedWrapperStyle[ `paddingTop` ] = ( ratio === undefined ) ? `` : `${ ratio * 100 }%`;
+    return computedWrapperStyle;
 };
+/* eslint-enable dot-notation */

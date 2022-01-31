@@ -4,6 +4,7 @@
 
 ## 0.6.0
 
+- __bug__: `attributes without values` are no longer generated in elements tags
 - __chore__: optimizing the size of `Angular` libraries 
 - __feature__: supports `Angular 11`
 
