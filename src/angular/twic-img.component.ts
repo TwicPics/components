@@ -9,12 +9,14 @@ import { parseAlt, parseSrc } from "../_/parse";
 @Component( {
     "selector": `TwicImg`,
     "template": `
-        <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClassName()">
-            <img
-                    [attr.alt]="getAlt()"
-                    [twicPicsAttributes]="getElementAttributes()"
-                    [ngStyle]="getElementStyle()"
-            >
+        <div>
+            <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClassName()">
+                <img
+                        [attr.alt]="getAlt()"
+                        [twicPicsAttributes]="getElementAttributes()"
+                        [ngStyle]="getElementStyle()"
+                >
+            </div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],

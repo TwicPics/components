@@ -5,6 +5,7 @@
 ## 0.6.0
 
 - __bug__: `attributes without values` are no longer generated in elements tags
+- __bug__: fix `aspect ratio` in case the component is placed directly in a cell of a div `display:grid`
 - __chore__: optimizing the size of `Angular` libraries 
 - __feature__: supports `Angular 11`
 

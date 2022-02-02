@@ -90,17 +90,19 @@ export default {
 };
 </script>
 <template>
-    <div
-        ref="w"
-        class="twic-w"
-        :style="_wrapperStyle"
-    >
-        <component
-            :is="_is"
-            :alt="_alt"
-            :style="_style"
-            v-bind="{ ..._dataAttributes }"
-        />
+    <div>
+        <div
+            ref="w"
+            class="twic-w"
+            :style="_wrapperStyle"
+        >
+            <component
+                :is="_is"
+                :alt="_alt"
+                :style="_style"
+                v-bind="{ ..._dataAttributes }"
+            />
+        </div>
     </div>
 </template>
 <style src="../_/style.css"></style>

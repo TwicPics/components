@@ -105,4 +105,35 @@
             <span>Style driven width 75%</span>
         </div>
     </div>
+    <h2>Isolation Test</h2>
+    <div class="samples">
+        <TwicImg src="https://assets.twicpics.com/examples/football.jpg"></TwicImg>
+        <TwicImg
+            src="football.jpg"
+            ratio="16/9"
+            mode="cover"
+            placeholder="meancolor"
+        ></TwicImg>
+        <TwicImg
+            src="/football.jpg"
+            focus="auto"
+            ratio="500/800"
+            placeholder="none"
+            alt="custom alt attribute"
+        ></TwicImg>
+        <TwicImg
+            src="/football.jpg"
+            focus="auto"
+            ratio="4/3"
+            mode="contain"
+            position="bottom"
+            alt="custom alt attribute"
+        ></TwicImg>
+        <TwicImg
+            src="/football.jpg"
+            focus="auto"
+            ratio="4/3"
+            mode="cover"
+        ></TwicImg>
+    </div>
 </main>

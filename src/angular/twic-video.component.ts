@@ -7,12 +7,14 @@ import { TwicBaseComponent } from "./twic-base.component";
 @Component( {
     "selector": `TwicVideo`,
     "template": `
-        <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClassName()">
-            <video
-                    [twicPicsAttributes]="getElementAttributes()"
-                    [ngStyle]="getElementStyle()"
-            >
-            </video>
+        <div>
+            <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClassName()">
+                <video
+                        [twicPicsAttributes]="getElementAttributes()"
+                        [ngStyle]="getElementStyle()"
+                >
+                </video>
+            </div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],
