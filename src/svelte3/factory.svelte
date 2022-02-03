@@ -51,9 +51,9 @@ export let transitionTimingFunction: string = undefined;
 
 let wrapper: HTMLDivElement;
 
-let _wrapperBackgroundImage: string;
+let _wrapperBackgroundImage=``;
 const placeholderHandler = createPlaceholderHandler( bgImage => {
-    _wrapperBackgroundImage = bgImage && `background-image:${ bgImage }`;
+    _wrapperBackgroundImage = bgImage ? `background-image:${ bgImage }` : ``;
 } );
 
 $: parsedAlt = parseAlt( alt );

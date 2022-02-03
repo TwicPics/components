@@ -5,7 +5,8 @@
 ## 0.6.0
 
 - __bug__: `attributes without values` are no longer generated in elements tags
-- __bug__: fix `aspect ratio` in case the component is placed directly in a cell of a div `display:grid`
+- __bug__: fixes `aspect ratio` in case the component is placed directly in a cell of a div `display:grid`
+- __bug__: fixes `Svelte` wrapper background-image `undefined` when placeholder is set to `none`
 - __chore__: optimizing the size of `Angular` libraries 
 - __feature__: supports `Angular 11`
 
