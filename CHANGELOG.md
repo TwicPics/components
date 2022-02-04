@@ -4,21 +4,20 @@
 
 ## 0.6.0
 
-- __bug__: `attributes without values` are no longer generated in elements tags
-- __bug__: fixes `aspect ratio` in case the component is placed directly in a cell of a div `display:grid`
-- __bug__: fixes `Svelte` wrapper background-image `undefined` when placeholder is set to `none`
-- __chore__: optimizing the size of `Angular` libraries 
+- __bug__: no longer generates empty `CSS` property values in `SSR`
+- __bug__: fixes aspect ratio sometimes not being respected in `CSS` grids
+- __bug__: no longers generates an `background-image: undefined` when placeholder is `none` in `Svelte`
+- __chore__: seriously reduces the size of all `Angular` distributions
 - __feature__: supports `Angular 11`
 
 ## 0.5.2
 
-- __bug__: fixes `ratio issue` on `Svelte` 
+- __bug__: no longer generates camel-cased `CSS` property names in `Svelte`
 
 ## 0.5.1
 
-- __bug__: fixes placeholder=`none`
-- __feature__: display of a warning message in the browser console when components are used without initialization phase : `domain has not been configured`.
-
+- __bug__: `placeholder="none"` no longer corrupts background URLs that generated `404` responses
+- __feature__: displays a warning message in the browser console when components are used without initialization
 
 ## 0.5.0
 
