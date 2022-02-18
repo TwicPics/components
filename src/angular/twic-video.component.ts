@@ -8,7 +8,7 @@ import { TwicBaseComponent } from "./twic-base.component";
     "selector": `TwicVideo`,
     "template": `
         <div>
-            <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClassName()">
+            <div #wrapper [ngStyle]="wrapperStyle" class="twic-w">
                 <video
                         [twicPicsAttributes]="getElementAttributes()"
                         [ngStyle]="getElementStyle()"
