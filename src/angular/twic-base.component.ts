@@ -56,7 +56,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy {
      *
      */
     @Input() step: number = undefined;
-    @Input() transition = true;
+    @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;

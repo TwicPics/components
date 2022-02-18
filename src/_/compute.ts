@@ -54,11 +54,13 @@ export const computeStyle = (
     if ( position ) {
         computedStyle[ `objectPosition` ] = position;
     }
+    if ( !transition ) {
+        computedStyle[ `transitionDuration` ] = `0ms`;
+    } else if ( transitionDuration ) {
+        computedStyle[ `transitionDuration` ] = transitionDuration;
+    }
     if ( transition && transitionDelay ) {
         computedStyle[ `transitionDelay` ] = transitionDelay;
-    }
-    if ( transition && transitionDuration ) {
-        computedStyle[ `transitionDuration` ] = transitionDuration;
     }
     if ( transitionTimingFunction ) {
         computedStyle[ `transitionTimingFunction` ] = transitionTimingFunction;

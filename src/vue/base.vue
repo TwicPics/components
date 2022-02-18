@@ -1,5 +1,5 @@
 <script>
-import { defineProp, defineStringProp, intProp, requiredStringProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, intProp, requiredStringProp, stringProp } from "./props";
 import { computeAlt, computeData, computeStyle, computeWrapperStyle } from "../_/compute";
 import { createPlaceholderHandler } from "../_/placeholder";
 import {
@@ -44,7 +44,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
     [ `src`, requiredStringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
-    [ `transition`, defineProp( Boolean, rValidTransition ), parseTransition ],
+    [ `transition`, booleanProp( rValidTransition, true ), parseTransition ],
     [ `transitionDelay`, stringProp, parseTransitionDelay ],
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],

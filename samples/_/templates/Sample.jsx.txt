@@ -1,4 +1,6 @@
 // /(\s)class="/g => "$1className=\""
+// /(\b)transition=false(\b)/g => "transition='false'"
+// /(\b)transition=true(\b)/g => "transition='true'"
 import React from "react";
 
 import { TwicImg } from "@twicpics/components/react";

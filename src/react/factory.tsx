@@ -60,7 +60,10 @@ const propTypes = {
     "ratio": string,
     "src": string.isRequired,
     "step": number,
-    "transition": PropTypes.bool,
+    "transition": PropTypes.oneOfType( [
+        PropTypes.bool,
+        PropTypes.string,
+    ] ),
     "transitionDelay": string,
     "transitionDuration": string,
     "transitionTimingFunction": string,
@@ -81,7 +84,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             ratio: PropTypes.Requireable<number | string>;
             src: PropTypes.Validator<string>;
             step: PropTypes.Requireable<number | string>;
-            transition: PropTypes.Requireable<boolean>;
+            transition: PropTypes.Requireable<boolean | string>;
             transitionDelay: PropTypes.Requireable<string>;
             transitionDuration: PropTypes.Requireable<string>;
             transitionTimingFunction: PropTypes.Requireable<string>;

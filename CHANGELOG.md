@@ -2,6 +2,12 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.6.1
+
+- __bug__: fixes `transition` still active even if it was set to `false`
+- __bug__: fixes type validation of `transition` `props` in `React`, `VueJS 2.x` and `VueJS 3.x`
+
+
 ## 0.6.0
 
 - __bug__: no longer generates empty `CSS` property values in `SSR`
