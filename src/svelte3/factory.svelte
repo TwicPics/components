@@ -104,10 +104,10 @@ if ( isBrowser ) {
 {#if isWebComponents }
 <span>/*STYLE*/{ configBasedStyle() }</span>
 {/if}
-<div>
+<div class = { isWebComponents ? `` : parseClassName( className ) }>
     <div
         bind:this = { wrapper }
-        class = { computeWrapperClass( isWebComponents ? undefined : parseClassName( className ) ) }
+        class = { computeWrapperClass() }
         style = "{ _wrapperStyle }{ _wrapperBackgroundImage }"
     >
         <img

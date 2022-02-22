@@ -1,6 +1,12 @@
 <script>
 import { booleanProp, defineStringProp, intProp, requiredStringProp, stringProp } from "./props";
-import { computeAlt, computeData, computeStyle, computeWrapperStyle } from "../_/compute";
+import {
+    computeAlt,
+    computeData,
+    computeStyle,
+    computeWrapperClass,
+    computeWrapperStyle,
+} from "../_/compute";
 import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
@@ -64,6 +70,11 @@ for ( const [ propName, func, args ] of [
         [ `mode`, `position`, `transition`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
     ],
     [
+        `_wrapperClass`,
+        computeWrapperClass,
+        [],
+    ],
+    [
         `_wrapperStyle`,
         computeWrapperStyle,
         [ `focus`, `mode`, `placeholder`, `position`, `ratio`, `src`, c => c._p.setData ],
@@ -93,7 +104,7 @@ export default {
     <div>
         <div
             ref="w"
-            class="twic-w"
+            :class="_wrapperClass"
             :style="_wrapperStyle"
         >
             <component

@@ -12,8 +12,16 @@ import {
 } from "@angular/core";
 
 import type { Mode, Placeholder } from "../_/types";
-import { computeData, computeStyle, computeWrapperStyle } from "../_/compute";
+
+import {
+    computeData,
+    computeStyle,
+    computeWrapperClass,
+    computeWrapperStyle,
+} from "../_/compute";
+
 import { createPlaceholderHandler, PlaceholderHandler } from "../_/placeholder";
+
 import {
     parseBot,
     parseFocus,
@@ -71,6 +79,10 @@ export class TwicBaseComponent implements OnInit, OnDestroy {
     wrapperStyle: Record<string, string>;
     constructor() {
         this._p = createPlaceholderHandler();
+    }
+    // eslint-disable-next-line class-methods-use-this
+    getWrapperClass(): string {
+        return computeWrapperClass();
     }
     /**
      * compute and return element's (img or video) attributes

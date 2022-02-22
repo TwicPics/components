@@ -119,10 +119,10 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const transitionDuration = parseTransitionDuration( props.transitionDuration );
             const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
             return (
-                <div>
+                <div className= { className }>
                     <div
                         ref={ this._w }
-                        className = { computeWrapperClass( className ) }
+                        className = { computeWrapperClass() }
                         style = {
                             computeWrapperStyle(
                                 focus,

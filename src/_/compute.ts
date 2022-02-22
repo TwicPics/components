@@ -69,9 +69,7 @@ export const computeStyle = (
 };
 /* eslint-enable dot-notation */
 
-export const computeWrapperClass = (
-    className?: string
-): string => `twic-w${ className ? ` ${ className }` : `` }`;
+export const computeWrapperClass = (): string => `twic-w`;
 
 /* eslint-disable dot-notation */
 export const computeWrapperStyle = (

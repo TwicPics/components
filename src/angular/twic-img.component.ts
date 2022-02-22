@@ -10,7 +10,7 @@ import { parseAlt, parseSrc } from "../_/parse";
     "selector": `TwicImg`,
     "template": `
         <div>
-            <div #wrapper [ngStyle]="wrapperStyle" class="twic-w">
+            <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClass()">
                 <img
                         [attr.alt]="getAlt()"
                         [twicPicsAttributes]="getElementAttributes()"
