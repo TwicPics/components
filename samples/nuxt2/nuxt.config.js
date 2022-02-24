@@ -17,6 +17,11 @@ export default {
     "server": {
         "port": 3000,
     },
-    "plugins": [ `~twicpics.plugin.js` ],
+    "modules": [ `@twicpics/components/nuxt2` ],
+    "twicpics": {
+        "domain": `https://demo.twic.pics`,
+        "anticipation": 0.5,
+        "step": 50,
+    },
     "components": true,
 };

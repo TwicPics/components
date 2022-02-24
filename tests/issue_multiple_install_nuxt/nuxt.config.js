@@ -36,7 +36,7 @@ export default {
     "css": [],
 
     // plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    "plugins": [ `~/plugins/twicpics.js` ],
+    "plugins": [],
 
     // auto import components: https://go.nuxtjs.dev/config-components
     "components": true,
@@ -45,7 +45,12 @@ export default {
     "buildModules": [],
 
     // modules: https://go.nuxtjs.dev/config-modules
-    "modules": [],
+    "modules": [ `@twicpics/components/nuxt2` ],
+    "twicpics": {
+        "domain": `https://demo.twic.pics`,
+        "anticipation": 0.5,
+        "step": 50,
+    },
 
     // build Configuration: https://go.nuxtjs.dev/config-build
     "build": {},

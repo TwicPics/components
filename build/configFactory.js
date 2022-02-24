@@ -3,6 +3,7 @@ import { copy, remove } from "fs-extra";
 import { dirname } from "path";
 import { readFile, unlink, writeFile } from "fs/promises";
 import { gitHubRootPath } from "./version.js";
+import { getFormatInfo } from "./formats.js";
 
 const MINIFY_PASSES = 3;
 
@@ -15,11 +16,6 @@ const sourcemapPathTransform =
 
 const rJS = /\.js$/;
 
-const formatRename = new Map( [
-    [ `cjs`, `index` ],
-    [ `es`, `module` ],
-] );
-
 import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
@@ -28,7 +24,7 @@ import replacer from "./replacer.js";
 
 export default (
     // eslint-disable-next-line no-shadow
-    { external = [], framework, plugins = [], postDefinitions, sourceDir = framework, sourceFile },
+    { external = [], framework, plugins = [], postDefinitions, sourceDir = framework, sourceFile, javascript = false },
     ...formats
 ) => ( {
     "component": {
@@ -39,10 +35,10 @@ export default (
             `Object.assign`,
             ...external,
         ],
-        "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.ts` }`,
+        "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.${ javascript ? `js` : `ts` }` }`,
         "output": formats.map( format => ( {
             "exports": `named`,
-            "file": `${ __dirname }/../dist/${ framework }/${ formatRename.get( format ) || format }.js`,
+            "file": `${ __dirname }/../dist/${ framework }/${ getFormatInfo( format, `fileName` ) || format }.js`,
             format,
             "sourcemap": true,
             sourcemapPathTransform,
@@ -51,9 +47,13 @@ export default (
             replacer( {
                 "replacer": [ /\bFRAMEWORK([^:])/, `${ JSON.stringify( framework ) }$1` ],
             } ),
-            typeScript( {
-                "tsconfig": `${ __dirname }/../tsconfig.json`,
-            } ),
+            ...( javascript ? [] : [
+                typeScript(
+                    {
+                        "tsconfig": `${ __dirname }/../tsconfig.json`,
+                    }
+                ),
+            ] ),
             css( {
                 "minified": true,
             } ),
@@ -64,26 +64,28 @@ export default (
                 },
             } ),
             {
-                "writeBundle": async ( { file, format } ) => {
-                    const cssFile = file.replace( rJS, `.css` );
-                    const cssMinFile = file.replace( rJS, `.min.css` );
-                    const cssMin = await readFile( cssMinFile, `utf8` );
-                    let inlineStyle = false;
-                    await writeFile( file, ( await readFile( file, `utf8` ) ).replace(
-                        `/*STYLE*/`,
-                        () => {
-                            inlineStyle = true;
-                            return JSON.stringify( cssMin ).slice( 1, -1 );
+                ...( javascript ? {} : {
+                    "writeBundle": async ( { file, format } ) => {
+                        const cssFile = file.replace( rJS, `.css` );
+                        const cssMinFile = file.replace( rJS, `.min.css` );
+                        const cssMin = await readFile( cssMinFile, `utf8` );
+                        let inlineStyle = false;
+                        await writeFile( file, ( await readFile( file, `utf8` ) ).replace(
+                            `/*STYLE*/`,
+                            () => {
+                                inlineStyle = true;
+                                return JSON.stringify( cssMin ).slice( 1, -1 );
+                            }
+                        ) );
+                        if ( !inlineStyle && ( format === formats[ 0 ] ) ) {
+                            await copy( cssMinFile, `${ dirname( file ) }/style.css` );
                         }
-                    ) );
-                    if ( !inlineStyle && ( format === formats[ 0 ] ) ) {
-                        await copy( cssMinFile, `${ dirname( file ) }/style.css` );
-                    }
-                    await Promise.all( [
-                        unlink( cssFile ),
-                        unlink( cssMinFile ),
-                    ] );
-                },
+                        await Promise.all( [
+                            unlink( cssFile ),
+                            unlink( cssMinFile ),
+                        ] );
+                    },
+                } ),
             },
         ],
     },
@@ -106,9 +108,9 @@ export default (
                         typeDefinitions = postDefinitions( typeDefinitions );
                     }
                     typeDefinitions = typeDefinitions.replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
-                    const ref = `export*from'./${ formatRename.get( formats[ 0 ] ) || formats[ 0 ] }';`;
+                    const ref = `export*from'./${ getFormatInfo( formats[ 0 ], `fileName` ) || formats[ 0 ] }';`;
                     await Promise.all( formats.map( ( f, isCopy ) => writeFile(
-                        `${ __dirname }/../dist/${ framework }/${ formatRename.get( f ) || f }.d.ts`,
+                        `${ __dirname }/../dist/${ framework }/${ getFormatInfo( f, `fileName` ) || f }.d.ts`,
                         isCopy ? ref : typeDefinitions
                     ) ) );
                     await remove( `${ __dirname }/../dist/${ framework }/dts` );

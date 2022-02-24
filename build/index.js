@@ -11,8 +11,23 @@ import {
     exportsPackageJson as exportsAngularPackageJson,
 } from "./angular/angularBuilder.js";
 import { getJsonFromPath, writeJson } from "./json.js";
+import { formats, getFormatInfo } from "./formats.js";
+import postBuild from "./postBuild.js";
 
-const formats = [ `cjs`, `es` ];
+/**
+ * generates and returns exports field used in package.json
+ * for the given @param framework and the given @param customFormats
+ * if @param customFormats is undefined then considers defaults formats list (see formats.js, formats property)
+ */
+const getExportsByFramework = ( framework, customFormats ) => {
+    const formatsToExport = customFormats || formats;
+    const exportsByFramework = {};
+    for ( const format of formatsToExport ) {
+        const { exports, fileName } = getFormatInfo( format );
+        exportsByFramework[ exports ] = `./${ framework }/${ fileName }.js`;
+    }
+    return exportsByFramework;
+};
 
 console.log( `clearing dist directory...` );
 await remove( `${ __dirname }/../dist` );
@@ -23,20 +38,23 @@ console.log( `generating components for ${
     formats.join( `, ` )
 })...` );
 await Promise.all( units.map( async unit => {
-    const { framework } = unit;
-    const { component, typeScript } = configFactory( unit, ...formats );
+    const { framework, javascript, "formats": customFormats } = unit;
+    const { component, typeScript } = configFactory( unit, ...( customFormats || formats ) );
     try {
         await rollup( component );
         console.log( `${ framework } components generated` );
     } catch ( error ) {
         console.error( `${ framework } components generation error:`, error );
     }
-    try {
-        await rollup( typeScript );
-        console.log( `${ framework } types descriptions generated` );
-    } catch ( error ) {
-        console.error( `${ framework } types descriptions generation error:`, error );
+    if ( !javascript ) {
+        try {
+            await rollup( typeScript );
+            console.log( `${ framework } types descriptions generated` );
+        } catch ( error ) {
+            console.error( `${ framework } types descriptions generation error:`, error );
+        }
     }
+    postBuild( unit );
 } ) );
 
 console.log( `de-duplicating css..` );
@@ -56,12 +74,9 @@ console.log( `generating package.json with mappings...` );
 const packageJSON = await getJsonFromPath( `${ __dirname }/package.template.json` );
 packageJSON.exports = Object.fromEntries( [
     [ `./style.css`, `./style.css` ],
-    ...units.map( ( { framework } ) => [
+    ...units.map( ( { framework, "formats": customFormats } ) => [
         `./${ framework }`,
-        {
-            "import": `./${ framework }/module.js`,
-            "require": `./${ framework }/index.js`,
-        },
+        getExportsByFramework( framework, customFormats ),
     ] ),
     ...await exportsAngularPackageJson(),
 ] );

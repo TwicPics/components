@@ -11,4 +11,4 @@ You must first build `@twicpics/components` using `yarn build` at the root of th
 
 Then, type `yarn serve` ('yarn serve' installs dependencies and launch 'nuxt') and point your browser towards `http://localhost:3000`.
 
-Try to modify plugins/twicpics.js --> no blocking error should be raised. 
+Try to modify nuxt.config ("twicpics" attribute's value) --> no blocking error should be raised. 

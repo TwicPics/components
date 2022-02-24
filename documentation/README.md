@@ -114,7 +114,7 @@ function MyApp({ Component, pageProps }) {
 export default MyApp
 ```
 __WARNING__: editing the file containing the call to the `installTwicPics` method in watch mode (*ie* `npm|yarn next dev` ) will lead to the __warning__ message `install function called multiple times` on the browser console.  
-You will need to __manually reload__ the page in your browser for any changes made to the twic-pics module configuration to take effect on the client side.  
+You will need to __manually reload__ the page in your browser for any changes made to the TwicPics module configuration to take effect on the client side.  
 This only concerns the file containing the call to the `installTwicPics` method and is only a penalty when modifying the configuration options.
 
 
@@ -130,29 +130,39 @@ export default function Home() {
     );
 }
 ```
-### Nuxt
-
-#### `twicpics.plugin.js`
-
-You will have to create a `twicpics.plugin.js` file
-```js
-import Vue from "vue";
-import TwicPics from "@twicpics/components/vue2";
-import "@twicpics/components/style.css";
-
-Vue.use( TwicPics, {
-    // domain is mandatory
-    "domain": "https://<your-domain>.twic.pics"
-} );
-```
+### Nuxt2.x
 
 #### `nuxt.config.js`
+
+Add `@twicpics/components/nuxt2` to the modules section
+
+With your twicpics configuration
 
 ```js
 export default {
     ...
-    "plugins": [ `~/<path-to-your-plug-in>/twicpics.plugin.js` ],
+    "modules": "modules": [
+        [
+            `@twicpics/components/nuxt2`,
+            {
+                "domain": `https://<your-domain>.twic.pics`,
+            },
+        ],
+    ],
     ...
+};
+```
+
+Or a separate section twicpics for component configuration:
+
+```js
+export default {
+    ...
+    "modules": [ `@twicpics/components/nuxt2` ],
+    ...
+    "twicpics": {
+        "domain": `https://<your-domain>.twic.pics`,
+    },
 };
 ```
 

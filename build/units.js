@@ -82,5 +82,18 @@ export default [
                     .join( `\n` ),
         "sourceDir": `vue`,
     },
+    {
+        "external": [],
+        "framework": `nuxt2`,
+        "javascript": true,
+        "formats": [ `cjs` ],
+        "postBuild": {
+            "copy": {
+                "files": [ `plugin.js` ],
+                "replacer": code => code.replace( /vueXXX/g, `vue2` ),
+            },
+        },
+        "sourceDir": `nuxt`,
+    },
     svelteUnitFactory( true ),
 ];
