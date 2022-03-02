@@ -15,34 +15,43 @@ const getFolders = ( framework, sourceDir ) => ( {
  * @param {*} sourceDir given sourcedir (framework by default)
  */
 const copy = async ( options, framework, sourceDir = framework ) => {
-    const { files, replacer } = options;
+    const { files } = options;
     const { twicDist, srcDist } = getFolders( framework, sourceDir );
     const filesToWrite = [];
 
-    if ( replacer && ( typeof ( replacer ) !== `function` ) ) {
-        // eslint-disable-next-line no-console
-        console.warn( `replacer defined in movePostBuild for ${ framework } framwork is not a function` );
-    }
-
     for await ( const file of files ) {
-        let srcCode = await readFile( `${ srcDist }/${ file }`, `utf8` );
+
+        const { sourceFileName = file,
+            outputFileName = sourceFileName,
+            minify = true,
+            replacer } = file;
+
+        let srcCode = await readFile( `${ srcDist }/${ sourceFileName }`, `utf8` );
+
+        if ( replacer && ( typeof ( replacer ) !== `function` ) ) {
+            // eslint-disable-next-line no-console
+            console.warn( `replacer defined in movePostBuild 
+            for ${ sourceFileName } in ${ framework } framwork is not a function` );
+        }
 
         if ( replacer && ( typeof ( replacer ) === `function` ) ) {
             srcCode = replacer( srcCode );
         }
 
-        const { code } = uglify.minify(
+        const { code } = minify ? uglify.minify(
             srcCode,
             {
                 "compress": {
                     "templates": false,
                 },
             }
-        );
+        ) : {
+            "code": srcCode,
+        };
 
         filesToWrite.push(
             {
-                "path": `${ twicDist }/${ file }`,
+                "path": `${ twicDist }/${ outputFileName }`,
                 "content": code,
             }
         );

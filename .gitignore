@@ -6,6 +6,8 @@
 /samples/**/package-lock.json
 /samples/**/yarn.lock
 /samples/angular*/**/app.component.html
+/samples/gatsby/.cache
+/samples/gatsby/public
 /samples/webcomponents/index.html
 *.log
 .angular

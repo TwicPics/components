@@ -1,0 +1,22 @@
+{
+  "name": "twic-pics-components",
+  "version": "1.0.0",
+  "private": true,
+  "description": "twic-pics-components",
+  "author": "Miguel Beignon",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "start": "$npm_execpath install && gatsby clean && gatsby build && gatsby serve -p 3000",
+    "serve": "$npm_execpath install && gatsby clean && gatsby develop -p 3000"
+  },
+  "dependencies": {
+    "@twicpics/components": "file:../../dist",
+    "@twicpics/components-sample": "file:../_",
+    "gatsby": "4.8.2",
+    "gatsby-plugin-compile-es6-packages": "^2.1.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
+}

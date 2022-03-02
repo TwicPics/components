@@ -2,6 +2,10 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.6.2
+
+- __feature__: supports `Gatsby`
+
 ## 0.6.1
 
 - __bug__: `className` prop passed to `React` and `Svelte` components is now applied to the outer div

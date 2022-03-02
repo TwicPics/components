@@ -20,7 +20,7 @@ With [TwicPics](https://www.twicpics.com/), developers only deal with high-resol
 [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) currently supports:
 
 - [Angular](https://angular.io/) (version 11 to 13)
-- [React](https://reactjs.org/) and [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/), [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/)
 - [Svelte](https://svelte.dev/) (version 3)
 - [Vue.js](https://vuejs.org/) (version 2 to 3) and [Nuxt.js](https://nuxtjs.org/)
 - [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
@@ -92,6 +92,51 @@ installTwicPics( {
 
 ```html
 <TwicImg src="path/to/your/image"></TwicImg>
+```
+
+### Gatsby
+
+#### `gatsby-config.js`
+
+Add `@twicpics/components/gatsby` to the plugins section with your twicpics configuration
+
+```js
+module.exports = {
+    ...
+    "plugins": [
+            ...
+            {
+                "resolve": `@twicpics/components/gatsby`,
+                "options": {
+                    "twicpics": {
+                        "domain": `https://<your-domain>.twic.pics`,
+                    },
+                },
+            },
+            ...
+        ],
+    ...
+};
+```
+
+#### `<your-page>.js`
+
+NB : You can use any extension supported by your Gatsby project (js, jsx, ts, tsx)
+
+```js
+import React from "react";
+import { TwicImg } from "@twicpics/components/react";
+...
+
+const IndexPage = () => (
+    <main>
+        ...
+            <TwicImg src="path/to/your/image"></TwicImg>
+        ...
+    </main>
+);
+
+export default IndexPage;
 ```
 
 ### Next

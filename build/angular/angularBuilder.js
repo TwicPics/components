@@ -307,7 +307,7 @@ export const buildComponents = async () => {
 };
 
 /**
- * generate and return exports attributes to be add to generated package.json
+ * generates and returns exports attributes to be added to generated package.json
  */
 export const exportsPackageJson = async () => {
     const exports = new Map();

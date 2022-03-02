@@ -1,6 +1,8 @@
+/samples/**/.cache
 /samples/**/.next
 /samples/**/.nuxt
 /samples/**/build
+/samples/gatsby/public
 /samples/**/polyfills.ts
 /tests/**/.next
 /tests/**/.nuxt

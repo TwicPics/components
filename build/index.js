@@ -10,6 +10,7 @@ import {
     buildComponents as buildAngularComponents,
     exportsPackageJson as exportsAngularPackageJson,
 } from "./angular/angularBuilder.js";
+
 import { getJsonFromPath, writeJson } from "./json.js";
 import { formats, getFormatInfo } from "./formats.js";
 import postBuild from "./postBuild.js";
@@ -28,6 +29,19 @@ const getExportsByFramework = ( framework, customFormats ) => {
     }
     return exportsByFramework;
 };
+
+// if ( replacer && ( typeof ( replacer ) !== `function` ) ) {
+const exportsPackageJson = () => units.flatMap(
+    (
+        { framework, "formats": customFormats, customPackageJsonExports = false }
+    ) => {
+        if ( customPackageJsonExports && ( typeof ( customPackageJsonExports ) === `function` ) ) {
+            return customPackageJsonExports();
+        }
+        return customPackageJsonExports ?
+            [] : [ [ `./${ framework }`, getExportsByFramework( framework, customFormats ) ] ];
+    }
+);
 
 console.log( `clearing dist directory...` );
 await remove( `${ __dirname }/../dist` );
@@ -74,10 +88,7 @@ console.log( `generating package.json with mappings...` );
 const packageJSON = await getJsonFromPath( `${ __dirname }/package.template.json` );
 packageJSON.exports = Object.fromEntries( [
     [ `./style.css`, `./style.css` ],
-    ...units.map( ( { framework, "formats": customFormats } ) => [
-        `./${ framework }`,
-        getExportsByFramework( framework, customFormats ),
-    ] ),
+    ...exportsPackageJson(),
     ...await exportsAngularPackageJson(),
 ] );
 await writeJson( `${ __dirname }/../dist/package.json`, packageJSON );

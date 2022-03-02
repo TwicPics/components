@@ -4,6 +4,7 @@ import svelte from "rollup-plugin-svelte";
 import sveltePreprocessor from "svelte-preprocess";
 import vue2 from "rollup-plugin-vue2";
 import vue3 from "rollup-plugin-vue";
+import { packageVersion } from "./version.js";
 
 const svelteUnitFactory = ( customElement = false ) => ( {
     "external": customElement ? [] : [ `svelte/internal` ],
@@ -89,11 +90,44 @@ export default [
         "formats": [ `cjs` ],
         "postBuild": {
             "copy": {
-                "files": [ `plugin.js` ],
-                "replacer": code => code.replace( /vueXXX/g, `vue2` ),
+                "files": [
+                    {
+                        "sourceFileName": `plugin.js`,
+                        "replacer": code => code.replace( /vueXXX/g, `vue2` ),
+                    },
+                ],
             },
         },
         "sourceDir": `nuxt`,
+    },
+    {
+        "external": [],
+        "framework": `gatsby`,
+        "sourceFileName": `plugin`,
+        "outputFileName": `plugin`,
+        "javascript": true,
+        "formats": [ `es` ],
+        "customPackageJsonExports": () => [ [ `./gatsby/package.json`, `./gatsby/package.json` ] ],
+        "postBuild": {
+            "copy": {
+                "files": [
+                    {
+                        "sourceFileName": `apis.js`,
+                        "outputFileName": `gatsby-browser.js`,
+                    },
+                    {
+                        "sourceFileName": `apis.js`,
+                        "outputFileName": `gatsby-ssr.js`,
+                    },
+                    {
+                        "sourceFileName": `package.template.json`,
+                        "outputFileName": `package.json`,
+                        "minify": false,
+                        "replacer": code => JSON.stringify( JSON.parse( code.replace( /XXX/g, packageVersion ) ) ),
+                    },
+                ],
+            },
+        },
     },
     svelteUnitFactory( true ),
 ];

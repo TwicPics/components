@@ -22,11 +22,21 @@ import { terser } from "rollup-plugin-terser";
 import typeScript from "@rollup/plugin-typescript";
 import replacer from "./replacer.js";
 
-export default (
-    // eslint-disable-next-line no-shadow
-    { external = [], framework, plugins = [], postDefinitions, sourceDir = framework, sourceFile, javascript = false },
-    ...formats
-) => ( {
+const getInputFileName = ( sourceDir, sourceFileName, javascript ) =>
+`${ __dirname }/../${ `src/${ sourceDir }/${ sourceFileName }.${ javascript ? `js` : `ts` }` }`;
+
+const getOutputFileName = ( framework, outputFileName, format ) =>
+`${ __dirname }/../dist/${ framework }/${ outputFileName || getFormatInfo( format, `fileName` ) || format }.js`;
+
+// eslint-disable-next-line no-shadow
+export default ( { external = [],
+    framework,
+    plugins = [],
+    postDefinitions,
+    sourceDir = framework,
+    sourceFileName = `index`,
+    outputFileName = undefined,
+    javascript = false }, ...formats ) => ( {
     "component": {
         "acorn": {
             "ecmaVersion": 2022,
@@ -35,10 +45,10 @@ export default (
             `Object.assign`,
             ...external,
         ],
-        "input": `${ __dirname }/../${ sourceFile || `src/${ sourceDir }/index.${ javascript ? `js` : `ts` }` }`,
+        "input": getInputFileName( sourceDir, sourceFileName, javascript ),
         "output": formats.map( format => ( {
             "exports": `named`,
-            "file": `${ __dirname }/../dist/${ framework }/${ getFormatInfo( format, `fileName` ) || format }.js`,
+            "file": getOutputFileName( framework, outputFileName, format ),
             format,
             "sourcemap": true,
             sourcemapPathTransform,
