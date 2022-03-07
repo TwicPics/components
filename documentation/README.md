@@ -141,7 +141,7 @@ With your twicpics configuration
 ```js
 export default {
     ...
-    "modules": "modules": [
+    "modules": [
         [
             `@twicpics/components/nuxt2`,
             {
