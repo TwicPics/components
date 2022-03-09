@@ -1,4 +1,3 @@
-import Sample from "@twicpics/components-sample/Sample.jsx";
 import { installTwicPics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 import "@twicpics/components-sample/Sample.css";
@@ -9,4 +8,8 @@ installTwicPics( {
     "step": 100,
 } );
 
-export default Sample;
+function MyApp( { Component, pageProps } ) {
+    return <Component {...pageProps} />;
+}
+
+export default MyApp;
