@@ -2,7 +2,7 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "nuxt": "2.15.7"
+        "nuxt": "2.15.8"
     },
     "scripts": {
         "build": "$npm_execpath install && nuxt build",

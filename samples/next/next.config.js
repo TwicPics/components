@@ -2,8 +2,8 @@
 /* globals module, require */
 "use strict";
 
-const withCompileNodeModules = require( `@moxy/next-compile-node-modules` );
+const withTM = require( `next-transpile-modules` )( [ `@twicpics/components-sample` ] );
 
-module.exports = withCompileNodeModules( {
+module.exports = withTM( {
     "test": /\.jsx$/,
 } );

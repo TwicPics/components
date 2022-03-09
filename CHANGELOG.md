@@ -4,6 +4,7 @@
 
 ## 0.6.2
 
+- __chore__: upgrades dependencies version
 - __feature__: supports `Gatsby`
 
 ## 0.6.1
