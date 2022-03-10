@@ -6,6 +6,7 @@
     },
     "scripts": {
         "build": "$npm_execpath install && nuxt build",
+        "start": "$npm_execpath install && nuxt build && nuxt start",
         "serve": "$npm_execpath install && nuxt"
     },
     "license": "MIT"

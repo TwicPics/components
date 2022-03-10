@@ -18,6 +18,9 @@ export default {
         "port": 3000,
     },
     "modules": [ `@twicpics/components/nuxt2` ],
+    "build": {
+        "transpile": [ `@twicpics/components-sample` ],
+    },
     "twicpics": {
         "domain": `https://demo.twic.pics`,
         "anticipation": 0.5,

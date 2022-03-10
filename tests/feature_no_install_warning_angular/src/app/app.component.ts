@@ -12,5 +12,5 @@ installTwicPics( {
     "styleUrls": [ `./app.component.css` ],
 } )
 export class AppComponent {
-	title = `feature_no_install_warning_angular`;
+    title = `feature_no_install_warning_angular`;
 }
