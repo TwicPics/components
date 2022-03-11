@@ -2,7 +2,7 @@ import __dirname from "./__dirname.js";
 import { copy, remove } from "fs-extra";
 import { dirname } from "path";
 import { readFile, unlink, writeFile } from "fs/promises";
-import { gitHubRootPath } from "./version.js";
+import { gitHubRawPath } from "./version.js";
 import { getFormatInfo } from "./formats.js";
 
 const MINIFY_PASSES = 3;
@@ -11,7 +11,7 @@ const rGrandParent = /^\.\.\/\.\./;
 const sourcemapPathTransform =
     path => path.replace(
         rGrandParent,
-        gitHubRootPath
+        gitHubRawPath
     );
 
 const rJS = /\.js$/;

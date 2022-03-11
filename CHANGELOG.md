@@ -5,6 +5,7 @@
 ## 0.6.2
 
 - __chore__: upgrades dependencies version
+- __doc__: creates technology-specific documentation
 - __feature__: supports `Gatsby`
 
 ## 0.6.1

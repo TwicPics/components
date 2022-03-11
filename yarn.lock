@@ -1452,6 +1452,13 @@ magic-string@>0.19, magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.4"
 
+markdown-include@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/markdown-include/-/markdown-include-0.4.3.tgz#bac6555402c6da93a0f52952225dfb9a6ccc731b"
+  integrity sha1-usZVVALG2pOg9SlSIl37mmzMcxs=
+  dependencies:
+    q "^1.2.0"
+
 memorystream@^0.3.1:
   version "0.3.1"
   resolved "https://registry.npmjs.org/memorystream/-/memorystream-0.3.1.tgz"
@@ -1742,6 +1749,11 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+q@^1.2.0:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+  integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
 queue-microtask@^1.2.2:
   version "1.2.3"

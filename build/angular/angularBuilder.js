@@ -3,7 +3,7 @@ import __dirname from "../__dirname.js";
 import { getAngularDirectories, getDistFolder, getProjectsByDirectory } from "./angularUtils.js";
 import { getJsonFromPath, writeJson } from "../json.js";
 import rollup from "../rollup.js";
-import { gitHubRootPath, packageAuthor, packageName, packageVersion } from "../version.js";
+import { gitHubRawPath, packageAuthor, packageName, packageVersion } from "../version.js";
 import { execSync } from "child_process";
 import { existsSync } from "fs";
 import { readFile } from "fs/promises";
@@ -169,7 +169,7 @@ const sourcemapPathTransform = async angularDirectory => {
     let replaceOptions = {
         "files": `${ ngcDist }/**/*.map`,
         "from": /..\/..\/lib\/src\/_\//g,
-        "to": `${ gitHubRootPath }/src/_/`,
+        "to": `${ gitHubRawPath }/src/_/`,
     };
     await replaceInFile( replaceOptions );
 
@@ -177,7 +177,7 @@ const sourcemapPathTransform = async angularDirectory => {
     replaceOptions = {
         "files": `${ ngcDist }/**/*.map`,
         "from": /..\/..\/lib\/src\//g,
-        "to": `${ gitHubRootPath }/src/angular/`,
+        "to": `${ gitHubRawPath }/src/angular/`,
     };
     await replaceInFile( replaceOptions );
 };
