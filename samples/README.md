@@ -11,6 +11,7 @@ This directory contains sample projects for all supported frameworks.
 | `samples/_` | sample component |
 | `samples/angular12` | [Angular 12](https://angular.io/) version __12__ sample project |
 | `samples/angular13` | [Angular 13](https://angular.io/) version __13__ sample project |
+| `samples/gatsby` | [Gatsby](https://www.gatsbyjs.com/) sample project |
 | `samples/next` | [Next.js](https://nextjs.org/) sample project |
 | `samples/nuxt` | [Nuxt.js](https://nuxtjs.org/) sample project |
 | `samples/react` | [React](https://reactjs.org/) sample project |
