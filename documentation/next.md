@@ -283,6 +283,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
   <img alt="Edit TwicPics x Next - Style driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+
 <div id='responsive-example'/>
 
 ### Responsive Example
@@ -339,7 +340,9 @@ Your template features a single component that will follow your CSS directives a
 ></TwicImg>
 ```
 
-[A reponsive example on codeSandbox](https://codesandbox.io/s/twicpics-x-next-art-direction-ps2zj?fontsize=14&hidenavigation=1&theme=dark)
+<a href="https://codesandbox.io/s/twicpics-x-next-art-direction-ps2zj?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Next - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 <div id='components-props'/>
 
