@@ -10,6 +10,13 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
+<a href="https://codesandbox.io/s/twicpics-x-gatsby-basic-example-64cid1?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Gatsby - Basic Example" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
+
+[Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
+
 #include "src/_documentation/common/_installation.md"
 
 <div id='setup'/>
@@ -175,6 +182,9 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </div>
 ```
 
+<a href="https://codesandbox.io/s/twicpics-x-gatsby-art-direction-k4n458?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Gatsby - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 <div id='responsive-example'/>
 
@@ -232,6 +242,10 @@ Your template features a single component that will follow your CSS directives a
 ></TwicImg>
 ```
 
+<a href="https://codesandbox.io/s/twicpics-x-gatsby-style-driven-h97h50?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Gatsby - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"
@@ -240,7 +254,8 @@ Your template features a single component that will follow your CSS directives a
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/gatsby).
+You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/gatsby) 
+and [here](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
 
 #include "src/_documentation/common/_gettingHelp.md"
 

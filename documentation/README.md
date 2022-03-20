@@ -50,7 +50,7 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
 
 Regardless of the framework you work with, [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) is the most efficient solution to deliver your images and your videos and make them as responsive as desired.
 
-Explore our demos and integration examples for [React](https://twicpics-react-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) and [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) on Codesandbox.
+Explore our demos and integration examples for [React](https://twicpics-react-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github), [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) and [Gatsby.js](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) on Codesandbox.
 
 <div id='getting-help'/>
 
