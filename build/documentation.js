@@ -2,7 +2,7 @@
 import __dirname from "./__dirname.js";
 import markdownInclude from "markdown-include";
 import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
-// import { gitHubRawPath, gitHubBlobPath } from "./version.js";
+import { gitHubRawPath, gitHubBlobPath } from "./version.js";
 
 /**
  * path of the folder containing the sources of the documentation to be generated
@@ -26,15 +26,6 @@ const createWorkingDirectory = async () => {
     await removeWorkingDirectory();
     await mkdir( tmpDirectory );
 };
-
-/**
- * tmp const (will be removed before release)
- */
-const gitHubRawPath = `https://raw.githubusercontent.com/twicpics/components/dev`;
-const gitHubBlobPath = `https://github.com/TwicPics/components/blob/dev`;
-/**
- * tmp end
- */
 
 /**
   * get list of documentation to build
