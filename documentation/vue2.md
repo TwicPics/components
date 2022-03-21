@@ -2,7 +2,7 @@
 
 
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/dev/documentation/resources/vuejs-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.6.2/documentation/resources/vuejs-cover.png)
 
 
 

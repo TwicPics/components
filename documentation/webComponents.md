@@ -6,7 +6,7 @@
 
 
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/dev/documentation/resources/webcomponents-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.6.2/documentation/resources/webcomponents-cover.png)
 
 
 
