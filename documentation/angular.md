@@ -452,6 +452,73 @@ This component can be used in place of a `video` element.
 | `transitionDuration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `String` | `400ms` |
 | `transitionTimingFunction` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `String` | `ease` |
 
+### Mode Type
+
+Union type for all possible values on `mode` property.
+
+```ts
+type Mode = `contain` | `cover`;
+```
+
+#### Usage
+
+To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Mode`.
+
+`<your-component>.ts`
+```ts
+import { Mode } from "@twicpics/components/angular13";
+
+@Component({
+  selector: ...,
+  templateUrl: ...,
+  styleUrls: ...,
+})
+export class YourComponent {
+  yourModeVariable:Mode = `contain`;
+
+}
+```
+
+`<your-component>.html`
+
+```html
+<TwicImg src="path/to/your/image" [mode]="yourModeVariable"></TwicImg>
+```
+
+
+### Placeholder Type
+
+Union type for all possible values on `placeholder` property.
+
+```ts
+type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
+```
+
+#### Usage
+
+To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Placeholder`.
+
+`<your-component>.ts`
+```ts
+import { Placeholder } from "@twicpics/components/angular13";
+
+@Component({
+  selector: ...,
+  templateUrl: ...,
+  styleUrls: ...,
+})
+export class YourComponent {
+  yourPlaceholderVariable:Placeholder = `none`;
+
+}
+```
+
+`<your-component>.html`
+
+```html
+<TwicImg src="path/to/your/image" [placeholder]="yourPlaceholderVariable"></TwicImg>
+```
+
 <div id='css-variables'/>
 
 ## CSS Variables
@@ -479,6 +546,8 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 | `--twic-transition-delay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `transitionDelay` | `0ms` |
 | `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `transitionDuration` | `400ms` |
 | `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
+
+
 
 <div id='example'/>
 

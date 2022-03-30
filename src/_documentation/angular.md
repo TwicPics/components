@@ -289,7 +289,76 @@ Your template features a single component that will follow your CSS directives a
 
 #include "src/_documentation/common/_componentsProps.md"
 
+### Mode Type
+
+Union type for all possible values on `mode` property.
+
+```ts
+type Mode = `contain` | `cover`;
+```
+
+#### Usage
+
+To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Mode`.
+
+`<your-component>.ts`
+```ts
+import { Mode } from "@twicpics/components/angular13";
+
+@Component({
+  selector: ...,
+  templateUrl: ...,
+  styleUrls: ...,
+})
+export class YourComponent {
+  yourModeVariable:Mode = `contain`;
+
+}
+```
+
+`<your-component>.html`
+
+```html
+<TwicImg src="path/to/your/image" [mode]="yourModeVariable"></TwicImg>
+```
+
+
+### Placeholder Type
+
+Union type for all possible values on `placeholder` property.
+
+```ts
+type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
+```
+
+#### Usage
+
+To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Placeholder`.
+
+`<your-component>.ts`
+```ts
+import { Placeholder } from "@twicpics/components/angular13";
+
+@Component({
+  selector: ...,
+  templateUrl: ...,
+  styleUrls: ...,
+})
+export class YourComponent {
+  yourPlaceholderVariable:Placeholder = `none`;
+
+}
+```
+
+`<your-component>.html`
+
+```html
+<TwicImg src="path/to/your/image" [placeholder]="yourPlaceholderVariable"></TwicImg>
+```
+
 #include "src/_documentation/common/_cssVariables.md"
+
+
 
 <div id='example'/>
 
