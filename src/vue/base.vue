@@ -23,7 +23,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
-import { rValidMode, rValidPlaceholder, rValidRatio, rValidTransition } from "../_/types";
+import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/types";
 
 const callFactory = ( func, _args ) => {
     const args = _args.map( arg => ( ( typeof arg === `function` ) ? {
@@ -50,7 +50,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
     [ `src`, requiredStringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
-    [ `transition`, booleanProp( rValidTransition, true ), parseTransition ],
+    [ `transition`, booleanProp( null, true ), parseTransition ],
     [ `transitionDelay`, stringProp, parseTransitionDelay ],
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
@@ -67,17 +67,17 @@ for ( const [ propName, func, args ] of [
     [
         `_style`,
         computeStyle,
-        [ `mode`, `position`, `transition`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
+        [ `mode`, `position`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
     ],
     [
         `_wrapperClass`,
         computeWrapperClass,
-        [],
+        [ `transition` ],
     ],
     [
         `_wrapperStyle`,
         computeWrapperStyle,
-        [ `focus`, `mode`, `placeholder`, `position`, `ratio`, `src`, c => c._p.setData ],
+        [ `focus`, `mode`, `placeholder`, `position`, `ratio`, `src`, `transition`, c => c._p.setData ],
     ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

@@ -1,7 +1,9 @@
 import { trimRegExpFactory } from "./utils";
 
 export type Mode = `contain` | `cover`;
+
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
+export type Transition = `fade` | `zoom` | `none`;
 
 export interface Attributes {
     alt?: string,
@@ -35,6 +37,3 @@ export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor
 export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
 
 export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*\\/\\s*(\\d+(?:\\.\\d+)?))?` );
-
-export const validTransition = [ `false`, `true` ];
-export const rValidTransition = trimRegExpFactory( validTransition );

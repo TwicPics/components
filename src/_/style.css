@@ -30,12 +30,11 @@
     display: block;
     left: 0;
     height: 100%;
-    opacity: 0;
     position: absolute;
     top: 0;
-    transition-property: opacity;
     width: 100%;
-    will-change: opacity;
+    transition-property: opacity, transform;
+    will-change: opacity, transform;
     /* defaults */
     object-fit: cover;
     object-position: center;
@@ -48,4 +47,12 @@
     transition-delay: var( --twic-transition-delay, 0s );
     transition-duration: var( --twic-transition-duration, 400ms );
     transition-timing-function: var( --twic-transition-timing-function, ease );
+}
+
+.twic-w.twic-tz > * {
+    transform: scale(0);
+}
+
+.twic-w.twic-tf > * {
+    opacity: 0;
 }

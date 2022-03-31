@@ -7,7 +7,7 @@
 - __chore__: uses the package version number in documentation
 - __doc__: adds link to the demo site in the `Angular` documentation
 - __feature__: `Angular` components export the `Mode` and `Placeholder` types which allows dynamic setting of the related properties.
-
+- __feature__: adds a `zoom` effect to the `transition` options
 
 ## 0.6.2
 

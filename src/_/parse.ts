@@ -1,5 +1,5 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import { Mode, Placeholder, rValidMode, rValidPlaceholder, rValidRatio } from "./types";
+import { Mode, Placeholder, Transition, rValidMode, rValidPlaceholder, rValidRatio } from "./types";
 import { logError, regExpFinderFactory, trimRegExpFactory } from "./utils";
 
 const rImage = /^(image:)?\/?/;
@@ -60,13 +60,30 @@ export const parseSrc = ( value: string ): string => {
     return value.replace( rImage, `image:` );
 };
 
-export const parseTransition = ( value: boolean | string ): boolean => {
+export const parseTransition = ( value: boolean | string ): Transition[] => {
+    const mapping: { [key: string]: Transition; } = {
+        "true": `fade`,
+        "false": `none`,
+        "fade": `fade`,
+        "zoom": `zoom`,
+        "none": `none`,
+    };
+
     if ( typeof value !== `boolean` ) {
-        const trimmed = trimOrUndefined( value );
         // eslint-disable-next-line no-param-reassign
-        value = !( trimmed && ( trimmed === `false` ) );
+        value = trimOrUndefined( value ) || true;
     }
-    return value;
+
+    let parsedTransition:Transition[] = String( value )
+        .split( `+` )
+        .map( transition => mapping[ transition ] || `fade` );
+
+    if ( parsedTransition.includes( `none` ) ) {
+        // if `none` is present, any other values are not considered
+        parsedTransition = [ `none` ];
+    }
+
+    return parsedTransition;
 };
 
 export const parseTransitionDelay = trimOrUndefined;

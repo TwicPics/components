@@ -21,6 +21,16 @@ const SSRPage = ( { serverData } ) => (
                 />
                 <span>ratio = { serverData.ratio }</span>
             </div>
+            <div className="item">
+                <TwicImg
+                    src={ serverData.imgSrc }
+                    ratio={ serverData.ratio }
+                    focus={ serverData.focus }
+                    mode={ serverData.mode }
+                    transition = "zoom"
+                />
+                <span>ratio = { serverData.ratio }, transition = "zoom"</span>
+            </div>
         </div>
 
     </main>

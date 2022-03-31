@@ -15,7 +15,8 @@ export const config: {
     "class": defaultClass,
 };
 
-export const configBasedStyle = (): string => `.twic-w>.${ config.class }-done{opacity:1 !important}`;
+export const configBasedStyle = (): string =>
+    `.twic-w>.${ config.class }-done{opacity:1 !important;transform: scale(1) !important;}`;
 export const markComponentsChain = ( item: Element ): undefined => {
     const attributeName = `data-${ config.class }-component`;
     while ( item ) {

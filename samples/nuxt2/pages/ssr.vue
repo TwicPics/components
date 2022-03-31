@@ -15,6 +15,16 @@
                 />
                 <span>ratio = {{ res.ratio }}</span>
             </div>
+            <div class="item">
+                <TwicImg
+                    :src="res.imgSrc"
+                    :focus="res.focus"
+                    :ratio="res.ratio"
+                    :mode="res.mode"
+                    transition="zoom"
+                />
+                <span>ratio = {{ res.ratio }}, transition = "zoom"</span>
+            </div>
         </div>
     </main>
 </template>

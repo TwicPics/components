@@ -1,5 +1,5 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder } from "./types";
+import type { Mode, Placeholder, Transition } from "./types";
 import type { PlaceholderData } from "./placeholder";
 
 import { config } from "./install";
@@ -42,7 +42,6 @@ export const computeData = (
 export const computeStyle = (
     mode: Mode,
     position: string,
-    transition: boolean,
     transitionDelay: string,
     transitionDuration: string,
     transitionTimingFunction: string
@@ -54,12 +53,10 @@ export const computeStyle = (
     if ( position ) {
         computedStyle[ `objectPosition` ] = position;
     }
-    if ( !transition ) {
-        computedStyle[ `transitionDuration` ] = `0ms`;
-    } else if ( transitionDuration ) {
+    if ( transitionDuration ) {
         computedStyle[ `transitionDuration` ] = transitionDuration;
     }
-    if ( transition && transitionDelay ) {
+    if ( transitionDelay ) {
         computedStyle[ `transitionDelay` ] = transitionDelay;
     }
     if ( transitionTimingFunction ) {
@@ -69,7 +66,23 @@ export const computeStyle = (
 };
 /* eslint-enable dot-notation */
 
-export const computeWrapperClass = (): string => `twic-w`;
+export const computeWrapperClass = (
+    transitions: Transition[]
+): string => {
+
+    const wrapperClass = [ `twic-w` ];
+
+    if ( !transitions.includes( `none` ) ) {
+        if ( transitions.includes( `zoom` ) ) {
+            wrapperClass.push( `twic-tz` );
+        }
+        if ( transitions.includes( `fade` ) ) {
+            wrapperClass.push( `twic-tf` );
+        }
+    }
+
+    return wrapperClass.join( ` ` );
+};
 
 /* eslint-disable dot-notation */
 export const computeWrapperStyle = (
@@ -79,6 +92,7 @@ export const computeWrapperStyle = (
     position: string,
     ratio: number,
     src: string,
+    transitions: Transition[],
     placeholderDataHandler: ( ( data: PlaceholderData ) => void )
 ): Record< string, string > => {
     const computedWrapperStyle: Record< string, string > = {};
@@ -87,6 +101,7 @@ export const computeWrapperStyle = (
         mode,
         placeholder,
         ratio,
+        transitions,
         src,
     } );
 

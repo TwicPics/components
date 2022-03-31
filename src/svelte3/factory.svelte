@@ -44,7 +44,7 @@ export let position: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
 export let step: number = undefined;
-export let transition: boolean = true;
+export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
@@ -75,7 +75,6 @@ $: _data = computeData( parsedBot, parsedFocus, parsedSrc, parsedStep );
 $: _style = styleToString( computeStyle(
     parsedMode,
     parsedPosition,
-    parsedTransition,
     parsedTransitionDelay,
     parsedTransitionDuration,
     parsedTransitionTimingFunction
@@ -87,6 +86,7 @@ $: _wrapperStyle = styleToString( computeWrapperStyle(
     parsedPosition,
     parsedRatio,
     parsedSrc,
+    parsedTransition,
     placeholderHandler.setData,
 ) );
 
@@ -107,7 +107,7 @@ if ( isBrowser ) {
 <div class = { isWebComponents ? `` : parseClassName( className ) }>
     <div
         bind:this = { wrapper }
-        class = { computeWrapperClass() }
+        class = { computeWrapperClass( parsedTransition ) }
         style = "{ _wrapperStyle }{ _wrapperBackgroundImage }"
     >
         <img

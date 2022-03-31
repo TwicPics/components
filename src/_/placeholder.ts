@@ -1,5 +1,5 @@
 /* eslint no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder } from "./types";
+import type { Mode, Placeholder, Transition } from "./types";
 
 import { config } from "./install";
 import { cssWithoutPx } from "./dom";
@@ -13,14 +13,15 @@ export interface PlaceholderData {
     mode: Mode,
     placeholder: Placeholder,
     ratio: number,
+    transitions: Transition[],
     src: string
 }
 
 const computeWrapperBackground = (
     element: Element,
-    { focus, mode, placeholder, ratio, src }: PlaceholderData
+    { focus, mode, placeholder, ratio, transitions = [], src }: PlaceholderData
 ): string => {
-    if ( !placeholder || !src ) {
+    if ( !placeholder || !src || ( transitions.includes( `zoom` ) ) ) {
         return ``;
     }
 

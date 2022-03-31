@@ -22,6 +22,16 @@ const SSRPage = ( { imgSrc, focus, mode, ratio } ) => (
                 />
                 <span>ratio = { ratio }</span>
             </div>
+            <div className="item">
+                <TwicImg
+                    src={ imgSrc }
+                    ratio={ ratio }
+                    focus={ focus }
+                    mode={ mode }
+                    transition = "zoom"
+                />
+                <span>ratio = { ratio }, transition = "zoom"</span>
+            </div>
         </div>
     </main>
 );

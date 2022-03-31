@@ -82,7 +82,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy {
     }
     // eslint-disable-next-line class-methods-use-this
     getWrapperClass(): string {
-        return computeWrapperClass();
+        return computeWrapperClass( parseTransition( this.transition ) );
     }
     /**
      * compute and return element's (img or video) attributes
@@ -106,7 +106,6 @@ export class TwicBaseComponent implements OnInit, OnDestroy {
         return computeStyle(
             parseMode( this.mode ),
             parsePosition( this.position ),
-            parseTransition( this.transition ),
             parseTransitionDelay( this.transitionDelay ),
             parseTransitionDuration( this.transitionDuration ),
             parseTransitionTimingFunction( this.transitionTimingFunction )
@@ -125,6 +124,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy {
             parsePosition( this.position ),
             parseRatio( this.ratio ),
             parseSrc( this.src ),
+            parseTransition( this.transition ),
             this._p.setData
         );
     }

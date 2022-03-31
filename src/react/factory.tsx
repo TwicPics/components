@@ -122,7 +122,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                 <div className= { className }>
                     <div
                         ref={ this._w }
-                        className = { computeWrapperClass() }
+                        className = { computeWrapperClass( transition ) }
                         style = {
                             computeWrapperStyle(
                                 focus,
@@ -131,6 +131,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                 position,
                                 ratio,
                                 src,
+                                transition,
                                 this._p.setData
                             )
                         }
@@ -141,7 +142,6 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                 computeStyle(
                                     mode,
                                     position,
-                                    transition,
                                     transitionDelay,
                                     transitionDuration,
                                     transitionTimingFunction
