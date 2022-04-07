@@ -443,8 +443,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/gatsby) 
-and [here](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our inline demo project](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
 
 <div id='getting-help'/>
 

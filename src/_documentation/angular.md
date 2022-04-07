@@ -364,7 +364,7 @@ export class YourComponent {
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/angular13).
+You can find usage examples [in our inline demo project](https://twicpics-angular-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
 
 #include "src/_documentation/common/_gettingHelp.md"
 

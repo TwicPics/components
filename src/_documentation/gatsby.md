@@ -254,8 +254,7 @@ Your template features a single component that will follow your CSS directives a
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/gatsby) 
-and [here](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our inline demo project](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
 
 #include "src/_documentation/common/_gettingHelp.md"
 
