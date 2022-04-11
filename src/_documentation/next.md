@@ -265,7 +265,7 @@ Your template features a single component that will follow your CSS directives a
 
 ## Examples
 
-You can find usage examples [in our inline demo project](https://twicpics-next-demo.netlify.app//?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our online demo project](https://twicpics-next-demo.netlify.app//?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
 
 #include "src/_documentation/common/_gettingHelp.md"
 
