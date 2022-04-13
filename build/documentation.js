@@ -2,7 +2,7 @@
 import __dirname from "./__dirname.js";
 import markdownInclude from "markdown-include";
 import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
-import { gitHubRawPath, gitHubBlobPath } from "./version.js";
+import { packageVersion, gitHubRawPath, gitHubBlobPath } from "./version.js";
 
 /**
  * path of the folder containing the sources of the documentation to be generated
@@ -59,6 +59,10 @@ const replacer = async file => {
         {
             "regExp": /(\b)__GITHUB_BLOB_PATH__(\b)/gm,
             "transform": gitHubBlobPath,
+        },
+        {
+            "regExp": /__PACKAGE_VERSION__/gm,
+            "transform": packageVersion,
         },
     ];
 

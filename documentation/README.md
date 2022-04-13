@@ -61,5 +61,5 @@ Fell free to submit an [issue](https://github.com/TwicPics/components/issues) or
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/npm/v/@twicpics/components.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components
+[npm-image]: https://img.shields.io/badge/npm-v0.6.2-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.6.2
