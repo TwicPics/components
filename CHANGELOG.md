@@ -3,6 +3,7 @@
 # TwicPics Components CHANGELOG
 
 ## 0.6.3
+- __chore__: removes unused methods and factory
 - __doc__: adds link to the demo site in the `Angular` documentation
 - __feature__: `Angular` components export the `Mode` and `Placeholder` types which allows dynamic setting of the related properties.
 
