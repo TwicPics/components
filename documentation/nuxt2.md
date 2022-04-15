@@ -2,7 +2,7 @@
 
 
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.6.2/documentation/resources/nuxt-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.6.3/documentation/resources/nuxt-cover.png)
 
 
 
@@ -478,5 +478,5 @@ TwicPics Components are available [in the most popular javascript frameworks](ht
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.6.2-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.6.2
+[npm-image]: https://img.shields.io/badge/npm-v0.6.3-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.6.3

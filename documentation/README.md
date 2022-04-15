@@ -6,7 +6,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.6.2/documentation/resources/components-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.6.3/documentation/resources/components-cover.png)
 
 
 
@@ -40,11 +40,11 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
 
 ## Supported frameworks
 
-- [Angular](https://github.com/TwicPics/components/blob/0.6.2/documentation/angular.md)
-- [React](https://github.com/TwicPics/components/blob/0.6.2/documentation/react.md), [Gatsby](https://github.com/TwicPics/components/blob/0.6.2/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.6.2/documentation/next.md)
-- [Svelte](https://github.com/TwicPics/components/blob/0.6.2/documentation/svelte3.md) (version 3)
-- [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.6.2/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.6.2/documentation/vue3.md) and [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.6.2/documentation/nuxt2.md)
-- [Web Components](https://github.com/TwicPics/components/blob/0.6.2/documentation/webComponents.md)
+- [Angular](https://github.com/TwicPics/components/blob/0.6.3/documentation/angular.md)
+- [React](https://github.com/TwicPics/components/blob/0.6.3/documentation/react.md), [Gatsby](https://github.com/TwicPics/components/blob/0.6.3/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.6.3/documentation/next.md)
+- [Svelte](https://github.com/TwicPics/components/blob/0.6.3/documentation/svelte3.md) (version 3)
+- [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.6.3/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.6.3/documentation/vue3.md) and [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.6.3/documentation/nuxt2.md)
+- [Web Components](https://github.com/TwicPics/components/blob/0.6.3/documentation/webComponents.md)
 
 ## Online demonstrations
 
@@ -61,5 +61,5 @@ Fell free to submit an [issue](https://github.com/TwicPics/components/issues) or
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.6.2-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.6.2
+[npm-image]: https://img.shields.io/badge/npm-v0.6.3-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.6.3
