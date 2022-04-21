@@ -58,7 +58,7 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
   <TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-vue-2-basic-xb0vp1?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-vue2-basic-example-ym85ql?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Vue 2 - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -282,7 +282,7 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-vue-2-style-driven-ec1sis?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-vue2-style-driven-vp5c8e?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Vue 2 - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -351,7 +351,7 @@ export default {
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-vue-2-art-direction-ozif8m?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-vue2-art-directions-s0vks9?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Vue 2 - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -465,7 +465,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/vue2).
+You can find usage examples [in our online demo project](https://twicpics-vue-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
 
 <div id='getting-help'/>
 

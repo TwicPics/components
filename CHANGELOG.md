@@ -2,6 +2,9 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.6.4
+- __doc__: adds link to the demo site in the `VueJS 2.x` documentation
+
 ## 0.6.3
 - __chore__: removes unused methods and factory
 - __chore__: uses the package version number in documentation
