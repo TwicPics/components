@@ -15,5 +15,7 @@
 .history
 .idea
 .vscode
+package-lock.json
+yarn.lock
 dist
 node_modules
