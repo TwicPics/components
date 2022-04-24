@@ -14,7 +14,7 @@ const sourcemapPathTransform =
         gitHubRawPath
     );
 
-const rJS = /\.js$/;
+const rJS = /\.m?js$/;
 
 import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
@@ -25,8 +25,15 @@ import replacer from "./replacer.js";
 const getInputFileName = ( sourceDir, sourceFileName, javascript ) =>
 `${ __dirname }/../${ `src/${ sourceDir }/${ sourceFileName }.${ javascript ? `js` : `ts` }` }`;
 
-const getOutputFileName = ( framework, outputFileName, format ) =>
-`${ __dirname }/../dist/${ framework }/${ outputFileName || getFormatInfo( format, `fileName` ) || format }.js`;
+const getOutputFileName = ( framework, outputFileName, format ) => `${
+    __dirname
+}/../dist/${
+    framework
+}/${
+    outputFileName || getFormatInfo( format, `fileName` ) || format
+}.${
+    getFormatInfo( format, `extension` ) || `js`
+}`;
 
 // eslint-disable-next-line no-shadow
 export default ( { external = [],
@@ -118,7 +125,7 @@ export default ( { external = [],
                         typeDefinitions = postDefinitions( typeDefinitions );
                     }
                     typeDefinitions = typeDefinitions.replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
-                    const ref = `export*from'./${ getFormatInfo( formats[ 0 ], `fileName` ) || formats[ 0 ] }';`;
+                    const ref = `export*from"./${ getFormatInfo( formats[ 0 ], `fileName` ) || formats[ 0 ] }.d.ts";`;
                     await Promise.all( formats.map( ( f, isCopy ) => writeFile(
                         `${ __dirname }/../dist/${ framework }/${ getFormatInfo( f, `fileName` ) || f }.d.ts`,
                         isCopy ? ref : typeDefinitions

@@ -4,12 +4,14 @@
 const formatsInfo = new Map( [
     [
         `cjs`, {
+            "extension": `js`,
             "fileName": `index`,
             "exports": `require`,
         },
     ],
     [
         `es`, {
+            "extension": `mjs`,
             "fileName": `module`,
             "exports": `import`,
         },
@@ -30,5 +32,5 @@ export const getFormatInfo = ( format, attribute ) => {
     if ( attribute ) {
         return formatInfo ? formatInfo[ attribute ] : null;
     }
-    return formatInfo;
+    return formatInfo || {};
 };

@@ -1,1 +1,1 @@
-export { wrapRootElement } from "./plugin.js";
+export { wrapRootElement } from "./plugin.mjs";

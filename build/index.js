@@ -24,8 +24,8 @@ const getExportsByFramework = ( framework, customFormats ) => {
     const formatsToExport = customFormats || formats;
     const exportsByFramework = {};
     for ( const format of formatsToExport ) {
-        const { exports, fileName } = getFormatInfo( format );
-        exportsByFramework[ exports ] = `./${ framework }/${ fileName }.js`;
+        const { extension, exports, fileName } = getFormatInfo( format );
+        exportsByFramework[ exports ] = `./${ framework }/${ fileName }.${ extension }`;
     }
     return exportsByFramework;
 };
