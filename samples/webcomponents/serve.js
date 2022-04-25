@@ -10,7 +10,7 @@ await writeFile(
         ( await readFile( resolve( rootDir, `index.js` ), `utf8` ) )
             .replace(
                 `@twicpics/components/webcomponents`,
-                `./node_modules/@twicpics/components/webcomponents/module.js`
+                `./node_modules/@twicpics/components/webcomponents/module.mjs`
             )
     }</script><style>${
         await readFile( resolve( sampleDir, `Sample.css` ), `utf8` )

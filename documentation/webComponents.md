@@ -113,8 +113,8 @@ While we recommend going the `ES module` route and use `import` statements, [Twi
 Add the import part
 
 ```jsx
-// import TwicPics react components
-import { installTwicPics } from "@twicpics/components/react";
+// import TwicPics webcomponents
+import { installTwicPics } from "@twicpics/components/webcomponents";
 // import TwicPics components css
 import "@twicpics/components/style.css";
 ```
@@ -149,7 +149,7 @@ customElements.define( `twic-img`, TwicImg );
   import {
     installTwicPics,
     TwicImg
-  } from "./node_modules/@twicpics/components/webcomponents/module.js";
+  } from "./node_modules/@twicpics/components/webcomponents/module.mjs";
 
   installTwicPics({
     "domain": `https://<your-domain>.twic.pics`
