@@ -5,7 +5,6 @@
 ## 0.6.4
 - __bug__: fixes `esm` version importation 
 - __doc__: adds link to the demo site in the `VueJS 2.x` documentation
-- __doc__: updates documentation following the change of the `esm` file extension
 
 ## 0.6.3
 - __chore__: removes unused methods and factory
