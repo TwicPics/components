@@ -3,13 +3,15 @@
 # TwicPics Components CHANGELOG
 
 ## 0.6.4
+- __bug__: fixes `esm` version importation 
 - __doc__: adds link to the demo site in the `VueJS 2.x` documentation
+- __doc__: updates documentation following the change of the `esm` file extension
 
 ## 0.6.3
 - __chore__: removes unused methods and factory
 - __chore__: uses the package version number in documentation
 - __doc__: adds link to the demo site in the `Angular` documentation
-- __feature__: `Angular` components export the `Mode` and `Placeholder` types which allows dynamic setting of the related properties.
+- __feature__: `Angular` components export the `Mode` and `Placeholder` types which allows dynamic setting of the related properties
 - __feature__: adds a `zoom` effect to the `transition` options
 
 ## 0.6.2
