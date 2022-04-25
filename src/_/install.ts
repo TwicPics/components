@@ -16,7 +16,7 @@ export const config: {
 };
 
 export const configBasedStyle = (): string =>
-    `.twic-w>.${ config.class }-done{opacity:1 !important;transform: scale(1) !important;}`;
+    `.twic-w>.${ config.class }-done{opacity:1 !important;transform: none! important;}`;
 export const markComponentsChain = ( item: Element ): undefined => {
     const attributeName = `data-${ config.class }-component`;
     while ( item ) {
