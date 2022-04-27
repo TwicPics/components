@@ -2,6 +2,9 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.6.5
+- __doc__: adds link to the demo site in the `Nuxt 2.x` documentation
+
 ## 0.6.4
 - __bug__: fixes `esm` version importation 
 - __doc__: adds link to the demo site in the `VueJS 2.x` documentation
