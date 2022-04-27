@@ -8,11 +8,13 @@ import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
 const defaultClass = `twic`;
 
 export const config: {
-    domain: string,
     class: string,
+    domain: string,
+    path: string,
 } = {
-    "domain": undefined,
     "class": defaultClass,
+    "domain": undefined,
+    "path": ``,
 };
 
 export const configBasedStyle = (): string =>
@@ -41,7 +43,8 @@ export const markComponentsChain = ( item: Element ): undefined => {
     }
 };
 
-const rDomain = /^https?:\/\/[^/]+$/;
+const rInvalidPath = /\?/;
+const rValidDomain = /^https?:\/\/[^/]+$/;
 
 export default ( options: Options ): void => {
 
@@ -51,10 +54,17 @@ export default ( options: Options ): void => {
 
     const hasPreviousInstall = config && config.domain;
 
-    const { domain, "class": _class } = options;
+    const { domain, "class": _class, path } = options;
 
-    if ( !domain || !rDomain.test( domain ) ) {
+    if ( !domain || !rValidDomain.test( domain ) ) {
         throwError( `install domain "${ domain }" is invalid` );
+    }
+
+    if ( path ) {
+        if ( rInvalidPath.test( path ) ) {
+            throwError( `install path "${ path }" is invalid` );
+        }
+        config.path = path.replace( /^\/?(.+?)\/?$/, `$1/` );
     }
 
     config.domain = domain;
@@ -62,7 +72,6 @@ export default ( options: Options ): void => {
 
     // not done in SSR
     if ( isBrowser ) {
-
         if ( hasPreviousInstall ) {
             logWarning( `install function called multiple times` );
             return;
@@ -75,7 +84,7 @@ export default ( options: Options ): void => {
                 if ( key === `maxDPR` ) {
                     actualKey = `max-dpr`;
                 }
-                if ( key !== `domain` ) {
+                if ( ( key !== `domain` ) && ( key !== `path` ) ) {
                     parts.push( `${ actualKey }=${ value }` );
                 }
             }

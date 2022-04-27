@@ -1,6 +1,7 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { Mode, Placeholder, Transition, rValidMode, rValidPlaceholder, rValidRatio } from "./types";
 import { logError, regExpFinderFactory, trimRegExpFactory } from "./utils";
+import { config } from "./install";
 
 const rImage = /^(image:)?\/?/;
 
@@ -57,7 +58,7 @@ export const parseSrc = ( value: string ): string => {
         logError( `src is mandatory` );
         return undefined;
     }
-    return value.replace( rImage, `image:` );
+    return value.replace( rImage, `image:${ config.path }` );
 };
 
 export const parseTransition = ( value: boolean | string ): Transition[] => {
