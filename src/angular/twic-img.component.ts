@@ -1,28 +1,24 @@
 /**
  * img component
  */
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { TwicBaseComponent } from "./twic-base.component";
-import { computeAlt } from "../_/compute";
-import { parseAlt, parseSrc } from "../_/parse";
 
 @Component( {
     "selector": `TwicImg`,
     "template": `
         <div>
-            <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="getWrapperClass()">
+            <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="wrapperClass">
                 <img
-                        [attr.alt]="getAlt()"
-                        [twicPicsAttributes]="getElementAttributes()"
-                        [ngStyle]="getElementStyle()"
+                        [attr.alt]="description"
+                        [twicPicsAttributes]="elementAttributs"
+                        [ngStyle]="elementStyle"
                 >
             </div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],
+    "changeDetection": ChangeDetectionStrategy.OnPush,
 } )
 export class TwicImgComponent extends TwicBaseComponent {
-    getAlt(): string {
-        return computeAlt( parseAlt( this.alt ), parseSrc( this.src ) );
-    }
 }

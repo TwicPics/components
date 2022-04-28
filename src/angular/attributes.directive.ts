@@ -1,9 +1,9 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from "@angular/core";
+import { Directive, ElementRef, Input, Renderer2, OnChanges } from "@angular/core";
 
 @Directive( {
     "selector": `[twicPicsAttributes]`,
 } )
-export class AttributesDirective implements OnInit {
+export class AttributesDirective implements OnChanges {
 
     @Input()
     public twicPicsAttributes?: { [key: string]: string; };
@@ -25,7 +25,7 @@ export class AttributesDirective implements OnInit {
             }
         } );
     }
-    ngOnInit(): void {
+    ngOnChanges(): void {
         this.manageAttributes();
     }
 }

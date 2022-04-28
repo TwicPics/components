@@ -2,6 +2,9 @@
 
 # TwicPics Components CHANGELOG
 
+## 0.6.6
+- __bug__ : fixes a refresh issue in `angular`
+
 ## 0.6.5
 - __doc__: adds link to the demo site in the `Nuxt 2.x` documentation
 - __feature__: adds `path` to the initialization parameter list
