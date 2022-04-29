@@ -101,7 +101,7 @@ export default {
 };
 </script>
 <template>
-    <div>
+    <div class="twic-i">
         <div
             ref="w"
             :class="_wrapperClass"

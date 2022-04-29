@@ -119,7 +119,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const transitionDuration = parseTransitionDuration( props.transitionDuration );
             const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
             return (
-                <div className= { className }>
+                <div className= {`twic-i ${ className } `}>
                     <div
                         ref={ this._w }
                         className = { computeWrapperClass( transition ) }

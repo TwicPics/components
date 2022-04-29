@@ -104,7 +104,7 @@ if ( isBrowser ) {
 {#if isWebComponents }
 <span>/*STYLE*/{ configBasedStyle() }</span>
 {/if}
-<div class = { isWebComponents ? `` : parseClassName( className ) }>
+<div class = {`twic-i ${ isWebComponents ? `` : parseClassName( className ) }`}>
     <div
         bind:this = { wrapper }
         class = { computeWrapperClass( parsedTransition ) }

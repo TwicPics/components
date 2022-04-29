@@ -1,7 +1,7 @@
 /**
  * video component
  */
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
 import { TwicBaseComponent } from "./twic-base.component";
 
 @Component( {
@@ -19,6 +19,7 @@ import { TwicBaseComponent } from "./twic-base.component";
     `,
     "styleUrls": [ `../_/style.css` ],
     "changeDetection": ChangeDetectionStrategy.OnPush,
+    "encapsulation": ViewEncapsulation.None,
 } )
 export class TwicVideoComponent extends TwicBaseComponent {
 }

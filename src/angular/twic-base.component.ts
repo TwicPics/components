@@ -5,6 +5,7 @@
 import {
     Component,
     ElementRef,
+    HostBinding,
     Input,
     OnChanges,
     OnDestroy,
@@ -47,6 +48,7 @@ import {
 } )
 export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
 
+    @HostBinding( `class.twic-i` ) someField = false;
     @Input() alt: string = undefined;
     @Input() bot: string = undefined;
     @Input() class: string = undefined;
@@ -63,7 +65,6 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() transitionTimingFunction: string = undefined;
     _alt: string;
     _bot: string = undefined;
-    _class: string = undefined;
     _focus: string = undefined;
     _mode: Mode = undefined;
     _placeholder: Placeholder = undefined;
@@ -102,11 +103,11 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     ngOnInit(): void {
         this.wrapper = this.wrapperElementRef ? this.wrapperElementRef.nativeElement : undefined;
         this._p.setWrapper( this.wrapper );
+        this.someField = true;
     }
     ngOnChanges( ): void {
         this._alt = parseAlt( this.alt );
         this._bot = parseBot( this.bot );
-        this._class = parseClassName( this.class );
         this._focus = parseFocus( this.focus );
         this._mode = parseMode( this.mode );
         this._placeholder = parsePlaceholder( this.placeholder );

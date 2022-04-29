@@ -1,3 +1,7 @@
+/* ISOLATION */
+.twic-i {
+    overflow: hidden;
+}
 /* WRAPPER AND ITS CHILDREN */
 .twic-w, .twic-w * {
     /* constants */

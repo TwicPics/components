@@ -97,6 +97,10 @@ h2, caption {
     text-decoration: underline;
  }
 
+.full-rounded {
+    border-radius: 100%;
+}
+
 @media (min-width: 640px) {
     .style-driven-responsive
     {
