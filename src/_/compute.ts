@@ -32,6 +32,11 @@ export const computeData = (
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;
     }
+
+    if ( config.mode === `debug` ) {
+        attributes[ `data-${ config.class }-transform` ] = `debug/*/`;
+    }
+
     if ( step !== undefined ) {
         attributes[ `data-${ config.class }-step` ] = String( step );
     }
@@ -67,7 +72,7 @@ export const computeStyle = (
 /* eslint-enable dot-notation */
 
 export const computeWrapperClass = (
-    transitions: Transition[]
+    transitions: Transition[], src: string
 ): string => {
 
     const wrapperClass = [ `twic-w` ];
@@ -78,6 +83,13 @@ export const computeWrapperClass = (
         }
         if ( transitions.includes( `fade` ) ) {
             wrapperClass.push( `twic-tf` );
+        }
+    }
+
+    if ( config.mode === `offline` ) {
+        wrapperClass.push( `twic-offline` );
+        if ( !src ) {
+            wrapperClass.push( `twic-nosrc` );
         }
     }
 

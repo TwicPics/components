@@ -36,15 +36,6 @@ export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };
 
-export const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
-    ( value: T | string ): T => {
-        let found;
-        if ( value ) {
-            ( value as string ).replace( regExp, ( _, v ) => ( found = v ) );
-        }
-        return filter ? filter( found ) : found;
-    };
-
 export const trimRegExpFactory = ( items: Array< string > | string ): RegExp =>
     new RegExp( `^\\s*(${ Array.isArray( items ) ? items.join( `|` ) : items })\\s*$` );
 

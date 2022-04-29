@@ -5,6 +5,7 @@
 # 0.6.7
 - __chores__: improves configuration of `transition` property
 - __feature__: supports `Nuxt.js 3.x`
+- __feature__: adds `debug` mode
 
 ## 0.6.6
 - __bug__: fixes a refresh issue in `angular`

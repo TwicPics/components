@@ -60,7 +60,7 @@ $: parsedAlt = parseAlt( alt );
 $: parsedBot = parseBot( bot );
 $: parsedFocus = parseFocus( focus );
 $: parsedMode = parseMode( mode );
-$: parsedPlaceholder = parsePlaceholder( placeholder );
+$: parsedPlaceholder = parsePlaceholder( placeholder, src );
 $: parsedPosition = parsePosition( position );
 $: parsedRatio = parseRatio( ratio );
 $: parsedSrc = parseSrc( src );
@@ -107,7 +107,7 @@ if ( isBrowser ) {
 <div class = {`twic-i ${ isWebComponents ? `` : parseClassName( className ) || `` }`}>
     <div
         bind:this = { wrapper }
-        class = { computeWrapperClass( parsedTransition ) }
+        class = { computeWrapperClass( parsedTransition, src ) }
         style = "{ _wrapperStyle }{ _wrapperBackgroundImage }"
     >
         <img

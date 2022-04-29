@@ -11,7 +11,4 @@ export const booleanProp = ( regExp?: RegExp, _default?:boolean|string ): PropOp
     defineProp< boolean | string >( [ Boolean, String ], regExp, _default );
 export const intProp = defineProp< number | string >( [ Number, String ], /^\d+$/ );
 export const stringProp = defineStringProp();
-export const requiredStringProp: PropOptions< string > = {
-    ...stringProp,
-    "required": true,
-};
+

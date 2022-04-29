@@ -1,5 +1,5 @@
 <script>
-import { booleanProp, defineStringProp, intProp, requiredStringProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import {
     computeAlt,
     computeData,
@@ -25,11 +25,11 @@ import {
 } from "../_/parse";
 import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/validation";
 
-const callFactory = ( func, _args ) => {
+const callFactory = ( func, _args, isProp = false ) => {
     const args = _args.map( arg => ( ( typeof arg === `function` ) ? {
         "f": arg,
     } : {
-        "s": `p_${ arg }`,
+        "s": isProp ? `${ arg }` : `p_${ arg }`,
     } ) );
     return function() {
         // eslint-disable-next-line no-invalid-this
@@ -40,24 +40,22 @@ const callFactory = ( func, _args ) => {
 const computed = {};
 const props = {};
 
-for ( const [ propName, type, parseMethod ] of [
+for ( const [ propName, type, parseMethod, args ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `bot`, stringProp, parseBot ],
     [ `focus`, stringProp, parseFocus ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
-    [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder ],
+    [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder, [ `placeholder`, `src` ] ],
     [ `position`, stringProp, parsePosition ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
-    [ `src`, requiredStringProp, parseSrc ],
+    [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
     [ `transition`, booleanProp( null, true ), parseTransition ],
     [ `transitionDelay`, stringProp, parseTransitionDelay ],
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
 ] ) {
-    computed[ `p_${ propName }` ] = function() {
-        return parseMethod( this[ propName ] );
-    };
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, args || [ propName ], true );
     props[ propName ] = type;
 }
 
@@ -72,7 +70,7 @@ for ( const [ propName, func, args ] of [
     [
         `_wrapperClass`,
         computeWrapperClass,
-        [ `transition` ],
+        [ `transition`, `src` ],
     ],
     [
         `_wrapperStyle`,

@@ -1,6 +1,7 @@
-import type { Options } from "./types";
+import type { Options, TwicMode } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
+import { rValidTwicMode } from "./validation";
 
 /**
  * default class used in config object
@@ -9,10 +10,12 @@ const defaultClass = `twic`;
 
 export const config: {
     class: string,
+    mode:TwicMode,
     domain: string,
     path: string,
 } = {
     "class": defaultClass,
+    "mode": `production`,
     "domain": undefined,
     "path": ``,
 };
@@ -54,7 +57,7 @@ export default ( options: Options ): void => {
 
     const hasPreviousInstall = config && config.domain;
 
-    const { domain, "class": _class, path } = options;
+    const { domain, "class": _class, mode, path } = options;
 
     if ( !domain || !rValidDomain.test( domain ) ) {
         throwError( `install domain "${ domain }" is invalid` );
@@ -67,6 +70,11 @@ export default ( options: Options ): void => {
         config.path = path.replace( /^\/?(.+?)\/?$/, `$1/` );
     }
 
+    if ( mode && !rValidTwicMode.test( mode ) ) {
+        throwError( `install mode "${ mode }" is invalid` );
+    }
+
+    config.mode = mode;
     config.domain = domain;
     config.class = _class || defaultClass;
 
@@ -84,7 +92,7 @@ export default ( options: Options ): void => {
                 if ( key === `maxDPR` ) {
                     actualKey = `max-dpr`;
                 }
-                if ( ( key !== `domain` ) && ( key !== `path` ) ) {
+                if ( ( key !== `domain` ) && ( key !== `path` ) && ( key !== `mode` ) ) {
                     parts.push( `${ actualKey }=${ value }` );
                 }
             }

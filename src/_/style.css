@@ -60,3 +60,18 @@
 .twic-w.twic-tf > * {
     opacity: 0;
 }
+
+/* OFFLINE PLACEHOLDERS AND ITS CHILDREN */
+.twic-offline {
+    background-color: #CCCCCC;
+}
+
+.twic-offline.twic-nosrc {
+    background-color: #FD0016;
+}
+
+.twic-offline > * {
+    display: none;
+}
+
+

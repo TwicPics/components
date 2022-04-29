@@ -113,7 +113,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         this._bot = parseBot( this.bot );
         this._focus = parseFocus( this.focus );
         this._mode = parseMode( this.mode );
-        this._placeholder = parsePlaceholder( this.placeholder );
+        this._placeholder = parsePlaceholder( this.placeholder, this.src );
         this._position = parsePosition( this.position );
         this._ratio = parseRatio( this.ratio );
         this._src = parseSrc( this.src );
@@ -142,7 +142,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
             this._transitionTimingFunct
         );
 
-        this.wrapperClass = computeWrapperClass( this._transition );
+        this.wrapperClass = computeWrapperClass( this._transition, this.src );
 
         this.wrapperStyle = computeWrapperStyle(
             this._focus,
