@@ -7,13 +7,17 @@ import {
     ElementRef,
     HostBinding,
     Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
     ViewChild,
 } from "@angular/core";
 
-import type { Mode, Placeholder, Transition } from "../_/types";
+// eslint-disable-next-line no-duplicate-imports
+import type {
+    OnChanges,
+    OnDestroy,
+    OnInit,
+} from "@angular/core";
+
+import type { Mode, Placeholder, PlaceholderHandler, Transition } from "../_/types";
 
 import {
     computeAlt,
@@ -23,12 +27,11 @@ import {
     computeWrapperStyle,
 } from "../_/compute";
 
-import { createPlaceholderHandler, PlaceholderHandler } from "../_/placeholder";
+import { createPlaceholderHandler } from "../_/placeholder";
 
 import {
     parseAlt,
     parseBot,
-    parseClassName,
     parseFocus,
     parseMode,
     parsePlaceholder,

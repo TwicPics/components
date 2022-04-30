@@ -1,8 +1,8 @@
 import "../_/style.css";
 
-import { Attributes as BaseAttributes, Mode, Placeholder, validModes, validPlaceholders } from "../_/types";
+import type { Attributes as BaseAttributes, Mode, Placeholder, PlaceholderHandler } from "../_/types";
 import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
-import { createPlaceholderHandler, PlaceholderHandler } from "../_/placeholder";
+import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
     parseBot,
@@ -23,6 +23,7 @@ import {
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
+import { validModes, validPlaceholders } from "../_/validation";
 
 export interface Attributes extends BaseAttributes {
     className?: string,

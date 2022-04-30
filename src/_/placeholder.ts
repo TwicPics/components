@@ -1,5 +1,5 @@
 /* eslint no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder, Transition } from "./types";
+import type { Mode, Placeholder, PlaceholderHandler, Transition } from "./types";
 
 import { config } from "./install";
 import { cssWithoutPx } from "./dom";
@@ -74,11 +74,6 @@ if ( isBrowser && !resizeObserver ) {
     logWarning( `ResizeObserver not found` );
 }
 
-export interface PlaceholderHandler {
-    delete: () => void,
-    setData: ( data: PlaceholderData ) => void,
-    setWrapper: ( wrapper: HTMLDivElement ) => void,
-}
 export const createPlaceholderHandler = (
     handler: ( backgroundImage: string ) => void = undefined
 ): PlaceholderHandler => {

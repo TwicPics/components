@@ -23,7 +23,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
-import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/types";
+import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/validation";
 
 const callFactory = ( func, _args ) => {
     const args = _args.map( arg => ( ( typeof arg === `function` ) ? {

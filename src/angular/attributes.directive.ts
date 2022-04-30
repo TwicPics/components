@@ -1,4 +1,6 @@
-import { Directive, ElementRef, Input, Renderer2, OnChanges } from "@angular/core";
+import { Directive, ElementRef, Input, Renderer2 } from "@angular/core";
+// eslint-disable-next-line no-duplicate-imports
+import type { OnChanges } from "@angular/core";
 
 @Directive( {
     "selector": `[twicPicsAttributes]`,

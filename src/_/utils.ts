@@ -47,3 +47,4 @@ export const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( v
 
 export const trimRegExpFactory = ( items: Array< string > | string ): RegExp =>
     new RegExp( `^\\s*(${ Array.isArray( items ) ? items.join( `|` ) : items })\\s*$` );
+

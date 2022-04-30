@@ -1,4 +1,4 @@
-import { trimRegExpFactory } from "./utils";
+import type { PlaceholderData } from "./placeholder";
 
 export type Mode = `contain` | `cover`;
 
@@ -30,10 +30,9 @@ export interface Options {
     step?: number,
 }
 
-export const validModes: Array< Mode > = [ `contain`, `cover` ];
-export const rValidMode = trimRegExpFactory( validModes );
+export interface PlaceholderHandler {
+    delete: () => void,
+    setData: ( data: PlaceholderData ) => void,
+    setWrapper: ( wrapper: HTMLDivElement ) => void,
+}
 
-export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor`, `none`, `preview` ];
-export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
-
-export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*\\/\\s*(\\d+(?:\\.\\d+)?))?` );
