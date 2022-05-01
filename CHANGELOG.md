@@ -2,9 +2,12 @@
 
 # TwicPics Components CHANGELOG
 
+# 0.6.7
+- __chores__: improves configuration of `transition` property
+
 ## 0.6.6
-- __bug__ : fixes a refresh issue in `angular`
-- __feature__ : improves style isolation of components
+- __bug__: fixes a refresh issue in `angular`
+- __feature__: improves style isolation of components
 
 ## 0.6.5
 - __doc__: adds link to the demo site in the `Nuxt 2.x` documentation

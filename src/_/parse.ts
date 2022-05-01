@@ -63,7 +63,7 @@ export const parseSrc = ( value: string ): string => {
 };
 
 export const parseTransition = ( value: boolean | string ): Transition[] => {
-    const mapping: { [key: string]: Transition; } = {
+    const mapping: { [ key: string ]: Transition; } = {
         "true": `fade`,
         "false": `none`,
         "fade": `fade`,
@@ -77,7 +77,7 @@ export const parseTransition = ( value: boolean | string ): Transition[] => {
     }
 
     let parsedTransition:Transition[] = String( value )
-        .split( `+` )
+        .split( /\s+(?!\+)|\s*\+\s*/ )
         .map( transition => mapping[ transition ] || `fade` );
 
     if ( parsedTransition.includes( `none` ) ) {
