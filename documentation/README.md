@@ -43,7 +43,7 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
 - [Angular](https://github.com/TwicPics/components/blob/0.6.6/documentation/angular.md)
 - [React](https://github.com/TwicPics/components/blob/0.6.6/documentation/react.md), [Gatsby](https://github.com/TwicPics/components/blob/0.6.6/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.6.6/documentation/next.md)
 - [Svelte](https://github.com/TwicPics/components/blob/0.6.6/documentation/svelte3.md) (version 3)
-- [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.6.6/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.6.6/documentation/vue3.md) and [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.6.6/documentation/nuxt2.md)
+- [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.6.6/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.6.6/documentation/vue3.md) , [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.6.6/documentation/nuxt2.md) and [Nuxt.js (version 3)](https://github.com/TwicPics/components/blob/0.6.6/documentation/nuxt3.md)
 - [Web Components](https://github.com/TwicPics/components/blob/0.6.6/documentation/webComponents.md)
 
 ## Online demonstrations

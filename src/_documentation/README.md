@@ -17,7 +17,7 @@
 - [Angular](__GITHUB_BLOB_PATH__/documentation/angular.md)
 - [React](__GITHUB_BLOB_PATH__/documentation/react.md), [Gatsby](__GITHUB_BLOB_PATH__/documentation/gatsby.md) and [Next.js](__GITHUB_BLOB_PATH__/documentation/next.md)
 - [Svelte](__GITHUB_BLOB_PATH__/documentation/svelte3.md) (version 3)
-- [Vue.js (version 2)](__GITHUB_BLOB_PATH__/documentation/vue2.md), [Vue.js (version 3)](__GITHUB_BLOB_PATH__/documentation/vue3.md) and [Nuxt.js (version 2)](__GITHUB_BLOB_PATH__/documentation/nuxt2.md)
+- [Vue.js (version 2)](__GITHUB_BLOB_PATH__/documentation/vue2.md), [Vue.js (version 3)](__GITHUB_BLOB_PATH__/documentation/vue3.md) , [Nuxt.js (version 2)](__GITHUB_BLOB_PATH__/documentation/nuxt2.md) and [Nuxt.js (version 3)](__GITHUB_BLOB_PATH__/documentation/nuxt3.md)
 - [Web Components](__GITHUB_BLOB_PATH__/documentation/webComponents.md)
 
 ## Online demonstrations

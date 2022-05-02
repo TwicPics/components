@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "serve": "$npm_execpath install && nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@twicpics/components": "file:../../dist",
+    "@twicpics/components-sample": "file:../_"
+},
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.1"
+  }
+}

@@ -1,11 +1,15 @@
 /build/angular/_templates/angular*/lib/src
 /build/angular/_templates/angular*/yarn.lock
 /samples/**/.next
+/samples/**/.nitro
 /samples/**/.nuxt
 /samples/**/build
 /samples/**/package-lock.json
 /samples/**/yarn.lock
 /samples/angular*/**/app.component.html
+/samples/nuxt3/.cache
+/samples/nuxt3/.env
+/samples/nuxt3/.output
 /samples/gatsby/.cache
 /samples/gatsby/public
 /samples/webcomponents/index.html
