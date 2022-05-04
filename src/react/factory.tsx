@@ -11,6 +11,7 @@ import {
     parseMode,
     parsePlaceholder,
     parsePosition,
+    parsePreTransform,
     parseRatio,
     parseSrc,
     parseStep,
@@ -37,6 +38,7 @@ const defaultProps: Attributes = {
     "mode": undefined,
     "placeholder": undefined,
     "position": undefined,
+    "preTransform": undefined,
     "ratio": undefined,
     "src": undefined,
     "step": undefined,
@@ -58,6 +60,7 @@ const propTypes = {
     "mode": oneOf< Mode >( validModes ),
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
+    "preTransform": string,
     "ratio": string,
     "src": string,
     "step": number,
@@ -82,6 +85,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             mode: PropTypes.Requireable<Mode>;
             placeholder: PropTypes.Requireable<Placeholder>;
             position: PropTypes.Requireable<string>;
+            preTransform: PropTypes.Requireable<string>;
             ratio: PropTypes.Requireable<number | string>;
             src: PropTypes.Validator<string>;
             step: PropTypes.Requireable<number | string>;
@@ -112,6 +116,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const mode = parseMode( props.mode );
             const placeholder = parsePlaceholder( props.placeholder, props.src );
             const position = parsePosition( props.position );
+            const preTransform = parsePreTransform( props.preTransform );
             const ratio = parseRatio( props.ratio );
             const src = parseSrc( props.src );
             const step = parseStep( props.step );
@@ -130,6 +135,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                 mode,
                                 placeholder,
                                 position,
+                                preTransform,
                                 ratio,
                                 src,
                                 transition,
@@ -147,7 +153,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     transitionDuration,
                                     transitionTimingFunction
                                 ) }
-                            { ...computeData( bot, focus, src, step ) }
+                            { ...computeData( bot, focus, preTransform, src, step ) }
                         />
                     </div>
                 </div>

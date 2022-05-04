@@ -15,6 +15,7 @@ import {
     parseMode,
     parsePlaceholder,
     parsePosition,
+    parsePreTransform,
     parseRatio,
     parseSrc,
     parseStep,
@@ -47,6 +48,7 @@ for ( const [ propName, type, parseMethod, args ] of [
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
     [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder, [ `placeholder`, `src` ] ],
     [ `position`, stringProp, parsePosition ],
+    [ `preTransform`, stringProp, parsePreTransform ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
     [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
@@ -61,7 +63,7 @@ for ( const [ propName, type, parseMethod, args ] of [
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `src` ] ],
-    [ `_dataAttributes`, computeData, [ `bot`, `focus`, `src`, `step` ] ],
+    [ `_dataAttributes`, computeData, [ `bot`, `focus`, `preTransform`, `src`, `step` ] ],
     [
         `_style`,
         computeStyle,
@@ -75,7 +77,17 @@ for ( const [ propName, func, args ] of [
     [
         `_wrapperStyle`,
         computeWrapperStyle,
-        [ `focus`, `mode`, `placeholder`, `position`, `ratio`, `src`, `transition`, c => c._p.setData ],
+        [
+            `focus`,
+            `mode`,
+            `placeholder`,
+            `position`,
+            `preTransform`,
+            `ratio`,
+            `src`,
+            `transition`,
+            c => c._p.setData,
+        ],
     ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

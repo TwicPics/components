@@ -36,6 +36,7 @@ import {
     parseMode,
     parsePlaceholder,
     parsePosition,
+    parsePreTransform,
     parseRatio,
     parseSrc,
     parseStep,
@@ -59,6 +60,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() mode: Mode = undefined;
     @Input() placeholder: Placeholder = undefined;
     @Input() position: string = undefined;
+    @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number = undefined;
@@ -72,6 +74,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     _mode: Mode = undefined;
     _placeholder: Placeholder = undefined;
     _position: string = undefined;
+    _preTransform: string = undefined;
     _ratio: number = undefined;
     _src: string;
     _step: number = undefined;
@@ -115,6 +118,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         this._mode = parseMode( this.mode );
         this._placeholder = parsePlaceholder( this.placeholder, this.src );
         this._position = parsePosition( this.position );
+        this._preTransform = parsePreTransform( this._preTransform );
         this._ratio = parseRatio( this.ratio );
         this._src = parseSrc( this.src );
         this._step = parseStep( this.step );
@@ -129,6 +133,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
             ...computeData(
                 this._bot,
                 this._focus,
+                this._preTransform,
                 this._src,
                 this._step
             ),
@@ -149,6 +154,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
             this._mode,
             this._placeholder,
             this._position,
+            this._preTransform,
             this._ratio,
             this._src,
             this._transition,

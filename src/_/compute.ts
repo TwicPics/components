@@ -19,6 +19,7 @@ export const computeAlt =
 export const computeData = (
     bot: string,
     focus: string,
+    preTransform: string,
     src: string,
     step: number
 ): Record< string, string > => {
@@ -33,8 +34,14 @@ export const computeData = (
         attributes[ `data-${ config.class }-src` ] = src;
     }
 
-    if ( config.mode === `debug` ) {
-        attributes[ `data-${ config.class }-transform` ] = `debug/*/`;
+    if ( ( config.mode === `debug` ) || preTransform ) {
+        attributes[ `data-${ config.class }-transform` ] = `${
+            preTransform
+        }${
+            config.mode === `debug` ? `debug/` : ``
+        }${
+            `*/`
+        }`;
     }
 
     if ( step !== undefined ) {
@@ -102,6 +109,7 @@ export const computeWrapperStyle = (
     mode: Mode,
     placeholder: Placeholder,
     position: string,
+    preTransform: string,
     ratio: number,
     src: string,
     transitions: Transition[],
@@ -112,6 +120,7 @@ export const computeWrapperStyle = (
         focus,
         mode,
         placeholder,
+        preTransform,
         ratio,
         transitions,
         src,

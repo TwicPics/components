@@ -6,6 +6,8 @@ import { rValidMode, rValidPlaceholder, rValidRatio } from "./validation";
 
 const rImage = /^(image:)?\/?/;
 
+const rPreTransform = /(\/*)(.*[^/])(\/*)/;
+
 const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
     ( value: T | string ): T => {
         let found;
@@ -36,6 +38,10 @@ export const parsePlaceholder = ( placeholder: Placeholder, src:string ) : Place
 };
 
 export const parsePosition = trimOrUndefined;
+
+export const parsePreTransform = ( value = `` ): string => (
+    rPreTransform.test( value ) ? value.replace( rPreTransform, `$2/` ) : ``
+);
 
 export const parseRatio = ( value: number | string ): number => {
     let number: number;

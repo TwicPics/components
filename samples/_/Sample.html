@@ -275,5 +275,24 @@
             <TwicImg src="football.jpg" transitionDelay="3000ms"></TwicImg>
             <span>transitionDelay = 3000</span>
         </div>
-    </div> 
+    </div>
+    <h2>PreTransformation</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" preTransform="crop=50px50p" focus="22px30p"></TwicImg>
+            <span>focus && crop</span>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" preTransform="flip=x" focus="auto" ratio="16/9"></TwicImg>
+            <span>flip=x</span>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" preTransform="zoom=1.2/flip=x/turn=left" focus="auto" ratio="4/3"></TwicImg>
+            <span>zoom=1.2/flip=x/turn=left</span>
+        </div>
+        <div class="item">
+            <TwicImg src="https://assets.twicpics.com/examples/football.jpg" preTransform="zoom=1.2/flip=x/turn=left" focus="auto" ratio="4/3" mode="contain"></TwicImg>
+            <span>contain && zoom=1.2/flip=x/turn=left</span>
+        </div>
+    </div>
 </main>

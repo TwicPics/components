@@ -16,6 +16,7 @@ import {
     parseMode,
     parsePlaceholder,
     parsePosition,
+    parsePreTransform,
     parseRatio,
     parseSrc,
     parseStep,
@@ -41,6 +42,7 @@ export let focus: string = undefined;
 export let mode: Mode = undefined;
 export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
+export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
 export let step: number = undefined;
@@ -62,6 +64,7 @@ $: parsedFocus = parseFocus( focus );
 $: parsedMode = parseMode( mode );
 $: parsedPlaceholder = parsePlaceholder( placeholder, src );
 $: parsedPosition = parsePosition( position );
+$: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
 $: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
@@ -71,7 +74,7 @@ $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 
 $: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
-$: _data = computeData( parsedBot, parsedFocus, parsedSrc, parsedStep );
+$: _data = computeData( parsedBot, parsedFocus, parsedPreTransform, parsedSrc, parsedStep );
 $: _style = styleToString( computeStyle(
     parsedMode,
     parsedPosition,
@@ -84,6 +87,7 @@ $: _wrapperStyle = styleToString( computeWrapperStyle(
     parsedMode,
     parsedPlaceholder,
     parsedPosition,
+    parsedPreTransform,
     parsedRatio,
     parsedSrc,
     parsedTransition,

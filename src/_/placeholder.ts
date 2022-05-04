@@ -12,6 +12,7 @@ export interface PlaceholderData {
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
+    preTransform: string,
     ratio: number,
     transitions: Transition[],
     src: string
@@ -19,7 +20,7 @@ export interface PlaceholderData {
 
 const computeWrapperBackground = (
     element: Element,
-    { focus, mode, placeholder, ratio, transitions = [], src }: PlaceholderData
+    { focus, mode, placeholder, preTransform, ratio, transitions = [], src }: PlaceholderData
 ): string => {
     if ( !placeholder || !src || ( transitions.includes( `zoom` ) ) ) {
         return ``;
@@ -44,8 +45,11 @@ const computeWrapperBackground = (
     width = Math.max( 1, Math.round( width ) );
 
     const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
+
     return `${
         ( ( actualMode === `cover` ) && focus ) ? `focus=${ focus }/` : ``
+    }${
+        preTransform
     }${
         actualMode
     }=${

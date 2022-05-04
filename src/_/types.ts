@@ -12,6 +12,7 @@ export interface Attributes {
     mode?: Mode,
     placeholder?: Placeholder,
     position?: string,
+    preTransform?:string,
     ratio?: number | string,
     step?: number | string,
     src: string,
