@@ -118,7 +118,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         this._mode = parseMode( this.mode );
         this._placeholder = parsePlaceholder( this.placeholder, this.src );
         this._position = parsePosition( this.position );
-        this._preTransform = parsePreTransform( this._preTransform );
+        this._preTransform = parsePreTransform( this.preTransform );
         this._ratio = parseRatio( this.ratio );
         this._src = parseSrc( this.src );
         this._step = parseStep( this.step );

@@ -8,6 +8,7 @@ Vue.use( TwicPics, {
     "domain": `https://demo.twic.pics`,
     "anticipation": 0.5,
     "step": 100,
+    "env": `production`,
 } );
 
 Vue.config.productionTip = false;

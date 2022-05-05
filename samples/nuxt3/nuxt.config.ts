@@ -7,5 +7,6 @@ export default defineNuxtConfig( {
         "domain": `https://demo.twic.pics`,
         "anticipation": 0.5,
         "step": 50,
+        "env": `production`,
     },
 } );

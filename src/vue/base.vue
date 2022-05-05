@@ -26,11 +26,15 @@ import {
 } from "../_/parse";
 import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/validation";
 
+const rInitialProps = /^(\*+)(.*[^*])(\*+)$/;
+
 const callFactory = ( func, _args, isProp = false ) => {
     const args = _args.map( arg => ( ( typeof arg === `function` ) ? {
         "f": arg,
     } : {
-        "s": isProp ? `${ arg }` : `p_${ arg }`,
+        "s": isProp ?
+            `${ arg }` :
+            ( rInitialProps.test( `${ arg }` ) ? `${ `${ arg }`.replace( rInitialProps, `$2` ) }` : `p_${ arg }` ),
     } ) );
     return function() {
         // eslint-disable-next-line no-invalid-this
@@ -72,7 +76,7 @@ for ( const [ propName, func, args ] of [
     [
         `_wrapperClass`,
         computeWrapperClass,
-        [ `transition`, `src` ],
+        [ `transition`, `*src*` ],
     ],
     [
         `_wrapperStyle`,
