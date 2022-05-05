@@ -31,7 +31,7 @@ export const parseFocus = trimOrUndefined;
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
 export const parsePlaceholder = ( placeholder: Placeholder, src:string ) : Placeholder => {
-    if ( ( config.mode === `offline` ) || !trimOrUndefined( src ) || ( placeholder === `none` ) ) {
+    if ( ( config.env === `offline` ) || !trimOrUndefined( src ) || ( placeholder === `none` ) ) {
         return undefined;
     }
     return rValidPlaceholder.test( placeholder ) ? placeholder : `preview`;
@@ -75,7 +75,7 @@ export const parseSrc = ( value: string ): string => {
         logWarning( `src is not provided` );
     }
     // eslint-disable-next-line no-nested-ternary
-    return config.mode === `offline` ?
+    return config.env === `offline` ?
         `` : ( value ? value.replace( rImage, `image:${ config.path }` ) : `placeholder:red` );
 };
 

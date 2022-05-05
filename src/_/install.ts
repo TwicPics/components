@@ -1,7 +1,7 @@
-import type { Options, TwicMode } from "./types";
+import type { Options, Environment } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
-import { rValidTwicMode } from "./validation";
+import { rValidEnvironment } from "./validation";
 
 /**
  * default class used in config object
@@ -10,12 +10,12 @@ const defaultClass = `twic`;
 
 export const config: {
     class: string,
-    mode:TwicMode,
+    env: Environment,
     domain: string,
     path: string,
 } = {
     "class": defaultClass,
-    "mode": `production`,
+    "env": `production`,
     "domain": undefined,
     "path": ``,
 };
@@ -57,7 +57,7 @@ export default ( options: Options ): void => {
 
     const hasPreviousInstall = config && config.domain;
 
-    const { domain, "class": _class, mode, path } = options;
+    const { domain, "class": _class, env, path } = options;
 
     if ( !domain || !rValidDomain.test( domain ) ) {
         throwError( `install domain "${ domain }" is invalid` );
@@ -70,11 +70,11 @@ export default ( options: Options ): void => {
         config.path = path.replace( /^\/?(.+?)\/?$/, `$1/` );
     }
 
-    if ( mode && !rValidTwicMode.test( mode ) ) {
-        throwError( `install mode "${ mode }" is invalid` );
+    if ( env && !rValidEnvironment.test( env ) ) {
+        throwError( `install env "${ env }" is invalid` );
     }
 
-    config.mode = mode;
+    config.env = env;
     config.domain = domain;
     config.class = _class || defaultClass;
 

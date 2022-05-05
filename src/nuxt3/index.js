@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit';
 

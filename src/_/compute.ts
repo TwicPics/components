@@ -34,11 +34,11 @@ export const computeData = (
         attributes[ `data-${ config.class }-src` ] = src;
     }
 
-    if ( ( config.mode === `debug` ) || preTransform ) {
+    if ( ( config.env === `debug` ) || preTransform ) {
         attributes[ `data-${ config.class }-transform` ] = `${
             preTransform
         }${
-            config.mode === `debug` ? `debug/` : ``
+            config.env === `debug` ? `debug/` : ``
         }${
             `*/`
         }`;
@@ -93,7 +93,7 @@ export const computeWrapperClass = (
         }
     }
 
-    if ( config.mode === `offline` ) {
+    if ( config.env === `offline` ) {
         wrapperClass.push( `twic-offline` );
         if ( !src ) {
             wrapperClass.push( `twic-nosrc` );
