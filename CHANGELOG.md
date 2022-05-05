@@ -2,10 +2,13 @@
 
 # TwicPics Components CHANGELOG
 
-# 0.6.7
-- __chores__: improves configuration of `transition` property
+# 0.7.0
+- __bug__: fixes potential undefined `class` in `React` and `Svelte` 
+- __chores__: improves configuration of `transition` prop
+- __feature__: adds `preTransform` prop that allows to configure a list of `TwicPics API transformations` to be performed
+- __feature__: allows to configure runtime environment (`offline`, `debug` or `production` by default)
+- __feature__: makes the `src` property optional. When not set, a red placeholder is displayed in place of the missing media
 - __feature__: supports `Nuxt.js 3.x`
-- __feature__: adds `debug` mode
 
 ## 0.6.6
 - __bug__: fixes a refresh issue in `angular`
