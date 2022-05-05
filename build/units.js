@@ -30,6 +30,17 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                 [ /$/, `);}` ],
             ],
         } ),
+        ...( customElement ? [
+            replacer( {
+                "include": /(?:^|[/.])factory\.svelte$/,
+                "replacers": [
+                    [ /preTransform/g, `pretransform` ],
+                    [ /transitionDelay/g, `transitiondelay` ],
+                    [ /transitionDuration/g, `transitionduration` ],
+                    [ /transitionTimingFunction/g, `transitiontimingfunction` ],
+                ],
+            } ),
+        ] : [] ),
     ],
     "postDefinitions": customElement && (
         code =>
