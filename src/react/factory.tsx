@@ -106,7 +106,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const { props } = this;
             const alt = withAlt && parseAlt( props.alt );
             const bot = parseBot( props.bot );
-            const className = parseClassName( props.className );
+            const className = parseClassName( props.className ) || "";
             const focus = parseFocus( props.focus );
             const mode = parseMode( props.mode );
             const placeholder = parsePlaceholder( props.placeholder );
