@@ -79,28 +79,27 @@ export const parseSrc = ( value: string ): string => {
         `` : ( value ? value.replace( rImage, `image:${ config.path }` ) : `placeholder:red` );
 };
 
-export const parseTransition = ( value: boolean | string ): Transition[] => {
-    const mapping: { [ key: string ]: Transition; } = {
-        "true": `fade`,
-        "false": `none`,
-        "fade": `fade`,
-        "zoom": `zoom`,
-        "none": `none`,
-    };
+const mappingTransition: { [ key: string ]: Transition; } = {
+    "true": `fade`,
+    "false": `none`,
+    "fade": `fade`,
+    "zoom": `zoom`,
+    "none": `none`,
+};
+
+export const parseTransition = ( value: boolean | string ): Record< string, boolean > => {
 
     if ( typeof value !== `boolean` ) {
         // eslint-disable-next-line no-param-reassign
         value = trimOrUndefined( value ) || true;
     }
 
-    let parsedTransition:Transition[] = String( value )
-        .split( /\s+(?!\+)|\s*\+\s*/ )
-        .map( transition => mapping[ transition ] || `fade` );
+    const parsedTransition:Record< string, boolean > = {};
 
-    if ( parsedTransition.includes( `none` ) ) {
-        // if `none` is present, any other values are not considered
-        parsedTransition = [ `none` ];
-    }
+    String( value )
+        .split( /\s*\+\s*|\s+/ )
+        // eslint-disable-next-line no-return-assign
+        .forEach( t => parsedTransition[ `${ mappingTransition[ t ] || `fade` }` ] = true );
 
     return parsedTransition;
 };

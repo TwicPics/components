@@ -3,6 +3,7 @@
 # TwicPics Components CHANGELOG
 
 # 0.7.1
+- __chores__: improves configuration of `transition` prop
 - __chores__: removes irrelevant `div` in angular
 
 # 0.7.0

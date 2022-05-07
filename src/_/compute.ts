@@ -1,5 +1,5 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder, Transition } from "./types";
+import type { Mode, Placeholder } from "./types";
 import type { PlaceholderData } from "./placeholder";
 
 import { config } from "./install";
@@ -79,17 +79,19 @@ export const computeStyle = (
 /* eslint-enable dot-notation */
 
 export const computeWrapperClass = (
-    transitions: Transition[], src: string
+    src: string,
+    transitions: Record< string, boolean >
 ): string => {
 
     const wrapperClass = [ `twic-w` ];
 
-    if ( !transitions.includes( `none` ) ) {
-        if ( transitions.includes( `zoom` ) ) {
-            wrapperClass.push( `twic-tz` );
-        }
-        if ( transitions.includes( `fade` ) ) {
+    if ( !transitions.hasOwnProperty( `none` ) ) {
+        if ( transitions.hasOwnProperty( `fade` ) ) {
             wrapperClass.push( `twic-tf` );
+        }
+
+        if ( transitions.hasOwnProperty( `zoom` ) ) {
+            wrapperClass.push( `twic-tz` );
         }
     }
 
@@ -112,7 +114,7 @@ export const computeWrapperStyle = (
     preTransform: string,
     ratio: number,
     src: string,
-    transitions: Transition[],
+    transitions: Record< string, boolean >,
     placeholderDataHandler: ( ( data: PlaceholderData ) => void )
 ): Record< string, string > => {
     const computedWrapperStyle: Record< string, string > = {};

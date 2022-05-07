@@ -76,7 +76,7 @@ for ( const [ propName, func, args ] of [
     [
         `_wrapperClass`,
         computeWrapperClass,
-        [ `transition`, `*src*` ],
+        [ `*src*`, `transition` ],
     ],
     [
         `_wrapperStyle`,

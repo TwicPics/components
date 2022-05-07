@@ -17,7 +17,7 @@ import type {
     OnInit,
 } from "@angular/core";
 
-import type { Mode, Placeholder, PlaceholderHandler, Transition } from "../_/types";
+import type { Mode, Placeholder, PlaceholderHandler } from "../_/types";
 
 import {
     computeAlt,
@@ -78,7 +78,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     _ratio: number = undefined;
     _src: string;
     _step: number = undefined;
-    _transition:Transition[] = [];
+    _transition:Record< string, boolean >;
     _transitionDelay: string = undefined;
     _transitionDuration: string = undefined;
     _transitionTimingFunct: string = undefined;
@@ -147,7 +147,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
             this._transitionTimingFunct
         );
 
-        this.wrapperClass = computeWrapperClass( this._transition, this.src );
+        this.wrapperClass = computeWrapperClass( this.src, this._transition );
 
         this.wrapperStyle = computeWrapperStyle(
             this._focus,

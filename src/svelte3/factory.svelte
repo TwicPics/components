@@ -111,7 +111,7 @@ if ( isBrowser ) {
 <div class = {`twic-i ${ isWebComponents ? `` : parseClassName( className ) || `` }`}>
     <div
         bind:this = { wrapper }
-        class = { computeWrapperClass( parsedTransition, src ) }
+        class = { computeWrapperClass( src, parsedTransition ) }
         style = "{ _wrapperStyle }{ _wrapperBackgroundImage }"
     >
         <img
