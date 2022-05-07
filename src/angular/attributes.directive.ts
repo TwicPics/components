@@ -15,7 +15,7 @@ export class AttributesDirective implements OnChanges {
         private elementRef: ElementRef
     ) { }
     manageAttributes():void {
-        Object.entries( this.twicPicsAttributes ).forEach( ( [ attributName, attributValue ] ) => {
+        Object.entries( this.twicPicsAttributes || [] ).forEach( ( [ attributName, attributValue ] ) => {
             if ( attributValue ) {
                 this.renderer.setAttribute(
                     this.elementRef.nativeElement,

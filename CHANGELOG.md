@@ -2,6 +2,9 @@
 
 # TwicPics Components CHANGELOG
 
+# 0.7.1
+- __chores__: removes irrelevant `div` in angular
+
 # 0.7.0
 - __bug__: fixes potential undefined `class` in `React` and `Svelte` 
 - __chores__: improves configuration of `transition` prop
