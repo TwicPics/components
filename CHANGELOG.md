@@ -6,6 +6,7 @@
 - __bug__: fixes issue when testing inside storybook
 - __chores__: improves configuration of `transition` prop
 - __chores__: removes irrelevant `div` in angular
+- __features__: allows control of aspect ratio through the container dimensions
 
 # 0.7.0
 - __bug__: fixes potential undefined `class` in `React` and `Svelte` 

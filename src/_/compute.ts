@@ -134,8 +134,15 @@ export const computeWrapperStyle = (
     if ( position ) {
         computedWrapperStyle[ `backgroundPosition` ] = position;
     }
-    // eslint-disable-next-line no-magic-numbers
-    computedWrapperStyle[ `paddingTop` ] = ( ratio === undefined ) ? `` : `${ ratio * 100 }%`;
+
+    if ( ratio === 0 ) {
+        computedWrapperStyle[ `height` ] = `100%`;
+        computedWrapperStyle[ `paddingTop` ] = `0`;
+    } else {
+        // eslint-disable-next-line no-magic-numbers
+        computedWrapperStyle[ `paddingTop` ] = ( ratio === undefined ) ? `` : `${ ratio * 100 }%`;
+    }
+
     return computedWrapperStyle;
 };
 /* eslint-enable dot-notation */

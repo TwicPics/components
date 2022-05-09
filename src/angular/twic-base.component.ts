@@ -52,7 +52,8 @@ import {
 } )
 export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
 
-    @HostBinding( `class.twic-i` ) someField = false;
+    @HostBinding( `class.twic-i` ) initTwicIsolation = false;
+    @HostBinding( `style.display` ) initDisplayBlock = `block`;
     @Input() alt: string = undefined;
     @Input() bot: string = undefined;
     @Input() class: string = undefined;
@@ -109,7 +110,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     ngOnInit(): void {
         this.wrapper = this.wrapperElementRef ? this.wrapperElementRef.nativeElement : undefined;
         this._p.setWrapper( this.wrapper );
-        this.someField = true;
+        this.initTwicIsolation = true;
     }
     ngOnChanges( ): void {
         this._alt = parseAlt( this.alt );

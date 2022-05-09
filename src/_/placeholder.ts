@@ -27,10 +27,17 @@ const computeWrapperBackground = (
     }
 
     const computedStyle = getComputedStyle( element );
-    // trick to get ratio easily from css :
-    // we use fontSize (an otherwise unusable property in this context)
-    // to store the result of the calculation tha ratio through a css variable.
-    const _ratio = ratio ?? cssWithoutPx( computedStyle.fontSize );
+
+    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
+
+    let _ratio;
+
+    if ( ratio === 0 ) {
+        _ratio = actualMode === `contain` ?
+            1 : cssWithoutPx( computedStyle.height ) / Math.max( 1, cssWithoutPx( computedStyle.width ) );
+    } else {
+        _ratio = ratio ?? cssWithoutPx( computedStyle.fontSize );
+    }
 
     let height = PLACEHOLDER_DIM;
     let width = PLACEHOLDER_DIM;
@@ -43,8 +50,6 @@ const computeWrapperBackground = (
 
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
-
-    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
 
     return `${
         ( ( actualMode === `cover` ) && focus ) ? `focus=${ focus }/` : ``

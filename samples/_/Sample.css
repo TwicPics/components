@@ -101,6 +101,10 @@ h2, caption {
     border-radius: 100%;
 }
 
+.hero-image {
+    height:500px;
+}
+
 @media (min-width: 640px) {
     .style-driven-responsive
     {

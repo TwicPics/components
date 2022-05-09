@@ -268,6 +268,41 @@ Your template features a single component that will follow your CSS directives a
   <img alt="Edit TwicPics x Vue 3 - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='ratio-none'/>
+
+### Working with ratio="none"
+
+Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+
+`<your-page-or-component>.vue`
+
+```html
+<template>
+  <TwicImg
+    src="path/to/your/image"
+    class="hero-image"
+    ratio="none"
+ ></TwicImg>
+</template>
+
+<script>
+export default {
+  name: "App",
+};
+</script>
+
+<style>
+  /* You are responsible for properly sizing the component. */
+  .hero-image {
+    height:500px;
+  }
+</style>
+```
+
+<a href="https://codesandbox.io/s/twicpics-x-vue-3-hero-image-hy9lff?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Vue3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"

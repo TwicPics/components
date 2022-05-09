@@ -19,6 +19,7 @@
     - [Basic usage](#basic-usage)
     - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
+    - [Working with ratio="none"](#ratio-none)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
@@ -58,7 +59,7 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
   <TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-basic-1yh3i?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-svelte-basic-example-ygqef7?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -253,7 +254,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-style-driven-obgv44?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-svelte-styles-driven-ww3yjn?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -318,10 +319,40 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-svelte-art-direction-lf2801?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-svelte-art-directions-q8xl64?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='ratio-none'/>
+
+### Working with ratio="none"
+
+Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+
+`<your-page-or-component>.svelte`
+
+```html
+<script>
+  import { TwicImg } from "@twicpics/components/svelte3";
+</script>
+
+<style>
+  /* You are responsible for properly sizing the component. */
+  .hero-image {
+    height:500px;
+  }
+</style>
+
+<TwicImg
+  src="path/to/your/image"
+  className="hero-image"
+  ratio="none"
+></TwicImg>
+```
+
+<a href="https://codesandbox.io/s/twicpics-x-svelte-hero-image-tgzblz?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Svelte3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 <div id='components-props'/>
 
@@ -359,7 +390,7 @@ This component can be used in place of an `img` element.
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `String` | `center` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/api/manipulations)). If `focus` is supplied, it is applied first. Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
-| `ratio` | Unitless `width/height` value pair (as in `4/3`). If `height` is not specified, it is assumed to be `1`. A square area will be created by default. | `String` | `1` |
+| `ratio` | A unitless `width/height` value pair (as in `4/3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser in respect with `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Determines how image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`), both (`fade zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
@@ -397,7 +428,7 @@ This component can be used in place of a `video` element.
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `position` | Only useful in `contain` mode. Locates the image inside the area. Syntax is the same as for CSS position properties like [background-position](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) or [object-position](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Useful values are `top`, `bottom`, `left`, `right`, `left top`, `left bottom` and so on. | `String` | `center` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed before resizing the video (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/api/manipulations)). If `focus` is supplied, it is applied first. Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
-| `ratio` | Unitless `width/height` value pair (as in `4/3`). If `height` is not specified, it is assumed to be `1`. A square area will be created by default. | `String` | `1` |
+| `ratio` | A unitless `width/height` value pair (as in `4/3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser in respect with `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Determines how video will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`), both (`fade+zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |

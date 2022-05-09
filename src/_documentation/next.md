@@ -257,6 +257,36 @@ Your template features a single component that will follow your CSS directives a
   <img alt="Edit TwicPics x Next - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='ratio-none'/>
+
+### Working with ratio="none"
+
+Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+
+`styles.css`
+
+You are responsible for properly sizing the component.
+
+```css
+.hero-image {
+  height:500px;
+}
+```
+
+`<your-page-or-component>.jsx`
+
+```html
+<TwicImg
+  src="path/to/your/image"
+  className="hero-image"
+  ratio="none"
+></TwicImg>
+```
+
+<a href="https://codesandbox.io/s/twicpics-x-next-hero-image-sw9zj7?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x React - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"

@@ -10,7 +10,7 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-basic-1yh3i?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-svelte-basic-example-ygqef7?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -164,7 +164,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-style-driven-obgv44?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-svelte-styles-driven-ww3yjn?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
@@ -229,10 +229,40 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-svelte-art-direction-lf2801?fontsize=14&hidenavigation=1&theme=dark">
+<a href="https://codesandbox.io/s/twicpics-x-svelte-art-directions-q8xl64?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='ratio-none'/>
+
+### Working with ratio="none"
+
+Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+
+`<your-page-or-component>.svelte`
+
+```html
+<script>
+  import { TwicImg } from "@twicpics/components/svelte3";
+</script>
+
+<style>
+  /* You are responsible for properly sizing the component. */
+  .hero-image {
+    height:500px;
+  }
+</style>
+
+<TwicImg
+  src="path/to/your/image"
+  className="hero-image"
+  ratio="none"
+></TwicImg>
+```
+
+<a href="https://codesandbox.io/s/twicpics-x-svelte-hero-image-tgzblz?fontsize=14&hidenavigation=1&theme=dark">
+  <img alt="Edit TwicPics x Svelte3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 #include "src/_documentation/common/_componentsProps.md"
 

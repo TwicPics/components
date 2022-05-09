@@ -44,6 +44,9 @@ export const parsePreTransform = ( value = `` ): string => (
 );
 
 export const parseRatio = ( value: number | string ): number => {
+    if ( value === `none` ) {
+        return 0;
+    }
     let number: number;
     if ( typeof value === `number` ) {
         number = value;

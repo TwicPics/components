@@ -11,6 +11,7 @@
     - [Basic usage](#basic-usage)
     - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
+    - [Working with ratio="none"](#ratio-none)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
