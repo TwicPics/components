@@ -104,6 +104,9 @@ export const createPlaceholderHandler = (
             }
         },
         "setWrapper": ( wrapper: HTMLDivElement ): void => {
+            if ( !wrapper ) {
+                return;
+            }
             Object.defineProperty( ( element = wrapper ), PRIVATE_KEY, {
                 "configurable": true,
                 "value": ( refresh = debounce( () => {

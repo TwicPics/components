@@ -3,6 +3,7 @@
 # TwicPics Components CHANGELOG
 
 # 0.7.1
+- __bug__: fixes issue when testing inside storybook
 - __chores__: improves configuration of `transition` prop
 - __chores__: removes irrelevant `div` in angular
 
