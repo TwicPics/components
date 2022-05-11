@@ -28,6 +28,7 @@ Explore our demos and integration examples for :
 - [Angular](https://twicpics-angular-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
 - [React](https://twicpics-react-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github), [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) and [Gatsby.js](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
 - [Vue.js (version 2)](https://twicpics-vue-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) and [Nuxt.js (version 2)](https://twicpics-nuxt-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
+- [Svelte (version 3)](https://twicpics-svelte-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
 
 #include "src/_documentation/common/_gettingHelp.md"
 
