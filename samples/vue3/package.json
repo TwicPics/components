@@ -7,12 +7,12 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "@vue/cli-plugin-babel": "5.0.1",
-        "@vue/cli-service": "5.0.1",
-        "@vue/compiler-sfc": "3.2.31",
-        "vue": "3.2.31",
-        "webpack": "5.70.0",
-        "webpack-dev-server": "4.7.4"
+        "@vue/cli-plugin-babel": "5.0.4",
+        "@vue/cli-service": "5.0.4",
+        "@vue/compiler-sfc": "3.2.33",
+        "vue": "3.2.33",
+        "webpack": "5.72.1",
+        "webpack-dev-server": "4.9.0"
     },
     "license": "MIT",
     "scripts": {
