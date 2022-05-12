@@ -269,6 +269,13 @@ export default {
   .hero-image {
     height:500px;
   }
+
+  @media (min-width: 1024px) {
+    .hero-image {
+      height:300px;
+      width:100%;
+    }
+  }
 </style>
 ```
 

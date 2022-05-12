@@ -344,6 +344,8 @@ Your template features a single component that will follow your CSS directives a
   <img alt="Edit TwicPics x Nuxt - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='ratio-none'/>
+
 ### Working with ratio="none"
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
@@ -369,6 +371,13 @@ export default {
   /* You are responsible for properly sizing the component. */
   .hero-image {
     height:500px;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-image {
+      height:300px;
+      width:100%;
+    }
   }
 </style>
 ```

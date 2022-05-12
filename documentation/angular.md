@@ -390,6 +390,13 @@ Particularly useful when creating hero banner, you can specify the height of you
 .hero-image {
   height:500px;
 }
+
+@media (min-width: 1024px) {
+  .hero-image {
+    height:300px;
+    width:100%;
+  }
+}
 ```
 
 `<your-page-or-component>.html`
