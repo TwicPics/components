@@ -15,6 +15,7 @@
 /samples/webcomponents/index.html
 *.log
 .angular
+*.bak
 .DS_Store
 .history
 .idea
