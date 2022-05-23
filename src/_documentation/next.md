@@ -123,7 +123,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 `styles.css`
 
-```CSS
+```css
 .landscape {
   --twic-ratio: calc(4/3);
 }

@@ -313,7 +313,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/react).
+You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/webcomponents).
 
 #include "src/_documentation/common/_gettingHelp.md"
 

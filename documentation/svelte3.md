@@ -352,7 +352,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 <TwicImg
   src="path/to/your/image"
-  class="hero-image"
+  className="hero-image"
   ratio="none"
 ></TwicImg>
 ```

@@ -509,7 +509,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/react).
+You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/webcomponents).
 
 <div id='getting-help'/>
 

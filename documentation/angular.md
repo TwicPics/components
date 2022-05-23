@@ -28,7 +28,7 @@
 - [Questions and feedback](#getting-help)
 - [Other frameworks](#other-frameworks)
 - [Licence](#licence)
-    
+
 ## Overview
 
 <div id='what-is-twicpics'/>
@@ -115,7 +115,7 @@ You need to import the TwicPicsComponentsModule within your `app.module.ts` file
 
 __WARNING__: while importing angular components or module, you will have to select the targeted version.
 
-eg : 
+eg :
 ```ts
 // imports TwicPicsComponentsModule
 import { TwicPicsComponentsModule } from "@twicpics/components/angular11"
@@ -229,7 +229,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 `<your-component-within-app.module>.component.css`
 
-```CSS
+```css
 .landscape {
   --twic-ratio: calc(4/3);
 }
