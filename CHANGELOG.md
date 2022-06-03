@@ -2,6 +2,9 @@
 
 # TwicPics Components CHANGELOG
 
+# 0.8.1
+- __features__: allows domain configuration with a trailing slash
+
 # 0.8.0
 - __bug__: fixes issue when testing inside storybook
 - __chores__: improves configuration of `transition` prop

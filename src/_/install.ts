@@ -47,7 +47,7 @@ export const markComponentsChain = ( item: Element ): undefined => {
 };
 
 const rInvalidPath = /\?/;
-const rValidDomain = /^https?:\/\/[^/]+$/;
+const rValidDomain = /(^https?:\/\/[^/]+)\/?$/;
 
 export default ( options: Options ): void => {
 
@@ -75,8 +75,10 @@ export default ( options: Options ): void => {
     }
 
     config.env = env;
-    config.domain = domain;
+    config.domain = domain.replace( rValidDomain, `$1` );
     config.class = _class || defaultClass;
+
+    console.log(config);
 
     // not done in SSR
     if ( isBrowser ) {
@@ -85,7 +87,7 @@ export default ( options: Options ): void => {
             return;
         }
 
-        const parts = [ `${ domain }/?v1` ];
+        const parts = [ `${ config.domain }/?v1` ];
         Object.entries( options ).forEach( ( [ key, value ] ) => {
             if ( value != null ) {
                 let actualKey = key;
