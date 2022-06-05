@@ -3,6 +3,7 @@
 # TwicPics Components CHANGELOG
 
 # 0.8.1
+- __bug__: fixes non-rendering issue that occurs when using a container with flexbox display type (`display:flex`)
 - __features__: allows domain configuration with a trailing slash
 
 # 0.8.0
@@ -14,7 +15,7 @@
 - __features__: allows control of aspect ratio through the container dimensions
 
 # 0.7.0
-- __bug__: fixes potential undefined `class` in `React` and `Svelte` 
+- __bug__: fixes potential undefined `class` in `React` and `Svelte`
 - __chores__: improves configuration of `transition` prop
 - __feature__: adds `preTransform` prop that allows to configure a list of `TwicPics API transformations` to be performed
 - __feature__: allows to configure runtime environment (`offline`, `debug` or `production` by default)

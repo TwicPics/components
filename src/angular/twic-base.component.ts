@@ -52,8 +52,8 @@ import {
 } )
 export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
 
-    @HostBinding( `class.twic-i` ) initTwicIsolation = false;
-    @HostBinding( `style.display` ) initDisplayBlock = `block`;
+    @HostBinding( `class.twic-i` ) initTwicIsolation = true;
+    @HostBinding( `class.twic-d` ) initTwicDiv = true;
     @Input() alt: string = undefined;
     @Input() bot: string = undefined;
     @Input() class: string = undefined;

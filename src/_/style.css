@@ -61,6 +61,12 @@
     opacity: 0;
 }
 
+/* MAKES ANGULAR COMPONENT WRAPPER BEHAVES LIKE A DIV */
+.twic-d {
+    display:block;
+    width:100%;
+}
+
 /* OFFLINE PLACEHOLDERS AND ITS CHILDREN */
 .twic-offline {
     background-color: #CCCCCC;
