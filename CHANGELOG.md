@@ -3,7 +3,7 @@
 # TwicPics Components CHANGELOG
 
 # 0.8.1
-- __bug__: fixes non-rendering issue that occurs when using a container with flexbox display type (`display:flex`)
+- __bug__: makes `angular` component wrapper behave like a classic div
 - __features__: allows domain configuration with a trailing slash
 
 # 0.8.0
