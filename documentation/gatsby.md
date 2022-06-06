@@ -2,7 +2,7 @@
 
 
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.8.0/documentation/resources/gatsby-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.8.1/documentation/resources/gatsby-cover.png)
 
 
 
@@ -513,5 +513,5 @@ TwicPics Components are available [in the most popular javascript frameworks](ht
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.8.0-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.8.0
+[npm-image]: https://img.shields.io/badge/npm-v0.8.1-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.8.1
