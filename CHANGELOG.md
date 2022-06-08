@@ -1,119 +1,239 @@
-<img align="right" width="25%" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
+<img align="right" height="42" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
 
-# TwicPics Components CHANGELOG
+# Changelog
 
-# 0.8.1
-- __bug__: makes `angular` component wrapper behave like a classic div
-- __features__: allows domain configuration with a trailing slash
+All notable changes to this project will be documented in this file.
 
-# 0.8.0
-- __bug__: fixes issue when testing inside storybook
-- __chores__: improves configuration of `transition` prop
-- __chores__: removes irrelevant `div` in angular
-- __chores__: upgrades dependencies version
-- __doc__: adds link to demo site in `Svelte3` documentation
-- __features__: allows control of aspect ratio through the container dimensions
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# 0.7.0
-- __bug__: fixes potential undefined `class` in `React` and `Svelte`
-- __chores__: improves configuration of `transition` prop
-- __feature__: adds `preTransform` prop that allows to configure a list of `TwicPics API transformations` to be performed
-- __feature__: allows to configure runtime environment (`offline`, `debug` or `production` by default)
-- __feature__: makes the `src` property optional. When not set, a red placeholder is displayed in place of the missing media
-- __feature__: supports `Nuxt.js 3.x`
+## [Unreleased]
 
-## 0.6.6
-- __bug__: fixes a refresh issue in `angular`
-- __feature__: improves style isolation of components
+## [0.8.1] - 2022-06-06
 
-## 0.6.5
-- __doc__: adds link to the demo site in the `Nuxt 2.x` documentation
-- __feature__: adds `path` to the initialization parameter list
+### Changed
 
-## 0.6.4
-- __bug__: fixes `esm` version importation 
-- __doc__: adds link to the demo site in the `VueJS 2.x` documentation
+- Domain URL now allow trailing slash
 
-## 0.6.3
-- __chore__: removes unused methods and factory
-- __chore__: uses the package version number in documentation
-- __doc__: adds link to the demo site in the `Angular` documentation
-- __feature__: `Angular` components export the `Mode` and `Placeholder` types which allows dynamic setting of the related properties
-- __feature__: adds a `zoom` effect to the `transition` options
+### Fixed
 
-## 0.6.2
+- Component wrapper now behaves like a normal div in **Angular**
 
-- __chore__: upgrades dependencies version
-- __doc__: creates technology-specific documentation
-- __feature__: supports `Gatsby`
+## [0.8.0] - 2022-05-12
 
-## 0.6.1
+### Added
 
-- __bug__: `className` prop passed to `React` and `Svelte` components is now applied to the outer div
-- __bug__: fixes `transition` still active even if it was set to `false`
-- __bug__: fixes type validation of `transition` `props` in `React`, `VueJS 2.x` and `VueJS 3.x`
-- __chore__: removes irrelevant attribute `className` in angular
-- __feature__: simplifies integration in `Nuxt.js 2.x`
+- Aspect ratio can now be managed via the container dimensions
+- Add demo link to **Svelte 3** documentation
 
-## 0.6.0
+### Changed
 
-- __bug__: no longer generates empty `CSS` property values in `SSR`
-- __bug__: fixes aspect ratio sometimes not being respected in `CSS` grids
-- __bug__: no longers generates an `background-image: undefined` when placeholder is `none` in `Svelte`
-- __chore__: seriously reduces the size of all `Angular` distributions
-- __feature__: supports `Angular 11`
+- Improve configuration for `transition` prop
+- Remove useless `div` in angular component
+- Upgrade dependencies version
 
-## 0.5.2
+### Fixed
 
-- __bug__: no longer generates camel-cased `CSS` property names in `Svelte`
+- Fix issue when testing inside storybook
+## [0.7.0] - 2022-05-06
 
-## 0.5.1
+### Added
 
-- __bug__: `placeholder="none"` no longer corrupts background URLs that generated `404` responses
-- __feature__: displays a warning message in the browser console when components are used without initialization
+- Add support for **Nuxt 3**
+- Add `preTransform` prop to configure a list of TwicPics API transformations
+- Allow runtime environment configuration (`offline`, `debug` or `production` by default)
 
-## 0.5.0
+### Changed
 
-- __breaking__: removes `width` and `height` attributes
-- __bug__: fixes `install function already called` error on server side when modifying the class calling the installTwicPics method in `Next.js`
-- __bug__: fixes custom class setting using `installTwicPics`
-- __feature__: it is now possible to setup components using pure `CSS`
-- __feature__: supports `Angular 12+`
-- __feature__: allows passing `className` prop to `React` and `Svelte` components
+- `src` prop is now optional (a red placehold is displayed when missing)
+- Improve `transition` prop configuration
 
-## 0.4.1
+### Fixed
 
-- __bug__: removes `<noscript>` tags generation in SSR mode. Hydration is too heavy handed in most frameworks.
+- Fix potential undefined `class` in **React** and **Svelte**
+## [0.6.6] - 2022-04-29
 
-## 0.4.0
+### Changed
 
-- __breaking__: de-duplicates `style.css`
-- __bug__: fixes `<noscript>` generation in `Nuxt.js`
-- __bug__: silences hydration warnings due to `<noscript>` in `Next.js`
-- __doc__: makes crystal clear that transition-related properties can be overriden
-- __feature__: supports native `Web Components`
-- __feature__: components names can be changed in `VueJS`
-- __feature__: reduces footprint of `TypeScript` definitions
+- Improve style isolation for components
 
-## 0.3.1
+### Fixed
 
-- __bug__: fixes module resolution for `Next.js`
+- Fix a refresh issue with **Angular**
 
-## 0.3.0
+## [0.6.5] - 2022-04-28
 
-- __doc__: provides usage examples for all frameworks
-- __feature__: provides `TypeScript` definitions for all frameworks
-- __feature__: generates `<noscript>` tags in SSR mode
+### Added
 
-## 0.2.1
+- Add demo link to the `Nuxt 2` documentation
+- Add `path` to the initialization parameter list
 
-- __bug__: fixes default placeholder value for `Svelte 3.x`
+## [0.6.4] - 2022-04-25
 
-## 0.2.0
+### Added
 
-- __feature__: supports `Svelte 3.x`
-- __feature__: reduces footprint of all components
+- Add demo link to the **Vue 2** documentation
 
-## 0.1.0
+### Fixed
 
-- __feature__: supports `Next.js`, `Nuxt.js`, `React`, `VueJS 2.x` and `VueJS 3.x`
+- Fix `esm` version importation 
+
+## [0.6.3] - 2022-04-15
+
+### Added
+
+- Add demo link to the **Angular** documentation
+- Add `Mode` and `Placeholder` types exports to **Angular** components
+- Add `zoom` as a `transition` value
+
+## [0.6.2] - 2022-03-21
+
+### Added
+
+- New framework-specific documentation
+- Add support for **Gatsby**
+### Changed
+
+- Upgrade dependencies version
+
+## [0.6.1] - 2022-03-01
+
+### Changed
+
+- Simplify integration with **Nuxt 2**
+- Remove `className` attribute in **Angular**
+
+## Fixed
+
+- `className` prop are now applied to wrapper div in **React** and **Svelte 3**
+- Fix type validation of transition props in **React**, **Vue 2**, and **Vue 3**
+- Transitions can now be properly disabled
+
+## [0.6.0] - 2022-02-04
+
+### Added
+
+- Support for **Angular 11**
+
+### Changed
+
+- Drastically decrease the size of all **Angular** built files
+### Fixed
+
+- Fix aspect ratio not being respected in CSS grids
+- No longer generating empty CSS property values in SRR
+- No longer generating `background-image: undefined` when placeholder is `none` in **Svelte**
+
+## [0.5.2] - 2022-01-27
+
+### Fixed
+
+- CSS property names are no longer camel-cased in **Svelte 3**
+
+## [0.5.1] - 2022-01-20
+
+### Added
+
+- Add warning message in the browser console when components not initialized
+
+### Fixed
+
+- `placeholder="none"` no longer corrupts background URLs that generated `404` responses
+
+## [0.5.0] - 2022-01-12
+
+### Added
+
+- Add support for **Angular 12+**
+- Allow to style components using pure CSS
+- Allow passing `className` props to **React** (and **Next**) and **Svelte 3** components
+
+### Changed
+
+- **Breaking**: remove `width` and `height` properties
+
+### Fixed
+
+- Fix server-side `install function already called` error that happened with **Next**
+- Using custom class with `installTwicPics` now work as intended
+
+## [0.4.1] - 2021-10-09
+
+### Changed
+
+- **Breaking**: remove `<noscript>` tags generation in SSR mode (Hydration is too heavy-handed in most frameworks)
+
+## [0.4.0] - 2021-10-07
+
+### Added
+
+- Clarify the documentation regarding transition-related properties
+- Component names can now be changed in **Vue**
+- Add support for native **Web Components**
+
+### Changed
+
+- **Breaking:** Per framework styles unified in a single style sheet (eg.`react/style.css`, `vue2/style.css` etc. -> `style.css`)
+- Decrease footprint of **TypeScript** definitions
+
+### Fixed
+
+- Fix `<noscript>` tag generation in **Nuxt**
+- Silence hydration warnings due to `<noscript>` tags in **Next**
+
+## [0.3.1] - 2021-09-29
+
+### Fixed
+
+- Fix module resolution for **Next**
+
+## [0.3.0] - 2021-09-27
+
+### Added
+
+- Add example usages for all frameworks
+- Add **TypeScript** definitions for all frameworks
+- Add `<noscript>` tags generation in SSR mode
+
+## [0.2.1] - 2021-07-28
+
+### Fixed
+
+- Fix default placeholder value for **Svelte 3**
+
+## [0.2.0] - 2021-07-28
+
+### Added
+
+- Add support for **Svelte 3**
+
+### Changed
+
+- Decrease footprint of all components
+
+## [0.1.0] - 2021-07-27
+
+### Added
+
+- Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
+
+[Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.8.1]: https://github.com/TwicPics/components/compare/0.8.0...0.8.1
+[0.8.0]: https://github.com/TwicPics/components/compare/0.7.0...0.8.0
+[0.7.0]: https://github.com/TwicPics/components/compare/0.6.6...0.7.0
+[0.6.6]: https://github.com/TwicPics/components/compare/0.6.6...0.6.6
+[0.6.5]: https://github.com/TwicPics/components/compare/0.6.4...0.6.5
+[0.6.4]: https://github.com/TwicPics/components/compare/0.6.3...0.6.4
+[0.6.3]: https://github.com/TwicPics/components/compare/0.6.2...0.6.3
+[0.6.2]: https://github.com/TwicPics/components/compare/0.6.1...0.6.2
+[0.6.1]: https://github.com/TwicPics/components/compare/0.6.0...0.6.1
+[0.6.0]: https://github.com/TwicPics/components/compare/0.5.2...0.6.0
+[0.5.2]: https://github.com/TwicPics/components/compare/0.5.1...0.5.2
+[0.5.1]: https://github.com/TwicPics/components/compare/0.5.0...0.5.1
+[0.5.0]: https://github.com/TwicPics/components/compare/0.4.1...0.5.0
+[0.4.1]: https://github.com/TwicPics/components/compare/0.4.0...0.4.1
+[0.4.0]: https://github.com/TwicPics/components/compare/0.3.1...0.4.0
+[0.3.1]: https://github.com/TwicPics/components/compare/0.3.0...0.3.1
+[0.3.0]: https://github.com/TwicPics/components/compare/0.2.1...0.3.0
+[0.2.1]: https://github.com/TwicPics/components/compare/0.2.0...0.2.1
+[0.2.0]: https://github.com/TwicPics/components/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/TwicPics/components/releases/tag/0.1.0
