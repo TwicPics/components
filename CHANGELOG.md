@@ -1,4 +1,4 @@
-<img align="right" height="42" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
+<img align="right" width="25%" src="https://raw.githubusercontent.com/twicpics/components/main/logo.png">
 
 # Changelog
 
