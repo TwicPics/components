@@ -32,6 +32,7 @@ const callFactory = ( func, _args, isProp = false ) => {
     const args = _args.map( arg => ( ( typeof arg === `function` ) ? {
         "f": arg,
     } : {
+        // eslint-disable-next-line no-nested-ternary
         "s": isProp ?
             `${ arg }` :
             ( rInitialProps.test( `${ arg }` ) ? `${ `${ arg }`.replace( rInitialProps, `$2` ) }` : `p_${ arg }` ),

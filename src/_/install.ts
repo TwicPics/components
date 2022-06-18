@@ -78,8 +78,6 @@ export default ( options: Options ): void => {
     config.domain = domain.replace( rValidDomain, `$1` );
     config.class = _class || defaultClass;
 
-    console.log(config);
-
     // not done in SSR
     if ( isBrowser ) {
         if ( hasPreviousInstall ) {
