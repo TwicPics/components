@@ -120,9 +120,9 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "$npm_execpath install && yarn lint && node build/documentation.js && node build",
+        "build": "$npm_execpath install && node build/documentation.js && node build",
         "lint": "eslint .",
-        "postinstall": "node build/angular/angularInstaller.js && node build/postinstall.js",
+        "postinstall": "$npm_execpath lint && node build/angular/angularInstaller.js && node build/postinstall.js",
         "documentation": "node build/documentation.js"
     },
     "type": "module"
