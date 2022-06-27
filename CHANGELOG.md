@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Remove irrelevant `console.log` on component initialization
+- Remove `console.log` on components initialization
 
 ## [0.8.1] - 2022-06-06
 
