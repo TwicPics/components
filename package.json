@@ -122,7 +122,7 @@
     "scripts": {
         "build": "$npm_execpath install && node build/documentation.js && node build",
         "lint": "eslint .",
-        "postinstall": "$npm_execpath lint && node build/angular/angularInstaller.js && node build/postinstall.js",
+        "postinstall": "node build/angular/angularInstaller.js && node build/postinstall.js",
         "documentation": "node build/documentation.js"
     },
     "type": "module"
