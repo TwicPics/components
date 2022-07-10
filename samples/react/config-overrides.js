@@ -23,5 +23,8 @@ module.exports = config => {
         }
     } );
     config.resolve.plugins = config.resolve.plugins.filter( plugin => !( plugin instanceof ModuleScopePlugin ) );
-    return config;
+    return {
+        ...config,
+        "ignoreWarnings": [ /Failed to parse source map/ ],
+    };
 };

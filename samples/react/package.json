@@ -7,10 +7,10 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "react": "18.1.0",
-        "react-app-rewired": "2.1.8",
-        "react-dom": "18.1.0",
-        "react-scripts": "4.0.3"
+        "react": "18.2.0",
+        "react-app-rewired": "2.2.1",
+        "react-dom": "18.2.0",
+        "react-scripts": "5.0.1"
     },
     "license": "MIT",
     "scripts": {

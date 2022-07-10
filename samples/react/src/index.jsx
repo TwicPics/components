@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import Sample from "@twicpics/components-sample/Sample.jsx";
 
 import { installTwicPics } from "@twicpics/components/react";
@@ -13,9 +13,8 @@ installTwicPics( {
     "env": `production`,
 } );
 
-ReactDOM.render(
-    <React.StrictMode>
-        <Sample />
-    </React.StrictMode>,
-    document.body
+const container = document.body;
+const root = createRoot( container );
+root.render(
+    <Sample />
 );
