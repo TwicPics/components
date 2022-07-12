@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Add `anchor` prop which allows to configure with the same syntax the positioning of an image in its container or the focus point of transformations in `contain` and `cover` mode respectively.
+
 ## [0.9.0-beta.0] - 2022-07-28
 
 ### Added
@@ -16,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Upgrades dependencies and documentation.
+- Upgrade dependencies and documentation.
 
 ### Fixed
 

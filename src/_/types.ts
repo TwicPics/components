@@ -7,6 +7,7 @@ export type Environment = `debug` | `offline` | `production`;
 
 export interface Attributes {
     alt?: string,
+    anchor?: string,
     bot?: string,
     focus?: string,
     mode?: Mode,
