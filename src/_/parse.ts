@@ -20,6 +20,8 @@ const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 
+export const parseAnchor = trimOrUndefined;
+
 export const parseAlt = trimOrUndefined;
 
 export const parseBot = trimOrUndefined;
