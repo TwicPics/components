@@ -127,10 +127,10 @@ installTwicPics( {
 
 into the app startup of your `React` project.
 
-#### index.jsx
+#### index.jsx (React 16+)
 
 ```jsx
-// Here is an example of a `React` app startup configured with TwicPics.
+// Here is an example of a `React 16+` app startup configured with TwicPics.
 import React from "react";
 import ReactDOM from "react-dom";
 import Root from "./root.jsx";
@@ -151,6 +151,33 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById( "root" )
 );
+```
+
+##### index.jsx (React 18+)
+
+```jsx
+// Here is an example of a `React 18+` app startup configured with TwicPics.
+import React from "react";
+import { createRoot } from 'react-dom/client';
+import Root from "./root.jsx";
+
+// TwicPics Components importation
+import { installTwicPics } from "@twicpics/components/react";
+import "@twicpics/components/style.css";
+
+// TwicPics Components configuration (see Setup Options)
+installTwicPics( {
+  // domain is mandatory
+  "domain": "https://<your-domain>.twic.pics"
+} );
+
+const container = document.getElementById('root');
+const root = createRoot(container); 
+
+root.render(
+      <Root />
+);
+
 ```
 
 <div id='setup-options'/>
