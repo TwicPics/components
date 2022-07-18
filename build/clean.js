@@ -25,6 +25,5 @@ export default () => {
     console.log( `cleaning dependencies in tests subdirectory...` );
     clean( `${ __dirname }/../tests` );
     console.log( `cleaning dependencies in angular templates subdirectory...` );
-    // todo mbg uncomment this
-    // clean( `${ __dirname }/../build/angular/_templates` );
+    clean( `${ __dirname }/../build/angular/_templates` );
 };
