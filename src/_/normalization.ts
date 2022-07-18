@@ -1,5 +1,7 @@
 import type { Mode } from "./types";
 
+const splitAnchor = ( anchor: string ):string[] => anchor.split( /\s*-\s*|\s+/ );
+
 const mappingFocus = ( anchors: string[], mapArray : { [ key: string ]: string } ) : string => (
     // eslint-disable-next-line no-shadow
     anchors.map( anchor => mapArray[ anchor ] ).filter( focus => focus )[ 0 ] || `50p`
@@ -8,7 +10,7 @@ const mappingFocus = ( anchors: string[], mapArray : { [ key: string ]: string }
 // eslint-disable-next-line no-shadow
 const normalizeFocus = ( anchor:string, focus?: string ):string => {
     if ( anchor ) {
-        const anchors = anchor.split( /\s*-\s*|\s+/ );
+        const anchors = splitAnchor( anchor );
         const focusX = mappingFocus( anchors, {
             "left": `0p`,
             "right": `100p`,
@@ -24,7 +26,7 @@ const normalizeFocus = ( anchor:string, focus?: string ):string => {
 
 export const normalizePosition = ( anchor:string, mode: Mode, position: string ):string => {
     if ( ( mode === `contain` ) && ( position || anchor ) ) {
-        return anchor ? anchor.split( /\s*-\s*|\s+/ ).join( ` ` ) : position;
+        return anchor ? splitAnchor( anchor ).join( ` ` ) : position;
     }
     return undefined;
 };
