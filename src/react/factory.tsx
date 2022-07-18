@@ -5,6 +5,7 @@ import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrap
 import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
+    parseAnchor,
     parseBot,
     parseClassName,
     parseFocus,
@@ -32,6 +33,7 @@ export interface Attributes extends BaseAttributes {
 
 const defaultProps: Attributes = {
     "alt": undefined,
+    "anchor": undefined,
     "bot": undefined,
     "className": undefined,
     "focus": undefined,
@@ -54,6 +56,7 @@ const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
 
 const propTypes = {
     "alt": string,
+    "anchor": string,
     "bot": string,
     "className": string,
     "focus": string,
@@ -79,6 +82,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
         static defaultProps: Attributes;
         static propTypes: {
             alt: PropTypes.Requireable<string>;
+            anchor: PropTypes.Requireable<string>;
             bot: PropTypes.Requireable<string>;
             className: PropTypes.Requireable<string>;
             focus: PropTypes.Requireable<string>;
@@ -110,6 +114,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
         render() {
             const { props } = this;
             const alt = withAlt && parseAlt( props.alt );
+            const anchor = parseAnchor( props.anchor );
             const bot = parseBot( props.bot );
             const className = parseClassName( props.className ) || ``;
             const focus = parseFocus( props.focus );
@@ -131,6 +136,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                         className = { computeWrapperClass( props.src, transition ) }
                         style = {
                             computeWrapperStyle(
+                                anchor,
                                 focus,
                                 mode,
                                 placeholder,
@@ -147,13 +153,14 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                             alt = { withAlt ? computeAlt( alt, src ) : undefined }
                             style = {
                                 computeStyle(
+                                    anchor,
                                     mode,
                                     position,
                                     transitionDelay,
                                     transitionDuration,
                                     transitionTimingFunction
                                 ) }
-                            { ...computeData( bot, focus, preTransform, src, step ) }
+                            { ...computeData( anchor, bot, focus, mode, preTransform, src, step ) }
                         />
                     </div>
                 </div>

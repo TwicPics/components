@@ -31,6 +31,7 @@ import { createPlaceholderHandler } from "../_/placeholder";
 
 import {
     parseAlt,
+    parseAnchor,
     parseBot,
     parseFocus,
     parseMode,
@@ -55,6 +56,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @HostBinding( `class.twic-i` ) initTwicIsolation = true;
     @HostBinding( `class.twic-d` ) initTwicDiv = true;
     @Input() alt: string = undefined;
+    @Input() anchor: string = undefined;
     @Input() bot: string = undefined;
     @Input() class: string = undefined;
     @Input() focus: string = undefined;
@@ -69,7 +71,8 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
-    _alt: string;
+    _alt: string = undefined;
+    _anchor: string = undefined;
     _bot: string = undefined;
     _focus: string = undefined;
     _mode: Mode = undefined;
@@ -114,6 +117,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     }
     ngOnChanges( ): void {
         this._alt = parseAlt( this.alt );
+        this._anchor = parseAnchor( this.anchor );
         this._bot = parseBot( this.bot );
         this._focus = parseFocus( this.focus );
         this._mode = parseMode( this.mode );
@@ -132,8 +136,10 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
 
         this.elementAttributs = {
             ...computeData(
+                this._anchor,
                 this._bot,
                 this._focus,
+                this._mode,
                 this._preTransform,
                 this._src,
                 this._step
@@ -141,6 +147,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         };
 
         this.elementStyle = computeStyle(
+            this._anchor,
             this._mode,
             this._position,
             this._transitionDelay,
@@ -151,6 +158,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         this.wrapperClass = computeWrapperClass( this.src, this._transition );
 
         this.wrapperStyle = computeWrapperStyle(
+            this._anchor,
             this._focus,
             this._mode,
             this._placeholder,

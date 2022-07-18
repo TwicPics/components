@@ -10,6 +10,7 @@ import {
 import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
+    parseAnchor,
     parseBot,
     parseFocus,
     parseMode,
@@ -48,6 +49,7 @@ const props = {};
 
 for ( const [ propName, type, parseMethod, args ] of [
     [ `alt`, stringProp, parseAlt ],
+    [ `anchor`, stringProp, parseAnchor ],
     [ `bot`, stringProp, parseBot ],
     [ `focus`, stringProp, parseFocus ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
@@ -68,11 +70,11 @@ for ( const [ propName, type, parseMethod, args ] of [
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `src` ] ],
-    [ `_dataAttributes`, computeData, [ `bot`, `focus`, `preTransform`, `src`, `step` ] ],
+    [ `_dataAttributes`, computeData, [ `anchor`, `bot`, `focus`, `mode`, `preTransform`, `src`, `step` ] ],
     [
         `_style`,
         computeStyle,
-        [ `mode`, `position`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
+        [ `anchor`, `mode`, `position`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
     ],
     [
         `_wrapperClass`,
@@ -83,6 +85,7 @@ for ( const [ propName, func, args ] of [
         `_wrapperStyle`,
         computeWrapperStyle,
         [
+            `anchor`,
             `focus`,
             `mode`,
             `placeholder`,

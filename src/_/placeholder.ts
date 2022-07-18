@@ -5,10 +5,12 @@ import { config } from "./install";
 import { cssWithoutPx } from "./dom";
 import { debounce, isBrowser, logWarning } from "./utils";
 import { parseMode } from "./parse";
+import { actualFocus, actualPreTransform } from "./normalization";
 
 const PLACEHOLDER_DIM = 1000;
 
 export interface PlaceholderData {
+    anchor: string
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
@@ -20,7 +22,7 @@ export interface PlaceholderData {
 
 const computeWrapperBackground = (
     element: Element,
-    { focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
+    { anchor, focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
 ): string => {
     if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) ) {
         return ``;
@@ -51,10 +53,14 @@ const computeWrapperBackground = (
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
 
+    const _actualFocus = actualFocus( anchor, focus, actualMode, preTransform );
+
+    const _actualPreTransform = actualPreTransform( anchor, preTransform );
+
     return `${
-        ( ( actualMode === `cover` ) && focus ) ? `focus=${ focus }/` : ``
+        ( _actualFocus ? `focus=${ _actualFocus }/` : `` )
     }${
-        preTransform
+        _actualPreTransform
     }${
         actualMode
     }=${
