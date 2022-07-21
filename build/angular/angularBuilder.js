@@ -188,13 +188,16 @@ const sourcemapPathTransform = async angularDirectory => {
  */
 const typeDefinitions = async angularDirectory => {
     const { twicDist, ngcDist } = getDistFolder( angularDirectory );
+    const packageJson = await getJsonFromPath( `${ ngcDist }/package.json` );
+
+    const { typings } = packageJson;
 
     // rollup generated index.d.ts
     await rollup( {
-        "input": `${ ngcDist }/lib.d.ts`,
+        "input": `${ ngcDist }/${ typings }`,
         "output": [
             {
-                "file": `${ twicDist }/lib.d.ts`,
+                "file": `${ twicDist }/${ typings }`,
                 "format": `es`,
             },
         ],

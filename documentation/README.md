@@ -40,7 +40,7 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
 
 ## Supported frameworks
 
-- [Angular](https://github.com/TwicPics/components/blob/0.8.2/documentation/angular.md)
+- [Angular](https://github.com/TwicPics/components/blob/0.8.2/documentation/angular.md) (version 11+)
 - [React](https://github.com/TwicPics/components/blob/0.8.2/documentation/react.md), [Gatsby](https://github.com/TwicPics/components/blob/0.8.2/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.8.2/documentation/next.md)
 - [Svelte](https://github.com/TwicPics/components/blob/0.8.2/documentation/svelte3.md) (version 3)
 - [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.8.2/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.8.2/documentation/vue3.md) , [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.8.2/documentation/nuxt2.md) and [Nuxt.js (version 3)](https://github.com/TwicPics/components/blob/0.8.2/documentation/nuxt3.md)
