@@ -41,7 +41,7 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 
 - [Angular](https://github.com/TwicPics/components/blob/0.14.2/documentation/angular.md) (version 11+)
 - [React](https://github.com/TwicPics/components/blob/0.14.2/documentation/react.md), [React Native](https://github.com/TwicPics/components/blob/0.14.2/documentation/react-native.md), [Gatsby](https://github.com/TwicPics/components/blob/0.14.2/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.14.2/documentation/next.md)
-- [Svelte](https://github.com/TwicPics/components/blob/0.14.2/documentation/svelte3.md) (version 3)
+- [Svelte](https://github.com/TwicPics/components/blob/0.14.2/documentation/svelte3.md) (version 3), [SvelteKit](https://github.com/TwicPics/components/blob/0.14.2/documentation/svelteKit.md)
 - [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.14.2/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.14.2/documentation/vue3.md) , [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.14.2/documentation/nuxt2.md) and [Nuxt.js (version 3)](https://github.com/TwicPics/components/blob/0.14.2/documentation/nuxt3.md)
 - [Web Components](https://github.com/TwicPics/components/blob/0.14.2/documentation/webComponents.md)
 
@@ -53,7 +53,7 @@ Explore our demos and integration examples for :
 - [Angular](https://twicpics-angular-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 - [React](https://twicpics-react-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Gatsby.js](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 - [Vue.js (version 2)](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Vue.js (version 3)](https://twicpics-vue3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Nuxt.js (version 2)](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Nuxt.js (version 3)](https://twicpics-nuxt3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
-- [Svelte (version 3)](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+- [Svelte (version 3)](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [SvelteKit](https://twicpics-sveltekit-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 
 <div id='getting-help'/>
 

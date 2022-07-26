@@ -68,14 +68,14 @@ TwicPics Components are available in Svelte3 __version 3.47+_.
 
 ## Installation
 
-Add the `@twicpics/components` package to your project:
+Add the `@twicpics/components` package to your project as a dev dependency:
 
 ```bash
 # Using yarn
-yarn add @twicpics/components
+yarn add @twicpics/components -D
 
 # Or using npm
-npm install @twicpics/components
+npm install @twicpics/components --D
 ```
 
 
@@ -261,7 +261,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src/lib/twicStyleDriven/index.jsx)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src/lib/TwicStyleDriven.svelte&initialpath=style-driven)
 
 
 <div id='responsive-example'/>

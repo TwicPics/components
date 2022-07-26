@@ -5,8 +5,10 @@ import { execSync } from "child_process";
 // retrieve the angular directories where the installation should be launched
 const angularDirectories = await getAngularDirectories();
 // loop on angular directories
-for await ( const angularDirectory of angularDirectories ) {
-    console.log( `installing ${ angularDirectory.name } from ${ angularDirectory.path }` );
-    execSync( `cd ${ angularDirectory.path } && $npm_execpath install` );
-    console.log( `${ angularDirectory.name } installation done` );
-}
+export default async () => {
+    for await ( const angularDirectory of angularDirectories ) {
+        console.log( `installing ${ angularDirectory.name } from ${ angularDirectory.path }` );
+        execSync( `cd ${ angularDirectory.path } && $npm_execpath install` );
+        console.log( `${ angularDirectory.name } installation done` );
+    }
+};

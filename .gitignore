@@ -1,5 +1,6 @@
 /build/angular/_templates/angular*/lib/src
-/build/angular/_templates/angular*/yarn.lock
+/build/sveltekit/template/src/lib
+/samples/**/.cache
 /samples/**/.next
 /samples/**/.nitro
 /samples/**/.nuxt
@@ -7,13 +8,14 @@
 /samples/**/package-lock.json
 /samples/**/yarn.lock
 /samples/angular*/**/app.component.html
+/samples/gatsby/public
 /samples/next/out
 /samples/nuxt3/.cache
 /samples/nuxt3/.env
 /samples/nuxt3/.output
-/samples/gatsby/.cache
-/samples/gatsby/public
+/samples/sveltekit/**/Sample.svelte
 /samples/webcomponents/index.html
+*.bak
 *.log
 *.bak
 .angular
@@ -22,8 +24,11 @@
 .history
 .idea
 .parcel-cache
+.svelte-kit
 .vscode
+package/
 package-lock.json
 yarn.lock
 dist
 node_modules
+

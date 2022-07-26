@@ -1,8 +1,8 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
-import type { Anchor, Mode, Placeholder, State } from "./utils.js";
-import TwicMedia from "./TwicMedia.svelte";
+import type { Anchor, Mode, Placeholder, State } from "./_utils.js";
+import TwicMedia from "./_TwicMedia.svelte";
 </script>
 <script lang="ts">
 export let alt: string = undefined;

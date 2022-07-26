@@ -20,6 +20,7 @@ import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import typeScript from "@rollup/plugin-typescript";
+import minifier from "./minifier.js";
 import replacer from "./replacer.js";
 
 const getInputFileName = ( sourceDir, sourceFileName, javascript ) =>
@@ -123,13 +124,7 @@ export default ( { bundleCss = true,
                     if ( postDefinitions ) {
                         typeDefinitions = postDefinitions( typeDefinitions );
                     }
-                    typeDefinitions = typeDefinitions
-                        // eslint-disable-next-line no-useless-escape
-                        .replace(
-                            /(([`'"])(?:\\.|.|\r|\n)+?\2)|\/\/.*|\/\*(?:.|\r|\n)*?\*\//g,
-                            ( _, string ) => string || ` `
-                        )
-                        .replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
+                    typeDefinitions = minifier( typeDefinitions );
                     const ref = `export*from"./${ getFormatInfo( formats[ 0 ], `fileName` ) || formats[ 0 ] }.d.ts";`;
                     await Promise.all( formats.map( ( f, isCopy ) => writeFile(
                         `${ __dirname }/../dist/${ framework }/${ getFormatInfo( f, `fileName` ) || f }.d.ts`,

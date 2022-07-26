@@ -1,7 +1,9 @@
-<svelte:options tag="twic-media"/>
-
+<svelte:options tag="twic-media" />
 <script context="module" lang="ts">
-import type { Anchor, Media, Mode, Placeholder, State } from "./utils.js";
+/* eslint-disable no-duplicate-imports */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type { Anchor, Media, Mode, Placeholder, State } from "./_utils.js";
 import {
     computeAlt,
     computeData,
@@ -30,10 +32,12 @@ import {
     parseTransitionDelay,
     parseTransitionDuration,
     parseTransitionTimingFunction,
-    styleToString
-} from "./utils.js";
+    styleToString,
+} from "./_utils.js";
+/* eslint-disable-next-line camelcase */
 import { createEventDispatcher, get_current_component, onDestroy, onMount } from "svelte/internal";
 </script>
+
 <script lang="ts">
 export let alt: string = undefined;
 export let anchor: Anchor = undefined;
@@ -55,7 +59,6 @@ export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
-
 let media: Media;
 
 const observer = new Observer( ( _state: State )=> {
@@ -139,9 +142,21 @@ if ( isBrowser ) {
     } );
 }
 </script>
-
-{#if mediaTag}
-    {#if isWebComponents}
+{#if isWebComponents}
+<div
+    class = { computeWrapperClass( src, parsedTransition ) }
+    style = { _wrapperStyle }
+>
+    <svelte:element this={ mediaTag }
+        bind:this = { media }
+        alt = { _alt }
+        style = { _style }
+        { ..._data }
+    ></svelte:element>
+    <div style = { _placeholderStyle } />
+</div>
+{:else}
+<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
     <div
         class = { computeWrapperClass( src, parsedTransition ) }
         style = { _wrapperStyle }
@@ -154,20 +169,5 @@ if ( isBrowser ) {
         ></svelte:element>
         <div style = { _placeholderStyle } />
     </div>
-    {:else}
-    <div class = {`twic-i ${ parseClassName( className ) || `` }`}>
-        <div
-            class = { computeWrapperClass( src, parsedTransition ) }
-            style = { _wrapperStyle }
-        >
-            <svelte:element this={ mediaTag }
-                bind:this = { media }
-                alt = { _alt }
-                style = { _style }
-                { ..._data }
-            ></svelte:element>
-            <div style = { _placeholderStyle } />
-        </div>
-    </div>
-    {/if}
+</div>
 {/if}

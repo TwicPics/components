@@ -6,13 +6,15 @@
     "description": "A Web component library that brings the power of TwicPics to your favorite web framework.",
     "homepage": "https://github.com/twicpics/components",
     "keywords": [
-        "component library",
         "angular",
+        "component library",
         "gatsby js",
         "next js",
         "nuxt js",
         "react",
         "responsive image",
+        "svelte",
+        "sveltekit",
         "twicpics",
         "ui library",
         "vue js"

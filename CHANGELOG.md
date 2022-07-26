@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Add
+
+- Add support for **SvelteKit**.
+
 ### Changed
 
 - Simplify Svelte3 components generation using <svelte:element>. **Requires** Svelte3.47+.

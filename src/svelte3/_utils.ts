@@ -33,6 +33,7 @@ export type {
     Environment,
     Media,
     Mode,
+    Options,
     Placeholder,
     State,
     StateEvent,
