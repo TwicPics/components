@@ -4,6 +4,7 @@
 /samples/**/build
 /samples/next/out
 /samples/gatsby/public
+/samples/sveltekit
 /samples/**/polyfills.ts
 /tests
 dist

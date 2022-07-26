@@ -1,12 +1,11 @@
 // /___state___/g => "bind:state on:statechange={( stateEvent ) => console.log(`Svelte - TwicImg emits an event.`, stateEvent)}"
 // /___eager_true___/ => "eager={true}"
 // /___eager_false___/ => "eager={false}"
-
 <script context="module">
-    import { TwicImg } from "@twicpics/components/svelte3";
-    import { TwicVideo } from "@twicpics/components/svelte3";
-    import { TwicView } from "@twicpics/components/svelte3";
-    import "./Sample.css";
+    import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
+    import TwicVideo from "@twicpics/components/sveltekit/TwicVideo.svelte";
+    import TwicView from "@twicpics/components/sveltekit/TwicView.svelte";
+    import "@twicpics/components-sample/Sample.css";
 </script>
 <script>
     let state;
@@ -18,3 +17,4 @@
 </script>
 
 ###
+

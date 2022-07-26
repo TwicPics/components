@@ -9,7 +9,12 @@ import units from "./units.js";
 import {
     buildComponents as buildAngularComponents,
     exportsPackageJson as exportsAngularPackageJson,
+
 } from "./angular/builder.js";
+import {
+    buildComponents as buildSveltekitComponents,
+    exportsPackageJson as exportsSveltekitPackageJson,
+} from "./sveltekit/builder.js";
 
 import { getJsonFromPath, writeJson } from "./json.js";
 import { formats, getFormatInfo } from "./formats.js";
@@ -83,12 +88,20 @@ try {
     console.error( `angular components generation error:`, error );
 }
 
+try {
+    await buildSveltekitComponents();
+    console.log( `sveltekit components generated` );
+} catch ( error ) {
+    console.error( `sveltekit components generation error:`, error );
+}
+
 console.log( `generating package.json with mappings...` );
 const packageJSON = await getJsonFromPath( `${ __dirname }/package.template.json` );
 packageJSON.exports = Object.fromEntries( [
     [ `./style.css`, `./style.css` ],
     ...exportsPackageJson(),
     ...await exportsAngularPackageJson(),
+    ...exportsSveltekitPackageJson(),
 ] );
 await writeJson( `${ __dirname }/../dist/package.json`, packageJSON );
 

@@ -1,0 +1,31 @@
+{
+    "author": "TwicPics <hello@twic.pics> (https://www.twicpics.com)",
+    "bugs": {
+        "url": "https://github.com/twicpics/components/issues"
+    },
+    "description": "A Sveltekit module for a quick and intuitive integration of TwicPics.",
+    "keywords": [
+        "sveltekit",
+        "image",
+        "responsive image",
+        "twicpics"
+    ],
+    "scripts": {
+        "package": "svelte-kit sync && svelte-package"
+    },
+    "devDependencies": {
+        "@sveltejs/adapter-auto": "1.0.0",
+        "@sveltejs/kit": "1.1.0",
+        "@sveltejs/package": "1.0.2",
+        "svelte": "3.55.1",
+        "tslib": "2.4.1",
+        "typescript": "4.9.4",
+        "vite": "4.0.4"
+    },
+    "peerDependencies": {
+        "svelte": ">3.46"
+    },
+    "svelte": "index.js",
+    "type": "module",
+    "license": "MIT"
+}

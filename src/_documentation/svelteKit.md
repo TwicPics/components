@@ -1,7 +1,7 @@
-// /(\b)__COVER_NAME__(\b)/gm => "svelte-cover"
-// /(\b)__FRAMEWORK_NAME__(\b)/gm => "Svelte3"
-// /(\b)__FRAMEWORK_URL__(\b)/gm => "https://svelte.dev/"
-// /(\b)__INTERCOM_TERM__(\b)/gm => "svelte"
+// /(\b)__COVER_NAME__(\b)/gm => "sveltekit-cover"
+// /(\b)__FRAMEWORK_NAME__(\b)/gm => "SvelteKit"
+// /(\b)__FRAMEWORK_URL__(\b)/gm => "https://kit.svelte.dev/"
+// /(\b)__INTERCOM_TERM__(\b)/gm => "SvelteKit"
 // /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n    - [Lifecycle](#lifecycle)"
 // /(\b)__TWIC_STATE_CHANGE_PROP__(\b)/gm => "\n  bind:state=\"<String>\"\n  on:statechange=\"<function>\""
 // /(\b)__TWIC_STATE_CHANGE_IMG__(\b)/gm => "\n| `state` | A string property being update each time the image loading state is updated. Values can be `new`, `loading`, `done` or `error`.| `String` | |\n| `statechange` | A custom event dispatched each time the image loading state is updated. Emitted values can be `new`, `loading`, `done` or `error`.| `( e: CustomEvent ) => void` | |"
@@ -16,11 +16,9 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-sveltekit-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
-TwicPics Components are available in Svelte3 __version 3.47+_.
-
-#include "src/_documentation/common/_installationDevDependencies.md"
+#include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
 <div id='setup'/>
 
@@ -30,48 +28,42 @@ TwicPics Components are available in Svelte3 __version 3.47+_.
 
 <div id='setting-up-your-project'/>
 
-### Setting-up TwicPics Components into your `Svelte3` project
-
-While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
+### Setting-up TwicPics Components into your `SvelteKit` project
 
 Add the import part
 
 ```js
-// import TwicPics svelte3 components
-import { installTwicpics } from "@twicpics/components/svelte3";
-// import TwicPics components css
-import "@twicpics/components/style.css";
+  // import TwicPics sveltekit components
+  import { installTwicpics } from "@twicpics/components/sveltekit";
+  // import TwicPics components css
+  import "@twicpics/components/style.css";
 ```
 
 and the configuration part (see [Setup Options](#setup-options))
 
 ```js
-installTwicpics( {
-  // domain is mandatory
-  "domain": "https://<your-domain>.twic.pics"
-} );
+  installTwicpics( {
+    // domain is mandatory
+    "domain": "https://<your-domain>.twic.pics"
+  } );
 ```
 
-into the app startup of your `Svelte3` project.
+into the main [layout](https://kit.svelte.dev/docs/routing#layout-layout-svelte) of your `SvelteKit` project.
 
-#### index.js
+If you don't already have a [layout](https://kit.svelte.dev/docs/routing#layout-layout-svelte) that applies to all the pages of your application, simply create it by adding `+layout.svelte` file, right next to your entry point `src/routes/+page.svelte`.
 
-```js
-// Here is an example of a `Svelte3` app startup configured with TwicPics.
-import { installTwicpics } from "@twicpics/components/svelte3";
-import "@twicpics/components/style.css";
+#### src/routes/+layout.svelte
 
-import App from "./App.svelte";
-
-installTwicpics({
-  "domain": `https://<your-domain>.twic.pics`
-});
-
-const app = new App({
-  target: document.body
-});
-
-export default app;
+```html
+<script>
+  // Here is an example of +layout.svelte file
+  import { installTwicPics } from "@twicpics/components/sveltekit";
+  import "@twicpics/components/style.css";
+  installTwicPics( {
+      "domain": `https://<your-domain>.twic.pics`,
+  } );
+</script>
+<slot />
 ```
 
 #include "src/_documentation/common/_setupOptions.md"
@@ -82,14 +74,26 @@ export default app;
 
 Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
 
-Add the import part in the `script` section of your `.svelte` page
+Add the import part in the `script` section of your `.svelte` file
 ```html
 <script>
   // this component will be used in place of an img element.
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/sveltekit";
 
   // this component will be used in place of an video element.
-  import { TwicVideo } from "@twicpics/components/svelte3";
+  import { TwicVideo } from "@twicpics/components/sveltekit";
+</script>
+```
+
+or
+
+```html
+<script>
+  // this component will be used in place of an img element.
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
+
+  // this component will be used in place of an video element.
+  import TwicVideo from "@twicpics/components/sveltekit/TwicVideo.svelte";
 </script>
 ```
 
@@ -102,7 +106,7 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 ```html
 <!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
 </script>
 
 <main>
@@ -110,11 +114,9 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 </main>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBasicGrid.svelte&initialpath=basic-grid)
-
 #include "src/_documentation/common/_bulkLoading.md"
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBulkLoading.svelte&initialpath=bulk-loading)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fbulk-loading%2F%2Bpage.svelte&initialpath=bulk-loading)
 
 <div id='style-driven-approach'/>
 
@@ -123,9 +125,9 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 You can set up components using pure CSS and the power of [CSS variables](#css-variables)
 
 ```html
-<!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  // component.svelte
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
 </script>
 
 <style>
@@ -176,7 +178,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src/lib/TwicStyleDriven.svelte&initialpath=style-driven)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fstyle-driven%2F%2Bpage.svelte&initialpath=style-driven)
 
 
 <div id='responsive-example'/>
@@ -187,9 +189,9 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 
 ```html
-<!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  // component.svelte
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
 </script>
 
 <style>
@@ -239,7 +241,7 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicArtDirections.svelte&initialpath=art-directions)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fart-directions%2F%2Bpage.svelte&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -249,9 +251,9 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 
 ```html
-<!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  // component.svelte
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
 </script>
 
 <style>
@@ -275,7 +277,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 ></TwicImg>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicHero.svelte&initialpath=hero)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fhero%2F%2Bpage.svelte&initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -292,9 +294,9 @@ Here are the values the Component will emit :
 
 
 ```html
-<!-- component.svelte -->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  // component.svelte
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
   let state;
 
   $: {
@@ -313,9 +315,9 @@ Here are the values the Component will emit :
 Another approach is to listen to `statechange` event.
 
 ```html
-<!-- component.svelte -->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  // component.svelte
+  import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
   let state;
 
   const handleStateChange = ( e ) => {
@@ -332,7 +334,7 @@ Another approach is to listen to `statechange` event.
 />
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicState.svelte&initialpath=state)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fstate%2F%2Bpage.svelte&initialpath=state)
 
 #include "src/_documentation/common/_componentsProps.md"
 
