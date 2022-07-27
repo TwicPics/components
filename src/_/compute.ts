@@ -51,6 +51,40 @@ export const computeData = (
 };
 
 /* eslint-disable dot-notation */
+export const computePlaceholderStyle = (
+    focus: string,
+    mode: Mode,
+    placeholder: Placeholder,
+    position: string,
+    preTransform: string,
+    ratio: number,
+    src: string,
+    transitions: Record< string, boolean >,
+    placeholderDataHandler: ( ( data: PlaceholderData ) => void )
+): Record< string, string > => {
+    const placeholderStyle: Record< string, string > = {};
+    placeholderDataHandler( {
+        focus,
+        mode,
+        placeholder,
+        preTransform,
+        ratio,
+        transitions,
+        src,
+    } );
+
+    if ( mode ) {
+        placeholderStyle[ `backgroundSize` ] = mode;
+    }
+    if ( position ) {
+        placeholderStyle[ `backgroundPosition` ] = position;
+    }
+
+    return placeholderStyle;
+};
+/* eslint-enable dot-notation */
+
+/* eslint-disable dot-notation */
 export const computeStyle = (
     mode: Mode,
     position: string,
@@ -105,44 +139,14 @@ export const computeWrapperClass = (
     return wrapperClass.join( ` ` );
 };
 
-/* eslint-disable dot-notation */
 export const computeWrapperStyle = (
-    focus: string,
-    mode: Mode,
-    placeholder: Placeholder,
-    position: string,
-    preTransform: string,
-    ratio: number,
-    src: string,
-    transitions: Record< string, boolean >,
-    placeholderDataHandler: ( ( data: PlaceholderData ) => void )
-): Record< string, string > => {
-    const computedWrapperStyle: Record< string, string > = {};
-    placeholderDataHandler( {
-        focus,
-        mode,
-        placeholder,
-        preTransform,
-        ratio,
-        transitions,
-        src,
-    } );
-
-    if ( mode ) {
-        computedWrapperStyle[ `backgroundSize` ] = mode;
-    }
-    if ( position ) {
-        computedWrapperStyle[ `backgroundPosition` ] = position;
-    }
-
-    if ( ratio === 0 ) {
-        computedWrapperStyle[ `height` ] = `100%`;
-        computedWrapperStyle[ `paddingTop` ] = `0`;
-    } else {
+    ratio: number
+): Record< string, string > => (
+    ( ratio === 0 ) ? {
+        "height": `100%`,
+        "paddingTop": `0`,
+    } : {
         // eslint-disable-next-line no-magic-numbers
-        computedWrapperStyle[ `paddingTop` ] = ( ratio === undefined ) ? `` : `${ ratio * 100 }%`;
+        "paddingTop": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
     }
-
-    return computedWrapperStyle;
-};
-/* eslint-enable dot-notation */
+);

@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Upgrades dependencies and documentation.
 
+### Fixed
+
+- Fixe placeholder being visible under an image with translucency
+
+- Fixe subpixel bleed-through
+
 ## [0.8.2] - 2022-06-27
 
 ### Fixed

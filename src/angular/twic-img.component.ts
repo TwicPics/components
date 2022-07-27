@@ -7,12 +7,13 @@ import { TwicBaseComponent } from "./twic-base.component";
 @Component( {
     "selector": `TwicImg`,
     "template": `
-        <div #wrapper [ngStyle]="wrapperStyle" [ngClass]="wrapperClass">
+        <div [ngClass]="wrapperClass" [ngStyle]="wrapperStyle">
             <img
                     [attr.alt]="description"
                     [twicPicsAttributes]="elementAttributs"
                     [ngStyle]="elementStyle"
             >
+            <div #placeholder [ngStyle]="placeholderStyle"></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],

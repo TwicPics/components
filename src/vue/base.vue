@@ -3,6 +3,7 @@ import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import {
     computeAlt,
     computeData,
+    computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
     computeWrapperStyle,
@@ -75,13 +76,8 @@ for ( const [ propName, func, args ] of [
         [ `mode`, `position`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
     ],
     [
-        `_wrapperClass`,
-        computeWrapperClass,
-        [ `*src*`, `transition` ],
-    ],
-    [
-        `_wrapperStyle`,
-        computeWrapperStyle,
+        `_placeholderStyle`,
+        computePlaceholderStyle,
         [
             `focus`,
             `mode`,
@@ -94,6 +90,8 @@ for ( const [ propName, func, args ] of [
             c => c._p.setData,
         ],
     ],
+    [ `_wrapperClass`, computeWrapperClass, [ `src`, `transition` ] ],
+    [ `_wrapperStyle`, computeWrapperStyle, [ `ratio` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );
 }
@@ -107,7 +105,7 @@ export default {
     },
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     mounted() {
-        this._p.setWrapper( this.$refs.w );
+        this._p.setPlaceholderElement( this.$refs.p );
     },
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     unmounted() {
@@ -118,7 +116,6 @@ export default {
 <template>
     <div class="twic-i">
         <div
-            ref="w"
             :class="_wrapperClass"
             :style="_wrapperStyle"
         >
@@ -127,6 +124,10 @@ export default {
                 :alt="_alt"
                 :style="_style"
                 v-bind="{ ..._dataAttributes }"
+            />
+            <div
+                ref="p"
+                :style="_placeholderStyle"
             />
         </div>
     </div>

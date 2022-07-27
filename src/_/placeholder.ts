@@ -18,7 +18,8 @@ export interface PlaceholderData {
     src: string
 }
 
-const computeWrapperBackground = (
+// eslint-disable-next-line id-length
+const computePlaceholderBackground = (
     element: Element,
     { focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
 ): string => {
@@ -108,15 +109,15 @@ export const createPlaceholderHandler = (
                 refresh();
             }
         },
-        "setWrapper": ( wrapper: HTMLDivElement ): void => {
-            if ( !wrapper ) {
+        "setPlaceholderElement": ( placeholderElement: HTMLDivElement ): void => {
+            if ( !placeholderElement ) {
                 return;
             }
-            Object.defineProperty( ( element = wrapper ), PRIVATE_KEY, {
+            Object.defineProperty( ( element = placeholderElement ), PRIVATE_KEY, {
                 "configurable": true,
                 "value": ( refresh = debounce( () => {
                     if ( element && config.domain && savedData ) {
-                        const wrapperBackground = computeWrapperBackground( element, savedData );
+                        const wrapperBackground = computePlaceholderBackground( element, savedData );
                         if ( wrapperBackground && ( wrapperBackground !== savedWrapperBackground ) ) {
                             savedWrapperBackground = wrapperBackground;
                             const backgroundImage = `url(${ JSON.stringify(
@@ -126,7 +127,7 @@ export const createPlaceholderHandler = (
                                 handler( backgroundImage );
                             } else {
                                 // eslint-disable-next-line no-param-reassign
-                                wrapper.style.backgroundImage = backgroundImage;
+                                placeholderElement.style.backgroundImage = backgroundImage;
                             }
                         }
                     }
