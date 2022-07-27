@@ -63,7 +63,7 @@ Basically, TwicPics components replace `img` and `video` tags. They greatly and 
   <img alt="Edit TwicPics x Angular - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-TwicPics Components are available in Angular __version 11 to 1__.
+TwicPics Components are available in Angular __version 11 to 14_.
 
 Thanks to the open source [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) Components, delivering responsive images in your [Angular](https://angular.io/) projects has never been easier.
 
