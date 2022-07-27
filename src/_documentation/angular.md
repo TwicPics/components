@@ -14,7 +14,7 @@
   <img alt="Edit TwicPics x Angular - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-TwicPics Components are available in Angular __version 11 to 1__.
+TwicPics Components are available in Angular __version 11 to 14_.
 
 #include "src/_documentation/common/_installation.md"
 
