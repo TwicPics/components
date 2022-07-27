@@ -1,7 +1,7 @@
 {
     "dependencies": {
-        "@angular/common": "13.3.7",
-        "@angular/core": "13.3.7",
+        "@angular/common": "14.1.0",
+        "@angular/core": "14.1.0",
         "@nuxt/kit": "3.0.0-rc.6",
         "@rollup/plugin-node-resolve": "13.3.0",
         "@rollup/plugin-typescript": "8.3.3",
