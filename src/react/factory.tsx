@@ -1,7 +1,14 @@
 import "../_/style.css";
 
 import type { Attributes as BaseAttributes, Mode, Placeholder, PlaceholderHandler } from "../_/types";
-import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
+import {
+    computeAlt,
+    computeData,
+    computePlaceholderStyle,
+    computeStyle,
+    computeWrapperClass,
+    computeWrapperStyle,
+} from "../_/compute";
 import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
@@ -95,14 +102,14 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             transitionTimingFunction: PropTypes.Requireable<string>;
         };
         private _p: PlaceholderHandler;
-        private _w: React.RefObject< HTMLDivElement >;
+        private _pe: React.RefObject< HTMLDivElement >;
         constructor( attributes: Attributes ) {
             super( attributes );
             this._p = createPlaceholderHandler();
-            this._w = React.createRef();
+            this._pe = React.createRef();
         }
         componentDidMount() {
-            this._p.setWrapper( this._w.current );
+            this._p.setPlaceholderElement( this._pe.current );
         }
         componentWillUnmount() {
             this._p.delete();
@@ -112,6 +119,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const alt = withAlt && parseAlt( props.alt );
             const bot = parseBot( props.bot );
             const className = parseClassName( props.className ) || ``;
+            // eslint-disable-next-line no-shadow
             const focus = parseFocus( props.focus );
             const mode = parseMode( props.mode );
             const placeholder = parsePlaceholder( props.placeholder, props.src );
@@ -127,21 +135,8 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             return (
                 <div className= { `twic-i ${ className }` }>
                     <div
-                        ref={ this._w }
                         className = { computeWrapperClass( props.src, transition ) }
-                        style = {
-                            computeWrapperStyle(
-                                focus,
-                                mode,
-                                placeholder,
-                                position,
-                                preTransform,
-                                ratio,
-                                src,
-                                transition,
-                                this._p.setData
-                            )
-                        }
+                        style = { computeWrapperStyle( ratio ) }
                     >
                         <Tag
                             alt = { withAlt ? computeAlt( alt, src ) : undefined }
@@ -154,6 +149,22 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     transitionTimingFunction
                                 ) }
                             { ...computeData( bot, focus, preTransform, src, step ) }
+                        />
+                        <div
+                            ref={ this._pe }
+                            style = {
+                                computePlaceholderStyle(
+                                    focus,
+                                    mode,
+                                    placeholder,
+                                    position,
+                                    preTransform,
+                                    ratio,
+                                    src,
+                                    transition,
+                                    this._p.setData
+                                )
+                            }
                         />
                     </div>
                 </div>

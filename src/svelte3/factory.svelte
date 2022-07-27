@@ -4,7 +4,14 @@
 import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
 
 import { configBasedStyle, markComponentsChain } from "../_/install";
-import { computeAlt, computeData, computeStyle, computeWrapperClass, computeWrapperStyle } from "../_/compute";
+import {
+    computeAlt,
+    computeData,
+    computePlaceholderStyle,
+    computeStyle,
+    computeWrapperClass,
+    computeWrapperStyle,
+} from "../_/compute";
 import { createPlaceholderHandler } from "../_/placeholder";
 import { isBrowser, isWebComponents } from "../_/utils";
 import { onDestroy, onMount } from "svelte/internal";
@@ -51,11 +58,11 @@ export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 
-let wrapper: HTMLDivElement;
+let placeholderElement: HTMLDivElement;
 
-let _wrapperBackgroundImage=``;
+let _placeholderImage = ``;
 const placeholderHandler = createPlaceholderHandler( bgImage => {
-    _wrapperBackgroundImage = bgImage ? `background-image:${ bgImage }` : ``;
+    _placeholderImage = bgImage ? `background-image:${ bgImage }` : ``;
 } );
 
 $: parsedAlt = parseAlt( alt );
@@ -75,14 +82,7 @@ $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTim
 
 $: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
 $: _data = computeData( parsedBot, parsedFocus, parsedPreTransform, parsedSrc, parsedStep );
-$: _style = styleToString( computeStyle(
-    parsedMode,
-    parsedPosition,
-    parsedTransitionDelay,
-    parsedTransitionDuration,
-    parsedTransitionTimingFunction
-) );
-$: _wrapperStyle = styleToString( computeWrapperStyle(
+$: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedFocus,
     parsedMode,
     parsedPlaceholder,
@@ -93,12 +93,20 @@ $: _wrapperStyle = styleToString( computeWrapperStyle(
     parsedTransition,
     placeholderHandler.setData,
 ) );
+$: _style = styleToString( computeStyle(
+    parsedMode,
+    parsedPosition,
+    parsedTransitionDelay,
+    parsedTransitionDuration,
+    parsedTransitionTimingFunction
+) );
+$: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
 
 if ( isBrowser ) {
     onMount( () => {
-        placeholderHandler.setWrapper( wrapper );
+        placeholderHandler.setPlaceholderElement( placeholderElement );
         if ( isWebComponents ) {
-            markComponentsChain( wrapper.parentNode as Element );
+            markComponentsChain( placeholderElement.parentNode as Element );
         }
     } );
     onDestroy( placeholderHandler.delete );
@@ -110,14 +118,17 @@ if ( isBrowser ) {
 {/if}
 <div class = {`twic-i ${ isWebComponents ? `` : parseClassName( className ) || `` }`}>
     <div
-        bind:this = { wrapper }
         class = { computeWrapperClass( src, parsedTransition ) }
-        style = "{ _wrapperStyle }{ _wrapperBackgroundImage }"
+        style = { _wrapperStyle }
     >
         <img
             alt = { _alt }
             style = { _style }
             { ..._data }
+        />
+        <div
+            bind:this = { placeholderElement }
+            style = "{ _placeholderStyle }{ _placeholderImage }"
         />
     </div>
 </div>
