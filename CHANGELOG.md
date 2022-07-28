@@ -8,9 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.9.0-beta.0] - 2022-07-28
+
+### Added
+
+- Add support for **Angular 14+**
+
 ### Changed
 
 - Upgrades dependencies and documentation.
+
+### Fixed
+
+- Fix an issue that made the placeholder visible under some transparent images
+- Fix subpixel bleed-through
 
 ## [0.8.2] - 2022-06-27
 
@@ -228,6 +239,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.9.0-beta.0]: https://github.com/TwicPics/components/compare/0.8.2...0.9.0-beta.0
 [0.8.2]: https://github.com/TwicPics/components/compare/0.8.1...0.8.2
 [0.8.1]: https://github.com/TwicPics/components/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/TwicPics/components/compare/0.7.0...0.8.0

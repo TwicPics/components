@@ -36,6 +36,6 @@ export interface Options {
 export interface PlaceholderHandler {
     delete: () => void,
     setData: ( data: PlaceholderData ) => void,
-    setWrapper: ( wrapper: HTMLDivElement ) => void,
+    setPlaceholderElement: ( placeholderElement: HTMLDivElement ) => void,
 }
 

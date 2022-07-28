@@ -14,7 +14,7 @@
   <img alt="Edit TwicPics x Angular - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-TwicPics Components are available in Angular __version 11 to 13__.
+TwicPics Components are available in Angular __version 11 to 14_.
 
 #include "src/_documentation/common/_installation.md"
 
@@ -64,7 +64,7 @@ and the usage declaration of the module
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
-import { TwicPicsComponentsModule } from "@twicpics/components/angular13";
+import { TwicPicsComponentsModule } from "@twicpics/components/angular14";
 
 @NgModule( {
   "declarations": [ AppComponent ],
@@ -87,7 +87,7 @@ __WARNING__: here again, you will have to select the targeted version while impo
 ```ts
 //here is an example of a `Angular` app.component.ts configured with TwicPics.
 import { Component } from "@angular/core";
-import { installTwicPics } from "@twicpics/components/angular13";
+import { installTwicPics } from "@twicpics/components/angular14";
 @Component( {
   "selector": "app-root",
   "templateUrl": "./app.component.html",
@@ -339,7 +339,7 @@ To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component y
 
 `<your-component>.ts`
 ```ts
-import { Mode } from "@twicpics/components/angular13";
+import { Mode } from "@twicpics/components/angular14";
 
 @Component({
   selector: ...,
@@ -373,7 +373,7 @@ To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component y
 
 `<your-component>.ts`
 ```ts
-import { Placeholder } from "@twicpics/components/angular13";
+import { Placeholder } from "@twicpics/components/angular14";
 
 @Component({
   selector: ...,

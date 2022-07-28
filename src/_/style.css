@@ -13,20 +13,13 @@
 /* WRAPPER */
 .twic-w {
     /* constants */
-    background-repeat: no-repeat;
     overflow: hidden;
     position: relative;
     /* defaults */
-    background-size: cover;
-    background-position: center;
     padding-top: 100%;
     width: 100%;
     /* variables */
-    background-size: var( --twic-mode, cover );
-    background-position: var( --twic-position, center );
     padding-top: calc( 100% / var( --twic-ratio, 1 ) );
-    /* trick to get ratio easily */
-    font-size: calc( 1px / var( --twic-ratio, 1 ) );
 }
 /* IMG OR VIDEO */
 .twic-w > * {
@@ -36,6 +29,7 @@
     height: 100%;
     position: absolute;
     top: 0;
+    visibility: hidden;
     width: 100%;
     transition-property: opacity, transform;
     will-change: opacity, transform;
@@ -52,19 +46,34 @@
     transition-duration: var( --twic-transition-duration, 400ms );
     transition-timing-function: var( --twic-transition-timing-function, ease );
 }
-
-.twic-w.twic-tz > * {
-    transform: scale(0);
+/* PLACEHOLDER */
+.twic-w > div {
+    /* constants */
+    background-repeat: no-repeat;
+    visibility: visible;
+    /* defaults */
+    background-size: cover;
+    background-position: center;
+    /* variables */
+    background-size: var( --twic-mode, cover );
+    background-position: var( --twic-position, center );
+    /* trick to get ratio easily */
+    font-size: calc( 1px / var( --twic-ratio, 1 ) );
 }
 
-.twic-w.twic-tf > * {
-    opacity: 0;
+
+.twic-w.twic-tz > img {
+    transform: scale( 0 );
+}
+
+.twic-w.twic-tf > div {
+    opacity: 1;
 }
 
 /* MAKES ANGULAR COMPONENT WRAPPER BEHAVES LIKE A DIV */
 .twic-d {
-    display:block;
-    width:100%;
+    display: block;
+    width: 100%;
 }
 
 /* OFFLINE PLACEHOLDERS AND ITS CHILDREN */
