@@ -1,5 +1,5 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder, Transition } from "./types";
+import type { Anchor, Mode, Placeholder, Transition } from "./types";
 import { logWarning, trimRegExpFactory } from "./utils";
 import { config } from "./install";
 import { rValidMode, rValidPlaceholder, rValidRatio } from "./validation";
@@ -20,7 +20,29 @@ const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 
-export const parseAnchor = trimOrUndefined;
+// export const parseAnchor = trimOrUndefined;
+
+export const parseAnchor = ( anchor: string ) : Anchor | undefined => {
+    const trimmed = trimOrUndefined( anchor );
+    const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
+    let x;
+    let y;
+    if ( trimmed ) {
+        let tmp;
+        while ( ( tmp = rAnchor.exec( trimmed ) ) ) {
+            if ( !x ) {
+                ( [ , x ] = tmp );
+            }
+            if ( !y ) {
+                ( [ , , y ] = tmp );
+            }
+        }
+    }
+    return x || y ? {
+        x,
+        y,
+    } : undefined;
+};
 
 export const parseAlt = trimOrUndefined;
 

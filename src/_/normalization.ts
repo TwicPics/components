@@ -1,41 +1,35 @@
-import type { Mode } from "./types";
+import type { Anchor, Mode } from "./types";
 
-const splitAnchor = ( anchor: string ):string[] => anchor.split( /\s*-\s*|\s+/ );
-
-const mappingFocus = ( anchors: string[], mapArray : { [ key: string ]: string } ) : string => (
-    // eslint-disable-next-line no-shadow
-    anchors.map( anchor => mapArray[ anchor ] ).filter( focus => focus )[ 0 ] || `50p`
-);
+const normalizePosition = ( anchor:Anchor, position: string ):string => {
+    if ( position ) {
+        return position;
+    }
+    if ( anchor ) {
+        const { x, y } = anchor;
+        // eslint-disable-next-line no-nested-ternary
+        return y ? ( x ? `${ x } ${ y }` : y ) : x;
+    }
+    return undefined;
+};
 
 // eslint-disable-next-line no-shadow
-const normalizeFocus = ( anchor:string, focus?: string ):string => {
+const normalizeFocus = ( anchor:Anchor, focus?: string ):string => {
     if ( focus ) {
         return focus;
     }
     if ( anchor ) {
-        const anchors = splitAnchor( anchor );
-        const focusX = mappingFocus( anchors, {
-            "left": `0p`,
-            "right": `100p`,
-        } );
-        const focusY = mappingFocus( anchors, {
-            "top": `0p`,
-            "bottom": `100p`,
-        } );
-        return `${ focusX }x${ focusY }`;
+        const { x, y } = anchor;
+        // eslint-disable-next-line no-nested-ternary
+        return y ? ( x ? `${ y }-${ x }` : y ) : x;
     }
     return undefined;
 };
 
-export const actualPosition = ( anchor:string, mode: Mode, position: string ):string => {
-    if ( ( mode === `contain` ) && ( position || anchor ) ) {
-        return position || splitAnchor( anchor ).join( ` ` );
-    }
-    return undefined;
-};
+export const actualPosition = ( anchor:Anchor, mode: Mode, position: string ):string =>
+    ( ( mode === `contain` ) && normalizePosition( anchor, position ) ) || undefined;
 
 export const actualFocus = (
-    anchor: string,
+    anchor: Anchor,
     // eslint-disable-next-line no-shadow
     focus: string,
     mode:Mode,
@@ -46,7 +40,7 @@ export const actualFocus = (
         ( mode === `cover` ) && ( focus || anchor ) && normalizeFocus( anchor, focus )
 );
 
-export const actualPreTransform = ( anchor:string, preTransform:string ) : string => (
+export const actualPreTransform = ( anchor:Anchor, preTransform:string ) : string => (
     ( preTransform && anchor ) ?
         `${
             preTransform
