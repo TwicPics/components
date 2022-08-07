@@ -17,7 +17,7 @@ import type {
     OnInit,
 } from "@angular/core";
 
-import type { Mode, Placeholder, PlaceholderHandler } from "../_/types";
+import type { Anchor, Mode, Placeholder, PlaceholderHandler } from "../_/types";
 
 import {
     computeAlt,
@@ -73,7 +73,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     _alt: string = undefined;
-    _anchor: string = undefined;
+    _anchor: Anchor = undefined;
     _bot: string = undefined;
     _focus: string = undefined;
     _mode: Mode = undefined;

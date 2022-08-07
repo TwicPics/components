@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder } from "./types";
+import type { Anchor, Mode, Placeholder } from "./types";
 import type { PlaceholderData } from "./placeholder";
 
 import { config } from "./install";
@@ -19,7 +19,7 @@ export const computeAlt =
     };
 
 export const computeData = (
-    anchor: string,
+    anchor: Anchor,
     bot: string,
     focus: string,
     mode: Mode,
@@ -56,7 +56,7 @@ export const computeData = (
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (
-    anchor: string,
+    anchor: Anchor,
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
@@ -94,7 +94,7 @@ export const computePlaceholderStyle = (
 
 /* eslint-disable dot-notation */
 export const computeStyle = (
-    anchor: string,
+    anchor: Anchor,
     mode: Mode,
     position: string,
     transitionDelay: string,

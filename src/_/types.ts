@@ -5,6 +5,10 @@ export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 export type Transition = `fade` | `zoom` | `none`;
 export type Environment = `debug` | `offline` | `production`;
 
+export interface Anchor {
+    x: string | undefined,
+    y: string | undefined,
+}
 export interface Attributes {
     alt?: string,
     anchor?: string,

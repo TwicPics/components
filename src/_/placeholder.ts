@@ -1,5 +1,5 @@
 /* eslint no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder, PlaceholderHandler } from "./types";
+import type { Anchor, Mode, Placeholder, PlaceholderHandler } from "./types";
 
 import { config } from "./install";
 import { cssWithoutPx } from "./dom";
@@ -10,7 +10,7 @@ import { actualFocus, actualPreTransform } from "./normalization";
 const PLACEHOLDER_DIM = 1000;
 
 export interface PlaceholderData {
-    anchor: string
+    anchor: Anchor,
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
