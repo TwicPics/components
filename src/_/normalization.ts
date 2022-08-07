@@ -9,6 +9,9 @@ const mappingFocus = ( anchors: string[], mapArray : { [ key: string ]: string }
 
 // eslint-disable-next-line no-shadow
 const normalizeFocus = ( anchor:string, focus?: string ):string => {
+    if ( focus ) {
+        return focus;
+    }
     if ( anchor ) {
         const anchors = splitAnchor( anchor );
         const focusX = mappingFocus( anchors, {
@@ -21,12 +24,12 @@ const normalizeFocus = ( anchor:string, focus?: string ):string => {
         } );
         return `${ focusX }x${ focusY }`;
     }
-    return focus;
+    return undefined;
 };
 
-export const normalizePosition = ( anchor:string, mode: Mode, position: string ):string => {
+export const actualPosition = ( anchor:string, mode: Mode, position: string ):string => {
     if ( ( mode === `contain` ) && ( position || anchor ) ) {
-        return anchor ? splitAnchor( anchor ).join( ` ` ) : position;
+        return position || splitAnchor( anchor ).join( ` ` );
     }
     return undefined;
 };
