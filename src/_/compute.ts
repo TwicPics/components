@@ -4,7 +4,7 @@ import type { Mode, Placeholder } from "./types";
 import type { PlaceholderData } from "./placeholder";
 
 import { config } from "./install";
-import { actualFocus, actualPreTransform, normalizePosition } from "./normalization";
+import { actualFocus, actualPosition, actualPreTransform } from "./normalization";
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
@@ -83,9 +83,9 @@ export const computePlaceholderStyle = (
         placeholderStyle[ `backgroundSize` ] = mode;
     }
 
-    const _position = normalizePosition( anchor, mode, position );
-    if ( _position ) {
-        placeholderStyle[ `backgroundPosition` ] = _position;
+    const _actualPosition = actualPosition( anchor, mode, position );
+    if ( _actualPosition ) {
+        placeholderStyle[ `backgroundPosition` ] = _actualPosition;
     }
 
     return placeholderStyle;
@@ -102,9 +102,9 @@ export const computeStyle = (
     transitionTimingFunction: string
 ): Record< string, string > => {
     const computedStyle: Record< string, string > = {};
-    const _position = normalizePosition( anchor, mode, position );
-    if ( _position ) {
-        computedStyle[ `objectPosition` ] = _position;
+    const _actualPosition = actualPosition( anchor, mode, position );
+    if ( _actualPosition ) {
+        computedStyle[ `objectPosition` ] = _actualPosition;
     }
     if ( mode ) {
         computedStyle[ `objectFit` ] = mode;
