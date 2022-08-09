@@ -1,5 +1,3 @@
-import type { PlaceholderData } from "./placeholder";
-
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 export type Transition = `fade` | `zoom` | `none`;
@@ -36,6 +34,17 @@ export interface Options {
     env?: Environment,
     path?: string,
     step?: number,
+}
+
+export interface PlaceholderData {
+    anchor: Anchor,
+    focus: string,
+    mode: Mode,
+    placeholder: Placeholder,
+    preTransform: string,
+    ratio: number,
+    transitions: Record< string, boolean >,
+    src: string
 }
 
 export interface PlaceholderHandler {
