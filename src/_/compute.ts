@@ -6,13 +6,8 @@ import { config } from "./install";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
 
-const emptyAnchor: Anchor = {
-    "x": undefined,
-    "y": undefined,
-};
-
-const anchorToFocus = ( { x, y }: Anchor = emptyAnchor ): string => ( y ? ( x ? `${ y }-${ x }` : y ) : x );
-const anchorToPosition = ( { x, y }: Anchor = emptyAnchor ): string => ( y ? ( x ? `${ x } ${ y }` : y ) : x );
+const anchorToFocus = ( { x, y }: Anchor ): string => ( y ? ( x ? `${ y }-${ x }` : y ) : x );
+const anchorToPosition = ( { x, y }: Anchor ): string => ( y ? ( x ? `${ x } ${ y }` : y ) : x );
 
 const computeFocus = ( anchor: Anchor, focus: string, mode: Mode, preTransform: string ): string => (
     preTransform ?
@@ -26,7 +21,7 @@ const computePosition = ( anchor: Anchor, mode: Mode, position: string ): string
 const computePreTransform = ( anchor: Anchor, preTransform: string ): string => `${
     preTransform || ``
 }${
-    anchor ? `focus=${ anchorToFocus( anchor ) }/` : ``
+    ( anchor.x || anchor.y ) ? `focus=${ anchorToFocus( anchor ) }/` : ``
 }`;
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
