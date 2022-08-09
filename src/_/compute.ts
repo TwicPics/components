@@ -12,11 +12,11 @@ const anchorToPosition = ( { x, y }: Anchor ): string => ( y ? ( x ? `${ x } ${ 
 const computeFocus = ( anchor: Anchor, focus: string, mode: Mode, preTransform: string ): string => (
     preTransform ?
         focus :
-        ( ( !mode || ( mode === `cover` ) ) && ( focus || anchorToFocus( anchor ) ) )
+        ( mode !== `contain` ) && ( focus || anchorToFocus( anchor ) )
 );
 
 const computePosition = ( anchor: Anchor, mode: Mode, position: string ): string =>
-    ( ( mode === `contain` ) && ( position || anchorToPosition( anchor ) ) );
+    ( mode === `contain` ) && ( position || anchorToPosition( anchor ) );
 
 const computePreTransform = ( anchor: Anchor, preTransform: string ): string => `${
     preTransform || ``
