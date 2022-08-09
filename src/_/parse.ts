@@ -22,7 +22,7 @@ const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 
 const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
 
-export const parseAnchor = ( anchor: string ) : Anchor | undefined => {
+export const parseAnchor = ( anchor: string ) : Anchor => {
     const trimmed = trimOrUndefined( anchor );
     let x;
     let y;
