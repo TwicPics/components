@@ -18,8 +18,8 @@ const computeFocus = ( anchor: Anchor, focus: string, mode: Mode, preTransform: 
 const computePosition = ( anchor: Anchor, mode: Mode, position: string ): string =>
     ( mode === `contain` ) && ( position || anchorToPosition( anchor ) );
 
-const computePreTransform = ( anchor: Anchor, preTransform: string ): string => `${
-    preTransform || ``
+const computePreTransform = ( anchor: Anchor, preTransform: string ): string => preTransform && `${
+    preTransform
 }${
     ( anchor.x || anchor.y ) ? `focus=${ anchorToFocus( anchor ) }/` : ``
 }`;
