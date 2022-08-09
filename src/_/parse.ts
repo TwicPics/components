@@ -20,28 +20,28 @@ const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 
-// export const parseAnchor = trimOrUndefined;
+const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
 
 export const parseAnchor = ( anchor: string ) : Anchor | undefined => {
     const trimmed = trimOrUndefined( anchor );
-    const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
     let x;
     let y;
     if ( trimmed ) {
         let tmp;
         while ( ( tmp = rAnchor.exec( trimmed ) ) ) {
-            if ( !x ) {
-                ( [ , x ] = tmp );
-            }
-            if ( !y ) {
-                ( [ , , y ] = tmp );
+            if ( tmp[ 1 ] ) {
+                // eslint-disable-next-line prefer-destructuring
+                x = tmp[ 1 ];
+            } else {
+                // eslint-disable-next-line prefer-destructuring
+                y = tmp[ 2 ];
             }
         }
     }
-    return x || y ? {
+    return {
         x,
         y,
-    } : undefined;
+    };
 };
 
 export const parseAlt = trimOrUndefined;
