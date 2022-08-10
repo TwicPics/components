@@ -40,7 +40,7 @@ export const computeData = (
     step: number
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
-    if ( bot ) {
+    if ( typeof bot === `string` ) {
         attributes[ `data-${ config.class }-bot` ] = bot;
     }
     if ( src ) {

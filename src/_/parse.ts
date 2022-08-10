@@ -8,6 +8,7 @@ const rImage = /^(image:)?\/?/;
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
+const trimTransformOrUndefined = trimRegExpFactory( `.+?`, `[\\s\\/]` );
 
 const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
 
@@ -35,7 +36,10 @@ export const parseAnchor = ( anchor: string ) : AnchorObject => {
 
 export const parseAlt = trimOrUndefined;
 
-export const parseBot = trimOrUndefined;
+export const parseBot = regExpFinderFactory(
+    trimTransformOrUndefined,
+    p => ( p && `${ p }/` ) || ( p === undefined ? undefined : `` )
+);
 
 export const parseClassName = trimOrUndefined;
 
@@ -52,7 +56,7 @@ export const parsePlaceholder = ( placeholder: Placeholder, src:string ) : Place
 
 export const parsePosition = trimOrUndefined;
 
-export const parsePreTransform = regExpFinderFactory( trimRegExpFactory( `.+?`, `[\\s\\/]` ), p => p && `${ p }/` );
+export const parsePreTransform = regExpFinderFactory( trimTransformOrUndefined, p => p && `${ p }/` );
 
 export const parseRatio = ( value: number | string ): number => {
     if ( value === `none` ) {
