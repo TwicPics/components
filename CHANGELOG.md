@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Add `anchor` attribute to position image in both `contain` and `cover` mode
+- Add `bot` attribute to specify SEO-friendly transformations for search engine bots
 - `ratio` can now be specified as `<width>:<height>` in addition to `<width>/<height>`
 
 ### Changed
