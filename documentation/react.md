@@ -86,7 +86,7 @@ You just need to add the [@twicpics/components](https://www.npmjs.com/) npm pack
 Simply type one of:
 
 ```bash
-npm add @twicpics/components
+npm install @twicpics/components
 ```
 
 or 
