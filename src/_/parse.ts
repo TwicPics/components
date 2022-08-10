@@ -1,28 +1,17 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Anchor, Mode, Placeholder, Transition } from "./types";
-import { logWarning, trimRegExpFactory } from "./utils";
+import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
+import { logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
-import { rValidMode, rValidPlaceholder, rValidRatio } from "./validation";
+import { rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
 
 const rImage = /^(image:)?\/?/;
-
-const rPreTransform = /(\/*)(.*[^/])(\/*)/;
-
-const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
-    ( value: T | string ): T => {
-        let found;
-        if ( value ) {
-            ( value as string ).replace( regExp, ( _, v ) => ( found = v ) );
-        }
-        return filter ? filter( found ) : found;
-    };
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 
 const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
 
-export const parseAnchor = ( anchor: string ) : Anchor => {
+export const parseAnchor = ( anchor: string ) : AnchorObject => {
     const trimmed = trimOrUndefined( anchor );
     let x;
     let y;
@@ -63,9 +52,7 @@ export const parsePlaceholder = ( placeholder: Placeholder, src:string ) : Place
 
 export const parsePosition = trimOrUndefined;
 
-export const parsePreTransform = ( value = `` ): string => (
-    rPreTransform.test( value ) ? value.replace( rPreTransform, `$2/` ) : ``
-);
+export const parsePreTransform = regExpFinderFactory( trimRegExpFactory( `.+?`, `[\\s\\/]` ), p => p && `${ p }/` );
 
 export const parseRatio = ( value: number | string ): number => {
     if ( value === `none` ) {

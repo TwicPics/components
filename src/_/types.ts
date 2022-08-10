@@ -1,9 +1,10 @@
+export type Anchor = `bottom` | `bottom-left` | `bottom-right` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 export type Transition = `fade` | `zoom` | `none`;
 export type Environment = `debug` | `offline` | `production`;
 
-export interface Anchor {
+export interface AnchorObject {
     x: string | undefined,
     y: string | undefined,
 }
@@ -37,7 +38,7 @@ export interface Options {
 }
 
 export interface PlaceholderData {
-    anchor: Anchor,
+    anchor: AnchorObject,
     focus: string,
     mode: Mode,
     placeholder: Placeholder,

@@ -1,5 +1,16 @@
-import type { Mode, Placeholder, Environment } from "./types";
+import type { Anchor, Mode, Placeholder, Environment } from "./types";
 import { trimRegExpFactory } from "./utils";
+
+export const validAnchors: Array< Anchor > = [];
+for ( const y of [ ``, `bottom`, `top` ] ) {
+    for ( const x of [ ``, `left`, `right` ] ) {
+        if ( x || y ) {
+            // eslint-disable-next-line no-nested-ternary
+            validAnchors.push( ( y ? ( x ? `${ y }-${ x }` : y ) : x ) as Anchor );
+        }
+    }
+}
+export const rValidAnchors = trimRegExpFactory( validAnchors );
 
 export const validModes: Array< Mode > = [ `contain`, `cover` ];
 export const rValidMode = trimRegExpFactory( validModes );
