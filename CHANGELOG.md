@@ -10,7 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add `anchor` prop which allows to configure with the same syntax the positioning of an image in its container or the focus point of transformations in `contain` and `cover` mode respectively.
+- Add `anchor` attribute to position image in both `contain` and `cover` mode
+- `ratio` can now be specified as `<width>:<height>` in addition to `<width>/<height>`
+
+### Changed
+
+- **Breaking**: `focus` is now applied __after__ `preTransform`
 
 ## [0.9.0-beta.0] - 2022-07-28
 
@@ -52,25 +57,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Improve configuration for `transition` prop
+- Improve configuration for `transition` attribute
 - Remove useless `div` in angular component
 - Upgrade dependencies version
 
 ### Fixed
 
 - Fix issue when testing inside storybook
+
 ## [0.7.0] - 2022-05-06
 
 ### Added
 
 - Add support for **Nuxt 3**
-- Add `preTransform` prop to configure a list of TwicPics API transformations
+- Add `preTransform` attribute to configure a list of TwicPics API transformations
 - Allow runtime environment configuration (`offline`, `debug` or `production` by default)
 
 ### Changed
 
-- `src` prop is now optional (a red placehold is displayed when missing)
-- Improve `transition` prop configuration
+- `src` attribute is now optional (a red placehold is displayed when missing)
+- Improve `transition` attribute configuration
 
 ### Fixed
 
@@ -130,9 +136,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Fixed
 
-- `className` prop are now applied to wrapper div in **React** and **Svelte 3**
-- Fix type validation of transition props in **React**, **Vue 2**, and **Vue 3**
-- Transitions can now be properly disabled
+- `className` attribute is now applied to wrapper div in **React** and **Svelte 3**
+- Fix type validation of transition attributes in **React**, **Vue 2**, and **Vue 3**
+- Transitions can now properly be disabled
 
 ## [0.6.0] - 2022-02-04
 
@@ -143,6 +149,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Drastically decrease the size of all **Angular** built files
+
 ### Fixed
 
 - Fix aspect ratio not being respected in CSS grids
@@ -175,7 +182,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- **Breaking**: remove `width` and `height` properties
+- **Breaking**: remove `width` and `height` attributes
 
 ### Fixed
 
@@ -192,7 +199,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Clarify the documentation regarding transition-related properties
+- Clarify the documentation regarding transition-related attributes
 - Component names can now be changed in **Vue**
 - Add support for native **Web Components**
 
