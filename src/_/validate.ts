@@ -10,7 +10,7 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
         }
     }
 }
-export const rValidAnchors = trimRegExpFactory( validAnchors );
+export const rValidAnchor = trimRegExpFactory( validAnchors );
 
 export const validModes: Array< Mode > = [ `contain`, `cover` ];
 export const rValidMode = trimRegExpFactory( validModes );
