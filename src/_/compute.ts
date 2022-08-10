@@ -6,23 +6,17 @@ import { config } from "./install";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
 
-const anchorToFocus = ( { x, y }: AnchorObject ): string => ( y ? ( x ? `${ y }-${ x }` : y ) : x );
-const anchorToPosition = ( { x, y }: AnchorObject ): string => ( y ? ( x ? `${ x } ${ y }` : y ) : x );
+const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
+    ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
 
-const computeFocus = ( anchor: AnchorObject, focus: string, mode: Mode, preTransform: string ): string => (
-    preTransform ?
-        focus :
-        ( mode !== `contain` ) && ( focus || anchorToFocus( anchor ) )
-);
-
-const computePosition = ( anchor: AnchorObject, mode: Mode, position: string ): string =>
-    ( mode === `contain` ) && ( position || anchorToPosition( anchor ) );
-
-const computePreTransform = ( anchor: AnchorObject, preTransform: string ): string => ( preTransform ? `${
-    preTransform
-}${
-    ( anchor.x || anchor.y ) ? `focus=${ anchorToFocus( anchor ) }/` : ``
-}` : `` );
+const computePreTransform = ( { x, y }: AnchorObject, focus: string, mode: Mode, preTransform: string ): string => {
+    const actualFocus = ( mode !== `contain` ) && ( focus || ( y ? ( x ? `${ y }-${ x }` : y ) : x ) );
+    return `${
+        preTransform || ``
+    }${
+        actualFocus ? `focus=${ actualFocus }/` : ``
+    }`;
+};
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
@@ -49,14 +43,10 @@ export const computeData = (
     if ( bot ) {
         attributes[ `data-${ config.class }-bot` ] = bot;
     }
-    const actualFocus = computeFocus( anchor, focus, mode, preTransform );
-    if ( actualFocus ) {
-        attributes[ `data-${ config.class }-focus` ] = actualFocus;
-    }
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;
     }
-    const actualPreTransform = computePreTransform( anchor, preTransform );
+    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
     if ( ( config.env === `debug` ) || actualPreTransform ) {
         attributes[ `data-${ config.class }-transform` ] = `${
             actualPreTransform
@@ -176,13 +166,10 @@ export const computePlaceholderBackground = (
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
 
-    const actualFocus = computeFocus( anchor, focus, mode, preTransform );
-    const actualPreTransform = computePreTransform( anchor, preTransform );
+    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
 
     return `${
-        ( actualFocus ? `focus=${ actualFocus }/` : `` )
-    }${
-        actualPreTransform || ``
+        actualPreTransform
     }${
         actualMode
     }=${
