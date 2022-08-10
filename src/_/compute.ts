@@ -1,28 +1,28 @@
 /* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Anchor, Mode, Placeholder, PlaceholderData } from "./types";
+import type { AnchorObject, Mode, Placeholder, PlaceholderData } from "./types";
 
 import { config } from "./install";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
 
-const anchorToFocus = ( { x, y }: Anchor ): string => ( y ? ( x ? `${ y }-${ x }` : y ) : x );
-const anchorToPosition = ( { x, y }: Anchor ): string => ( y ? ( x ? `${ x } ${ y }` : y ) : x );
+const anchorToFocus = ( { x, y }: AnchorObject ): string => ( y ? ( x ? `${ y }-${ x }` : y ) : x );
+const anchorToPosition = ( { x, y }: AnchorObject ): string => ( y ? ( x ? `${ x } ${ y }` : y ) : x );
 
-const computeFocus = ( anchor: Anchor, focus: string, mode: Mode, preTransform: string ): string => (
+const computeFocus = ( anchor: AnchorObject, focus: string, mode: Mode, preTransform: string ): string => (
     preTransform ?
         focus :
         ( mode !== `contain` ) && ( focus || anchorToFocus( anchor ) )
 );
 
-const computePosition = ( anchor: Anchor, mode: Mode, position: string ): string =>
+const computePosition = ( anchor: AnchorObject, mode: Mode, position: string ): string =>
     ( mode === `contain` ) && ( position || anchorToPosition( anchor ) );
 
-const computePreTransform = ( anchor: Anchor, preTransform: string ): string => preTransform && `${
+const computePreTransform = ( anchor: AnchorObject, preTransform: string ): string => ( preTransform ? `${
     preTransform
 }${
     ( anchor.x || anchor.y ) ? `focus=${ anchorToFocus( anchor ) }/` : ``
-}`;
+}` : `` );
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
@@ -37,7 +37,7 @@ export const computeAlt =
     };
 
 export const computeData = (
-    anchor: Anchor,
+    anchor: AnchorObject,
     bot: string,
     focus: string,
     mode: Mode,
@@ -74,7 +74,7 @@ export const computeData = (
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (
-    anchor: Anchor,
+    anchor: AnchorObject,
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
@@ -112,7 +112,7 @@ export const computePlaceholderStyle = (
 
 /* eslint-disable dot-notation */
 export const computeStyle = (
-    anchor: Anchor,
+    anchor: AnchorObject,
     mode: Mode,
     position: string,
     transitionDelay: string,
@@ -182,7 +182,7 @@ export const computePlaceholderBackground = (
     return `${
         ( actualFocus ? `focus=${ actualFocus }/` : `` )
     }${
-        actualPreTransform
+        actualPreTransform || ``
     }${
         actualMode
     }=${

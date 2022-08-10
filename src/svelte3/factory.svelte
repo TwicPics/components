@@ -1,7 +1,7 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
-import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
+import type { Anchor, Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
 
 import { configBasedStyle, markComponentsChain } from "../_/install";
 import {
@@ -43,7 +43,7 @@ declare const MEDIA_TAG: string;
 </script>
 <script lang="ts">
 export let alt: string = undefined;
-export let anchor: string = undefined;
+export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };

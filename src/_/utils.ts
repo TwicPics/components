@@ -32,10 +32,19 @@ export const logWarning = ( message: string ): void => {
     console.warn( buildErrorMessage( message ) );
 };
 
+export const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
+    ( value: T | string ): T => {
+        let found;
+        if ( value ) {
+            `${ value }`.replace( regExp, ( _, v ) => ( found = v ) );
+        }
+        return filter ? filter( found ) : found;
+    };
+
 export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };
 
-export const trimRegExpFactory = ( items: Array< string > | string ): RegExp =>
-    new RegExp( `^\\s*(${ Array.isArray( items ) ? items.join( `|` ) : items })\\s*$` );
+export const trimRegExpFactory = ( items: Array< string > | string, border = `\\s` ): RegExp =>
+    new RegExp( `^(?:${ border })*(${ Array.isArray( items ) ? items.join( `|` ) : items })(?:${ border })*$` );
 

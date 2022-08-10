@@ -26,7 +26,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
-import { rValidMode, rValidPlaceholder, rValidRatio } from "../_/validation";
+import { rValidAnchor, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
 
 const rInitialProps = /^(\*+)(.*[^*])(\*+)$/;
 
@@ -50,7 +50,7 @@ const props = {};
 
 for ( const [ propName, type, parseMethod, args ] of [
     [ `alt`, stringProp, parseAlt ],
-    [ `anchor`, stringProp, parseAnchor ],
+    [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
     [ `focus`, stringProp, parseFocus ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],

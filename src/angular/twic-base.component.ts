@@ -17,7 +17,7 @@ import type {
     OnInit,
 } from "@angular/core";
 
-import type { Anchor, Mode, Placeholder, PlaceholderHandler } from "../_/types";
+import type { Anchor, AnchorObject, Mode, Placeholder, PlaceholderHandler } from "../_/types";
 
 import {
     computeAlt,
@@ -57,7 +57,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @HostBinding( `class.twic-i` ) initTwicIsolation = true;
     @HostBinding( `class.twic-d` ) initTwicDiv = true;
     @Input() alt: string = undefined;
-    @Input() anchor: string = undefined;
+    @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() class: string = undefined;
     @Input() focus: string = undefined;
@@ -73,7 +73,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     _alt: string = undefined;
-    _anchor: Anchor = undefined;
+    _anchor: AnchorObject = undefined;
     _bot: string = undefined;
     _focus: string = undefined;
     _mode: Mode = undefined;
