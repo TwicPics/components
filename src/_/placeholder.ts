@@ -1,73 +1,9 @@
 /* eslint no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder, PlaceholderHandler } from "./types";
+import type { PlaceholderData, PlaceholderHandler } from "./types";
 
+import { computePlaceholderBackground } from "./compute";
 import { config } from "./install";
-import { cssWithoutPx } from "./dom";
 import { debounce, isBrowser, logWarning } from "./utils";
-import { parseMode } from "./parse";
-
-const PLACEHOLDER_DIM = 1000;
-
-export interface PlaceholderData {
-    focus: string,
-    mode: Mode,
-    placeholder: Placeholder,
-    preTransform: string,
-    ratio: number,
-    transitions: Record< string, boolean >,
-    src: string
-}
-
-// eslint-disable-next-line id-length
-const computePlaceholderBackground = (
-    element: Element,
-    { focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
-): string => {
-    if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) ) {
-        return ``;
-    }
-
-    const computedStyle = getComputedStyle( element );
-
-    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
-
-    let _ratio;
-
-    if ( ratio === 0 ) {
-        _ratio = actualMode === `contain` ?
-            1 : cssWithoutPx( computedStyle.height ) / Math.max( 1, cssWithoutPx( computedStyle.width ) );
-    } else {
-        _ratio = ratio ?? cssWithoutPx( computedStyle.fontSize );
-    }
-
-    let height = PLACEHOLDER_DIM;
-    let width = PLACEHOLDER_DIM;
-
-    if ( _ratio < 1 ) {
-        height *= _ratio;
-    } else {
-        width /= _ratio;
-    }
-
-    height = Math.max( 1, Math.round( height ) );
-    width = Math.max( 1, Math.round( width ) );
-
-    return `${
-        ( ( actualMode === `cover` ) && focus ) ? `focus=${ focus }/` : ``
-    }${
-        preTransform
-    }${
-        actualMode
-    }=${
-        width
-    }x${
-        height
-    }/output=${
-        placeholder
-    }/${
-        src
-    }`;
-};
 
 const PRIVATE_KEY = ` TPCWBG ${ Math.random() } ${ Date.now() } `;
 

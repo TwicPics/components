@@ -1,7 +1,7 @@
 import type { Options, Environment } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
-import { rValidEnvironment } from "./validation";
+import { rValidEnvironment } from "./validate";
 
 /**
  * default class used in config object

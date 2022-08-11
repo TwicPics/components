@@ -1,12 +1,16 @@
-import type { PlaceholderData } from "./placeholder";
-
+export type Anchor = `bottom` | `bottom-left` | `bottom-right` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 export type Transition = `fade` | `zoom` | `none`;
 export type Environment = `debug` | `offline` | `production`;
 
+export interface AnchorObject {
+    x: string | undefined,
+    y: string | undefined,
+}
 export interface Attributes {
     alt?: string,
+    anchor?: string,
     bot?: string,
     focus?: string,
     mode?: Mode,
@@ -31,6 +35,17 @@ export interface Options {
     env?: Environment,
     path?: string,
     step?: number,
+}
+
+export interface PlaceholderData {
+    anchor: AnchorObject,
+    focus: string,
+    mode: Mode,
+    placeholder: Placeholder,
+    preTransform: string,
+    ratio: number,
+    transitions: Record< string, boolean >,
+    src: string
 }
 
 export interface PlaceholderHandler {

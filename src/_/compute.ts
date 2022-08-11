@@ -1,8 +1,22 @@
+/* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { Mode, Placeholder } from "./types";
-import type { PlaceholderData } from "./placeholder";
+import type { AnchorObject, Mode, Placeholder, PlaceholderData } from "./types";
 
 import { config } from "./install";
+import { cssWithoutPx } from "./dom";
+import { parseMode } from "./parse";
+
+const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
+    ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
+
+const computePreTransform = ( { x, y }: AnchorObject, focus: string, mode: Mode, preTransform: string ): string => {
+    const actualFocus = ( mode !== `contain` ) && ( focus || ( y ? ( x ? `${ y }-${ x }` : y ) : x ) );
+    return `${
+        preTransform || ``
+    }${
+        actualFocus ? `focus=${ actualFocus }/` : ``
+    }`;
+};
 
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
@@ -17,33 +31,31 @@ export const computeAlt =
     };
 
 export const computeData = (
+    anchor: AnchorObject,
     bot: string,
     focus: string,
+    mode: Mode,
     preTransform: string,
     src: string,
     step: number
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
-    if ( bot ) {
+    if ( typeof bot === `string` ) {
         attributes[ `data-${ config.class }-bot` ] = bot;
-    }
-    if ( focus ) {
-        attributes[ `data-${ config.class }-focus` ] = focus;
     }
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;
     }
-
-    if ( ( config.env === `debug` ) || preTransform ) {
+    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
+    if ( ( config.env === `debug` ) || actualPreTransform ) {
         attributes[ `data-${ config.class }-transform` ] = `${
-            preTransform
+            actualPreTransform
         }${
             config.env === `debug` ? `debug/` : ``
         }${
-            `*/`
+            `*`
         }`;
     }
-
     if ( step !== undefined ) {
         attributes[ `data-${ config.class }-step` ] = String( step );
     }
@@ -52,6 +64,7 @@ export const computeData = (
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (
+    anchor: AnchorObject,
     focus: string,
     mode: Mode,
     placeholder: Placeholder,
@@ -64,6 +77,7 @@ export const computePlaceholderStyle = (
 ): Record< string, string > => {
     const placeholderStyle: Record< string, string > = {};
     placeholderDataHandler( {
+        anchor,
         focus,
         mode,
         placeholder,
@@ -76,8 +90,10 @@ export const computePlaceholderStyle = (
     if ( mode ) {
         placeholderStyle[ `backgroundSize` ] = mode;
     }
-    if ( position ) {
-        placeholderStyle[ `backgroundPosition` ] = position;
+
+    const actualPosition = computePosition( anchor, mode, position );
+    if ( actualPosition ) {
+        placeholderStyle[ `backgroundPosition` ] = actualPosition;
     }
 
     return placeholderStyle;
@@ -86,6 +102,7 @@ export const computePlaceholderStyle = (
 
 /* eslint-disable dot-notation */
 export const computeStyle = (
+    anchor: AnchorObject,
     mode: Mode,
     position: string,
     transitionDelay: string,
@@ -93,11 +110,12 @@ export const computeStyle = (
     transitionTimingFunction: string
 ): Record< string, string > => {
     const computedStyle: Record< string, string > = {};
+    const actualPosition = computePosition( anchor, mode, position );
+    if ( actualPosition ) {
+        computedStyle[ `objectPosition` ] = actualPosition;
+    }
     if ( mode ) {
         computedStyle[ `objectFit` ] = mode;
-    }
-    if ( position ) {
-        computedStyle[ `objectPosition` ] = position;
     }
     if ( transitionDuration ) {
         computedStyle[ `transitionDuration` ] = transitionDuration;
@@ -111,6 +129,59 @@ export const computeStyle = (
     return computedStyle;
 };
 /* eslint-enable dot-notation */
+
+const PLACEHOLDER_DIM = 1000;
+
+// eslint-disable-next-line id-length
+export const computePlaceholderBackground = (
+    element: Element,
+    { anchor, focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
+): string => {
+    if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) ) {
+        return ``;
+    }
+
+    const computedStyle = getComputedStyle( element );
+
+    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
+
+    let _ratio;
+
+    if ( ratio === 0 ) {
+        _ratio = actualMode === `contain` ?
+            1 : cssWithoutPx( computedStyle.height ) / Math.max( 1, cssWithoutPx( computedStyle.width ) );
+    } else {
+        _ratio = ratio ?? cssWithoutPx( computedStyle.fontSize );
+    }
+
+    let height = PLACEHOLDER_DIM;
+    let width = PLACEHOLDER_DIM;
+
+    if ( _ratio < 1 ) {
+        height *= _ratio;
+    } else {
+        width /= _ratio;
+    }
+
+    height = Math.max( 1, Math.round( height ) );
+    width = Math.max( 1, Math.round( width ) );
+
+    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
+
+    return `${
+        actualPreTransform
+    }${
+        actualMode
+    }=${
+        width
+    }x${
+        height
+    }/output=${
+        placeholder
+    }/${
+        src
+    }`;
+};
 
 export const computeWrapperClass = (
     src: string,
@@ -139,9 +210,7 @@ export const computeWrapperClass = (
     return wrapperClass.join( ` ` );
 };
 
-export const computeWrapperStyle = (
-    ratio: number
-): Record< string, string > => (
+export const computeWrapperStyle = ( ratio: number ): Record< string, string > => (
     ( ratio === 0 ) ? {
         "height": `100%`,
         "paddingTop": `0`,

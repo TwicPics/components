@@ -1,6 +1,6 @@
 import "../_/style.css";
 
-import type { Attributes as BaseAttributes, Mode, Placeholder, PlaceholderHandler } from "../_/types";
+import type { Anchor, Attributes as BaseAttributes, Mode, Placeholder, PlaceholderHandler } from "../_/types";
 import {
     computeAlt,
     computeData,
@@ -12,6 +12,7 @@ import {
 import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
+    parseAnchor,
     parseBot,
     parseClassName,
     parseFocus,
@@ -31,7 +32,7 @@ import {
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
-import { validModes, validPlaceholders } from "../_/validation";
+import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 
 export interface Attributes extends BaseAttributes {
     className?: string,
@@ -39,6 +40,7 @@ export interface Attributes extends BaseAttributes {
 
 const defaultProps: Attributes = {
     "alt": undefined,
+    "anchor": undefined,
     "bot": undefined,
     "className": undefined,
     "focus": undefined,
@@ -61,6 +63,7 @@ const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
 
 const propTypes = {
     "alt": string,
+    "anchor": oneOf< Anchor >( validAnchors ),
     "bot": string,
     "className": string,
     "focus": string,
@@ -86,6 +89,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
         static defaultProps: Attributes;
         static propTypes: {
             alt: PropTypes.Requireable<string>;
+            anchor: PropTypes.Requireable<Anchor>;
             bot: PropTypes.Requireable<string>;
             className: PropTypes.Requireable<string>;
             focus: PropTypes.Requireable<string>;
@@ -117,6 +121,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
         render() {
             const { props } = this;
             const alt = withAlt && parseAlt( props.alt );
+            const anchor = parseAnchor( props.anchor );
             const bot = parseBot( props.bot );
             const className = parseClassName( props.className ) || ``;
             // eslint-disable-next-line no-shadow
@@ -142,18 +147,20 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                             alt = { withAlt ? computeAlt( alt, src ) : undefined }
                             style = {
                                 computeStyle(
+                                    anchor,
                                     mode,
                                     position,
                                     transitionDelay,
                                     transitionDuration,
                                     transitionTimingFunction
                                 ) }
-                            { ...computeData( bot, focus, preTransform, src, step ) }
+                            { ...computeData( anchor, bot, focus, mode, preTransform, src, step ) }
                         />
                         <div
                             ref={ this._pe }
                             style = {
                                 computePlaceholderStyle(
+                                    anchor,
                                     focus,
                                     mode,
                                     placeholder,

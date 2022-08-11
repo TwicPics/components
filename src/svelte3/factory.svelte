@@ -1,7 +1,7 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
-import type { Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
+import type { Anchor, Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
 
 import { configBasedStyle, markComponentsChain } from "../_/install";
 import {
@@ -17,6 +17,7 @@ import { isBrowser, isWebComponents } from "../_/utils";
 import { onDestroy, onMount } from "svelte/internal";
 import {
     parseAlt,
+    parseAnchor,
     parseBot,
     parseClassName,
     parseFocus,
@@ -42,6 +43,7 @@ declare const MEDIA_TAG: string;
 </script>
 <script lang="ts">
 export let alt: string = undefined;
+export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
@@ -66,6 +68,7 @@ const placeholderHandler = createPlaceholderHandler( bgImage => {
 } );
 
 $: parsedAlt = parseAlt( alt );
+$: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
 $: parsedFocus = parseFocus( focus );
 $: parsedMode = parseMode( mode );
@@ -81,8 +84,9 @@ $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 
 $: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
-$: _data = computeData( parsedBot, parsedFocus, parsedPreTransform, parsedSrc, parsedStep );
+$: _data = computeData( parsedAnchor, parsedBot, parsedFocus, parsedMode, parsedPreTransform, parsedSrc, parsedStep );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
+    parsedAnchor,
     parsedFocus,
     parsedMode,
     parsedPlaceholder,
@@ -93,7 +97,9 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedTransition,
     placeholderHandler.setData,
 ) );
+
 $: _style = styleToString( computeStyle(
+    parsedAnchor,
     parsedMode,
     parsedPosition,
     parsedTransitionDelay,
