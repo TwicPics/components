@@ -164,6 +164,9 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
             this._ratio,
             this._src,
             this._transition,
+            this._transitionDelay,
+            this._transitionDuration,
+            this._transitionTimingFunct,
             this._p.setData
         );
 

@@ -18,6 +18,26 @@ const computePreTransform = ( { x, y }: AnchorObject, focus: string, mode: Mode,
     }`;
 };
 
+/* eslint-disable dot-notation */
+const preComputeStyle = (
+    transitionDelay: string,
+    transitionDuration: string,
+    transitionTimingFunction: string
+): Record< string, string > => {
+    const preComputedStyle: Record< string, string > = {};
+    if ( transitionDuration ) {
+        preComputedStyle[ `transitionDuration` ] = transitionDuration;
+    }
+    if ( transitionDelay ) {
+        preComputedStyle[ `transitionDelay` ] = transitionDelay;
+    }
+    if ( transitionTimingFunction ) {
+        preComputedStyle[ `transitionTimingFunction` ] = transitionTimingFunction;
+    }
+    return preComputedStyle;
+};
+/* eslint-enable dot-notation */
+
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
 export const computeAlt =
@@ -73,9 +93,12 @@ export const computePlaceholderStyle = (
     ratio: number,
     src: string,
     transitions: Record< string, boolean >,
+    transitionDelay: string,
+    transitionDuration: string,
+    transitionTimingFunction: string,
     placeholderDataHandler: ( ( data: PlaceholderData ) => void )
 ): Record< string, string > => {
-    const placeholderStyle: Record< string, string > = {};
+    const placeholderStyle = preComputeStyle( transitionDelay, transitionDuration, transitionTimingFunction );
     placeholderDataHandler( {
         anchor,
         focus,
@@ -86,16 +109,13 @@ export const computePlaceholderStyle = (
         transitions,
         src,
     } );
-
     if ( mode ) {
         placeholderStyle[ `backgroundSize` ] = mode;
     }
-
     const actualPosition = computePosition( anchor, mode, position );
     if ( actualPosition ) {
         placeholderStyle[ `backgroundPosition` ] = actualPosition;
     }
-
     return placeholderStyle;
 };
 /* eslint-enable dot-notation */
@@ -109,22 +129,13 @@ export const computeStyle = (
     transitionDuration: string,
     transitionTimingFunction: string
 ): Record< string, string > => {
-    const computedStyle: Record< string, string > = {};
+    const computedStyle = preComputeStyle( transitionDelay, transitionDuration, transitionTimingFunction );
     const actualPosition = computePosition( anchor, mode, position );
     if ( actualPosition ) {
         computedStyle[ `objectPosition` ] = actualPosition;
     }
     if ( mode ) {
         computedStyle[ `objectFit` ] = mode;
-    }
-    if ( transitionDuration ) {
-        computedStyle[ `transitionDuration` ] = transitionDuration;
-    }
-    if ( transitionDelay ) {
-        computedStyle[ `transitionDelay` ] = transitionDelay;
-    }
-    if ( transitionTimingFunction ) {
-        computedStyle[ `transitionTimingFunction` ] = transitionTimingFunction;
     }
     return computedStyle;
 };
