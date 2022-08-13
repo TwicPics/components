@@ -95,6 +95,9 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedRatio,
     parsedSrc,
     parsedTransition,
+    parsedTransitionDelay,
+    parsedTransitionDuration,
+    parsedTransitionTimingFunction,
     placeholderHandler.setData,
 ) );
 
