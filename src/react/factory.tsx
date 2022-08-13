@@ -169,6 +169,9 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     ratio,
                                     src,
                                     transition,
+                                    transitionDelay,
+                                    transitionDuration,
+                                    transitionTimingFunction,
                                     this._p.setData
                                 )
                             }
