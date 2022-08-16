@@ -36,10 +36,7 @@ export const parseAnchor = ( anchor: string ) : AnchorObject => {
 
 export const parseAlt = trimOrUndefined;
 
-export const parseBot = regExpFinderFactory(
-    trimTransformOrUndefined,
-    p => ( p && `${ p }/` ) || ( p === undefined ? undefined : `` )
-);
+export const parseBot = ( value: string ) => ( typeof value === `string` ? `${ value.trim() }/` : undefined );
 
 export const parseClassName = trimOrUndefined;
 
