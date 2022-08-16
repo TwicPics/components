@@ -61,7 +61,7 @@ export const computeData = (
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
     if ( typeof bot === `string` ) {
-        attributes[ `data-${ config.class }-bot` ] = bot;
+        attributes[ `data-${ config.class }-bot` ] = `${ bot }/`;
     }
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;
