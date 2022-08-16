@@ -125,31 +125,35 @@
             <TwicImg
                 src="football.jpg"
                 bot="contain=100x100"
+                preTransform="flip=y"
                 ratio="4/3">
             </TwicImg>
-            <span>cover + ratio="4/3" + bot="contain=100x100"</span>
+            <span>preTransform="flip=y" + cover + ratio="4/3" + bot="contain=100x100"</span>
         </div>
         <div class="item">
             <TwicImg
                 src="football.jpg"
                 bot="cover=200x200"
                 mode="contain"
+                preTransform="flip=y"
                 ratio="16/9">
             </TwicImg>
-            <span>contain + ratio="16/9" + bot="cover=200x200"</span>
-        </div>
-        <div class="item">
-            <TwicImg
-                src="football.jpg">
-            </TwicImg>
-            <span>no bot</span>
+            <span>preTransform="flip=y" + contain + ratio="16/9" + bot="cover=200x200"</span>
         </div>
         <div class="item">
             <TwicImg
                 src="football.jpg"
+                preTransform="flip=y">
+            </TwicImg>
+            <span>preTransform="flip=y" + no bot</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                preTransform="flip=y"
                 bot="">
             </TwicImg>
-            <span>bot=""</span>
+            <span>preTransform="flip=y" + bot=""</span>
         </div>
     </div>
     <h2>translucency (mode="cover")</h2>
