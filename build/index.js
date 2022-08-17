@@ -30,7 +30,6 @@ const getExportsByFramework = ( framework, customFormats ) => {
     return exportsByFramework;
 };
 
-// if ( replacer && ( typeof ( replacer ) !== `function` ) ) {
 const exportsPackageJson = () => units.flatMap(
     (
         { framework, "formats": customFormats, customPackageJsonExports = false }
