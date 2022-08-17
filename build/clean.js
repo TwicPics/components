@@ -24,6 +24,4 @@ export default () => {
     clean( `${ __dirname }/../samples` );
     console.log( `cleaning dependencies in tests subdirectory...` );
     clean( `${ __dirname }/../tests` );
-    console.log( `cleaning dependencies in angular templates subdirectory...` );
-    clean( `${ __dirname }/../build/angular/_templates` );
 };
