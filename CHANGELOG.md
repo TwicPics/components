@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.9.0] - 2022-08-17
+
 ### Added
 
 - Add `anchor` attribute to position image in both `contain` and `cover` mode
@@ -257,6 +259,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.9.0]: https://github.com/TwicPics/components/compare/0.9.0-beta.0...0.9.0
 [0.9.0-beta.0]: https://github.com/TwicPics/components/compare/0.8.2...0.9.0-beta.0
 [0.8.2]: https://github.com/TwicPics/components/compare/0.8.1...0.8.2
 [0.8.1]: https://github.com/TwicPics/components/compare/0.8.0...0.8.1
