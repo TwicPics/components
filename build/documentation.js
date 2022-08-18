@@ -61,8 +61,12 @@ const replacer = async file => {
             "transform": gitHubBlobPath,
         },
         {
-            "regExp": /__PACKAGE_VERSION__/gm,
+            "regExp": /__NPM_URL_PACKAGE_VERSION__/gm,
             "transform": packageVersion,
+        },
+        {
+            "regExp": /__NPM_IMAGE_PACKAGE_VERSION__/gm,
+            "transform": packageVersion.replace( /-/g, `--` ),
         },
     ];
 
