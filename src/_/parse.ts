@@ -2,7 +2,7 @@
 import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
 import { logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
-import { rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
+import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
 
 const rImage = /^(image:)?\/?/;
 
@@ -41,6 +41,19 @@ export const parseBot = ( value: string ) => ( typeof value === `string` ? value
 export const parseClassName = trimOrUndefined;
 
 export const parseFocus = trimOrUndefined;
+
+export const parseIntrinsic = ( value: string ): string => {
+    if ( !value ) {
+        return undefined;
+    }
+    let parsedIntrinsic: string;
+    const parsed = rValidIntrinsic.exec( value );
+    if ( parsed ) {
+        const [ , , width, height ] = parsed;
+        parsedIntrinsic = `${ width }x${ height }`;
+    }
+    return parsedIntrinsic;
+};
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 

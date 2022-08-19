@@ -16,6 +16,7 @@ import {
     parseBot,
     parseClassName,
     parseFocus,
+    parseIntrinsic,
     parseMode,
     parsePlaceholder,
     parsePosition,
@@ -44,6 +45,7 @@ const defaultProps: Attributes = {
     "bot": undefined,
     "className": undefined,
     "focus": undefined,
+    "intrinsic": undefined,
     "mode": undefined,
     "placeholder": undefined,
     "position": undefined,
@@ -67,6 +69,7 @@ const propTypes = {
     "bot": string,
     "className": string,
     "focus": string,
+    "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
@@ -93,6 +96,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             bot: PropTypes.Requireable<string>;
             className: PropTypes.Requireable<string>;
             focus: PropTypes.Requireable<string>;
+            intrinsic: PropTypes.Requireable<string>;
             mode: PropTypes.Requireable<Mode>;
             placeholder: PropTypes.Requireable<Placeholder>;
             position: PropTypes.Requireable<string>;
@@ -126,6 +130,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const className = parseClassName( props.className ) || ``;
             // eslint-disable-next-line no-shadow
             const focus = parseFocus( props.focus );
+            const intrinsic = parseIntrinsic( props.intrinsic );
             const mode = parseMode( props.mode );
             const placeholder = parsePlaceholder( props.placeholder, props.src );
             const position = parsePosition( props.position );
@@ -154,7 +159,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     transitionDuration,
                                     transitionTimingFunction
                                 ) }
-                            { ...computeData( anchor, bot, focus, mode, preTransform, src, step ) }
+                            { ...computeData( anchor, bot, focus, intrinsic, mode, preTransform, src, step ) }
                         />
                         <div
                             ref={ this._pe }

@@ -101,23 +101,54 @@
             <span>ratio="16:9"</span>
         </div>
     </div>
-    <h2>ratio = none (mode="cover")</h2>
+    <h2>Hero Image : ratio = none + intrinsic</h2>
     <div>
         <TwicImg
             src="football.jpg"
+            intrinsic="1040x693"
+            preTransform="resize=50p"
             ratio="none"
             focus="50px25p"
             class="hero-image">
         </TwicImg>
     </div>
-    <h2>ratio="none" (mode="contain")</h2>
-    <div>
-        <TwicImg 
-            src="football.jpg"
-            mode="contain"
-            ratio="none" 
-            class="hero-image">
-        </TwicImg>
+    <h2>intrinsic</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                intrinsic="2080x1386"
+                ratio="4/3">
+            </TwicImg>
+            <span>intrinsic="2080x1386"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                intrinsic="208x139"
+                preTransform="resize=10p"
+                ratio="4/3">
+            </TwicImg>
+            <span>intrinsic="208x139" + preTransform="resize=10p"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                intrinsic="1040x1386"
+                preTransform="focus=left/crop=50p"
+                ratio="4/3">
+            </TwicImg>
+            <span>intrinsic="1040x1386" + preTransform="focus=left/crop=50p"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                intrinsic="1000x-"
+                preTransform="resize=10p"
+                ratio="4/3">
+            </TwicImg>
+            <span>unsupported value intrinsic="1000x-"</span>
+        </div>
     </div>
     <h2>bot</h2>
     <div class="samples">

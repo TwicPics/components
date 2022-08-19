@@ -14,6 +14,7 @@ import {
     parseAnchor,
     parseBot,
     parseFocus,
+    parseIntrinsic,
     parseMode,
     parsePlaceholder,
     parsePosition,
@@ -26,7 +27,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
-import { rValidAnchor, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
+import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
 
 const rInitialProps = /^(\*+)(.*[^*])(\*+)$/;
 
@@ -53,6 +54,7 @@ for ( const [ propName, type, parseMethod, args ] of [
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
     [ `focus`, stringProp, parseFocus ],
+    [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
     [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder, [ `placeholder`, `src` ] ],
     [ `position`, stringProp, parsePosition ],
@@ -71,7 +73,11 @@ for ( const [ propName, type, parseMethod, args ] of [
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `src` ] ],
-    [ `_dataAttributes`, computeData, [ `anchor`, `bot`, `focus`, `mode`, `preTransform`, `src`, `step` ] ],
+    [
+        `_dataAttributes`,
+        computeData,
+        [ `anchor`, `bot`, `focus`, `intrinsic`, `mode`, `preTransform`, `src`, `step` ],
+    ],
     [
         `_style`,
         computeStyle,

@@ -21,6 +21,7 @@ import {
     parseBot,
     parseClassName,
     parseFocus,
+    parseIntrinsic,
     parseMode,
     parsePlaceholder,
     parsePosition,
@@ -48,6 +49,7 @@ export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
 export let focus: string = undefined;
+export let intrinsic: string = undefined;
 export let mode: Mode = undefined;
 export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
@@ -71,6 +73,7 @@ $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
 $: parsedFocus = parseFocus( focus );
+$: parsedIntrinsic = parseIntrinsic( intrinsic );
 $: parsedMode = parseMode( mode );
 $: parsedPlaceholder = parsePlaceholder( placeholder, src );
 $: parsedPosition = parsePosition( position );
@@ -84,7 +87,15 @@ $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 
 $: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
-$: _data = computeData( parsedAnchor, parsedBot, parsedFocus, parsedMode, parsedPreTransform, parsedSrc, parsedStep );
+$: _data = computeData(
+    parsedAnchor,
+    parsedBot, parsedFocus,
+    parsedIntrinsic,
+    parsedMode,
+    parsedPreTransform,
+    parsedSrc,
+    parsedStep
+);
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,

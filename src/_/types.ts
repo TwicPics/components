@@ -13,6 +13,7 @@ export interface Attributes {
     anchor?: string,
     bot?: string,
     focus?: string,
+    intrinsic?: string,
     mode?: Mode,
     placeholder?: Placeholder,
     position?: string,

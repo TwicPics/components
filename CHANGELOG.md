@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Add `intrinsic` attribute to prevent upscaling and limit number of variants.
+
 ## [0.9.1] - 2022-08-23
 
 ### Fixed
