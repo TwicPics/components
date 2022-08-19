@@ -54,6 +54,7 @@ export const computeData = (
     anchor: AnchorObject,
     bot: string,
     focus: string,
+    intrinsic: string,
     mode: Mode,
     preTransform: string,
     src: string,
@@ -62,6 +63,9 @@ export const computeData = (
     const attributes: Record< string, string > = {};
     if ( typeof bot === `string` ) {
         attributes[ `data-${ config.class }-bot` ] = `${ bot }/`;
+    }
+    if ( intrinsic ) {
+        attributes[ `data-${ config.class }-intrinsic` ] = intrinsic;
     }
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;

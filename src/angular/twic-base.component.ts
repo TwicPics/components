@@ -35,6 +35,7 @@ import {
     parseAnchor,
     parseBot,
     parseFocus,
+    parseIntrinsic,
     parseMode,
     parsePlaceholder,
     parsePosition,
@@ -61,6 +62,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() bot: string = undefined;
     @Input() class: string = undefined;
     @Input() focus: string = undefined;
+    @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
     @Input() placeholder: Placeholder = undefined;
     @Input() position: string = undefined;
@@ -76,6 +78,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     _anchor: AnchorObject = undefined;
     _bot: string = undefined;
     _focus: string = undefined;
+    _intrinsic: string = undefined;
     _mode: Mode = undefined;
     _placeholder: Placeholder = undefined;
     _position: string = undefined;
@@ -119,6 +122,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         this._anchor = parseAnchor( this.anchor );
         this._bot = parseBot( this.bot );
         this._focus = parseFocus( this.focus );
+        this._intrinsic = parseIntrinsic( this.intrinsic );
         this._mode = parseMode( this.mode );
         this._placeholder = parsePlaceholder( this.placeholder, this.src );
         this._position = parsePosition( this.position );
@@ -138,6 +142,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
                 this._anchor,
                 this._bot,
                 this._focus,
+                this._intrinsic,
                 this._mode,
                 this._preTransform,
                 this._src,
