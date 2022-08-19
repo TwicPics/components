@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable no-console */
 import __dirname from "../__dirname.js";
 import { getAngularDirectories, getDistFolder, getProjectsByDirectory } from "./angularUtils.js";
@@ -18,11 +19,9 @@ import uglify from "uglify-js";
  * @param {*} angularDirectory : current angular project informations
  */
 const copyFiles = async angularDirectory => {
-
     const { twicDist, ngcDist } = getDistFolder( angularDirectory );
     // file list to copy from ngcdist to twicdist
     const filesToCopy = [ `lib.metadata.json` ];
-
     // copy original lib.metadata.json
     // filter on existing files before copy
     await Promise.all( filesToCopy
@@ -46,7 +45,6 @@ const getExportsMappings = async ( angularDirectory, declaration ) => {
     } else {
         regExp = /^(module)|(main)|(((fesm)|(es))[0-9]+)$/;
     }
-
     const mappings = Object.keys( packageJson ).filter( key => key.match( regExp ) )
         .map( key => ( {
             key,
@@ -56,7 +54,6 @@ const getExportsMappings = async ( angularDirectory, declaration ) => {
                 `${ key }${ path.extname( `${ packageJson[ key ] }` ) }`,
             "reference": true,
         } ) );
-
     // management of identical target files
     const references = [];
     for ( const mapping of mappings ) {
@@ -86,17 +83,14 @@ const getPackageExports = async ( angularDirectory, angularName ) => {
     const mappingsJs = await getExportsMappings( angularDirectory, false );
     const mappingsDeclaration = await getExportsMappings( angularDirectory, true );
     const packageExports = {};
-
     mappingsJs.forEach( mapping => {
         const { key, destination } = mapping;
         packageExports[ key ] = angularName ? `./${ angularName }/${ destination }` : `${ destination }`;
     } );
-
     mappingsDeclaration.forEach( mapping => {
         const { key, destination } = mapping;
         packageExports[ key ] = angularName ? `./${ angularName }/${ destination }` : `${ destination }`;
     } );
-
     return packageExports;
 };
 
@@ -115,7 +109,6 @@ const manageInnerPackageJson = async angularDirectory => {
     packageJSON.version = packageVersion;
     packageJSON.author = packageAuthor;
     packageJSON.name = packageName;
-
     await writeJson( `${ twicDist }/package.json`, packageJSON );
 };
 
@@ -172,7 +165,6 @@ const sourcemapPathTransform = async angularDirectory => {
         "to": `${ gitHubRawPath }/src/_/`,
     };
     await replaceInFile( replaceOptions );
-
     // angular sources
     replaceOptions = {
         "files": `${ ngcDist }/**/*.map`,
@@ -189,9 +181,7 @@ const sourcemapPathTransform = async angularDirectory => {
 const typeDefinitions = async angularDirectory => {
     const { twicDist, ngcDist } = getDistFolder( angularDirectory );
     const packageJson = await getJsonFromPath( `${ ngcDist }/package.json` );
-
     const { typings } = packageJson;
-
     // rollup generated index.d.ts
     await rollup( {
         "input": `${ ngcDist }/${ typings }`,
@@ -262,7 +252,6 @@ const buildAngularProject = async ( angularDirectory, angularConfig ) => {
         "from": /\bFRAMEWORK([^:])/g,
         "to": `'ANGULAR'`,
     };
-
     await replaceInFile( replaceOptions );
 
     // 6 - apply sourcemap transform (to point to github)
