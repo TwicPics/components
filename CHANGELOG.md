@@ -14,27 +14,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Add `anchor` attribute to position image in both `contain` and `cover` mode
 - Add `bot` attribute to specify SEO-friendly transformations for search engine bots
+- Add support for **Angular 14+**
 - `ratio` can now be specified as `<width>:<height>` in addition to `<width>/<height>`
 
 ### Changed
 
 - **Breaking**: `focus` is now applied __after__ `preTransform`
 - No longer removes **Angular** template dependencies after building components
-- Upgrade dependencies in **Gatsby** sample project
-
-### Fixed
-
-- Fix the issue of transitions not being applied to the placeholder container
-
-## [0.9.0-beta.0] - 2022-07-28
-
-### Added
-
-- Add support for **Angular 14+**
-
-### Changed
-
-- Upgrade dependencies and documentation.
+- Upgrade dependencies and documentation
 
 ### Fixed
 
