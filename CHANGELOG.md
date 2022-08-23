@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.9.1] - 2022-08-23
+
+### Fixed
+
+- Fix broken regexp in Safari
+
 ## [0.9.0] - 2022-08-17
 
 ### Added
