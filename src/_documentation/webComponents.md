@@ -100,9 +100,8 @@ More properties [here](#components).
 
 ### Basic usage
 
-`<your-page>.html`
-
 ```html
+<!-- page.html -->
 <body>
     <twic-img src="path/to/your/image"/>
 </body>
@@ -114,9 +113,9 @@ More properties [here](#components).
 
 You can set up components using pure CSS and the power of [CSS variables](#css-variables)
 
-`index.html`
 
 ```html
+<!-- page.html -->
 <style>
   body {
     background-color: #342d4e;
@@ -203,11 +202,10 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
 
-`<your-page>.html`
-
 Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
+<!-- page.html -->
 <style>
   main {
     margin-left: auto;
@@ -272,9 +270,9 @@ Your template features a single component that will follow your CSS directives a
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
 
-`<your-page>.html`
 
 ```html
+<!-- page.html -->
 <style>
   /* You are responsible for properly sizing the component. */
   .hero-image {

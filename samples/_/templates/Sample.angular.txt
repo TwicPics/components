@@ -1,1 +1,2 @@
+// /___state___/g => "(stateChangeEvent)='onStateChange($event)'"
 ###

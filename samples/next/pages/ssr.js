@@ -1,13 +1,14 @@
+/* eslint-disable no-console */
 // eslint-disable-next-line no-use-before-define
 import * as React from "react";
 import { TwicImg } from "@twicpics/components/react";
 import { getSampleImage } from "@twicpics/components-sample/fakeServer.js";
-import Menu from "../components/menu";
+import MenuBar from "../components/menuBar";
 
 // eslint-disable-next-line no-shadow
 const SSRPage = ( { imgSrc, focus, mode, ratio } ) => (
     <main>
-        <Menu></Menu>
+        <MenuBar></MenuBar>
         <h1>Next.js SSR test page</h1>
         <h2>
             { focus ? `focus='auto',` : `` } mode = { mode }
@@ -17,6 +18,9 @@ const SSRPage = ( { imgSrc, focus, mode, ratio } ) => (
                 <TwicImg
                     src={ imgSrc }
                     ratio={ ratio }
+                    onStateChange={ stateEvent => {
+                        console.log( `Image 1, stateEvent = `, stateEvent );
+                    } }
                     focus={ focus }
                     mode={ mode }
                 />
@@ -26,6 +30,9 @@ const SSRPage = ( { imgSrc, focus, mode, ratio } ) => (
                 <TwicImg
                     src={ imgSrc }
                     ratio={ ratio }
+                    onStateChange={ stateEvent => {
+                        console.log( `Image 2, stateEvent = `, stateEvent );
+                    } }
                     focus={ focus }
                     mode={ mode }
                     transition = "zoom"

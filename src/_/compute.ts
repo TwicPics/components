@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { AnchorObject, Mode, Placeholder, PlaceholderData } from "./types";
@@ -153,7 +154,7 @@ export const computePlaceholderBackground = (
     element: Element,
     { anchor, focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
 ): string => {
-    if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) ) {
+    if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) || !config.domain ) {
         return ``;
     }
 

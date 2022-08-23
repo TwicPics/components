@@ -36,7 +36,7 @@ const getDocumentationsToBuild = async () =>
         'withFileTypes': true,
     } ) )
         // all .md files not begining with _
-        .filter( dirent => dirent.name.match( /^[^_].*.md+$/gi ) )
+        .filter( dirent => dirent.name.match( /^[^_].*(\.md)+$/gi ) )
         .map( dirent => {
             const obj = {
                 "build": `documentation/${ dirent.name }`,
@@ -101,6 +101,7 @@ const buildDocumentation = async documentationToBuild => {
     await markdownInclude.compileFiles( markdownPath );
 };
 
+const rClean = /(\b)__TWIC_(.*)__(\b)/gm;
 /**
  * build documentation
  */
@@ -108,7 +109,7 @@ for await ( const documentationToBuild of documentationsToBuild ) {
     const { build } = documentationToBuild;
     await buildDocumentation( documentationToBuild );
     const content = await replacer( build );
-    await writeFile( build, content );
+    await writeFile( build, content.replace( rClean, `` ) );
     console.log( `${ build } generated` );
 }
 

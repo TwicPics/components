@@ -1,8 +1,8 @@
 import Sample from "@twicpics/components-sample/Sample.jsx";
-import Menu from "../components/menu";
+import MenuBar from "../components/menuBar";
 const IndexPage = () => (
     <main>
-        <Menu></Menu>
+        <MenuBar></MenuBar>
         <Sample></Sample>
     </main>
 );

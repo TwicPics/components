@@ -2,6 +2,11 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Angular"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://angular.io/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "angular"
+// /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n    - [Lifecycle](#lifecycle)"
+// /(\b)__TWIC_STATE_CHANGE_PROP__(\b)/gm => "\n  (stateChangeEvent)=\"<function>\""
+// /(\b)__TWIC_STATE_CHANGE_IMG__(\b)/gm => "\n| `stateChangeEvent` | An event emitter triggered each time the image loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |"
+// /(\b)__TWIC_STATE_CHANGE_VIDEO__(\b)/gm => "\n| `stateChangeEvent` | An event emitter triggered each time the video loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |"
+
 #include "src/_documentation/common/_title.md"
 
 ## Overview
@@ -113,9 +118,8 @@ installTwicPics( {
 
 Just use them in your template files in place of `img` or `video` tags.
 
-`<your-component-within-app.module>.component.html`
-
 ```html
+<!-- component.html -->
 <TwicImg src="path/to/your/image"></TwicImg>
 ```
 
@@ -123,9 +127,8 @@ Just use them in your template files in place of `img` or `video` tags.
 
 ### Basic usage
 
-`<your-component-within-app.module>.component.html`
-
 ```html
+<!-- component.html -->
 <main>
   <TwicImg src="path/to/your/image"/>
 </main>
@@ -181,9 +184,8 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 }
 ```
 
-`<your-component-within-app.module>.component.html`
-
 ```html
+<!-- component.html -->
 <main>
   <div class="landscape">
     <TwicImg src="path/to/your/image"></TwicImg>
@@ -271,11 +273,10 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 ```
 
-`<your-component-within-app.module>.component.html`
-
 Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
+<!-- component.html -->
 <main>
   <div class="style-driven-responsive">
     <TwicImg src="path/to/your/image"></TwicImg>
@@ -323,6 +324,52 @@ Particularly useful when creating hero banner, you can specify the height of you
   <img alt="Edit TwicPics x Angular - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Binding to `stateChangeEvent` gives access to the loading state of your image or video.
+
+Here are the values the Component will emit ([see State Type definition](#state-type)) :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+```html
+<!-- component.html -->
+<TwicImg
+  src="path/to/your/image"
+  (stateChangeEvent)="handleStateChange($event)"
+></TwicImg>
+```
+
+```ts
+  // component.ts
+  import { ChangeDetectorRef, Component } from "@angular/core";
+  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
+
+  export class Component {
+
+  state?: State;
+
+  constructor(private changeDetector: ChangeDetectorRef) { }
+
+  handleStateChange = (stateEvent: StateEvent) => {
+    // Implement the logic here
+    const { state, target } = stateEvent;
+    const _target = target as TwicImgComponent;
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent emits a new state`, state );
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent source was`, _target.src );
+    this.state = state;
+    this.changeDetector.detectChanges();
+  }
+```
+
 #include "src/_documentation/common/_componentsProps.md"
 
 ### Mode Type
@@ -337,8 +384,8 @@ type Mode = `contain` | `cover`;
 
 To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Mode`.
 
-`<your-component>.ts`
 ```ts
+// component.ts
 import { Mode } from "@twicpics/components/angular14";
 
 @Component({
@@ -348,13 +395,11 @@ import { Mode } from "@twicpics/components/angular14";
 })
 export class YourComponent {
   yourModeVariable:Mode = `contain`;
-
 }
 ```
 
-`<your-component>.html`
-
 ```html
+<!-- component.html -->
 <TwicImg src="path/to/your/image" [mode]="yourModeVariable"></TwicImg>
 ```
 
@@ -371,26 +416,57 @@ type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 
 To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Placeholder`.
 
-`<your-component>.ts`
 ```ts
-import { Placeholder } from "@twicpics/components/angular14";
+  // component.ts
+  import { Placeholder } from "@twicpics/components/angular14";
 
-@Component({
-  selector: ...,
-  templateUrl: ...,
-  styleUrls: ...,
-})
-export class YourComponent {
-  yourPlaceholderVariable:Placeholder = `none`;
-
+  @Component({
+    selector: ...,
+    templateUrl: ...,
+    styleUrls: ...,
+  })
+  export class YourComponent {
+    yourPlaceholderVariable:Placeholder = `none`;
 }
 ```
 
-`<your-component>.html`
-
 ```html
-<TwicImg src="path/to/your/image" [placeholder]="yourPlaceholderVariable"></TwicImg>
+<!-- component.html -->
+<TwicImg
+  src="path/to/your/image" 
+  [placeholder]="yourPlaceholderVariable">
+</TwicImg>
 ```
+
+<div id='state-type'/>
+
+### Loading State Values
+
+Union type for all possible state values emitted through `@output` property `stateChangeEvent`.
+
+```ts
+type State = `error` | `done` | `loading` | `new`;
+```
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+<div id='state-event-type'/>
+
+### State Change Event
+
+Data type emitted by `@output` property `stateChangeEvent`.
+
+```ts
+export type StateEvent = {
+  target: TwicImgComponent | TwicVideoComponent,
+  state: State
+};
+```
+
 
 #include "src/_documentation/common/_cssVariables.md"
 

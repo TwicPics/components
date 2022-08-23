@@ -2,6 +2,7 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Nuxt3"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://nuxtjs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "nuxt"
+#include "src/_documentation/common/vue/_replacerRules.md"
 #include "src/_documentation/common/_title.md"
 
 ## Overview
@@ -83,9 +84,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 ### Basic usage
 
-`<your-page-or-component>.vue`
-
 ```html
+<!-- component.vue -->
 <template>
   <main>
     <TwicImg src="path/to/your/image"/>
@@ -99,9 +99,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 You can set up components using pure CSS and the power of [CSS variables](#css-variables)
 
-`<your-page-or-component>.vue`
-
 ```html
+<!-- component.vue -->
 <template>
   <main>
     <div class="twic-item landscape">
@@ -179,9 +178,8 @@ export default {
 
 Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
 
-`<your-page-or-component>.vue`
-
 ```html
+<!-- component.vue -->
 <template>
   <main>
     <div class="style-driven-responsive">
@@ -247,15 +245,14 @@ Your template features a single component that will follow your CSS directives a
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
 
-`<your-page-or-component>.vue`
-
 ```html
+<!-- component.vue -->  
 <template>
   <TwicImg
     src="path/to/your/image"
     class="hero-image"
     ratio="none"
- ></TwicImg>
+  ></TwicImg>
 </template>
 
 <script>
@@ -283,7 +280,11 @@ export default {
   <img alt="Edit TwicPics x Nuxt3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+#include "src/_documentation/common/vue/_lifeCycle.md"
+
 #include "src/_documentation/common/_componentsProps.md"
+
+#include "src/_documentation/common/vue/_stateType.md"
 
 #include "src/_documentation/common/_cssVariables.md"
 

@@ -1,6 +1,15 @@
+/* eslint-disable max-lines */
 import "../_/style.css";
 
-import type { Anchor, Attributes as BaseAttributes, Mode, Placeholder, PlaceholderHandler } from "../_/types";
+import type {
+    Anchor,
+    Attributes as BaseAttributes,
+    Media,
+    Mode,
+    Placeholder,
+    State,
+    StateEvent,
+} from "../_/types";
 import {
     computeAlt,
     computeData,
@@ -9,7 +18,6 @@ import {
     computeWrapperClass,
     computeWrapperStyle,
 } from "../_/compute";
-import { createPlaceholderHandler } from "../_/placeholder";
 import {
     parseAlt,
     parseAnchor,
@@ -33,10 +41,14 @@ import {
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import PropTypes from "prop-types";
+import { Observer } from "../_/Observer";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
+
+type onStateChangeType = ( stateEvent: StateEvent ) => void;
 
 export interface Attributes extends BaseAttributes {
     className?: string,
+    onStateChange?: onStateChangeType,
 }
 
 const defaultProps: Attributes = {
@@ -47,6 +59,7 @@ const defaultProps: Attributes = {
     "focus": undefined,
     "intrinsic": undefined,
     "mode": undefined,
+    "onStateChange": undefined,
     "placeholder": undefined,
     "position": undefined,
     "preTransform": undefined,
@@ -71,6 +84,7 @@ const propTypes = {
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),
+    "onStateChange": PropTypes.func,
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
     "preTransform": string,
@@ -98,6 +112,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             focus: PropTypes.Requireable<string>;
             intrinsic: PropTypes.Requireable<string>;
             mode: PropTypes.Requireable<Mode>;
+            onStateChange: PropTypes.Requireable<onStateChangeType>;
             placeholder: PropTypes.Requireable<Placeholder>;
             position: PropTypes.Requireable<string>;
             preTransform: PropTypes.Requireable<string>;
@@ -109,18 +124,27 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             transitionDuration: PropTypes.Requireable<string>;
             transitionTimingFunction: PropTypes.Requireable<string>;
         };
-        private _p: PlaceholderHandler;
-        private _pe: React.RefObject< HTMLDivElement >;
+        private observer: Observer;
+        private media: React.RefObject< Media >;
         constructor( attributes: Attributes ) {
             super( attributes );
-            this._p = createPlaceholderHandler();
-            this._pe = React.createRef();
+            this.observer = new Observer( ( state: State ) => {
+                if ( this.props.onStateChange ) {
+                    this.props.onStateChange(
+                        {
+                            "target": this,
+                            state,
+                        }
+                    );
+                }
+            } );
+            this.media = React.createRef();
         }
         componentDidMount() {
-            this._p.setPlaceholderElement( this._pe.current );
+            this.observer.setMedia( this.media.current );
         }
         componentWillUnmount() {
-            this._p.delete();
+            this.observer.destroy();
         }
         render() {
             const { props } = this;
@@ -149,6 +173,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                         style = { computeWrapperStyle( ratio ) }
                     >
                         <Tag
+                            ref={ this.media }
                             alt = { withAlt ? computeAlt( alt, src ) : undefined }
                             style = {
                                 computeStyle(
@@ -162,7 +187,6 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                             { ...computeData( anchor, bot, focus, intrinsic, mode, preTransform, src, step ) }
                         />
                         <div
-                            ref={ this._pe }
                             style = {
                                 computePlaceholderStyle(
                                     anchor,
@@ -177,7 +201,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     transitionDelay,
                                     transitionDuration,
                                     transitionTimingFunction,
-                                    this._p.setData
+                                    this.observer.setPlaceholderData
                                 )
                             }
                         />

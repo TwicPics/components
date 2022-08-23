@@ -8,7 +8,7 @@ export default {
 </script>
 <template>
     <main>
-        <Menu />
+        <MenuBar />
         <Sample />
     </main>
 </template>

@@ -2,6 +2,10 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Svelte3"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://svelte.dev/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "svelte"
+// /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n    - [Lifecycle](#lifecycle)"
+// /(\b)__TWIC_STATE_CHANGE_PROP__(\b)/gm => "\n  bind:state=\"<String>\"\n  on:statechange=\"<function>\""
+// /(\b)__TWIC_STATE_CHANGE_IMG__(\b)/gm => "\n| `state` | A string property being update each time the image loading state is updated. Values can be `new`, `loading`, `done` or `error`.| `String` | |\n| `statechange` | A custom event dispatched each time the image loading state is updated. Emitted values can be `new`, `loading`, `done` or `error`.| `( e: CustomEvent ) => void` | |"
+// /(\b)__TWIC_STATE_CHANGE_VIDEO__(\b)/gm => "\n| `state` | A string property being update each time the video loading state is updated. Values can be `new`, `loading`, `done` or `error`.| `String` | |\n| `statechange` | A custom event dispatched each time the video loading state is updated. Emitted values can be `new`, `loading`, `done` or `error`.| `( e: CustomEvent ) => void` | |"
 #include "src/_documentation/common/_title.md"
     
 ## Overview
@@ -91,9 +95,8 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 ### Basic usage
 
-`<your-page-or-component>.svelte`
-
 ```html
+<!-- component.svelte-->
 <script>
   import { TwicImg } from "@twicpics/components/svelte3";
 </script>
@@ -109,9 +112,8 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 You can set up components using pure CSS and the power of [CSS variables](#css-variables)
 
-`<your-page-or-component>.svelte`
-
 ```html
+<!-- component.svelte-->
 <script>
   import { TwicImg } from "@twicpics/components/svelte3";
 </script>
@@ -175,9 +177,9 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
 
-`<your-page-or-component>.svelte`
 
 ```html
+<!-- component.svelte-->
 <script>
   import { TwicImg } from "@twicpics/components/svelte3";
 </script>
@@ -239,9 +241,9 @@ Your template features a single component that will follow your CSS directives a
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
 
-`<your-page-or-component>.svelte`
 
 ```html
+<!-- component.svelte-->
 <script>
   import { TwicImg } from "@twicpics/components/svelte3";
 </script>
@@ -270,6 +272,61 @@ Particularly useful when creating hero banner, you can specify the height of you
 <a href="https://codesandbox.io/s/twicpics-x-svelte-hero-image-tgzblz?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Svelte3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
+
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Binding to `state` props gives access to the loading state of your image or video.
+
+Here are the values the Component will emit :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+```html
+<!-- component.svelte -->
+<script>
+  import { TwicImg } from "@twicpics/components/svelte3";
+  let state;
+
+  $: {
+    // Implement the logic here
+    console.log( `TwicComponent emits a new state`, state );
+  }
+</script>
+
+
+<TwicImg
+  bind:state
+  src="path/to/your/image"
+/>
+```
+
+Another approach is to listen to `statechange` event.
+
+```html
+<!-- component.svelte -->
+<script>
+  import { TwicImg } from "@twicpics/components/svelte3";
+  let state;
+
+  const handleStateChange = ( e ) => {
+    // Implement the logic here
+    state = e.detail;
+    console.log( `TwicComponent emits a new state`, state );
+  }
+</script>
+
+
+<TwicImg
+  on:statechange={handleStateChange}
+  src="path/to/your/image"
+/>
+```
 
 #include "src/_documentation/common/_componentsProps.md"
 

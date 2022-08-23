@@ -8,7 +8,7 @@ import {
     computeWrapperClass,
     computeWrapperStyle,
 } from "../_/compute";
-import { createPlaceholderHandler } from "../_/placeholder";
+import { Observer } from "../_/Observer";
 import {
     parseAlt,
     parseAnchor,
@@ -48,6 +48,7 @@ const callFactory = ( func, _args, isProp = false ) => {
 
 const computed = {};
 const props = {};
+const emits = [ `stateChange` ];
 
 for ( const [ propName, type, parseMethod, args ] of [
     [ `alt`, stringProp, parseAlt ],
@@ -99,7 +100,7 @@ for ( const [ propName, func, args ] of [
             `transitionDelay`,
             `transitionDuration`,
             `transitionTimingFunction`,
-            c => c._p.setData,
+            c => c.observer.setPlaceholderData,
         ],
     ],
     [ `_wrapperClass`, computeWrapperClass, [ `src`, `transition` ] ],
@@ -110,18 +111,24 @@ for ( const [ propName, func, args ] of [
 
 export default {
     props,
+    emits,
     computed,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     beforeCreate() {
-        this._p = createPlaceholderHandler();
+        this.observer = new Observer( state => {
+            this.$emit( `stateChange`, {
+                "target": this,
+                state,
+            } );
+        } );
     },
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     mounted() {
-        this._p.setPlaceholderElement( this.$refs.p );
+        this.observer.setMedia( this.$refs.media );
     },
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     unmounted() {
-        this._p.delete();
+        this.observer.destroy();
     },
 };
 </script>
@@ -133,14 +140,12 @@ export default {
         >
             <component
                 :is="_is"
+                ref="media"
                 :alt="_alt"
                 :style="_style"
                 v-bind="{ ..._dataAttributes }"
             />
-            <div
-                ref="p"
-                :style="_placeholderStyle"
-            />
+            <div :style="_placeholderStyle" />
         </div>
     </div>
 </template>

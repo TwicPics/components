@@ -2,19 +2,20 @@ declare const FRAMEWORK: string;
 
 const buildErrorMessage = ( message: string ): string => `twicpics-components ${ message }`;
 
-export const wait = ( ms = 0 ): Promise< void > => new Promise< void >(
-    resolve => ( ( ms > 0 ) ? setTimeout( resolve, ms ) : resolve() )
-);
-
-export const debounce = ( fn: () => void, ms = 0 ): ( () => void ) => {
-    let promise: Promise< void >;
+export const debounce = ( fn: () => void, ms = 0 ) : ( () => void ) => {
+    let timer: ReturnType< typeof setTimeout >;
     return () => {
-        if ( !promise ) {
-            promise = wait( ms ).then( () => {
-                promise = undefined;
-                fn();
-            } );
+        if ( !timer ) {
+            fn();
         }
+        clearTimeout( timer );
+        timer = setTimeout(
+            () => {
+                timer = undefined;
+                fn();
+            },
+            ms
+        );
     };
 };
 

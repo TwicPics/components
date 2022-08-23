@@ -2,6 +2,7 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Nuxt2"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://nuxtjs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "nuxt"
+#include "src/_documentation/common/vue/_replacerRules.md"
 #include "src/_documentation/common/_title.md"
 
 ## Overview
@@ -96,9 +97,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 ### Basic usage
 
-`<your-page-or-component>.vue`
-
 ```html
+<!-- component.vue -->
 <template>
   <main>
     <TwicImg src="path/to/your/image"/>
@@ -112,9 +112,9 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 You can set up components using pure CSS and the power of [CSS variables](#css-variables)
 
-`<your-page-or-component>.vue`
 
 ```html
+<!-- component.vue -->
 <template>
   <main>
     <div class="twic-item landscape">
@@ -192,9 +192,8 @@ export default {
 
 Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
 
-`<your-page-or-component>.vue`
-
 ```html
+<!-- component.vue -->
 <template>
   <main>
     <div class="style-driven-responsive">
@@ -296,7 +295,11 @@ export default {
   <img alt="Edit TwicPics x Nuxt2 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+#include "src/_documentation/common/vue/_lifeCycle.md"
+
 #include "src/_documentation/common/_componentsProps.md"
+
+#include "src/_documentation/common/vue/_stateType.md"
 
 #include "src/_documentation/common/_cssVariables.md"
 

@@ -4,7 +4,7 @@ const res = await getSampleImage();
 </script>
 <template>
     <main>
-        <Menu />
+        <MenuBar />
         <h1>Nuxt3 SSR test page</h1>
         <h2>
             {{ res.focus ? `focus='auto',` : `` }} mode = {{ res.mode }}
@@ -16,6 +16,7 @@ const res = await getSampleImage();
                     :focus="res.focus"
                     :ratio="res.ratio"
                     :mode="res.mode"
+                    @stateChange="handleStateChange"
                 />
                 <span>ratio = {{ res.ratio }}</span>
             </div>
@@ -34,4 +35,8 @@ const res = await getSampleImage();
 </template>
 
 <script>
+const handleStateChange = state => {
+    // eslint-disable-next-line no-console
+    console.log( `Vue - TwicImg emits new state`, state );
+};
 </script>
