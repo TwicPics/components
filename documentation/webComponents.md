@@ -190,9 +190,8 @@ More properties [here](#components).
 
 ### Basic usage
 
-`<your-page>.html`
-
 ```html
+<!-- page.html -->
 <body>
     <twic-img src="path/to/your/image"/>
 </body>
@@ -204,9 +203,9 @@ More properties [here](#components).
 
 You can set up components using pure CSS and the power of [CSS variables](#css-variables)
 
-`index.html`
 
 ```html
+<!-- page.html -->
 <style>
   body {
     background-color: #342d4e;
@@ -293,11 +292,10 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
 
-`<your-page>.html`
-
 Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
+<!-- page.html -->
 <style>
   main {
     margin-left: auto;
@@ -362,9 +360,9 @@ Your template features a single component that will follow your CSS directives a
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
 
-`<your-page>.html`
 
 ```html
+<!-- page.html -->
 <style>
   /* You are responsible for properly sizing the component. */
   .hero-image {
@@ -407,22 +405,22 @@ This component can be used in place of an `img` element.
 
 ```html
 <twic-img
-  src="<path>" (mandatory)
-  alt="<string>"
-  anchor="<string>"
-  ratio="<ratio>"
-  intrinsic="<string>"
-  mode="<contain|cover>"
+  src="<path>"
+  alt="<String>"
+  anchor="<String>"
+  bot="<String>"
   focus="<auto|coordinates>"
+  intrinsic="<String>"
+  mode="<contain|cover>"
   position="<css position>"
   placeholder="<preview|maincolor|meancolor|none>"
-  preTransform="<string>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  step="<integer>"
-  bot="<string>"
 />
 ```
 
@@ -453,21 +451,21 @@ This component can be used in place of a `video` element.
 
 ```html
 <twic-video
-  src="<path>" (mandatory)
-  anchor="<string>"
-  ratio="<ratio>"
-  mode="<contain|cover>"
-  intrinsic="<string>"
+  src="<path>"
+  anchor="<String>"
+  bot="<String>"
   focus="<auto|coordinates>"
+  intrinsic="<String>"
+  mode="<contain|cover>"
   position="<css position>"
   placeholder="<preview|maincolor|meancolor|none>"
-  preTransform="<string>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  step="<integer>"
-  bot="<string>"
 />
 ```
 
@@ -489,7 +487,6 @@ This component can be used in place of a `video` element.
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-
 
 <div id='css-variables'/>
 

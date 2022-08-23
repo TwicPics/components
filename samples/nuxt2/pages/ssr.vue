@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Menu />
+        <MenuBar />
         <h1>Nuxt2 SSR test page</h1>
         <h2>
             {{ res.focus ? `focus='auto',` : `` }} mode = {{ res.mode }}
@@ -12,6 +12,7 @@
                     :focus="res.focus"
                     :ratio="res.ratio"
                     :mode="res.mode"
+                    @stateChange="handleStateChange"
                 />
                 <span>ratio = {{ res.ratio }}</span>
             </div>
@@ -30,17 +31,23 @@
 </template>
 
 <script>
-import Menu from "../components/menu.vue";
+import MenuBar from "../components/menuBar.vue";
 import { getSampleImage } from "@twicpics/components-sample/fakeServer.js";
 export default {
     "components": {
-        Menu,
+        MenuBar,
     },
     async asyncData( ) {
         const res = await getSampleImage();
         return {
             res,
         };
+    },
+    "methods": {
+        handleStateChange( state ) {
+            // eslint-disable-next-line no-console
+            console.log( `Vue - TwicImg emits new state`, state );
+        },
     },
 };
 </script>

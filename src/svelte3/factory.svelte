@@ -1,7 +1,7 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
-import type { Anchor, Attributes as BaseAttributes, Mode, Placeholder } from "../_/types";
+import type { Anchor, Attributes as BaseAttributes, Media, Mode, Placeholder, State } from "../_/types";
 
 import { configBasedStyle, markComponentsChain } from "../_/install";
 import {
@@ -12,9 +12,8 @@ import {
     computeWrapperClass,
     computeWrapperStyle,
 } from "../_/compute";
-import { createPlaceholderHandler } from "../_/placeholder";
 import { isBrowser, isWebComponents } from "../_/utils";
-import { onDestroy, onMount } from "svelte/internal";
+import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
 import {
     parseAlt,
     parseAnchor,
@@ -35,9 +34,11 @@ import {
     parseTransitionTimingFunction,
 } from "../_/parse";
 import { styleToString } from "./utils";
+import { Observer } from "../_/Observer";
 
 export interface Attributes extends BaseAttributes {
     class?: string,
+    state?: State
 }
 
 declare const MEDIA_TAG: string;
@@ -57,17 +58,21 @@ export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
 export let step: number = undefined;
+export let state: State = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 
+let media: Media;
 let placeholderElement: HTMLDivElement;
 
-let _placeholderImage = ``;
-const placeholderHandler = createPlaceholderHandler( bgImage => {
-    _placeholderImage = bgImage ? `background-image:${ bgImage }` : ``;
-} );
+const observer = new Observer( ( _state: State )=> {
+    state = _state;
+}  );
+
+const stateDispatcher = createEventDispatcher();
+$: stateDispatcher( `statechange`, { state } );
 
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
@@ -109,7 +114,7 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedTransitionDelay,
     parsedTransitionDuration,
     parsedTransitionTimingFunction,
-    placeholderHandler.setData,
+    observer.setPlaceholderData,
 ) );
 
 $: _style = styleToString( computeStyle(
@@ -124,12 +129,14 @@ $: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
 
 if ( isBrowser ) {
     onMount( () => {
-        placeholderHandler.setPlaceholderElement( placeholderElement );
+        observer.setMedia( media );
         if ( isWebComponents ) {
             markComponentsChain( placeholderElement.parentNode as Element );
         }
     } );
-    onDestroy( placeholderHandler.delete );
+    onDestroy( () => {
+        observer.destroy();
+    } );
 }
 </script>
 
@@ -142,13 +149,14 @@ if ( isBrowser ) {
         style = { _wrapperStyle }
     >
         <img
+            bind:this = { media }
             alt = { _alt }
             style = { _style }
             { ..._data }
         />
         <div
             bind:this = { placeholderElement }
-            style = "{ _placeholderStyle }{ _placeholderImage }"
+            style = "{ _placeholderStyle }"
         />
     </div>
 </div>

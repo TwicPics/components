@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 ![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.10.0/documentation/resources/angular-cover.png)
 
 
@@ -20,6 +24,7 @@
     - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
     - [Working with ratio="none"](#ratio-none)
+    - [Lifecycle](#lifecycle)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
@@ -203,9 +208,8 @@ installTwicPics( {
 
 Just use them in your template files in place of `img` or `video` tags.
 
-`<your-component-within-app.module>.component.html`
-
 ```html
+<!-- component.html -->
 <TwicImg src="path/to/your/image"></TwicImg>
 ```
 
@@ -213,9 +217,8 @@ Just use them in your template files in place of `img` or `video` tags.
 
 ### Basic usage
 
-`<your-component-within-app.module>.component.html`
-
 ```html
+<!-- component.html -->
 <main>
   <TwicImg src="path/to/your/image"/>
 </main>
@@ -271,9 +274,8 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 }
 ```
 
-`<your-component-within-app.module>.component.html`
-
 ```html
+<!-- component.html -->
 <main>
   <div class="landscape">
     <TwicImg src="path/to/your/image"></TwicImg>
@@ -361,11 +363,10 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 ```
 
-`<your-component-within-app.module>.component.html`
-
 Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
+<!-- component.html -->
 <main>
   <div class="style-driven-responsive">
     <TwicImg src="path/to/your/image"></TwicImg>
@@ -413,6 +414,52 @@ Particularly useful when creating hero banner, you can specify the height of you
   <img alt="Edit TwicPics x Angular - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Binding to `stateChangeEvent` gives access to the loading state of your image or video.
+
+Here are the values the Component will emit ([see State Type definition](#state-type)) :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+```html
+<!-- component.html -->
+<TwicImg
+  src="path/to/your/image"
+  (stateChangeEvent)="handleStateChange($event)"
+></TwicImg>
+```
+
+```ts
+  // component.ts
+  import { ChangeDetectorRef, Component } from "@angular/core";
+  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
+
+  export class Component {
+
+  state?: State;
+
+  constructor(private changeDetector: ChangeDetectorRef) { }
+
+  handleStateChange = (stateEvent: StateEvent) => {
+    // Implement the logic here
+    const { state, target } = stateEvent;
+    const _target = target as TwicImgComponent;
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent emits a new state`, state );
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent source was`, _target.src );
+    this.state = state;
+    this.changeDetector.detectChanges();
+  }
+```
+
 <div id='components-props'/>
 
 ## Components Properties
@@ -425,22 +472,23 @@ This component can be used in place of an `img` element.
 
 ```html
 <TwicImg
-  src="<path>" (mandatory)
-  alt="<string>"
-  anchor="<string>"
-  ratio="<ratio>"
-  intrinsic="<string>"
-  mode="<contain|cover>"
+  src="<path>"
+  alt="<String>"
+  anchor="<String>"
+  bot="<String>"
   focus="<auto|coordinates>"
+  intrinsic="<String>"
+  mode="<contain|cover>"
   position="<css position>"
   placeholder="<preview|maincolor|meancolor|none>"
-  preTransform="<string>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  (stateChangeEvent)="<function>"
+  step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  step="<integer>"
-  bot="<string>"
 />
 ```
 
@@ -457,6 +505,7 @@ This component can be used in place of an `img` element.
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/api/manipulations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
+| `stateChangeEvent` | An event emitter triggered each time the image loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
@@ -471,21 +520,22 @@ This component can be used in place of a `video` element.
 
 ```html
 <TwicVideo
-  src="<path>" (mandatory)
-  anchor="<string>"
-  ratio="<ratio>"
-  mode="<contain|cover>"
-  intrinsic="<string>"
+  src="<path>"
+  anchor="<String>"
+  bot="<String>"
   focus="<auto|coordinates>"
+  intrinsic="<String>"
+  mode="<contain|cover>"
   position="<css position>"
   placeholder="<preview|maincolor|meancolor|none>"
-  preTransform="<string>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  (stateChangeEvent)="<function>"
+  step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  step="<integer>"
-  bot="<string>"
 />
 ```
 
@@ -502,12 +552,12 @@ This component can be used in place of a `video` element.
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed before resizing the video (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/api/manipulations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
 | `src` | Path to the video. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent video. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
+| `stateChangeEvent` | An event emitter triggered each time the video loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `transition` | Determines how the video will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-
 
 ### Mode Type
 
@@ -521,8 +571,8 @@ type Mode = `contain` | `cover`;
 
 To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Mode`.
 
-`<your-component>.ts`
 ```ts
+// component.ts
 import { Mode } from "@twicpics/components/angular14";
 
 @Component({
@@ -532,13 +582,11 @@ import { Mode } from "@twicpics/components/angular14";
 })
 export class YourComponent {
   yourModeVariable:Mode = `contain`;
-
 }
 ```
 
-`<your-component>.html`
-
 ```html
+<!-- component.html -->
 <TwicImg src="path/to/your/image" [mode]="yourModeVariable"></TwicImg>
 ```
 
@@ -555,26 +603,57 @@ type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 
 To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Placeholder`.
 
-`<your-component>.ts`
 ```ts
-import { Placeholder } from "@twicpics/components/angular14";
+  // component.ts
+  import { Placeholder } from "@twicpics/components/angular14";
 
-@Component({
-  selector: ...,
-  templateUrl: ...,
-  styleUrls: ...,
-})
-export class YourComponent {
-  yourPlaceholderVariable:Placeholder = `none`;
-
+  @Component({
+    selector: ...,
+    templateUrl: ...,
+    styleUrls: ...,
+  })
+  export class YourComponent {
+    yourPlaceholderVariable:Placeholder = `none`;
 }
 ```
 
-`<your-component>.html`
-
 ```html
-<TwicImg src="path/to/your/image" [placeholder]="yourPlaceholderVariable"></TwicImg>
+<!-- component.html -->
+<TwicImg
+  src="path/to/your/image" 
+  [placeholder]="yourPlaceholderVariable">
+</TwicImg>
 ```
+
+<div id='state-type'/>
+
+### Loading State Values
+
+Union type for all possible state values emitted through `@output` property `stateChangeEvent`.
+
+```ts
+type State = `error` | `done` | `loading` | `new`;
+```
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+<div id='state-event-type'/>
+
+### State Change Event
+
+Data type emitted by `@output` property `stateChangeEvent`.
+
+```ts
+export type StateEvent = {
+  target: TwicImgComponent | TwicVideoComponent,
+  state: State
+};
+```
+
 
 <div id='css-variables'/>
 

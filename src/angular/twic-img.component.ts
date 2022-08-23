@@ -8,12 +8,12 @@ import { TwicBaseComponent } from "./twic-base.component";
     "selector": `TwicImg`,
     "template": `
         <div [ngClass]="wrapperClass" [ngStyle]="wrapperStyle">
-            <img
-                    [attr.alt]="description"
-                    [twicPicsAttributes]="elementAttributs"
-                    [ngStyle]="elementStyle"
+            <img #media
+                [attr.alt]="description"
+                [twicPicsAttributes]="mediaAttributs"
+                [ngStyle]="mediaStyle"
             >
-            <div #placeholder [ngStyle]="placeholderStyle"></div>
+            <div [ngStyle]="placeholderStyle"></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],

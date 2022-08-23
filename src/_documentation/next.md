@@ -2,6 +2,8 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Next.js"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://nextjs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "next"
+#include "src/_documentation/common/react/_replacerRules.md"
+
 #include "src/_documentation/common/_title.md"
     
 ## Overview
@@ -99,13 +101,11 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 ### Basic usage
 
-`<your-page-or-component>.js`
-
 NB : TwicPics Components can be used as well in `js`, `jsx`, `ts`, `tsx` files.
 
 ```js
+// component.js
 import React from "react";
-
 import { TwicImg } from "@twicpics/components/react";
 
 const YourTemplate = () => (
@@ -165,9 +165,8 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 }
 ```
 
-`<your-page-or-component>.jsx`
-
 ```html
+// component.jsx
 <div className="landscape">
   <TwicImg src=path/to/your/image></TwicImg>
 </div>
@@ -242,11 +241,10 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 }
 ```
 
-`<your-page-or-component>.js`
-
 Your template features a single component that will follow your CSS directives and behave responsively.
- 
-```html
+
+```jsx
+// component.js
 <TwicImg
   className="style-driven"
   src="path/to/your/image"
@@ -280,9 +278,8 @@ You are responsible for properly sizing the component.
 }
 ```
 
-`<your-page-or-component>.jsx`
-
-```html
+```jsx
+// component.jsx
 <TwicImg
   src="path/to/your/image"
   className="hero-image"
@@ -294,7 +291,11 @@ You are responsible for properly sizing the component.
   <img alt="Edit TwicPics x React - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+#include "src/_documentation/common/react/_lifeCycle.md"
+
 #include "src/_documentation/common/_componentsProps.md"
+
+#include "src/_documentation/common/react/_stateType.md"
 
 #include "src/_documentation/common/_cssVariables.md"
 

@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 ![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.10.0/documentation/resources/react-cover.png)
 
 
@@ -20,6 +24,7 @@
     - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
     - [Working with ratio="none"](#ratio-none)
+    - [Lifecycle](#lifecycle)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
@@ -214,13 +219,11 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 ### Basic usage
 
-`<your-page-or-component>.jsx`
-
 __NB__ : TwicPics Components can also be used in `js`, `jsx`, `ts`, `tsx` files.
 
 ```jsx
+// component.jsx
 import React from "react";
-
 import { TwicImg } from "@twicpics/components/react";
 
 const YourTemplate = () => (
@@ -280,9 +283,9 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 }
 ```
 
-`<your-page-or-component>.jsx`
 
 ```html
+<!-- component.jsx -->
 <div className="landscape">
   <TwicImg src=path/to/your/image></TwicImg>
 </div>
@@ -357,11 +360,10 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 }
 ```
 
-`<your-page-or-component>.jsx`
-
 Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
+<!-- component.jsx -->
 <TwicImg
   className="style-driven"
   src="path/to/your/image"
@@ -395,9 +397,8 @@ Particularly useful when creating hero banner, you can specify the height of you
 }
 ```
 
-`<your-page-or-component>.jsx`
-
 ```html
+<!-- component.jsx -->
 <TwicImg
   src="path/to/your/image"
   className="hero-image"
@@ -408,6 +409,38 @@ Particularly useful when creating hero banner, you can specify the height of you
 <a href="https://codesandbox.io/s/twicpics-x-react-hero-image-35h2on?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x React - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
+
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Passing a callback function to `onStateChange` gives access to the loading state of your image or video.
+
+Here are the values the Component will emit ([see State Type definition](#state-type)) :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+```js
+  // component.jsx
+  const [ state, setState ] = useState( undefined );
+  
+  const handleStateChange = ( stateEvent ) => {
+    // Implement the logic here
+    const { state } = stateEvent;
+    console.log( `TwicComponent emits a new state`, state );
+    setState( state );
+  }
+
+  return (
+    <TwicImg
+      onStateChange={handleStateChange}
+      src="path/to/your/image"
+    />
+  )
+```
 
 <div id='components-props'/>
 
@@ -421,22 +454,23 @@ This component can be used in place of an `img` element.
 
 ```html
 <TwicImg
-  src="<path>" (mandatory)
-  alt="<string>"
-  anchor="<string>"
-  ratio="<ratio>"
-  intrinsic="<string>"
-  mode="<contain|cover>"
+  src="<path>"
+  alt="<String>"
+  anchor="<String>"
+  bot="<String>"
   focus="<auto|coordinates>"
+  intrinsic="<String>"
+  mode="<contain|cover>"
+  onStateChange="<function>"
   position="<css position>"
   placeholder="<preview|maincolor|meancolor|none>"
-  preTransform="<string>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  step="<integer>"
-  bot="<string>"
 />
 ```
 
@@ -447,6 +481,7 @@ This component can be used in place of an `img` element.
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-bot) for more information. | `String` | |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `intrinsic` | Dimensions in pixels of the __original__ image, formatted `<width>x<height>` (eg. 1920x1080). It prevents image upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the __resulting__ image. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-intrinsic).| `String` | |
+| `onStateChange` | A callback function triggered each time the image loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`( stateEvent: StateEvent ) => void`](#state-event-type) | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Syntax is the same as for CSS position properties [`background-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) and [`object-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Only use this attribute if you need precise positionning: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | `center` |
@@ -467,21 +502,21 @@ This component can be used in place of a `video` element.
 
 ```html
 <TwicVideo
-  src="<path>" (mandatory)
-  anchor="<string>"
-  ratio="<ratio>"
-  mode="<contain|cover>"
-  intrinsic="<string>"
+  src="<path>"
+  anchor="<String>"
+  bot="<String>"
   focus="<auto|coordinates>"
+  intrinsic="<String>"
+  mode="<contain|cover>"
   position="<css position>"
   placeholder="<preview|maincolor|meancolor|none>"
-  preTransform="<string>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  step="<integer>"
-  bot="<string>"
 />
 ```
 
@@ -492,6 +527,7 @@ This component can be used in place of a `video` element.
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-bot) for more information.
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `intrinsic` | Dimensions in pixels of the __original__ video, formatted `<width>x<height>` (eg. 1920x1080). It prevents video upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the __resulting__ video. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-intrinsic).| `String` | |
+| `onStateChange` | A callback function triggered each time the video loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`( stateEvent: StateEvent ) => void`](#state-event-type) | |
 | `mode` | Can be `contain` or `cover` and determines if the video fills the area and is cropped accordingly (`cover`) or if the video will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `position` | Positions the video in `contain` mode. `position` takes precedence over `anchor` when both are provided. Syntax is the same as for CSS position properties [`background-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) and [`object-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Only use this attribute if you need precise positionning: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | `center` |
@@ -503,6 +539,35 @@ This component can be used in place of a `video` element.
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
+
+<div id='state-type'/>
+
+### Loading State Values
+
+Union type for all possible image or video loading state.
+
+```ts
+type State = `error` | `done` | `loading` | `new`;
+```
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+<div id='state-event-type'/>
+
+### State Change Event
+
+Data type passed as parameter to `onStateChange` function.
+
+```ts
+export type StateEvent = {
+  target: TwicImg | TwicVideo,
+  state: State
+};
+```
 
 
 <div id='css-variables'/>

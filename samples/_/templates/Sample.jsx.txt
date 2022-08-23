@@ -1,13 +1,21 @@
 // /(\s)class="/g => "$1className=\""
 // /(\b)transition=false(\b)/g => "transition='false'"
 // /(\b)transition=true(\b)/g => "transition='true'"
+// /___state___/g => "onStateChange={handleStateChange}"
 import React from "react";
 
 import { TwicImg } from "@twicpics/components/react";
 import { TwicVideo } from "@twicpics/components/react";
 
-const Sample = () => (
-    ###
-);
+const Sample = () => {
+    
+    const handleStateChange = ( stateEvent ) => {
+        console.log( `React - TwicImg emits new stateEvent`, stateEvent );
+    }
+    
+    return (
+        ###
+    );
+}
 
 export default Sample;
