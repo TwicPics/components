@@ -10,7 +10,7 @@ const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 const trimTransformOrUndefined = trimRegExpFactory( `.+?`, `[\\s\\/]` );
 
-const rAnchor = /(?<=\b)(?:(left|right)|(bottom|top))\b/g;
+const rAnchor = /\b(?:(left|right)|(bottom|top))\b/g;
 
 export const parseAnchor = ( anchor: string ) : AnchorObject => {
     const trimmed = trimOrUndefined( anchor );
