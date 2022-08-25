@@ -252,8 +252,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
-[0.9.0]: https://github.com/TwicPics/components/compare/0.9.0-beta.0...0.9.0
-[0.9.0-beta.0]: https://github.com/TwicPics/components/compare/0.8.2...0.9.0-beta.0
+[0.9.1]: https://github.com/TwicPics/components/compare/0.9.0...0.9.1
+[0.9.0]: https://github.com/TwicPics/components/compare/0.8.2...0.9.0
 [0.8.2]: https://github.com/TwicPics/components/compare/0.8.1...0.8.2
 [0.8.1]: https://github.com/TwicPics/components/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/TwicPics/components/compare/0.7.0...0.8.0
