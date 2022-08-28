@@ -29,7 +29,7 @@ While we recommend going the `ES module` route and use `import` statements, [Twi
 Add the import part
 
 ```js
-// import TwicPics react components
+// import TwicPics svelte3 components
 import { installTwicPics } from "@twicpics/components/svelte3";
 // import TwicPics components css
 import "@twicpics/components/style.css";
