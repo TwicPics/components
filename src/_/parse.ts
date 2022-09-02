@@ -4,7 +4,7 @@ import { logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
 import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
 
-const rImage = /^(image:)?\/?/;
+const rImage = /^(image:)?\/*/;
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );

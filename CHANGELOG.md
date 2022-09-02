@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Add `intrinsic` attribute to prevent upscaling and limit number of variants.
 
+### Fixed
+
+- Fixes placeholder loading error when asset URL starts with more than one slash.
+
 ## [0.9.1] - 2022-08-23
 
 ### Fixed
