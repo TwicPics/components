@@ -3,15 +3,16 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "serve": "$npm_execpath install && nuxt dev",
+    "serve": "$npm_execpath install && nuxt build && nuxt preview",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@twicpics/components": "file:../../dist",
     "@twicpics/components-sample": "file:../_"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.1"
+    "nuxt": "3.0.0-rc.9"
   }
 }

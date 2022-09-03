@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fixes placeholder loading error when asset URL starts with more than one slash.
+- Fixes the problem preventing the `Nuxt3` module from working with RC versions of `Nuxt3`.
 
 ## [0.9.1] - 2022-08-23
 
