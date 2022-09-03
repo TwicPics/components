@@ -888,5 +888,36 @@
                 ratio="1.25">
             </TwicImg>
         </div>
-    </div> 
+    </div>
+    <h2>Backgroung url</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg"
+                focus="auto">
+            </TwicImg>
+            <span>no reseved word</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="v1/football.jpg"
+                focus="auto">
+            </TwicImg>
+            <span>reserved word</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg?foo=bar"
+                focus="auto">
+            </TwicImg>
+            <span>no reserved word + query string</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="v1/football.jpg?foo=bar"
+                focus="auto">
+            </TwicImg>
+            <span>reserved word + query string</span>
+        </div>
+    </div>
 </main>

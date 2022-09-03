@@ -57,7 +57,7 @@ export const createPlaceholderHandler = (
                         if ( wrapperBackground && ( wrapperBackground !== savedWrapperBackground ) ) {
                             savedWrapperBackground = wrapperBackground;
                             const backgroundImage = `url(${ JSON.stringify(
-                                `${ config.domain }/v1/${ wrapperBackground }`
+                                `${ wrapperBackground }`
                             ) })`;
                             if ( handler ) {
                                 handler( backgroundImage );
