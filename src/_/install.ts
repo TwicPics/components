@@ -2,6 +2,7 @@ import type { Options, Environment } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
 import { rValidEnvironment } from "./validate";
+import { VERSION } from "./const";
 
 /**
  * default class used in config object
@@ -86,7 +87,7 @@ export default ( options: Options ): void => {
             return;
         }
 
-        const parts = [ `${ config.domain }/?v1` ];
+        const parts = [ `${ config.domain }/?${ VERSION }` ];
         Object.entries( options ).forEach( ( [ key, value ] ) => {
             if ( value != null ) {
                 let actualKey = key;

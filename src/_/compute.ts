@@ -2,6 +2,7 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { AnchorObject, Mode, Placeholder, PlaceholderData } from "./types";
 
+import { VERSION } from "./const";
 import { config } from "./install";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
@@ -181,21 +182,31 @@ export const computePlaceholderBackground = (
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
 
-    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
+    const rNoCatchAll = /^v[0-9]+(?:\/|$)|^(rel:)/;
+    const rPath = /^(?:image:)?(\/*)(.*)$/;
+    const rQuery = /\?/;
 
-    return `${
-        actualPreTransform
+    const [ , , path ] = rPath.exec( src );
+    const noCatchAll = rNoCatchAll.exec( path );
+    const noQuery = !rQuery.test( path );
+
+    const transform = `${
+        computePreTransform( anchor, focus, mode, preTransform )
     }${
         actualMode
     }=${
         width
     }x${
         height
-    }/output=${
-        placeholder
-    }/${
-        src
     }`;
+
+    const output = `output=${
+        placeholder
+    }`;
+
+    return noCatchAll ?
+        `${ config.domain }/${ VERSION }/${ transform }/${ output }/${ noCatchAll[ 1 ] ? `` : `image:` }${ path }` :
+        `${ config.domain }/${ path }${ noQuery ? `?` : `&` }twic=${ VERSION }/${ transform }/${ output }`;
 };
 
 export const computeWrapperClass = (

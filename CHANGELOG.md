@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Add `intrinsic` attribute to prevent upscaling and limit number of variants.
 
+### Changed
+
+- Preview ``URL`` no longer uses the [alternative format](https://www.twicpics.com/docs/api/basics#alternative-url-format) for better cache invalidation efficiency.
+
 ### Fixed
 
 - Fixes placeholder loading error when asset URL starts with more than one slash.
