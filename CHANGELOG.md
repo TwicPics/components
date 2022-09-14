@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+- Upgrade `Nuxt3` sample project dependencies.
+
 ## [0.10.0] - 2022-09-07
 
 ### Added
@@ -16,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Preview ``URL`` no longer uses the [alternative format](https://www.twicpics.com/docs/api/basics#alternative-url-format) for better cache invalidation efficiency.
+- Preview `URL` no longer uses the [alternative format](https://www.twicpics.com/docs/api/basics#alternative-url-format) for better cache invalidation efficiency.
 
 ### Fixed
 
