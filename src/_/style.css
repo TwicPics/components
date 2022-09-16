@@ -21,7 +21,7 @@
     /* variables */
     padding-top: calc( 100% / var( --twic-ratio, 1 ) );
 }
-/* IMG OR VIDEO */
+
 .twic-w > * {
     /* constants */
     display: block;
@@ -29,7 +29,6 @@
     height: 100%;
     position: absolute;
     top: 0;
-    visibility: hidden;
     width: 100%;
     transition-property: opacity, transform;
     will-change: opacity, transform;
@@ -46,11 +45,11 @@
     transition-duration: var( --twic-transition-duration, 400ms );
     transition-timing-function: var( --twic-transition-timing-function, ease );
 }
+
 /* PLACEHOLDER */
 .twic-w > div {
     /* constants */
     background-repeat: no-repeat;
-    visibility: visible;
     /* defaults */
     background-size: cover;
     background-position: center;
@@ -61,6 +60,9 @@
     font-size: calc( 1px / var( --twic-ratio, 1 ) );
 }
 
+.twic-w > img[src=""], .twic-w > img:not([src]) {
+    visibility: hidden;
+}
 
 .twic-w.twic-tz > img {
     transform: scale( 0 );

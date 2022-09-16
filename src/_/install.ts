@@ -23,7 +23,7 @@ export const config: {
 
 export const configBasedStyle = (): string =>
     // eslint-disable-next-line max-len
-    `.twic-w>.${ config.class }-done+div{opacity:0 !important}.twic-w>.${ config.class }-done{transform:none !important;visibility:visible !important}`;
+    `.twic-w>.${ config.class }-done+div{opacity:0 !important}.twic-w>.${ config.class }-done{transform:none !important;}`;
 export const markComponentsChain = ( item: Element ): undefined => {
     const attributeName = `data-${ config.class }-component`;
     while ( item ) {
