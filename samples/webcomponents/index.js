@@ -1,4 +1,4 @@
-import { installTwicPics, TwicImg } from "@twicpics/components/webcomponents";
+import { installTwicPics, TwicImg, TwicVideo } from "@twicpics/components/webcomponents";
 
 installTwicPics( {
     "domain": `https://demo.twic.pics`,
@@ -8,3 +8,4 @@ installTwicPics( {
 } );
 
 customElements.define( `twic-img`, TwicImg );
+customElements.define( `twic-video`, TwicVideo );

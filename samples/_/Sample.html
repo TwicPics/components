@@ -920,4 +920,41 @@
             <span>reserved word + query string</span>
         </div>
     </div>
+    <h2>Video</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicVideo
+                src="video/le-bhv-marais.mp4"
+                focus="auto"
+            ></TwicVideo>
+            <span>no ratio</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/le-bhv-marais.mp4"
+                focus="auto"
+                ratio="16/9"
+                placeholder="maincolor"
+            ></TwicVideo>
+            <span>ratio="16/9" + placeholder = "main"</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/le-bhv-marais.mp4"
+                focus="auto"
+                ratio="4/3"
+                placeholder="none"
+            ></TwicVideo>
+            <span>ratio="4/3" + placeholder = "none"</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/le-bhv-marais.mp4"
+                focus="auto"
+                preTransform="flip=y"
+                ratio="1.25"
+            ></TwicVideo>
+            <span>ratio="1.25" + flip=y</span>
+        </div>
+    </div>
 </main>
