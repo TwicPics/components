@@ -11,12 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Adds some video samples.
+- Add some video samples.
 - Upgrade dependencies.
 
 ### Fixed
 
-- Fixes transient image flickering on resize
+- Fix transient image flickering on resize
 
 ## [0.10.0] - 2022-09-07
 
