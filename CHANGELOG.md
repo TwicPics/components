@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.11.0] - 2022-09-29
+
 ### Added
 
 - Add API to listen to the loading state of images and videos.
@@ -280,6 +282,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.11.0]: https://github.com/TwicPics/components/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/TwicPics/components/compare/0.9.1...0.10.0
 [0.9.1]: https://github.com/TwicPics/components/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/TwicPics/components/compare/0.8.2...0.9.0
