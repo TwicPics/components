@@ -58,6 +58,7 @@ export const computeData = (
     focus: string,
     intrinsic: string,
     mode: Mode,
+    noLazyLoading: boolean,
     preTransform: string,
     src: string,
     step: number
@@ -68,6 +69,9 @@ export const computeData = (
     }
     if ( intrinsic ) {
         attributes[ `data-${ config.class }-intrinsic` ] = intrinsic;
+    }
+    if ( noLazyLoading ) {
+        attributes[ `data-${ config.class }-eager` ] = ``;
     }
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;

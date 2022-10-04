@@ -524,6 +524,33 @@
             <span>placeholder="preview"</span>
         </div>
     </div>
+    <h2>Lazy loading</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg src="football.jpg"></TwicImg>
+            <span>Default</span>
+        </div>
+        <div class="item">
+            <TwicImg src="football.jpg?nolazyloading=1" nolazyloading></TwicImg>
+            <span>nolazyloading</span>
+        </div>
+        <div class="item">
+            <TwicImg src="football.jpg?nolazyloading=2" nolazyloading="true"></TwicImg>
+            <span>nolazyloading="true"</span>
+        </div>
+        <div class="item">
+            <TwicImg src="football.jpg?lazyloading=1" nolazyloading="false"></TwicImg>
+            <span> nolazyloading="false"</span>
+        </div>
+        <div class="item">
+            <TwicImg src="football.jpg?lazyloading=2" ___nolazyloading_false___></TwicImg>
+            <span>Dynamic false</span>
+        </div>
+        <div class="item">
+            <TwicImg src="football.jpg?nolazyloading=3" ___nolazyloading_true___></TwicImg>
+            <span>Dynamic true</span>
+        </div>
+    </div>
     <h2>preTransform</h2>
     <div class="samples">
         <div class="item">

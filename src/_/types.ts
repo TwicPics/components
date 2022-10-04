@@ -22,6 +22,7 @@ export interface Attributes {
     focus?: string,
     intrinsic?: string,
     mode?: Mode,
+    nolazyloading: boolean,
     placeholder?: Placeholder,
     position?: string,
     preTransform?:string,

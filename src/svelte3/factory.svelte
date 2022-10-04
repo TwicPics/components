@@ -21,6 +21,7 @@ import {
     parseFocus,
     parseIntrinsic,
     parseMode,
+    parseNoLazyLoading,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
@@ -51,6 +52,7 @@ export { className as class };
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let mode: Mode = undefined;
+export let nolazyloading: boolean = false;
 export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
@@ -78,6 +80,7 @@ $: parsedBot = parseBot( bot );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
 $: parsedMode = parseMode( mode );
+$: parsedNoLazyLoading = parseNoLazyLoading( nolazyloading );
 $: parsedPlaceholder = parsePlaceholder( placeholder, src );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
@@ -95,6 +98,7 @@ $: _data = computeData(
     parsedBot, parsedFocus,
     parsedIntrinsic,
     parsedMode,
+    parsedNoLazyLoading,
     parsedPreTransform,
     parsedSrc,
     parsedStep
