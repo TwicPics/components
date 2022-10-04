@@ -39,6 +39,7 @@ import {
     parseFocus,
     parseIntrinsic,
     parseMode,
+    parseNoLazyLoading,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
@@ -65,6 +66,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
+    @Input() nolazyloading: boolean | string;
     @Input() placeholder: Placeholder = undefined;
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
@@ -82,6 +84,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     _focus: string = undefined;
     _intrinsic: string = undefined;
     _mode: Mode = undefined;
+    _nolazyloading: boolean;
     _placeholder: Placeholder = undefined;
     _position: string = undefined;
     _preTransform: string = undefined;
@@ -122,6 +125,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
         this._focus = parseFocus( this.focus );
         this._intrinsic = parseIntrinsic( this.intrinsic );
         this._mode = parseMode( this.mode );
+        this._nolazyloading = parseNoLazyLoading( this.nolazyloading );
         this._placeholder = parsePlaceholder( this.placeholder, this.src );
         this._position = parsePosition( this.position );
         this._preTransform = parsePreTransform( this.preTransform );
@@ -142,6 +146,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
                 this._focus,
                 this._intrinsic,
                 this._mode,
+                this._nolazyloading,
                 this._preTransform,
                 this._src,
                 this._step

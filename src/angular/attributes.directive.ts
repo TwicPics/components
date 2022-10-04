@@ -16,7 +16,8 @@ export class AttributesDirective implements OnChanges {
     ) { }
     manageAttributes():void {
         Object.entries( this.twicPicsAttributes || [] ).forEach( ( [ attributName, attributValue ] ) => {
-            if ( attributValue ) {
+            // eslint-disable-next-line no-negated-condition
+            if ( attributValue !== undefined ) {
                 this.renderer.setAttribute(
                     this.elementRef.nativeElement,
                     attributName,

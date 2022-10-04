@@ -16,6 +16,7 @@ import {
     parseFocus,
     parseIntrinsic,
     parseMode,
+    parseNoLazyLoading,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
@@ -57,6 +58,7 @@ for ( const [ propName, type, parseMethod, args ] of [
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
+    [ `nolazyloading`, booleanProp( null, false ), parseNoLazyLoading ],
     [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder, [ `placeholder`, `src` ] ],
     [ `position`, stringProp, parsePosition ],
     [ `preTransform`, stringProp, parsePreTransform ],
@@ -77,7 +79,7 @@ for ( const [ propName, func, args ] of [
     [
         `_dataAttributes`,
         computeData,
-        [ `anchor`, `bot`, `focus`, `intrinsic`, `mode`, `preTransform`, `src`, `step` ],
+        [ `anchor`, `bot`, `focus`, `intrinsic`, `mode`, `nolazyloading`, `preTransform`, `src`, `step` ],
     ],
     [
         `_style`,

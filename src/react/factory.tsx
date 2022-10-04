@@ -26,6 +26,7 @@ import {
     parseFocus,
     parseIntrinsic,
     parseMode,
+    parseNoLazyLoading,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
@@ -59,6 +60,7 @@ const defaultProps: Attributes = {
     "focus": undefined,
     "intrinsic": undefined,
     "mode": undefined,
+    "nolazyloading": undefined,
     "onStateChange": undefined,
     "placeholder": undefined,
     "position": undefined,
@@ -84,6 +86,10 @@ const propTypes = {
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),
+    "nolazyloading": PropTypes.oneOfType( [
+        PropTypes.bool,
+        PropTypes.string,
+    ] ),
     "onStateChange": PropTypes.func,
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
@@ -112,6 +118,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             focus: PropTypes.Requireable<string>;
             intrinsic: PropTypes.Requireable<string>;
             mode: PropTypes.Requireable<Mode>;
+            nolazyloading: PropTypes.Requireable<boolean | string>;
             onStateChange: PropTypes.Requireable<onStateChangeType>;
             placeholder: PropTypes.Requireable<Placeholder>;
             position: PropTypes.Requireable<string>;
@@ -156,6 +163,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const focus = parseFocus( props.focus );
             const intrinsic = parseIntrinsic( props.intrinsic );
             const mode = parseMode( props.mode );
+            const noLazyLoading = parseNoLazyLoading( props.nolazyloading );
             const placeholder = parsePlaceholder( props.placeholder, props.src );
             const position = parsePosition( props.position );
             const preTransform = parsePreTransform( props.preTransform );
@@ -166,6 +174,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const transitionDelay = parseTransitionDelay( props.transitionDelay );
             const transitionDuration = parseTransitionDuration( props.transitionDuration );
             const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
+
             return (
                 <div className= { `twic-i ${ className }` }>
                     <div
@@ -183,8 +192,21 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     transitionDelay,
                                     transitionDuration,
                                     transitionTimingFunction
-                                ) }
-                            { ...computeData( anchor, bot, focus, intrinsic, mode, preTransform, src, step ) }
+                                )
+                            }
+                            {
+                                ...computeData(
+                                    anchor,
+                                    bot,
+                                    focus,
+                                    intrinsic,
+                                    mode,
+                                    noLazyLoading,
+                                    preTransform,
+                                    src,
+                                    step
+                                )
+                            }
                         />
                         <div
                             style = {
