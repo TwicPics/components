@@ -6,7 +6,6 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    HostBinding,
     Input,
     Output,
     ViewChild,
@@ -55,10 +54,11 @@ import {
 @Component( {
     "selector": `lib-twic-base`,
     "template": `<p>To implement in child class</p>`,
+    "host": {
+        "class": `twic-i twic-d`,
+    },
 } )
 export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
-
-    @HostBinding( `class` ) classAttribute = `twic-i twic-d`;
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
