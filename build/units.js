@@ -20,7 +20,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             "preprocess": sveltePreprocessor(),
         } ),
         replacer( {
-            "include": /(?:^|[/.])factory\.svelte$/,
+            "include": /(?:^|[/.])(factory|twicView)\.svelte$/,
             "replacers": [
                 [ /\nexport default .+/, `` ],
                 [ /"img"/g, `MEDIA_TAG` ],
@@ -32,7 +32,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
         } ),
         ...( customElement ? [
             replacer( {
-                "include": /(?:^|[/.])factory\.svelte$/,
+                "include": /(?:^|[/.])(factory|twicView)\.svelte$/,
                 "replacers": [
                     [ /preTransform/g, `pretransform` ],
                     [ /transitionDelay/g, `transitiondelay` ],

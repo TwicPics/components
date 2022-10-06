@@ -524,7 +524,7 @@
             <span>placeholder="preview"</span>
         </div>
     </div>
-    <h2>Lazy loading</h2>
+    <h2>Lazy loading - eager</h2>
     <div class="samples">
         <div class="item">
             <TwicImg src="football.jpg"></TwicImg>
@@ -549,6 +549,76 @@
         <div class="item">
             <TwicImg src="football.jpg?nolazyloading=3" ___nolazyloading_true___></TwicImg>
             <span>Dynamic true</span>
+        </div>
+    </div>
+    <h2>Lazy loading - TwicView --&gt; scroll to the right</h2>
+    <TwicView class="samples">
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?twicview=1"
+                focus="auto"
+                ratio="1:1">
+            </TwicImg>
+            <span>TwicView - ratio="1:1"</span>
+        </div>
+        <div class="item out-of-view">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?twicview=2"
+                focus="auto"
+                ratio="16:9">
+            </TwicImg>
+            <span>TwicView - ratio="16:9"</span>
+        </div>
+        <div class="item out-of-view">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?twicview=3"
+                focus="auto"
+                ratio="4:3">
+            </TwicImg>
+            <span>TwicView - ratio="4:3"</span>
+        </div>
+        <div class="item out-of-view">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?twicview=4"
+                focus="auto"
+                ratio="5:4">
+            </TwicImg>
+            <span>TwicView - ratio="5:4"</span>
+        </div>
+    </TwicView>
+    <h2>Lazy loading - Outside of TwicView --&gt; scroll to the right</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?not_twicview=1"
+                focus="auto"
+                ratio="1:1">
+            </TwicImg>
+            <span>Not TwicView - ratio="1:1"</span>
+        </div>
+        <div class="item out-of-view">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?not_twicview=2"
+                focus="auto"
+                ratio="16:9">
+            </TwicImg>
+            <span>Not TwicView - ratio="16:9"</span>
+        </div>
+        <div class="item out-of-view">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?not_twicview=3"
+                focus="auto"
+                ratio="4:3">
+            </TwicImg>
+            <span>Not TwicView - ratio="4:3"</span>
+        </div>
+        <div class="item out-of-view">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg?not_twicview=4"
+                focus="auto"
+                ratio="5:4">
+            </TwicImg>
+            <span>Not TwicView - ratio="5:4"</span>
         </div>
     </div>
     <h2>preTransform</h2>

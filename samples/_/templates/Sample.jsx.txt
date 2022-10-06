@@ -8,6 +8,7 @@ import React from "react";
 
 import { TwicImg } from "@twicpics/components/react";
 import { TwicVideo } from "@twicpics/components/react";
+import { TwicView } from "@twicpics/components/react";
 
 const Sample = () => {
     
