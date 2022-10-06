@@ -8,3 +8,4 @@ export interface Attributes extends BaseAttributes {
 
 export default Component as unknown as
     ( ( tagName: `img` | `video` ) => SvelteComponentTyped< Attributes, undefined, undefined > );
+

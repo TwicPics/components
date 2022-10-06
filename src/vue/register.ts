@@ -1,18 +1,27 @@
 import type Vue from "vue";
-import Base from "./base.vue";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { computed } = Base as any;
+interface Register {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    component: any,
+    componantName: string,
+    tag?: string,
+}
 
-export default ( VueObject: typeof Vue, componentName: string, tag: string ): void => {
+export default ( VueObject: typeof Vue, options: Register ): void => {
+    const { component, componantName, tag } = options;
+    const { computed } = component;
     VueObject.component(
-        componentName,
+        componantName,
         {
-            ...Base,
-            "name": componentName,
+            ...component,
+            "name": componantName,
             "computed": {
-                "_is": () => tag,
                 ...computed,
+                ...(
+                    tag ? {
+                        "_is": () => tag,
+                    } : {}
+                ),
             },
         }
     );

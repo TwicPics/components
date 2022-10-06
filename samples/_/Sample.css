@@ -76,6 +76,10 @@ main {
     grid-gap: 1rem;
 }
 
+.out-of-view {
+    transform: translateX(2000%);
+}
+
 /* style driven */
 .style-driven-50 {
     width:50%;

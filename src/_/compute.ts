@@ -214,6 +214,12 @@ export const computePlaceholderBackground = (
         `${ config.domain }/${ path }${ noQuery ? `?` : `&` }twic=${ VERSION }/${ transform }/${ output }`;
 };
 
+export const computeViewAttributes = (): Record< string, string > => {
+    const attributes: Record< string, string > = {};
+    attributes[ `data-${ config.class }-view` ] = ``;
+    return attributes;
+};
+
 export const computeWrapperClass = (
     src: string,
     transitions: Record< string, boolean >
