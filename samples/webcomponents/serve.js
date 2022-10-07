@@ -13,6 +13,8 @@ await writeFile(
                 `./node_modules/@twicpics/components/webcomponents/module.mjs`
             )
     }</script><style>${
+        await readFile( resolve( rootDir, `node_modules/@twicpics/components/style.css` ), `utf8` )
+    }</style><style>${
         await readFile( resolve( sampleDir, `Sample.css` ), `utf8` )
     }</style>${
         await readFile( resolve( sampleDir, `Sample.html` ), `utf8` )
