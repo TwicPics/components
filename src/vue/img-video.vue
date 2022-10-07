@@ -47,7 +47,12 @@ const callFactory = ( func, _args, isProp = false ) => {
     };
 };
 
-const computed = {};
+const computed = {
+    // eslint-disable-next-line camelcase
+    p_isVideo() {
+        return this._is === `video`;
+    },
+};
 const props = {};
 const emits = [ `stateChange` ];
 
@@ -79,7 +84,7 @@ for ( const [ propName, func, args ] of [
     [
         `_dataAttributes`,
         computeData,
-        [ `anchor`, `bot`, `eager`, `focus`, `intrinsic`, `mode`, `preTransform`, `src`, `step` ],
+        [ `anchor`, `bot`, `eager`, `focus`, `intrinsic`, `isVideo`, `mode`, `preTransform`, `src`, `step` ],
     ],
     [
         `_style`,

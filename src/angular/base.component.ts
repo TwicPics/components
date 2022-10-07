@@ -84,6 +84,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
     _eager: boolean;
     _focus: string = undefined;
     _intrinsic: string = undefined;
+    _isVideo:boolean;
     _mode: Mode = undefined;
     _placeholder: Placeholder = undefined;
     _position: string = undefined;
@@ -146,6 +147,7 @@ export class TwicBaseComponent implements OnInit, OnDestroy, OnChanges {
                 this._eager,
                 this._focus,
                 this._intrinsic,
+                this._isVideo,
                 this._mode,
                 this._preTransform,
                 this._src,

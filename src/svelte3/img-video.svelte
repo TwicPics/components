@@ -74,6 +74,8 @@ const observer = new Observer( ( _state: State )=> {
 const stateDispatcher = createEventDispatcher();
 $: stateDispatcher( `statechange`, { state } );
 
+$: isVideo = MEDIA_TAG === `video`;
+
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
@@ -92,17 +94,18 @@ $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
 $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 
-$: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
+$: _alt = ( isVideo ? undefined : computeAlt( parsedAlt, parsedSrc ) );
 $: _data = computeData(
     parsedAnchor,
     parsedBot,
     parsedEager,
     parsedFocus,
     parsedIntrinsic,
+    isVideo,
     parsedMode,
     parsedPreTransform,
     parsedSrc,
-    parsedStep
+    parsedStep,
 );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,

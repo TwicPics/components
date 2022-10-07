@@ -1023,14 +1023,12 @@
         <div class="item">
             <TwicVideo
                 src="video/le-bhv-marais.mp4"
-                focus="auto"
             ></TwicVideo>
             <span>no ratio</span>
         </div>
         <div class="item">
             <TwicVideo
                 src="video/le-bhv-marais.mp4"
-                focus="auto"
                 ratio="16/9"
                 placeholder="maincolor"
             ></TwicVideo>
@@ -1039,7 +1037,6 @@
         <div class="item">
             <TwicVideo
                 src="video/le-bhv-marais.mp4"
-                focus="auto"
                 ratio="4/3"
                 placeholder="none"
             ></TwicVideo>
@@ -1048,11 +1045,22 @@
         <div class="item">
             <TwicVideo
                 src="video/le-bhv-marais.mp4"
-                focus="auto"
                 preTransform="flip=y"
                 ratio="1.25"
             ></TwicVideo>
             <span>ratio="1.25" + flip=y</span>
         </div>
     </div>
+    <h2>Hero Video : ratio = none + intrinsic</h2>
+    <div>
+        <TwicVideo
+            src="video/le-bhv-marais.mp4"
+            class="hero-image"
+            focus="center"
+            intrinsic="1920x1080"
+            ratio="none"
+        >
+        </TwicVideo>
+    </div>
+    
 </main>

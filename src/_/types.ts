@@ -51,7 +51,7 @@ export interface PlaceholderData {
     placeholder: Placeholder,
     preTransform: string,
     ratio: number,
-    transitions: Record< string, boolean >,
-    src: string
+    src: string,
+    transitions: Record< string, boolean >
 }
 
