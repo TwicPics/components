@@ -11,7 +11,12 @@ import { parseMode } from "./parse";
 const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
     ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
 
-const computePreTransform = ( { x, y }: AnchorObject, focus: string, mode: Mode, preTransform: string ): string => {
+const computePreTransform = (
+    { x, y }: AnchorObject,
+    focus: string,
+    mode: Mode,
+    preTransform: string
+): string => {
     const actualFocus = ( mode !== `contain` ) && ( focus || ( y ? ( x ? `${ y }-${ x }` : y ) : x ) );
     return `${
         preTransform || ``
@@ -58,6 +63,7 @@ export const computeData = (
     eager: boolean,
     focus: string,
     intrinsic: string,
+    isVideo: boolean,
     mode: Mode,
     preTransform: string,
     src: string,
@@ -67,23 +73,28 @@ export const computeData = (
     if ( typeof bot === `string` ) {
         attributes[ `data-${ config.class }-bot` ] = `${ bot }/`;
     }
+    if ( eager ) {
+        attributes[ `data-${ config.class }-eager` ] = ``;
+    }
     if ( intrinsic ) {
         attributes[ `data-${ config.class }-intrinsic` ] = intrinsic;
     }
-    if ( eager ) {
-        attributes[ `data-${ config.class }-eager` ] = ``;
+    if ( isVideo ) {
+        attributes[ `data-${ config.class }-poster` ] = src;
     }
     if ( src ) {
         attributes[ `data-${ config.class }-src` ] = src;
     }
     const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
-    if ( ( config.env === `debug` ) || actualPreTransform ) {
+    if ( ( config.env === `debug` ) || actualPreTransform || isVideo ) {
         attributes[ `data-${ config.class }-transform` ] = `${
             actualPreTransform
         }${
             config.env === `debug` ? `debug/` : ``
         }${
             `*`
+        }${
+            isVideo ? `/output=image` : ``
         }`;
     }
     if ( step !== undefined ) {
@@ -116,8 +127,8 @@ export const computePlaceholderStyle = (
         placeholder,
         preTransform,
         ratio,
-        transitions,
         src,
+        transitions,
     } );
     if ( mode ) {
         placeholderStyle[ `backgroundSize` ] = mode;
@@ -156,7 +167,7 @@ const PLACEHOLDER_DIM = 1000;
 // eslint-disable-next-line id-length
 export const computePlaceholderBackground = (
     element: Element,
-    { anchor, focus, mode, placeholder, preTransform, ratio, transitions, src }: PlaceholderData
+    { anchor, focus, mode, placeholder, preTransform, src, ratio, transitions }: PlaceholderData
 ): string => {
     if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) || !config.domain ) {
         return ``;

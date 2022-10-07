@@ -21,4 +21,8 @@ import { TwicBaseComponent } from "./base.component";
     "encapsulation": ViewEncapsulation.None,
 } )
 export class TwicVideoComponent extends TwicBaseComponent {
+    constructor() {
+        super();
+        this._isVideo = true;
+    }
 }

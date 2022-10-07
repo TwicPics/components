@@ -23,7 +23,7 @@ export const config: {
 
 export const configBasedStyle = (): string =>
     // eslint-disable-next-line max-len
-    `.twic-w>.${ config.class }-done+div{opacity:0 !important}.twic-w>.${ config.class }-done{transform:none !important;}`;
+    `.twic-w>.${ config.class }-done+div{opacity:0 !important}.twic-w>.${ config.class }-done{transform:none !important;}.twic-w>.${ config.class }-poster-done+div{opacity:0 !important}.twic-w>.${ config.class }-poster-done{transform:none !important;}`;
 
 const rInvalidPath = /\?/;
 const rValidDomain = /(^https?:\/\/[^/]+)\/?$/;

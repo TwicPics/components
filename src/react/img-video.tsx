@@ -131,8 +131,8 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             transitionDuration: PropTypes.Requireable<string>;
             transitionTimingFunction: PropTypes.Requireable<string>;
         };
-        private observer: Observer;
         private media: React.RefObject< Media >;
+        private observer: Observer;
         constructor( attributes: Attributes ) {
             super( attributes );
             this.observer = new Observer( ( state: State ) => {
@@ -163,6 +163,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             // eslint-disable-next-line no-shadow
             const focus = parseFocus( props.focus );
             const intrinsic = parseIntrinsic( props.intrinsic );
+            const isVideo = Tag === `video`;
             const mode = parseMode( props.mode );
             const placeholder = parsePlaceholder( props.placeholder, props.src );
             const position = parsePosition( props.position );
@@ -201,6 +202,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                     eager,
                                     focus,
                                     intrinsic,
+                                    isVideo,
                                     mode,
                                     preTransform,
                                     src,

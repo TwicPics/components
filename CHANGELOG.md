@@ -10,11 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Automate poster generation for videos.
 - Add `eager` attribute to turn off lazy loading on particular image or video.
 - New component `TwicView` generating a container which, as soon as it is in the view, makes it possible to load in bulk images or videos elements it contains, even if these elements are not yet required for display.
 
 ### Changed
 
+- No more `shadow-dom` for `web components`.
 - Upgrade dependencies.
 
 ## [0.11.0] - 2022-09-29
