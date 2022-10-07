@@ -1,5 +1,4 @@
 import type Vue from "vue";
-
 interface Register {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: any,

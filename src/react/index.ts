@@ -1,6 +1,6 @@
 export { default as installTwicPics } from "../_/install";
-import factory from "./factory";
-import TwicView from "./twicView";
-export const TwicImg = factory( `img`, true );
-export const TwicVideo = factory( `video` );
-export { TwicView };
+import imgVideo from "./img-video";
+import View from "./View";
+export const TwicImg = imgVideo( `img`, true );
+export const TwicVideo = imgVideo( `video` );
+export { View as TwicView };

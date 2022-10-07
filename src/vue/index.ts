@@ -2,8 +2,8 @@ import type { Options as BaseOptions } from "../_/types";
 import type { PluginFunction, default as Vue } from "vue";
 import { default as install } from "../_/install";
 import register from "./register";
-import Base from "./base.vue";
-import TwicView from "./twicView.vue";
+import ImgVideo from "./img-video.vue";
+import View from "./View.vue";
 import { throwError } from "../_/utils";
 
 interface Options extends BaseOptions {
@@ -24,17 +24,17 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
         throwError( `TwicView and TwicVideo components must have different names` );
     }
     register( VueObject, {
-        "component": Base,
+        "component": ImgVideo,
         "componantName": options.TwicImg || `TwicImg`,
         "tag": `img`,
     } );
     register( VueObject, {
-        "component": Base,
+        "component": ImgVideo,
         "componantName": options.TwicVideo || `TwicVideo`,
         "tag": `video`,
     } );
     register( VueObject, {
-        "component": TwicView,
+        "component": View,
         "componantName": options.TwicView || `TwicView`,
     } );
 };

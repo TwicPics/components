@@ -20,7 +20,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             "preprocess": sveltePreprocessor(),
         } ),
         replacer( {
-            "include": /(?:^|[/.])(factory|twicView)\.svelte$/,
+            "include": /(?:^|[/.])img-video\.svelte$/,
             "replacers": [
                 [ /\nexport default .+/, `` ],
                 [ /"img"/g, `MEDIA_TAG` ],
@@ -30,9 +30,18 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                 [ /$/, `);}` ],
             ],
         } ),
+        replacer( {
+            "include": /(?:^|[/.])View\.svelte$/,
+            "replacers": [
+                [ /\nexport default .+/, `` ],
+                [ /(?=\nfunction create_fragment\()/, `\nexport default () => {` ],
+                [ /(?=\nclass \S+ )/, `\nreturn (` ],
+                [ /$/, `);}` ],
+            ],
+        } ),
         ...( customElement ? [
             replacer( {
-                "include": /(?:^|[/.])(factory|twicView)\.svelte$/,
+                "include": /(?:^|[/.])img-video\.svelte$/,
                 "replacers": [
                     [ /preTransform/g, `pretransform` ],
                     [ /transitionDelay/g, `transitiondelay` ],

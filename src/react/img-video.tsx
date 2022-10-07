@@ -26,7 +26,7 @@ import {
     parseFocus,
     parseIntrinsic,
     parseMode,
-    parseNoLazyLoading,
+    parseEager,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
@@ -60,7 +60,7 @@ const defaultProps: Attributes = {
     "focus": undefined,
     "intrinsic": undefined,
     "mode": undefined,
-    "nolazyloading": undefined,
+    "eager": undefined,
     "onStateChange": undefined,
     "placeholder": undefined,
     "position": undefined,
@@ -86,7 +86,7 @@ const propTypes = {
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),
-    "nolazyloading": PropTypes.oneOfType( [
+    "eager": PropTypes.oneOfType( [
         PropTypes.bool,
         PropTypes.string,
     ] ),
@@ -118,7 +118,7 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             focus: PropTypes.Requireable<string>;
             intrinsic: PropTypes.Requireable<string>;
             mode: PropTypes.Requireable<Mode>;
-            nolazyloading: PropTypes.Requireable<boolean | string>;
+            eager: PropTypes.Requireable<boolean | string>;
             onStateChange: PropTypes.Requireable<onStateChangeType>;
             placeholder: PropTypes.Requireable<Placeholder>;
             position: PropTypes.Requireable<string>;
@@ -159,11 +159,11 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
             const anchor = parseAnchor( props.anchor );
             const bot = parseBot( props.bot );
             const className = parseClassName( props.className ) || ``;
+            const eager = parseEager( props.eager );
             // eslint-disable-next-line no-shadow
             const focus = parseFocus( props.focus );
             const intrinsic = parseIntrinsic( props.intrinsic );
             const mode = parseMode( props.mode );
-            const noLazyLoading = parseNoLazyLoading( props.nolazyloading );
             const placeholder = parsePlaceholder( props.placeholder, props.src );
             const position = parsePosition( props.position );
             const preTransform = parsePreTransform( props.preTransform );
@@ -198,10 +198,10 @@ export default ( Tag: `img` | `video`, withAlt?: boolean ):
                                 ...computeData(
                                     anchor,
                                     bot,
+                                    eager,
                                     focus,
                                     intrinsic,
                                     mode,
-                                    noLazyLoading,
                                     preTransform,
                                     src,
                                     step

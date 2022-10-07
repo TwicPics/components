@@ -21,7 +21,7 @@ import {
     parseFocus,
     parseIntrinsic,
     parseMode,
-    parseNoLazyLoading,
+    parseEager,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
@@ -52,7 +52,7 @@ export { className as class };
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let mode: Mode = undefined;
-export let nolazyloading: boolean = false;
+export let eager: boolean = false;
 export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
@@ -77,10 +77,10 @@ $: stateDispatcher( `statechange`, { state } );
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
+$: parsedEager = parseEager( eager );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
 $: parsedMode = parseMode( mode );
-$: parsedNoLazyLoading = parseNoLazyLoading( nolazyloading );
 $: parsedPlaceholder = parsePlaceholder( placeholder, src );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
@@ -95,10 +95,11 @@ $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTim
 $: _alt = ( MEDIA_TAG === "video" ? undefined : computeAlt( parsedAlt, parsedSrc ) );
 $: _data = computeData(
     parsedAnchor,
-    parsedBot, parsedFocus,
+    parsedBot,
+    parsedEager,
+    parsedFocus,
     parsedIntrinsic,
     parsedMode,
-    parsedNoLazyLoading,
     parsedPreTransform,
     parsedSrc,
     parsedStep

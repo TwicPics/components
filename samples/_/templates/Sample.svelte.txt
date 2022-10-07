@@ -1,6 +1,6 @@
 // /___state___/g => "bind:state on:statechange={( stateEvent ) => console.log(`Svelte - TwicImg emits an event.`, stateEvent)}"
-// /___nolazyloading_true___/ => "nolazyloading={true}"
-// /___nolazyloading_false___/ => "nolazyloading={false}"
+// /___eager_true___/ => "eager={true}"
+// /___eager_false___/ => "eager={false}"
 
 <script context="module">
     import { TwicImg } from "@twicpics/components/svelte3";
