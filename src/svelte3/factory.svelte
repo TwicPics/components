@@ -125,11 +125,11 @@ $: _style = styleToString( computeStyle(
 ) );
 $: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
 
+// this happens BEFORE onMount
+$: isWebComponents && media && ( media.parentElement.parentElement.style.overflow = `hidden` );
+
 if ( isBrowser ) {
     onMount( () => {
-        if ( isWebComponents ) {
-            media.parentElement.style.overflow = `hidden`;
-        }
         observer.setMedia( media );
     } );
     onDestroy( () => {
