@@ -55,19 +55,19 @@ export const parseIntrinsic = ( value: string ): string => {
     return parsedIntrinsic;
 };
 
-const mappingNoLazyLoading: { [ key: string ]: boolean; } = {
+const mappingEager: { [ key: string ]: boolean; } = {
     "true": true,
     "false": false,
     "": true,
 };
-export const parseNoLazyLoading = ( value: boolean | string ): boolean => {
+export const parseEager = ( value: boolean | string ): boolean => {
     if ( typeof value === `boolean` ) {
         return value;
     }
     if ( value === undefined ) {
         return false;
     }
-    return mappingNoLazyLoading[ value.trim() ] || false;
+    return mappingEager[ value.trim() ] || false;
 };
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );

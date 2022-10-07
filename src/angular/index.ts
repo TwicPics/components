@@ -2,9 +2,9 @@
  * public API Surface of ngx-components
  */
 export type { Mode, Placeholder, StateEvent, State } from "../_/types";
-export * from "./twic-img.component";
-export * from "./twic-video.component";
-export * from "./twic-view.component";
-export * from "./twic-pics-components.module";
+export * from "./img.component";
+export * from "./video.component";
+export * from "./view.component";
+export * from "./components.module";
 export { default as installTwicPics } from "../_/install";
 

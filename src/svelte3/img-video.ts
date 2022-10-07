@@ -1,5 +1,5 @@
 import type { Attributes as BaseAttributes } from "../_/types";
-import Component from "./factory.svelte";
+import Component from "./img-video.svelte";
 import type { SvelteComponentTyped } from "svelte";
 
 export interface Attributes extends BaseAttributes {

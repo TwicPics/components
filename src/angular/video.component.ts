@@ -1,18 +1,18 @@
 /**
- * img component
+ * video component
  */
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
-import { TwicBaseComponent } from "./twic-base.component";
+import { TwicBaseComponent } from "./base.component";
 
 @Component( {
-    "selector": `TwicImg`,
+    "selector": `TwicVideo`,
     "template": `
         <div [ngClass]="wrapperClass" [ngStyle]="wrapperStyle">
-            <img #media
-                [attr.alt]="description"
+            <video #media
                 [twicPicsAttributes]="mediaAttributs"
                 [ngStyle]="mediaStyle"
             >
+            </video>
             <div [ngStyle]="placeholderStyle"></div>
         </div>
     `,
@@ -20,5 +20,5 @@ import { TwicBaseComponent } from "./twic-base.component";
     "changeDetection": ChangeDetectionStrategy.OnPush,
     "encapsulation": ViewEncapsulation.None,
 } )
-export class TwicImgComponent extends TwicBaseComponent {
+export class TwicVideoComponent extends TwicBaseComponent {
 }

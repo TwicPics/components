@@ -2,8 +2,8 @@
 // /(\b)transition=false(\b)/g => "transition='false'"
 // /(\b)transition=true(\b)/g => "transition='true'"
 // /___state___/g => "onStateChange={handleStateChange}"
-// /___nolazyloading_true___/ => "nolazyloading={true}"
-// /___nolazyloading_false___/ => "nolazyloading={false}"
+// /___eager_true___/ => "eager={true}"
+// /___eager_false___/ => "eager={false}"
 import React from "react";
 
 import { TwicImg } from "@twicpics/components/react";

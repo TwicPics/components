@@ -1,6 +1,8 @@
 // /(\b)TwicImg(\b)/g => "$1twic-img$2"
 // /(\b)TwicVideo(\b)/g => "$1twic-video$2"
 // /(\b)TwicView(\b)/g => "$1twic-view$2"
+// /___eager_true___/ => "eager='true'"
+// /___eager_false___/ => "eager='false'"
 // /<(.)?main>/g => "<$1body>"
 // /___state___/g => " "
 ###

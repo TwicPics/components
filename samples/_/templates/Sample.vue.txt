@@ -1,7 +1,7 @@
 
 // /___state___/g => "@stateChange='handleStateChange'"
-// /___nolazyloading_true___/ => "v-bind:nolazyloading='true'"
-// /___nolazyloading_false___/ => "v-bind:nolazyloading='false'"
+// /___eager_true___/ => "v-bind:eager='true'"
+// /___eager_false___/ => "v-bind:eager='false'"
 <template>
     ###
 </template>

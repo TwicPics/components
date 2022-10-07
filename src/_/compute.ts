@@ -55,10 +55,10 @@ export const computeAlt =
 export const computeData = (
     anchor: AnchorObject,
     bot: string,
+    eager: boolean,
     focus: string,
     intrinsic: string,
     mode: Mode,
-    noLazyLoading: boolean,
     preTransform: string,
     src: string,
     step: number
@@ -70,7 +70,7 @@ export const computeData = (
     if ( intrinsic ) {
         attributes[ `data-${ config.class }-intrinsic` ] = intrinsic;
     }
-    if ( noLazyLoading ) {
+    if ( eager ) {
         attributes[ `data-${ config.class }-eager` ] = ``;
     }
     if ( src ) {
@@ -214,11 +214,9 @@ export const computePlaceholderBackground = (
         `${ config.domain }/${ path }${ noQuery ? `?` : `&` }twic=${ VERSION }/${ transform }/${ output }`;
 };
 
-export const computeViewAttributes = (): Record< string, string > => {
-    const attributes: Record< string, string > = {};
-    attributes[ `data-${ config.class }-view` ] = ``;
-    return attributes;
-};
+export const computeViewAttributes = (): Record< string, string > => ( {
+    [ `data-${ config.class }-view` ]: ``,
+} );
 
 export const computeWrapperClass = (
     src: string,
