@@ -3,7 +3,6 @@
 <script context="module" lang="ts">
 import type { Anchor, Attributes as BaseAttributes, Media, Mode, Placeholder, State } from "../_/types";
 
-import { configBasedStyle, markComponentsChain } from "../_/install";
 import {
     computeAlt,
     computeData,
@@ -65,7 +64,6 @@ export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 
 let media: Media;
-let placeholderElement: HTMLDivElement;
 
 const observer = new Observer( ( _state: State )=> {
     state = _state;
@@ -129,10 +127,10 @@ $: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
 
 if ( isBrowser ) {
     onMount( () => {
-        observer.setMedia( media );
         if ( isWebComponents ) {
-            markComponentsChain( placeholderElement.parentNode as Element );
+            media.parentElement.style.overflow = `hidden`;
         }
+        observer.setMedia( media );
     } );
     onDestroy( () => {
         observer.destroy();
@@ -140,10 +138,21 @@ if ( isBrowser ) {
 }
 </script>
 
-{#if isWebComponents }
-<span>/*STYLE*/{ configBasedStyle() }</span>
-{/if}
-<div class = {`twic-i ${ isWebComponents ? `` : parseClassName( className ) || `` }`}>
+{#if isWebComponents}
+<div
+    class = { computeWrapperClass( src, parsedTransition ) }
+    style = { _wrapperStyle }
+>
+    <img
+        bind:this = { media }
+        alt = { _alt }
+        style = { _style }
+        { ..._data }
+    />
+    <div style = "{ _placeholderStyle }" />
+</div>
+{:else}
+<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
     <div
         class = { computeWrapperClass( src, parsedTransition ) }
         style = { _wrapperStyle }
@@ -154,9 +163,7 @@ if ( isBrowser ) {
             style = { _style }
             { ..._data }
         />
-        <div
-            bind:this = { placeholderElement }
-            style = "{ _placeholderStyle }"
-        />
+        <div style = "{ _placeholderStyle }" />
     </div>
 </div>
+{/if}

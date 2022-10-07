@@ -1,6 +1,6 @@
 import type { Options, Environment } from "./types";
 import { createElement } from "./dom";
-import { isBrowser, isWebComponents, logWarning, throwError } from "./utils";
+import { isBrowser, logWarning, throwError } from "./utils";
 import { rValidEnvironment } from "./validate";
 import { VERSION } from "./const";
 
@@ -24,29 +24,6 @@ export const config: {
 export const configBasedStyle = (): string =>
     // eslint-disable-next-line max-len
     `.twic-w>.${ config.class }-done+div{opacity:0 !important}.twic-w>.${ config.class }-done{transform:none !important;}`;
-export const markComponentsChain = ( item: Element ): undefined => {
-    const attributeName = `data-${ config.class }-component`;
-    while ( item ) {
-        const { parentNode } = item;
-        const isHost = !parentNode && ( item instanceof ShadowRoot );
-        if ( isHost ) {
-            if ( ( item as unknown as ShadowRoot ).mode === `closed` ) {
-                throw new Error( `cannot use TwicPics components in closed ShadowRoot` );
-            }
-            // eslint-disable-next-line no-param-reassign
-            item = ( item as unknown as ShadowRoot ).host;
-        } else {
-            // eslint-disable-next-line no-param-reassign
-            item = ( parentNode as Element );
-        }
-        if ( isHost && item ) {
-            if ( item.hasAttribute( attributeName ) ) {
-                return;
-            }
-            item.setAttribute( attributeName, `` );
-        }
-    }
-};
 
 const rInvalidPath = /\?/;
 const rValidDomain = /(^https?:\/\/[^/]+)\/?$/;
@@ -119,7 +96,7 @@ export default ( options: Options ): void => {
                         "src": parts.join( `&` ),
                     },
                 ],
-                isWebComponents ? undefined : [ `style`, 0, configBasedStyle() ],
+                [ `style`, 0, configBasedStyle() ],
             ],
         ] );
     }

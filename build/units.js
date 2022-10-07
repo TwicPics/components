@@ -25,7 +25,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                 [ /\nexport default .+/, `` ],
                 [ /"img"/g, `MEDIA_TAG` ],
                 [ /"span"/g, `"style"` ],
-                [ /(?=\nfunction create_fragment\()/, `\nexport default MEDIA_TAG => {` ],
+                [ /(?=\nfunction create_(?:else_block|fragment|if_block)\()/, `\nexport default MEDIA_TAG => {` ],
                 [ /(?=\nclass \S+ )/, `\nreturn (` ],
                 [ /$/, `);}` ],
             ],
@@ -39,6 +39,14 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                     [ /transitionDuration/g, `transitionduration` ],
                     [ /transitionTimingFunction/g, `transitiontimingfunction` ],
                 ],
+            } ),
+            replacer( {
+                "include": /\.svelte$/,
+                "replacer": [ /\.shadowRoot\b/g, `` ],
+            } ),
+            replacer( {
+                "include": /\/node_modules\/svelte\/.*$/,
+                "replacer": [ /\n\s*this\.attachShadow\([^\n]+\n/, `\n` ],
             } ),
         ] : [] ),
     ],
