@@ -126,7 +126,7 @@ $: _style = styleToString( computeStyle(
 $: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
 
 // this happens BEFORE onMount
-$: isWebComponents && media && ( media.parentElement.parentElement.style.overflow = `hidden` );
+$: isWebComponents && media && ( media.parentElement.parentElement.className += ` twic-d twic-i ` );
 
 if ( isBrowser ) {
     onMount( () => {
