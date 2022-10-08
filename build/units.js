@@ -34,7 +34,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             "include": /(?:^|[/.])View\.svelte$/,
             "replacers": [
                 [ /\nexport default .+/, `` ],
-                [ /(?=\nfunction create_fragment\()/, `\nexport default () => {` ],
+                [ /(?=\nfunction create_(?:else_block|fragment|if_block)\()/, `\nexport default () => {` ],
                 [ /(?=\nclass \S+ )/, `\nreturn (` ],
                 [ /$/, `);}` ],
             ],

@@ -5,7 +5,6 @@ installTwicPics( {
     "anticipation": 0.5,
     "step": 100,
     "env": `production`,
-    "class": `pipo`,
 } );
 
 customElements.define( `twic-img`, TwicImg );
