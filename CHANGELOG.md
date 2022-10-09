@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - No more `shadow-dom` for `web components`.
+- Some code simplifications.
 - Upgrade dependencies.
 
 ## [0.11.0] - 2022-09-29
