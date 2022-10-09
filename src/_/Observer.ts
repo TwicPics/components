@@ -5,6 +5,7 @@ import { config } from "./install";
 import type { Media, PlaceholderData, State } from "./types";
 import { isBrowser, debounce } from "./utils";
 
+const debounceDelay = 100;
 const elementToObserver = new WeakMap();
 
 const mutationObserver: false | MutationObserver =
@@ -54,7 +55,6 @@ export class Observer {
             this.stateHandler( state as State );
         }
     };
-    // eslint-disable-next-line no-magic-numbers
     public refreshBackground = debounce( () => {
         if ( this.placeholderData ) {
             const wrapperBackground = computePlaceholderBackground(
@@ -67,8 +67,7 @@ export class Observer {
                 this.placeHolderElement.style.backgroundImage = `url(${ JSON.stringify( wrapperBackground ) })`;
             }
         }
-    // eslint-disable-next-line no-magic-numbers
-    }, 100 );
+    }, debounceDelay );
     public setMedia = ( media: Media ): void => {
         if ( media ) {
             this.media = media;
