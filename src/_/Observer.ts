@@ -99,18 +99,4 @@ export class Observer {
             }
         }
     };
-
-    private _refreshBackground = () => {
-        if ( this.placeholderData ) {
-            const wrapperBackground = computePlaceholderBackground(
-                this.placeHolderElement,
-                this.placeholderData
-            );
-            if ( wrapperBackground && ( wrapperBackground !== this.savedWrapperBackground ) ) {
-                this.savedWrapperBackground = wrapperBackground;
-                // eslint-disable-next-line no-param-reassign
-                this.placeHolderElement.style.backgroundImage = `url(${ JSON.stringify( wrapperBackground ) })`;
-            }
-        }
-    };
 }
