@@ -12,7 +12,7 @@ import {
     computeWrapperStyle,
 } from "../_/compute";
 import { isBrowser, isWebComponents } from "../_/utils";
-import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
+import { createEventDispatcher, get_current_component, onDestroy, onMount } from "svelte/internal";
 import {
     parseAlt,
     parseAnchor,
@@ -134,7 +134,11 @@ $: _style = styleToString( computeStyle(
 $: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
 
 // this happens BEFORE onMount
-$: isWebComponents && media && ( media.parentElement.parentElement.className += ` twic-d twic-i ` );
+$: {
+    if ( isWebComponents ) {
+        get_current_component().className = `${ parseClassName( className ) || `` } twic-d twic-i`;
+    }
+}
 
 if ( isBrowser ) {
     onMount( () => {

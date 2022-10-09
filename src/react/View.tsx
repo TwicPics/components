@@ -1,5 +1,5 @@
 import React, { type ReactNode } from "react";
-import { computeViewAttributes } from "../_/compute";
+import { getDataAttributeName } from "../_/install";
 
 type Props = {
     children: ReactNode
@@ -11,7 +11,7 @@ class TwicView extends React.Component< Props > {
             <div
                 {
                     ...{
-                        ...computeViewAttributes(),
+                        [ getDataAttributeName( `view` ) ]: ``,
                         ...props,
                     }
                 }
