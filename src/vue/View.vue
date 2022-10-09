@@ -10,7 +10,7 @@ export default {
 };
 </script>
 <template>
-    <div v-bind="{ viewAttributes }">
+    <div v-bind="viewAttributes ">
         <slot />
     </div>
 </template>
