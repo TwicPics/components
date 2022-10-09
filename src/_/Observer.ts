@@ -7,29 +7,32 @@ import { isBrowser, debounce } from "./utils";
 
 const elementToObserver = new WeakMap();
 
+const mutationObserver: false | MutationObserver =
+    isBrowser && ( typeof MutationObserver !== `undefined` ) &&
+    new MutationObserver( ( records: Array< MutationRecord > ): void => {
+        for ( const { target } of records ) {
+            const observer = elementToObserver.get( target ) as unknown as Observer;
+            if ( observer ) {
+                observer.handleState();
+            }
+        }
+    } );
+
+const resizeObserver: false | ResizeObserver =
+    isBrowser && ( typeof ResizeObserver !== `undefined` ) &&
+    new ResizeObserver( ( records: Array< ResizeObserverEntry > ): void => {
+        for ( const { target } of records ) {
+            const observer = elementToObserver.get( target ) as unknown as Observer;
+            if ( observer ) {
+                observer.refreshBackground();
+            }
+        }
+    } );
+
+const rTwicClasses = new RegExp( `(?:\\s*)(?:${ config.class }-)(done|error|loading)` );
+
 export class Observer {
 
-    private static mutationObserver: false | MutationObserver =
-        isBrowser && ( typeof MutationObserver !== `undefined` ) &&
-        new MutationObserver( ( records: Array< MutationRecord > ): void => {
-            for ( const { target } of records ) {
-                const observer = elementToObserver.get( target ) as unknown as Observer;
-                if ( observer ) {
-                    observer.handleState();
-                }
-            }
-        } );
-    private static resizeObserver: false | ResizeObserver =
-        isBrowser && ( typeof ResizeObserver !== `undefined` ) &&
-        new ResizeObserver( ( records: Array< ResizeObserverEntry > ): void => {
-            for ( const { target } of records ) {
-                const observer = elementToObserver.get( target ) as unknown as Observer;
-                if ( observer ) {
-                    observer.refreshBackground();
-                }
-            }
-        } );
-    private static rTwicClasses = new RegExp( `(?:\\s*)(?:${ config.class }-)(done|error|loading)` );
     private media: Media;
     private placeholderData: PlaceholderData;
     private placeHolderElement: HTMLDivElement;
@@ -44,7 +47,7 @@ export class Observer {
         if ( this.stateHandler ) {
             let state = `new`;
             const { className } = this.media;
-            const tmp = Observer.rTwicClasses.exec( className );
+            const tmp = rTwicClasses.exec( className );
             if ( tmp ) {
                 ( [ , state ] = tmp );
             }
@@ -71,15 +74,15 @@ export class Observer {
             this.media = media;
             elementToObserver.set( this.media, this );
             this.placeHolderElement = media.nextElementSibling as unknown as HTMLDivElement;
-            if ( Observer.mutationObserver ) {
-                Observer.mutationObserver.observe( this.media, {
+            if ( mutationObserver ) {
+                mutationObserver.observe( this.media, {
                     "attributes": true,
                     "attributeFilter": [ `class` ],
                 } );
                 this.handleState();
             }
-            if ( Observer.resizeObserver ) {
-                Observer.resizeObserver.observe( this.media );
+            if ( resizeObserver ) {
+                resizeObserver.observe( this.media );
             }
         }
     };
@@ -91,8 +94,8 @@ export class Observer {
     };
     public destroy = (): void => {
         if ( this.media ) {
-            if ( this.media && Observer.resizeObserver ) {
-                Observer.resizeObserver.unobserve( this.media );
+            if ( this.media && resizeObserver ) {
+                resizeObserver.unobserve( this.media );
             }
         }
     };

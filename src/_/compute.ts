@@ -4,7 +4,7 @@
 import type { AnchorObject, Mode, Placeholder, PlaceholderData } from "./types";
 
 import { VERSION } from "./const";
-import { config } from "./install";
+import { config, getDataAttributeName } from "./install";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
 
@@ -15,10 +15,13 @@ const computePreTransform = (
     { x, y }: AnchorObject,
     focus: string,
     mode: Mode,
-    preTransform: string
+    preTransform: string,
+    withDebug = false
 ): string => {
     const actualFocus = ( mode !== `contain` ) && ( focus || ( y ? ( x ? `${ y }-${ x }` : y ) : x ) );
     return `${
+        withDebug ? `debug/` : ``
+    }${
         preTransform || ``
     }${
         actualFocus ? `focus=${ actualFocus }/` : ``
@@ -70,35 +73,28 @@ export const computeData = (
     step: number
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
+    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform, config.env === `debug` );
     if ( typeof bot === `string` ) {
-        attributes[ `data-${ config.class }-bot` ] = `${ bot }/`;
+        attributes[ getDataAttributeName( `bot` ) ] = bot || `/`;
     }
     if ( eager ) {
-        attributes[ `data-${ config.class }-eager` ] = ``;
+        attributes[ getDataAttributeName( `eager` ) ] = ``;
     }
     if ( intrinsic ) {
-        attributes[ `data-${ config.class }-intrinsic` ] = intrinsic;
+        attributes[ getDataAttributeName( `intrinsic` ) ] = intrinsic;
     }
     if ( isVideo ) {
-        attributes[ `data-${ config.class }-poster` ] = src;
+        attributes[ getDataAttributeName( `poster` ) ] = src;
+        attributes[ getDataAttributeName( `poster-transform` ) ] = `${ actualPreTransform }*/output=image`;
     }
     if ( src ) {
-        attributes[ `data-${ config.class }-src` ] = src;
-    }
-    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform );
-    if ( ( config.env === `debug` ) || actualPreTransform || isVideo ) {
-        attributes[ `data-${ config.class }-transform` ] = `${
-            actualPreTransform
-        }${
-            config.env === `debug` ? `debug/` : ``
-        }${
-            `*`
-        }${
-            isVideo ? `/output=image` : ``
-        }`;
+        attributes[ getDataAttributeName( `src` ) ] = src;
     }
     if ( step !== undefined ) {
-        attributes[ `data-${ config.class }-step` ] = String( step );
+        attributes[ getDataAttributeName( `step` ) ] = String( step );
+    }
+    if ( actualPreTransform ) {
+        attributes[ getDataAttributeName( `transform` ) ] = `${ actualPreTransform }*`;
     }
     return attributes;
 };
@@ -224,10 +220,6 @@ export const computePlaceholderBackground = (
         `${ config.domain }/${ VERSION }/${ transform }/${ output }/${ noCatchAll[ 1 ] ? `` : `image:` }${ path }` :
         `${ config.domain }/${ path }${ noQuery ? `?` : `&` }twic=${ VERSION }/${ transform }/${ output }`;
 };
-
-export const computeViewAttributes = (): Record< string, string > => ( {
-    [ `data-${ config.class }-view` ]: ``,
-} );
 
 export const computeWrapperClass = (
     src: string,

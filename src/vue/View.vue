@@ -1,15 +1,16 @@
 <script>
-import { computeViewAttributes } from '../_/compute';
+import { getDataAttributeName } from '../_/install';
+const viewAttributes = {
+    [ getDataAttributeName( `view` ) ]: ``,
+};
 export default {
     "computed": {
-        dataAttributes() {
-            return computeViewAttributes();
-        },
+        "viewAttributes": () => viewAttributes,
     },
 };
 </script>
 <template>
-    <div v-bind="{ ...dataAttributes }">
+    <div v-bind="{ viewAttributes }">
         <slot />
     </div>
 </template>
