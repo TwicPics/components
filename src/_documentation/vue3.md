@@ -120,6 +120,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 </template>
 ```
 
+#include "src/_documentation/common/_bulkLoading.md"
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach

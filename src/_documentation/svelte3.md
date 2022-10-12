@@ -106,6 +106,8 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 </main>
 ```
 
+#include "src/_documentation/common/_bulkLoading.md"
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach

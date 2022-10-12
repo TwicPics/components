@@ -107,6 +107,8 @@ More properties [here](#components).
 </body>
 ```
 
+#include "src/_documentation/common/_bulkLoading.md"
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
