@@ -6,7 +6,7 @@
 
 
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.11.0/documentation/resources/webcomponents-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.12.0/documentation/resources/webcomponents-cover.png)
 
 
 
@@ -21,6 +21,7 @@
     - [Setup Options](#setup-options)
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
+    - [Bulk loading with TwicView](#bulk-loading-with-twicview)
     - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
     - [Working with ratio="none"](#ratio-none)
@@ -199,19 +200,19 @@ More properties [here](#components).
 
 <div id='bulk-loading-with-twicview'/>
 
-## Bulk loading with TwicView
+### Bulk loading with TwicView
 
 By default, `<twic-img>` and `<twic-video>` will only start loading when they come into the viewport. But sometimes, you may want to load multiple assets in bulk instead of lazy loading them. This is where `<TwicView>` comes into play.
 
 The `<TwicView>` components eager loads all of his `<twic-img>` and `<twic-video>` children as soon as it comes into the viewport (depending on your [anticipation settings](#setup-options).)
 
-For example, if you're building a carousel, or slideshow, you might want to bulk load all images. In the following code, all three images will be loaded when `TwicView` comes into the viewport:
+For example, if you're building a carousel, you might want to bulk load all images. In the following code, all three images will be loaded when `TwicView` comes into the viewport:
 
 ```html
 <TwicView>
-  <twic-img />
-  <twic-img />
-  <twic-img />
+  <twic-img src="image1.jpg" />
+  <twic-img src="image2.jpg" />
+  <twic-img src="image3.jpg" />
 </TwicView>
 ```
 
@@ -448,7 +449,7 @@ This component can be used in place of an `img` element.
 | `alt` | `alt` attribute content | `String` | based on `src` |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-bot) for more information. | `String` | |
-| `eager` | Specifies that this image should be loaded as soon as possible, regardless of whether it is visible or not. Although `eager` is not generally recommended, it can be useful to ensure that specific media is loaded before the corresponding items enter the display window.  | `boolean` | `false` |
+| `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image.  | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `intrinsic` | Dimensions in pixels of the __original__ image, formatted `<width>x<height>` (eg. 1920x1080). It prevents image upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the __resulting__ image. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-intrinsic).| `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
@@ -495,7 +496,7 @@ This component can be used in place of a `video` element.
 | `alt` | `alt` attribute content | `String` | based on `src` |
 | `anchor` | Positions the video in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-bot) for more information. | `String` | |
-| `eager` | Specifies that this video should be loaded as soon as possible, regardless of whether it is visible or not. Although `eager` is not generally recommended, it can be useful to ensure that specific media is loaded before the corresponding items enter the display window.  | `boolean` | `false` |
+| `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image.  | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `intrinsic` | Dimensions in pixels of the __original__ video, formatted `<width>x<height>` (eg. 1920x1080). It prevents video upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the __resulting__ video. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-intrinsic).| `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the video fills the area and is cropped accordingly (`cover`) or if the video will sit inside the area with no cropping (`contain`). | `String` | `cover` |
@@ -569,5 +570,5 @@ TwicPics Components are available [in the most popular javascript frameworks](ht
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.11.0-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.11.0
+[npm-image]: https://img.shields.io/badge/npm-v0.12.0-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.12.0
