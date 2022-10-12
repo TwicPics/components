@@ -1,6 +1,6 @@
 <div id='bulk-loading-with-twicview'/>
 
-## Bulk loading with TwicView
+### Bulk loading with TwicView
 
 By default, `<TwicImg>` and `<TwicVideo>` will only start loading when they come into the viewport. But sometimes, you may want to load multiple assets in bulk instead of lazy loading them. This is where `<TwicView>` comes into play.
 
