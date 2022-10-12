@@ -10,15 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Automate poster generation for videos.
-- Add `eager` attribute to turn off lazy loading on particular image or video.
-- New component `TwicView` generating a container which, as soon as it is in the view, makes it possible to load in bulk images or videos elements it contains, even if these elements are not yet required for display.
+- Add automatic poster generation for `<TwicVideo>`
+- Add `eager` prop to disable lazy loading on `<TwicImg>` and `<TwicVideo>`
+- Add new `<TwicView>` component that eager loads all its children in bulk as soon as the TwicView itself becomes visible
 
 ### Changed
 
-- No more `shadow-dom` for `web components`.
-- Some code simplifications.
-- Upgrade dependencies.
+- Refactoring to remove shadow DOM generation for _Web Components_
+- Upgrade dependencies
 
 ## [0.11.0] - 2022-09-29
 
@@ -294,6 +293,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.12.0]: https://github.com/TwicPics/components/compare/0.11.0...0.12.0
 [0.11.0]: https://github.com/TwicPics/components/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/TwicPics/components/compare/0.9.1...0.10.0
 [0.9.1]: https://github.com/TwicPics/components/compare/0.9.0...0.9.1
