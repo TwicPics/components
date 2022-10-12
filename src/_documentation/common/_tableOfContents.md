@@ -9,6 +9,7 @@
     - [Setup Options](#setup-options)
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
+    - [Bulk loading with TwicView](#bulk-loading-with-twicview)
     - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
     - [Working with ratio="none"](#ratio-none)__TWIC_STATE_TABLE_CONTENT__
