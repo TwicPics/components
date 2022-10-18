@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/v-on-event-hyphenation -->
 <script setup>
 import { getSampleImage } from "@twicpics/components-sample/fakeServer.js";
 const res = await getSampleImage();

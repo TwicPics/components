@@ -12,7 +12,7 @@
                     :focus="res.focus"
                     :ratio="res.ratio"
                     :mode="res.mode"
-                    @stateChange="handleStateChange"
+                    @stateChange="{handleStateChange}"
                 />
                 <span>ratio = {{ res.ratio }}</span>
             </div>

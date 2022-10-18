@@ -2,26 +2,44 @@ declare const FRAMEWORK: string;
 
 const buildErrorMessage = ( message: string ): string => `twicpics-components ${ message }`;
 
-export const debounce = ( fn: () => void, ms = 0 ) : ( () => void ) => {
+export interface DebounceOptions {
+    leading?: boolean;
+    ms?: number;
+    trailing?: boolean;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const debounce = ( fn: ( ...args:any[] ) => void, options: DebounceOptions ) : ( ( ...args:any[] ) => void ) => {
     let timer: ReturnType< typeof setTimeout >;
-    return () => {
-        if ( !timer ) {
-            fn();
+    const _options = {
+        ...{
+            "leading": true,
+            "ms": 0,
+            "trailing": true,
+        },
+        ...options,
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return ( ...args:any[] ) => {
+        if ( !timer && _options.leading ) {
+            fn( ...args );
         }
         clearTimeout( timer );
         timer = setTimeout(
             () => {
                 timer = undefined;
-                fn();
+                if ( _options.trailing ) {
+                    fn( ...args );
+                }
             },
-            ms
+            _options.ms
         );
     };
 };
 
 export const isWebComponents = ( FRAMEWORK === `webcomponents` );
-
 export const isBrowser = isWebComponents || ( typeof document !== `undefined` );
+export const isReactNative = ( FRAMEWORK === `react-native` );
 
 export const logError = ( message: string ): void => {
     // eslint-disable-next-line no-console

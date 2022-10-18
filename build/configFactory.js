@@ -35,15 +35,18 @@ const getOutputFileName = ( framework, outputFileName, format ) => `${
     getFormatInfo( format, `extension` ) || `js`
 }`;
 
-// eslint-disable-next-line no-shadow
-export default ( { external = [],
+const getTsConfigFileName = () => `${ __dirname }/../tsconfig.json`;
+
+export default ( { bundleCss = true,
+    // eslint-disable-next-line no-shadow
+    external = [],
     framework,
+    javascript = false,
     plugins = [],
     postDefinitions,
     sourceDir = framework,
     sourceFileName = `index`,
-    outputFileName = undefined,
-    javascript = false }, ...formats ) => ( {
+    outputFileName = undefined }, ...formats ) => ( {
     "component": {
         "acorn": {
             "ecmaVersion": 2022,
@@ -62,12 +65,12 @@ export default ( { external = [],
         } ) ),
         "plugins": [
             replacer( {
-                "replacer": [ /\bFRAMEWORK([^:])/, `${ JSON.stringify( framework ) }$1` ],
+                "replacer": [ /\bFRAMEWORK([^:])/g, `${ JSON.stringify( framework ) }$1` ],
             } ),
             ...( javascript ? [] : [
                 typeScript(
                     {
-                        "tsconfig": `${ __dirname }/../tsconfig.json`,
+                        "tsconfig": getTsConfigFileName(),
                     }
                 ),
             ] ),
@@ -81,7 +84,7 @@ export default ( { external = [],
                 },
             } ),
             {
-                ...( javascript ? {} : {
+                ...( bundleCss ? {
                     "writeBundle": async ( { file, format } ) => {
                         const cssFile = file.replace( rJS, `.css` );
                         const cssMinFile = file.replace( rJS, `.min.css` );
@@ -102,7 +105,7 @@ export default ( { external = [],
                             unlink( cssMinFile ),
                         ] );
                     },
-                } ),
+                } : {} ),
             },
         ],
     },

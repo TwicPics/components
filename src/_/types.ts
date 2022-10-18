@@ -24,7 +24,6 @@ export interface Attributes {
     mode?: Mode,
     eager: boolean,
     placeholder?: Placeholder,
-    position?: string,
     preTransform?:string,
     ratio?: number | string,
     step?: number | string,

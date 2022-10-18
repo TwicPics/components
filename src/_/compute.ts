@@ -11,7 +11,7 @@ import { parseMode } from "./parse";
 const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
     ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
 
-const computePreTransform = (
+export const computePreTransform = (
     { x, y }: AnchorObject,
     focus: string,
     mode: Mode,

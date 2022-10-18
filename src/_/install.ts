@@ -1,6 +1,6 @@
 import type { Options, Environment } from "./types";
 import { createElement } from "./dom";
-import { isBrowser, logWarning, throwError } from "./utils";
+import { isBrowser, isReactNative, logWarning, throwError } from "./utils";
 import { rValidEnvironment } from "./validate";
 import { VERSION } from "./const";
 
@@ -10,15 +10,21 @@ import { VERSION } from "./const";
 const defaultClass = `twic`;
 
 export const config: {
+    debug: boolean,
     class: string,
     env: Environment,
     domain: string,
+    maxDPR: number;
     path: string,
+    step: number,
 } = {
+    "debug": false,
     "class": defaultClass,
     "env": `production`,
     "domain": undefined,
+    "maxDPR": undefined,
     "path": ``,
+    "step": undefined,
 };
 
 export const configBasedStyle = (): string =>
@@ -44,30 +50,34 @@ export default ( options: Options ): void => {
     }
 
     const hasPreviousInstall = config && config.domain;
-
     const { domain, "class": _class, env, path } = options;
 
     if ( !domain || !rValidDomain.test( domain ) ) {
         throwError( `install domain "${ domain }" is invalid` );
     }
 
-    if ( path ) {
-        if ( rInvalidPath.test( path ) ) {
-            throwError( `install path "${ path }" is invalid` );
-        }
-        config.path = path.replace( /^\/*(.+?)\/*$/, `$1/` );
+    if ( path && rInvalidPath.test( path ) ) {
+        throwError( `install path "${ path }" is invalid` );
     }
 
     if ( env && !rValidEnvironment.test( env ) ) {
         throwError( `install env "${ env }" is invalid` );
     }
 
-    config.env = env;
-    config.domain = domain.replace( rValidDomain, `$1` );
     config.class = _class || defaultClass;
+    config.domain = domain.replace( rValidDomain, `$1` );
+    config.env = env;
+    config.path = path ? path.replace( /^\/*(.+?)\/*$/, `$1/` ) : ``;
+
+    if ( isReactNative ) {
+        const { debug, maxDPR, step } = options;
+        config.debug = debug;
+        config.maxDPR = maxDPR;
+        config.step = step;
+    }
 
     // not done in SSR
-    if ( isBrowser ) {
+    if ( isBrowser && !isReactNative ) {
         if ( hasPreviousInstall ) {
             logWarning( `install function called multiple times` );
             return;
