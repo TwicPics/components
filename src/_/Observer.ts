@@ -67,7 +67,9 @@ export class Observer {
                 this.placeHolderElement.style.backgroundImage = `url(${ JSON.stringify( wrapperBackground ) })`;
             }
         }
-    }, debounceDelay );
+    }, {
+        "ms": debounceDelay,
+    } );
     public setMedia = ( media: Media ): void => {
         if ( media ) {
             this.media = media;

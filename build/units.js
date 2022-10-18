@@ -87,6 +87,16 @@ export default [
         ],
         "framework": `react`,
     },
+    {
+        "bundleCss": false,
+        "external": [
+            `react`,
+            `react-dom`,
+            `react-native`,
+            `react-native-web`,
+        ],
+        "framework": `react-native`,
+    },
     svelteUnitFactory(),
     {
         "framework": `vue2`,
@@ -112,10 +122,11 @@ export default [
         "sourceDir": `vue`,
     },
     {
+        "bundleCss": false,
         "external": [],
+        "formats": [ `cjs` ],
         "framework": `nuxt2`,
         "javascript": true,
-        "formats": [ `cjs` ],
         "postBuild": {
             "copy": {
                 "files": [
@@ -127,6 +138,7 @@ export default [
         },
     },
     {
+        "bundleCss": false,
         "external": [],
         "framework": `nuxt3`,
         "javascript": true,
@@ -141,13 +153,13 @@ export default [
         },
     },
     {
-        "external": [],
-        "framework": `gatsby`,
-        "sourceFileName": `plugin`,
-        "outputFileName": `plugin`,
-        "javascript": true,
-        "formats": [ `es` ],
+        "bundleCss": false,
         "customPackageJsonExports": () => [ [ `./gatsby/package.json`, `./gatsby/package.json` ] ],
+        "external": [],
+        "formats": [ `es` ],
+        "framework": `gatsby`,
+        "javascript": true,
+        "outputFileName": `plugin`,
         "postBuild": {
             "copy": {
                 "files": [
@@ -168,6 +180,7 @@ export default [
                 ],
             },
         },
+        "sourceFileName": `plugin`,
     },
     svelteUnitFactory( true ),
 ];

@@ -14,11 +14,13 @@
 /samples/gatsby/public
 /samples/webcomponents/index.html
 *.log
-.angular
 *.bak
+.angular
+.expo
 .DS_Store
 .history
 .idea
+.parcel-cache
 .vscode
 package-lock.json
 yarn.lock

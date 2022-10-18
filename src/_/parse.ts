@@ -1,6 +1,6 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
-import { logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
+import { isReactNative, logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
 import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
 
@@ -111,15 +111,20 @@ export const parseStep = ( value: number | string ): number => {
     return isPositiveNumber( value ) ? value : undefined;
 };
 
+const computeSrc = ( value:string ) =>
+    ( value ? value.replace( rImage, `image:${ config.path }` ) : `placeholder:red` );
 export const parseSrc = ( value: string ): string => {
     // eslint-disable-next-line no-param-reassign
     value = trimOrUndefined( value );
     if ( !value ) {
         logWarning( `src is not provided` );
     }
+
+    if ( isReactNative ) {
+        return computeSrc( value );
+    }
     // eslint-disable-next-line no-nested-ternary
-    return config.env === `offline` ?
-        `` : ( value ? value.replace( rImage, `image:${ config.path }` ) : `placeholder:red` );
+    return config.env === `offline` ? `` : computeSrc( value );
 };
 
 const mappingTransition: { [ key: string ]: Transition; } = {
