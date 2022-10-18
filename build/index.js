@@ -9,7 +9,7 @@ import units from "./units.js";
 import {
     buildComponents as buildAngularComponents,
     exportsPackageJson as exportsAngularPackageJson,
-} from "./angular/angularBuilder.js";
+} from "./angular/builder.js";
 
 import { getJsonFromPath, writeJson } from "./json.js";
 import { formats, getFormatInfo } from "./formats.js";
