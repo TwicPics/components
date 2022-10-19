@@ -34,8 +34,8 @@ export const configBasedStyle = (): string =>
 
 export const getDataAttributeName = ( baseName: string ): string => `data-${ config.class }-${ baseName }`;
 
-const rInvalidPath = /\?/;
-const rValidDomain = /(^https?:\/\/[^/]+)\/?$/;
+const rInvalidPath = /\?|^\/*$/;
+const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
 
 export default ( options: Options ): void => {
 
@@ -55,7 +55,7 @@ export default ( options: Options ): void => {
         if ( rInvalidPath.test( path ) ) {
             throwError( `install path "${ path }" is invalid` );
         }
-        config.path = path.replace( /^\/?(.+?)\/?$/, `$1/` );
+        config.path = path.replace( /^\/*(.+?)\/*$/, `$1/` );
     }
 
     if ( env && !rValidEnvironment.test( env ) ) {
