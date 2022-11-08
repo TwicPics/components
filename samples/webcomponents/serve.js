@@ -16,9 +16,17 @@ await writeFile(
         await readFile( resolve( rootDir, `node_modules/@twicpics/components/style.css` ), `utf8` )
     }</style><style>${
         await readFile( resolve( sampleDir, `Sample.css` ), `utf8` )
-    }</style>${
-        await readFile( resolve( sampleDir, `Sample.html` ), `utf8` )
-    }`
+    }</style>
+    <template id="content">
+        ${ await readFile( resolve( sampleDir, `Sample.html` ), `utf8` ) }
+    </template>
+    <template id="styleComponents">
+        ${ await readFile( resolve( rootDir, `node_modules/@twicpics/components/style.css` ), `utf8` ) }
+    </template>
+    <template id="styleSamples">
+    ${ await readFile( resolve( sampleDir, `Sample.css` ), `utf8` ) }
+</template>
+    <test-container data-twic-component></test-container>`
 );
 
 import StaticServer from "static-server";
