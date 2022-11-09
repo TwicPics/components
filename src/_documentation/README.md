@@ -15,7 +15,7 @@
 ## Supported frameworks
 
 - [Angular](__GITHUB_BLOB_PATH__/documentation/angular.md) (version 11+)
-- [React](__GITHUB_BLOB_PATH__/documentation/react.md), [Gatsby](__GITHUB_BLOB_PATH__/documentation/gatsby.md) and [Next.js](__GITHUB_BLOB_PATH__/documentation/next.md)
+- [React](__GITHUB_BLOB_PATH__/documentation/react.md), [React Native](__GITHUB_BLOB_PATH__/documentation/react-native.md), [Gatsby](__GITHUB_BLOB_PATH__/documentation/gatsby.md) and [Next.js](__GITHUB_BLOB_PATH__/documentation/next.md)
 - [Svelte](__GITHUB_BLOB_PATH__/documentation/svelte3.md) (version 3)
 - [Vue.js (version 2)](__GITHUB_BLOB_PATH__/documentation/vue2.md), [Vue.js (version 3)](__GITHUB_BLOB_PATH__/documentation/vue3.md) , [Nuxt.js (version 2)](__GITHUB_BLOB_PATH__/documentation/nuxt2.md) and [Nuxt.js (version 3)](__GITHUB_BLOB_PATH__/documentation/nuxt3.md)
 - [Web Components](__GITHUB_BLOB_PATH__/documentation/webComponents.md)
@@ -25,10 +25,10 @@
 Regardless of the framework you work with, [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) is the most efficient solution to deliver your images and your videos and make them as responsive as desired.
 
 Explore our demos and integration examples for : 
-- [Angular](https://twicpics-angular-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
-- [React](https://twicpics-react-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github), [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) and [Gatsby.js](https://twicpics-gatsby-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
-- [Vue.js (version 2)](https://twicpics-vue-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github) and [Nuxt.js (version 2)](https://twicpics-nuxt-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
-- [Svelte (version 3)](https://twicpics-svelte-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
+- [Angular](https://twicpics-angular-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+- [React](https://twicpics-react-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Gatsby.js](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+- [Vue.js (version 2)](https://twicpics-vue-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Nuxt.js (version 2)](https://twicpics-nuxt-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+- [Svelte (version 3)](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 
 #include "src/_documentation/common/_gettingHelp.md"
 

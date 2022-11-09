@@ -49,19 +49,21 @@ With [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&u
 
 <div id='what-is-twicpics-components'/>
 
-### What is [TwicPics Components](https://www.npmjs.com/package/@twicpics/components)?
+### What is TwicPics Components?
 
-[TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
+TwicPics Components is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
 
 Basically, TwicPics components replace `img` and `video` tags. They greatly and transparently optimize your CLS by providing LQIP (Low-Quality Image Placeholders) and Lazy Loading out of the box.
 
+Simply replace this:
+
 ```html
-  // a classical img usage
   <img src="https://assets.twicpics.com/examples/football.jpg" />
 ```
 
+With this:
+
 ```html
-  // a TwicPics img component usage
   <TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
 ```
 
@@ -577,7 +579,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 <div id='getting-help'/>
 
