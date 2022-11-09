@@ -13,321 +13,129 @@
 
 #include "src/_documentation/common/_installation.md"
 
-<div id='setup'/>
-
 ## Setup
 
-<div id='setting-up-your-project'/>
+### Install TwicPics in your React Native project
 
-### Setting-up TwicPics Components into your `React` project
+Note that while we recommend using ES module imports, TwicPics Components is backward compatible with CommonJS and `require` statements.
 
-While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
+```js
+// App.js
 
-Add the import part
+import { installTwicPics } from '@twicpics/components/react-native';
 
-```jsx
-// import TwicPics react components
-import { installTwicPics } from "@twicpics/components/react";
-// import TwicPics components css
-import "@twicpics/components/style.css";
+installTwicPics({
+  "domain": `https://<your-domain>.twic.pics/`,
+});
+
+export default function App() {
+  return (
+    // your app code
+  )
+}
 ```
 
-and the configuration part (see [Setup Options](#setup-options))
-
-```jsx
-installTwicPics( {
-  // domain is mandatory
-  "domain": "https://<your-domain>.twic.pics"
-} );
-```
-
-into the app startup of your `React` project.
-
-#### index.jsx (React 16+)
-
-```jsx
-// Here is an example of a `React 16+` app startup configured with TwicPics.
-import React from "react";
-import ReactDOM from "react-dom";
-import Root from "./root.jsx";
-
-// TwicPics Components importation
-import { installTwicPics } from "@twicpics/components/react";
-import "@twicpics/components/style.css";
-
-// TwicPics Components configuration (see Setup Options)
-installTwicPics( {
-  // domain is mandatory
-  "domain": "https://<your-domain>.twic.pics"
-} );
-
-ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
-  document.getElementById( "root" )
-);
-```
-
-##### index.jsx (React 18+)
-
-```jsx
-// Here is an example of a `React 18+` app startup configured with TwicPics.
-import React from "react";
-import { createRoot } from 'react-dom/client';
-import Root from "./root.jsx";
-
-// TwicPics Components importation
-import { installTwicPics } from "@twicpics/components/react";
-import "@twicpics/components/style.css";
-
-// TwicPics Components configuration (see Setup Options)
-installTwicPics( {
-  // domain is mandatory
-  "domain": "https://<your-domain>.twic.pics"
-} );
-
-const container = document.getElementById('root');
-const root = createRoot(container); 
-
-root.render(
-      <Root />
-);
-
-```
+For an exhaustive list of options, see [Setup Options](#setup-options).
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
-
 ## Usage
 
-Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
-
-Add the import part
-```jsx
-// this component will be used in place of an img element.
-import { TwicImg } from "@twicpics/components/react";
-
-// this component will be used in place of an video element.
-import { TwicVideo } from "@twicpics/components/react";
-```
-
-then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<video>` (see [Components Properties](#components)).
-
-<div id='basic-usage'/>
+> Note: `<TwicVideo>` is not supported yet for React Native.
 
 ### Basic usage
 
-__NB__ : TwicPics Components can also be used in `js`, `jsx`, `ts`, `tsx` files.
-
 ```jsx
-// component.jsx
-import React from "react";
-import { TwicImg } from "@twicpics/components/react";
+// MyComponent.jsx
 
-const YourTemplate = () => (
-  <TwicImg src="path/to/your/image"/>
+import { TwicImg } from "@twicpics/components/react-native";
+
+const MyComponent = () => (
+  <TwicImg src="cat_1x1.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
 );
 
-export default YourTemplate;
+const styles = StyleSheet.create({
+  "customImage": {
+    // some styles
+  },
+});
+
+export default MyComponent;
 ```
-
-#include "src/_documentation/common/_bulkLoading.md"
-
-<div id='style-driven-approach'/>
-
-### Style-Driven Approach
-
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
-
-`styles.css`
-
-```css
-.landscape {
-  --twic-ratio: calc(4/3);
-}
-
-.portrait {
-  --twic-ratio: calc(3/4);
-}
-
-.square {
-  --twic-ratio: calc(1);
-}
-
-.contain {
-  --twic-mode: contain;
-}
-
-.cover {
-  --twic-mode: cover;
-}
-
-.left {
-  --twic-position: left;
-}
-
-.right {
-  --twic-position: right;
-}
-
-.lg {
-  width:300px;
-}
-
-.md {
-  width:150px;
-}
-
-.sm {
-  width: 100px;
-}
-```
-
-
-```html
-<!-- component.jsx -->
-<div className="landscape">
-  <TwicImg src=path/to/your/image></TwicImg>
-</div>
-<div className="square">
-  <TwicImg src=path/to/your/image></TwicImg>
-</div>
-<div className="portrait">
-  <TwicImg src=path/to/your/image></TwicImg>
-</div>
-<div className="contain left">
-  <TwicImg src=path/to/your/image ratio="16/9"></TwicImg>
-</div>
-<div className="contain right">
-  <TwicImg src=path/to/your/image ratio="16/9"></TwicImg>
-</div>
-<!---
-    Attributes take precedence over CSS.
-    In the next example, ratio will 16/9 AND NOT 1 as defined in square css class 
---->
-<div className="cover square">
-  <TwicImg src=path/to/your/image ratio="16/9"></TwicImg>
-</div>
-```
-
-<a href="https://codesandbox.io/s/twicpics-x-react-style-driven-0cmgv0?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Style driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
-
-<div id='responsive-example'/>
-
-### Responsive Example
-
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
-
-`styles.css`
-
-```css
-.style-driven {
-  --twic-ratio: 1.9;
-}
-
-@media ( min-width: 640px ) {
-  .style-driven {
-    --twic-mode: contain;
-  }
-}
-
-@media ( min-width: 768px ) {
-  .style-driven {
-    --twic-mode: cover;
-    --twic-ratio: calc( 4/3 );
-  }
-}
-
-@media (min-width: 1024px) {
-  .style-driven {
-    --twic-ratio: calc( 16/9 );
-  }
-}
-
-@media ( min-width: 1280px ) {
-  .style-driven {
-    --twic-ratio: calc( 21/9 );
-  }
-}
-
-@media ( min-width: 1536px ) {
-  .style-driven {
-    --twic-ratio: calc( 36/9 );
-  }
-}
-```
-
-Your template features a single component that will follow your CSS directives and behave responsively.
- 
-```html
-<!-- component.jsx -->
-<TwicImg
-  className="style-driven"
-  src="path/to/your/image"
-></TwicImg>
-```
-
-<a href="https://codesandbox.io/s/twicpics-x-react-art-direction-nce8p3?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
-
-<div id='ratio-none'/>
-
 ### Working with ratio="none"
 
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing the _Cumulative Layout Shift_ metric.
 
-`styles.css`
+```jsx
+// MyComponent.jsx
 
-```css
-/* You are responsible for properly sizing the component. */
-.hero-image {
-  height:500px;
-}
+import { TwicImg } from "@twicpics/components/react-native";
 
-@media (min-width: 1024px) {
-  .hero-image {
-    height:300px;
-    width:100%;
-  }
-}
+const MyComponent = () => (
+  <TwicImg 
+    src="cat_1x1.jpg" 
+    ratio="none"
+    style={styles.heroImage} 
+  />
+);
+
+// When using `ratio="none"`, you are responsible for properly sizing the component
+const styles = StyleSheet.create({
+  "heroImage": {
+    "height": 500
+  },
+});
+
+export default MyComponent;
 ```
+
+<!-- #include "src/_documentation/common/react/_lifeCycle.md" -->
+
+## Components Props
+
 
 ```html
-<!-- component.jsx -->
 <TwicImg
-  src="path/to/your/image"
-  className="hero-image"
-  ratio="none"
-></TwicImg>
+  src="<path>"
+  alt="<String>"
+  anchor="<String>"
+  eager="<boolean>"
+  focus="<auto|coordinates>"
+  mode="<contain|cover>"
+  placeholder="<preview|maincolor|meancolor|none>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  step="<integer>"
+  transition="<fade|zoom|none>"
+  transitionDelay="<String>"
+  transitionDuration="<String>"
+  transitionTimingFunction="<Function>"
+/>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-react-hero-image-35h2on?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
-#include "src/_documentation/common/react/_lifeCycle.md"
-
-#include "src/_documentation/common/_componentsProps.md"
-
-#include "src/_documentation/common/react/_stateType.md"
-
-#include "src/_documentation/common/_cssVariables.md"
-
-<div id='example'/>
+| Attribute | Description | Type | Default |
+|:-|:-|:-|:-|
+| `alt` | `alt` attribute content | `String` | based on `src` |
+| `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
+| `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
+| `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
+| `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
+| `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/api/manipulations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
+| `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
+| `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |__TWIC_STATE_CHANGE_IMG__
+| `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
+| `style` | Accepts styles defined in a JavaScript object in the usual React Native style, see [React Native docs](https://reactnative.dev/docs/style). | `Object` | `null` |
+| `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
+| `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
+| `transitionTimingFunction` | React Native [Easing](https://reactnative.dev/docs/easing) function applied to the transition effect. | `Function` | `ease` |
+| `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-react-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our online demo project](https://twicpics-react-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) (examples are in React, but most apply to React Native as well!)
 
 #include "src/_documentation/common/_gettingHelp.md"
 
 #include "src/_documentation/common/_otherFrameworks.md"
 
-#include "src/_documentation/common/_licence.md"
+#include "src/_documentation/common/_licence.md"  position="<css position>"

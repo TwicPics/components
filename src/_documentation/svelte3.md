@@ -338,7 +338,7 @@ Another approach is to listen to `statechange` event.
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_gettingHelp.md"
 

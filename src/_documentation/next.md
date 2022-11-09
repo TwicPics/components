@@ -16,7 +16,7 @@
   <img alt="Edit TwicPics x Next - Basic Example" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-[Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-next-demo.netlify.app/?utm_source=sendinblue&utm_campaign=github&utm_medium=github)
+[Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 
 #include "src/_documentation/common/_installation.md"
 
@@ -305,7 +305,7 @@ You are responsible for properly sizing the component.
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-next-demo.netlify.app//?utm_source=sendinblue&utm_campaign=github&utm_medium=github).
+You can find usage examples [in our online demo project](https://twicpics-next-demo.netlify.app//?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_gettingHelp.md"
 
