@@ -2,9 +2,20 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "React Native"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://reactnative.dev/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "react-native"
-#include "src/_documentation/common/react/_replacerRules.md"
-#include "src/_documentation/common/_title.md"
-    
+#include "src/_documentation/common/_cover.md"
+
+## Contents
+
+- [Contents](#contents)
+- [Overview](#overview)
+- [Setup](#setup)
+  - [Install TwicPics in your React Native project](#install-twicpics-in-your-react-native-project)
+  - [Setup Options](#setup-options)
+- [Usage](#usage)
+  - [Basic usage](#basic-usage)
+  - [Working with ratio="none"](#working-with-rationone)
+- [Components Props](#components-props)
+- [Examples](#examples)
 ## Overview
 
 #include "src/_documentation/common/_whatIsTwicPics.md"
@@ -37,7 +48,15 @@ export default function App() {
 
 For an exhaustive list of options, see [Setup Options](#setup-options).
 
-#include "src/_documentation/common/_setupOptions.md"
+### Setup Options
+
+| Option | Description | Type | Default |
+|:-|:-|:-|:-|
+| `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/documentation/subdomain/). Providing it is __mandatory__. | `String` | |
+| `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
+| `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
+| `path` | Path to prepend to all src attributes. For instance, if path is `"some/folder"` then a src attribute set to `"image.jpg"` will be expanded into `"some/folder/image.jpg"` | `String` | |
+| `step` | To avoid requesting too may variants of the same image, [TwicPics](https://www.twicpics.com/) will round the width of images to the closest multiple of step. The height will then be computed in order to respect the original aspect ratio. | `Integer` | `10` |
 
 ## Usage
 
@@ -51,7 +70,7 @@ For an exhaustive list of options, see [Setup Options](#setup-options).
 import { TwicImg } from "@twicpics/components/react-native";
 
 const MyComponent = () => (
-  <TwicImg src="cat_1x1.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
+  <TwicImg src="image.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
 );
 
 const styles = StyleSheet.create({
@@ -65,6 +84,7 @@ export default MyComponent;
 ### Working with ratio="none"
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing the _Cumulative Layout Shift_ metric.
+When using `ratio="none"` your style **must** specify the image height.
 
 ```jsx
 // MyComponent.jsx
@@ -73,7 +93,7 @@ import { TwicImg } from "@twicpics/components/react-native";
 
 const MyComponent = () => (
   <TwicImg 
-    src="cat_1x1.jpg" 
+    src="path/to/your/image" 
     ratio="none"
     style={styles.heroImage} 
   />
@@ -99,7 +119,6 @@ export default MyComponent;
   src="<path>"
   alt="<String>"
   anchor="<String>"
-  eager="<boolean>"
   focus="<auto|coordinates>"
   mode="<contain|cover>"
   placeholder="<preview|maincolor|meancolor|none>"
@@ -122,7 +141,7 @@ export default MyComponent;
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/api/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/api/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/api/manipulations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
-| `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |__TWIC_STATE_CHANGE_IMG__
+| `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `style` | Accepts styles defined in a JavaScript object in the usual React Native style, see [React Native docs](https://reactnative.dev/docs/style). | `Object` | `null` |
 | `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |

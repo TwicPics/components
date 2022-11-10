@@ -10,31 +10,18 @@
 
 
 
-- [Overview](#about)
-    - [What is TwicPics ?](#what-is-twicpics)
-    - [What is TwicPics Components ?](#what-is-twicpics-components)
-- [Installation](#installation)
-    - [Requirement](#Requirement)
-    - [Installing `@twicpics/components` into your project](#adding-twicpics-components-to-your-project)
+## Contents
+
+- [Contents](#contents)
+- [Overview](#overview)
 - [Setup](#setup)
-    - [Setting-up TwicPics Components into your project](#setting-up-your-project)
-    - [Setup Options](#setup-options)
+  - [Install TwicPics in your React Native project](#install-twicpics-in-your-react-native-project)
+  - [Setup Options](#setup-options)
 - [Usage](#usage)
-    - [Basic usage](#basic-usage)
-    - [Bulk loading with TwicView](#bulk-loading-with-twicview)
-    - [Style Driven Approach](#style-driven-approach)
-    - [Responsive Example](#responsive-example)
-    - [Working with ratio="none"](#ratio-none)
-    - [Lifecycle](#lifecycle)
-- [Components properties](#components-props)
-    - [TwicImg](#twic-img)
-    - [TwicVideo](#twic-video)
-- [CSS variables](#css-variables)
+  - [Basic usage](#basic-usage)
+  - [Working with ratio="none"](#working-with-rationone)
+- [Components Props](#components-props)
 - [Examples](#examples)
-- [Questions and feedback](#getting-help)
-- [Other frameworks](#other-frameworks)
-- [Licence](#licence)
-    
 ## Overview
 
 <div id='what-is-twicpics'/>
@@ -123,13 +110,10 @@ export default function App() {
 
 For an exhaustive list of options, see [Setup Options](#setup-options).
 
-<div id='setup-options'/>
-
 ### Setup Options
 
 | Option | Description | Type | Default |
 |:-|:-|:-|:-|
-| `anticipation` | [TwicPics](https://www.twicpics.com/) will lazy-load images by default. To avoid too abrupt a transition with elements appearing into view and then images very obviously loading afterwards, [TwicPics](https://www.twicpics.com/) will "anticipate" lazy loading by a factor of the actual viewport. This behavior is controlled by this setting. | `Number` | `0.2` |
 | `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/documentation/subdomain/). Providing it is __mandatory__. | `String` | |
 | `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
 | `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
@@ -148,7 +132,7 @@ For an exhaustive list of options, see [Setup Options](#setup-options).
 import { TwicImg } from "@twicpics/components/react-native";
 
 const MyComponent = () => (
-  <TwicImg src="cat_1x1.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
+  <TwicImg src="image.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
 );
 
 const styles = StyleSheet.create({
@@ -162,6 +146,7 @@ export default MyComponent;
 ### Working with ratio="none"
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing the _Cumulative Layout Shift_ metric.
+When using `ratio="none"` your style **must** specify the image height.
 
 ```jsx
 // MyComponent.jsx
@@ -170,7 +155,7 @@ import { TwicImg } from "@twicpics/components/react-native";
 
 const MyComponent = () => (
   <TwicImg 
-    src="cat_1x1.jpg" 
+    src="path/to/your/image" 
     ratio="none"
     style={styles.heroImage} 
   />
@@ -196,7 +181,6 @@ export default MyComponent;
   src="<path>"
   alt="<String>"
   anchor="<String>"
-  eager="<boolean>"
   focus="<auto|coordinates>"
   mode="<contain|cover>"
   placeholder="<preview|maincolor|meancolor|none>"
