@@ -1,28 +1,27 @@
-export type CreationData = [
-    HTMLElement | string,
-    Record< string, unknown > | 0,
-    ( Array< CreationData > | CreationData | string )?,
-];
 
-export const createElement = ( data: CreationData ): HTMLElement => {
+interface CreationData {
+    attributes?: Record< string, unknown >,
+    element?: HTMLElement | ShadowRoot,
+    elementName?: string,
+    value?: ( Array< CreationData > | CreationData | string )
+}
+
+export const createElement = ( data: CreationData ): HTMLElement | ShadowRoot => {
     if ( !data ) {
         return undefined;
     }
-    const [ elementOrTagName, attributes, children ] = data;
-    const element =
-        elementOrTagName instanceof HTMLElement ?
-            elementOrTagName :
-            document.createElement( elementOrTagName || `div` );
-    if ( attributes ) {
+    const { attributes, "element": _element, elementName, value } = data;
+    const element = _element || document.createElement( elementName || `div` );
+    if ( attributes && ( element instanceof HTMLElement ) ) {
         for ( const [ n, v ] of Object.entries( attributes ) ) {
             element.setAttribute( n, String( v ) );
         }
     }
-    if ( children ) {
-        if ( typeof children === `string` ) {
-            element.innerHTML = children;
+    if ( value ) {
+        if ( typeof value === `string` ) {
+            element.innerHTML = value;
         } else {
-            for ( const child of ( Array.isArray( children ) ? children : [ children ] ) ) {
+            for ( const child of ( Array.isArray( value ) ? value : [ value ] ) ) {
                 const actualChild = createElement( child as CreationData );
                 if ( actualChild ) {
                     element.appendChild( actualChild );
@@ -35,3 +34,4 @@ export const createElement = ( data: CreationData ): HTMLElement => {
 
 const rPx = /px$/;
 export const cssWithoutPx = ( css: string ): number => Number( css.replace( rPx, `` ) );
+

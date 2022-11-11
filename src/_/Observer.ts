@@ -55,6 +55,7 @@ export class Observer {
             this.stateHandler( state as State );
         }
     };
+
     public refreshBackground = debounce( () => {
         if ( this.placeholderData ) {
             const wrapperBackground = computePlaceholderBackground(
@@ -72,6 +73,7 @@ export class Observer {
     } );
     public setMedia = ( media: Media ): void => {
         if ( media ) {
+            config.handleShadowDom( media );
             this.media = media;
             elementToObserver.set( this.media, this );
             this.placeHolderElement = media.nextElementSibling as unknown as HTMLDivElement;

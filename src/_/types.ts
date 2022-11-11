@@ -38,8 +38,9 @@ export interface Options {
     class?: string,
     debug?: boolean,
     domain: string,
-    maxDPR?: number,
     env?: Environment,
+    handleShadowDom?: boolean,
+    maxDPR?: number,
     path?: string,
     step?: number,
 }

@@ -12,21 +12,61 @@ await writeFile(
                 `@twicpics/components/webcomponents`,
                 `./node_modules/@twicpics/components/webcomponents/module.mjs`
             )
-    }</script><style>${
+    }</script>
+    <style>${
         await readFile( resolve( rootDir, `node_modules/@twicpics/components/style.css` ), `utf8` )
-    }</style><style>${
+    }</style>
+    <style>${
         await readFile( resolve( sampleDir, `Sample.css` ), `utf8` )
     }</style>
-    <template id="content">
+    <template id="main-shadow-container-template">
+        <shadow-container></shadow-container>
+    </template>
+    <template id="shadow-container-template">
         ${ await readFile( resolve( sampleDir, `Sample.html` ), `utf8` ) }
     </template>
-    <template id="styleComponents">
-        ${ await readFile( resolve( rootDir, `node_modules/@twicpics/components/style.css` ), `utf8` ) }
-    </template>
     <template id="styleSamples">
-    ${ await readFile( resolve( sampleDir, `Sample.css` ), `utf8` ) }
-</template>
-    <test-container data-twic-component></test-container>`
+        ${ await readFile( resolve( sampleDir, `Sample.css` ), `utf8` ) }
+    </template>
+    <main-shadow-container></main-shadow-container>
+    <other-shadow-container></other-shadow-container>
+    <script>
+        customElements.define('shadow-container',
+            class extends HTMLElement {
+                constructor() {
+                super();
+                const shadowRoot = this.attachShadow({mode: 'open'});
+                shadowRoot.appendChild(document
+                        .getElementById('shadow-container-template')
+                        .content
+                        .cloneNode(true)
+                    );
+                const styleSamples = document.createElement( "style" );
+                styleSamples.innerHTML = document.getElementById( "styleSamples" ).content.textContent;
+                shadowRoot.appendChild( styleSamples );
+            }
+        })
+        customElements.define('main-shadow-container',
+            class extends HTMLElement {
+                constructor() {
+                super();
+                const shadowRoot = this.attachShadow({mode: 'open'});
+                shadowRoot.appendChild(document
+                        .getElementById('main-shadow-container-template')
+                        .content
+                        .cloneNode(true)
+                    );
+            }
+        })
+        customElements.define('other-shadow-container',
+            class extends HTMLElement {
+                constructor() {
+                super();
+                const shadowRoot = this.attachShadow({mode: 'open'});
+            }
+        })
+    </script>
+    `
 );
 
 import StaticServer from "static-server";

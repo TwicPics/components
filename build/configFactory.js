@@ -89,15 +89,11 @@ export default ( { bundleCss = true,
                         const cssFile = file.replace( rJS, `.css` );
                         const cssMinFile = file.replace( rJS, `.min.css` );
                         const cssMin = await readFile( cssMinFile, `utf8` );
-                        let inlineStyle = false;
                         await writeFile( file, ( await readFile( file, `utf8` ) ).replace(
-                            `/*STYLE*/`,
-                            () => {
-                                inlineStyle = true;
-                                return JSON.stringify( cssMin ).slice( 1, -1 );
-                            }
+                            /\*STYLE\*/g,
+                            () => JSON.stringify( cssMin ).slice( 1, -1 )
                         ) );
-                        if ( !inlineStyle && ( format === formats[ 0 ] ) ) {
+                        if ( ( format === formats[ 0 ] ) ) {
                             await copy( cssMinFile, `${ dirname( file ) }/style.css` );
                         }
                         await Promise.all( [
