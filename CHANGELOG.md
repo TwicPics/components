@@ -20,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Upgrade dependencies (`Next.js` up to 13.0.0)
 - Upgrade dependencies (`Svelte.js` up to 3.52.0)
 
+### Fixed
+
+- Fixes the issue preventing the use of twic-components within a shadow-dom.
+
 ## [0.12.0] - 2022-10-12
 
 ### Added

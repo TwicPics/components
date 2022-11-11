@@ -51,6 +51,8 @@ export const logWarning = ( message: string ): void => {
     console.warn( buildErrorMessage( message ) );
 };
 
+export const noop = () :void => undefined;
+
 export const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
     ( value: T | string ): T => {
         let found;
