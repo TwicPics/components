@@ -237,4 +237,4 @@ TwicPics Components are available [in the most popular javascript frameworks](ht
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
 [npm-image]: https://img.shields.io/badge/npm-v0.13.0-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.13.0  position="<css position>"
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.13.0
