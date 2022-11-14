@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Eliminates excess slashes in the path and domain values configured when setting up components
+- Upgrade dependencies (`Gatsby.js` up to 5.0.1)
 - Upgrade dependencies (`Next.js` up to 13.0.0)
 - Upgrade dependencies (`Svelte.js` up to 3.52.0)
 
