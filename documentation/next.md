@@ -119,7 +119,7 @@ Add the import part
 
 ```js
 // import TwicPics react components (next.js uses react components)
-import { installTwicPics } from "@twicpics/components/react";
+import { installTwicpics } from "@twicpics/components/react";
 // import TwicPics components css
 import "@twicpics/components/style.css";
 ```
@@ -127,7 +127,7 @@ import "@twicpics/components/style.css";
 and the configuration part (see [Setup Options](#setup-options))
 
 ```js
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": "https://<your-domain>.twic.pics"
 } );
@@ -141,11 +141,11 @@ into the app startup of your `Next.js` project.
 // here is an example of a `Next.js` app startup configured with TwicPics.
 
 // TwicPics Components importation
-import { installTwicPics } from "@twicpics/components/react";
+import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 
 // TwicPics Components configuration (see Setup Options)
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": "https://<your-domain>.twic.pics"
 } );
@@ -157,9 +157,9 @@ function MyApp({ Component, pageProps }) {
 export default MyApp;
 ```
 
-__WARNING__: editing the file containing the call to the `installTwicPics` method in watch mode (*ie* `npm|yarn next dev` ) will lead to the __warning__ message `install function called multiple times` on the browser console.  
+__WARNING__: editing the file containing the call to the `installTwicpics` method in watch mode (*ie* `npm|yarn next dev` ) will lead to the __warning__ message `install function called multiple times` on the browser console.  
 You will need to __manually reload__ the page in your browser for any changes made to the TwicPics module configuration to take effect client-side.  
-This only concerns the file containing the call to the `installTwicPics` method and is only happens if and when the TwicPics configuration is modified.
+This only concerns the file containing the call to the `installTwicpics` method and is only happens if and when the TwicPics configuration is modified.
 
 <div id='setup-options'/>
 

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Changes in the case of the installation function: `installTwicPics` becomes `installTwicpics`. `installTwicPics` can still be used. 
+
 ## [0.13.1] - 2022-11-17
 
 ### Changed

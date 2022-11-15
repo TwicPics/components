@@ -2,11 +2,11 @@ import React from "react";
 import { createRoot } from 'react-dom/client';
 import Sample from "@twicpics/components-sample/Sample.jsx";
 
-import { installTwicPics } from "@twicpics/components/react";
+import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 import "@twicpics/components-sample/Sample.css";
 
-installTwicPics( {
+installTwicpics( {
     "domain": `https://demo.twic.pics`,
     "anticipation": 0.5,
     "step": 100,

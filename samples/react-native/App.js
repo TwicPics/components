@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { installTwicPics } from '@twicpics/components/react-native';
+import { installTwicpics } from '@twicpics/components/react-native';
 import Gallery from './pages/Gallery.js';
 import Basic from './pages/Basic.js';
 import Home from './pages/Home.js';
@@ -12,7 +12,7 @@ import Mode from './pages/Mode.js';
 import Focus from './pages/Focus.js';
 import Transform from './pages/Transform.js';
 
-installTwicPics( {
+installTwicpics( {
     "debug": false,
     "domain": `https://demo.twic.pics/`,
     "step": 20,

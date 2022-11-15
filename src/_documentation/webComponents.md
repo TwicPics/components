@@ -36,7 +36,7 @@ Add the import part
 
 ```jsx
 // import TwicPics webcomponents
-import { installTwicPics } from "@twicpics/components/webcomponents";
+import { installTwicpics } from "@twicpics/components/webcomponents";
 // import TwicPics components css
 import "@twicpics/components/style.css";
 ```
@@ -44,7 +44,7 @@ import "@twicpics/components/style.css";
 and the configuration part (see [Setup Options](#setup-options))
 
 ```js
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": `https://<your-domain>.twic.pics`
 } );
@@ -54,9 +54,9 @@ into the main js file of your project.
 
 ```js
 // Here is an example of a main file configured with TwicPics.
-import { installTwicPics, TwicImg } from "@twicpics/components/webcomponents";
+import { installTwicpics, TwicImg } from "@twicpics/components/webcomponents";
 
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": `https://<your-domain>.twic.pics`
 } );
@@ -69,11 +69,11 @@ customElements.define( `twic-img`, TwicImg );
 // and a full client side consideration
 <script type="module">
   import {
-    installTwicPics,
+    installTwicpics,
     TwicImg
   } from "./node_modules/@twicpics/components/webcomponents/module.mjs";
 
-  installTwicPics({
+  installTwicpics({
     "domain": `https://<your-domain>.twic.pics`
   });
 

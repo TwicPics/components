@@ -91,9 +91,9 @@ Note that while we recommend using ES module imports, TwicPics Components is bac
 ```js
 // App.js
 
-import { installTwicPics } from '@twicpics/components/react-native';
+import { installTwicpics } from '@twicpics/components/react-native';
 
-installTwicPics({
+installTwicpics({
   "domain": `https://<your-domain>.twic.pics/`,
 });
 

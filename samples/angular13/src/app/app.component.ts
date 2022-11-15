@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Component } from "@angular/core";
-import { installTwicPics, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
+import { installTwicpics, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
 @Component( {
     "selector": `app-root`,
     "templateUrl": `./app.component.html`,
@@ -18,7 +18,7 @@ export class AppComponent {
     }
 }
 
-installTwicPics( {
+installTwicpics( {
     "domain": `https://demo.twic.pics`,
     "anticipation": 0.5,
     "step": 100,

@@ -117,7 +117,7 @@ Add the import part
 
 ```js
 // import TwicPics svelte3 components
-import { installTwicPics } from "@twicpics/components/svelte3";
+import { installTwicpics } from "@twicpics/components/svelte3";
 // import TwicPics components css
 import "@twicpics/components/style.css";
 ```
@@ -125,7 +125,7 @@ import "@twicpics/components/style.css";
 and the configuration part (see [Setup Options](#setup-options))
 
 ```js
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": "https://<your-domain>.twic.pics"
 } );
@@ -137,12 +137,12 @@ into the app startup of your `Svelte3` project.
 
 ```js
 // Here is an example of a `Svelte3` app startup configured with TwicPics.
-import { installTwicPics } from "@twicpics/components/svelte3";
+import { installTwicpics } from "@twicpics/components/svelte3";
 import "@twicpics/components/style.css";
 
 import App from "./App.svelte";
 
-installTwicPics({
+installTwicpics({
   "domain": `https://<your-domain>.twic.pics`
 });
 
