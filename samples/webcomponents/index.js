@@ -1,6 +1,6 @@
-import { installTwicPics, TwicImg, TwicVideo, TwicView } from "@twicpics/components/webcomponents";
+import { installTwicpics, TwicImg, TwicVideo, TwicView } from "@twicpics/components/webcomponents";
 
-installTwicPics( {
+installTwicpics( {
     "anticipation": 0.5,
     "env": `production`,
     "domain": `https://demo.twic.pics`,

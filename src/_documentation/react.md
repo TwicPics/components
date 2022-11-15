@@ -33,7 +33,7 @@ Add the import part
 
 ```jsx
 // import TwicPics react components
-import { installTwicPics } from "@twicpics/components/react";
+import { installTwicpics } from "@twicpics/components/react";
 // import TwicPics components css
 import "@twicpics/components/style.css";
 ```
@@ -41,7 +41,7 @@ import "@twicpics/components/style.css";
 and the configuration part (see [Setup Options](#setup-options))
 
 ```jsx
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": "https://<your-domain>.twic.pics"
 } );
@@ -58,11 +58,11 @@ import ReactDOM from "react-dom";
 import Root from "./root.jsx";
 
 // TwicPics Components importation
-import { installTwicPics } from "@twicpics/components/react";
+import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 
 // TwicPics Components configuration (see Setup Options)
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": "https://<your-domain>.twic.pics"
 } );
@@ -84,11 +84,11 @@ import { createRoot } from 'react-dom/client';
 import Root from "./root.jsx";
 
 // TwicPics Components importation
-import { installTwicPics } from "@twicpics/components/react";
+import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 
 // TwicPics Components configuration (see Setup Options)
-installTwicPics( {
+installTwicpics( {
   // domain is mandatory
   "domain": "https://<your-domain>.twic.pics"
 } );

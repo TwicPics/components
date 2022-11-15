@@ -92,7 +92,7 @@ __WARNING__: here again, you will have to select the targeted version while impo
 ```ts
 //here is an example of a `Angular` app.component.ts configured with TwicPics.
 import { Component } from "@angular/core";
-import { installTwicPics } from "@twicpics/components/angular14";
+import { installTwicpics } from "@twicpics/components/angular14";
 @Component( {
   "selector": "app-root",
   "templateUrl": "./app.component.html",
@@ -101,7 +101,7 @@ export class AppComponent {
 }
 
 // TwicPics Components configuration (see Setup Options)
-installTwicPics( {
+installTwicpics( {
   "domain": "https://<your-domain>.twic.pics",
   "anticipation": 0.5,
   "step": 100,
