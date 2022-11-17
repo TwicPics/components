@@ -8,9 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Updates documentation and sample code following the release of [Nuxt3.0.0](https://github.com/nuxt/framework/releases/tag/v3.0.0)
+
 ### Fixed
 
-- Fixes React-native documentation.
+- Fixes React-native documentation
+- Fixes the problem preventing the `Nuxt3` module from working with [Nuxt3.0.0-rc.14](https://github.com/nuxt/framework/releases/tag/v3.0.0-rc.14)
 
 ## [0.13.0] - 2022-11-14
 

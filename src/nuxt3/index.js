@@ -19,6 +19,7 @@ export default defineNuxtModule( {
             // eslint-disable-next-line no-console
             console.warn( `twicpics nuxt3 module : domain has not been configured. Please check nuxt.config.ts file` );
         }
+        nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {};
         nuxt.options.runtimeConfig.public.twicpics = moduleOptions;
         nuxt.options.css.push( `@twicpics/components/style.css` );
         const { resolve } = createResolver( import.meta.url );

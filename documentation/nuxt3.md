@@ -132,9 +132,6 @@ export default defineNuxtConfig( {
 
 ```ts
 // here is an example of a `nuxt.config.ts` configured with TwicPics.
-import { defineNuxtConfig } from 'nuxt';
-
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig( {
     "modules":[
         `@twicpics/components/nuxt3`
