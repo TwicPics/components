@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.13.1] - 2022-11-17
+
 ### Changed
 
 - Updates documentation and sample code following the release of [Nuxt3.0.0](https://github.com/nuxt/framework/releases/tag/v3.0.0)
@@ -321,6 +323,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.13.1]: https://github.com/TwicPics/components/compare/0.13.0...0.13.1
 [0.13.0]: https://github.com/TwicPics/components/compare/0.12.0...0.13.0
 [0.12.0]: https://github.com/TwicPics/components/compare/0.11.0...0.12.0
 [0.11.0]: https://github.com/TwicPics/components/compare/0.10.0...0.11.0
