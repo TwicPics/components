@@ -123,6 +123,15 @@ export default [
     },
     {
         "bundleCss": false,
+        "external": [
+            `react`,
+            `react-dom`,
+            `next`,
+        ],
+        "framework": `next`,
+    },
+    {
+        "bundleCss": false,
         "external": [],
         "formats": [ `cjs` ],
         "framework": `nuxt2`,

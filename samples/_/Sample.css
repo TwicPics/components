@@ -44,6 +44,7 @@ main {
 
 .item {
     position: relative;
+    overflow: hidden;
 }
 
 .item > *:first-child {

@@ -14,6 +14,7 @@
         "fs-extra": "10.1.0",
         "magic-string": "0.26.3",
         "markdown-include": "^0.4.3",
+        "next": "13.0.2",
         "nuxt": "3.0.0-rc.1",
         "replace-in-file": "6.3.5",
         "rollup": "2.77.2",

@@ -1,7 +1,8 @@
 import { Animated, Easing, PixelRatio, Platform, type EasingFunction } from 'react-native';
 export * from "../_/compute";
 import { computePreTransform } from '../_/compute';
-import type { AnchorObject, Mode, Placeholder } from '../_/types';
+import type { AnchorObject, Mode } from '../_/types';
+import { createUrl } from '../_/url';
 import { config } from './install';
 import type { MediaData, SizeObject, UrlData } from './types';
 
@@ -21,7 +22,6 @@ const actualSize = ( step: number, lqip: boolean, viewSize: SizeObject ): SizeOb
             _actualHeight,
         } );
     }
-
     if ( lqip ) {
         const actualRatio = _actualWidth / _actualHeight;
         // eslint-disable-next-line no-multi-assign
@@ -46,81 +46,31 @@ const mappingMode: { [key: string]: string; } = {
     "repeat": `contain-max`,
 };
 
-const checkLqip = ( placeholder: Placeholder, special: string ) =>
-    placeholder && ( special !== `placeholder` );
-
-const rPath = /^(?:(auth|placeholder|rel)|(image|media|video)|[^:]*):(\/*)((v[0-9]+(?=[/?]))?[^?]*(\?.*)?)$/;
-const FULL_PATH = 4;
-const MEDIA = 2;
-const QUERY = 6;
-const RESERVED = 5;
-const SLASHES = 3;
-const SPECIAL = 1;
-const VERSION = `v1`;
 const computeUrl = (
     // eslint-disable-next-line no-shadow
     { anchor, focus, lqip = false, mode, placeholder, preTransform, src, step, viewSize }: UrlData
 ) => {
-    const { debug, "domain": _domain, "path": _path } = config;
-    const domain = `${ _domain }/`;
-    const isAbsolute = ( src.slice( 0, domain.length ) === domain );
-    const path = isAbsolute ? `media:${ src.slice( domain.length ) }` : src;
-    const parsed = rPath.exec( path );
-
-    if ( lqip && !checkLqip( placeholder, parsed[ SPECIAL ] ) ) {
+    if ( lqip && /^placeholder:.*$/.test( src ) ) {
         return undefined;
     }
-
-    const isMedia = parsed && parsed[ MEDIA ];
-    // eslint-disable-next-line no-nested-ternary
-    const actualPath = isMedia ? (
-        ( _path && !isAbsolute ) ?
-            `${ _path }${ parsed[ SLASHES ] ? parsed[ SLASHES ][ 0 ] : `` }${ parsed[ FULL_PATH ] }` :
-            parsed[ FULL_PATH ]
-    ) : path;
+    const { debug, domain, path } = config;
     const { width, height } = actualSize( step, lqip, viewSize );
-
-    const actualMode = mappingMode[ mode ];
-    const actualDebug = ( debug && ( Platform.OS === `web` ) ) ? `/debug` : ``;
-    const actualTransform = `${ computePreTransform(
-        anchor,
-        focus,
-        mode,
-        preTransform,
-        false
-    ) }${ actualMode }=${ width }x${ height }`;
-    const actualOutput = lqip ? `/output=${ placeholder }` : ``;
-    return `${
-        domain
-    }${
-        ( parsed && ( parsed[ SPECIAL ] || parsed[ RESERVED ] ) ) ?
-        // old syntax
-        `${
-            VERSION
-        }${
-            actualDebug
-        }/${
-            actualTransform
-        }${
-            actualOutput
-        }/${
-            isMedia ? `${ parsed[ MEDIA ] }:${ actualPath }` : actualPath
-        }` :
-        // catch-all syntax
-        `${
-            actualPath
-        }${
-           parsed[ QUERY ] ? `&` : `?`
-        }twic=${
-            VERSION
-        }${
-            actualDebug
-        }/${
-            actualTransform
-        }${
-            actualOutput
-        }`
-    }`;
+    return createUrl(
+        {
+            "debug": debug && ( Platform.OS === `web` ),
+            domain,
+            path,
+            src,
+            "transform": `${ computePreTransform(
+                anchor,
+                focus,
+                mode,
+                preTransform,
+                false
+            ) }${ mappingMode[ mode ] }=${ width }x${ height }`,
+            "output": lqip ? `output=${ placeholder }` : ``,
+        }
+    );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

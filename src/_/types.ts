@@ -33,6 +33,17 @@ export interface Attributes {
     transitionDuration?: string,
     transitionTimingFunction?: string,
 }
+
+export interface CreateUrlData {
+    debug?: boolean,
+    domain: string,
+    path?: string,
+    output?: string,
+    quality?: number,
+    src: string,
+    transform?: string
+}
+
 export interface Options {
     anticipation?: number,
     class?: string,
