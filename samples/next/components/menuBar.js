@@ -10,6 +10,9 @@ const MenuBar = () => (
             <li>
                 <Link href="/ssr">Ssr</Link>
             </li>
+            <li>
+                <Link href="/twicPicsLoaderSample">Twicpics Loader</Link>
+            </li>
         </ul>
     </nav>
 );
