@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Add a custom loader for **next/image**.
+
 ### Changed
 
 - Changes in the case of the installation function: `installTwicPics` becomes `installTwicpics`. `installTwicPics` can still be used. 
