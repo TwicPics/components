@@ -11,7 +11,7 @@ const MenuBar = () => (
                 <Link href="/ssr">Ssr</Link>
             </li>
             <li>
-                <Link href="/twicPicsLoaderSample">Twicpics Loader</Link>
+                <Link href="/nextLoader">Twicpics Loader</Link>
             </li>
         </ul>
     </nav>
