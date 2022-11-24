@@ -1,9 +1,10 @@
-// /(\b)__COVER_NAME__(\b)/gm => "nextjs-cover"
-// /(\b)__FRAMEWORK_NAME__(\b)/gm => "Next.js"
-// /(\b)__FRAMEWORK_URL__(\b)/gm => "https://nextjs.org/"
-// /(\b)__INTERCOM_TERM__(\b)/gm => "next"
 
-#include "src/_documentation/common/_cover.md"
+
+
+
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.13.1/documentation/resources/nextjs-cover.png)
+
+
 
 ## Contents
 
@@ -20,7 +21,15 @@
 
 ## Overview
 
-#include "src/_documentation/common/_whatIsTwicPics.md"
+<div id='what-is-twicpics'/>
+
+### What is [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components)? 
+
+[TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) is a __Responsive Image Service Solution__ (SaaS) that enables __on-demand responsive image generation__.
+
+With [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components), developers only deal with high-resolution versions of their media while end-users receive __optimized, perfectly sized, device-adapted__ versions __delivered from a server close to them__.
+
+[TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) acts as an __image proxy__. It requests your master image, be it on your own web server, cloud storage or DAM, then generates a __device-adapted__ version with __best-in-class compression__, delivered directly to the end-user from the __closest delivery point__ available.
 
 <div id='what-is-twicpics-loader'/>
 
@@ -51,7 +60,37 @@ const MyImage = (props) => {
 }
 ```
 
-#include "src/_documentation/common/_installation.md"
+Thanks to the open source [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) Components, delivering responsive images in your [Next.js](https://nextjs.org/) projects has never been easier.
+
+<div id='installation'/>
+
+## Installation
+
+<div id='create-an-account'/>
+
+### Requirement
+
+The only requirement is to have a TwicPics account. 
+If you don't already have one, you can easily [create your own TwicPics account for free](https://account.twicpics.com/signup).
+
+<div id='adding-twicpics-components-to-your-project'/>
+
+### Installing `@twicpics/components` into your project
+You just need to add the [@twicpics/components](https://www.npmjs.com/) npm package to your project.
+
+Simply type one of:
+
+```bash
+npm install @twicpics/components
+```
+
+or 
+
+```bash
+yarn add @twicpics/components
+```
+
+depending on which package manager you fancy.
 
 ## Setup
 
@@ -220,8 +259,30 @@ const MyImage = ( { datas } ) => {
 
 In this example we choose to use `getServerSideProps` function but feel free to use the [data fetching]([getServerSideProps](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props)) function you need.
 
-#include "src/_documentation/common/_gettingHelp.md"
+<div id='getting-help'/>
 
-#include "src/_documentation/common/_otherFrameworks.md"
+## Questions and feedback
 
-#include "src/_documentation/common/_licence.md"
+Fell free to submit an [issue](https://github.com/TwicPics/components/issues) or to ask us anything by dropping an email at [support@twic.pics](mailto:support@twic.pics).
+
+
+<div id='other-frameworks'/>
+
+## Other frameworks
+
+[TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) provides the most versatile solution on the market for delivering responsive media.
+
+TwicPics Components are available [in the most popular javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
+
+
+<div id='licence'/>
+
+## Licence
+
+[![NPM Version][npm-image]][npm-url]
+[![License][license-image]][license-url]
+
+[license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
+[license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
+[npm-image]: https://img.shields.io/badge/npm-v0.13.1-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.13.1
