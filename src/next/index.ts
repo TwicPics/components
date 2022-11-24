@@ -1,2 +1,3 @@
 import { default as twicpicsLoader } from './loader';
-export { twicpicsLoader };
+import { default as twicpicsPlaceholder } from './placeholder';
+export { twicpicsLoader, twicpicsPlaceholder };

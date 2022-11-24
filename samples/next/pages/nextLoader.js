@@ -2,20 +2,33 @@
 // eslint-disable-next-line no-shadow
 import Image from 'next/image';
 import MenuBar from "../components/menuBar";
-import { twicpicsLoader } from "@twicpics/components/next";
+import { twicpicsLoader, twicpicsPlaceholder } from "@twicpics/components/next";
 import styles from '../styles/twicPicsLoaderSample.module.css';
 
-const TwicPicsLoaderSample = ( ) => (
+// this gets called on every request
+export async function getServerSideProps( ) {
+    const datas = {
+        "className": `styles.cover`,
+        "src": `image:football.jpg`,
+        "txt": `Fill + object-fit: cover + SSR placeholder`,
+    };
+    datas.blurDataURL = await twicpicsPlaceholder( `image:football.jpg` );
+    return {
+        "props": {
+            datas,
+        },
+    };
+}
+
+const TwicPicsLoaderSample = ( { datas } ) => (
     <main>
         <MenuBar></MenuBar>
         <h1>Next.js twicpicsLoader test page</h1>
-        <h2>Test</h2>
         <div className="samples">
             <div className={ `item ${ styles.item }` }>
                 <Image
                     loader={twicpicsLoader}
                     src="https://assets.twicpics.com/examples/football.jpg"
-                    alt="Pure Next image"
                     width={400}
                     height={300}
                 />
@@ -23,9 +36,21 @@ const TwicPicsLoaderSample = ( ) => (
             </div>
             <div className={ `item ${ styles.item }` }>
                 <Image
-                    alt="twicpicsLoader"
+                    blurDataURL={datas.blurDataURL}
                     className={styles.cover}
                     fill
+                    // eslint-disable-next-line require-await
+                    placeholder="blur"
+                    loader={twicpicsLoader}
+                    src={datas.src}
+                />
+                <span>{datas.txt}</span>
+            </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    className={styles.cover}
+                    fill
+                    // eslint-disable-next-line require-await
                     loader={twicpicsLoader}
                     src="image:football.jpg"
                 />
@@ -59,8 +84,9 @@ const TwicPicsLoaderSample = ( ) => (
                     loader={twicpicsLoader}
                     src="football.jpg"
                     sizes="(max-width: 768px) 768px,
-                    (max-width: 1200px) 1200px,
-                    100px"
+                            (max-width: 1200px) 1200px,
+                            100px
+                        "
                 />
                 <span>Fill + sizes set</span>
             </div>
