@@ -26,6 +26,8 @@
 
 ## Setup
 
+#include "src/_documentation/common/_requirement.md"
+
 <div id='setting-up-your-project'/>
 
 ### Setting-up TwicPics Components into your `Svelte3` project

@@ -29,6 +29,8 @@
 
 TwicPics components for `Nuxt2` comes as an `Nuxt2 Module` and is configured as [such](https://nuxtjs.org/docs/directory-structure/modules).
 
+#include "src/_documentation/common/_requirement.md"
+
 #### `nuxt.config.js`
 
 Add `@twicpics/components/nuxt2` to the modules section

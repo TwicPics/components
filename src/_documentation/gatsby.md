@@ -33,6 +33,8 @@
 
 TwicPics components for `Gatsby` comes as an `Gatsby Plugin` and is configured as [such](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/using-a-plugin-in-your-site/).
 
+#include "src/_documentation/common/_requirement.md"
+
 #### `gatsby-config.js`
 
 Add `@twicpics/components/gatsby` to the plugins section with your twicpics configuration as plugin options : 

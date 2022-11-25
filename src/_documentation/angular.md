@@ -35,6 +35,8 @@ TwicPics Components are available in Angular __version 11 to 14_.
 
 TwicPics components for `Angular` comes as an `Angular Module` and is configured as [such](https://angular.io/guide/architecture-modules).
 
+#include "src/_documentation/common/_requirement.md"
+
 <div id='module-declaration'/>
 
 #### Module declaration in `app.module.ts`
