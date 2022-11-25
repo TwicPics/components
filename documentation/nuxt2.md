@@ -14,8 +14,6 @@
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
-    - [Requirement](#Requirement)
-    - [Installing `@twicpics/components` into your project](#adding-twicpics-components-to-your-project)
 - [Setup](#setup)
     - [Setting-up TwicPics Components into your project](#setting-up-your-project)
     - [Setup Options](#setup-options)
@@ -71,37 +69,18 @@ With this:
   <img alt="Edit TwicPics x Nuxt - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-Thanks to the open source [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) Components, delivering responsive images in your [Nuxt2](https://nuxtjs.org/) projects has never been easier.
-
-<div id='installation'/>
-
 ## Installation
 
-<div id='create-an-account'/>
-
-### Requirement
-
-The only requirement is to have a TwicPics account. 
-If you don't already have one, you can easily [create your own TwicPics account for free](https://account.twicpics.com/signup).
-
-<div id='adding-twicpics-components-to-your-project'/>
-
-### Installing `@twicpics/components` into your project
-You just need to add the [@twicpics/components](https://www.npmjs.com/) npm package to your project.
-
-Simply type one of:
+Add the `@twicpics/components` package to your project:
 
 ```bash
+# Using yarn
+yarn add @twicpics/components
+
+# Or using npm
 npm install @twicpics/components
 ```
 
-or 
-
-```bash
-yarn add @twicpics/components
-```
-
-depending on which package manager you fancy.
 
 <div id='setup'/>
 
@@ -112,6 +91,8 @@ depending on which package manager you fancy.
 ### Setting-up TwicPics Components into your `Nuxt2` project
 
 TwicPics components for `Nuxt2` comes as an `Nuxt2 Module` and is configured as [such](https://nuxtjs.org/docs/directory-structure/modules).
+
+**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
 
 #### `nuxt.config.js`
 

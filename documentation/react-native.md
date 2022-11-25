@@ -50,43 +50,26 @@ With this:
   <TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
 ```
 
-Thanks to the open source [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) Components, delivering responsive images in your [React Native](https://reactnative.dev/) projects has never been easier.
-
-<div id='installation'/>
-
 ## Installation
 
-<div id='create-an-account'/>
-
-### Requirement
-
-The only requirement is to have a TwicPics account. 
-If you don't already have one, you can easily [create your own TwicPics account for free](https://account.twicpics.com/signup).
-
-<div id='adding-twicpics-components-to-your-project'/>
-
-### Installing `@twicpics/components` into your project
-You just need to add the [@twicpics/components](https://www.npmjs.com/) npm package to your project.
-
-Simply type one of:
+Add the `@twicpics/components` package to your project:
 
 ```bash
+# Using yarn
+yarn add @twicpics/components
+
+# Or using npm
 npm install @twicpics/components
 ```
 
-or 
-
-```bash
-yarn add @twicpics/components
-```
-
-depending on which package manager you fancy.
 
 ## Setup
 
 ### Install TwicPics in your React Native project
 
-Note that while we recommend using ES module imports, TwicPics Components is backward compatible with CommonJS and `require` statements.
+This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
+
+**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
 
 ```js
 // App.js

@@ -29,6 +29,8 @@
 
 TwicPics components for `Nuxt3` comes as an `Nuxt3 Module` and is configured as [such](https://v3.nuxtjs.org/guide/features/modules#modules).
 
+#include "src/_documentation/common/_requirement.md"
+
 #### `nuxt.config.ts`
 
 Add `@twicpics/components/nuxt3` to the modules section

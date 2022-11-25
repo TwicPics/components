@@ -10,10 +10,8 @@
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
-    - [Requirement](#Requirement)
-    - [Installing `@twicpics/components` into your project](#adding-twicpics-components-to-your-project)
 - [Setup](#setup)
-    - [Setting-up TwicPics Components into your project](#setting-up-your-project)
+    - [Install TwicPics In Your Next.js Project](#install-twicpics-in-your-nextjs-project)
     - [Setup Options](#setup-options)
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
@@ -47,59 +45,34 @@
 
 ## Setup
 
-If you only want to use the <strong>Next.js loader</strong>, skip to [Next.js Image Loader](#nextjs-image-loader).
+If you only want to use the **Next.js loader**, skip to [Next.js Image Loader](#nextjs-image-loader).
 
-<div id='setting-up-your-project'/>
+### Install TwicPics In Your Next.js Project
 
-### Setting-up TwicPics Components into your `Next.js` project
+This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
 
-While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
-
-Add the import part
+#include "src/_documentation/common/_requirement.md"
 
 ```js
-// import TwicPics react components (next.js uses react components)
-import { installTwicpics } from "@twicpics/components/react";
-// import TwicPics components css
-import "@twicpics/components/style.css";
-```
+// _app.js
 
-and the configuration part (see [Setup Options](#setup-options))
-
-```js
-installTwicpics( {
-  // domain is mandatory
-  "domain": "https://<your-domain>.twic.pics"
-} );
-```
-
-into the app startup of your `Next.js` project.
-
-#### _app.js
-
-```js
-// here is an example of a `Next.js` app startup configured with TwicPics.
-
-// TwicPics Components importation
 import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 
-// TwicPics Components configuration (see Setup Options)
-installTwicpics( {
-  // domain is mandatory
-  "domain": "https://<your-domain>.twic.pics"
-} );
+installTwicpics({
+  domain: "https://<your-domain>.twic.pics"
+});
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+export default function MyApp({ Component, pageProps }) {
+  return (
+    // your app code
+  )
 }
-
-export default MyApp;
 ```
 
 __WARNING__: editing the file containing the call to the `installTwicpics` method in watch mode (*ie* `npm|yarn next dev` ) will lead to the __warning__ message `install function called multiple times` on the browser console.  
-You will need to __manually reload__ the page in your browser for any changes made to the TwicPics module configuration to take effect client-side.  
-This only concerns the file containing the call to the `installTwicpics` method and is only happens if and when the TwicPics configuration is modified.
+
+You will need to __manually reload__ the page in your browser for any changes made to the TwicPics module configuration to take effect client-side. This only concerns the file containing the call to the `installTwicpics` method and only when the TwicPics configuration is modified.
 
 #include "src/_documentation/common/_setupOptions.md"
 
@@ -109,27 +82,11 @@ This only concerns the file containing the call to the `installTwicpics` method 
 
 Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
 
-Add the import part
-```js
-// this component will be used in place of an img element.
-// nb : next.js uses react components
-import { TwicImg } from "@twicpics/components/react";
+### Basic Usage
 
-// this component will be used in place of an video element.
-// nb : next.js uses react components
-import { TwicVideo } from "@twicpics/components/react";
-```
+```jsx
+// component.jsx
 
-then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<video>` (see [Components Properties](#components)).
-
-<div id='basic-usage'/>
-
-### Basic usage
-
-NB : TwicPics Components can be used as well in `js`, `jsx`, `ts`, `tsx` files.
-
-```js
-// component.js
 import React from "react";
 import { TwicImg } from "@twicpics/components/react";
 
@@ -141,8 +98,6 @@ export default YourTemplate;
 ```
 
 #include "src/_documentation/common/_bulkLoading.md"
-
-<div id='style-driven-approach'/>
 
 ### Style-Driven Approach
 
@@ -193,7 +148,6 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 ```
 
 ```html
-// component.jsx
 <div className="landscape">
   <TwicImg src=path/to/your/image></TwicImg>
 </div>
@@ -221,9 +175,6 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 <a href="https://codesandbox.io/s/twicpics-x-next-style-driven-oe5bzn?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Next - Style driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
-
-
-<div id='responsive-example'/>
 
 ### Responsive Example
 
@@ -271,11 +222,10 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 Your template features a single component that will follow your CSS directives and behave responsively.
 
 ```jsx
-// component.js
 <TwicImg
   className="style-driven"
   src="path/to/your/image"
-></TwicImg>
+/>
 ```
 
 <a href="https://codesandbox.io/s/twicpics-x-next-art-direction-ps2zj?fontsize=14&hidenavigation=1&theme=dark">
@@ -306,12 +256,11 @@ You are responsible for properly sizing the component.
 ```
 
 ```jsx
-// component.jsx
 <TwicImg
   src="path/to/your/image"
   className="hero-image"
   ratio="none"
-></TwicImg>
+/>
 ```
 
 <a href="https://codesandbox.io/s/twicpics-x-next-hero-image-sw9zj7?fontsize=14&hidenavigation=1&theme=dark">
@@ -342,6 +291,8 @@ NEXT_PUBLIC_TWICPICS_DOMAIN="https://<your-domain>.twic.pics/"
 The example below shows how to use the TwicPics loader:
 
 ```jsx
+// component.jsx
+
 import Image from 'next/image'
 import { twicpicsLoader } from "@twicpics/components/next";
 

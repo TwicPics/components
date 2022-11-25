@@ -2,8 +2,6 @@
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
-    - [Requirement](#Requirement)
-    - [Installing `@twicpics/components` into your project](#adding-twicpics-components-to-your-project)
 - [Setup](#setup)
     - [Setting-up TwicPics Components into your project](#setting-up-your-project)
     - [Setup Options](#setup-options)

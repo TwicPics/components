@@ -14,8 +14,6 @@
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
-    - [Requirement](#Requirement)
-    - [Installing `@twicpics/components` into your project](#adding-twicpics-components-to-your-project)
 - [Setup](#setup)
     - [Setting-up TwicPics Components into your project](#setting-up-your-project)
     - [Setup Options](#setup-options)
@@ -74,37 +72,18 @@ With this:
 
 [Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 
-Thanks to the open source [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) Components, delivering responsive images in your [Gatsby](https://www.gatsbyjs.com/) projects has never been easier.
-
-<div id='installation'/>
-
 ## Installation
 
-<div id='create-an-account'/>
-
-### Requirement
-
-The only requirement is to have a TwicPics account. 
-If you don't already have one, you can easily [create your own TwicPics account for free](https://account.twicpics.com/signup).
-
-<div id='adding-twicpics-components-to-your-project'/>
-
-### Installing `@twicpics/components` into your project
-You just need to add the [@twicpics/components](https://www.npmjs.com/) npm package to your project.
-
-Simply type one of:
+Add the `@twicpics/components` package to your project:
 
 ```bash
+# Using yarn
+yarn add @twicpics/components
+
+# Or using npm
 npm install @twicpics/components
 ```
 
-or 
-
-```bash
-yarn add @twicpics/components
-```
-
-depending on which package manager you fancy.
 
 <div id='setup'/>
 
@@ -115,6 +94,8 @@ depending on which package manager you fancy.
 ### Setting-up TwicPics Components into your `Gatsby` project
 
 TwicPics components for `Gatsby` comes as an `Gatsby Plugin` and is configured as [such](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/using-a-plugin-in-your-site/).
+
+**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
 
 #### `gatsby-config.js`
 
