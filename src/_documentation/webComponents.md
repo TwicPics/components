@@ -6,7 +6,9 @@
 // /`TwicImg`/g => "`twic-img`"
 // /<TwicVideo/g => "<twic-video"
 // /`TwicVideo`/g => "`twic-video`"
-#include "src/_documentation/common/_title.md"
+#include "src/_documentation/common/_cover.md"
+
+#include "src/_documentation/common/_tableOfContents.md"
     
 ## Overview
 
