@@ -368,7 +368,7 @@ Your template features a single component that will follow your CSS directives a
 
 ### Working with ratio="none"
 
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
 
 
 ```html

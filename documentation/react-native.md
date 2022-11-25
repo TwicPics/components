@@ -67,9 +67,9 @@ npm install @twicpics/components
 
 ### Install TwicPics in your React Native project
 
-This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
-
 **Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
+
+This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
 
 ```js
 // App.js
