@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Changes in the case of the installation function: `installTwicPics` becomes `installTwicpics`. `installTwicPics` can still be used. 
+- Upgrade dependencies (`Svelte.js` up to 3.53.1)
 
 ## [0.13.1] - 2022-11-17
 
