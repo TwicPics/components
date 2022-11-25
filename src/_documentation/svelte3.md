@@ -6,7 +6,9 @@
 // /(\b)__TWIC_STATE_CHANGE_PROP__(\b)/gm => "\n  bind:state=\"<String>\"\n  on:statechange=\"<function>\""
 // /(\b)__TWIC_STATE_CHANGE_IMG__(\b)/gm => "\n| `state` | A string property being update each time the image loading state is updated. Values can be `new`, `loading`, `done` or `error`.| `String` | |\n| `statechange` | A custom event dispatched each time the image loading state is updated. Emitted values can be `new`, `loading`, `done` or `error`.| `( e: CustomEvent ) => void` | |"
 // /(\b)__TWIC_STATE_CHANGE_VIDEO__(\b)/gm => "\n| `state` | A string property being update each time the video loading state is updated. Values can be `new`, `loading`, `done` or `error`.| `String` | |\n| `statechange` | A custom event dispatched each time the video loading state is updated. Emitted values can be `new`, `loading`, `done` or `error`.| `( e: CustomEvent ) => void` | |"
-#include "src/_documentation/common/_title.md"
+#include "src/_documentation/common/_cover.md"
+
+#include "src/_documentation/common/_tableOfContents.md"
     
 ## Overview
 

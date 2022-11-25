@@ -3,7 +3,9 @@
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://vuejs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "vue"
 #include "src/_documentation/common/vue/_replacerRules.md"
-#include "src/_documentation/common/_title.md"
+#include "src/_documentation/common/_cover.md"
+
+#include "src/_documentation/common/_tableOfContents.md"
     
 ## Overview
 

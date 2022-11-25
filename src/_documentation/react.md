@@ -3,7 +3,9 @@
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://reactjs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "react"
 #include "src/_documentation/common/react/_replacerRules.md"
-#include "src/_documentation/common/_title.md"
+#include "src/_documentation/common/_cover.md"
+
+#include "src/_documentation/common/_tableOfContents.md"
     
 ## Overview
 

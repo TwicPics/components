@@ -7,7 +7,9 @@
 // /(\b)__TWIC_STATE_CHANGE_IMG__(\b)/gm => "\n| `stateChangeEvent` | An event emitter triggered each time the image loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |"
 // /(\b)__TWIC_STATE_CHANGE_VIDEO__(\b)/gm => "\n| `stateChangeEvent` | An event emitter triggered each time the video loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |"
 
-#include "src/_documentation/common/_title.md"
+#include "src/_documentation/common/_cover.md"
+
+#include "src/_documentation/common/_tableOfContents.md"
 
 ## Overview
 
