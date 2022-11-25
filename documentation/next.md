@@ -30,6 +30,7 @@
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
 - [CSS variables](#css-variables)
+- [Next.js Image Loader](#nextjs-image-loader)
 - [Examples](#examples)
 - [Questions and feedback](#getting-help)
 - [Other frameworks](#other-frameworks)
@@ -107,7 +108,7 @@ depending on which package manager you fancy.
 
 ## Setup
 
-If you only want to use the <strong>Next.js loader</strong>, skip to the [Usage section](#nextjs-image-loader).
+If you only want to use the <strong>Next.js loader</strong>, skip to [Next.js Image Loader](#nextjs-image-loader).
 
 <div id='setting-up-your-project'/>
 
@@ -598,9 +599,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 | `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `transitionDuration` | `400ms` |
 | `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
 
-<div id='example'/>
-
-### Next.js Image Loader
+## Next.js Image Loader
 
 If it does not exist, create an `.env` file at the root of your project. 
 
@@ -611,7 +610,7 @@ Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics
 NEXT_PUBLIC_TWICPICS_DOMAIN="https://<your-domain>.twic.pics/"
 ```
 
-#### Basic usage
+### Basic usage
 
 The example below shows how to use the TwicPics loader:
 
@@ -636,11 +635,11 @@ Please note that this will stretch the image to fit the specified size, which mi
 
 For easier aspect ratio management, consider using the `<TwicImg>` component (see [Setup](#setup)). This will also give you access to all [TwicPics features](https://www.twicpics.com/docs/reference/transformations) like smart cropping, automatic next-gen formats, and more.
 
-#### Using Placeholders
+### Using Placeholders
 
 > This is only supported from Next.js 13.
 
-The **next/image** component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
+The Next Image component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
 
 When doing so, we need to set the `blurDataURL` prop. This prop expects the URL of a Base64-encoded image. TwicPics provides a `twicpicsPlaceholder` helper that returns such URL.
 
@@ -649,30 +648,32 @@ import Image from 'next/image'
 import { twicpicsLoader, twicpicsPlaceholder } from "@twicpics/components/next";
 
 // In this example, we're generating the placeholder URL on server-side
-export async function getServerSideProps( ) {
-  const datas = {
-    "src": `image.jpg`,
+export async function getServerSideProps() {
+  const data = {
+    src: `image.jpg`,
   };
-  datas.blurDataURL = await twicpicsPlaceholder( `image:football.jpg` );
+  datas.blurDataURL = await twicpicsPlaceholder('image:football.jpg');
   return {
-    "props": {
-      datas,
+    props: {
+      data,
     },
   };
 }
 
-const MyImage = ( { datas } ) => {
+const MyImage = ({ data }) => {
   return (
     <Image
       loader={twicpicsLoader}
-      src={datas.src}
+      src={data.src}
       placeholder="blur"
-      blurDataURL={datas.blurDataURL}
+      blurDataURL={data.blurDataURL}
       alt="Image alt description"
     />
   )
 }
 ```
+
+<div id='example'/>
 
 ## Examples
 

@@ -6,7 +6,30 @@
 
 #include "src/_documentation/common/_cover.md"
 
-#include "src/_documentation/common/_tableOfContents.md"
+- [Overview](#about)
+    - [What is TwicPics ?](#what-is-twicpics)
+    - [What is TwicPics Components ?](#what-is-twicpics-components)
+- [Installation](#installation)
+    - [Requirement](#Requirement)
+    - [Installing `@twicpics/components` into your project](#adding-twicpics-components-to-your-project)
+- [Setup](#setup)
+    - [Setting-up TwicPics Components into your project](#setting-up-your-project)
+    - [Setup Options](#setup-options)
+- [Usage](#usage)
+    - [Basic usage](#basic-usage)
+    - [Bulk loading with TwicView](#bulk-loading-with-twicview)
+    - [Style Driven Approach](#style-driven-approach)
+    - [Responsive Example](#responsive-example)
+    - [Working with ratio="none"](#ratio-none)__TWIC_STATE_TABLE_CONTENT__
+- [Components properties](#components-props)
+    - [TwicImg](#twic-img)
+    - [TwicVideo](#twic-video)
+- [CSS variables](#css-variables)
+- [Next.js Image Loader](#nextjs-image-loader)
+- [Examples](#examples)
+- [Questions and feedback](#getting-help)
+- [Other frameworks](#other-frameworks)
+- [Licence](#licence)
     
 ## Overview
 
@@ -24,7 +47,7 @@
 
 ## Setup
 
-If you only want to use the <strong>Next.js loader</strong>, skip to the [Usage section](#nextjs-image-loader).
+If you only want to use the <strong>Next.js loader</strong>, skip to [Next.js Image Loader](#nextjs-image-loader).
 
 <div id='setting-up-your-project'/>
 
@@ -303,9 +326,7 @@ You are responsible for properly sizing the component.
 
 #include "src/_documentation/common/_cssVariables.md"
 
-<div id='example'/>
-
-### Next.js Image Loader
+## Next.js Image Loader
 
 If it does not exist, create an `.env` file at the root of your project. 
 
@@ -316,7 +337,7 @@ Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics
 NEXT_PUBLIC_TWICPICS_DOMAIN="https://<your-domain>.twic.pics/"
 ```
 
-#### Basic usage
+### Basic Usage
 
 The example below shows how to use the TwicPics loader:
 
@@ -341,11 +362,11 @@ Please note that this will stretch the image to fit the specified size, which mi
 
 For easier aspect ratio management, consider using the `<TwicImg>` component (see [Setup](#setup)). This will also give you access to all [TwicPics features](https://www.twicpics.com/docs/reference/transformations) like smart cropping, automatic next-gen formats, and more.
 
-#### Using Placeholders
+### Using Placeholders
 
 > This is only supported from Next.js 13.
 
-The **next/image** component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
+The Next Image component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
 
 When doing so, we need to set the `blurDataURL` prop. This prop expects the URL of a Base64-encoded image. TwicPics provides a `twicpicsPlaceholder` helper that returns such URL.
 
@@ -354,30 +375,32 @@ import Image from 'next/image'
 import { twicpicsLoader, twicpicsPlaceholder } from "@twicpics/components/next";
 
 // In this example, we're generating the placeholder URL on server-side
-export async function getServerSideProps( ) {
-  const datas = {
-    "src": `image.jpg`,
+export async function getServerSideProps() {
+  const data = {
+    src: `image.jpg`,
   };
-  datas.blurDataURL = await twicpicsPlaceholder( `image:football.jpg` );
+  datas.blurDataURL = await twicpicsPlaceholder('image:football.jpg');
   return {
-    "props": {
-      datas,
+    props: {
+      data,
     },
   };
 }
 
-const MyImage = ( { datas } ) => {
+const MyImage = ({ data }) => {
   return (
     <Image
       loader={twicpicsLoader}
-      src={datas.src}
+      src={data.src}
       placeholder="blur"
-      blurDataURL={datas.blurDataURL}
+      blurDataURL={data.blurDataURL}
       alt="Image alt description"
     />
   )
 }
 ```
+
+<div id='example'/>
 
 ## Examples
 
