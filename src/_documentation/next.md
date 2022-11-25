@@ -20,9 +20,9 @@
 
 #include "src/_documentation/common/_installation.md"
 
-<div id='setup'/>
-
 ## Setup
+
+If you only want to use the <strong>Next.js loader</strong>, skip to the [Usage section](#nextjs-image-loader).
 
 <div id='setting-up-your-project'/>
 
@@ -302,6 +302,80 @@ You are responsible for properly sizing the component.
 #include "src/_documentation/common/_cssVariables.md"
 
 <div id='example'/>
+
+### Next.js Image Loader
+
+If it does not exist, create an `.env` file at the root of your project. 
+
+Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths):
+
+
+```bash
+NEXT_PUBLIC_TWICPICS_DOMAIN="https://<your-domain>.twic.pics/"
+```
+
+#### Basic usage
+
+The example below shows how to use the TwicPics loader:
+
+```jsx
+import Image from 'next/image'
+import { twicpicsLoader } from "@twicpics/components/next";
+
+const MyImage = (props) => {
+  return (
+    <Image
+      loader={twicpicsLoader}
+      src="image.jpg"
+      alt="Image alt description"
+      width={500}
+      height={500}
+    />
+  )
+}
+```
+
+Please note that this will stretch the image to fit the specified size, which might not match the desired aspect ratio. 
+
+For easier aspect ratio management, consider using the `<TwicImg>` component (see [Setup](#setup)). This will also give you access to all [TwicPics features](https://www.twicpics.com/docs/reference/transformations) like smart cropping, automatic next-gen formats, and more.
+
+#### Using Placeholders
+
+> This is only supported from Next.js 13.
+
+The **next/image** component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
+
+When doing so, we need to set the `blurDataURL` prop. This prop expects the URL of a Base64-encoded image. TwicPics provides a `twicpicsPlaceholder` helper that returns such URL.
+
+```jsx
+import Image from 'next/image'
+import { twicpicsLoader, twicpicsPlaceholder } from "@twicpics/components/next";
+
+// In this example, we're generating the placeholder URL on server-side
+export async function getServerSideProps( ) {
+  const datas = {
+    "src": `image.jpg`,
+  };
+  datas.blurDataURL = await twicpicsPlaceholder( `image:football.jpg` );
+  return {
+    "props": {
+      datas,
+    },
+  };
+}
+
+const MyImage = ( { datas } ) => {
+  return (
+    <Image
+      loader={twicpicsLoader}
+      src={datas.src}
+      placeholder="blur"
+      blurDataURL={datas.blurDataURL}
+      alt="Image alt description"
+    />
+  )
+}
+```
 
 ## Examples
 
