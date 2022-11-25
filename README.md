@@ -2,7 +2,7 @@
 
 # TwicPics Components
 
-TwicPics components is a library of components to provide context-aware optimization for images and videos. They come with best practices out-of-the-box: lazy loading, Low Quality Image Placeholders, handling of Cumulative Layout Shifts, etc.
+TwicPics components is a library of components to provide context-aware optimization for images and videos. They come with best practices out of the box: lazy loading, Low Quality Image Placeholders, optimized Cumulative Layout Shift (CLS), and more.
 
 ## Get Started
 
