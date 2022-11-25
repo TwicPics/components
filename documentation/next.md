@@ -91,9 +91,10 @@ If you only want to use the **Next.js loader**, skip to [Next.js Image Loader](#
 
 ### Install TwicPics In Your Next.js Project
 
+**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
+
 This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
 
-**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
 
 ```js
 // _app.js
@@ -112,9 +113,7 @@ export default function MyApp({ Component, pageProps }) {
 }
 ```
 
-__WARNING__: editing the file containing the call to the `installTwicpics` method in watch mode (*ie* `npm|yarn next dev` ) will lead to the __warning__ message `install function called multiple times` on the browser console.  
-
-You will need to __manually reload__ the page in your browser for any changes made to the TwicPics module configuration to take effect client-side. This only concerns the file containing the call to the `installTwicpics` method and only when the TwicPics configuration is modified.
+__WARNING__: Updating the configuration passed to `installTwicpics()` method in watch mode (i.e. when running `next dev`) will lead to a `install function called multiple times` warning in the browser console. You will need to manually reload the page to apply the new configuration.
 
 <div id='setup-options'/>
 
@@ -134,12 +133,10 @@ You will need to __manually reload__ the page in your browser for any changes ma
 
 ## Usage
 
-Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
-
 ### Basic Usage
 
 ```jsx
-// component.jsx
+// MyComponent.jsx
 
 import React from "react";
 import { TwicImg } from "@twicpics/components/react";
@@ -171,9 +168,9 @@ For example, if you're building a carousel, you might want to bulk load all imag
 
 ### Style-Driven Approach
 
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+You can style your components using pure CSS with [CSS variables](#css-variables).
 
-`styles.css`
+**CSS**
 
 ```css
 .landscape {
@@ -217,30 +214,34 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 }
 ```
 
+**Template**
+
 ```html
 <div className="landscape">
-  <TwicImg src=path/to/your/image></TwicImg>
+  <TwicImg src="path/to/your/image"/>
 </div>
 <div className="square">
-  <TwicImg src=path/to/your/image></TwicImg>
+  <TwicImg src="path/to/your/image"/>
 </div>
 <div className="portrait">
-  <TwicImg src=path/to/your/image></TwicImg>
+  <TwicImg src="path/to/your/image"/>
 </div>
 <div className="contain left">
-  <TwicImg src=path/to/your/image ratio="16/9"></TwicImg>
+  <TwicImg src="path/to/your/image" ratio="16/9"/>
 </div>
 <div className="contain right">
-  <TwicImg src=path/to/your/image ratio="16/9"></TwicImg>
+  <TwicImg src="path/to/your/image" ratio="16/9"/>
 </div>
 <!---
     Attributes take precedence over CSS.
     In the next example, ratio will 16/9 AND NOT 1 as defined in square css class 
 --->
 <div className="cover square">
-  <TwicImg src=path/to/your/image ratio="16/9"></TwicImg>
+  <TwicImg src="path/to/your/image" ratio="16/9"/>
 </div>
 ```
+
+**Demo**
 
 <a href="https://codesandbox.io/s/twicpics-x-next-style-driven-oe5bzn?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Next - Style driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
@@ -248,11 +249,11 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 ### Responsive Example
 
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
-
-`styles.css`
+[CSS variables](#css-variables) also enable you to create responsive designs without hassle.
 
 ```css
+/* styles.css */
+
 .style-driven {
   --twic-ratio: 1.9;
 }
@@ -289,13 +290,21 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 }
 ```
 
-Your template features a single component that will follow your CSS directives and behave responsively.
+Now, your template can feature a single component that follows your CSS directives and behave responsively.
 
 ```jsx
-<TwicImg
-  className="style-driven"
-  src="path/to/your/image"
-/>
+// MyComponent.jsx
+
+import 'style.css'
+
+export default function() {
+  return (
+    <TwicImg
+      className="style-driven"
+      src="path/to/your/image"
+    />
+  )
+}
 ```
 
 <a href="https://codesandbox.io/s/twicpics-x-next-art-direction-ps2zj?fontsize=14&hidenavigation=1&theme=dark">
@@ -306,13 +315,13 @@ Your template features a single component that will follow your CSS directives a
 
 ### Working with ratio="none"
 
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and maintaining an optimised `CLS`.
+This is particularly useful when creating hero banner. You can use it to specify an height of your image or vieo while preserving its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
 
-`styles.css`
-
-You are responsible for properly sizing the component.
+When using `ratio="none"`, you are responsible for properly sizing the component.
 
 ```css
+/* style.css */
+
 .hero-image {
   height:500px;
 }
@@ -326,6 +335,8 @@ You are responsible for properly sizing the component.
 ```
 
 ```jsx
+// MyComponent.jsx
+
 <TwicImg
   src="path/to/your/image"
   className="hero-image"
@@ -545,7 +556,7 @@ NEXT_PUBLIC_TWICPICS_DOMAIN="https://<your-domain>.twic.pics/"
 The example below shows how to use the TwicPics loader:
 
 ```jsx
-// component.jsx
+// MyComponent.jsx
 
 import Image from 'next/image'
 import { twicpicsLoader } from "@twicpics/components/next";

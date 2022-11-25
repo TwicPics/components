@@ -28,9 +28,9 @@
 
 ### Install TwicPics in your React Native project
 
-This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
-
 #include "src/_documentation/common/_requirement.md"
+
+This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
 
 ```js
 // App.js
