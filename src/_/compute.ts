@@ -208,7 +208,7 @@ export const computePlaceholderBackground = (
             }x${
                 height
             }`,
-            "output": `output=${ placeholder }`,
+            "output": placeholder,
         }
     );
 };
