@@ -68,7 +68,7 @@ const computeUrl = (
                 preTransform,
                 false
             ) }${ mappingMode[ mode ] }=${ width }x${ height }`,
-            "output": lqip ? `output=${ placeholder }` : ``,
+            "output": lqip ? placeholder : ``,
         }
     );
 };

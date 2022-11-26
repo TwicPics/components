@@ -19,7 +19,7 @@ export const createUrl = (
     const parsed = rPath.exec( _path );
     const isMedia = parsed && parsed[ MEDIA ];
     const actualDebug = debug ? `/debug` : ``;
-    const actualOutput = output ? `/${ output }` : ``;
+    const actualOutput = output ? `/output=${ output }` : ``;
     // eslint-disable-next-line no-nested-ternary
     const actualPath = isMedia ? (
         ( path && !isAbsolute ) ?

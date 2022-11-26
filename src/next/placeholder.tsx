@@ -10,7 +10,7 @@ export default async ( src: string ): Promise< string > => {
             "path": process.env.NEXT_PUBLIC_TWICPICS_PATH,
             src,
             "transform": `resize=${ PLACEHOLDER_SIZE }`,
-            "output": `output=preview`,
+            "output": `preview`,
         }
     ) );
     const arrayBuffer = await response.arrayBuffer();
