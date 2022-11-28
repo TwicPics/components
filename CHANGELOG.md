@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Add a custom loader for **Next.js Image**.
+- Add alias for installation function: both `installTwicpics` and `installTwicPics` can be used
 
 ### Changed
 
