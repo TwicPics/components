@@ -10,11 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add a custom loader for **next/image**.
+- Add a custom loader for **Next.js Image**
+- Add alias for installation function: both `installTwicpics` and `installTwicPics` can be used
 
 ### Changed
 
-- Changes in the case of the installation function: `installTwicPics` becomes `installTwicpics`. `installTwicPics` can still be used. 
 - Upgrade dependencies (`Svelte.js` up to 3.53.1)
 
 ## [0.13.1] - 2022-11-17
