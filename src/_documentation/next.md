@@ -288,7 +288,7 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 
 ## Next.js Image Loader
 
-If it does not exist, create an `.env` file at the root of your project. 
+If it does not exist, create a `.env` file at the root of your project. 
 
 Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths):
 
