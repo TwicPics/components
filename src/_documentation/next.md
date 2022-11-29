@@ -6,28 +6,18 @@
 
 #include "src/_documentation/common/_cover.md"
 
-- [Overview](#about)
-    - [What is TwicPics ?](#what-is-twicpics)
-    - [What is TwicPics Components ?](#what-is-twicpics-components)
-- [Installation](#installation)
+- [Overview](#overview)
 - [Setup](#setup)
-    - [Install TwicPics In Your Next.js Project](#install-twicpics-in-your-nextjs-project)
-    - [Setup Options](#setup-options)
+  - [Install TwicPics In Your Next.js Project](#install-twicpics-in-your-nextjs-project)
 - [Usage](#usage)
-    - [Basic usage](#basic-usage)
-    - [Bulk loading with TwicView](#bulk-loading-with-twicview)
-    - [Style Driven Approach](#style-driven-approach)
-    - [Responsive Example](#responsive-example)
-    - [Working with ratio="none"](#ratio-none)__TWIC_STATE_TABLE_CONTENT__
-- [Components properties](#components-props)
-    - [TwicImg](#twic-img)
-    - [TwicVideo](#twic-video)
-- [CSS variables](#css-variables)
+  - [Basic Usage](#basic-usage)
+  - [Style-Driven Approach](#style-driven-approach)
+  - [Responsive Example](#responsive-example)
+  - [Working with ratio="none"](#working-with-rationone)
 - [Next.js Image Loader](#nextjs-image-loader)
+  - [Basic Usage](#basic-usage-1)
+  - [Using Placeholders](#using-placeholders)
 - [Examples](#examples)
-- [Questions and feedback](#getting-help)
-- [Other frameworks](#other-frameworks)
-- [Licence](#licence)
     
 ## Overview
 
@@ -341,7 +331,7 @@ export async function getServerSideProps() {
   const data = {
     src: `image.jpg`,
   };
-  datas.blurDataURL = await twicpicsPlaceholder('image:football.jpg');
+  datas.blurDataURL = await twicpicsPlaceholder(data.src);
   return {
     props: {
       data,
