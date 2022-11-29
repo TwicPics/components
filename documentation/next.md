@@ -528,6 +528,9 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Next.js Image Loader
 
+**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
+
+
 If it does not exist, create a `.env` file at the root of your project. 
 
 Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths):
