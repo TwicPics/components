@@ -123,7 +123,9 @@ export default ( { bundleCss = true,
                     if ( postDefinitions ) {
                         typeDefinitions = postDefinitions( typeDefinitions );
                     }
-                    typeDefinitions = typeDefinitions.replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
+                    typeDefinitions = typeDefinitions
+                        .replace( /\/(\/+|\*).*/gm, `` )
+                        .replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
                     const ref = `export*from"./${ getFormatInfo( formats[ 0 ], `fileName` ) || formats[ 0 ] }.d.ts";`;
                     await Promise.all( formats.map( ( f, isCopy ) => writeFile(
                         `${ __dirname }/../dist/${ framework }/${ getFormatInfo( f, `fileName` ) || f }.d.ts`,
