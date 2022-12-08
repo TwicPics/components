@@ -2,10 +2,8 @@
 /samples/**/.next
 /samples/**/.nuxt
 /samples/**/build
+/samples/next/out
 /samples/gatsby/public
 /samples/**/polyfills.ts
-/tests/**/.next
-/tests/**/.nuxt
-/tests/**/build
-/tests/**/polyfills.ts
+/tests
 dist
