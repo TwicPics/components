@@ -7,6 +7,7 @@
 /samples/**/package-lock.json
 /samples/**/yarn.lock
 /samples/angular*/**/app.component.html
+/samples/next/out
 /samples/nuxt3/.cache
 /samples/nuxt3/.env
 /samples/nuxt3/.output
