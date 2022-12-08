@@ -8,9 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.14.1] - 2022-12-08
+
+### Fixed
+
+- Fix the issue that prevents **React** + **typescript** projects from being compiled.
+
 ### Changed
 
-- Fixes `Next.js` documentation
+- Update **Next.js** documentation.
 
 ## [0.14.0] - 2022-11-29
 
@@ -21,7 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Upgrade dependencies (`Svelte.js` up to 3.53.1)
+- Upgrade dependencies (**Svelte.js** up to 3.53.1)
 
 ## [0.13.1] - 2022-11-17
 
@@ -32,7 +38,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fixes React-native documentation
-- Fixes the problem preventing the `Nuxt3` module from working with [Nuxt3.0.0-rc.14](https://github.com/nuxt/framework/releases/tag/v3.0.0-rc.14)
+- Fixes the problem preventing the **Nuxt3** module from working with [Nuxt3.0.0-rc.14](https://github.com/nuxt/framework/releases/tag/v3.0.0-rc.14)
 
 ## [0.13.0] - 2022-11-14
 
@@ -338,6 +344,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.14.1]: https://github.com/TwicPics/components/compare/0.14.0...0.14.1
 [0.14.0]: https://github.com/TwicPics/components/compare/0.13.1...0.14.0
 [0.13.1]: https://github.com/TwicPics/components/compare/0.13.0...0.13.1
 [0.13.0]: https://github.com/TwicPics/components/compare/0.12.0...0.13.0
