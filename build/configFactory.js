@@ -124,7 +124,11 @@ export default ( { bundleCss = true,
                         typeDefinitions = postDefinitions( typeDefinitions );
                     }
                     typeDefinitions = typeDefinitions
-                        .replace( /\/(\/+|\*).*/gm, `` )
+                        // eslint-disable-next-line no-useless-escape
+                        .replace(
+                            /(([`'"])(?:\\.|.|\r|\n)+?\2)|\/\/.*|\/\*(?:.|\r|\n)*?\*\//g,
+                            ( _, string ) => string || ` `
+                        )
                         .replace( /\s*([^_a-z0-9])\s*/gi, `$1` );
                     const ref = `export*from"./${ getFormatInfo( formats[ 0 ], `fileName` ) || formats[ 0 ] }.d.ts";`;
                     await Promise.all( formats.map( ( f, isCopy ) => writeFile(
