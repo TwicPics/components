@@ -1,7 +1,7 @@
 import type { Anchor, Mode, Placeholder, Environment } from "./types";
 import { trimRegExpFactory } from "./utils";
 
-export const validAnchors: Array< Anchor > = [];
+export const validAnchors: Array< Anchor > = [ `center` ];
 for ( const y of [ ``, `bottom`, `top` ] ) {
     for ( const x of [ ``, `left`, `right` ] ) {
         if ( x || y ) {

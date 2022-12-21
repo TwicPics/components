@@ -1,7 +1,7 @@
 /*
  * public API Surface of ngx-components
  */
-export type { Mode, Placeholder, StateEvent, State } from "../_/types";
+export type { Anchor, Mode, Placeholder, State, StateEvent } from "../_/types";
 export * from "./img.component";
 export * from "./video.component";
 export * from "./view.component";

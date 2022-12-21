@@ -378,6 +378,38 @@ Here are the values the Component will emit ([see State Type definition](#state-
 
 #include "src/_documentation/common/_componentsProps.md"
 
+### Anchor Type
+
+Union type for all possible values on `anchor` property.
+
+```ts
+type Anchor = `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
+```
+
+#### Usage
+
+To dynamically set the `anchor` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Anchor`.
+
+```ts
+// component.ts
+import { Anchor } from "@twicpics/components/angular14";
+
+@Component({
+  selector: ...,
+  templateUrl: ...,
+  styleUrls: ...,
+})
+export class YourComponent {
+  yourAnchorVariable:Anchor = `top-left`;
+}
+```
+
+```html
+<!-- component.html -->
+<TwicImg src="path/to/your/image" [anchor]="yourAnchorVariable"></TwicImg>
+```
+
+
 ### Mode Type
 
 Union type for all possible values on `mode` property.
@@ -408,7 +440,6 @@ export class YourComponent {
 <!-- component.html -->
 <TwicImg src="path/to/your/image" [mode]="yourModeVariable"></TwicImg>
 ```
-
 
 ### Placeholder Type
 
