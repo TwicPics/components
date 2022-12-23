@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependencies (**Next.js** up to 13.1)
+
 ## [0.14.2] - 2022-12-21
 
 ### Add
