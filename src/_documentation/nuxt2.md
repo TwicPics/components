@@ -13,10 +13,7 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-<a href="https://codesandbox.io/s/twicpics-x-nuxt-basic-h5yd6s?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 #include "src/_documentation/common/_installation.md"
 
 <div id='setup'/>
@@ -110,7 +107,11 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 </template>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt2?file=pages%2Fbasic-grid.vue&initialpath=basic-grid)
+
 #include "src/_documentation/common/_bulkLoading.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt2?file=pages%2Fbulk-loading.vue&initialpath=bulk-loading)
 
 <div id='style-driven-approach'/>
 
@@ -188,9 +189,7 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-nuxt-style-driven-zw61ry?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt2?file=pages%2Fstyle-driven.vue&initialpath=style-driven)
 
 <div id='responsive-example'/>
 
@@ -255,9 +254,7 @@ export default {
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-nuxt-art-direction-ni4875?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt2?file=pages%2Fart-directions.vue&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -297,11 +294,11 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-nuxt-hero-image-gxuypg?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt2 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt2?file=pages/hero.vue&initialpath=hero)
 
 #include "src/_documentation/common/vue/_lifeCycle.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt2?file=pages/state.vue&initialpath=state)
 
 #include "src/_documentation/common/_componentsProps.md"
 
@@ -313,7 +310,7 @@ export default {
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-nuxt-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+You can find usage examples [in our online demo project](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_gettingHelp.md"
 

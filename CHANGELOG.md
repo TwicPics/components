@@ -10,8 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Upgrade dependencies (**Next.js** up to 13.1)
-- Upgrade dependencies (**Svelte** up to 3.55)
+- Update documentation with new online demos.
+- Upgrade dependencies (**Next.js** up to 13.1).
+- Upgrade dependencies (**Svelte** up to 3.55).
 
 ### Fixed
 

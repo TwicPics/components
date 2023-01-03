@@ -27,7 +27,7 @@ Regardless of the framework you work with, [TwicPics](https://www.twicpics.com/?
 Explore our demos and integration examples for : 
 - [Angular](https://twicpics-angular-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 - [React](https://twicpics-react-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Next.js](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Gatsby.js](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
-- [Vue.js (version 2)](https://twicpics-vue-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Nuxt.js (version 2)](https://twicpics-nuxt-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+- [Vue.js (version 2)](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Vue.js (version 3)](https://twicpics-vue3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Nuxt.js (version 2)](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Nuxt.js (version 3)](https://twicpics-nuxt3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 - [Svelte (version 3)](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 
 #include "src/_documentation/common/_gettingHelp.md"

@@ -62,9 +62,7 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
-<a href="https://codesandbox.io/s/twicpics-x-vue2-basic-example-ym85ql?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Vue 2 - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 ## Installation
 
@@ -196,6 +194,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 </template>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicBasicGrid.vue&initialpath=basic-grid)
+
 <div id='bulk-loading-with-twicview'/>
 
 ### Bulk loading with TwicView
@@ -290,9 +290,7 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-vue2-style-driven-vp5c8e?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Vue 2 - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicStyleDriven.vue&initialpath=style-driven)
 
 
 <div id='responsive-example'/>
@@ -359,9 +357,7 @@ export default {
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-vue2-art-directions-s0vks9?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Vue 2 - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicArtDirections.vue&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -401,9 +397,7 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-vue2-hero-image-pkpqh3?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Vue2 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicHero.vue&initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -449,6 +443,8 @@ export default {
 };
 </script>
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicState.vue&initialpath=state)
 
 <div id='components-props'/>
 
@@ -615,7 +611,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-vue-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+You can find usage examples [in our online demo project](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 <div id='getting-help'/>
 

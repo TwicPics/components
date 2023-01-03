@@ -62,11 +62,7 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
-<a href="https://codesandbox.io/s/twicpics-x-react-basic-example-lkdrn?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Basic Example" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
-[Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-react-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-react-demo.netlify.app/).
 
 ## Installation
 
@@ -215,6 +211,8 @@ const YourTemplate = () => (
 export default YourTemplate;
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicBasicGrid%2Findex.jsx&initialpath=basic-grid)
+
 <div id='bulk-loading-with-twicview'/>
 
 ### Bulk loading with TwicView
@@ -310,9 +308,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </div>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-react-style-driven-0cmgv0?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Style driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-art-direction%2Ftwic-art-direction.component.html&initialpath=art-direction)
 
 
 <div id='responsive-example'/>
@@ -370,9 +366,7 @@ Your template features a single component that will follow your CSS directives a
 ></TwicImg>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-react-art-direction-nce8p3?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src/lib/twicArtDirections/index.jsx&initialpath=art-directions)
 
 
 <div id='ratio-none'/>
@@ -406,9 +400,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 ></TwicImg>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-react-hero-image-35h2on?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicHero%2Findex.jsx&initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -441,6 +433,8 @@ Here are the values the Component will emit ([see State Type definition](#state-
     />
   )
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicState%2Findex.jsx&initialpath=state)
 
 <div id='components-props'/>
 

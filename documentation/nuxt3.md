@@ -62,9 +62,7 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
-<a href="https://codesandbox.io/s/twicpics-x-nuxt3-basic-example-xejvgl?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt 3 - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-nuxt3-demo.netlify.app//?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 ## Installation
 
@@ -166,6 +164,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 </template>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fbasic-grid.vue&initialpath=basic-grid)
+
 <div id='bulk-loading-with-twicview'/>
 
 ### Bulk loading with TwicView
@@ -183,6 +183,8 @@ For example, if you're building a carousel, you might want to bulk load all imag
   <TwicImg src="image3.jpg" />
 </TwicView>
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fbulk-loading.vue&initialpath=bulk-loading)
 
 <div id='style-driven-approach'/>
 
@@ -259,9 +261,7 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-nuxt3-style-driven-ggg615?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt 3 - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fstyle-driven.vue&initialpath=style-driven)
 
 <div id='responsive-example'/>
 
@@ -326,9 +326,7 @@ export default {
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-nuxt3-art-direction-xqbj56?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt3 - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fart-directions.vue&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -367,9 +365,7 @@ export default {
 </style>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-nuxt3-hero-image-yk7213?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Nuxt3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fhero.vue&initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -415,6 +411,8 @@ export default {
 };
 </script>
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fstate.vue&initialpath=state)
 
 <div id='components-props'/>
 
@@ -581,7 +579,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our sample project](https://github.com/twicpics/components/tree/main/samples/nuxt3).
+You can find usage examples [in our sample project](https://twicpics-nuxt3-demo.netlify.app/).
 
 <div id='getting-help'/>
 

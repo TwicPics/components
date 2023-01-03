@@ -17,9 +17,7 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-<a href="https://codesandbox.io/s/twicpics-x-angular-basic-6jldk?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Angular - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 TwicPics Components are available in Angular __version 11 to 14_.
 
@@ -138,7 +136,11 @@ Just use them in your template files in place of `img` or `video` tags.
 </main>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-basic-grid%2Ftwic-basic-grid.component.html&initialpath=basic-grid)
+
 #include "src/_documentation/common/_bulkLoading.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-bulk-loading%2Ftwic-bulk-loading.component.html&initialpath=bulk-loading)
 
 <div id='style-driven-approach'/>
 
@@ -227,9 +229,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-angular-style-driven-fwp59j?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Angular - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-style-driven%2Ftwic-style-driven.component.html&initialpath=style-driven)
 
 
 <div id='responsive-example'/>
@@ -290,9 +290,7 @@ Your template features a single component that will follow your CSS directives a
 </main>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-angular-art-direction-h4xb4j?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Angular - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-art-direction%2Ftwic-art-direction.component.html&initialpath=art-direction)
 
 <div id='ratio-none'/>
 
@@ -326,9 +324,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 ></TwicImg>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-angular-hero-image-r545pf?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Angular - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-hero%2Ftwic-hero.component.html&initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -375,6 +371,8 @@ Here are the values the Component will emit ([see State Type definition](#state-
     this.changeDetector.detectChanges();
   }
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
 
 #include "src/_documentation/common/_componentsProps.md"
 
@@ -513,7 +511,7 @@ export type StateEvent = {
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-angular-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+You can find usage examples [in our online demo project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_gettingHelp.md"
 

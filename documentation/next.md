@@ -52,11 +52,7 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
-<a href="https://codesandbox.io/s/twicpics-x-next-basic-example-xe9spg?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Next - Basic Example" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
-[Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 ## Installation
 
@@ -152,6 +148,8 @@ For example, if you're building a carousel, you might want to bulk load all imag
 </TwicView>
 ```
 
+[![Open in StackBlitz(https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
+
 ### Style-Driven Approach
 
 You can style your components using pure CSS with [CSS variables](#css-variables).
@@ -229,9 +227,7 @@ You can style your components using pure CSS with [CSS variables](#css-variables
 
 **Demo**
 
-<a href="https://codesandbox.io/s/twicpics-x-next-style-driven-oe5bzn?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Next - Style driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/style-driven/index.jsx&initialpath=style-driven)
 
 ### Responsive Example
 
@@ -293,9 +289,7 @@ export default function() {
 }
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-next-art-direction-ps2zj?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Next - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fart-directions%2Findex.jsx&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -330,9 +324,7 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 />
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-next-hero-image-sw9zj7?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x React - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -365,6 +357,8 @@ Here are the values the Component will emit ([see State Type definition](#state-
     />
   )
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fstate%2Findex.jsx&initialpath=state)
 
 <div id='components-props'/>
 
@@ -609,7 +603,7 @@ const MyImage = ({ data }) => {
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-next-demo.netlify.app//?utm_source=github&utm_campaign=components&utm_medium=organic).
+You can find usage examples [in our online demo project](https://twicpics-next-demo.netlify.app?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 <div id='getting-help'/>
 

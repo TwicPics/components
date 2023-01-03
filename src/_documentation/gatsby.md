@@ -14,12 +14,7 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-<a href="https://codesandbox.io/s/twicpics-x-gatsby-basic-example-64cid1?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Gatsby - Basic Example" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
-
-[Discover our demonstrations and integration examples on Codesandbox.](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_installation.md"
 
@@ -189,10 +184,6 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </div>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-gatsby-art-direction-k4n458?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Gatsby - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
 <div id='responsive-example'/>
 
 ### Responsive Example
@@ -248,10 +239,6 @@ src="path/to/your/image"
 ></TwicImg>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-gatsby-style-driven-h97h50?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Gatsby - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
-
 <div id='ratio-none'/>
 
 ### Working with ratio="none"
@@ -282,10 +269,6 @@ Particularly useful when creating hero banner, you can specify the height of you
   ratio="none"
 ></TwicImg>
 ```
-
-<a href="https://codesandbox.io/s/twicpics-x-gatsby-hero-image-oerdt2?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Gatsby - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
 
 #include "src/_documentation/common/react/_lifeCycle.md"
 

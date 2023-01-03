@@ -62,9 +62,7 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-basic-example-ygqef7?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Svelte - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+Discover our demonstrations and integration examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 ## Installation
 
@@ -197,6 +195,8 @@ For example, if you're building a carousel, you might want to bulk load all imag
 </TwicView>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBulkLoading.svelte&initialpath=bulk-loading)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -257,9 +257,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-styles-driven-ww3yjn?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Svelte - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src/lib/twicStyleDriven/index.jsx)
 
 
 <div id='responsive-example'/>
@@ -322,9 +320,7 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-<a href="https://codesandbox.io/s/twicpics-x-svelte-art-directions-q8xl64?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Svelte - Art direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicArtDirections.svelte&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -360,9 +356,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 ></TwicImg>
 ```
 
-<a href="https://codesandbox.io/s/twicpics-x-svelte-hero-image-tgzblz?fontsize=14&hidenavigation=1&theme=dark">
-  <img alt="Edit TwicPics x Svelte3 - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
-</a>
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicHero.svelte&initialpath=hero)
 
 <div id='lifecycle'/>
 
@@ -418,6 +412,8 @@ Another approach is to listen to `statechange` event.
   src="path/to/your/image"
 />
 ```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicState.svelte&initialpath=state)
 
 <div id='components-props'/>
 
