@@ -19,29 +19,9 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             "extensions": [ `.svelte` ],
             "preprocess": sveltePreprocessor(),
         } ),
-        replacer( {
-            "include": /(?:^|[/.])img-video\.svelte$/,
-            "replacers": [
-                [ /\nexport default .+/, `` ],
-                [ /"img"/g, `MEDIA_TAG` ],
-                [ /"span"/g, `"style"` ],
-                [ /(?=\nfunction create_(?:else_block|fragment|if_block)\()/, `\nexport default MEDIA_TAG => {` ],
-                [ /(?=\nclass \S+ )/, `\nreturn (` ],
-                [ /$/, `);}` ],
-            ],
-        } ),
-        replacer( {
-            "include": /(?:^|[/.])View\.svelte$/,
-            "replacers": [
-                [ /\nexport default .+/, `` ],
-                [ /(?=\nfunction create_(?:else_block|fragment|if_block)\()/, `\nexport default () => {` ],
-                [ /(?=\nclass \S+ )/, `\nreturn (` ],
-                [ /$/, `);}` ],
-            ],
-        } ),
         ...( customElement ? [
             replacer( {
-                "include": /(?:^|[/.])img-video\.svelte$/,
+                "include": /\.svelte$/,
                 "replacers": [
                     [ /preTransform/g, `pretransform` ],
                     [ /transitionDelay/g, `transitiondelay` ],
@@ -65,16 +45,13 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                 .split( `\n` )
                 // eslint-disable-next-line no-magic-numbers
                 .slice( 2 )
-                .filter( line => {
-                    const tmp = /^declare type (\S+)/.exec( line );
-                    return !tmp || /^Optional/.test( tmp[ 1 ] );
-                } )
                 .map( line => line.replace(
-                    /svelte\.ComponentType<svelte\.SvelteComponentTyped<[^>]*>>;/g,
+                    /ComponentType<SvelteComponentTyped<[^>]*>>;/g,
                     `CustomElementConstructor;`
                 ) )
                 .join( `\n` )
                 .replace( /interface Attributes[^}]+\}/g, `` )
+                .replace( /\s*,\s*Attributes\s*,\s*/, `,` )
     ),
     "sourceDir": `svelte3`,
 } );

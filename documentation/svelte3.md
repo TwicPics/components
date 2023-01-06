@@ -64,6 +64,8 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 
 Discover our demonstrations and integration examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
+TwicPics Components are available in Svelte3 __version 3.47+_.
+
 ## Installation
 
 Add the `@twicpics/components` package to your project:

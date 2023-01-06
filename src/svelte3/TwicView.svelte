@@ -1,7 +1,7 @@
 <svelte:options tag={null}/>
 <script context="module" lang="ts">
-import { getDataAttributeName } from "../_/install";
-import { isWebComponents } from "../_/utils";
+import { getDataAttributeName } from "./utils";
+import { isWebComponents } from "./utils";
 import { get_current_component } from "svelte/internal";
 </script>
 <script lang="ts">

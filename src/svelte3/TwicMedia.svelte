@@ -1,8 +1,7 @@
-<svelte:options tag={null}/>
+<svelte:options tag="twic-media"/>
 
 <script context="module" lang="ts">
-import type { Anchor, Attributes as BaseAttributes, Media, Mode, Placeholder, State } from "../_/types";
-
+import type { Anchor, Media, Mode, Placeholder, State } from "./utils";
 import {
     computeAlt,
     computeData,
@@ -10,10 +9,9 @@ import {
     computeStyle,
     computeWrapperClass,
     computeWrapperStyle,
-} from "../_/compute";
-import { isBrowser, isWebComponents } from "../_/utils";
-import { createEventDispatcher, get_current_component, onDestroy, onMount } from "svelte/internal";
-import {
+    isBrowser,
+    isWebComponents,
+    Observer,
     parseAlt,
     parseAnchor,
     parseBot,
@@ -32,25 +30,18 @@ import {
     parseTransitionDelay,
     parseTransitionDuration,
     parseTransitionTimingFunction,
-} from "../_/parse";
-import { styleToString } from "./utils";
-import { Observer } from "../_/Observer";
-
-export interface Attributes extends BaseAttributes {
-    class?: string,
-    state?: State
-}
-
-declare const MEDIA_TAG: string;
+    styleToString
+} from "./utils";
+import { createEventDispatcher, get_current_component, onDestroy, onMount } from "svelte/internal";
 </script>
 <script lang="ts">
 export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 export let bot: string = undefined;
-let className: string = undefined;
-export { className as class };
+export let className: string = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
+export let mediaTag: 'img' | 'video';
 export let mode: Mode = undefined;
 export let eager: boolean = false;
 export let placeholder: Placeholder = undefined;
@@ -69,13 +60,12 @@ let media: Media;
 
 const observer = new Observer( ( _state: State )=> {
     state = _state;
-}  );
+} );
 
 const stateDispatcher = createEventDispatcher();
 $: stateDispatcher( `statechange`, { state } );
 
-$: isVideo = MEDIA_TAG === `video`;
-
+$: isVideo = mediaTag === `video`;
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
@@ -87,7 +77,7 @@ $: parsedPlaceholder = parsePlaceholder( placeholder, src );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
-$: parsedSrc = parseSrc( src );
+$: parsedSrc = mediaTag && parseSrc( src );
 $: parsedStep = parseStep( step );
 $: parsedTransition = parseTransition( transition );
 $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
@@ -150,32 +140,34 @@ if ( isBrowser ) {
 }
 </script>
 
-{#if isWebComponents}
-<div
-    class = { computeWrapperClass( src, parsedTransition ) }
-    style = { _wrapperStyle }
->
-    <img
-        bind:this = { media }
-        alt = { _alt }
-        style = { _style }
-        { ..._data }
-    />
-    <div style = "{ _placeholderStyle }" />
-</div>
-{:else}
-<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
+{#if mediaTag}
+    {#if isWebComponents}
     <div
         class = { computeWrapperClass( src, parsedTransition ) }
         style = { _wrapperStyle }
     >
-        <img
+        <svelte:element this={ mediaTag }
             bind:this = { media }
             alt = { _alt }
             style = { _style }
             { ..._data }
-        />
-        <div style = "{ _placeholderStyle }" />
+        ></svelte:element>
+        <div style = { _placeholderStyle } />
     </div>
-</div>
+    {:else}
+    <div class = {`twic-i ${ parseClassName( className ) || `` }`}>
+        <div
+            class = { computeWrapperClass( src, parsedTransition ) }
+            style = { _wrapperStyle }
+        >
+            <svelte:element this={ mediaTag }
+                bind:this = { media }
+                alt = { _alt }
+                style = { _style }
+                { ..._data }
+            ></svelte:element>
+            <div style = { _placeholderStyle } />
+        </div>
+    </div>
+    {/if}
 {/if}
