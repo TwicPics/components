@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Simplify Svelte3 components generation using <svelte:element>. **Requires** Svelte3.47+.
 - Update documentation with new online demos.
 - Upgrade dependencies (**Next.js** up to 13.1).
 - Upgrade dependencies (**Svelte** up to 3.55).
