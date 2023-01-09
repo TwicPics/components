@@ -25,17 +25,17 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
     }
     register( VueObject, {
         "component": ImgVideo,
-        "componantName": options.TwicImg || `TwicImg`,
+        "componentName": options.TwicImg || `TwicImg`,
         "tag": `img`,
     } );
     register( VueObject, {
         "component": ImgVideo,
-        "componantName": options.TwicVideo || `TwicVideo`,
+        "componentName": options.TwicVideo || `TwicVideo`,
         "tag": `video`,
     } );
     register( VueObject, {
         "component": View,
-        "componantName": options.TwicView || `TwicView`,
+        "componentName": options.TwicView || `TwicView`,
     } );
 };
 

@@ -2,18 +2,18 @@ import type Vue from "vue";
 interface Register {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: any,
-    componantName: string,
+    componentName: string,
     tag?: string,
 }
 
 export default ( VueObject: typeof Vue, options: Register ): void => {
-    const { component, componantName, tag } = options;
+    const { component, componentName, tag } = options;
     const { computed } = component;
     VueObject.component(
-        componantName,
+        componentName,
         {
             ...component,
-            "name": componantName,
+            "name": componentName,
             "computed": {
                 ...computed,
                 ...(
