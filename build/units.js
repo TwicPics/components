@@ -70,11 +70,11 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                     return !tmp || /^Optional/.test( tmp[ 1 ] );
                 } )
                 .map( line => line.replace(
-                    ` svelte.SvelteComponentTyped<Attributes, undefined, undefined>;`,
-                    ` CustomElementConstructor;`
+                    /svelte\.ComponentType<svelte\.SvelteComponentTyped<[^>]*>>;/g,
+                    `CustomElementConstructor;`
                 ) )
                 .join( `\n` )
-                .replace( /\ninterface Attributes \{[^}]+\}/, `` )
+                .replace( /interface Attributes[^}]+\}/g, `` )
     ),
     "sourceDir": `svelte3`,
 } );
