@@ -4,7 +4,7 @@
         "experimentalDecorators": true,
         "jsx": "react",
         "lib": [ "dom", "es2020" ],
-        "outDir": "./dts",
+        "declarationDir": "./dts",
         "sourceMap": true,
         "strict": true,
         "strictNullChecks": false,
