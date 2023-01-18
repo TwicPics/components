@@ -214,6 +214,8 @@ For example, if you're building a carousel, you might want to bulk load all imag
 </TwicView>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicBulkLoading.vue&initialpath=bulk-loading)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach

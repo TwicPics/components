@@ -292,7 +292,7 @@ export default {
 </style>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicBasicGrid.vue&initialpath=basic-grid)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue3?file=src/views/TwicStyleDriven.vue&initialpath=style-driven)
 
 <div id='responsive-example'/>
 

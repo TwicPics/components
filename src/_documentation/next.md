@@ -80,9 +80,11 @@ const YourTemplate = () => (
 export default YourTemplate;
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fbasic-grid%2Findex.jsx&initialpath=basic-grid)
+
 #include "src/_documentation/common/_bulkLoading.md"
 
-[![Open in StackBlitz(https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
 
 ### Style-Driven Approach
 
@@ -258,7 +260,7 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 />
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?initialpath=hero)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fhero%2Findex.jsx&initialpath=hero)
 
 #include "src/_documentation/common/react/_lifeCycle.md"
 

@@ -127,6 +127,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 #include "src/_documentation/common/_bulkLoading.md"
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicBulkLoading.vue&initialpath=bulk-loading)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach

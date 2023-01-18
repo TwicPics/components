@@ -122,6 +122,8 @@ and the usage declaration of the module
 } )
 ```
 
+into your main module.
+
 ```ts
 // here is an example of a `app.module.ts` configured with TwicPics.
 import { NgModule } from "@angular/core";

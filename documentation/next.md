@@ -130,6 +130,8 @@ const YourTemplate = () => (
 export default YourTemplate;
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fbasic-grid%2Findex.jsx&initialpath=basic-grid)
+
 <div id='bulk-loading-with-twicview'/>
 
 ### Bulk loading with TwicView
@@ -148,7 +150,7 @@ For example, if you're building a carousel, you might want to bulk load all imag
 </TwicView>
 ```
 
-[![Open in StackBlitz(https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
 
 ### Style-Driven Approach
 

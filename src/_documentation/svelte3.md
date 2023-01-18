@@ -108,6 +108,8 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 </main>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBasicGrid.svelte&initialpath=basic-grid)
+
 #include "src/_documentation/common/_bulkLoading.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBulkLoading.svelte&initialpath=bulk-loading)

@@ -143,6 +143,8 @@ export default YourTemplate;
 
 #include "src/_documentation/common/_bulkLoading.md"
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src/lib/twicBulkLoading/index.jsx&initialpath=bulk-loading)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -220,7 +222,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </div>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-art-direction%2Ftwic-art-direction.component.html&initialpath=art-direction)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicStyleDriven%2Findex.jsx&initialpath=style-driven)
 
 
 <div id='responsive-example'/>

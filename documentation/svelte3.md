@@ -177,6 +177,8 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 </main>
 ```
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBasicGrid.svelte&initialpath=basic-grid)
+
 <div id='bulk-loading-with-twicview'/>
 
 ### Bulk loading with TwicView
