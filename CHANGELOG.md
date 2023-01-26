@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependencies (**Nuxt.js** up to 3.1.1).
+
 ## [0.15.0] - 2022-01-20
 
 ### Add
