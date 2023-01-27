@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Make the configuration of components global so that components can be used in different frameworks simultaneously.
 - Upgrade dependencies (**Nuxt.js** up to 3.1.1).
 
 ## [0.15.0] - 2022-01-20

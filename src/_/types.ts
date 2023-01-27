@@ -36,6 +36,17 @@ export interface Attributes {
     transitionTimingFunction?: string,
 }
 
+export interface Config {
+    debug: boolean,
+    class: string,
+    domain: string,
+    env: Environment,
+    handleShadowDom: ( item?: Element ) => void,
+    maxDPR: number;
+    path: string,
+    step: number,
+}
+
 export interface CreateUrlData {
     debug?: boolean,
     domain: string,
