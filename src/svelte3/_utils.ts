@@ -41,11 +41,14 @@ export type {
 export { isBrowser, isWebComponents } from "../_/utils.js";
 export { Observer } from "../_/Observer.js";
 
-export const styleToString = ( properties: Record< string, string > ): string =>
-    Object.entries( properties )
-        .flatMap( ( [ p, v ] ) => (
-            v ?
-                [ `${ p.replace( /([a-z]|(?=[A-Z]))([A-Z])/g, `$1-$2` ).toLowerCase() }:${ v };` ] :
-                []
-        ) )
-        .join( `` );
+export const styleToString = ( properties: Record< string, string > ): string => (
+    Object.keys( properties ).length ?
+        Object.entries( properties ).flatMap(
+            ( [ p, v ] ) => (
+                v ?
+                    [ `${ p.replace( /([a-z]|(?=[A-Z]))([A-Z])/g, `$1-$2` ).toLowerCase() }:${ v };` ] :
+                    []
+            )
+        ).join( `` ) :
+        undefined
+);
