@@ -6,7 +6,7 @@
 
 
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.15.0/documentation/resources/angular-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.15.1/documentation/resources/angular-cover.png)
 
 
 
@@ -751,5 +751,5 @@ TwicPics Components are available [in the most popular javascript frameworks](ht
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.15.0-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.15.0
+[npm-image]: https://img.shields.io/badge/npm-v0.15.1-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.15.1

@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.15.1] - 2022-02-01
+
 ### Changed
 
 - Make the configuration of components global so that components can be used in different frameworks simultaneously.
@@ -373,6 +375,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.15.1]: https://github.com/TwicPics/components/compare/0.15.0...0.15.1
 [0.15.0]: https://github.com/TwicPics/components/compare/0.14.2...0.15.0
 [0.14.2]: https://github.com/TwicPics/components/compare/0.14.1...0.14.2
 [0.14.1]: https://github.com/TwicPics/components/compare/0.14.0...0.14.1
