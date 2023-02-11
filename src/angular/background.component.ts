@@ -9,7 +9,7 @@ import {
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 
 @Component( {
-    "selector": `TwicVideo`,
+    "selector": `TwicBackground`,
     "template": `
         <TwicMedia
             [anchor]="anchor"
@@ -38,8 +38,8 @@ import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicVideoComponent {
-    mediaTag = `video`;
+export class TwicBackgroundComponent {
+    mediaTag = `div`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() focus: string = undefined;

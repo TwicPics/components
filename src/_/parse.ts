@@ -70,10 +70,12 @@ export const parseEager = ( value: boolean | string ): boolean => {
     return mappingEager[ value.trim() ] || false;
 };
 
+export const parseMediaTag = trimOrUndefined;
+
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
-export const parsePlaceholder = ( placeholder: Placeholder, src:string ) : Placeholder => {
-    if ( ( config.env === `offline` ) || !trimOrUndefined( src ) || ( placeholder === `none` ) ) {
+export const parsePlaceholder = ( placeholder: Placeholder ) : Placeholder => {
+    if ( ( config.env === `offline` ) || ( placeholder === `none` ) ) {
         return undefined;
     }
     return rValidPlaceholder.test( placeholder ) ? placeholder : `preview`;

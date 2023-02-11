@@ -43,7 +43,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
     const mode = parseMode( props.mode ) || `cover`;
-    const placeholder = parsePlaceholder( props.placeholder, props.src );
+    const placeholder = parsePlaceholder( props.placeholder );
     const preTransform = parsePreTransform( props.preTransform );
     const src = parseSrc( props.src );
     const step = parseStep( props.step );

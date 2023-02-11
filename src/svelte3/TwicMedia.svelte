@@ -3,7 +3,7 @@
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Anchor, Media, Mode, Placeholder, State } from "./_utils.js";
+import type { Anchor, Mode, Placeholder, State } from "./_utils.js";
 import {
     computeAlt,
     computeData,
@@ -12,12 +12,10 @@ import {
     computeWrapperClass,
     computeWrapperStyle,
     isBrowser,
-    isWebComponents,
     Observer,
     parseAlt,
     parseAnchor,
     parseBot,
-    parseClassName,
     parseFocus,
     parseIntrinsic,
     parseMode,
@@ -35,17 +33,17 @@ import {
     styleToString,
 } from "./_utils.js";
 /* eslint-disable-next-line camelcase */
-import { createEventDispatcher, get_current_component, onDestroy, onMount } from "svelte/internal";
+import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
+
 </script>
 
 <script lang="ts">
 export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 export let bot: string = undefined;
-export let className: string = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
-export let mediaTag: 'img' | 'video';
+export let mediaTag: string = `img`;
 export let mode: Mode = undefined;
 export let eager: boolean = false;
 export let placeholder: Placeholder = undefined;
@@ -59,7 +57,7 @@ export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
-let media: Media;
+let media: HTMLElement;
 
 const observer = new Observer( ( _state: State )=> {
     state = _state;
@@ -68,33 +66,33 @@ const observer = new Observer( ( _state: State )=> {
 const stateDispatcher = createEventDispatcher();
 $: stateDispatcher( `statechange`, { state } );
 
-$: isVideo = mediaTag === `video`;
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
 $: parsedEager = parseEager( eager );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
+$: parsedMediaTag = mediaTag;
 $: parsedMode = parseMode( mode );
-$: parsedPlaceholder = parsePlaceholder( placeholder, src );
+$: parsedPlaceholder = parsePlaceholder( placeholder );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
-$: parsedSrc = mediaTag && parseSrc( src );
+$: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
 $: parsedTransition = parseTransition( transition );
 $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
 $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 
-$: _alt = ( isVideo ? undefined : computeAlt( parsedAlt, parsedSrc ) );
+$: _alt = ( mediaTag === `img`? computeAlt( parsedAlt, parsedSrc ) : undefined);
 $: _data = computeData(
     parsedAnchor,
     parsedBot,
     parsedEager,
     parsedFocus,
     parsedIntrinsic,
-    isVideo,
+    parsedMediaTag,
     parsedMode,
     parsedPreTransform,
     parsedSrc,
@@ -118,6 +116,7 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
 
 $: _style = styleToString( computeStyle(
     parsedAnchor,
+    parsedMediaTag,
     parsedMode,
     parsedPosition,
     parsedTransitionDelay,
@@ -125,13 +124,6 @@ $: _style = styleToString( computeStyle(
     parsedTransitionTimingFunction
 ) );
 $: _wrapperStyle = styleToString( computeWrapperStyle( parsedRatio ) );
-
-// this happens BEFORE onMount
-$: {
-    if ( isWebComponents ) {
-        get_current_component().className = `${ parseClassName( className ) || `` } twic-d twic-i`;
-    }
-}
 
 if ( isBrowser ) {
     onMount( () => {
@@ -142,7 +134,6 @@ if ( isBrowser ) {
     } );
 }
 </script>
-{#if isWebComponents}
 <div
     class = { computeWrapperClass( src, parsedTransition ) }
     style = { _wrapperStyle }
@@ -155,19 +146,3 @@ if ( isBrowser ) {
     ></svelte:element>
     <div style = { _placeholderStyle } />
 </div>
-{:else}
-<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
-    <div
-        class = { computeWrapperClass( src, parsedTransition ) }
-        style = { _wrapperStyle }
-    >
-        <svelte:element this={ mediaTag }
-            bind:this = { media }
-            alt = { _alt }
-            style = { _style }
-            { ..._data }
-        ></svelte:element>
-        <div style = { _placeholderStyle } />
-    </div>
-</div>
-{/if}

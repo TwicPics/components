@@ -9,7 +9,7 @@ import {
     type Placeholder,
     type State
 } from "./_utils.js";
-import TwicMedia from "./_TwicMedia.svelte";
+import TwicMedia from "./TwicMedia.svelte";
 import { get_current_component } from "svelte/internal";
 </script>
 <script lang="ts">
@@ -59,4 +59,11 @@ $: {
     }
 }
 </script>
+{#if isWebComponents}
 <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
+{:else}
+<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
+    <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
+</div>
+{/if}
+

@@ -24,6 +24,8 @@ export const config: Config = isBrowser ?
 export const configBasedStyle = (): string =>
     `.twic-w>.${
         config.class
+    }-background-done+div,.twic-w>.${
+        config.class
     }-done+div,.twic-w>.${
         config.class
     }-poster-done+div{opacity:0 !important}.twic-w>.${

@@ -1,7 +1,7 @@
 import { default as installTwicPics } from "../_/install";
-import imgVideo from "./img-video";
-import View from "./View";
+import TwicBackground from "./TwicBackground";
+import TwicImg from "./TwicImg";
+import TwicVideo from "./TwicVideo";
+import TwicView from "./TwicView";
 const installTwicpics = installTwicPics;
-export const TwicImg = imgVideo( `img`, true );
-export const TwicVideo = imgVideo( `video` );
-export { installTwicpics, installTwicPics, View as TwicView };
+export { installTwicpics, installTwicPics, TwicBackground, TwicImg, TwicVideo, TwicView };
