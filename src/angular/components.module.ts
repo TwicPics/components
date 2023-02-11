@@ -1,21 +1,22 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { AttributesDirective } from "./attributes.directive";
-import { TwicBaseComponent } from "./base.component";
+import { TwicBackgroundComponent } from "./background.component";
 import { TwicImgComponent } from "./img.component";
+import { TwicMediaComponent } from "./media.component";
 import { TwicVideoComponent } from "./video.component";
 import { TwicViewComponent } from "./view.component";
 
 @NgModule( {
     "declarations": [
-        TwicBaseComponent,
+        TwicBackgroundComponent,
         TwicImgComponent,
+        TwicMediaComponent,
         TwicVideoComponent,
         TwicViewComponent,
-        AttributesDirective,
     ],
     "imports": [ CommonModule ],
     "exports": [
+        TwicBackgroundComponent,
         TwicImgComponent,
         TwicVideoComponent,
         TwicViewComponent,

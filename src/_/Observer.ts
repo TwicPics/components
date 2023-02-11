@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import { computePlaceholderBackground } from "./compute";
 import { config } from "./install";
-import type { Media, PlaceholderData, State } from "./types";
+import type { PlaceholderData, State } from "./types";
 import { isBrowser, debounce } from "./utils";
 
 const debounceDelay = 100;
@@ -30,11 +30,11 @@ const resizeObserver: false | ResizeObserver =
         }
     } );
 
-const rTwicClasses = new RegExp( `(?:\\s*)(?:${ config.class }-)(done|error|loading)` );
+const rTwicClasses = new RegExp( `(?:\\s*)(?:${ config.class }(?:-background)*-)(done|error|loading)` );
 
 export class Observer {
 
-    private media: Media;
+    private media: HTMLElement;
     private placeholderData: PlaceholderData;
     private placeHolderElement: HTMLDivElement;
     private savedWrapperBackground: string;
@@ -71,7 +71,7 @@ export class Observer {
     }, {
         "ms": debounceDelay,
     } );
-    public setMedia = ( media: Media ): void => {
+    public setMedia = ( media: HTMLElement ): void => {
         if ( media ) {
             config.handleShadowDom( media );
             this.media = media;

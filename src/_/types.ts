@@ -1,7 +1,6 @@
 export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type Environment = `debug` | `offline` | `production`;
-export type Media = HTMLImageElement | HTMLVideoElement;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 export type StateEvent = {

@@ -15,6 +15,7 @@ import {
     parseBot,
     parseFocus,
     parseIntrinsic,
+    parseMediaTag,
     parseMode,
     parseEager,
     parsePlaceholder,
@@ -47,12 +48,7 @@ const callFactory = ( func, _args, isProp = false ) => {
     };
 };
 
-const computed = {
-    // eslint-disable-next-line camelcase
-    p_isVideo() {
-        return this._is === `video`;
-    },
-};
+const computed = {};
 const props = {};
 const emits = [ `stateChange` ];
 
@@ -64,7 +60,7 @@ for ( const [ propName, type, parseMethod, args ] of [
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
     [ `eager`, booleanProp( null, false ), parseEager ],
-    [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder, [ `placeholder`, `src` ] ],
+    [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder ],
     [ `position`, stringProp, parsePosition ],
     [ `preTransform`, stringProp, parsePreTransform ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
@@ -79,17 +75,44 @@ for ( const [ propName, type, parseMethod, args ] of [
     props[ propName ] = type;
 }
 
+for ( const [ propName, type, parseMethod ] of [
+    [ `alt`, stringProp, parseAlt ],
+    [ `mediaTag`, stringProp, parseMediaTag ],
+] ) {
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
+    props[ propName ] = type;
+}
+
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `src` ] ],
     [
         `_dataAttributes`,
         computeData,
-        [ `anchor`, `bot`, `eager`, `focus`, `intrinsic`, `isVideo`, `mode`, `preTransform`, `src`, `step` ],
+        [
+            `anchor`,
+            `bot`,
+            `eager`,
+            `focus`,
+            `intrinsic`,
+            `mediaTag`,
+            `mode`,
+            `preTransform`,
+            `src`,
+            `step`,
+        ],
     ],
     [
         `_style`,
         computeStyle,
-        [ `anchor`, `mode`, `position`, `transitionDelay`, `transitionDuration`, `transitionTimingFunction` ],
+        [
+            `anchor`,
+            `mediaTag`,
+            `mode`,
+            `position`,
+            `transitionDelay`,
+            `transitionDuration`,
+            `transitionTimingFunction`,
+        ],
     ],
     [
         `_placeholderStyle`,
@@ -124,7 +147,6 @@ export default {
     beforeCreate() {
         this.observer = new Observer( state => {
             this.$emit( `stateChange`, {
-                "target": this,
                 state,
             } );
         } );
@@ -146,9 +168,9 @@ export default {
             :style="_wrapperStyle"
         >
             <component
-                :is="_is"
+                :is="p_mediaTag"
                 ref="media"
-                :alt="_alt"
+                :alt="p_mediaTag === `img` ? _alt : undefined"
                 :style="_style"
                 v-bind="{ ..._dataAttributes }"
             />

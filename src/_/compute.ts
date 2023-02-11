@@ -66,7 +66,7 @@ export const computeData = (
     eager: boolean,
     focus: string,
     intrinsic: string,
-    isVideo: boolean,
+    mediaTag: string,
     mode: Mode,
     preTransform: string,
     src: string,
@@ -74,6 +74,9 @@ export const computeData = (
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
     const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform, config.env === `debug` );
+    if ( actualPreTransform ) {
+        attributes[ getDataAttributeName( `transform` ) ] = `${ actualPreTransform }*`;
+    }
     if ( typeof bot === `string` ) {
         attributes[ getDataAttributeName( `bot` ) ] = bot || `/`;
     }
@@ -83,18 +86,19 @@ export const computeData = (
     if ( intrinsic ) {
         attributes[ getDataAttributeName( `intrinsic` ) ] = intrinsic;
     }
-    if ( isVideo ) {
+    if ( src ) {
+        if ( ( mediaTag === `img` ) || ( mediaTag === `video` ) ) {
+            attributes[ getDataAttributeName( `src` ) ] = src;
+        } else {
+            attributes[ getDataAttributeName( `background` ) ] = `url(${ src })`;
+        }
+    }
+    if ( src && ( mediaTag === `video` ) ) {
         attributes[ getDataAttributeName( `poster` ) ] = src;
         attributes[ getDataAttributeName( `poster-transform` ) ] = `${ actualPreTransform }*/output=image`;
     }
-    if ( src ) {
-        attributes[ getDataAttributeName( `src` ) ] = src;
-    }
     if ( step !== undefined ) {
         attributes[ getDataAttributeName( `step` ) ] = String( step );
-    }
-    if ( actualPreTransform ) {
-        attributes[ getDataAttributeName( `transform` ) ] = `${ actualPreTransform }*`;
     }
     return attributes;
 };
@@ -137,9 +141,18 @@ export const computePlaceholderStyle = (
 };
 /* eslint-enable dot-notation */
 
+const mappingPosition: { [ key: string ]: string; } = {
+    "img": `objectPosition`,
+    "video": `objectPosition`,
+};
+const mappingMode: { [ key: string ]: string; } = {
+    "img": `objectFit`,
+    "video": `objectFit`,
+};
 /* eslint-disable dot-notation */
 export const computeStyle = (
     anchor: AnchorObject,
+    mediaTag: string,
     mode: Mode,
     position: string,
     transitionDelay: string,
@@ -149,10 +162,14 @@ export const computeStyle = (
     const computedStyle = preComputeStyle( transitionDelay, transitionDuration, transitionTimingFunction );
     const actualPosition = computePosition( anchor, mode, position );
     if ( actualPosition ) {
-        computedStyle[ `objectPosition` ] = actualPosition;
+        computedStyle[
+            mappingPosition[ mediaTag ] || `backgroundPosition`
+        ] = actualPosition;
     }
     if ( mode ) {
-        computedStyle[ `objectFit` ] = mode;
+        computedStyle[
+            mappingMode[ mediaTag ] || `backgroundSize`
+        ] = mode;
     }
     return computedStyle;
 };

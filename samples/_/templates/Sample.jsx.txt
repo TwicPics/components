@@ -6,6 +6,7 @@
 // /___eager_false___/ => "eager={false}"
 import React from "react";
 
+import { TwicBackground } from "@twicpics/components/react";
 import { TwicImg } from "@twicpics/components/react";
 import { TwicVideo } from "@twicpics/components/react";
 import { TwicView } from "@twicpics/components/react";

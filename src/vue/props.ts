@@ -1,5 +1,4 @@
 import type { PropType, PropOptions } from "vue/types/options";
-
 export const defineProp =
     < T >( type?: PropType< T >, regExp?: RegExp, _default?:T ): PropOptions< T > => ( {
         type,
@@ -11,4 +10,3 @@ export const booleanProp = ( regExp?: RegExp, _default?:boolean|string ): PropOp
     defineProp< boolean | string >( [ Boolean, String ], regExp, _default );
 export const intProp = defineProp< number | string >( [ Number, String ], /^\d+$/ );
 export const stringProp = defineStringProp();
-

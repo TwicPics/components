@@ -2,6 +2,7 @@
 // /___eager_true___/ => "eager={true}"
 // /___eager_false___/ => "eager={false}"
 <script context="module">
+    import TwicBackground from "@twicpics/components/sveltekit/TwicBackground.svelte";
     import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
     import TwicVideo from "@twicpics/components/sveltekit/TwicVideo.svelte";
     import TwicView from "@twicpics/components/sveltekit/TwicView.svelte";

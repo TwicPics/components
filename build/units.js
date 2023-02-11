@@ -23,6 +23,7 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             replacer( {
                 "include": /\.svelte$/,
                 "replacers": [
+                    [ /mediaTag/g, `mediatag` ],
                     [ /preTransform/g, `pretransform` ],
                     [ /transitionDelay/g, `transitiondelay` ],
                     [ /transitionDuration/g, `transitionduration` ],

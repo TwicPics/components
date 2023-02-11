@@ -58,9 +58,9 @@ $: {
 }
 </script>
 {#if isWebComponents}
-<TwicMedia mediaTag="video" bind:state { ...props } on:statechange></TwicMedia>
+<TwicMedia mediaTag="div" bind:state { ...props } on:statechange></TwicMedia>
 {:else}
 <div class = {`twic-i ${ parseClassName( className ) || `` }`}>
-    <TwicMedia mediaTag="video" bind:state { ...props } on:statechange></TwicMedia>
+    <TwicMedia mediaTag="div" bind:state { ...props } on:statechange></TwicMedia>
 </div>
 {/if}

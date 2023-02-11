@@ -31,7 +31,6 @@ export type {
     Attributes as BaseAttributes,
     Anchor,
     Environment,
-    Media,
     Mode,
     Options,
     Placeholder,
