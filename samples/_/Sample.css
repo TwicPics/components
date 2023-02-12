@@ -83,11 +83,11 @@ main {
 
 /* style driven */
 .style-driven-50 {
-    width:50%;
+    width:50% !important;
 }
 
 .style-driven-75 {
-    width:75%;
+    width:75% !important;;
 }
 
 .style-driven-16-9 {
