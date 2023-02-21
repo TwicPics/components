@@ -1,8 +1,16 @@
 <svelte:options tag={null}/>
 
 <script context="module" lang="ts">
-import type { Anchor, Mode, Placeholder, State } from "./_utils.js";
+import {
+    isWebComponents,
+    parseClassName,
+    type Anchor,
+    type Mode,
+    type Placeholder,
+    type State
+} from "./_utils.js";
 import TwicMedia from "./_TwicMedia.svelte";
+import { get_current_component } from "svelte/internal";
 </script>
 <script lang="ts">
 export let anchor: Anchor = undefined;
@@ -42,6 +50,11 @@ $: props = {
     transitionDelay,
     transitionDuration,
     transitionTimingFunction
+}
+$: {
+    if ( isWebComponents ) {
+        get_current_component().className = `${ parseClassName( className ) || `` } twic-d twic-i`;
+    }
 }
 </script>
 <TwicMedia mediaTag="video" bind:state { ...props } on:statechange></TwicMedia>
