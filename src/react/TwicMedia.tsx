@@ -15,7 +15,6 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
-    parseClassName,
     parseFocus,
     parseIntrinsic,
     parseMode,
@@ -37,10 +36,9 @@ import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 
 type onStateChangeType = ( stateEvent: StateEvent ) => void;
 export interface BaseAttributes extends Attributes {
-    className?: string,
     onStateChange?: onStateChangeType,
 }
-interface MediaAttributes extends BaseAttributes {
+export interface MediaAttributes extends BaseAttributes {
     mediaTag: string,
 }
 
@@ -55,7 +53,6 @@ interface MediaPropTypes {
     intrinsic: PropTypes.Requireable<string>;
     mode: PropTypes.Requireable<Mode>;
     eager: PropTypes.Requireable<boolean | string>;
-    mediaTag: PropTypes.Requireable<string>;
     onStateChange: PropTypes.Requireable<onStateChangeType>;
     placeholder: PropTypes.Requireable<Placeholder>;
     position: PropTypes.Requireable<string>;
@@ -98,7 +95,6 @@ class TwicMedia extends Component< MediaAttributes > {
         const alt = parseAlt( props.alt );
         const anchor = parseAnchor( props.anchor );
         const bot = parseBot( props.bot );
-        const className = parseClassName( props.className ) || ``;
         const eager = parseEager( props.eager );
         // eslint-disable-next-line no-shadow
         const focus = parseFocus( props.focus );
@@ -117,60 +113,58 @@ class TwicMedia extends Component< MediaAttributes > {
         const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
 
         return (
-            <div className= { `twic-i ${ className }` }>
+            <div
+                className = { computeWrapperClass( props.src, transition ) }
+                style = { computeWrapperStyle( ratio ) }
+            >
+                <MediaTag
+                    ref={ this.media }
+                    alt = { MediaTag === `img` ? computeAlt( alt, src ) : undefined }
+                    style = {
+                        computeStyle(
+                            anchor,
+                            MediaTag,
+                            mode,
+                            position,
+                            transitionDelay,
+                            transitionDuration,
+                            transitionTimingFunction
+                        )
+                    }
+                    {
+                        ...computeData(
+                            anchor,
+                            bot,
+                            eager,
+                            focus,
+                            intrinsic,
+                            MediaTag,
+                            mode,
+                            preTransform,
+                            src,
+                            step
+                        )
+                    }
+                />
                 <div
-                    className = { computeWrapperClass( props.src, transition ) }
-                    style = { computeWrapperStyle( ratio ) }
-                >
-                    <MediaTag
-                        ref={ this.media }
-                        alt = { MediaTag === `img` ? computeAlt( alt, src ) : undefined }
-                        style = {
-                            computeStyle(
-                                anchor,
-                                MediaTag,
-                                mode,
-                                position,
-                                transitionDelay,
-                                transitionDuration,
-                                transitionTimingFunction
-                            )
-                        }
-                        {
-                            ...computeData(
-                                anchor,
-                                bot,
-                                eager,
-                                focus,
-                                intrinsic,
-                                MediaTag,
-                                mode,
-                                preTransform,
-                                src,
-                                step
-                            )
-                        }
-                    />
-                    <div
-                        style = {
-                            computePlaceholderStyle(
-                                anchor,
-                                focus,
-                                mode,
-                                placeholder,
-                                position,
-                                preTransform,
-                                ratio,
-                                src,
-                                transition,
-                                transitionDelay,
-                                transitionDuration,
-                                transitionTimingFunction,
-                                this.observer.setPlaceholderData
-                            )
-                        }
-                    />
-                </div>
+                    style = {
+                        computePlaceholderStyle(
+                            anchor,
+                            focus,
+                            mode,
+                            placeholder,
+                            position,
+                            preTransform,
+                            ratio,
+                            src,
+                            transition,
+                            transitionDelay,
+                            transitionDuration,
+                            transitionTimingFunction,
+                            this.observer.setPlaceholderData
+                        )
+                    }
+                />
             </div>
         );
     }
@@ -187,7 +181,6 @@ TwicMedia.propTypes = {
         PropTypes.bool,
         PropTypes.string,
     ] ),
-    "mediaTag": string,
     "onStateChange": PropTypes.func,
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,

@@ -39,11 +39,11 @@ import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
     },
 } )
 export class TwicBackgroundComponent {
-    mediaTag = `div`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
+    @Input() mediaTag = `div`;
     @Input() mode: Mode = undefined;
     @Input() eager: boolean | string;
     @Input() placeholder: Placeholder = undefined;

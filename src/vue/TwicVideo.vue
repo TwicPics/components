@@ -18,10 +18,12 @@ export default {
 };
 </script>
 <template>
-    <TwicMedia
-        media-tag="video"
-        v-bind="$attrs"
-        @stateChange="handleStateChange"
-    />
+    <div class="twic-i">
+        <TwicMedia
+            media-tag="video"
+            v-bind="$attrs"
+            @stateChange="handleStateChange"
+        />
+    </div>
 </template>
 

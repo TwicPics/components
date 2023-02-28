@@ -19,6 +19,7 @@ let className: string = undefined;
 export { className as class };
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
+export let mediaTag: string = `div`;
 export let mode: Mode = undefined;
 export let eager: boolean = false;
 export let placeholder: Placeholder = undefined;
@@ -58,9 +59,9 @@ $: {
 }
 </script>
 {#if isWebComponents}
-<TwicMedia mediaTag="div" bind:state { ...props } on:statechange></TwicMedia>
+<TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 {:else}
 <div class = {`twic-i ${ parseClassName( className ) || `` }`}>
-    <TwicMedia mediaTag="div" bind:state { ...props } on:statechange></TwicMedia>
+    <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>
 {/if}
