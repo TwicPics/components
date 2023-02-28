@@ -1,10 +1,16 @@
 <script>
 import TwicMedia from "./TwicMedia.vue";
+import { defineStringProp } from "./props";
 const emits = [ `stateChange` ];
+const props = {
+    "mediaTag": defineStringProp( undefined, `div` ),
+};
+
 export default {
     "components": {
         TwicMedia,
     },
+    props,
     emits,
     "methods": {
         handleStateChange( event ) {
@@ -18,10 +24,12 @@ export default {
 };
 </script>
 <template>
-    <TwicMedia
-        media-tag="div"
-        v-bind="$attrs"
-        @stateChange="handleStateChange"
-    />
+    <div class="twic-i">
+        <TwicMedia
+            :media-tag="mediaTag"
+            v-bind="$attrs"
+            @stateChange="handleStateChange"
+        />
+    </div>
 </template>
 

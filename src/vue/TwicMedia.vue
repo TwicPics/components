@@ -162,20 +162,18 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
-        <div
-            :class="_wrapperClass"
-            :style="_wrapperStyle"
-        >
-            <component
-                :is="p_mediaTag"
-                ref="media"
-                :alt="p_mediaTag === `img` ? _alt : undefined"
-                :style="_style"
-                v-bind="{ ..._dataAttributes }"
-            />
-            <div :style="_placeholderStyle" />
-        </div>
+    <div
+        :class="_wrapperClass"
+        :style="_wrapperStyle"
+    >
+        <component
+            :is="p_mediaTag"
+            ref="media"
+            :alt="p_mediaTag === `img` ? _alt : undefined"
+            :style="_style"
+            v-bind="{ ..._dataAttributes }"
+        />
+        <div :style="_placeholderStyle" />
     </div>
 </template>
 <style src="../_/style.css"></style>

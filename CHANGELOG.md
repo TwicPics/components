@@ -8,9 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+- Add new `<TwicBackground>` component that allows to display a background image in any HTML element.
+
 ### Changed
 
+- Refactoring to split React and Vue components into several specialized components (TwicBackground, TwicImg and TwicVideo).
 - Upgrade dependencies (**Nuxt.js** up to 3.2.0).
+
+### Fixed
 
 ## [0.15.1] - 2022-02-01
 

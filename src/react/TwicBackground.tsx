@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
-import TwicMedia, { type BaseAttributes } from "./TwicMedia";
+import { parseClassName } from '../_/parse';
+import TwicMedia, { type MediaAttributes } from "./TwicMedia";
 
-class TwicBackground extends Component< BaseAttributes > {
+interface BackgroundAttributes extends MediaAttributes {
+    className?: string,
+}
+
+class TwicBackground extends Component< BackgroundAttributes > {
+    static defaultProps = {
+        "mediaTag": `div`,
+    };
     render() {
-        return ( <TwicMedia mediaTag="div" {...this.props}/> );
+        const { props } = this;
+        const className = parseClassName( props.className ) || ``;
+        return (
+            <div className= { `twic-i ${ className }` }>
+                <TwicMedia {...this.props}/>
+            </div>
+        );
     }
 }
 export default TwicBackground;

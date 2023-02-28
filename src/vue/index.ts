@@ -44,6 +44,4 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
     } );
 };
 
-
-
 export default plugin;

@@ -18,9 +18,11 @@ export default {
 };
 </script>
 <template>
-    <TwicMedia
-        media-tag="img"
-        v-bind="$attrs"
-        @stateChange="handleStateChange"
-    />
+    <div class="twic-i">
+        <TwicMedia
+            media-tag="img"
+            v-bind="$attrs"
+            @stateChange="handleStateChange"
+        />
+    </div>
 </template>
