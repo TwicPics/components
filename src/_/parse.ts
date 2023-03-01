@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
 import { isReactNative, logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
@@ -160,3 +161,14 @@ export const parseTransitionDuration = trimOrUndefined;
 
 // eslint-disable-next-line id-length
 export const parseTransitionTimingFunction = trimOrUndefined;
+
+export const parseZoom = ( value: number | string ): number => {
+    if ( typeof value !== `number` ) {
+        const trimmed = trimOrUndefined( value );
+        // eslint-disable-next-line no-param-reassign
+        value = trimmed && Number( trimmed );
+    }
+    return isPositiveNumber( value ) ?
+        ( value > 1 ? value : undefined ) :
+        undefined;
+};

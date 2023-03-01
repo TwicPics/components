@@ -13,6 +13,7 @@ export default {
     props,
     emits,
     "methods": {
+        // eslint-disable-next-line no-shadow
         handleStateChange( event ) {
             const { state } = event;
             this.$emit( `stateChange`, {

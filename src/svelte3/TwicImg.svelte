@@ -2,15 +2,20 @@
 
 <script context="module" lang="ts">
 import {
+    isBrowser,
     isWebComponents,
+    computeMagnifierStyle,
+    Magnifier,
     parseClassName,
+    parseZoom,
+    styleToString,
     type Anchor,
     type Mode,
     type Placeholder,
     type State
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
-import { get_current_component } from "svelte/internal";
+import { get_current_component, onDestroy, onMount } from "svelte/internal";
 </script>
 <script lang="ts">
 export let alt: string = undefined;
@@ -33,11 +38,18 @@ export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
+export let zoom: number | string = undefined;
+
+let magnifiedContainer:HTMLDivElement;
+let magnifier:Magnifier;
+
+$: parsedClassName = parseClassName( className ) || ``;
+$: parsedZoom = parseZoom( zoom );
+
 $: props = {
     alt,
     anchor,
     bot,
-    className,
     focus,
     intrinsic,
     mode,
@@ -53,17 +65,42 @@ $: props = {
     transitionDuration,
     transitionTimingFunction
 }
+
+$: _magnifiedStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
+
 $: {
     if ( isWebComponents ) {
-        get_current_component().className = `${ parseClassName( className ) || `` } twic-d twic-i`;
+        get_current_component().className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
     }
+}
+if ( isBrowser ) {
+    onMount( () => {
+        if ( magnifiedContainer ) {
+            magnifier = new Magnifier( magnifiedContainer );
+        }
+    } );
+    onDestroy( () => {
+        if ( magnifier ) {
+            magnifier.destroy();
+        }
+    } );
 }
 </script>
 {#if isWebComponents}
 <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
+{#if parsedZoom}
+    <div bind:this={ magnifiedContainer } style = { _magnifiedStyle } class="twic-m">
+        <TwicMedia mediaTag="div" { ...props }></TwicMedia>
+    </div>
+{/if}
 {:else}
-<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
+<div class = {`twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }`}>
     <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
+    {#if parsedZoom}
+        <div bind:this={ magnifiedContainer } style = { _magnifiedStyle } class="twic-m">
+            <TwicMedia mediaTag="div"{ ...props }></TwicMedia>
+        </div>
+    {/if}
 </div>
 {/if}
 

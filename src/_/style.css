@@ -93,4 +93,19 @@
     display: none;
 }
 
+/** Zoom */
+.twic-z {
+    position: relative;
+}
 
+.twic-m {
+    display:none;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
+}
+
+.twic-z:hover .twic-m {
+    display: block;
+}

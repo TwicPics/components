@@ -95,7 +95,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
     _eager: boolean;
     _focus: string = undefined;
     _intrinsic: string = undefined;
-    _media: any;
+    _media: HTMLElement;
     _mediaTag: string = undefined;
     _mode: Mode = undefined;
     _placeholder: Placeholder = undefined;
@@ -204,25 +204,25 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
                 // eslint-disable-next-line dot-notation
                 this.mediaAttributes[ `alt` ] = this.description;
             }
-            Object.entries( this.mediaAttributes || [] ).forEach( ( [ name, value ] ) => {
-                if ( value === undefined ) {
-                    this.renderer.removeAttribute( this._media, name );
+            Object.entries( this.mediaAttributes || [] ).forEach( ( [ n, v ] ) => {
+                if ( v === undefined ) {
+                    this.renderer.removeAttribute( this._media, n );
                 } else {
                     this.renderer.setAttribute(
                         this._media,
-                        name,
-                        value
+                        n,
+                        v
                     );
                 }
             } );
-            Object.entries( this.mediaStyle || [] ).forEach( ( [ name, value ] ) => {
-                if ( value === undefined ) {
-                    this.renderer.removeStyle( this._media, name );
+            Object.entries( this.mediaStyle || [] ).forEach( ( [ n, v ] ) => {
+                if ( n === undefined ) {
+                    this.renderer.removeStyle( this._media, n );
                 } else {
                     this.renderer.setStyle(
                         this._media,
-                        name,
-                        value
+                        n,
+                        v
                     );
                 }
             } );
