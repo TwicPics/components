@@ -266,3 +266,15 @@ export const computeWrapperStyle = ( ratio: number ): Record< string, string > =
         "paddingTop": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
     }
 );
+
+/* eslint-disable dot-notation */
+export const computeMagnifierStyle = ( zoom: number ) : Record < string, string > => {
+    const magnifierStyle: Record< string, string > = {};
+    if ( zoom ) {
+        // eslint-disable-next-line no-magic-numbers
+        magnifierStyle[ `height` ] = magnifierStyle[ `width` ] = `${ zoom * 100 }%`;
+    }
+    return magnifierStyle;
+};
+/* eslint-enable dot-notation */
+

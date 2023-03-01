@@ -33,10 +33,12 @@ export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
+
+$: parsedClassName = parseClassName( className ) || ``;
+
 $: props = {
     anchor,
     bot,
-    className,
     focus,
     intrinsic,
     mode,
@@ -54,14 +56,14 @@ $: props = {
 }
 $: {
     if ( isWebComponents ) {
-        get_current_component().className = `${ parseClassName( className ) || `` } twic-d twic-i`;
+        get_current_component().className = `${ parsedClassName } twic-d twic-i`;
     }
 }
 </script>
 {#if isWebComponents}
 <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 {:else}
-<div class = {`twic-i ${ parseClassName( className ) || `` }`}>
+<div class = {`twic-i ${ parsedClassName }`}>
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>
 {/if}

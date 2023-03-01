@@ -742,6 +742,7 @@
             <TwicImg
                 src="football.jpg"
                 class="style-driven-4-3 full-rounded"
+                zoom="3"
                 focus="auto">
             </TwicImg>
             <span>class="style-driven-4-3 full-rounded"</span>
@@ -1073,7 +1074,6 @@
             <TwicBackground
                 ___state___
                 src="https://assets.twicpics.com/examples/football.jpg"
-                alt="football"
                 focus="auto">
             </TwicBackground>
             <span>no ratio (state emitter)</span>
@@ -1174,5 +1174,57 @@
             <span>ratio="16:9"</span>
         </div>
     </div>
-    
+    <h2>Zoom</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg"
+                zoom="2">
+            </TwicImg>
+            <span>Zoom = 2</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg"
+                focus="auto"
+                zoom="3.1">
+            </TwicImg>
+            <span>Zoom = 3.1</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg"
+                preTransform="flip=x"
+                ratio="4/3"
+                zoom="2">
+            </TwicImg>
+            <span>Zoom = 2 + preTransform</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg"
+                zoom="1">
+            </TwicImg>
+            <span>Zoom = 1</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="https://assets.twicpics.com/examples/football.jpg"
+                focus="auto"
+                mode="contain"
+                ratio="4/3"
+                zoom="-2">
+            </TwicImg>
+            <span>Zoom = -2</span>
+        </div>
+    </div>
+    <h2>Style Driven - Responsive Zoom</h2>
+    <div class="item">
+        <TwicImg 
+            src="football.jpg" 
+            class="style-driven-responsive"
+            focus="auto"
+            zoom="3">
+        </TwicImg>
+    </div>
 </main>

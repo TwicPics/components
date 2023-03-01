@@ -43,6 +43,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
+export let media: HTMLElement= undefined;
 export let mediaTag: string = `img`;
 export let mode: Mode = undefined;
 export let eager: boolean = false;
@@ -57,7 +58,6 @@ export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
-let media: HTMLElement;
 
 const observer = new Observer( ( _state: State )=> {
     state = _state;

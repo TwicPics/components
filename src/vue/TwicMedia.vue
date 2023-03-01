@@ -1,5 +1,4 @@
 <script>
-import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import {
     computeAlt,
     computeData,
@@ -30,29 +29,14 @@ import {
     parseTransitionTimingFunction,
 } from "../_/parse";
 import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
-
-const rInitialProps = /^(\*+)(.*[^*])(\*+)$/;
-
-const callFactory = ( func, _args, isProp = false ) => {
-    const args = _args.map( arg => ( ( typeof arg === `function` ) ? {
-        "f": arg,
-    } : {
-        // eslint-disable-next-line no-nested-ternary
-        "s": isProp ?
-            `${ arg }` :
-            ( rInitialProps.test( `${ arg }` ) ? `${ `${ arg }`.replace( rInitialProps, `$2` ) }` : `p_${ arg }` ),
-    } ) );
-    return function() {
-        // eslint-disable-next-line no-invalid-this
-        return func( ...args.map( ( { f, s } ) => ( f ? f( this ) : this[ s ] ) ) );
-    };
-};
+import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
+import { callFactory } from "./utils";
 
 const computed = {};
 const props = {};
 const emits = [ `stateChange` ];
 
-for ( const [ propName, type, parseMethod, args ] of [
+for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
@@ -71,7 +55,7 @@ for ( const [ propName, type, parseMethod, args ] of [
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
 ] ) {
-    computed[ `p_${ propName }` ] = callFactory( parseMethod, args || [ propName ], true );
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
     props[ propName ] = type;
 }
 
@@ -140,6 +124,7 @@ for ( const [ propName, func, args ] of [
 }
 
 export default {
+    "inheritAttrs": false,
     props,
     emits,
     computed,
