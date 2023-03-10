@@ -46,6 +46,8 @@ let magnifier:Magnifier;
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedZoom = parseZoom( zoom );
 
+$: console.log("ParsedZoom", zoom, parsedZoom);
+
 $: props = {
     alt,
     anchor,
