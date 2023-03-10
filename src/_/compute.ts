@@ -268,11 +268,10 @@ export const computeWrapperStyle = ( ratio: number ): Record< string, string > =
 );
 
 /* eslint-disable dot-notation */
-export const computeMagnifierStyle = ( zoom: number ) : Record < string, string > => {
+export const computeMagnifierStyle = ( zoom: boolean | number ) : Record < string, string > => {
     const magnifierStyle: Record< string, string > = {};
-    if ( zoom ) {
-        // eslint-disable-next-line no-magic-numbers
-        magnifierStyle[ `height` ] = magnifierStyle[ `width` ] = `${ zoom * 100 }%`;
+    if ( ( typeof zoom !== `boolean` ) && zoom ) {
+        magnifierStyle[ `--twic-zoom` ] = `${ zoom }`;
     }
     return magnifierStyle;
 };

@@ -1,3 +1,4 @@
+
 /* ISOLATION */
 .twic-i {
     overflow: hidden;
@@ -98,12 +99,20 @@
     position: relative;
 }
 
+:root {
+    --twic-zoom: 0;
+}
 .twic-m {
     display:none;
     position: absolute;
     top:0;
-    left: 0;
+    left:0;
     z-index: 1;
+    /* variables */;
+    top: calc( ( 1 - var( --twic-zoom ) ) * var( --twic-yr, 0) * 100% );
+    left: calc( ( 1 - var( --twic-zoom ) ) * var( --twic-xr, 0) * 100% );
+    width: calc( max( var( --twic-zoom ), 0 ) * 100% );
+    height: calc( max( var( --twic-zoom ), 0 ) * 100% );
 }
 
 .twic-z:hover .twic-m {

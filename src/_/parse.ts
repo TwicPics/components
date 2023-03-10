@@ -162,9 +162,12 @@ export const parseTransitionDuration = trimOrUndefined;
 // eslint-disable-next-line id-length
 export const parseTransitionTimingFunction = trimOrUndefined;
 
-export const parseZoom = ( value: number | string ): number => {
-    if ( typeof value !== `number` ) {
+export const parseZoom = ( value: number | string ): boolean | number => {
+    if ( typeof value === `string` ) {
         const trimmed = trimOrUndefined( value );
+        if ( trimmed === `css` ) {
+            return true;
+        }
         // eslint-disable-next-line no-param-reassign
         value = trimmed && Number( trimmed );
     }

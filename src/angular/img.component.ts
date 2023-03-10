@@ -92,7 +92,7 @@ export class TwicImgComponent implements AfterViewInit, OnDestroy, OnChanges {
     @HostBinding( `class.twic-z` ) get twicZoom() {
         return this._zoom;
     }
-    _zoom: number = undefined;
+    _zoom: boolean | number = false;
     magnifier: Magnifier;
     magnifiedStyle: Record<string, string>;
     @ViewChild( `magnifierContainer`, {
