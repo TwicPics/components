@@ -91,15 +91,17 @@ export const parseRatio = ( value: number | string ): number => {
         return 0;
     }
     let number: number;
-    if ( typeof value === `number` ) {
-        number = value;
-    } else if ( value ) {
-        const parsed = rValidRatio.exec( value );
-        if ( parsed ) {
-            const [ , , width, height ] = parsed;
-            number = ( height ? Number( height ) : 1 ) / Number( width );
+    if ( value ) {
+        if ( typeof value === `number` ) {
+            number = 1 / value;
         } else {
-            number = 1;
+            const parsed = rValidRatio.exec( value );
+            if ( parsed ) {
+                const [ , , width, height ] = parsed;
+                number = ( height ? Number( height ) : 1 ) / Number( width );
+            } else {
+                number = 1;
+            }
         }
     }
     return isPositiveNumber( number ) ? number : undefined;

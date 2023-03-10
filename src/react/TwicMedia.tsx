@@ -185,7 +185,10 @@ TwicMedia.propTypes = {
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
     "preTransform": string,
-    "ratio": string,
+    "ratio": PropTypes.oneOfType( [
+        PropTypes.number,
+        PropTypes.string,
+    ] ),
     "src": string,
     "step": number,
     "transition": PropTypes.oneOfType( [
