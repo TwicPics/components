@@ -1,6 +1,4 @@
 
-
-
 # [TwicPics Components](https://www.npmjs.com/package/@twicpics/components)
 
 [![NPM Version][npm-image]][npm-url]

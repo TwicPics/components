@@ -1,7 +1,4 @@
 
-
-
-
 ![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.15.1/documentation/resources/react-native-cover.png)
 
 
