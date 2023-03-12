@@ -50,7 +50,7 @@ const getDocumentationsToBuild = async () =>
  * returns modified content
  */
 const replacer = async file => {
-    const rTransform = /^\/\/\s*\/((?:\\.|[^/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+")\s*$/mg;
+    const rTransform = /^\/\/\s*(?:<(.*)>)?\s*\/((?:\\.|[^/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+")\s*$/gm;
     const replacers = [
         {
             "regExp": /(\b)__GITHUB_RAW_PATH__(\b)/gm,
@@ -69,17 +69,44 @@ const replacer = async file => {
             "transform": packageVersion.replace( /-/g, `--` ),
         },
     ];
+    const scopedReplacers = [];
 
     let content = ( await readFile( file, `utf8` ) ).replace(
-        rTransform, ( _, regExpExpression, regExpFlags, string ) => {
-            replacers.push( {
-                "regExp": new RegExp( regExpExpression, regExpFlags ),
-                "transform": JSON.parse( string ),
-            } );
-            return ``;
+        rTransform, ( _, scope, regExpExpression, regExpFlags, string ) => {
+            if ( scope ) {
+                scopedReplacers.push( {
+                    scope,
+                    "regExp": new RegExp( regExpExpression, regExpFlags ),
+                    "transform": JSON.parse( string ),
+                } );
+            } else {
+                replacers.push( {
+                    "regExp": new RegExp( regExpExpression, regExpFlags ),
+                    "transform": JSON.parse( string ),
+                } );
+            }
+            return `__REMOVE_LINE__`;
         }
     );
 
+    // execute scoped replacers
+    const rScopeType = /__TWIC_SCOPE_(.*)__/;
+    const rScopeReplacer = /(__TWIC_SCOPE__)/;
+    for ( const { scope, regExp, transform } of scopedReplacers ) {
+        const scopedRegExp = new RegExp( `(?<=${ scope })(.*)(?=${ scope })`, `s` );
+        const scoped = scopedRegExp.exec( content );
+        if ( scoped ) {
+            const scopedType = rScopeType.exec( scope );
+            const [ , scopedContent ] = scoped;
+            let tmp = scopedContent.replace( regExp, transform );
+            if ( scopedType ) {
+                tmp = tmp.replace( rScopeReplacer, scopedType[ 1 ] );
+            }
+            content = content.replace( scopedRegExp, tmp );
+        }
+    }
+
+    // execute global replacers
     for ( const { regExp, transform } of replacers ) {
         content = content.replace( regExp, transform );
     }
@@ -102,6 +129,7 @@ const buildDocumentation = async documentationToBuild => {
 };
 
 const rClean = /(\b)__TWIC_(.*)__(\b)/gm;
+const rRemoveLine = /(\n*__REMOVE_LINE__)/gm;
 /**
  * build documentation
  */
@@ -109,7 +137,9 @@ for await ( const documentationToBuild of documentationsToBuild ) {
     const { build } = documentationToBuild;
     await buildDocumentation( documentationToBuild );
     const content = await replacer( build );
-    await writeFile( build, content.replace( rClean, `` ) );
+    await writeFile( build, content
+        .replace( rClean, `` )
+        .replace( rRemoveLine, `` ) );
     console.log( `${ build } generated` );
 }
 
