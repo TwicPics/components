@@ -5,6 +5,8 @@ export const defineProp =
         "default": _default,
         "validator": regExp && ( ( v: T ) => regExp.test( String( v ) ) ),
     } );
+export const defineNumberProp = ( regExp?: RegExp, _default?:string ): PropOptions< number | string > =>
+    defineProp< number | string >( [ Number, String ], regExp, _default );
 export const defineStringProp = ( regExp?: RegExp, _default?:string ): PropOptions< string > =>
     defineProp( String, regExp, _default );
 export const booleanProp = ( regExp?: RegExp, _default?:boolean|string ): PropOptions< boolean | string > =>

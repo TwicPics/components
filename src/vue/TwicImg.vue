@@ -1,5 +1,5 @@
 <script>
-import { defineStringProp } from "./props";
+import { defineNumberProp } from "./props";
 import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
 import { computeMagnifierStyle } from "../_/compute";
@@ -13,7 +13,7 @@ const props = {};
 const computed = {};
 for (
     const [ propName, type, parseMethod ] of
-    [ [ `zoom`, defineStringProp( rValidZoom ), parseZoom ] ]
+    [ [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ] ]
 ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
     props[ propName ] = type;
