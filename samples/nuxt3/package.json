@@ -13,6 +13,6 @@
     "@twicpics/components-sample": "file:../_"
   },
   "devDependencies": {
-    "nuxt": "3.2.0"
+    "nuxt": "3.3.1"
   }
 }
