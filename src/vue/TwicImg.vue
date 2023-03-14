@@ -34,12 +34,6 @@ export default {
             this.magnifier = new Magnifier( this.$refs.magnifiedContainer );
         }
     },
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    unmounted() {
-        if ( this.magnifier ) {
-            this.magnifier.destroy();
-        }
-    },
     "methods": {
         // eslint-disable-next-line no-shadow
         handleStateChange( event ) {

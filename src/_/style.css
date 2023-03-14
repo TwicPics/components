@@ -108,9 +108,12 @@
     top:0;
     left:0;
     z-index: 1;
-    /* variables */;
-    top: calc( ( 1 - var( --twic-zoom ) ) * var( --twic-yr, 0) * 100% );
-    left: calc( ( 1 - var( --twic-zoom ) ) * var( --twic-xr, 0) * 100% );
+    /* variables */
+    transform: translate3d(
+        calc( ( 1 - var( --twic-zoom ) ) * var( --twic-xr, 0) * 1px ),
+        calc( ( 1 - var( --twic-zoom ) ) * var( --twic-yr, 0) * 1px ),
+        0
+    );
     width: calc( max( var( --twic-zoom ), 0 ) * 100% );
     height: calc( max( var( --twic-zoom ), 0 ) * 100% );
 }
