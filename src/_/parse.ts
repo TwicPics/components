@@ -163,7 +163,7 @@ export const parseTransitionTimingFunction = trimOrUndefined;
 export const parseZoom = ( value: number | string ): boolean | number => {
     if ( typeof value === `string` ) {
         const trimmed = trimOrUndefined( value );
-        if ( trimmed === `css` ) {
+        if ( trimmed && ( trimmed.toLowerCase() === `css` ) ) {
             return true;
         }
         // eslint-disable-next-line no-param-reassign
