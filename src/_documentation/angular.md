@@ -376,6 +376,8 @@ Here are the values the Component will emit ([see State Type definition](#state-
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
 #include "src/_documentation/common/_componentsProps.md"
 
 ### Anchor Type

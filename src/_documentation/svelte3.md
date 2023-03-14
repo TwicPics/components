@@ -334,6 +334,8 @@ Another approach is to listen to `statechange` event.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicState.svelte&initialpath=state)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"

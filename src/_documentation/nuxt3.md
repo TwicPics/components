@@ -283,6 +283,8 @@ export default {
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fstate.vue&initialpath=state)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/vue/_stateType.md"

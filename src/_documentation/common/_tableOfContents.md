@@ -8,9 +8,10 @@
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
     - [Bulk loading with TwicView](#bulk-loading-with-twicview)
-    - [Style Driven Approach](#style-driven-approach)
     - [Responsive Example](#responsive-example)
+    - [Style Driven Approach](#style-driven-approach)
     - [Working with ratio="none"](#ratio-none)__TWIC_STATE_TABLE_CONTENT__
+    - [Zoom on images](#zoom-feature)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
