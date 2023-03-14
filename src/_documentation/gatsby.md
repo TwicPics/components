@@ -272,6 +272,8 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 #include "src/_documentation/common/react/_lifeCycle.md"
 
+#include "src/_documentation/common/_zoomFeature.md"
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/react/_stateType.md"

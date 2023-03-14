@@ -308,6 +308,7 @@ Particularly useful when creating hero banner, you can specify the height of you
   <img alt="Edit TwicPics x Web Component - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
+#include "src/_documentation/common/_zoomFeature.md"
 
 #include "src/_documentation/common/_componentsProps.md"
 

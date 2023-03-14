@@ -338,6 +338,8 @@ Another approach is to listen to `statechange` event.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fstate%2F%2Bpage.svelte&initialpath=state)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"

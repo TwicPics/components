@@ -6,19 +6,8 @@
 
 #include "src/_documentation/common/_cover.md"
 
-- [Overview](#overview)
-- [Setup](#setup)
-  - [Install TwicPics In Your Next.js Project](#install-twicpics-in-your-nextjs-project)
-- [Usage](#usage)
-  - [Basic Usage](#basic-usage)
-  - [Style-Driven Approach](#style-driven-approach)
-  - [Responsive Example](#responsive-example)
-  - [Working with ratio="none"](#working-with-rationone)
-- [Next.js Image Loader](#nextjs-image-loader)
-  - [Basic Usage](#basic-usage-1)
-  - [Using Placeholders](#using-placeholders)
-- [Examples](#examples)
-    
+#include "src/_documentation/common/_tableOfContents.md"
+
 ## Overview
 
 #include "src/_documentation/common/_whatIsTwicPics.md"
@@ -265,6 +254,8 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 #include "src/_documentation/common/react/_lifeCycle.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fstate%2Findex.jsx&initialpath=state)
+
+#include "src/_documentation/common/_zoomFeature.md"
 
 #include "src/_documentation/common/_componentsProps.md"
 

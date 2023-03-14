@@ -121,10 +121,6 @@ const computeSrc = ( value:string ) =>
 export const parseSrc = ( value: string ): string => {
     // eslint-disable-next-line no-param-reassign
     value = trimOrUndefined( value );
-    if ( !value ) {
-        logWarning( `src is not provided` );
-    }
-
     if ( isReactNative ) {
         return computeSrc( value );
     }

@@ -320,6 +320,8 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicState%2Findex.jsx&initialpath=state)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/react/_stateType.md"

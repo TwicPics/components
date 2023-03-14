@@ -12,6 +12,7 @@ List of variables that can be used to configure your components using pure CSS.
   --twic-transition-delay: <string>;
   --twic-transition-duration: <string>;
   --twic-transition-timing-function:<string>;
+  --twic-zoom:<number>;
 }
 ```
 
@@ -25,3 +26,4 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 | `--twic-transition-delay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `transitionDelay` | `0ms` |
 | `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `transitionDuration` | `400ms` |
 | `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
+| `--twic-zoom` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
