@@ -23,6 +23,7 @@ const SSRPage = ( { imgSrc, focus, mode, ratio } ) => (
                     } }
                     focus={ focus }
                     mode={ mode }
+                    zoom={2}
                 />
                 <span>ratio = { ratio }</span>
             </div>
