@@ -29,11 +29,6 @@ class TwicImg extends Component< ImgAttributes > {
             this.magnifier = new Magnifier( this.magnifiedContainer.current );
         }
     }
-    componentWillUnmount() {
-        if ( this.magnifier ) {
-            this.magnifier.destroy();
-        }
-    }
     render() {
         const { props } = this;
         const className = parseClassName( props.className ) || ``;

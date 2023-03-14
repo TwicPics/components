@@ -15,7 +15,7 @@ import {
     type State
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
-import { get_current_component, onDestroy, onMount } from "svelte/internal";
+import { get_current_component, onMount } from "svelte/internal";
 </script>
 <script lang="ts">
 export let alt: string = undefined;
@@ -45,9 +45,6 @@ let magnifier:Magnifier;
 
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedZoom = parseZoom( zoom );
-
-$: console.log("ParsedZoom", zoom, parsedZoom);
-
 $: props = {
     alt,
     anchor,
@@ -79,11 +76,6 @@ if ( isBrowser ) {
     onMount( () => {
         if ( magnifiedContainer ) {
             magnifier = new Magnifier( magnifiedContainer );
-        }
-    } );
-    onDestroy( () => {
-        if ( magnifier ) {
-            magnifier.destroy();
         }
     } );
 }

@@ -10,7 +10,7 @@ import {
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
-import type { AfterViewInit, OnChanges, OnDestroy } from "@angular/core";
+import type { AfterViewInit, OnChanges } from "@angular/core";
 import { parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { Magnifier } from "../_/Magnifier";
@@ -68,7 +68,7 @@ import { computeMagnifierStyle } from "../_/compute";
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicImgComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class TwicImgComponent implements AfterViewInit, OnChanges {
     mediaTag = `img`;
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
@@ -101,11 +101,6 @@ export class TwicImgComponent implements AfterViewInit, OnDestroy, OnChanges {
     ngAfterViewInit(): void {
         if ( this.magnifierContainer?.nativeElement ) {
             this.magnifier = new Magnifier( this.magnifierContainer.nativeElement );
-        }
-    }
-    ngOnDestroy(): void {
-        if ( this.magnifier ) {
-            this.magnifier.destroy();
         }
     }
     onStateChange( stateEvent: StateEvent ) {
