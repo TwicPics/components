@@ -11,7 +11,6 @@ interface ImgAttributes extends BaseAttributes {
     zoom?: number | string,
 }
 
-const { string } = PropTypes;
 interface ImgPropTypes {
     zoom: PropTypes.Requireable<number | string>;
 }
@@ -46,6 +45,9 @@ class TwicImg extends Component< ImgAttributes > {
     }
 }
 TwicImg.propTypes = {
-    "zoom": string,
+    "zoom": PropTypes.oneOfType( [
+        PropTypes.number,
+        PropTypes.string,
+    ] ),
 };
 export default TwicImg;
