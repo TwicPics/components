@@ -91,7 +91,7 @@ const replacer = async file => {
 
     // execute scoped replacers
     const rScopeType = /__TWIC_SCOPE_(.*)__/;
-    const rScopeReplacer = /(__TWIC_SCOPE__)/;
+    const rScopeReplacer = /(__TWIC_SCOPE__)/gm;
     for ( const { scope, regExp, transform } of scopedReplacers ) {
         const scopedRegExp = new RegExp( `(?<=${ scope })(.*)(?=${ scope })`, `s` );
         const scoped = scopedRegExp.exec( content );

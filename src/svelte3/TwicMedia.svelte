@@ -26,6 +26,7 @@ import {
     parseRatio,
     parseSrc,
     parseStep,
+    parseTitle,
     parseTransition,
     parseTransitionDelay,
     parseTransitionDuration,
@@ -54,6 +55,7 @@ export let ratio: number | string = undefined;
 export let src: string;
 export let step: number = undefined;
 export let state: State = undefined;
+export let title: string = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
@@ -80,6 +82,7 @@ $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
 $: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
+$: parsedTitle = parseAlt( title );
 $: parsedTransition = parseTransition( transition );
 $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
 $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
@@ -144,5 +147,5 @@ if ( isBrowser ) {
         style = { _style }
         { ..._data }
     ></svelte:element>
-    <div style = { _placeholderStyle } />
+    <div style = { _placeholderStyle } title = { parsedTitle } />
 </div>

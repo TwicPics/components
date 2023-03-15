@@ -23,6 +23,7 @@ import {
     parseRatio,
     parseSrc,
     parseStep,
+    parseTitle,
     parseTransition,
     parseTransitionDelay,
     parseTransitionDuration,
@@ -42,6 +43,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `bot`, stringProp, parseBot ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
+    [ `mediaTag`, stringProp, parseMediaTag ],
     [ `mode`, defineStringProp( rValidMode ), parseMode ],
     [ `eager`, booleanProp( null, false ), parseEager ],
     [ `placeholder`, defineStringProp( rValidPlaceholder ), parsePlaceholder ],
@@ -50,18 +52,11 @@ for ( const [ propName, type, parseMethod ] of [
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
     [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
+    [ `title`, stringProp, parseTitle ],
     [ `transition`, booleanProp( null, true ), parseTransition ],
     [ `transitionDelay`, stringProp, parseTransitionDelay ],
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
-] ) {
-    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
-    props[ propName ] = type;
-}
-
-for ( const [ propName, type, parseMethod ] of [
-    [ `alt`, stringProp, parseAlt ],
-    [ `mediaTag`, stringProp, parseMediaTag ],
 ] ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
     props[ propName ] = type;
@@ -158,7 +153,10 @@ export default {
             :style="_style"
             v-bind="{ ..._dataAttributes }"
         />
-        <div :style="_placeholderStyle" />
+        <div
+            :style="_placeholderStyle"
+            :title="p_title"
+        />
     </div>
 </template>
 <style src="../_/style.css"></style>

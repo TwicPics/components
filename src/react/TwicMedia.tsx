@@ -25,6 +25,7 @@ import {
     parseRatio,
     parseSrc,
     parseStep,
+    parseTitle,
     parseTransition,
     parseTransitionDelay,
     parseTransitionDuration,
@@ -60,6 +61,7 @@ interface MediaPropTypes {
     ratio: PropTypes.Requireable<number | string>;
     src: PropTypes.Validator<string>;
     step: PropTypes.Requireable<number | string>;
+    title: PropTypes.Requireable<string>;
     transition: PropTypes.Requireable<boolean | string>;
     transitionDelay: PropTypes.Requireable<string>;
     transitionDuration: PropTypes.Requireable<string>;
@@ -107,6 +109,7 @@ class TwicMedia extends Component< MediaAttributes > {
         const ratio = parseRatio( props.ratio );
         const src = parseSrc( props.src );
         const step = parseStep( props.step );
+        const title = parseTitle( props.title );
         const transition = parseTransition( props.transition );
         const transitionDelay = parseTransitionDelay( props.transitionDelay );
         const transitionDuration = parseTransitionDuration( props.transitionDuration );
@@ -164,6 +167,7 @@ class TwicMedia extends Component< MediaAttributes > {
                             this.observer.setPlaceholderData
                         )
                     }
+                    title = { title }
                 />
             </div>
         );
@@ -191,6 +195,7 @@ TwicMedia.propTypes = {
     ] ),
     "src": string,
     "step": number,
+    "title": string,
     "transition": PropTypes.oneOfType( [
         PropTypes.bool,
         PropTypes.string,

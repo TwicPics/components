@@ -136,6 +136,8 @@ const mappingTransition: { [ key: string ]: Transition; } = {
     "none": `none`,
 };
 
+export const parseTitle = trimOrUndefined;
+
 export const parseTransition = ( value: boolean | string ): Record< string, boolean > => {
 
     if ( typeof value !== `boolean` ) {

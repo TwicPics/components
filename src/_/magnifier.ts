@@ -12,6 +12,7 @@ const move = ( e: MouseEvent | TouchEvent ) => {
     e.preventDefault();
     e.stopPropagation();
     const currentTarget = e.currentTarget as HTMLElement;
+    // eslint-disable-next-line no-shadow
     const { left, top, right, bottom } = currentTarget.getBoundingClientRect();
     const magnifiedContainer = currentTarget.lastElementChild as HTMLDivElement;
     const { clientX, clientY } = e instanceof MouseEvent ?

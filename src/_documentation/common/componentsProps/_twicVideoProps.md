@@ -21,6 +21,7 @@ This component can be used in place of a `video` element.
   preTransform="<String>"
   ratio="<ratio>"__TWIC_STATE_CHANGE_PROP__
   step="<integer>"
+  title="<String>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"

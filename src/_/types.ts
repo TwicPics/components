@@ -29,6 +29,7 @@ export interface Attributes {
     ratio?: number | string,
     step?: number | string,
     src: string,
+    title?: string,
     transition?: boolean | string,
     transitionDelay?: string,
     transitionDuration?: string,

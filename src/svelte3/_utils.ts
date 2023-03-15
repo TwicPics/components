@@ -23,6 +23,7 @@ export {
     parseRatio,
     parseSrc,
     parseStep,
+    parseTitle,
     parseTransition,
     parseTransitionDelay,
     parseTransitionDuration,

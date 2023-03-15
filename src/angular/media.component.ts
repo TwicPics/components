@@ -50,13 +50,14 @@ import {
     parseTransitionDelay,
     parseTransitionDuration,
     parseTransitionTimingFunction,
+    parseTitle,
 } from "../_/parse";
 
 @Component( {
     "selector": `TwicMedia`,
     "template": `
         <div #container [ngClass]="wrapperClass" [ngStyle]="wrapperStyle">
-            <div #placeholderElement [ngStyle]="placeholderStyle"></div>
+            <div #placeholderElement [ngStyle]="placeholderStyle" [attr.title]="_title"></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],
@@ -78,6 +79,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number = undefined;
+    @Input() title: string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
@@ -104,6 +106,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
     _ratio: number = undefined;
     _src: string;
     _step: number = undefined;
+    _title: string = undefined;
     _transition:Record< string, boolean >;
     _transitionDelay: string = undefined;
     _transitionDuration: string = undefined;
@@ -148,6 +151,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
         this._ratio = parseRatio( this.ratio );
         this._src = parseSrc( this.src );
         this._step = parseStep( this.step );
+        this._title = parseTitle( this.title );
         this._transition = parseTransition( this.transition );
         this._transitionDelay = parseTransitionDelay( this.transitionDelay );
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );

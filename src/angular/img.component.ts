@@ -34,6 +34,7 @@ import magnifier from "../_/magnifier";
             [ratio]="ratio"
             [src]="src"
             [step]="step"
+            [title]="title"
             [transition]="transition"
             [transitionDelay]="transitionDelay"
             [transitionDuration]="transitionDuration"
@@ -55,6 +56,7 @@ import magnifier from "../_/magnifier";
                 [ratio]="ratio"
                 [src]="src"
                 [step]="step"
+                [title]="title"
                 [transition]="transition"
                 [transitionDelay]="transitionDelay"
                 [transitionDuration]="transitionDuration"
@@ -83,6 +85,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number = undefined;
+    @Input() title: string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;

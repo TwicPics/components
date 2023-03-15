@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { parseClassName, parseZoom } from '../_/parse';
 import TwicMedia, { type BaseAttributes } from "./TwicMedia";
 import { computeMagnifierStyle } from '../_/compute';
