@@ -40,8 +40,8 @@ export type {
     StateEvent,
 } from "../_/types.js";
 export { isBrowser, isWebComponents } from "../_/utils.js";
+export { default as magnifier } from "../_/magnifier";
 export { Observer } from "../_/Observer.js";
-export { Magnifier } from "../_/Magnifier.js";
 
 export const styleToString = ( properties: Record< string, string > ): string => (
     Object.keys( properties ).length ?

@@ -5,14 +5,14 @@ import {
     isBrowser,
     isWebComponents,
     computeMagnifierStyle,
-    Magnifier,
     parseClassName,
     parseZoom,
     styleToString,
     type Anchor,
     type Mode,
     type Placeholder,
-    type State
+    type State,
+    magnifier
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { get_current_component, onMount } from "svelte/internal";
@@ -41,7 +41,6 @@ export let transitionTimingFunction: string = undefined;
 export let zoom: number | string = undefined;
 
 let magnifiedContainer:HTMLDivElement;
-let magnifier:Magnifier;
 
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedZoom = parseZoom( zoom );
@@ -75,7 +74,7 @@ $: {
 if ( isBrowser ) {
     onMount( () => {
         if ( magnifiedContainer ) {
-            magnifier = new Magnifier( magnifiedContainer );
+            magnifier( magnifiedContainer );
         }
     } );
 }
