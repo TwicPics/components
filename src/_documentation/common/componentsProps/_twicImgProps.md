@@ -28,6 +28,7 @@ This component can be used in place of an `img` element.
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
+  zoom="<String | Number>"
 />
 ```
 __TWIC_SCOPE_image__

@@ -16,7 +16,7 @@
     - [Responsive Example](#responsive-example)
     - [Style Driven Approach](#style-driven-approach)
     - [Working with ratio="none"](#ratio-none)
-    - [Zoom on images](#zoom-feature)
+    - [Zoom on image](#zoom-on-image)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
@@ -386,9 +386,9 @@ Particularly useful when creating hero banner, you can specify the height of you
   <img alt="Edit TwicPics x Web Component - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-<div id='zoom-feature'/>
+<div id='zoom-on-image'/>
 
-### Zoom on images
+### Zoom on image
 
 The `<twic-img>` component allows to display a __lazy loaded__ zoomed version of your image on __mouse over__.
 
@@ -403,12 +403,12 @@ For example:
 
 The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
 
-To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property with `CSS` and add a new rule to your stylesheet. 
+To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property with `'CSS'` and add a new rule to your stylesheet. 
 
 For example: 
 
 ```html
-  <twic-img src="image3.jpg" zoom="CSS" class=".zoom-3/>
+  <twic-img src="image3.jpg" zoom="CSS" class=".zoom-3"/>
 ```
 
 ```css
@@ -449,6 +449,7 @@ This component can be used in place of an `img` element.
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
+  zoom="<String | Number>"
 />
 ```
 
@@ -467,12 +468,12 @@ This component can be used in place of an `img` element.
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
-| `title` | `title` representing information related to the image. See [`global attribute title `](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) | `String` | |
+| `title` | `title` representing information related to the image. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
 | `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-| `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `CSS`, magnification factor is defined through the CSS variable `--twic-zoom`. See [Zoom on images](#zoom-feature). Should only be applied to images in cover `mode`. | `String | number` | `1` |
+| `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `CSS`, magnification factor is defined through the CSS variable `--twic-zoom`.Should only be applied to images in cover `mode`. See [Zoom on image](#zoom-on-image).| `String | number` | `1` |
 <div id='twic-video'/>
 
 ### `twic-video`
@@ -515,7 +516,7 @@ This component can be used in place of a `video` element.
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
 | `src` | Path to the video. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/api/placeholders) that displays its intrinsic dimensions is displayed in place of the absent video. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/script/attributes#data-twic-step) for more information. | `Integer` | `10` |
-| `title` | `title` representing information related to the video. See [`global attribute title `](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) | `String` | |
+| `title` | `title` representing information related to the video. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
 | `transition` | Determines how the video will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
@@ -551,7 +552,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 | `--twic-transition-delay` | [Transition delay of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) | `transitionDelay` | `0ms` |
 | `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `transitionDuration` | `400ms` |
 | `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
-| `--twic-zoom` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
+| `--twic-zoom` | Strictly greater than 1 floating point value corresponding to the zoom factor to be applied. Only applies to `twic-img` with `zoom` property set to `"CSS"`. | `number` | |
 
 <div id='example'/>
 

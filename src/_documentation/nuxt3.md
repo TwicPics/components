@@ -285,6 +285,8 @@ export default {
 
 #include "src/_documentation/common/_zoomFeature.md"
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fzoom.vue&initialpath=zoom)
+
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/vue/_stateType.md"
