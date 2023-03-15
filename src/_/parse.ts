@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
-import { isReactNative, logWarning, regExpFinderFactory, trimRegExpFactory } from "./utils";
+import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
 import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
 

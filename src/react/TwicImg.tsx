@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { parseClassName, parseZoom } from '../_/parse';
 import TwicMedia, { type BaseAttributes } from "./TwicMedia";
 import { computeMagnifierStyle } from '../_/compute';
-import { Magnifier } from '../_/Magnifier';
+import magnifier from '../_/magnifier';
 
 interface ImgAttributes extends BaseAttributes {
     className?: string,
@@ -18,14 +18,13 @@ interface ImgPropTypes {
 class TwicImg extends Component< ImgAttributes > {
     static propTypes: ImgPropTypes;
     private magnifiedContainer: React.RefObject< HTMLDivElement >;
-    private magnifier:Magnifier;
     constructor( attributes: ImgAttributes ) {
         super( attributes );
         this.magnifiedContainer = React.createRef();
     }
     componentDidMount() {
         if ( this.magnifiedContainer.current ) {
-            this.magnifier = new Magnifier( this.magnifiedContainer.current );
+            magnifier( this.magnifiedContainer.current );
         }
     }
     render() {

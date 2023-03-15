@@ -3,7 +3,7 @@ import { defineNumberProp } from "./props";
 import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
 import { computeMagnifierStyle } from "../_/compute";
-import { Magnifier } from "../_/Magnifier";
+import magnifier from "../_/magnifier";
 import { rValidZoom } from "../_/validate";
 import {
     parseZoom,
@@ -31,7 +31,7 @@ export default {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     mounted() {
         if ( this.$refs.magnifiedContainer ) {
-            this.magnifier = new Magnifier( this.$refs.magnifiedContainer );
+            magnifier( this.$refs.magnifiedContainer );
         }
     },
     "methods": {

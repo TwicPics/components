@@ -13,8 +13,8 @@ import {
 import type { AfterViewInit, OnChanges } from "@angular/core";
 import { parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
-import { Magnifier } from "../_/Magnifier";
 import { computeMagnifierStyle } from "../_/compute";
+import magnifier from "../_/magnifier";
 
 @Component( {
     "selector": `TwicImg`,
@@ -93,14 +93,13 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
         return this._zoom;
     }
     _zoom: boolean | number = false;
-    magnifier: Magnifier;
     magnifiedStyle: Record<string, string>;
     @ViewChild( `magnifierContainer`, {
         "static": false,
     } ) magnifierContainer: ElementRef< HTMLDivElement >;
     ngAfterViewInit(): void {
         if ( this.magnifierContainer?.nativeElement ) {
-            this.magnifier = new Magnifier( this.magnifierContainer.nativeElement );
+            magnifier( this.magnifierContainer.nativeElement );
         }
     }
     onStateChange( stateEvent: StateEvent ) {
