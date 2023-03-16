@@ -19,7 +19,7 @@ for (
     props[ propName ] = type;
 }
 
-computed._magnifiedStyle = callFactory( computeMagnifierStyle, [ `zoom` ] );
+computed._magnifierStyle = callFactory( computeMagnifierStyle, [ `zoom` ] );
 
 export default {
     "components": {
@@ -60,7 +60,7 @@ export default {
             v-if="p_zoom"
             ref="magnifier"
             class="twic-m"
-            :style="_magnifiedStyle"
+            :style="_magnifierStyle"
         >
             <TwicMedia
                 media-tag="div"

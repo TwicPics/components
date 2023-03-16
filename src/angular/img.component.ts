@@ -41,7 +41,7 @@ import initMagnifier from "../_/magnifier";
             [transitionTimingFunction]="transitionTimingFunction"
             (stateChangeEvent)="onStateChange($event)"
         ></TwicMedia>
-        <div *ngIf="_zoom" #magnifier class="twic-m"  [ngStyle]="magnifiedStyle">
+        <div *ngIf="_zoom" #magnifier class="twic-m"  [ngStyle]="magnifierStyle">
             <TwicMedia
                 [anchor]="anchor"
                 [bot]="bot"
@@ -96,7 +96,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
         return this._zoom;
     }
     _zoom: boolean | number = false;
-    magnifiedStyle: Record<string, string>;
+    magnifierStyle: Record<string, string>;
     @ViewChild( `magnifier`, {
         "static": false,
     } ) magnifier: ElementRef< HTMLDivElement >;
@@ -110,6 +110,6 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     }
     ngOnChanges( ): void {
         this._zoom = parseZoom( this.zoom );
-        this.magnifiedStyle = computeMagnifierStyle( this._zoom );
+        this.magnifierStyle = computeMagnifierStyle( this._zoom );
     }
 }

@@ -66,7 +66,7 @@ $: props = {
     transitionTimingFunction
 }
 
-$: _magnifiedStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
+$: _magnifierStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
 
 $: {
     if ( isWebComponents ) {
@@ -84,7 +84,7 @@ if ( isBrowser ) {
 {#if isWebComponents}
 <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
 {#if parsedZoom}
-    <div bind:this={ magnifier } style = { _magnifiedStyle } class="twic-m">
+    <div bind:this={ magnifier } style = { _magnifierStyle } class="twic-m">
         <TwicMedia mediaTag="div" { ...props }></TwicMedia>
     </div>
 {/if}
@@ -92,7 +92,7 @@ if ( isBrowser ) {
 <div class = {`twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }`}>
     <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
     {#if parsedZoom}
-        <div bind:this={ magnifier } style = { _magnifiedStyle } class="twic-m">
+        <div bind:this={ magnifier } style = { _magnifierStyle } class="twic-m">
             <TwicMedia mediaTag="div"{ ...props }></TwicMedia>
         </div>
     {/if}
