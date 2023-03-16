@@ -8,23 +8,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-- Add new `<TwicBackground>` component that allows to display a background image in any HTML element.
+### Add
+- Add new `TwicBackground` component that allows to display a background image in any HTML element.
+- Add `title` property that allows to handle [title global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
+- Add `zoom` property to `TwicImg` that allows to display a lazy loaded and enlarged image on `mouseover` event.
 
 ### Changed
 
-- Refactoring to split React and Vue components into several specialized components (TwicBackground, TwicImg and TwicVideo).
-- Upgrade dependencies (**Nuxt.js** up to 3.2.0).
+- Remove components factories and splits into several specialized ones (`TwicBackground`, `TwicImg` and `TwicVideo`).
+- Upgrade dependencies.
 
 ### Fixed
 
-## [0.15.1] - 2022-02-01
+- Fix missing `twic-i` and `twic-d` classes in **Web Components**.
+- Fix `ratio` property typing in **React** components.
+
+## [0.15.1] - 2023-02-01
 
 ### Changed
 
 - Make the configuration of components global so that components can be used in different frameworks simultaneously.
 - Upgrade dependencies (**Nuxt.js** up to 3.1.1).
 
-## [0.15.0] - 2022-01-20
+## [0.15.0] - 2023-01-20
 
 ### Add
 
