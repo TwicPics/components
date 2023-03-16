@@ -14,12 +14,11 @@ const move = ( e: MouseEvent | TouchEvent ) => {
     const currentTarget = e.currentTarget as HTMLElement;
     // eslint-disable-next-line no-shadow
     const { left, top, right, bottom } = currentTarget.getBoundingClientRect();
-    const magnifiedContainer = currentTarget.lastElementChild as HTMLDivElement;
     const { clientX, clientY } = e instanceof MouseEvent ?
         e as unknown as MouseEvent :
         ( e as unknown as TouchEvent ).touches[ 0 ];
-    magnifiedContainer.style.setProperty( `--twic-xr`, ease( ( clientX - left ), ( right - left ) ).toString() );
-    magnifiedContainer.style.setProperty( `--twic-yr`, ease( ( clientY - top ), ( bottom - top ) ).toString() );
+    currentTarget.style.setProperty( `--twic-xr`, ease( ( clientX - left ), ( right - left ) ).toString() );
+    currentTarget.style.setProperty( `--twic-yr`, ease( ( clientY - top ), ( bottom - top ) ).toString() );
 };
 
 export default ( magnifiedContainer: HTMLDivElement ): void => {

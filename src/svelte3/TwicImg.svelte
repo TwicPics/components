@@ -2,9 +2,10 @@
 
 <script context="module" lang="ts">
 import {
+    computeMagnifierStyle,
     isBrowser,
     isWebComponents,
-    computeMagnifierStyle,
+    initMagnifier,
     parseClassName,
     parseZoom,
     styleToString,
@@ -12,7 +13,6 @@ import {
     type Mode,
     type Placeholder,
     type State,
-    magnifier
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { get_current_component, onMount } from "svelte/internal";
@@ -41,7 +41,7 @@ export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 export let zoom: number | string = undefined;
 
-let magnifiedContainer:HTMLDivElement;
+let magnifier:HTMLDivElement;
 
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedZoom = parseZoom( zoom );
@@ -75,8 +75,8 @@ $: {
 }
 if ( isBrowser ) {
     onMount( () => {
-        if ( magnifiedContainer ) {
-            magnifier( magnifiedContainer );
+        if ( magnifier ) {
+            initMagnifier( magnifier );
         }
     } );
 }
@@ -84,7 +84,7 @@ if ( isBrowser ) {
 {#if isWebComponents}
 <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
 {#if parsedZoom}
-    <div bind:this={ magnifiedContainer } style = { _magnifiedStyle } class="twic-m">
+    <div bind:this={ magnifier } style = { _magnifiedStyle } class="twic-m">
         <TwicMedia mediaTag="div" { ...props }></TwicMedia>
     </div>
 {/if}
@@ -92,7 +92,7 @@ if ( isBrowser ) {
 <div class = {`twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }`}>
     <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
     {#if parsedZoom}
-        <div bind:this={ magnifiedContainer } style = { _magnifiedStyle } class="twic-m">
+        <div bind:this={ magnifier } style = { _magnifiedStyle } class="twic-m">
             <TwicMedia mediaTag="div"{ ...props }></TwicMedia>
         </div>
     {/if}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { parseClassName, parseZoom } from '../_/parse';
 import TwicMedia, { type BaseAttributes } from "./TwicMedia";
 import { computeMagnifierStyle } from '../_/compute';
-import magnifier from '../_/magnifier';
+import initMagnifier from '../_/magnifier';
 
 interface ImgAttributes extends BaseAttributes {
     className?: string,
@@ -16,14 +16,14 @@ interface ImgPropTypes {
 
 class TwicImg extends Component< ImgAttributes > {
     static propTypes: ImgPropTypes;
-    private magnifiedContainer: React.RefObject< HTMLDivElement >;
+    private magnifier: React.RefObject< HTMLDivElement >;
     constructor( attributes: ImgAttributes ) {
         super( attributes );
-        this.magnifiedContainer = React.createRef();
+        this.magnifier = React.createRef();
     }
     componentDidMount() {
-        if ( this.magnifiedContainer.current ) {
-            magnifier( this.magnifiedContainer.current );
+        if ( this.magnifier.current ) {
+            initMagnifier( this.magnifier.current );
         }
     }
     render() {
@@ -34,7 +34,7 @@ class TwicImg extends Component< ImgAttributes > {
             <div className= { `twic-i ${ className } ${ zoom ? `twic-z` : `` }`}>
                 <TwicMedia mediaTag="img" {...this.props}/>
                 { zoom &&
-                    <div ref={ this.magnifiedContainer } className="twic-m" style = { computeMagnifierStyle( zoom ) }>
+                    <div ref={ this.magnifier } className="twic-m" style = { computeMagnifierStyle( zoom ) }>
                         <TwicMedia mediaTag="div" {...this.props} ></TwicMedia>
                     </div>
                 }

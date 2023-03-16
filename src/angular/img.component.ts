@@ -14,7 +14,7 @@ import type { AfterViewInit, OnChanges } from "@angular/core";
 import { parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { computeMagnifierStyle } from "../_/compute";
-import magnifier from "../_/magnifier";
+import initMagnifier from "../_/magnifier";
 
 @Component( {
     "selector": `TwicImg`,
@@ -41,7 +41,7 @@ import magnifier from "../_/magnifier";
             [transitionTimingFunction]="transitionTimingFunction"
             (stateChangeEvent)="onStateChange($event)"
         ></TwicMedia>
-        <div *ngIf="_zoom" #magnifierContainer class="twic-m"  [ngStyle]="magnifiedStyle">
+        <div *ngIf="_zoom" #magnifier class="twic-m"  [ngStyle]="magnifiedStyle">
             <TwicMedia
                 [anchor]="anchor"
                 [bot]="bot"
@@ -97,12 +97,12 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     }
     _zoom: boolean | number = false;
     magnifiedStyle: Record<string, string>;
-    @ViewChild( `magnifierContainer`, {
+    @ViewChild( `magnifier`, {
         "static": false,
-    } ) magnifierContainer: ElementRef< HTMLDivElement >;
+    } ) magnifier: ElementRef< HTMLDivElement >;
     ngAfterViewInit(): void {
-        if ( this.magnifierContainer?.nativeElement ) {
-            magnifier( this.magnifierContainer.nativeElement );
+        if ( this.magnifier?.nativeElement ) {
+            initMagnifier( this.magnifier.nativeElement );
         }
     }
     onStateChange( stateEvent: StateEvent ) {
