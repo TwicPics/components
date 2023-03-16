@@ -3,13 +3,15 @@
 import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
-import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "./validate";
+import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio, rValidZoom } from "./validate";
 
 const rImage = /^(image:)?\/*/;
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
-const trimTransformOrUndefined = trimRegExpFactory( `.+?`, `[\\s\\/]` );
+const trimTransformOrUndefined = trimRegExpFactory( `.+?`, {
+    "border": `[\\s\\/]`,
+} );
 
 const rAnchor = /\b(?:(left|right)|(bottom|top))\b/g;
 
@@ -71,7 +73,10 @@ export const parseEager = ( value: boolean | string ): boolean => {
     return mappingEager[ value.trim() ] || false;
 };
 
-export const parseMediaTag = trimOrUndefined;
+export const parseMediaTag = ( value: string ): string => {
+    const trimmed = trimOrUndefined( value );
+    return trimmed && trimmed.toLocaleLowerCase();
+};
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
@@ -136,7 +141,7 @@ const mappingTransition: { [ key: string ]: Transition; } = {
     "none": `none`,
 };
 
-export const parseTitle = trimOrUndefined;
+export const parseTitle = ( value: string ): string => value && value.trim();
 
 export const parseTransition = ( value: boolean | string ): Record< string, boolean > => {
 
@@ -164,12 +169,11 @@ export const parseTransitionTimingFunction = trimOrUndefined;
 
 export const parseZoom = ( value: number | string ): boolean | number => {
     if ( typeof value === `string` ) {
-        const trimmed = trimOrUndefined( value );
-        if ( trimmed && ( trimmed.toLowerCase() === `css` ) ) {
+        const parsed = rValidZoom.exec( value );
+        if ( parsed && parsed[ 3 ] ) {
             return true;
         }
-        // eslint-disable-next-line no-param-reassign
-        value = trimmed && Number( trimmed );
+        value = parsed && parsed[ 2 ] ? Number( parsed[ 2 ] ) : undefined;
     }
     return isPositiveNumber( value ) ?
         ( value > 1 ? value : undefined ) :

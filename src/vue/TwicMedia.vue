@@ -145,6 +145,7 @@ export default {
     <div
         :class="_wrapperClass"
         :style="_wrapperStyle"
+        :title="p_title"
     >
         <component
             :is="p_mediaTag"
@@ -153,10 +154,7 @@ export default {
             :style="_style"
             v-bind="{ ..._dataAttributes }"
         />
-        <div
-            :style="_placeholderStyle"
-            :title="p_title"
-        />
+        <div :style="_placeholderStyle" />
     </div>
 </template>
 <style src="../_/style.css"></style>

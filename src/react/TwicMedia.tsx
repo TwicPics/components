@@ -119,6 +119,7 @@ class TwicMedia extends Component< MediaAttributes > {
             <div
                 className = { computeWrapperClass( props.src, transition ) }
                 style = { computeWrapperStyle( ratio ) }
+                title = { title }
             >
                 <MediaTag
                     ref={ this.media }
@@ -167,7 +168,6 @@ class TwicMedia extends Component< MediaAttributes > {
                             this.observer.setPlaceholderData
                         )
                     }
-                    title = { title }
                 />
             </div>
         );

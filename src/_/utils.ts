@@ -66,6 +66,16 @@ export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };
 
-export const trimRegExpFactory = ( items: Array< string > | string, border = `\\s` ): RegExp =>
-    new RegExp( `^(?:${ border })*(${ Array.isArray( items ) ? items.join( `|` ) : items })(?:${ border })*$` );
+interface TrimRegExpOptions {
+    border?: string;
+    regExpFlags?: string;
+}
+export const trimRegExpFactory = (
+    items: Array< string > | string,
+    { border = `\\s`, regExpFlags }: TrimRegExpOptions = {}
+): RegExp =>
+    new RegExp(
+        `^(?:${ border })*(${ Array.isArray( items ) ? items.join( `|` ) : items })(?:${ border })*$`
+        , regExpFlags
+    );
 

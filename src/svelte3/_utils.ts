@@ -17,6 +17,7 @@ export {
     parseIntrinsic,
     parseMode,
     parseEager,
+    parseMediaTag,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,

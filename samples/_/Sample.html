@@ -470,12 +470,13 @@ Test"
     </div>
     <h2>Isolation Test</h2>
     <div class="samples">
-        <TwicImg src="football.jpg"></TwicImg>
+        <TwicImg src="football.jpg" zoom="2"></TwicImg>
         <TwicImg
             src="football.jpg"
             ratio="16/9"
             mode="cover"
             placeholder="meancolor"
+            zoom="2"
         ></TwicImg>
         <TwicImg
             src="football.jpg"
@@ -483,6 +484,7 @@ Test"
             ratio="500/800"
             placeholder="none"
             alt="custom alt attribute"
+            zoom="2"
         ></TwicImg>
         <TwicImg
             src="football.jpg"
@@ -491,6 +493,7 @@ Test"
             mode="contain"
             position="bottom"
             alt="custom alt attribute"
+            zoom="2"
         ></TwicImg>
     </div>
     <h2>placeholder</h2>
@@ -1151,7 +1154,7 @@ Test"
                 mode="contain"
                 ratio="4/3">
             </TwicBackground>
-            <span>ratio="4/3"</span>
+            <span>ratio="4/3" mediaTag="   FIGURE   "</span>
         </div>
         <div class="item">
             <TwicBackground

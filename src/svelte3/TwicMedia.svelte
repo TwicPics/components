@@ -3,7 +3,7 @@
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Anchor, Mode, Placeholder, State } from "./_utils.js";
+import { parseMediaTag, type Anchor, type Mode, type Placeholder, type State } from "./_utils.js";
 import {
     computeAlt,
     computeData,
@@ -74,7 +74,7 @@ $: parsedBot = parseBot( bot );
 $: parsedEager = parseEager( eager );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
-$: parsedMediaTag = mediaTag;
+$: parsedMediaTag = parseMediaTag( mediaTag );
 $: parsedMode = parseMode( mode );
 $: parsedPlaceholder = parsePlaceholder( placeholder );
 $: parsedPosition = parsePosition( position );
@@ -82,7 +82,7 @@ $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
 $: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
-$: parsedTitle = parseAlt( title );
+$: parsedTitle = parseTitle( title );
 $: parsedTransition = parseTransition( transition );
 $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
 $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
@@ -140,6 +140,7 @@ if ( isBrowser ) {
 <div
     class = { computeWrapperClass( src, parsedTransition ) }
     style = { _wrapperStyle }
+    title = { parsedTitle }
 >
     <svelte:element this={ mediaTag }
         bind:this = { media }
@@ -147,5 +148,5 @@ if ( isBrowser ) {
         style = { _style }
         { ..._data }
     ></svelte:element>
-    <div style = { _placeholderStyle } title = { parsedTitle } />
+    <div style = { _placeholderStyle } />
 </div>

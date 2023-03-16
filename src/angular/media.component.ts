@@ -56,8 +56,8 @@ import {
 @Component( {
     "selector": `TwicMedia`,
     "template": `
-        <div #container [ngClass]="wrapperClass" [ngStyle]="wrapperStyle">
-            <div #placeholderElement [ngStyle]="placeholderStyle" [attr.title]="_title"></div>
+        <div #container [ngClass]="wrapperClass" [ngStyle]="wrapperStyle" [attr.title]="_title">
+            <div #placeholderElement [ngStyle]="placeholderStyle"></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],
