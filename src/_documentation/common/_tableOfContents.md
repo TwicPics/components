@@ -11,7 +11,7 @@
     - [Responsive Example](#responsive-example)
     - [Style Driven Approach](#style-driven-approach)
     - [Working with ratio="none"](#ratio-none)__TWIC_STATE_TABLE_CONTENT__
-    - [Zoom on image](#zoom-on-image)
+    - [Image magnifier](#image-magnifier)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)

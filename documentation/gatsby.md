@@ -3,30 +3,27 @@
 
 
 
-- [Overview](#overview)
-  - [What is TwicPics?](#what-is-twicpics)
-  - [What is TwicPics Components?](#what-is-twicpics-components)
+- [Overview](#about)
+    - [What is TwicPics ?](#what-is-twicpics)
+    - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
 - [Setup](#setup)
-  - [Setting-up TwicPics Components into your `Gatsby` project](#setting-up-twicpics-components-into-your-gatsby-project)
-    - [`gatsby-config.js`](#gatsby-configjs)
-  - [Setup Options](#setup-options)
+    - [Setting-up TwicPics Components into your project](#setting-up-your-project)
+    - [Setup Options](#setup-options)
 - [Usage](#usage)
-  - [Basic usage](#basic-usage)
-  - [Bulk loading with TwicView](#bulk-loading-with-twicview)
-  - [Style-Driven Approach](#style-driven-approach)
-  - [Responsive Example](#responsive-example)
-  - [Working with ratio="none"](#working-with-rationone)
-  - [Lifecycle](#lifecycle)
-  - [Zoom on image](#zoom-on-image)
-- [Components Properties](#components-properties)
-  - [`TwicImg`](#twicimg)
-  - [`TwicVideo`](#twicvideo)
-  - [Loading State Values](#loading-state-values)
-  - [State Change Event](#state-change-event)
-- [CSS Variables](#css-variables)
+    - [Basic usage](#basic-usage)
+    - [Bulk loading with TwicView](#bulk-loading-with-twicview)
+    - [Responsive Example](#responsive-example)
+    - [Style Driven Approach](#style-driven-approach)
+    - [Working with ratio="none"](#ratio-none)
+    - [Lifecycle](#lifecycle)
+    - [Image magnifier](#image-magnifier)
+- [Components properties](#components-props)
+    - [TwicImg](#twic-img)
+    - [TwicVideo](#twic-video)
+- [CSS variables](#css-variables)
 - [Examples](#examples)
-- [Questions and feedback](#questions-and-feedback)
+- [Questions and feedback](#getting-help)
 - [Other frameworks](#other-frameworks)
 - [Licence](#licence)
     
@@ -386,9 +383,8 @@ Here are the values the Component will emit ([see State Type definition](#state-
   )
 ```
 
-<div id='zoom-on-image'/>
 
-### Zoom on image
+### Image magnifier
 
 The `<TwicImg>` component allows to display a __lazy loaded__ zoomed version of your image on __mouse over__.
 
@@ -403,12 +399,12 @@ For example:
 
 The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
 
-To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property with `'CSS'` and add a new rule to your stylesheet. 
+To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property tp `'css'` and add a new rule to your stylesheet. 
 
 For example: 
 
 ```html
-  <TwicImg src="image3.jpg" zoom="CSS" class=".zoom-3"/>
+  <TwicImg src="image3.jpg" zoom="css" class=".zoom-3"/>
 ```
 
 ```css
@@ -417,7 +413,7 @@ For example:
 }
 ```
 
-It applies only to `<TwicImg>` component in __cover__ `mode`.
+It applies only to `TwicImg` component in __cover__ `mode`.
 
 
 <div id='components-props'/>
@@ -475,7 +471,7 @@ This component can be used in place of an `img` element.
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-| `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `CSS`, magnification factor is defined through the CSS variable `--twic-zoom`.Should only be applied to images in cover `mode`. See [Zoom on image](#zoom-on-image).| `String | number` | `1` |
+| `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `css`, magnification factor is defined through the CSS variable `--twic-zoom`.Should only be applied to images in cover `mode`. See [Image magnifier](#image-magnifier).| `String | number` | `1` |
 <div id='twic-video'/>
 
 ### `TwicVideo`

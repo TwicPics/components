@@ -16,7 +16,7 @@
     - [Responsive Example](#responsive-example)
     - [Style Driven Approach](#style-driven-approach)
     - [Working with ratio="none"](#ratio-none)
-    - [Zoom on image](#zoom-on-image)
+    - [Image magnifier](#image-magnifier)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
@@ -386,9 +386,8 @@ Particularly useful when creating hero banner, you can specify the height of you
   <img alt="Edit TwicPics x Web Component - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-<div id='zoom-on-image'/>
 
-### Zoom on image
+### Image magnifier
 
 The `<twic-img>` component allows to display a __lazy loaded__ zoomed version of your image on __mouse over__.
 
@@ -403,12 +402,12 @@ For example:
 
 The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
 
-To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property with `'CSS'` and add a new rule to your stylesheet. 
+To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property tp `'css'` and add a new rule to your stylesheet. 
 
 For example: 
 
 ```html
-  <twic-img src="image3.jpg" zoom="CSS" class=".zoom-3"/>
+  <twic-img src="image3.jpg" zoom="css" class=".zoom-3"/>
 ```
 
 ```css
@@ -417,7 +416,7 @@ For example:
 }
 ```
 
-It applies only to `<twic-img>` component in __cover__ `mode`.
+It applies only to `twic-img` component in __cover__ `mode`.
 
 
 <div id='components-props'/>
@@ -473,7 +472,7 @@ This component can be used in place of an `img` element.
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
-| `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `CSS`, magnification factor is defined through the CSS variable `--twic-zoom`.Should only be applied to images in cover `mode`. See [Zoom on image](#zoom-on-image).| `String | number` | `1` |
+| `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `css`, magnification factor is defined through the CSS variable `--twic-zoom`.Should only be applied to images in cover `mode`. See [Image magnifier](#image-magnifier).| `String | number` | `1` |
 <div id='twic-video'/>
 
 ### `twic-video`
