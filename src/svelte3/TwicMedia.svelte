@@ -88,7 +88,7 @@ $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
 $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 
-$: _alt = ( mediaTag === `img`? computeAlt( parsedAlt, parsedSrc ) : undefined);
+$: _alt = computeAlt( parsedAlt, parsedMediaTag, parsedSrc );
 $: _data = computeData(
     parsedAnchor,
     parsedBot,

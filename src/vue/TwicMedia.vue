@@ -63,7 +63,7 @@ for ( const [ propName, type, parseMethod ] of [
 }
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `src` ] ],
+    [ `_alt`, computeAlt, [ `alt`, `mediaTag`, `src` ] ],
     [
         `_dataAttributes`,
         computeData,

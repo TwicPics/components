@@ -51,13 +51,16 @@ const preComputeStyle = (
 const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
 
 export const computeAlt =
-    ( alt: string, src: string ): string => {
-        if ( !alt ) {
-            const tmp = rAlt.exec( src );
-            // eslint-disable-next-line no-param-reassign
-            alt = ( tmp && tmp[ 1 ] ) || `image`;
+    ( alt: string, mediaTag: string, src: string ): string => {
+        if ( mediaTag === `img` ) {
+            if ( !alt ) {
+                const tmp = rAlt.exec( src );
+                // eslint-disable-next-line no-param-reassign
+                alt = ( tmp && tmp[ 1 ] ) || `image`;
+            }
+            return alt;
         }
-        return alt;
+        return undefined;
     };
 
 export const computeData = (

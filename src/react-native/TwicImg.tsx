@@ -51,7 +51,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     const transitionDelay = parseTransitionDelay( props.transitionDelay );
     const transitionDuration = parseTransitionDuration( props.transitionDuration );
     const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
-    const computedAlt = computeAlt( alt, src );
+    const computedAlt = computeAlt( alt, src, `img` );
     const { media, lqip } = computeUrls( {
         anchor,
         focus,

@@ -156,7 +156,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
         this._transitionDelay = parseTransitionDelay( this.transitionDelay );
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
-        this.description = computeAlt( this._alt, this._src );
+        this.description = computeAlt( this._alt, this._mediaTag, this._src );
         this.mediaAttributes = {
             ...computeData(
                 this._anchor,
@@ -204,10 +204,8 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
     }
     private updateMedia(): void {
         if ( this._media ) {
-            if ( this._mediaTag === `img` ) {
-                // eslint-disable-next-line dot-notation
-                this.mediaAttributes[ `alt` ] = this.description;
-            }
+            // eslint-disable-next-line dot-notation
+            this.mediaAttributes[ `alt` ] = this.description;
             Object.entries( this.mediaAttributes || [] ).forEach( ( [ n, v ] ) => {
                 if ( v === undefined ) {
                     this.renderer.removeAttribute( this._media, n );

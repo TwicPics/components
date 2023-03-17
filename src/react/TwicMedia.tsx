@@ -49,7 +49,6 @@ interface MediaPropTypes {
     alt: PropTypes.Requireable<string>;
     anchor: PropTypes.Requireable<Anchor>;
     bot: PropTypes.Requireable<string>;
-    className: PropTypes.Requireable<string>;
     focus: PropTypes.Requireable<string>;
     intrinsic: PropTypes.Requireable<string>;
     mode: PropTypes.Requireable<Mode>;
@@ -114,7 +113,6 @@ class TwicMedia extends Component< MediaAttributes > {
         const transitionDelay = parseTransitionDelay( props.transitionDelay );
         const transitionDuration = parseTransitionDuration( props.transitionDuration );
         const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
-
         return (
             <div
                 className = { computeWrapperClass( props.src, transition ) }
@@ -123,7 +121,7 @@ class TwicMedia extends Component< MediaAttributes > {
             >
                 <MediaTag
                     ref={ this.media }
-                    alt = { MediaTag === `img` ? computeAlt( alt, src ) : undefined }
+                    alt = { computeAlt( alt, MediaTag, src ) }
                     style = {
                         computeStyle(
                             anchor,
@@ -177,7 +175,6 @@ TwicMedia.propTypes = {
     "alt": string,
     "anchor": oneOf< Anchor >( validAnchors ),
     "bot": string,
-    "className": string,
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),
