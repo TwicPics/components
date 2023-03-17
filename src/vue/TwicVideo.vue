@@ -22,7 +22,12 @@ export default {
     <div class="twic-i">
         <TwicMedia
             media-tag="video"
-            v-bind="$attrs"
+            v-bind="{
+                ...$attrs,
+                ...{
+                    class: ``,
+                }
+            }"
             @stateChange="handleStateChange"
         />
     </div>

@@ -11,19 +11,20 @@ interface ImgAttributes extends BaseAttributes {
 }
 
 interface ImgPropTypes {
+    className: PropTypes.Requireable<string>;
     zoom: PropTypes.Requireable<number | string>;
 }
 
 class TwicImg extends Component< ImgAttributes > {
     static propTypes: ImgPropTypes;
-    private magnifier: React.RefObject< HTMLDivElement >;
+    private hostElement: React.RefObject< HTMLDivElement >;
     constructor( attributes: ImgAttributes ) {
         super( attributes );
-        this.magnifier = React.createRef();
+        this.hostElement = React.createRef();
     }
     componentDidMount() {
-        if ( this.magnifier.current ) {
-            initMagnifier( this.magnifier.current );
+        if ( parseZoom( this.props.zoom ) ) {
+            initMagnifier( this.hostElement.current );
         }
     }
     render() {
@@ -31,18 +32,21 @@ class TwicImg extends Component< ImgAttributes > {
         const className = parseClassName( props.className ) || ``;
         const zoom = parseZoom( props.zoom );
         return (
-            <div className= { `twic-i ${ className } ${ zoom ? `twic-z` : `` }`}>
-                <TwicMedia mediaTag="img" {...this.props}/>
+            <div
+                ref = { this.hostElement }
+                className= { `twic-i ${ className } ${ zoom ? `twic-z` : `` }`}
+                style = { computeMagnifierStyle( zoom ) }
+            >
+                <TwicMedia {...this.props} className="" mediaTag="img"/>
                 { zoom &&
-                    <div ref={ this.magnifier } className="twic-m" style = { computeMagnifierStyle( zoom ) }>
-                        <TwicMedia mediaTag="div" {...this.props} ></TwicMedia>
-                    </div>
+                    <TwicMedia {...this.props} className="twic-m" mediaTag="div"></TwicMedia>
                 }
             </div>
         );
     }
 }
 TwicImg.propTypes = {
+    "className": PropTypes.string,
     "zoom": PropTypes.oneOfType( [
         PropTypes.number,
         PropTypes.string,

@@ -41,7 +41,7 @@ export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 export let zoom: number | string = undefined;
 
-let magnifier:HTMLDivElement;
+let hostElement:HTMLDivElement | any;
 
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedZoom = parseZoom( zoom );
@@ -65,36 +65,40 @@ $: props = {
     transitionDuration,
     transitionTimingFunction
 }
-
 $: _magnifierStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
-
 $: {
     if ( isWebComponents ) {
-        get_current_component().className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
+        hostElement = get_current_component();
+    }
+}
+$: {
+    if ( hostElement && isWebComponents) {
+        hostElement.className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
+        hostElement.style = _magnifierStyle;
     }
 }
 if ( isBrowser ) {
     onMount( () => {
-        if ( magnifier ) {
-            initMagnifier( magnifier );
+        if ( parsedZoom ) {
+            initMagnifier( hostElement );
         }
     } );
 }
 </script>
 {#if isWebComponents}
-<TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
-{#if parsedZoom}
-    <div bind:this={ magnifier } style = { _magnifierStyle } class="twic-m">
-        <TwicMedia mediaTag="div" { ...props }></TwicMedia>
-    </div>
-{/if}
-{:else}
-<div class = {`twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }`}>
-    <TwicMedia mediaTag="img" bind:state { ...props } on:statechange></TwicMedia>
+<TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
     {#if parsedZoom}
-        <div bind:this={ magnifier } style = { _magnifierStyle } class="twic-m">
-            <TwicMedia mediaTag="div"{ ...props }></TwicMedia>
-        </div>
+        <TwicMedia { ...props } class="twic-m" mediaTag="div"></TwicMedia>
+    {/if}
+{:else}
+<div
+    bind:this={ hostElement }
+    class = {`twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }`}
+    style = { _magnifierStyle }
+>
+    <TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
+    {#if parsedZoom}
+        <TwicMedia { ...props } class="twic-m" mediaTag="div"></TwicMedia>
     {/if}
 </div>
 {/if}

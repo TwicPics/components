@@ -51,6 +51,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
     parseTitle,
+    parseClassName,
 } from "../_/parse";
 
 @Component( {
@@ -68,6 +69,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() className: string = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
@@ -94,6 +96,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
     _alt: string = undefined;
     _anchor: AnchorObject = undefined;
     _bot: string = undefined;
+    _className: string = undefined;
     _eager: boolean;
     _focus: string = undefined;
     _intrinsic: string = undefined;
@@ -140,6 +143,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
         this._alt = parseAlt( this.alt );
         this._anchor = parseAnchor( this.anchor );
         this._bot = parseBot( this.bot );
+        this._className = parseClassName( this.className );
         this._focus = parseFocus( this.focus );
         this._intrinsic = parseIntrinsic( this.intrinsic );
         this._mediaTag = parseMediaTag( this.mediaTag ) || `img`;
@@ -195,7 +199,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
             this._transitionTimingFunct,
             this.observer.setPlaceholderData
         );
-        this.wrapperClass = computeWrapperClass( this.src, this._transition );
+        this.wrapperClass = computeWrapperClass( this._className, this.src, this._transition );
         this.wrapperStyle = computeWrapperStyle( this._ratio );
         this.updateMedia();
     }

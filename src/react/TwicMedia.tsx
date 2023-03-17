@@ -31,6 +31,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
     parseMediaTag,
+    parseClassName,
 } from "../_/parse";
 import type { Attributes, Anchor, Mode, Placeholder, State, StateEvent } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
@@ -40,6 +41,7 @@ export interface BaseAttributes extends Attributes {
     onStateChange?: onStateChangeType,
 }
 export interface MediaAttributes extends BaseAttributes {
+    className?: string,
     mediaTag: string,
 }
 
@@ -49,6 +51,7 @@ interface MediaPropTypes {
     alt: PropTypes.Requireable<string>;
     anchor: PropTypes.Requireable<Anchor>;
     bot: PropTypes.Requireable<string>;
+    className: PropTypes.Requireable<string>;
     focus: PropTypes.Requireable<string>;
     intrinsic: PropTypes.Requireable<string>;
     mode: PropTypes.Requireable<Mode>;
@@ -68,8 +71,8 @@ interface MediaPropTypes {
 }
 
 class TwicMedia extends Component< MediaAttributes > {
-    static propTypes: MediaPropTypes;
     private media: React.RefObject< HTMLElement >;
+    static propTypes: MediaPropTypes;
     private observer: Observer;
     constructor( attributes: MediaAttributes ) {
         super( attributes );
@@ -96,6 +99,7 @@ class TwicMedia extends Component< MediaAttributes > {
         const alt = parseAlt( props.alt );
         const anchor = parseAnchor( props.anchor );
         const bot = parseBot( props.bot );
+        const className = parseClassName( props.className );
         const eager = parseEager( props.eager );
         // eslint-disable-next-line no-shadow
         const focus = parseFocus( props.focus );
@@ -115,12 +119,12 @@ class TwicMedia extends Component< MediaAttributes > {
         const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
         return (
             <div
-                className = { computeWrapperClass( props.src, transition ) }
+                className = { computeWrapperClass( className, props.src, transition ) }
                 style = { computeWrapperStyle( ratio ) }
                 title = { title }
             >
                 <MediaTag
-                    ref={ this.media }
+                    ref = { this.media }
                     alt = { computeAlt( alt, MediaTag, src ) }
                     style = {
                         computeStyle(
@@ -175,6 +179,7 @@ TwicMedia.propTypes = {
     "alt": string,
     "anchor": oneOf< Anchor >( validAnchors ),
     "bot": string,
+    "className": string,
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),

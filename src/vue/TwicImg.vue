@@ -30,8 +30,8 @@ export default {
     computed,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     mounted() {
-        if ( this.$refs.magnifier ) {
-            initMagnifier( this.$refs.magnifier );
+        if ( this.$refs.hostElement ) {
+            initMagnifier( this.$refs.hostElement );
         }
     },
     "methods": {
@@ -48,24 +48,30 @@ export default {
 </script>
 <template>
     <div
+        ref="hostElement"
         class="twic-i"
         :class="{ 'twic-z': p_zoom }"
+        :style="_magnifierStyle"
     >
         <TwicMedia
             media-tag="img"
-            v-bind="$attrs"
+            v-bind="{
+                ...$attrs,
+                ...{
+                    class: ``,
+                }
+            }"
             @stateChange="handleStateChange"
         />
-        <div
+        <TwicMedia
             v-if="p_zoom"
-            ref="magnifier"
-            class="twic-m"
-            :style="_magnifierStyle"
-        >
-            <TwicMedia
-                media-tag="div"
-                v-bind="$attrs"
-            />
-        </div>
+            media-tag="div"
+            v-bind="{
+                ...$attrs,
+                ...{
+                    class: `twic-m`,
+                }
+            }"
+        />
     </div>
 </template>

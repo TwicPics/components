@@ -28,7 +28,12 @@ export default {
     <div class="twic-i">
         <TwicMedia
             :media-tag="mediaTag"
-            v-bind="$attrs"
+            v-bind="{
+                ...$attrs,
+                ...{
+                    class: ``,
+                }
+            }"
             @stateChange="handleStateChange"
         />
     </div>

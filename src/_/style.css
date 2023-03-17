@@ -102,13 +102,11 @@
     position: relative;
 }
 .twic-m {
-    height: 100%;
     left:0;
     position: absolute;
     top:0;
-    width:100%;
 }
-.twic-m .twic-w > *{
+.twic-m.twic-w > *{
     display:none;
     transition: none;
     z-index: 1;
@@ -121,6 +119,6 @@
         0
     );
 }
-.twic-m .twic-w:hover > *{
+.twic-m.twic-w:hover > *{
     display: block;
 }

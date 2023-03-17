@@ -8,7 +8,6 @@ import {
     Input,
     Output,
     Renderer2,
-    ViewChild,
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
@@ -43,28 +42,29 @@ import initMagnifier from "../_/magnifier";
             [transitionTimingFunction]="transitionTimingFunction"
             (stateChangeEvent)="onStateChange($event)"
         ></TwicMedia>
-        <div *ngIf="_zoom" #magnifier class="twic-m">
-            <TwicMedia
-                [anchor]="anchor"
-                [bot]="bot"
-                [focus]="focus"
-                [intrinsic]="intrinsic"
-                [mode]="mode"
-                [eager]="eager"
-                mediaTag="div"
-                [placeholder]="placeholder"
-                [position]="position"
-                [preTransform]="preTransform"
-                [ratio]="ratio"
-                [src]="src"
-                [step]="step"
-                [title]="title"
-                [transition]="transition"
-                [transitionDelay]="transitionDelay"
-                [transitionDuration]="transitionDuration"
-                [transitionTimingFunction]="transitionTimingFunction"
-            ></TwicMedia>
-        </div>
+        <TwicMedia
+            *ngIf="_zoom"
+            [anchor]="anchor"
+            [bot]="bot"
+            className="twic-m"
+            [focus]="focus"
+            [intrinsic]="intrinsic"
+            [mode]="mode"
+            [eager]="eager"
+            mediaTag="div"
+            [placeholder]="placeholder"
+            [position]="position"
+            [preTransform]="preTransform"
+            [ratio]="ratio"
+            [src]="src"
+            [step]="step"
+            [title]="title"
+            [transition]="transition"
+            [transitionDelay]="transitionDelay"
+            [transitionDuration]="transitionDuration"
+            [transitionTimingFunction]="transitionTimingFunction"
+            [ngStyle]="magnifierStyle"
+        ></TwicMedia>
     `,
     "changeDetection": ChangeDetectionStrategy.OnPush,
     "encapsulation": ViewEncapsulation.None,
@@ -73,6 +73,7 @@ import initMagnifier from "../_/magnifier";
     },
 } )
 export class TwicImgComponent implements AfterViewInit, OnChanges {
+    // eslint-disable-next-line no-useless-constructor
     mediaTag = `img`;
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
@@ -99,13 +100,10 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     }
     _zoom: boolean | number = false;
     magnifierStyle: Record<string, string>;
-    @ViewChild( `magnifier`, {
-        "static": false,
-    } ) magnifier: ElementRef< HTMLDivElement >;
-    constructor( private renderer: Renderer2 ) {}
+    constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
-        if ( this.magnifier?.nativeElement ) {
-            initMagnifier( this.magnifier.nativeElement );
+        if ( this._zoom ) {
+            initMagnifier( this.hostElement.nativeElement.lastElementChild );
         }
         this.updateTemplate();
     }
@@ -118,12 +116,12 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
         this.updateTemplate();
     }
     updateTemplate(): void {
-        if ( this.magnifier?.nativeElement ) {
+        if ( this.hostElement?.nativeElement ) {
             Object.entries( this.magnifierStyle || [] ).forEach( ( [ n, v ] ) => {
                 if ( n === undefined ) {
-                    this.renderer.removeStyle( this.magnifier.nativeElement, n );
+                    this.renderer.removeStyle( this.hostElement.nativeElement, n );
                 } else {
-                    this.magnifier.nativeElement.style.setProperty( n, v );
+                    this.hostElement.nativeElement.style.setProperty( n, v );
                 }
             } );
         }

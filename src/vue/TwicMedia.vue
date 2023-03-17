@@ -61,6 +61,7 @@ for ( const [ propName, type, parseMethod ] of [
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
     props[ propName ] = type;
 }
+computed[ `p_undefined` ] = () => undefined;
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `mediaTag`, `src` ] ],
@@ -112,14 +113,13 @@ for ( const [ propName, func, args ] of [
             c => c.observer.setPlaceholderData,
         ],
     ],
-    [ `_wrapperClass`, computeWrapperClass, [ `src`, `transition` ] ],
+    [ `_wrapperClass`, computeWrapperClass, [ `undefined`, `src`, `transition` ] ],
     [ `_wrapperStyle`, computeWrapperStyle, [ `ratio` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );
 }
 
 export default {
-    "inheritAttrs": false,
     props,
     emits,
     computed,

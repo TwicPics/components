@@ -3,7 +3,7 @@
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { parseMediaTag, type Anchor, type Mode, type Placeholder, type State } from "./_utils.js";
+import { parseClassName, parseMediaTag, type Anchor, type Mode, type Placeholder, type State } from "./_utils.js";
 import {
     computeAlt,
     computeData,
@@ -42,6 +42,8 @@ import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
 export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 export let bot: string = undefined;
+let className: string = undefined;
+export { className as class };
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let media: HTMLElement= undefined;
@@ -71,6 +73,7 @@ $: stateDispatcher( `statechange`, { state } );
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
+$: parsedClassName = parseClassName( className ) || ``;
 $: parsedEager = parseEager( eager );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
@@ -138,7 +141,7 @@ if ( isBrowser ) {
 }
 </script>
 <div
-    class = { computeWrapperClass( src, parsedTransition ) }
+    class = { computeWrapperClass( parsedClassName, src, parsedTransition ) }
     style = { _wrapperStyle }
     title = { parsedTitle }
 >

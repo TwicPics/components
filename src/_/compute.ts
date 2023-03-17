@@ -234,11 +234,16 @@ export const computePlaceholderBackground = (
 };
 
 export const computeWrapperClass = (
+    className: string,
     src: string,
     transitions: Record< string, boolean >
 ): string => {
 
     const wrapperClass = [ `twic-w` ];
+
+    if ( className ) {
+        wrapperClass.push( className );
+    }
 
     if ( !transitions.hasOwnProperty( `none` ) ) {
         if ( transitions.hasOwnProperty( `fade` ) ) {
@@ -270,7 +275,6 @@ export const computeWrapperStyle = ( ratio: number ): Record< string, string > =
     }
 );
 
-/* eslint-disable dot-notation */
 export const computeMagnifierStyle = ( zoom: boolean | number ) : Record < string, string > => {
     const magnifierStyle: Record< string, string > = {};
     if ( ( typeof zoom !== `boolean` ) && zoom ) {
@@ -278,5 +282,3 @@ export const computeMagnifierStyle = ( zoom: boolean | number ) : Record < strin
     }
     return magnifierStyle;
 };
-/* eslint-enable dot-notation */
-

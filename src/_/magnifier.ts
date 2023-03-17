@@ -21,8 +21,8 @@ const move = ( e: MouseEvent | TouchEvent ) => {
     currentTarget.style.setProperty( `--twic-yr`, ease( ( clientY - top ), ( bottom - top ) ).toString() );
 };
 
-export default ( magnifiedContainer: HTMLDivElement ): void => {
-    const imageContainer = magnifiedContainer.firstElementChild as unknown as HTMLDivElement;
+export default ( magnifierContainer: HTMLDivElement ): void => {
+    const imageContainer = magnifierContainer.lastElementChild as unknown as HTMLDivElement;
     imageContainer.addEventListener( `mousemove`, ( e: MouseEvent ) => move( e ) );
     imageContainer.addEventListener( `touchmove`, ( e: TouchEvent ) => move( e ) );
 };
