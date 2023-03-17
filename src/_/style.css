@@ -26,8 +26,8 @@
 .twic-w > * {
     /* constants */
     display: block;
-    left: 0;
     height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
     width: 100%;
@@ -95,29 +95,32 @@
 }
 
 /** Zoom */
-.twic-z {
-    position: relative;
-}
-
 :root {
     --twic-zoom: 0;
 }
+.twic-z {
+    position: relative;
+}
 .twic-m {
-    display:none;
+    height: 100%;
+    left:0;
     position: absolute;
     top:0;
-    left:0;
+    width:100%;
+}
+.twic-m .twic-w > *{
+    display:none;
+    transition: none;
     z-index: 1;
     /* variables */
+    width: calc( max( var( --twic-zoom ), 0 ) * 100% );
+    height: calc( max( var( --twic-zoom ), 0 ) * 100% );
     transform: translate3d(
         calc( ( 1 - var( --twic-zoom ) ) * var( --twic-xr, 0) * 1px ),
         calc( ( 1 - var( --twic-zoom ) ) * var( --twic-yr, 0) * 1px ),
         0
     );
-    width: calc( max( var( --twic-zoom ), 0 ) * 100% );
-    height: calc( max( var( --twic-zoom ), 0 ) * 100% );
 }
-
-.twic-z:hover .twic-m {
+.twic-m .twic-w:hover > *{
     display: block;
 }
