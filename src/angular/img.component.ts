@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import {
     ChangeDetectionStrategy,
     Component,
@@ -6,6 +7,7 @@ import {
     HostBinding,
     Input,
     Output,
+    Renderer2,
     ViewChild,
     ViewEncapsulation,
 } from "@angular/core";
@@ -41,7 +43,7 @@ import initMagnifier from "../_/magnifier";
             [transitionTimingFunction]="transitionTimingFunction"
             (stateChangeEvent)="onStateChange($event)"
         ></TwicMedia>
-        <div *ngIf="_zoom" #magnifier class="twic-m"  [ngStyle]="magnifierStyle">
+        <div *ngIf="_zoom" #magnifier class="twic-m">
             <TwicMedia
                 [anchor]="anchor"
                 [bot]="bot"
@@ -100,10 +102,12 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @ViewChild( `magnifier`, {
         "static": false,
     } ) magnifier: ElementRef< HTMLDivElement >;
+    constructor( private renderer: Renderer2 ) {}
     ngAfterViewInit(): void {
         if ( this.magnifier?.nativeElement ) {
             initMagnifier( this.magnifier.nativeElement );
         }
+        this.updateTemplate();
     }
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );
@@ -111,5 +115,17 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     ngOnChanges( ): void {
         this._zoom = parseZoom( this.zoom );
         this.magnifierStyle = computeMagnifierStyle( this._zoom );
+        this.updateTemplate();
+    }
+    updateTemplate(): void {
+        if ( this.magnifier?.nativeElement ) {
+            Object.entries( this.magnifierStyle || [] ).forEach( ( [ n, v ] ) => {
+                if ( n === undefined ) {
+                    this.renderer.removeStyle( this.magnifier.nativeElement, n );
+                } else {
+                    this.magnifier.nativeElement.style.setProperty( n, v );
+                }
+            } );
+        }
     }
 }
