@@ -173,6 +173,7 @@ export const parseZoom = ( value: number | string ): boolean | number => {
         if ( parsed && parsed[ 3 ] ) {
             return true;
         }
+        // eslint-disable-next-line no-param-reassign
         value = parsed && parsed[ 2 ] ? Number( parsed[ 2 ] ) : undefined;
     }
     return isPositiveNumber( value ) ?
