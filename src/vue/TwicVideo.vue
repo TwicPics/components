@@ -24,9 +24,7 @@ export default {
             media-tag="video"
             v-bind="{
                 ...$attrs,
-                ...{
-                    class: ``,
-                }
+                class: ``,
             }"
             @stateChange="handleStateChange"
         />

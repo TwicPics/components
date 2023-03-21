@@ -49,7 +49,7 @@ import initMagnifier from "../_/magnifier";
             className="twic-m"
             [focus]="focus"
             [intrinsic]="intrinsic"
-            [mode]="mode"
+            mode="cover"
             [eager]="eager"
             mediaTag="div"
             [placeholder]="placeholder"

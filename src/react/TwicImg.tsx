@@ -39,7 +39,7 @@ class TwicImg extends Component< ImgAttributes > {
             >
                 <TwicMedia {...this.props} className="" mediaTag="img"/>
                 { zoom &&
-                    <TwicMedia {...this.props} className="twic-m" mediaTag="div"></TwicMedia>
+                    <TwicMedia {...this.props} className="twic-m" mediaTag="div" mode="cover"></TwicMedia>
                 }
             </div>
         );

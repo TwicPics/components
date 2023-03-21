@@ -30,9 +30,7 @@ export default {
             :media-tag="mediaTag"
             v-bind="{
                 ...$attrs,
-                ...{
-                    class: ``,
-                }
+                class: ``,
             }"
             @stateChange="handleStateChange"
         />

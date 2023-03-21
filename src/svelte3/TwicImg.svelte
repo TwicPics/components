@@ -88,7 +88,7 @@ if ( isBrowser ) {
 {#if isWebComponents}
 <TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
     {#if parsedZoom}
-        <TwicMedia { ...props } class="twic-m" mediaTag="div"></TwicMedia>
+        <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>
     {/if}
 {:else}
 <div
@@ -98,7 +98,7 @@ if ( isBrowser ) {
 >
     <TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
     {#if parsedZoom}
-        <TwicMedia { ...props } class="twic-m" mediaTag="div"></TwicMedia>
+        <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>
     {/if}
 </div>
 {/if}
