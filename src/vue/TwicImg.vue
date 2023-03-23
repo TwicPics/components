@@ -54,14 +54,6 @@ export default {
         :style="_magnifierStyle"
     >
         <TwicMedia
-            media-tag="img"
-            v-bind="{
-                ...$attrs,
-                class: ``,
-            }"
-            @stateChange="handleStateChange"
-        />
-        <TwicMedia
             v-if="p_zoom"
             media-tag="div"
             v-bind="{
@@ -69,6 +61,14 @@ export default {
                 class: `twic-m`,
                 mode: `cover`,
             }"
+        />
+        <TwicMedia
+            media-tag="img"
+            v-bind="{
+                ...$attrs,
+                class: ``,
+            }"
+            @stateChange="handleStateChange"
         />
     </div>
 </template>

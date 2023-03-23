@@ -86,7 +86,6 @@ if ( isBrowser ) {
 }
 </script>
 {#if isWebComponents}
-<TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
     {#if parsedZoom}
         <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>
     {/if}
@@ -97,10 +96,10 @@ if ( isBrowser ) {
     class = {`twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }`}
     style = { _magnifierStyle }
 >
-    <TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
     {#if parsedZoom}
         <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>
     {/if}
+    <TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
 </div>
 {/if}
 

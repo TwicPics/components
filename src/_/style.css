@@ -94,7 +94,7 @@
     display: none;
 }
 
-/** Zoom */
+/** MAGNIFIER */
 :root {
     --twic-zoom: 0;
 }
@@ -105,20 +105,24 @@
     left:0;
     position: absolute;
     top:0;
+    z-index: 1;
 }
-.twic-m.twic-w > *{
+.twic-m > *{
     display:none;
     transition: none;
-    z-index: 1;
     /* variables */
-    width: calc( max( var( --twic-zoom ), 0 ) * 100% );
-    height: calc( max( var( --twic-zoom ), 0 ) * 100% );
+    width: calc( max( var( --twic-zoom ), 1 ) * 100% );
+    height: calc( max( var( --twic-zoom ), 1 ) * 100% );
     transform: translate3d(
-        calc( ( 1 - var( --twic-zoom ) ) * var( --twic-xr, 0) * 1px ),
-        calc( ( 1 - var( --twic-zoom ) ) * var( --twic-yr, 0) * 1px ),
+        calc( ( 1 - max( var( --twic-zoom ), 1 ) ) * var( --twic-xr, 0) * 1px ),
+        calc( ( 1 - max( var( --twic-zoom ), 1 ) ) * var( --twic-yr, 0) * 1px ),
         0
     );
 }
-.twic-m.twic-w:hover > *{
+.twic-m:hover > *{
     display: block;
 }
+.twic-m:hover + div, twicmedia:hover + twicmedia {
+    opacity: 0;
+}
+

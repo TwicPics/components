@@ -29,7 +29,7 @@ const move = ( e: MouseEvent | TouchEvent ) => {
 };
 
 export default ( magnifierContainer: HTMLDivElement ): void => {
-    const imageContainer = magnifierContainer.lastElementChild as unknown as HTMLDivElement;
+    const imageContainer = magnifierContainer.firstElementChild as unknown as HTMLDivElement;
     imageContainer.addEventListener( `mousemove`, ( e: MouseEvent ) => move( e ) );
     imageContainer.addEventListener( `touchmove`, ( e: TouchEvent ) => move( e ) );
 };

@@ -21,28 +21,6 @@ import initMagnifier from "../_/magnifier";
     "selector": `TwicImg`,
     "template": `
         <TwicMedia
-            [alt]="alt"
-            [anchor]="anchor"
-            [bot]="bot"
-            [focus]="focus"
-            [intrinsic]="intrinsic"
-            [mode]="mode"
-            [mediaTag]="mediaTag"
-            [eager]="eager"
-            [placeholder]="placeholder"
-            [position]="position"
-            [preTransform]="preTransform"
-            [ratio]="ratio"
-            [src]="src"
-            [step]="step"
-            [title]="title"
-            [transition]="transition"
-            [transitionDelay]="transitionDelay"
-            [transitionDuration]="transitionDuration"
-            [transitionTimingFunction]="transitionTimingFunction"
-            (stateChangeEvent)="onStateChange($event)"
-        ></TwicMedia>
-        <TwicMedia
             *ngIf="_zoom"
             [anchor]="anchor"
             [bot]="bot"
@@ -64,6 +42,28 @@ import initMagnifier from "../_/magnifier";
             [transitionDuration]="transitionDuration"
             [transitionTimingFunction]="transitionTimingFunction"
             [ngStyle]="magnifierStyle"
+        ></TwicMedia>
+        <TwicMedia
+            [alt]="alt"
+            [anchor]="anchor"
+            [bot]="bot"
+            [focus]="focus"
+            [intrinsic]="intrinsic"
+            [mode]="mode"
+            [mediaTag]="mediaTag"
+            [eager]="eager"
+            [placeholder]="placeholder"
+            [position]="position"
+            [preTransform]="preTransform"
+            [ratio]="ratio"
+            [src]="src"
+            [step]="step"
+            [title]="title"
+            [transition]="transition"
+            [transitionDelay]="transitionDelay"
+            [transitionDuration]="transitionDuration"
+            [transitionTimingFunction]="transitionTimingFunction"
+            (stateChangeEvent)="onStateChange($event)"
         ></TwicMedia>
     `,
     "changeDetection": ChangeDetectionStrategy.OnPush,
@@ -103,7 +103,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
         if ( this._zoom ) {
-            initMagnifier( this.hostElement.nativeElement.lastElementChild );
+            initMagnifier( this.hostElement.nativeElement.firstElementChild );
         }
         this.updateTemplate();
     }
