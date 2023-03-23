@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- No longer activates the magnifier when `zoom` prop is not defined for the **Vue.js** components.
+
 ## [0.16.0] - 2023-03-21
 
 ### Add

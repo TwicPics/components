@@ -30,7 +30,7 @@ export default {
     computed,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     mounted() {
-        if ( this.$refs.hostElement ) {
+        if ( this.p_zoom ) {
             initMagnifier( this.$refs.hostElement );
         }
     },
