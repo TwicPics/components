@@ -90,6 +90,7 @@ if ( isBrowser ) {
     {#if parsedZoom}
         <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>
     {/if}
+    <TwicMedia { ...props } bind:state mediaTag="img" on:statechange></TwicMedia>
 {:else}
 <div
     bind:this={ hostElement }

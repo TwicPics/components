@@ -152,6 +152,7 @@ class TwicMedia extends Component< MediaAttributes > {
                         )
                     }
                 />
+                { placeholder &&
                 <div
                     style = {
                         computePlaceholderStyle(
@@ -171,6 +172,7 @@ class TwicMedia extends Component< MediaAttributes > {
                         )
                     }
                 />
+                }
             </div>
         );
     }

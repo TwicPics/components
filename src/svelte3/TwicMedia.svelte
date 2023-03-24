@@ -151,5 +151,7 @@ if ( isBrowser ) {
         style = { _style }
         { ..._data }
     ></svelte:element>
+    {#if parsedPlaceholder}
     <div style = { _placeholderStyle } />
+    {/if}
 </div>

@@ -154,7 +154,10 @@ export default {
             :style="_style"
             v-bind="{ ..._dataAttributes }"
         />
-        <div :style="_placeholderStyle" />
+        <div
+            v-if="p_placeholder"
+            :style="_placeholderStyle"
+        />
     </div>
 </template>
 <style src="../_/style.css"></style>

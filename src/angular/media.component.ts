@@ -13,9 +13,9 @@ import {
 
 // eslint-disable-next-line no-duplicate-imports
 import type {
+    AfterViewInit,
     OnChanges,
     OnDestroy,
-    OnInit,
 } from "@angular/core";
 
 import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State } from "../_/types";
@@ -57,15 +57,24 @@ import {
 @Component( {
     "selector": `TwicMedia`,
     "template": `
-        <div #container [ngClass]="wrapperClass" [ngStyle]="wrapperStyle" [attr.title]="_title">
-            <div #placeholderElement [ngStyle]="placeholderStyle"></div>
+        <div
+            #container
+            [ngClass]="wrapperClass"
+            [ngStyle]="wrapperStyle"
+            [attr.title]="_title"
+        >
+            <div
+                *ngIf="_placeholder"
+                #placeholderElement
+                [ngStyle]="placeholderStyle"
+            ></div>
         </div>
     `,
     "styleUrls": [ `../_/style.css` ],
     "changeDetection": ChangeDetectionStrategy.OnPush,
     "encapsulation": ViewEncapsulation.None,
 } )
-export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
+export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
@@ -91,7 +100,7 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
         "static": true,
     } ) containerRef!: ElementRef;
     @ViewChild( `placeholderElement`, {
-        "static": true,
+        "static": false,
     } ) placeholderRef!: ElementRef;
     _alt: string = undefined;
     _anchor: AnchorObject = undefined;
@@ -129,13 +138,17 @@ export class TwicMediaComponent implements OnInit, OnDestroy, OnChanges {
             } );
         } );
     }
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         this._media = this.renderer.createElement( this._mediaTag );
-        this.renderer.insertBefore(
-            this.containerRef.nativeElement,
-            this._media,
-            this.placeholderRef.nativeElement
-        );
+        if ( this._placeholder ) {
+            this.renderer.insertBefore(
+                this.containerRef.nativeElement,
+                this._media,
+                this.placeholderRef.nativeElement
+            );
+        } else {
+            this.renderer.appendChild( this.containerRef.nativeElement, this._media );
+        }
         this.observer.setMedia( this._media );
         this.updateMedia();
     }
