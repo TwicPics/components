@@ -1068,6 +1068,54 @@ Test"
             <span>ratio="1.25" + flip=y</span>
         </div>
     </div>
+    <h2>Split Video</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicVideo
+                src="video/skater.mp4"
+                intrinsic="1280x720"
+                from="10"
+            ></TwicVideo>
+            <span>from 10</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/skater.mp4"
+                intrinsic="1280x720"
+                from="invalid"
+                to="2"
+            ></TwicVideo>
+            <span>from invalid to 2</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/skater.mp4"
+                intrinsic="1280x720"
+                duration="2"
+            ></TwicVideo>
+            <span>duration 2</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/skater.mp4"
+                intrinsic="1280x720"
+                from="15"
+                duration="2"
+            ></TwicVideo>
+            <span>from 15 duration 2</span>
+        </div>
+        <div class="item">
+            <TwicVideo
+                src="video/skater.mp4"
+                intrinsic="1280x720"
+                from="0.5"
+                to="2.5"
+                posterFrom="10.5"
+                preTransform="flip=x"
+            ></TwicVideo>
+            <span>from 0.5 to 2.5 posterFrom 10.5 + flip=x</span>
+        </div>
+    </div>
     <h2>Hero Video : ratio = none + intrinsic</h2>
     <div>
         <TwicVideo

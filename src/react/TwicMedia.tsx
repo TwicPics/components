@@ -33,7 +33,7 @@ import {
     parseMediaTag,
     parseClassName,
 } from "../_/parse";
-import type { Attributes, Anchor, Mode, Placeholder, State, StateEvent } from "../_/types";
+import type { Attributes, Anchor, Mode, Placeholder, State, StateEvent, VideoOptions } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 
 type onStateChangeType = ( stateEvent: StateEvent ) => void;
@@ -43,6 +43,7 @@ export interface BaseAttributes extends Attributes {
 export interface MediaAttributes extends BaseAttributes {
     className?: string,
     mediaTag: string,
+    videoOptions?: VideoOptions,
 }
 
 const { oneOf, string } = PropTypes;
@@ -117,6 +118,7 @@ class TwicMedia extends Component< MediaAttributes > {
         const transitionDelay = parseTransitionDelay( props.transitionDelay );
         const transitionDuration = parseTransitionDuration( props.transitionDuration );
         const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
+        const { videoOptions } = props;
         return (
             <div
                 className = { computeWrapperClass( className, props.src, transition ) }
@@ -148,7 +150,8 @@ class TwicMedia extends Component< MediaAttributes > {
                             mode,
                             preTransform,
                             src,
-                            step
+                            step,
+                            videoOptions
                         )
                     }
                 />
@@ -168,6 +171,7 @@ class TwicMedia extends Component< MediaAttributes > {
                             transitionDelay,
                             transitionDuration,
                             transitionTimingFunction,
+                            videoOptions,
                             this.observer.setPlaceholderData
                         )
                     }
@@ -193,10 +197,7 @@ TwicMedia.propTypes = {
     "placeholder": oneOf< Placeholder >( validPlaceholders ),
     "position": string,
     "preTransform": string,
-    "ratio": PropTypes.oneOfType( [
-        PropTypes.number,
-        PropTypes.string,
-    ] ),
+    "ratio": number,
     "src": string,
     "step": number,
     "title": string,

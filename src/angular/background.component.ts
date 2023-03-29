@@ -51,7 +51,7 @@ export class TwicBackgroundComponent {
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
     @Input() src: string;
-    @Input() step: number = undefined;
+    @Input() step: number | string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;

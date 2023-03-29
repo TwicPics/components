@@ -18,7 +18,7 @@ import type {
     OnDestroy,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State } from "../_/types";
+import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
 
 import {
     computeAlt,
@@ -89,12 +89,13 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
     @Input() src: string;
-    @Input() step: number = undefined;
+    @Input() step: number | string = undefined;
     @Input() title: string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
+    @Input() videoOptions: VideoOptions = undefined;
     @Output() stateChangeEvent = new EventEmitter< StateEvent >();
     @ViewChild( `container`, {
         "static": true,
@@ -185,7 +186,8 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this._mode,
                 this._preTransform,
                 this._src,
-                this._step
+                this._step,
+                this.videoOptions
             ),
         };
         this.mediaStyle = computeStyle(
@@ -210,6 +212,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
             this._transitionDelay,
             this._transitionDuration,
             this._transitionTimingFunct,
+            this.videoOptions,
             this.observer.setPlaceholderData
         );
         this.wrapperClass = computeWrapperClass( this._className, this.src, this._transition );

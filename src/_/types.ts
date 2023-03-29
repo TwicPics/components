@@ -76,6 +76,11 @@ export interface PlaceholderData {
     preTransform: string,
     ratio: number,
     src: string,
-    transitions: Record< string, boolean >
+    transitions: Record< string, boolean >,
+    videoOptions?: VideoOptions
+}
+export interface VideoOptions {
+    videoTransform: string | undefined,
+    posterTransform: string | undefined,
 }
 

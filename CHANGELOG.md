@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Add
+- Add `duration`, `from`, `posterFrom` and `to` properties to **TwicVideo** component in order to manage [video slicing](https://www.twicpics.com/docs/topics/video-optimization#video-slicing).
+
 ## [0.16.1] - 2023-03-27
 
 ### Fixed

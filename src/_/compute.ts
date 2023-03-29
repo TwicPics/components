@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { AnchorObject, Mode, Placeholder, PlaceholderData } from "./types";
+import type { AnchorObject, Mode, Placeholder, PlaceholderData, VideoOptions } from "./types";
 
 import { config, getDataAttributeName } from "./install";
 import { cssWithoutPx } from "./dom";
@@ -73,12 +73,20 @@ export const computeData = (
     mode: Mode,
     preTransform: string,
     src: string,
-    step: number
+    step: number,
+    videoOptions: VideoOptions
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
+    const { videoTransform, posterTransform } = videoOptions || {};
     const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform, config.env === `debug` );
-    if ( actualPreTransform ) {
-        attributes[ getDataAttributeName( `transform` ) ] = `${ actualPreTransform }*`;
+    if ( actualPreTransform || videoTransform ) {
+        attributes[ getDataAttributeName( `transform` ) ] = `${
+            actualPreTransform
+        }${
+            videoTransform || ``
+        }${
+            `*`
+        }`;
     }
     if ( typeof bot === `string` ) {
         attributes[ getDataAttributeName( `bot` ) ] = bot || `/`;
@@ -98,7 +106,13 @@ export const computeData = (
     }
     if ( src && ( mediaTag === `video` ) ) {
         attributes[ getDataAttributeName( `poster` ) ] = src;
-        attributes[ getDataAttributeName( `poster-transform` ) ] = `${ actualPreTransform }*/output=image`;
+        attributes[ getDataAttributeName( `poster-transform` ) ] = `${
+            actualPreTransform
+        }${
+            posterTransform || ``
+        }${
+            `*/output=image`
+        }`;
     }
     if ( step !== undefined ) {
         attributes[ getDataAttributeName( `step` ) ] = String( step );
@@ -120,6 +134,7 @@ export const computePlaceholderStyle = (
     transitionDelay: string,
     transitionDuration: string,
     transitionTimingFunction: string,
+    videoOptions: VideoOptions,
     placeholderDataHandler: ( ( data: PlaceholderData ) => void )
 ): Record< string, string > => {
     const placeholderStyle = preComputeStyle( transitionDelay, transitionDuration, transitionTimingFunction );
@@ -132,6 +147,7 @@ export const computePlaceholderStyle = (
         ratio,
         src,
         transitions,
+        videoOptions,
     } );
     if ( mode ) {
         placeholderStyle[ `backgroundSize` ] = mode;
@@ -183,51 +199,48 @@ const PLACEHOLDER_DIM = 1000;
 // eslint-disable-next-line id-length
 export const computePlaceholderBackground = (
     element: Element,
-    { anchor, focus, mode, placeholder, preTransform, src, ratio, transitions }: PlaceholderData
+    { anchor, focus, mode, placeholder, preTransform, src, ratio, transitions, videoOptions }: PlaceholderData
 ): string => {
     if ( !placeholder || !src || ( transitions.hasOwnProperty( `zoom` ) ) || !config.domain ) {
         return ``;
     }
-
     const computedStyle = getComputedStyle( element );
-
     const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
-
     let _ratio;
-
     if ( ratio === 0 ) {
         _ratio = actualMode === `contain` ?
             1 : cssWithoutPx( computedStyle.height ) / Math.max( 1, cssWithoutPx( computedStyle.width ) );
     } else {
         _ratio = ratio ?? cssWithoutPx( computedStyle.fontSize );
     }
-
     let height = PLACEHOLDER_DIM;
     let width = PLACEHOLDER_DIM;
-
     if ( _ratio < 1 ) {
         height *= _ratio;
     } else {
         width /= _ratio;
     }
-
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
+
+    const transform = `${
+        videoOptions ? videoOptions.videoTransform : ``
+    }${
+        computePreTransform( anchor, focus, mode, preTransform )
+    }${
+        actualMode
+    }=${
+        width
+    }x${
+        height
+    }`;
 
     return createUrl(
         {
             "domain": config.domain,
             "path": config.path,
             src,
-            "transform": `${
-                computePreTransform( anchor, focus, mode, preTransform )
-            }${
-                actualMode
-            }=${
-                width
-            }x${
-                height
-            }`,
+            transform,
             "output": placeholder,
         }
     );

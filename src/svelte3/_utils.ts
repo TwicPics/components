@@ -13,7 +13,9 @@ export {
     parseAnchor,
     parseBot,
     parseClassName,
+    parseDuration,
     parseFocus,
+    parseFrom,
     parseIntrinsic,
     parseMode,
     parseEager,
@@ -22,6 +24,7 @@ export {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseTo,
     parseSrc,
     parseStep,
     parseTitle,
@@ -31,6 +34,9 @@ export {
     parseTransitionTimingFunction,
     parseZoom,
 } from "../_/parse.js";
+export {
+    preComputeVideoOptions,
+} from "../_/preCompute.js";
 export type {
     Attributes as BaseAttributes,
     Anchor,
@@ -40,6 +46,7 @@ export type {
     Placeholder,
     State,
     StateEvent,
+    VideoOptions,
 } from "../_/types.js";
 export { isBrowser, isWebComponents } from "../_/utils.js";
 export { default as initMagnifier } from "../_/magnifier";
