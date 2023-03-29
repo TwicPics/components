@@ -32,7 +32,7 @@ export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
-export let step: number = undefined;
+export let step: number | string = undefined;
 export let state: State = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;

@@ -3,7 +3,15 @@
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { parseClassName, parseMediaTag, type Anchor, type Mode, type Placeholder, type State } from "./_utils.js";
+import {
+    parseClassName,
+    parseMediaTag,
+    type Anchor,
+    type Mode,
+    type Placeholder,
+    type State,
+    type VideoOptions,
+} from "./_utils.js";
 import {
     computeAlt,
     computeData,
@@ -35,7 +43,6 @@ import {
 } from "./_utils.js";
 /* eslint-disable-next-line camelcase */
 import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
-
 </script>
 
 <script lang="ts">
@@ -55,13 +62,14 @@ export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
-export let step: number = undefined;
+export let step: number | string = undefined;
 export let state: State = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
 export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
+export let videoOptions: VideoOptions = undefined;
 
 const observer = new Observer( ( _state: State )=> {
     state = _state;
@@ -90,6 +98,7 @@ $: parsedTransition = parseTransition( transition );
 $: parsedTransitionDelay = parseTransitionDelay( transitionDelay );
 $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
+$: parsedVideoOptions = videoOptions;
 
 $: _alt = computeAlt( parsedAlt, parsedMediaTag, parsedSrc );
 $: _data = computeData(
@@ -103,6 +112,7 @@ $: _data = computeData(
     parsedPreTransform,
     parsedSrc,
     parsedStep,
+    parsedVideoOptions,
 );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
@@ -117,6 +127,7 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedTransitionDelay,
     parsedTransitionDuration,
     parsedTransitionTimingFunction,
+    parsedVideoOptions,
     observer.setPlaceholderData,
 ) );
 

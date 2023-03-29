@@ -30,7 +30,7 @@ import {
     parseTransitionTimingFunction,
 } from "../_/parse";
 import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
-import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProps } from "./props";
 import { callFactory } from "./utils";
 
 const computed = {};
@@ -57,6 +57,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `transitionDelay`, stringProp, parseTransitionDelay ],
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
+    [ `videoOptions`, videoOptionsProps, v => v ],
 ] ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
     props[ propName ] = type;
@@ -79,6 +80,7 @@ for ( const [ propName, func, args ] of [
             `preTransform`,
             `src`,
             `step`,
+            `videoOptions`,
         ],
     ],
     [
@@ -110,6 +112,7 @@ for ( const [ propName, func, args ] of [
             `transitionDelay`,
             `transitionDuration`,
             `transitionTimingFunction`,
+            `videoOptions`,
             c => c.observer.setPlaceholderData,
         ],
     ],

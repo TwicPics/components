@@ -13,6 +13,15 @@ const trimTransformOrUndefined = trimRegExpFactory( `.+?`, {
     "border": `[\\s\\/]`,
 } );
 
+const parseNumber = ( value: number | string ): number => {
+    if ( typeof value !== `number` ) {
+        const trimmed = trimOrUndefined( value );
+        // eslint-disable-next-line no-param-reassign
+        value = trimmed && Number( trimmed );
+    }
+    return isPositiveNumber( value ) ? value : undefined;
+};
+
 const rAnchor = /\b(?:(left|right)|(bottom|top))\b/g;
 
 export const parseAnchor = ( anchor: string ) : AnchorObject => {
@@ -43,6 +52,8 @@ export const parseBot = ( value: string ) => ( typeof value === `string` ? value
 
 export const parseClassName = trimOrUndefined;
 
+export const parseDuration = parseNumber;
+
 export const parseFocus = trimOrUndefined;
 
 export const parseIntrinsic = ( value: string ): string => {
@@ -72,6 +83,8 @@ export const parseEager = ( value: boolean | string ): boolean => {
     }
     return mappingEager[ value.trim() ] || false;
 };
+
+export const parseFrom = parseNumber;
 
 export const parseMediaTag = ( value: string ): string => {
     const trimmed = trimOrUndefined( value );
@@ -112,14 +125,7 @@ export const parseRatio = ( value: number | string ): number => {
     return isPositiveNumber( number ) ? number : undefined;
 };
 
-export const parseStep = ( value: number | string ): number => {
-    if ( typeof value !== `number` ) {
-        const trimmed = trimOrUndefined( value );
-        // eslint-disable-next-line no-param-reassign
-        value = trimmed && Number( trimmed );
-    }
-    return isPositiveNumber( value ) ? value : undefined;
-};
+export const parseStep = parseNumber;
 
 const computeSrc = ( value:string ) =>
     ( value ? value.replace( rImage, `image:${ config.path }` ) : `placeholder:red` );
@@ -132,6 +138,8 @@ export const parseSrc = ( value: string ): string => {
     // eslint-disable-next-line no-nested-ternary
     return config.env === `offline` ? `` : computeSrc( value );
 };
+
+export const parseTo = parseNumber;
 
 const mappingTransition: { [ key: string ]: Transition; } = {
     "true": `fade`,
