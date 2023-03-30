@@ -14,6 +14,6 @@ export const preComputeVideoOptions = (
             duration ? `duration=${ duration }/` : ``
         }`,
     "posterTransform": `${
-            ( posterFrom || from ) ? `from=${ posterFrom || from }/` : ``
+            ( posterFrom || from ) ? `from=${ posterFrom === undefined ? from : posterFrom }/` : ``
         }`,
 } );
