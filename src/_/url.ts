@@ -8,13 +8,19 @@ const RESERVED = 5;
 const SPECIAL = 1;
 const VERSION = `v1`;
 
-export const isAbsolute = ( src: string, domain: string ) => ( src.slice( 0, domain.length + 1 ) === `${ domain }/` );
+export const urlInfos = ( src: string, domain = `` ) => {
+    const parsed = src && rPath.exec( src );
+    return {
+        "isAbsolute": src.slice( 0, domain.length + 1 ) === `${ domain }/`,
+        "isSpecial": parsed && ( parsed[ SPECIAL ] !== undefined ),
+    };
+};
 
 export const createUrl = (
     { debug, domain, output, quality, src, transform }: CreateUrlData
 ): string => {
-    const _isAbsolute = isAbsolute( src, domain );
-    const path = _isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
+    const { isAbsolute } = urlInfos( src, domain );
+    const path = isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
     const parsed = rPath.exec( path );
     const isMedia = parsed && parsed[ MEDIA ];
     const actualDebug = debug ? `/debug` : ``;
