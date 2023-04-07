@@ -90,6 +90,68 @@ const TwicPicsLoaderSample = ( { datas } ) => (
                 />
                 <span>Fill + sizes set</span>
             </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    alt="twicpicsLoader"
+                    className={styles.cover}
+                    fill
+                    loader={twicpicsLoader}
+                    src="placeholder:pink"
+                />
+                <span>Placeholder + Cover + Fill</span>
+            </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    alt="twicpicsLoader"
+                    className={styles.contain}
+                    fill
+                    loader={twicpicsLoader}
+                    src="placeholder:pink"
+                />
+                <span>Placeholder + Contain + Fill</span>
+            </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    alt="twicpicsLoader"
+                    className={styles.cover}
+                    width={400}
+                    height={300}
+                    loader={twicpicsLoader}
+                    src="placeholder:blue"
+                />
+                <span>Placeholder + Cover + Height and with set</span>
+            </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    alt="twicpicsLoader"
+                    className={styles.contain}
+                    width={400}
+                    height={300}
+                    loader={twicpicsLoader}
+                    src="placeholder:blue"
+                />
+                <span>Placeholder + Contain + Height and with set</span>
+            </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    alt="twicpicsLoader"
+                    className={styles.cover}
+                    fill
+                    loader={twicpicsLoader}
+                    src="placeholder:200x100:medium-violet-red"
+                />
+                <span>placeholder:200x100:medium-violet-red + Cover + Fill</span>
+            </div>
+            <div className={ `item ${ styles.item }` }>
+                <Image
+                    alt="twicpicsLoader"
+                    className={styles.contain}
+                    fill
+                    loader={twicpicsLoader}
+                    src="placeholder:200x100:medium-violet-red"
+                />
+                <span>placeholder:200x100:medium-violet-red + Contain + Fill</span>
+            </div>
         </div>
     </main>
 );
