@@ -6,7 +6,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "angular14": {
+        "angular15": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -86,10 +86,10 @@
                     "builder": "@angular-builders/custom-webpack:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "angular14:build:production"
+                            "browserTarget": "angular15:build:production"
                         },
                         "development": {
-                            "browserTarget": "angular14:build:development"
+                            "browserTarget": "angular15:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -97,11 +97,11 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "angular14:build"
+                        "browserTarget": "angular15:build"
                     }
                 }
             }
         }
     },
-    "defaultProject": "angular14"
+    "defaultProject": "angular15"
 }
