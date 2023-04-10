@@ -100,7 +100,7 @@ const packageJSON = await getJsonFromPath( `${ __dirname }/package.template.json
 packageJSON.exports = Object.fromEntries( [
     [ `./style.css`, `./style.css` ],
     ...exportsPackageJson(),
-    ...await exportsAngularPackageJson(),
+    ...exportsAngularPackageJson(),
     ...exportsSveltekitPackageJson(),
 ] );
 await writeJson( `${ __dirname }/../dist/package.json`, packageJSON );

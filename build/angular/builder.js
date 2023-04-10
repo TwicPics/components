@@ -1,10 +1,11 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-console */
 import __dirname from "../__dirname.js";
-import { getAngularDirectories, getDistFolder, getProjectsByDirectory } from "./utils.js";
 import { getJsonFromPath, writeJson } from "../json.js";
 import rollup from "../rollup.js";
 import { gitHubRawPath, packageAuthor, packageName, packageVersion } from "../version.js";
+import config from "./config.js";
+import { getAngularDirectories, getDistFolder, getProjectsByDirectory } from "./utils.js";
 import { execSync } from "child_process";
 import { existsSync } from "fs";
 import { readFile } from "fs/promises";
@@ -296,22 +297,32 @@ export const buildComponents = async () => {
             console.warn( `No angular configuration for ${ angularDirectory.name }` );
         }
     }
+    // creation of aliases to previous versions
+    console.log( `Duplication starts` );
+    const { aliases } = config;
+    await Promise.all( aliases.map( async alias => {
+        const { destination, origin } = alias;
+        const packageJson = await getJsonFromPath( `${ __dirname }/../dist/${ origin }/package.json` );
+        // modification of original package.json
+        Object.keys( packageJson )
+            .filter( key => key.match( /^(module)|(main)|(((fesm)|(es))[0-9]+)|(typings)|(metadata)$/ ) )
+            .forEach( key => {
+                packageJson[ key ] = `../${ origin }/${ packageJson[ key ] }`;
+            } );
+        await writeJson( `${ __dirname }/../dist/${ destination }/package.json`, packageJson );
+    } ) );
+    console.log( `Duplication ends` );
 };
 
 /**
  * generates and returns exports attributes to be added to generated package.json
  */
-export const exportsPackageJson = async () => {
+export const exportsPackageJson = () => {
     const exports = new Map();
-
-    // retreive angular directories containing a library to build
-    const angularDirectories = await getAngularDirectories();
-
+    const { versions } = config;
     // loop on angular directories
-    for await ( const angularDirectory of angularDirectories ) {
-        const angularName = angularDirectory.name;
-        const extractedExportsData = await getPackageExports( angularDirectory, angularName );
-        exports.set( `./${ angularName }`, extractedExportsData );
+    for ( const version of versions ) {
+        exports.set( `./${ version }`, `./${ version }` );
     }
     return exports;
 };

@@ -1,4 +1,5 @@
-import { readFile, writeFile } from "fs/promises";
+import { outputFile } from "fs-extra";
+import { readFile } from "fs/promises";
 import { existsSync } from "fs";
 
 export const getJsonFromPath = async jsonPath => {
@@ -9,5 +10,5 @@ export const getJsonFromPath = async jsonPath => {
 };
 
 export const writeJson = async ( jsonPath, jsonContent ) => {
-    await writeFile( jsonPath, JSON.stringify( jsonContent, null, `  ` ) );
+    await outputFile( jsonPath, JSON.stringify( jsonContent, null, `  ` ) );
 };
