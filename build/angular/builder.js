@@ -297,9 +297,21 @@ export const buildComponents = async () => {
             console.warn( `No angular configuration for ${ angularDirectory.name }` );
         }
     }
-    // creation of aliases to previous versions
+    // creation of aliases to reference versions
     console.log( `Duplication starts` );
-    const { aliases } = config;
+    const { build, from, to } = config;
+    let referenceVersion;
+    const aliases = [];
+    for ( let version = from; version <= to; version++ ) {
+        if ( build.includes( version ) ) {
+            referenceVersion = version;
+        } else {
+            aliases.push( {
+                "destination": `angular${ version }`,
+                "origin": `angular${ referenceVersion }`,
+            } );
+        }
+    }
     await Promise.all( aliases.map( async alias => {
         const { destination, origin } = alias;
         const packageJson = await getJsonFromPath( `${ __dirname }/../dist/${ origin }/package.json` );
@@ -319,10 +331,9 @@ export const buildComponents = async () => {
  */
 export const exportsPackageJson = () => {
     const exports = new Map();
-    const { versions } = config;
-    // loop on angular directories
-    for ( const version of versions ) {
-        exports.set( `./${ version }`, `./${ version }` );
+    const { from, to } = config;
+    for ( let v = from; v <= to; v++ ) {
+        exports.set( `./angular${ v }`, `./angular${ v }` );
     }
     return exports;
 };
