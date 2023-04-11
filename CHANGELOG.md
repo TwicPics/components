@@ -9,7 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Add
+
 - Add `duration`, `from`, `posterFrom` and `to` properties to **TwicVideo** component in order to manage [video slicing](https://www.twicpics.com/docs/topics/video-optimization#video-slicing).
+- Add support for **Angular 15+**
+
+### Changed
+
+- Reduces unpacked size by replacing superfluous versions of Angular with aliases to reference versions.
 
 ## [0.16.1] - 2023-03-27
 
@@ -23,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.16.0] - 2023-03-21
 
 ### Add
+
 - Add new `TwicBackground` component that allows to display a background image in any HTML element.
 - Add `title` property that allows to handle [title global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
 - Add `zoom` property to `TwicImg` that allows to display a lazy loaded and enlarged image on `mouseover` event.
