@@ -308,18 +308,18 @@ export const buildComponents = async () => {
         } else {
             aliases.push( {
                 "destination": `angular${ version }`,
-                "origin": `angular${ referenceVersion }`,
+                "source": `angular${ referenceVersion }`,
             } );
         }
     }
     await Promise.all( aliases.map( async alias => {
-        const { destination, origin } = alias;
-        const packageJson = await getJsonFromPath( `${ __dirname }/../dist/${ origin }/package.json` );
+        const { destination, source } = alias;
+        const packageJson = await getJsonFromPath( `${ __dirname }/../dist/${ source }/package.json` );
         // modification of original package.json
         Object.keys( packageJson )
             .filter( key => key.match( /^(module)|(main)|(((fesm)|(es))[0-9]+)|(typings)|(metadata)$/ ) )
             .forEach( key => {
-                packageJson[ key ] = `../${ origin }/${ packageJson[ key ] }`;
+                packageJson[ key ] = `../${ source }/${ packageJson[ key ] }`;
             } );
         await writeJson( `${ __dirname }/../dist/${ destination }/package.json`, packageJson );
     } ) );
@@ -332,8 +332,8 @@ export const buildComponents = async () => {
 export const exportsPackageJson = () => {
     const exports = new Map();
     const { from, to } = config;
-    for ( let v = from; v <= to; v++ ) {
-        exports.set( `./angular${ v }`, `./angular${ v }` );
+    for ( let version = from; version <= to; version++ ) {
+        exports.set( `./angular${ version }`, `./angular${ version }` );
     }
     return exports;
 };
