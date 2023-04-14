@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.17.1] - 2023-04-14
+
 ### Changed
 
 - Improves magnifier UX on touch screens by allowing continuous movement even when the finger is no longer on the image container.
@@ -417,6 +419,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.17.1]: https://github.com/TwicPics/components/compare/0.17.0...0.17.1
 [0.17.0]: https://github.com/TwicPics/components/compare/0.16.1...0.17.0
 [0.16.1]: https://github.com/TwicPics/components/compare/0.16.0...0.16.1
 [0.16.0]: https://github.com/TwicPics/components/compare/0.15.1...0.16.0
