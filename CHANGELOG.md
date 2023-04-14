@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Improves magnifier UX on touch screens by allowing continuous movement even when the finger is no longer on the image container.
+
 ## [0.17.0] - 2023-04-12
 
 ### Add
