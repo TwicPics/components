@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Adds control over `domain` and `path` values when using the **Next.js Image** component.
+
+### Fixed
+
+- Fixes placeholder display when a `path` value is provided during installation.
+
 ## [0.17.1] - 2023-04-14
 
 ### Changed

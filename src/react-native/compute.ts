@@ -53,13 +53,12 @@ const computeUrl = (
     if ( lqip && /^placeholder:.*$/.test( src ) ) {
         return undefined;
     }
-    const { debug, domain, path } = config;
+    const { debug, domain } = config;
     const { width, height } = actualSize( step, lqip, viewSize );
     return createUrl(
         {
             "debug": debug && ( Platform.OS === `web` ),
             domain,
-            path,
             src,
             "transform": `${ computePreTransform(
                 anchor,

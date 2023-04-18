@@ -238,7 +238,6 @@ export const computePlaceholderBackground = (
     return createUrl(
         {
             "domain": config.domain,
-            "path": config.path,
             src,
             transform,
             "output": placeholder,

@@ -1,7 +1,7 @@
 import type { Config, Options } from "./types";
 import { createElement } from "./dom";
 import { isBrowser, isReactNative, logWarning, noop, throwError } from "./utils";
-import { rValidEnvironment } from "./validate";
+import { rInvalidPath, rValidDomain, rValidEnvironment, rValidPath } from "./validate";
 import { VERSION } from "./const";
 
 const defaultConfig: Config = {
@@ -35,9 +35,6 @@ export const configBasedStyle = (): string =>
     }-poster-done{transform:none !important}`;
 
 export const getDataAttributeName = ( baseName: string ): string => `data-${ config.class }-${ baseName }`;
-
-const rInvalidPath = /\?|^\/*$/;
-const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
 
 const handleShadowDomFactory = ( attributeName: string ) => {
     const marked = new WeakSet();
@@ -100,7 +97,7 @@ export default ( options: Options ): void => {
     config.class = _class || config.class;
     config.domain = domain.replace( rValidDomain, `$1` );
     config.env = env;
-    config.path = path ? path.replace( /^\/*(.+?)\/*$/, `$1/` ) : ``;
+    config.path = path ? path.replace( rValidPath, `$1/` ) : ``;
     config.handleShadowDom =
         ( handleShadowDom && isBrowser && !isReactNative ) ?
             handleShadowDomFactory( getDataAttributeName( `component` ) ) :

@@ -1,14 +1,14 @@
-/* eslint-disable no-nested-ternary */
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
-import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { config } from "./install";
+import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
+import { isAbsolute } from "./url";
+import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import { rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio, rValidZoom } from "./validate";
 
-const rImage = /^(image:)?\/*/;
+export const rMedia = /^((?:image|video|media):)?\/*/;
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
-const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
+export const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
 const trimTransformOrUndefined = trimRegExpFactory( `.+?`, {
     "border": `[\\s\\/]`,
 } );
@@ -127,15 +127,22 @@ export const parseRatio = ( value: number | string ): number => {
 
 export const parseStep = parseNumber;
 
-const computeSrc = ( value:string ) =>
-    ( value ? value.replace( rImage, `image:${ config.path }` ) : `placeholder:red` );
+const computeSrc = ( src:string ) => (
+    // eslint-disable-next-line no-nested-ternary
+    src ?
+        ( isAbsolute( src, config.domain ) ?
+            `media:${ src.slice( `${ config.domain }/`.length ) }` :
+            src.replace( rMedia, `media:${ config.path }` )
+        ) :
+        `placeholder:red`
+);
+
 export const parseSrc = ( value: string ): string => {
     // eslint-disable-next-line no-param-reassign
     value = trimOrUndefined( value );
     if ( isReactNative ) {
         return computeSrc( value );
     }
-    // eslint-disable-next-line no-nested-ternary
     return config.env === `offline` ? `` : computeSrc( value );
 };
 
@@ -184,6 +191,7 @@ export const parseZoom = ( value: number | string ): boolean | number => {
         // eslint-disable-next-line no-param-reassign
         value = parsed && parsed[ 2 ] ? Number( parsed[ 2 ] ) : undefined;
     }
+    // eslint-disable-next-line no-nested-ternary
     return isPositiveNumber( value ) ?
         ( value > 1 ? value : undefined ) :
         undefined;

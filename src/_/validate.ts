@@ -10,12 +10,15 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
         }
     }
 }
+export const rInvalidPath = /\?|^\/*$/;
 export const rValidAnchor = trimRegExpFactory( validAnchors );
+export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
 export const rValidIntrinsic = trimRegExpFactory( `\\s*(\\d+)\\s*[x]\\s*(\\d+)\\s*` );
 export const validModes: Array< Mode > = [ `contain`, `cover` ];
 export const rValidMode = trimRegExpFactory( validModes );
 export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor`, `none`, `preview` ];
 export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
+export const rValidPath = /^\/*(.+?)\/*$/;
 export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*[\\/:]\\s*(\\d+(?:\\.\\d+)?))?|(none)` );
 export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
 export const rValidEnvironment = trimRegExpFactory( validEnvironment );

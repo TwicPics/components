@@ -50,7 +50,6 @@ export interface Config {
 export interface CreateUrlData {
     debug?: boolean,
     domain: string,
-    path?: string,
     output?: string,
     quality?: number,
     src: string,
