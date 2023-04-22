@@ -8,9 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.17.3] - 2023-04-22
+
 ### Fixed
 
-- No longer uses direct access to the public runtime in `Nuxt3` module.
+- No longer uses direct access to the public runtime config in `Nuxt3` module.
 
 ## [0.17.2] - 2023-04-19
 
@@ -433,6 +435,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.17.3]: https://github.com/TwicPics/components/compare/0.17.2...0.17.3
 [0.17.2]: https://github.com/TwicPics/components/compare/0.17.1...0.17.2
 [0.17.1]: https://github.com/TwicPics/components/compare/0.17.0...0.17.1
 [0.17.0]: https://github.com/TwicPics/components/compare/0.16.1...0.17.0
