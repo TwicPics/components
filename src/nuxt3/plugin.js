@@ -3,5 +3,5 @@ import { defineNuxtPlugin, useRuntimeConfig } from '#app';
 
 export default defineNuxtPlugin( nuxtApp => {
     const runtimeConfig = useRuntimeConfig();
-    nuxtApp.vueApp.use( TwicPics, runtimeConfig.twicpics );
+    nuxtApp.vueApp.use( TwicPics, runtimeConfig.public.twicpics );
 } );
