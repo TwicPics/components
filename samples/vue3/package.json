@@ -9,10 +9,10 @@
         "@twicpics/components-sample": "file:../_",
         "@vue/cli-plugin-babel": "5.0.8",
         "@vue/cli-service": "5.0.8",
-        "@vue/compiler-sfc": "3.2.40",
-        "vue": "3.2.40",
-        "webpack": "5.73.0",
-        "webpack-dev-server": "4.9.3"
+        "@vue/compiler-sfc": "3.2.47",
+        "vue": "3.2.47",
+        "webpack": "5.81.0",
+        "webpack-dev-server": "4.13.3"
     },
     "license": "MIT",
     "scripts": {
