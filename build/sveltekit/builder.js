@@ -106,20 +106,19 @@ export const buildComponents = async () => {
     // 7 - launches official builder
     execSync( `cd ${ svelteKitInfos.templatePath } && $npm_execpath package` );
 
-    const distPath = `${ svelteKitInfos.templatePath }/package`;
+    const distFolder = `${ __dirname }/../dist/sveltekit/`;
 
     // 8 - handles package version and package name
-    const packageJsonPath = `${ distPath }/package.json`;
-    const packageJSON = await getJsonFromPath( packageJsonPath );
+    const packageJSON = await getJsonFromPath( `${ svelteKitInfos.templatePath }/package.json` );
     packageJSON.version = packageVersion;
     packageJSON.name = `@twicpics/components/sveltekit`;
-    await writeJson( packageJsonPath, packageJSON );
+    await writeJson( `${ distFolder }package.json`, packageJSON );
 
     // 9 - copies generated files to twicPics dist folder
-    await copy( `${ svelteKitInfos.templatePath }/package/`, `${ __dirname }/../dist/sveltekit/` );
+    await copy( `${ svelteKitInfos.templatePath }/package/`, distFolder );
 
     // 10 - removes working files
-    await Promise.all( [ srcPath, distPath ].map( d => remove( d ) ) );
+    await Promise.all( [ srcPath, `${ svelteKitInfos.templatePath }/package` ].map( d => remove( d ) ) );
 };
 
 /**
@@ -131,6 +130,8 @@ export const exportsPackageJson = () => {
         "main": `./sveltekit/index.js`,
         "module": `./sveltekit/index.js`,
         "svelte": `./sveltekit/index.js`,
+        "types": `./sveltekit/index.d.ts`,
     } );
+    exports.set( `./sveltekit/`, `./sveltekit/` );
     return exports;
 };
