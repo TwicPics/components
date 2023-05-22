@@ -10,29 +10,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Rework `SvelteKit` components builder to align with @sveltejs/package 2.0.0.
+
 - Upgrade dependencies.
 
 ## [0.17.3] - 2023-04-22
 
 ### Fixed
 
-- No longer uses direct access to the public runtime config in `Nuxt3` module.
+- No longer use direct access to the public runtime config in `Nuxt3` module.
 
 ## [0.17.2] - 2023-04-19
 
 ### Changed
 
-- Adds control over `domain` and `path` values when using the **Next.js Image** component.
+- Add control over `domain` and `path` values when using the **Next.js Image** component.
 
 ### Fixed
 
-- Fixes placeholder display when a `path` value is provided during installation.
+- Fix placeholder display when a `path` value is provided during installation.
 
 ## [0.17.1] - 2023-04-14
 
 ### Changed
 
-- Improves magnifier UX on touch screens by allowing continuous movement even when the finger is no longer on the image container.
+- Improve magnifier UX on touch screens by allowing continuous movement even when the finger is no longer on the image container.
 
 ## [0.17.0] - 2023-04-12
 
@@ -43,16 +45,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Reduces unpacked size by replacing superfluous versions of Angular with aliases to reference versions.
+- Reduce unpacked size by replacing superfluous versions of Angular with aliases to reference versions.
 
 ## [0.16.1] - 2023-03-27
 
 ### Fixed
 
-- Fixes zoom of translucent images.
-- No longer activates the magnifier when `zoom` prop is not defined for the **Vue.js** components.
-- No longer generates the placeholder div when the `placeholder` property is set to `none`.
-- No longer takes into account TouchEvents outside the image area while using the magnifier.
+- Fix zoom of translucent images.
+- No longer activate the magnifier when `zoom` prop is not defined for the **Vue.js** components.
+- No longer generate the placeholder div when the `placeholder` property is set to `none`.
+- No longer take into account TouchEvents outside the image area while using the magnifier.
 
 ## [0.16.0] - 2023-03-21
 
