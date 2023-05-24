@@ -19,7 +19,7 @@
 
 Discover our demonstrations and integration examples [in our online demo project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
 
-TwicPics Components are available in Angular __version 11 to 14_.
+TwicPics Components are available in Angular __version 11 to 16_.
 
 #include "src/_documentation/common/_installation.md"
 

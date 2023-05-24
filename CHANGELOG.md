@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Add
+
+- Add support for **Angular 16+**
+
 ### Changed
 
 - Rework `SvelteKit` components builder to align with @sveltejs/package 2.0.0.

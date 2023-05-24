@@ -9,8 +9,12 @@ This directory contains sample projects for all supported frameworks.
 | subdirectory | content |
 | - | - |
 | `samples/_` | sample component |
+| `samples/angular11` | [Angular 11](https://angular.io/) version __11__ sample project |
 | `samples/angular12` | [Angular 12](https://angular.io/) version __12__ sample project |
 | `samples/angular13` | [Angular 13](https://angular.io/) version __13__ sample project |
+| `samples/angular14` | [Angular 14](https://angular.io/) version __14__ sample project |
+| `samples/angular15` | [Angular 15](https://angular.io/) version __15__ sample project |
+| `samples/angular16` | [Angular 16](https://angular.io/) version __16__ sample project |
 | `samples/gatsby` | [Gatsby](https://www.gatsbyjs.com/) sample project |
 | `samples/next` | [Next.js](https://nextjs.org/) sample project |
 | `samples/nuxt` | [Nuxt.js](https://nuxtjs.org/) sample project |
