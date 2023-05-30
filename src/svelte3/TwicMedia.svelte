@@ -39,6 +39,7 @@ import {
     parseTransitionDelay,
     parseTransitionDuration,
     parseTransitionTimingFunction,
+    preComputePlaceholder,
     styleToString,
 } from "./_utils.js";
 /* eslint-disable-next-line camelcase */
@@ -100,6 +101,8 @@ $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 $: parsedVideoOptions = videoOptions;
 
+$: placeholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
+
 $: _alt = computeAlt( parsedAlt, parsedMediaTag, parsedSrc );
 $: _data = computeData(
     parsedAnchor,
@@ -118,7 +121,7 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,
     parsedMode,
-    parsedPlaceholder,
+    placeholder_,
     parsedPosition,
     parsedPreTransform,
     parsedRatio,
@@ -162,7 +165,7 @@ if ( isBrowser ) {
         style = { _style }
         { ..._data }
     ></svelte:element>
-    {#if parsedPlaceholder}
-    <div style = { _placeholderStyle } />
+    {#if placeholder_ }
+        <div style = { _placeholderStyle } />
     {/if}
 </div>

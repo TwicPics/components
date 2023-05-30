@@ -36,6 +36,7 @@ export {
 } from "../_/parse.js";
 export {
     preComputeVideoOptions,
+    preComputePlaceholder,
 } from "../_/preCompute.js";
 export type {
     Attributes as BaseAttributes,
