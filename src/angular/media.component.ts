@@ -53,6 +53,7 @@ import {
     parseTitle,
     parseClassName,
 } from "../_/parse";
+import { preComputePlaceholder } from "../_/preCompute";
 
 @Component( {
     "selector": `TwicMedia`,
@@ -64,7 +65,7 @@ import {
             [attr.title]="_title"
         >
             <div
-                *ngIf="_placeholder"
+                *ngIf="_placeholder_"
                 #placeholderElement
                 [ngStyle]="placeholderStyle"
             ></div>
@@ -124,6 +125,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _transitionDelay: string = undefined;
     _transitionDuration: string = undefined;
     _transitionTimingFunct: string = undefined;
+    _placeholder_: Placeholder = undefined;
     description: string;
     mediaAttributes: Record<string, string>;
     mediaStyle: Record<string, string>;
@@ -141,7 +143,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
     ngAfterViewInit(): void {
         this._media = this.renderer.createElement( this._mediaTag );
-        if ( this._placeholder ) {
+        if ( this._placeholder_ ) {
             this.renderer.insertBefore(
                 this.containerRef.nativeElement,
                 this._media,
@@ -174,6 +176,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._transitionDelay = parseTransitionDelay( this.transitionDelay );
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
+        this._placeholder_ = preComputePlaceholder( this._placeholder, this._src );
         this.description = computeAlt( this._alt, this._mediaTag, this._src );
         this.mediaAttributes = {
             ...computeData(
@@ -203,7 +206,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
             this._anchor,
             this._focus,
             this._mode,
-            this._placeholder,
+            this._placeholder_,
             this._position,
             this._preTransform,
             this._ratio,

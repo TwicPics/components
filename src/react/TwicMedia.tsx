@@ -35,6 +35,7 @@ import {
 } from "../_/parse";
 import type { Attributes, Anchor, Mode, Placeholder, State, StateEvent, VideoOptions } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
+import { preComputePlaceholder } from "../_/preCompute";
 
 type onStateChangeType = ( stateEvent: StateEvent ) => void;
 export interface BaseAttributes extends Attributes {
@@ -119,6 +120,7 @@ class TwicMedia extends Component< MediaAttributes > {
         const transitionDuration = parseTransitionDuration( props.transitionDuration );
         const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
         const { videoOptions } = props;
+        const placeholder_ = preComputePlaceholder( placeholder, src );
         return (
             <div
                 className = { computeWrapperClass( className, props.src, transition ) }
@@ -155,14 +157,14 @@ class TwicMedia extends Component< MediaAttributes > {
                         )
                     }
                 />
-                { placeholder &&
+                { placeholder_ &&
                 <div
                     style = {
                         computePlaceholderStyle(
                             anchor,
                             focus,
                             mode,
-                            placeholder,
+                            placeholder_,
                             position,
                             preTransform,
                             ratio,

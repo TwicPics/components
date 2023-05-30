@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Add support for **Angular 16+**
 
+- Make **TwicPics Placeholders** usable as `src` in `TwicImg`.
+
 ### Changed
 
 - Rework `SvelteKit` components builder to align with @sveltejs/package 2.0.0.

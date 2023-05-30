@@ -29,6 +29,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from "../_/parse";
+import { preComputePlaceholder } from "../_/preCompute";
 import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
 import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProps } from "./props";
 import { callFactory } from "./utils";
@@ -59,7 +60,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
     [ `videoOptions`, videoOptionsProps, v => v ],
 ] ) {
-    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `${ propName }` ], true );
     props[ propName ] = type;
 }
 computed[ `p_undefined` ] = () => undefined;
@@ -103,7 +104,7 @@ for ( const [ propName, func, args ] of [
             `anchor`,
             `focus`,
             `mode`,
-            `placeholder`,
+            `placeholder_`,
             `position`,
             `preTransform`,
             `ratio`,
@@ -114,6 +115,14 @@ for ( const [ propName, func, args ] of [
             `transitionTimingFunction`,
             `videoOptions`,
             c => c.observer.setPlaceholderData,
+        ],
+    ],
+    [
+        `p_placeholder_`,
+        preComputePlaceholder,
+        [
+            `placeholder`,
+            `src`,
         ],
     ],
     [ `_wrapperClass`, computeWrapperClass, [ `undefined`, `src`, `transition` ] ],
@@ -158,7 +167,7 @@ export default {
             v-bind="{ ..._dataAttributes }"
         />
         <div
-            v-if="p_placeholder"
+            v-if="p_placeholder_"
             :style="_placeholderStyle"
         />
     </div>
