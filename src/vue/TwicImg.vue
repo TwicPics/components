@@ -15,7 +15,7 @@ for (
     const [ propName, type, parseMethod ] of
     [ [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ] ]
 ) {
-    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
 }
 

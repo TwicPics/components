@@ -60,7 +60,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
     [ `videoOptions`, videoOptionsProps, v => v ],
 ] ) {
-    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `${ propName }` ], true );
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
 }
 computed[ `p_undefined` ] = () => undefined;

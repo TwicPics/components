@@ -22,7 +22,7 @@ for (
         [ `to`, floatProp, parseTo ],
     ]
 ) {
-    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ propName ], true );
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
 }
 for ( const [ propName, func, args ] of
