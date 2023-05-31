@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.18.0] - 2023-06-01
+
 ### Add
 
 - Add support for **Angular 16+**
@@ -19,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Rework `SvelteKit` components builder to align with @sveltejs/package 2.0.0.
 
 - Upgrade dependencies.
+
+### Fixed
+
+- No longer generate `LQIP` when `src` is not set.
 
 ## [0.17.3] - 2023-04-22
 
@@ -447,6 +453,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.18.0]: https://github.com/TwicPics/components/compare/0.17.3...0.18.0
 [0.17.3]: https://github.com/TwicPics/components/compare/0.17.2...0.17.3
 [0.17.2]: https://github.com/TwicPics/components/compare/0.17.1...0.17.2
 [0.17.1]: https://github.com/TwicPics/components/compare/0.17.0...0.17.1
