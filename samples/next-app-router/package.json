@@ -1,0 +1,27 @@
+{
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ],
+    "dependencies": {
+        "@twicpics/components": "file:../../dist",
+        "@twicpics/components-sample": "file:../_",
+        "@types/node": "20.2.5",
+        "@types/react": "18.2.7",
+        "@types/react-dom": "18.2.4",
+        "@zeit/next-css": "1.0.1",
+        "next": "13.4.4",
+        "next-compose-plugins": "2.2.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "typescript": "5.0.4"
+    },
+    "license": "MIT",
+    "scripts": {
+        "copy": "node copySample.mjs ",
+        "dev": "$npm_execpath install && $npm_execpath run copy && next -p 3000",
+        "serve": "$npm_execpath install && $npm_execpath run copy && next build && next start -p 3000",
+        "light": "next build && next start -p 3000"
+    }
+}

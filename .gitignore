@@ -11,7 +11,8 @@
 /samples/**/yarn.lock
 /samples/angular*/**/app.component.html
 /samples/gatsby/public
-/samples/next/out
+/samples/**/out
+/samples/next-app-router/**/sample.jsx 
 /samples/nuxt3/.cache
 /samples/nuxt3/.env
 /samples/nuxt3/.output
