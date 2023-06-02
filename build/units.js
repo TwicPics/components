@@ -1,5 +1,6 @@
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replacer from "./replacer.js";
+import banner2 from "rollup-plugin-banner2";
 import svelte from "rollup-plugin-svelte";
 import sveltePreprocessor from "svelte-preprocess";
 import vue2 from "rollup-plugin-vue2";
@@ -64,6 +65,7 @@ export default [
             `react`,
         ],
         "framework": `react`,
+        "postTerser": [ banner2( () => `'use client';` ) ],
     },
     {
         "bundleCss": false,

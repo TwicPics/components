@@ -45,6 +45,7 @@ export default ( { bundleCss = true,
     javascript = false,
     plugins = [],
     postDefinitions,
+    postTerser = [],
     sourceDir = framework,
     sourceFileName = `index`,
     outputFileName = undefined }, ...formats ) => ( {
@@ -84,6 +85,7 @@ export default ( { bundleCss = true,
                     "passes": MINIFY_PASSES,
                 },
             } ),
+            ...postTerser,
             {
                 ...( bundleCss ? {
                     "writeBundle": async ( { file, format } ) => {

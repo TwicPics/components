@@ -52,7 +52,7 @@ export default ( options: Options ): void => {
         return;
     }
 
-    const { domain, "class": _class, env, handleShadowDom, path } = options;
+    const { debug, domain, "class": _class, env, handleShadowDom, path } = options;
     if ( !domain || !rValidDomain.test( domain ) ) {
         throwError( `install domain "${ domain }" is invalid` );
     }
@@ -65,7 +65,7 @@ export default ( options: Options ): void => {
 
     config.class = _class || config.class;
     config.domain = domain.replace( rValidDomain, `$1` );
-    config.env = env;
+    config.env = debug ? `debug` : env;
     config.path = path ? path.replace( rValidPath, `$1/` ) : ``;
     config.handleShadowDom =
         ( handleShadowDom && isBrowser && !isReactNative ) ?
@@ -73,7 +73,7 @@ export default ( options: Options ): void => {
             noop;
 
     if ( isReactNative ) {
-        const { debug, maxDPR, step } = options;
+        const { maxDPR, step } = options;
         config.debug = debug;
         config.maxDPR = maxDPR;
         config.step = step;
