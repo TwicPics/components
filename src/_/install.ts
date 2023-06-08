@@ -47,10 +47,6 @@ export default ( options: Options ): void => {
     if ( !options ) {
         throwError( `install options not provided` );
     }
-    if ( config && config.domain && isBrowser ) {
-        logWarning( `install function called multiple times` );
-        return;
-    }
 
     const { debug, domain, "class": _class, env, handleShadowDom, path } = options;
     if ( !domain || !rValidDomain.test( domain ) ) {
@@ -78,6 +74,8 @@ export default ( options: Options ): void => {
         config.maxDPR = maxDPR;
         config.step = step;
     }
+
+    console.log( options );
 
     if ( isBrowser && !isReactNative ) {
         const parts = [ `${ config.domain }/?${ VERSION }` ];

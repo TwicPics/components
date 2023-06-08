@@ -1,55 +1,44 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { parseClassName, parseZoom } from '../_/parse';
+import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import { parseClassName, parseZoom } from "../_/parse";
 import TwicMedia, { type BaseAttributes } from "./TwicMedia";
-import { computeMagnifierStyle } from '../_/compute';
-import initMagnifier from '../_/magnifier';
+import { computeMagnifierStyle } from "../_/compute";
+import initMagnifier from "../_/magnifier";
+import { number } from "./props";
 
 interface ImgAttributes extends BaseAttributes {
     className?: string,
     zoom?: number | string,
 }
 
-interface ImgPropTypes {
-    className: PropTypes.Requireable<string>;
-    zoom: PropTypes.Requireable<number | string>;
-}
+const TwicImg: React.FC< ImgAttributes > = props => {
+    const hostElement = useRef< HTMLDivElement >( null );
+    useEffect(
+        () => {
+            if ( parseZoom( props.zoom ) ) {
+                initMagnifier( hostElement.current );
+            }
+        },
+        []
+    );
+    const className = parseClassName( props.className ) || ``;
+    const zoom = parseZoom( props.zoom );
+    return (
+        <div
+            ref={ hostElement }
+            className={ `twic-i ${ className } ${ zoom ? `twic-z` : `` }` }
+            style={ computeMagnifierStyle( zoom ) }
+        >
+            { zoom && (
+                <TwicMedia { ...props } className="twic-m" mediaTag="div" mode="cover" />
+            ) }
+            <TwicMedia { ...props } className="" mediaTag="img" />
+        </div>
+    );
+};
 
-class TwicImg extends Component< ImgAttributes > {
-    static propTypes: ImgPropTypes;
-    private hostElement: React.RefObject< HTMLDivElement >;
-    constructor( attributes: ImgAttributes ) {
-        super( attributes );
-        this.hostElement = React.createRef();
-    }
-    componentDidMount() {
-        if ( parseZoom( this.props.zoom ) ) {
-            initMagnifier( this.hostElement.current );
-        }
-    }
-    render() {
-        const { props } = this;
-        const className = parseClassName( props.className ) || ``;
-        const zoom = parseZoom( props.zoom );
-        return (
-            <div
-                ref = { this.hostElement }
-                className= { `twic-i ${ className } ${ zoom ? `twic-z` : `` }`}
-                style = { computeMagnifierStyle( zoom ) }
-            >
-                { zoom &&
-                    <TwicMedia {...this.props} className="twic-m" mediaTag="div" mode="cover"></TwicMedia>
-                }
-                <TwicMedia {...this.props} className="" mediaTag="img"/>
-            </div>
-        );
-    }
-}
 TwicImg.propTypes = {
     "className": PropTypes.string,
-    "zoom": PropTypes.oneOfType( [
-        PropTypes.number,
-        PropTypes.string,
-    ] ),
+    "zoom": number,
 };
 export default TwicImg;

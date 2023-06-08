@@ -1,50 +1,65 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { default as installTwicPics } from "../_/install";
-import type { Environment, Options } from '../_/types';
-import { validEnvironment } from '../_/validate';
+import {
+    parseAnticipation,
+    parseClass,
+    parseDebug,
+    parseDomain,
+    parseEnv,
+    parseHandleShadowDom,
+    parseMaxDrp,
+    parsePath,
+    parseStep,
+} from "../_/parse";
+import type { Environment } from "../_/types";
+import { validEnvironment } from "../_/validate";
+import { number } from "./props";
 
-const { oneOf, string } = PropTypes;
-const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
-interface BackgroundPropTypes {
-    anticipation: PropTypes.Requireable< number | string >;
-    class: PropTypes.Requireable< string >;
-    debug: PropTypes.Requireable< boolean >;
-    domain: PropTypes.Requireable< string >;
-    env: PropTypes.Requireable< Environment>;
-    handleShadowDom: PropTypes.Requireable< boolean >;
-    maxDPR: PropTypes.Requireable< number | string >;
-    path: PropTypes.Requireable< string >;
-    step: PropTypes.Requireable< number | string >;
+interface InstallAttributes {
+    anticipation?: number | string,
+    class?: string,
+    debug?: boolean,
+    domain: string,
+    env?: Environment,
+    handleShadowDom?: boolean,
+    maxDPR?: number | string,
+    path?: string,
+    step?: number | string,
 }
 
-class TwicInstall extends Component< Options > {
-    static propTypes: BackgroundPropTypes;
-    render() {
-        const { props } = this;
-        installTwicPics( {
-            "anticipation": props.anticipation,
-            "class": props.class,
-            "debug": props.debug,
-            "domain": props.domain,
-            "env": props.env,
-            "handleShadowDom": props.handleShadowDom,
-            "maxDPR": props.maxDPR,
-            "path": props.path,
-            "step": props.step,
-        } );
-        return ( <></> );
-    }
-}
+const TwicInstall: React.FC< InstallAttributes > = props => {
+    useEffect(
+        () => {
+            installTwicPics( {
+                "anticipation": parseAnticipation( props.anticipation ),
+                "class": parseClass( props.class ),
+                "debug": parseDebug( props.debug ),
+                "domain": parseDomain( props.domain ),
+                "env": parseEnv( props.env ),
+                "handleShadowDom": parseHandleShadowDom( props.handleShadowDom ),
+                "maxDPR": parseMaxDrp( props.maxDPR ),
+                "path": parsePath( props.path ),
+                "step": parseStep( props.step ),
+            } );
+        },
+        []
+    );
+    return (
+        <></>
+    );
+};
+
 TwicInstall.propTypes = {
     "anticipation": number,
-    "class": string,
+    "class": PropTypes.string,
     "debug": PropTypes.bool,
-    "domain": string,
-    "env": oneOf< Environment >( validEnvironment ),
+    "domain": PropTypes.string,
+    "env": PropTypes.oneOf< Environment >( validEnvironment ),
     "handleShadowDom": PropTypes.bool,
     "maxDPR": number,
-    "path": string,
+    "path": PropTypes.string,
     "step": number,
 };
+
 export default TwicInstall;

@@ -1,24 +1,23 @@
-import React, { Component, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { getDataAttributeName } from "../_/config";
 
-type Props = {
-    children: ReactNode
+interface ViewAttributes {
+    children: ReactNode,
 }
-class TwicView extends Component< Props > {
-    render() {
-        const { children, ...props } = this.props;
-        return (
-            <div
-                {
-                    ...{
-                        [ getDataAttributeName( `view` ) ]: ``,
-                        ...props,
-                    }
+
+const TwicView: React.FC< ViewAttributes > = props => {
+    const { children, ...restProps } = props;
+    return (
+        <div
+            {
+                ... {
+                    [ getDataAttributeName( `view` ) ]: ``,
+                    ...restProps,
                 }
-            >
-                { children }
-            </div>
-        );
-    }
-}
+            }
+        >
+            { children }
+        </div>
+    );
+};
 export default TwicView;

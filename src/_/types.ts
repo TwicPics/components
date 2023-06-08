@@ -22,7 +22,7 @@ export interface Attributes {
     focus?: string,
     intrinsic?: string,
     mode?: Mode,
-    eager?: boolean,
+    eager?: boolean | string,
     placeholder?: Placeholder,
     position?: string,
     preTransform?:string,

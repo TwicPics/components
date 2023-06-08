@@ -1,6 +1,5 @@
-/* eslint-disable max-lines */
 import "../_/style.css";
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import {
     computeAlt,
@@ -33,131 +32,106 @@ import {
     parseMediaTag,
     parseClassName,
 } from "../_/parse";
-import type { Attributes, Anchor, Mode, Placeholder, State, StateEvent, VideoOptions } from "../_/types";
+import type {
+    Attributes,
+    Anchor,
+    Mode,
+    Placeholder,
+    State,
+    StateEvent,
+    VideoOptions,
+} from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 import { preComputePlaceholder } from "../_/preCompute";
+import { number } from "./props";
 
 type onStateChangeType = ( stateEvent: StateEvent ) => void;
+
 export interface BaseAttributes extends Attributes {
-    onStateChange?: onStateChangeType,
+    onStateChange?: onStateChangeType;
 }
+
 export interface MediaAttributes extends BaseAttributes {
     className?: string,
     mediaTag: string,
     videoOptions?: VideoOptions,
 }
 
-const { oneOf, string } = PropTypes;
-const number = PropTypes.oneOfType( [ PropTypes.number, string ] );
-interface MediaPropTypes {
-    alt: PropTypes.Requireable<string>;
-    anchor: PropTypes.Requireable<Anchor>;
-    bot: PropTypes.Requireable<string>;
-    className: PropTypes.Requireable<string>;
-    focus: PropTypes.Requireable<string>;
-    intrinsic: PropTypes.Requireable<string>;
-    mode: PropTypes.Requireable<Mode>;
-    eager: PropTypes.Requireable<boolean | string>;
-    onStateChange: PropTypes.Requireable<onStateChangeType>;
-    placeholder: PropTypes.Requireable<Placeholder>;
-    position: PropTypes.Requireable<string>;
-    preTransform: PropTypes.Requireable<string>;
-    ratio: PropTypes.Requireable<number | string>;
-    src: PropTypes.Validator<string>;
-    step: PropTypes.Requireable<number | string>;
-    title: PropTypes.Requireable<string>;
-    transition: PropTypes.Requireable<boolean | string>;
-    transitionDelay: PropTypes.Requireable<string>;
-    transitionDuration: PropTypes.Requireable<string>;
-    transitionTimingFunction: PropTypes.Requireable<string>;
-}
-
-class TwicMedia extends Component< MediaAttributes > {
-    private media: React.RefObject< HTMLElement >;
-    static propTypes: MediaPropTypes;
-    private observer: Observer;
-    constructor( attributes: MediaAttributes ) {
-        super( attributes );
-        this.observer = new Observer( ( state: State ) => {
-            if ( this.props.onStateChange ) {
-                this.props.onStateChange(
-                    {
-                        "target": this,
-                        state,
-                    }
-                );
-            }
-        } );
-        this.media = React.createRef();
-    }
-    componentDidMount() {
-        this.observer.setMedia( this.media.current );
-    }
-    componentWillUnmount() {
-        this.observer.destroy();
-    }
-    render() {
-        const { props } = this;
-        const alt = parseAlt( props.alt );
-        const anchor = parseAnchor( props.anchor );
-        const bot = parseBot( props.bot );
-        const className = parseClassName( props.className );
-        const eager = parseEager( props.eager );
-        // eslint-disable-next-line no-shadow
-        const focus = parseFocus( props.focus );
-        const intrinsic = parseIntrinsic( props.intrinsic );
-        const MediaTag = parseMediaTag( props.mediaTag );
-        const mode = parseMode( props.mode );
-        const placeholder = parsePlaceholder( props.placeholder );
-        const position = parsePosition( props.position );
-        const preTransform = parsePreTransform( props.preTransform );
-        const ratio = parseRatio( props.ratio );
-        const src = parseSrc( props.src );
-        const step = parseStep( props.step );
-        const title = parseTitle( props.title );
-        const transition = parseTransition( props.transition );
-        const transitionDelay = parseTransitionDelay( props.transitionDelay );
-        const transitionDuration = parseTransitionDuration( props.transitionDuration );
-        const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
-        const { videoOptions } = props;
-        const placeholder_ = preComputePlaceholder( placeholder, src );
-        return (
-            <div
-                className = { computeWrapperClass( className, props.src, transition ) }
-                style = { computeWrapperStyle( ratio ) }
-                title = { title }
-            >
-                <MediaTag
-                    ref = { this.media }
-                    alt = { computeAlt( alt, MediaTag, src ) }
-                    style = {
-                        computeStyle(
-                            anchor,
-                            MediaTag,
-                            mode,
-                            position,
-                            transitionDelay,
-                            transitionDuration,
-                            transitionTimingFunction
-                        )
-                    }
-                    {
-                        ...computeData(
-                            anchor,
-                            bot,
-                            eager,
-                            focus,
-                            intrinsic,
-                            MediaTag,
-                            mode,
-                            preTransform,
-                            src,
-                            step,
-                            videoOptions
-                        )
-                    }
-                />
-                { placeholder_ &&
+const TwicMedia: React.FC< MediaAttributes > = props => {
+    const media = useRef< HTMLElement >( null );
+    const observer = new Observer( ( state: State ) => {
+        if ( props.onStateChange ) {
+            props.onStateChange( {
+                "target": media.current,
+                state,
+            } );
+        }
+    } );
+    useEffect(
+        () => {
+            observer.setMedia( media.current );
+            return () => {
+                observer.destroy();
+            };
+        },
+        []
+    );
+    const alt = parseAlt( props.alt );
+    const anchor = parseAnchor( props.anchor );
+    const bot = parseBot( props.bot );
+    const className = parseClassName( props.className );
+    const eager = parseEager( props.eager );
+    // eslint-disable-next-line no-shadow
+    const focus = parseFocus( props.focus );
+    const intrinsic = parseIntrinsic( props.intrinsic );
+    const MediaTag = parseMediaTag( props.mediaTag );
+    const mode = parseMode( props.mode );
+    const placeholder = parsePlaceholder( props.placeholder );
+    const position = parsePosition( props.position );
+    const preTransform = parsePreTransform( props.preTransform );
+    const ratio = parseRatio( props.ratio );
+    const src = parseSrc( props.src );
+    const step = parseStep( props.step );
+    const title = parseTitle( props.title );
+    const transition = parseTransition( props.transition );
+    const transitionDelay = parseTransitionDelay( props.transitionDelay );
+    const transitionDuration = parseTransitionDuration( props.transitionDuration );
+    const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
+    const { videoOptions } = props;
+    const placeholder_ = preComputePlaceholder( placeholder, src );
+    return (
+        <div
+            className={ computeWrapperClass( className, props.src, transition ) }
+            style={ computeWrapperStyle( ratio ) }
+            title={ title }
+        >
+            <MediaTag
+                ref={ media }
+                alt={ computeAlt( alt, MediaTag, src ) }
+                style={ computeStyle(
+                    anchor,
+                    MediaTag,
+                    mode,
+                    position,
+                    transitionDelay,
+                    transitionDuration,
+                    transitionTimingFunction
+                ) }
+                { ...computeData(
+                    anchor,
+                    bot,
+                    eager,
+                    focus,
+                    intrinsic,
+                    MediaTag,
+                    mode,
+                    preTransform,
+                    src,
+                    step,
+                    videoOptions
+                ) }
+            />
+            { placeholder_ && (
                 <div
                     style = {
                         computePlaceholderStyle(
@@ -174,42 +148,36 @@ class TwicMedia extends Component< MediaAttributes > {
                             transitionDuration,
                             transitionTimingFunction,
                             videoOptions,
-                            this.observer.setPlaceholderData
+                            observer.setPlaceholderData
                         )
                     }
                 />
-                }
-            </div>
-        );
-    }
-}
+            ) }
+        </div>
+    );
+};
+
 TwicMedia.propTypes = {
-    "alt": string,
-    "anchor": oneOf< Anchor >( validAnchors ),
-    "bot": string,
-    "className": string,
-    "focus": string,
-    "intrinsic": string,
-    "mode": oneOf< Mode >( validModes ),
-    "eager": PropTypes.oneOfType( [
-        PropTypes.bool,
-        PropTypes.string,
-    ] ),
+    "alt": PropTypes.string,
+    "anchor": PropTypes.oneOf< Anchor >( validAnchors ),
+    "bot": PropTypes.string,
+    "className": PropTypes.string,
+    "focus": PropTypes.string,
+    "intrinsic": PropTypes.string,
+    "mode": PropTypes.oneOf< Mode >( validModes ),
+    "eager": PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
     "onStateChange": PropTypes.func,
-    "placeholder": oneOf< Placeholder >( validPlaceholders ),
-    "position": string,
-    "preTransform": string,
+    "placeholder": PropTypes.oneOf< Placeholder >( validPlaceholders ),
+    "position": PropTypes.string,
+    "preTransform": PropTypes.string,
     "ratio": number,
-    "src": string,
+    "src": PropTypes.string,
     "step": number,
-    "title": string,
-    "transition": PropTypes.oneOfType( [
-        PropTypes.bool,
-        PropTypes.string,
-    ] ),
-    "transitionDelay": string,
-    "transitionDuration": string,
-    "transitionTimingFunction": string,
+    "title": PropTypes.string,
+    "transition": PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
+    "transitionDelay": PropTypes.string,
+    "transitionDuration": PropTypes.string,
+    "transitionTimingFunction": PropTypes.string,
 };
 
 export default TwicMedia;
