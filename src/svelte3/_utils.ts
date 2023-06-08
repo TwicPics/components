@@ -7,7 +7,10 @@ export {
     computeWrapperClass,
     computeWrapperStyle,
 } from "../_/compute.js";
-export { default as installTwicPics, getDataAttributeName } from "../_/install.js";
+export { getDataAttributeName } from "../_/config.js";
+export { default as installTwicPics } from "../_/install.js";
+export { default as initMagnifier } from "../_/magnifier";
+export { Observer } from "../_/Observer.js";
 export {
     parseAlt,
     parseAnchor,
@@ -50,8 +53,6 @@ export type {
     VideoOptions,
 } from "../_/types.js";
 export { isBrowser, isWebComponents } from "../_/utils.js";
-export { default as initMagnifier } from "../_/magnifier";
-export { Observer } from "../_/Observer.js";
 
 export const styleToString = ( properties: Record< string, string > ): string => (
     Object.keys( properties ).length ?

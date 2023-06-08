@@ -1,5 +1,5 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import { config } from "./install";
+import { config } from "./config";
 import type { AnchorObject, Mode, Placeholder, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";

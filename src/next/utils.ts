@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { config } from "../_/install";
+import { config } from "../_/config";
 import { throwError } from "../_/utils";
 import { rInvalidPath, rValidDomain, rValidPath } from "../_/validate";
 

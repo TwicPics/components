@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { config } from '../_/install';
+import { config } from '../_/config';
 import { parseSrc } from '../_/parse';
 import { createUrl } from '../_/url';
 

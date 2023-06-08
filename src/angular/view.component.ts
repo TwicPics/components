@@ -1,7 +1,7 @@
 import { Component, ElementRef, Renderer2 } from "@angular/core";
-import { getDataAttributeName } from "../_/install";
 // eslint-disable-next-line no-duplicate-imports
 import type { OnInit } from "@angular/core";
+import { getDataAttributeName } from "../_/config";
 
 @Component( {
     "selector": `TwicView`,

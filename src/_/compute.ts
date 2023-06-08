@@ -3,7 +3,7 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type { AnchorObject, Mode, Placeholder, PlaceholderData, VideoOptions } from "./types";
 
-import { config, getDataAttributeName } from "./install";
+import { config, getDataAttributeName } from "./config";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
 import { createUrl } from "./url";

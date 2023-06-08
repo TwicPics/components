@@ -1,5 +1,5 @@
 
-import { config } from "./install";
+import { config } from "./config";
 import type { Placeholder, VideoOptions } from "./types";
 import { urlInfos } from "./url";
 

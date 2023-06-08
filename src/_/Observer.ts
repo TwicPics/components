@@ -1,7 +1,7 @@
 /* eslint-disable lines-between-class-members */
 /* eslint-disable class-methods-use-this */
 import { computePlaceholderBackground } from "./compute";
-import { config } from "./install";
+import { config } from "./config";
 import type { PlaceholderData, State } from "./types";
 import { isBrowser, debounce } from "./utils";
 

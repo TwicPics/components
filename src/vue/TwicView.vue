@@ -1,5 +1,5 @@
 <script>
-import { getDataAttributeName } from '../_/install';
+import { getDataAttributeName } from '../_/config';
 export default {
     "computed": {
         "viewAttributes": () => ( {

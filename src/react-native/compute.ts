@@ -1,9 +1,9 @@
 import { Animated, Easing, PixelRatio, Platform, type EasingFunction } from 'react-native';
 export * from "../_/compute";
 import { computePreTransform } from '../_/compute';
+import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
 import { createUrl } from '../_/url';
-import { config } from './install';
 import type { MediaData, SizeObject, UrlData } from './types';
 
 const PLACEHOLDER_DIM = 1000;

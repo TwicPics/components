@@ -1,5 +1,5 @@
 import React, { Component, type ReactNode } from "react";
-import { getDataAttributeName } from "../_/install";
+import { getDataAttributeName } from "../_/config";
 
 type Props = {
     children: ReactNode
