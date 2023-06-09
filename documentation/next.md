@@ -3,13 +3,13 @@
 
 
 
-- [Overview](#about)
+- [Overview](#overview)
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
 - [Setup](#setup)
     - [Setting-up TwicPics Components into your project](#setting-up-your-project)
-    - [Setup Options](#setup-options)
+    - [TwicInstall](#twic-install)
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
     - [Bulk loading with TwicView](#bulk-loading-with-twicview)
@@ -58,6 +58,8 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 
 Discover our demonstrations and integration examples [in our online demo project](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
+<div id="setting-up-your-project"/>
+
 ## Installation
 
 Add the `@twicpics/components` package to your project:
@@ -79,31 +81,75 @@ If you only want to use the **Next.js loader**, skip to [Next.js Image Loader](#
 
 **Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
 
-This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
+Configuration of `TwicPics Components` depends on the setup of your application, whether you are using [Next Pages Router](#page-router) or [Next App Router](#app-router).
 
+<div id='page-router'/>
 
-```js
-// _app.js
+#### Using Next Pages Router
 
-import { installTwicpics } from "@twicpics/components/react";
+```tsx
+// pages/_app.tsx
+...
+import { TwicInstall } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 
-installTwicpics({
-  domain: "https://<your-domain>.twic.pics"
-});
-
-export default function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    // your app code
-  )
+    <>
+      { /* TwicPics Components configuration (see TwicInstall) */ }
+      <TwicInstall
+        // domain is mandatory
+        domain='https://demo.twic.pics'
+      />
+      <Component {...pageProps} />
+    </>
+  );
 }
 ```
 
-__WARNING__: Updating the configuration passed to `installTwicpics()` method in watch mode (i.e. when running `next dev`) will lead to a `install function called multiple times` warning in the browser console. You will need to manually reload the page to apply the new configuration.
+<div id='app-router'/>
 
-<div id='setup-options'/>
+#### Using Next App Router (Next 13+)
 
-### Setup Options
+```tsx
+// app/layout.tsx
+import { TwicInstall } from "@twicpics/components/react";
+import "@twicpics/components/style.css";
+
+export default function RootLayout( { children }: {
+  children: React.ReactNode
+} ) {
+  return (
+    <html lang="en">
+      { /* TwicPics Components configuration (see TwicInstall) */ }
+      <TwicInstall
+        // domain is mandatory
+        domain="https://<your-domain>.twic.pics"
+      />
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+<div id='twic-install'/>
+
+### TwicInstall
+
+This component configures `TwicPics Components` and must be placed in your project's entry point file.
+
+```html
+<TwicInstall
+  domain="<String>"
+  anticipation="<Number>"
+  class="<String>"
+  env="<debug|offline|production>"
+  handleShadowDom="<boolean>"
+  maxDPR="<Number>"
+  path="<String>"
+  step="<integer>"
+/>
+```
 
 | Option | Description | Type | Default |
 |:-|:-|:-|:-|
@@ -121,10 +167,9 @@ __WARNING__: Updating the configuration passed to `installTwicpics()` method in 
 
 ### Basic Usage
 
-```jsx
-// MyComponent.jsx
+```tsx
+// MyComponent.tsx
 
-import React from "react";
 import { TwicImg } from "@twicpics/components/react";
 
 const YourTemplate = () => (
@@ -142,7 +187,7 @@ export default YourTemplate;
 
 By default, `<TwicImg>` and `<TwicVideo>` will only start loading when they come into the viewport. But sometimes, you may want to load multiple assets in bulk instead of lazy loading them. This is where `<TwicView>` comes into play.
 
-The `<TwicView>` components eager loads all of his `<TwicImg>` and `<TwicVideo>` children as soon as it comes into the viewport (depending on your [anticipation settings](#setup-options).)
+The `<TwicView>` components eager loads all of his `<TwicImg>` and `<TwicVideo>` children as soon as it comes into the viewport (depending on your [anticipation settings](#twic-install).)
 
 For example, if you're building a carousel, you might want to bulk load all images. In the following code, all three images will be loaded when `TwicView` comes into the viewport:
 
@@ -364,6 +409,30 @@ Here are the values the Component will emit ([see State Type definition](#state-
   )
 ```
 
+__WARNING__: when using `onStateChange` in a **Server Components module graph**, your component must be decorated with [use client directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive), as in
+
+```js
+  'use client'
+  
+  // your imports
+
+  const [ state, setState ] = useState( undefined );
+  
+  const handleStateChange = ( stateEvent ) => {
+    // Implement the logic here
+    const { state } = stateEvent;
+    console.log( `TwicComponent emits a new state`, state );
+    setState( state );
+  }
+
+  return (
+    <TwicImg
+      onStateChange={handleStateChange}
+      src="path/to/your/image"
+    />
+  )
+```
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fstate%2Findex.jsx&initialpath=state)
 
 
@@ -449,7 +518,7 @@ This component can be used in place of an `img` element.
 | `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Syntax is the same as for CSS position properties [`background-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) and [`object-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Only use this attribute if you need precise positionning: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | `center` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
-| `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
+| `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#twic-install) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `title` | `title` representing information related to the image. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
 | `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
@@ -505,7 +574,7 @@ This component can be used in place of a `video` element.
 | `posterFrom` | Determines which frame of the source video should be used as a poster / preview. `posterFrom` is expressed in seconds and must be a positive number. By default `posterFrom` is equal to 0, meaning the very first frame of the video is used. `posterFrom` will not modify the video in any way: to do so, you'll have to use the `duration`, `from` or `to` properties. | `String or number` | |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the video (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
-| `src` | Path to the video. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent video. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
+| `src` | Path to the video. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent video. When [env](#twic-install) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `title` | `title` representing information related to the video. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
 | `to` | Moves the end point of the video. `to` is expressed in seconds and must be a positive number. `to` will not move the starting point of the video: to do so, you'll have to use the `from` property. See [to documentation](https://www.twicpics.com/docs/reference/transformations#to). | `String or number` | |

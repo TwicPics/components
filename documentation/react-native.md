@@ -44,6 +44,8 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
+<div id="setting-up-your-project"/>
+
 ## Installation
 
 Add the `@twicpics/components` package to your project:

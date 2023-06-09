@@ -3,7 +3,7 @@
 
 
 
-- [Overview](#about)
+- [Overview](#overview)
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
@@ -60,6 +60,8 @@ __WARNING__: every single Shadow DOM the TwicPics components are descendants of 
 <a href="https://codesandbox.io/s/web-component-basic-19j1fm?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit web-component - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
+
+<div id="setting-up-your-project"/>
 
 ## Installation
 

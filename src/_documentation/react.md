@@ -47,7 +47,7 @@ installTwicpics( {
 } );
 ```
 
-into the app startup of your `React` project.
+into the entry point file your `React` project.
 
 #### index.jsx (React 16+)
 

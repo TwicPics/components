@@ -2,6 +2,8 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Next.js"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://nextjs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "next"
+// /(\b)setup-options(\b)/gm => "twic-install"
+// /(\b)Setup Options(\b)/gm => "TwicInstall"
 #include "src/_documentation/common/react/_replacerRules.md"
 
 #include "src/_documentation/common/_cover.md"
@@ -26,29 +28,85 @@ If you only want to use the **Next.js loader**, skip to [Next.js Image Loader](#
 
 #include "src/_documentation/common/_requirement.md"
 
-This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
+Configuration of `TwicPics Components` depends on the setup of your application, whether you are using [Next Pages Router](#page-router) or [Next App Router](#app-router).
 
+<div id='page-router'/>
 
-```js
-// _app.js
+#### Using Next Pages Router
 
-import { installTwicpics } from "@twicpics/components/react";
+```tsx
+// pages/_app.tsx
+...
+import { TwicInstall } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 
-installTwicpics({
-  domain: "https://<your-domain>.twic.pics"
-});
-
-export default function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    // your app code
-  )
+    <>
+      { /* TwicPics Components configuration (see TwicInstall) */ }
+      <TwicInstall
+        // domain is mandatory
+        domain='https://demo.twic.pics'
+      />
+      <Component {...pageProps} />
+    </>
+  );
 }
 ```
 
-__WARNING__: Updating the configuration passed to `installTwicpics()` method in watch mode (i.e. when running `next dev`) will lead to a `install function called multiple times` warning in the browser console. You will need to manually reload the page to apply the new configuration.
+<div id='app-router'/>
 
-#include "src/_documentation/common/_setupOptions.md"
+#### Using Next App Router (Next 13+)
+
+```tsx
+// app/layout.tsx
+import { TwicInstall } from "@twicpics/components/react";
+import "@twicpics/components/style.css";
+
+export default function RootLayout( { children }: {
+  children: React.ReactNode
+} ) {
+  return (
+    <html lang="en">
+      { /* TwicPics Components configuration (see TwicInstall) */ }
+      <TwicInstall
+        // domain is mandatory
+        domain="https://<your-domain>.twic.pics"
+      />
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+<div id='twic-install'/>
+
+### TwicInstall
+
+This component configures `TwicPics Components` and must be placed in your project's entry point file.
+
+```html
+<TwicInstall
+  domain="<String>"
+  anticipation="<Number>"
+  class="<String>"
+  env="<debug|offline|production>"
+  handleShadowDom="<boolean>"
+  maxDPR="<Number>"
+  path="<String>"
+  step="<integer>"
+/>
+```
+
+| Option | Description | Type | Default |
+|:-|:-|:-|:-|
+| `anticipation` | [TwicPics](https://www.twicpics.com/) will lazy-load images by default. To avoid too abrupt a transition with elements appearing into view and then images very obviously loading afterwards, [TwicPics](https://www.twicpics.com/) will "anticipate" lazy loading by a factor of the actual viewport. This behavior is controlled by this setting. | `Number` | `0.2` |
+| `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths). Providing it is __mandatory__. | `String` | |
+| `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
+| `handleShadowDom` | Must be set to `true` when using TwicComponents within a shadow DOM. | `boolean` | `false` |
+| `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
+| `path` | Path to prepend to all src attributes. For instance, if path is `"some/folder"` then a src attribute set to `"image.jpg"` will be expanded into `"some/folder/image.jpg"` | `String` | |
+| `step` | To avoid requesting too may variants of the same image, [TwicPics](https://www.twicpics.com/) will round the width of images to the closest multiple of step. The height will then be computed in order to respect the original aspect ratio. | `Integer` | `10` |
 
 <div id='usage'/>
 
@@ -56,10 +114,9 @@ __WARNING__: Updating the configuration passed to `installTwicpics()` method in 
 
 ### Basic Usage
 
-```jsx
-// MyComponent.jsx
+```tsx
+// MyComponent.tsx
 
-import React from "react";
 import { TwicImg } from "@twicpics/components/react";
 
 const YourTemplate = () => (

@@ -3,7 +3,7 @@
 
 
 
-- [Overview](#about)
+- [Overview](#overview)
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
@@ -59,6 +59,8 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 Discover our demonstrations and integration examples [in our online demo project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 TwicPics Components are available in Angular __version 11 to 16_.
+
+<div id="setting-up-your-project"/>
 
 ## Installation
 

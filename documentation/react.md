@@ -3,7 +3,7 @@
 
 
 
-- [Overview](#about)
+- [Overview](#overview)
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
@@ -58,6 +58,8 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 
 Discover our demonstrations and integration examples [in our online demo project](https://twicpics-react-demo.netlify.app/).
 
+<div id="setting-up-your-project"/>
+
 ## Installation
 
 Add the `@twicpics/components` package to your project:
@@ -101,7 +103,7 @@ installTwicpics( {
 } );
 ```
 
-into the app startup of your `React` project.
+into the entry point file your `React` project.
 
 #### index.jsx (React 16+)
 
@@ -413,6 +415,30 @@ Here are the values the Component will emit ([see State Type definition](#state-
 
 ```js
   // component.jsx
+  const [ state, setState ] = useState( undefined );
+  
+  const handleStateChange = ( stateEvent ) => {
+    // Implement the logic here
+    const { state } = stateEvent;
+    console.log( `TwicComponent emits a new state`, state );
+    setState( state );
+  }
+
+  return (
+    <TwicImg
+      onStateChange={handleStateChange}
+      src="path/to/your/image"
+    />
+  )
+```
+
+__WARNING__: when using `onStateChange` in a **Server Components module graph**, your component must be decorated with [use client directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive), as in
+
+```js
+  'use client'
+  
+  // your imports
+
   const [ state, setState ] = useState( undefined );
   
   const handleStateChange = ( stateEvent ) => {

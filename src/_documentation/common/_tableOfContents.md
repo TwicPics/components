@@ -1,4 +1,4 @@
-- [Overview](#about)
+- [Overview](#overview)
     - [What is TwicPics ?](#what-is-twicpics)
     - [What is TwicPics Components ?](#what-is-twicpics-components)
 - [Installation](#installation)
