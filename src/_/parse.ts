@@ -3,7 +3,7 @@ import { config } from "./config";
 import type { AnchorObject, Environment, Mode, Placeholder, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
-import { rValidEnvironment, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio, rValidZoom } from "./validate";
+import { rValidDomain, rValidEnvironment, rValidIntrinsic, rValidMode, rValidPath, rValidPlaceholder, rValidRatio, rValidZoom } from "./validate";
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const rMedia = /^((image|media|video):)?\/*/;
@@ -72,7 +72,10 @@ export const parseClassName = trimOrUndefined;
 
 export const parseDebug = parseBoolean;
 
-export const parseDomain = trimOrUndefined;
+export const parseDomain = ( value: string ) => {
+    const domain = trimOrUndefined( value );
+    return rValidDomain.test( domain ) ? domain.replace( rValidDomain, `$1` ) : undefined;
+};
 
 export const parseDuration = parseNumber;
 
@@ -111,7 +114,10 @@ export const parseMediaTag = ( value: string ): string => {
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
-export const parsePath = trimOrUndefined;
+export const parsePath = ( value: string ): string => {
+    const path = trimOrUndefined( value );
+    return path ? path.replace( rValidPath, `$1/` ) : ``;
+};
 
 export const parsePlaceholder = ( placeholder: Placeholder ) : Placeholder => {
     if ( ( config.env === `offline` ) || ( placeholder === `none` ) ) {
@@ -164,6 +170,8 @@ export const parseSrc = ( value: string ): string => {
 
 export const parseTo = parseNumber;
 
+export const parseTitle = ( value: string ): string => value && value.trim();
+
 const mappingTransition: { [ key: string ]: Transition; } = {
     "true": `fade`,
     "false": `none`,
@@ -171,9 +179,6 @@ const mappingTransition: { [ key: string ]: Transition; } = {
     "zoom": `zoom`,
     "none": `none`,
 };
-
-export const parseTitle = ( value: string ): string => value && value.trim();
-
 export const parseTransition = ( value: boolean | string ): Record< string, boolean > => {
 
     if ( typeof value !== `boolean` ) {
@@ -197,7 +202,6 @@ export const parseTransitionDuration = trimOrUndefined;
 
 // eslint-disable-next-line id-length
 export const parseTransitionTimingFunction = trimOrUndefined;
-
 export const parseZoom = ( value: number | string ): boolean | number => {
     if ( typeof value === `string` ) {
         const parsed = rValidZoom.exec( value );

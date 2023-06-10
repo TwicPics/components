@@ -1,40 +1,10 @@
-import type { Options } from "./types";
-import { createElement } from "./dom";
-import { isBrowser, isReactNative, logWarning, noop, throwError } from "./utils";
-import { rInvalidPath, rValidDomain, rValidEnvironment, rValidPath } from "./validate";
+import { config, configBasedStyle, setConfig } from "./config";
 import { VERSION } from "./const";
-import { config, configBasedStyle, getDataAttributeName } from "./config";
-
-const handleShadowDomFactory = ( attributeName: string ) => {
-    const marked = new WeakSet();
-    return ( item: Element ): void => {
-        while ( item && !marked.has( item ) ) {
-            marked.add( item );
-            const { parentNode } = item;
-            const isHost = !parentNode && ( item instanceof ShadowRoot );
-            if ( isHost ) {
-                if ( ( item as unknown as ShadowRoot ).mode === `closed` ) {
-                    throw new Error( `cannot use TwicPics components in closed ShadowRoot` );
-                }
-                createElement( {
-                    "element": item as unknown as ShadowRoot,
-                    "value": {
-                        "elementName": `style`,
-                        "value": `*STYLE*${ configBasedStyle() }`,
-                    },
-                } );
-                // eslint-disable-next-line no-param-reassign
-                item = ( item as unknown as ShadowRoot ).host;
-                if ( item ) {
-                    item.setAttribute( attributeName, `` );
-                }
-            } else {
-                // eslint-disable-next-line no-param-reassign
-                item = ( parentNode as Element );
-            }
-        }
-    };
-};
+import { createElement } from "./dom";
+import { parseDomain, parseEnv, parsePath } from "./parse";
+import type { Options } from "./types";
+import { isBrowser, isReactNative, throwError } from "./utils";
+import { rInvalidPath, rValidDomain, rValidEnvironment } from "./validate";
 
 const parametersMap = [
     [ `anticipation`, `anticipation` ],
@@ -42,41 +12,7 @@ const parametersMap = [
     [ `maxDPR`, `max-dpr` ],
     [ `step`, `step` ],
 ];
-export default ( options: Options ): void => {
-
-    if ( !options ) {
-        throwError( `install options not provided` );
-    }
-
-    const { debug, domain, "class": _class, env, handleShadowDom, path } = options;
-    if ( !domain || !rValidDomain.test( domain ) ) {
-        throwError( `install domain "${ domain }" is invalid` );
-    }
-    if ( path && rInvalidPath.test( path ) ) {
-        throwError( `install path "${ path }" is invalid` );
-    }
-    if ( env && !rValidEnvironment.test( env ) ) {
-        throwError( `install env "${ env }" is invalid` );
-    }
-
-    config.class = _class || config.class;
-    config.domain = domain.replace( rValidDomain, `$1` );
-    config.env = debug ? `debug` : env;
-    config.path = path ? path.replace( rValidPath, `$1/` ) : ``;
-    config.handleShadowDom =
-        ( handleShadowDom && isBrowser && !isReactNative ) ?
-            handleShadowDomFactory( getDataAttributeName( `component` ) ) :
-            noop;
-
-    if ( isReactNative ) {
-        const { maxDPR, step } = options;
-        config.debug = debug;
-        config.maxDPR = maxDPR;
-        config.step = step;
-    }
-
-    console.log( options );
-
+export const registerScript = ( options: Options ): void => {
     if ( isBrowser && !isReactNative ) {
         const parts = [ `${ config.domain }/?${ VERSION }` ];
         parametersMap.forEach( p => {
@@ -95,7 +31,7 @@ export default ( options: Options ): void => {
                 {
                     "attributes": {
                         "rel": `preconnect`,
-                        "href": domain,
+                        "href": config.domain,
                     },
                     "elementName": `link`,
                 },
@@ -114,4 +50,29 @@ export default ( options: Options ): void => {
             ],
         } );
     }
+};
+
+export default ( options: Options ): void => {
+    if ( !options ) {
+        throwError( `install options not provided` );
+    }
+    const { domain, env, path } = options;
+    if ( !domain || !rValidDomain.test( domain ) ) {
+        throwError( `install domain "${ domain }" is invalid` );
+    }
+    if ( path && rInvalidPath.test( path ) ) {
+        throwError( `install path "${ path }" is invalid` );
+    }
+    if ( env && !rValidEnvironment.test( env ) ) {
+        throwError( `install env "${ env }" is invalid` );
+    }
+    setConfig( {
+        ...options,
+        ...{
+            "domain": parseDomain( domain ),
+            "env": parseEnv( env ),
+            "path": parsePath( path ),
+        },
+    } );
+    registerScript( options );
 };

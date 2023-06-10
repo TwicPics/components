@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { default as installTwicPics } from "../_/install";
+import { registerScript } from "../_/install";
 import {
     parseAnticipation,
     parseClass,
@@ -13,8 +13,9 @@ import {
     parseStep,
 } from "../_/parse";
 import type { Environment } from "../_/types";
-import { validEnvironment } from "../_/validate";
-import { number } from "./props";
+import { rValidDomain, validEnvironment } from "../_/validate";
+import { propTypeRegExpFactory, number } from "./props";
+import { setConfig } from "../_/config";
 
 interface InstallAttributes {
     anticipation?: number | string,
@@ -29,19 +30,22 @@ interface InstallAttributes {
 }
 
 const TwicInstall: React.FC< InstallAttributes > = props => {
+
+    const options = {
+        "anticipation": parseAnticipation( props.anticipation ),
+        "class": parseClass( props.class ),
+        "debug": parseDebug( props.debug ),
+        "domain": parseDomain( props.domain ),
+        "env": parseEnv( props.env ),
+        "handleShadowDom": parseHandleShadowDom( props.handleShadowDom ),
+        "maxDPR": parseMaxDrp( props.maxDPR ),
+        "path": parsePath( props.path ),
+        "step": parseStep( props.step ),
+    };
+    setConfig( options );
     useEffect(
         () => {
-            installTwicPics( {
-                "anticipation": parseAnticipation( props.anticipation ),
-                "class": parseClass( props.class ),
-                "debug": parseDebug( props.debug ),
-                "domain": parseDomain( props.domain ),
-                "env": parseEnv( props.env ),
-                "handleShadowDom": parseHandleShadowDom( props.handleShadowDom ),
-                "maxDPR": parseMaxDrp( props.maxDPR ),
-                "path": parsePath( props.path ),
-                "step": parseStep( props.step ),
-            } );
+            registerScript( options );
         },
         []
     );
@@ -54,7 +58,7 @@ TwicInstall.propTypes = {
     "anticipation": number,
     "class": PropTypes.string,
     "debug": PropTypes.bool,
-    "domain": PropTypes.string,
+    "domain": propTypeRegExpFactory( rValidDomain ),
     "env": PropTypes.oneOf< Environment >( validEnvironment ),
     "handleShadowDom": PropTypes.bool,
     "maxDPR": number,

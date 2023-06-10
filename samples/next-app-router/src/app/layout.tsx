@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-undef */
@@ -13,14 +12,12 @@ export default function RootLayout( { children }: {
 
     return (
         <html lang="en">
-            { /* TwicPics Components configuration (see TwicInstall) */ }
             <TwicInstall
-                // domain is mandatory
                 domain="https://demo.twic.pics"
                 anticipation="0.50"
                 step="100"
                 env="production"
-            />
+            ></TwicInstall>
             <body>
                 {children}
             </body>
