@@ -3,7 +3,16 @@ import { config } from "./config";
 import type { AnchorObject, Environment, Mode, Placeholder, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
-import { rValidDomain, rValidEnvironment, rValidIntrinsic, rValidMode, rValidPath, rValidPlaceholder, rValidRatio, rValidZoom } from "./validate";
+import {
+    rValidDomain,
+    rValidEnvironment,
+    rValidIntrinsic,
+    rValidMode,
+    rValidPath,
+    rValidPlaceholder,
+    rValidRatio,
+    rValidZoom,
+} from "./validate";
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const rMedia = /^((image|media|video):)?\/*/;

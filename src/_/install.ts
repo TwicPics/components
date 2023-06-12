@@ -51,7 +51,6 @@ export const registerScript = ( options: Options ): void => {
         } );
     }
 };
-
 export default ( options: Options ): void => {
     if ( !options ) {
         throwError( `install options not provided` );

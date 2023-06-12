@@ -30,7 +30,6 @@ interface InstallAttributes {
 }
 
 const TwicInstall: React.FC< InstallAttributes > = props => {
-
     const options = {
         "anticipation": parseAnticipation( props.anticipation ),
         "class": parseClass( props.class ),
