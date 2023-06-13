@@ -1,5 +1,3 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable capitalized-comments */
 /// <reference types="next" />
 /// <reference types="next/image-types/global" />
 
