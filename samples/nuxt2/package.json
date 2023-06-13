@@ -4,6 +4,9 @@
         "@twicpics/components-sample": "file:../_",
         "nuxt": "2.15.8"
     },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "7.21.11"
+    },
     "scripts": {
         "build": "$npm_execpath install && nuxt build",
         "start": "$npm_execpath install && nuxt build && nuxt start",
