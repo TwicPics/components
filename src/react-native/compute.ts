@@ -1,4 +1,4 @@
-import { Animated, Easing, PixelRatio, Platform, type EasingFunction } from 'react-native';
+import { Animated, Easing, PixelRatio, type EasingFunction, Platform } from 'react-native';
 export * from "../_/compute";
 import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
@@ -15,7 +15,7 @@ const actualSize = ( step: number, lqip: boolean, viewSize: SizeObject ): SizeOb
     const pixelRatio = Math.min( Math.max( 1, PixelRatio.get() ), config.maxDPR );
     let _actualWidth = actualWidth( viewSize.width * pixelRatio );
     let _actualHeight = viewSize.ratio ? _actualWidth * viewSize.ratio : viewSize.height * pixelRatio;
-    if ( config.debug ) {
+    if ( config.env === `debug` ) {
         // eslint-disable-next-line no-console
         console.debug( `size and pixelRatio`, viewSize, pixelRatio, {
             _actualWidth,
@@ -53,20 +53,20 @@ const computeUrl = (
     if ( lqip && /^placeholder:.*$/.test( src ) ) {
         return undefined;
     }
-    const { debug, domain } = config;
+    const { domain, env } = config;
     const { width, height } = actualSize( step, lqip, viewSize );
     return createUrl(
         {
-            "debug": debug && ( Platform.OS === `web` ),
             domain,
             src,
-            "transform": `${ computePreTransform(
+            "transform": `${ computePreTransform( {
                 anchor,
+                "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
                 focus,
                 mode,
                 preTransform,
-                false
-            ) }${ mappingMode[ mode ] }=${ width }x${ height }`,
+            } ) }
+            ${ mappingMode[ mode ] }=${ width }x${ height }`,
             "output": lqip ? placeholder : ``,
         }
     );

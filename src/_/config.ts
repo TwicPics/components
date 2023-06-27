@@ -3,7 +3,6 @@ import type { Config, Options } from "./types";
 import { isBrowser, isReactNative, noop } from "./utils";
 
 const defaultConfig: Config = {
-    "debug": false,
     "class": `twic`,
     "domain": undefined,
     "env": `production`,
@@ -76,7 +75,6 @@ export const setConfig = ( options: Options ): void => {
         noop;
     if ( isReactNative ) {
         const { maxDPR, step } = options;
-        config.debug = debug;
         config.maxDPR = maxDPR;
         config.step = step;
     }

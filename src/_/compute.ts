@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { AnchorObject, Mode, Placeholder, PlaceholderData, VideoOptions } from "./types";
+import type { AnchorObject, Mode, Placeholder, PlaceholderData, PreTransformData, VideoOptions } from "./types";
 
 import { config, getDataAttributeName } from "./config";
 import { cssWithoutPx } from "./dom";
@@ -12,20 +12,19 @@ const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string )
     ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
 
 export const computePreTransform = (
-    { x, y }: AnchorObject,
-    focus: string,
-    mode: Mode,
-    preTransform: string,
-    withDebug = false
+    { anchor, debug, focus, mode, preTransform, videoTransform }: PreTransformData
 ): string => {
+    const { x, y } = anchor;
     const actualFocus = ( mode !== `contain` ) && ( focus || ( y ? ( x ? `${ y }-${ x }` : y ) : x ) );
     return `${
-        withDebug ? `debug/` : ``
-    }${
-        preTransform || ``
-    }${
-        actualFocus ? `focus=${ actualFocus }/` : ``
-    }`;
+        debug ? `debug/` : ``
+      }${
+          preTransform || ``
+      }${
+          actualFocus ? `focus=${ actualFocus }/` : ``
+      }${
+          videoTransform || ``
+      }`;
 };
 
 /* eslint-disable dot-notation */
@@ -78,9 +77,17 @@ export const computeData = (
 ): Record< string, string > => {
     const attributes: Record< string, string > = {};
     const { videoTransform, posterTransform } = videoOptions || {};
-    const actualPreTransform = computePreTransform( anchor, focus, mode, preTransform, config.env === `debug` );
-    if ( actualPreTransform || videoTransform ) {
-        attributes[ getDataAttributeName( `transform` ) ] = `${
+    const actualPreTransform = computePreTransform( {
+        anchor,
+        "debug": config.env === `debug`,
+        focus,
+        mode,
+        preTransform,
+        videoTransform,
+    } );
+    if ( actualPreTransform ) {
+        attributes[ getDataAttributeName( `transform` ) ] = `
+        ${
             actualPreTransform
         }${
             videoTransform || ``
@@ -106,7 +113,8 @@ export const computeData = (
     }
     if ( src && ( mediaTag === `video` ) ) {
         attributes[ getDataAttributeName( `poster` ) ] = src;
-        attributes[ getDataAttributeName( `poster-transform` ) ] = `${
+        attributes[ getDataAttributeName( `poster-transform` ) ] = `
+        ${
             actualPreTransform
         }${
             posterTransform || ``
@@ -223,10 +231,14 @@ export const computePlaceholderBackground = (
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
 
-    const transform = `${
-        videoOptions ? videoOptions.videoTransform : ``
-    }${
-        computePreTransform( anchor, focus, mode, preTransform )
+    const { videoTransform } = videoOptions || {};
+    const transform = `${ computePreTransform( {
+        anchor,
+        focus,
+        mode,
+        preTransform,
+        videoTransform,
+    } )
     }${
         actualMode
     }=${

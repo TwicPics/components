@@ -37,7 +37,6 @@ export interface Attributes {
 }
 
 export interface Config {
-    debug: boolean,
     class: string,
     domain: string,
     env: Environment,
@@ -48,7 +47,6 @@ export interface Config {
 }
 
 export interface CreateUrlData {
-    debug?: boolean,
     domain: string,
     output?: string,
     quality?: number,
@@ -66,6 +64,15 @@ export interface Options {
     maxDPR?: number,
     path?: string,
     step?: number,
+}
+
+export interface PreTransformData {
+    anchor?: AnchorObject,
+    debug?: boolean,
+    focus?: string,
+    mode?: Mode,
+    preTransform?: string,
+    videoTransform?: string
 }
 export interface PlaceholderData {
     anchor: AnchorObject,

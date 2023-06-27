@@ -17,13 +17,12 @@ export const urlInfos = ( src: string, domain = `` ) => {
 };
 
 export const createUrl = (
-    { debug, domain, output, quality, src, transform }: CreateUrlData
+    { domain, output, quality, src, transform }: CreateUrlData
 ): string => {
     const { isAbsolute } = urlInfos( src, domain );
     const path = isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
     const parsed = rPath.exec( path );
     const isMedia = parsed && parsed[ MEDIA ];
-    const actualDebug = debug ? `/debug` : ``;
     const actualOutput = output ? `/output=${ output }` : ``;
     const actualPath = isMedia ? parsed[ FULL_PATH ] : path;
     const actualQuality = quality ? `/quality=${ quality }` : ``;
@@ -35,8 +34,6 @@ export const createUrl = (
         // old syntax
         `${
             VERSION
-        }${
-            actualDebug
         }${
             actualTransform
         }${
@@ -53,8 +50,6 @@ export const createUrl = (
             parsed && parsed[ QUERY ] ? `&` : `?`
         }twic=${
             VERSION
-        }${
-            actualDebug
         }${
             actualTransform
         }${
