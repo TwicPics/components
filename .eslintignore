@@ -2,7 +2,8 @@
 /samples/**/.next
 /samples/**/.nuxt
 /samples/**/build
-/samples/next/out
+/samples/next-app-router
+/samples/next-page-router
 /samples/gatsby/public
 /samples/sveltekit
 /samples/**/polyfills.ts
