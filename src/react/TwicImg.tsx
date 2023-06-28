@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { parseClassName, parseZoom } from "../_/parse";
+import { number } from "./props";
 import TwicMedia from "./TwicMedia";
+import type { BaseAttributes } from "./types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { number } from "./props";
-import type { BaseAttributes } from "./types";
+import { parseClassName, parseZoom } from "../_/parse";
 
 interface ImgAttributes extends BaseAttributes {
+    refit?: boolean | string,
     zoom?: number | string,
 }
 
@@ -30,15 +31,24 @@ const TwicImg: React.FC< ImgAttributes > = props => {
             style={ computeMagnifierStyle( zoom ) }
         >
             { zoom && (
-                <TwicMedia { ...props } className="twic-m" mediaTag="div" mode="cover" />
+                <TwicMedia
+                    { ...props }
+                    className="twic-m"
+                    mediaTag="div"
+                    mode="cover"
+                />
             ) }
-            <TwicMedia { ...props } className="" mediaTag="img" />
+            <TwicMedia
+                { ...props }
+                className=""
+                mediaTag="img"
+            />
         </div>
     );
 };
 
 TwicImg.propTypes = {
-    "className": PropTypes.string,
+    "refit": PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
     "zoom": number,
 };
 export default TwicImg;

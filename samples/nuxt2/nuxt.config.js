@@ -22,7 +22,7 @@ export default {
         "transpile": [ `@twicpics/components-sample` ],
     },
     "twicpics": {
-        "domain": `https://demo.twic.pics`,
+        "domain": `https://demo.twic.it`,
         "anticipation": 0.5,
         "step": 50,
         "env": `production`,

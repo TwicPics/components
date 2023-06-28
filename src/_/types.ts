@@ -72,6 +72,7 @@ export interface PreTransformData {
     focus?: string,
     mode?: Mode,
     preTransform?: string,
+    refit?: Refit,
     videoTransform?: string
 }
 export interface PlaceholderData {
@@ -81,12 +82,20 @@ export interface PlaceholderData {
     placeholder: Placeholder,
     preTransform: string,
     ratio: number,
+    refit?: Refit,
     src: string,
     transitions: Record< string, boolean >,
     videoOptions?: VideoOptions
 }
+
+export interface Refit {
+  height?: number,
+  padding: string,
+  width?: number,
+}
+
 export interface VideoOptions {
-    videoTransform: string | undefined,
-    posterTransform: string | undefined,
+    videoTransform?: string,
+    posterTransform?: string,
 }
 

@@ -13,7 +13,7 @@ export default function RootLayout( { children }: {
     return (
         <html lang="en">
             <TwicInstall
-                domain="https://demo.twic.pics"
+                domain="https://demo.twic.it"
                 anticipation="0.50"
                 step="100"
                 env="production"

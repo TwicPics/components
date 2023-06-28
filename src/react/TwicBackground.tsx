@@ -25,7 +25,6 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
 };
 
 TwicBackground.propTypes = {
-    "className": PropTypes.string,
     "mediaTag": PropTypes.string,
 };
 

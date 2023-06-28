@@ -18,7 +18,7 @@ import type {
     OnDestroy,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
+import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions, Refit } from "../_/types";
 
 import {
     computeAlt,
@@ -35,6 +35,7 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
+    parseClassName,
     parseFocus,
     parseIntrinsic,
     parseMediaTag,
@@ -44,6 +45,7 @@ import {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseRefit,
     parseSrc,
     parseStep,
     parseTransition,
@@ -51,7 +53,6 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
     parseTitle,
-    parseClassName,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 
@@ -89,10 +90,11 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
     @Input() title: string = undefined;
-    @Input() transition:boolean | string;
+    @Input() transition: boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
@@ -118,6 +120,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _position: string = undefined;
     _preTransform: string = undefined;
     _ratio: number = undefined;
+    _refit: Refit = undefined;
     _src: string;
     _step: number = undefined;
     _title: string = undefined;
@@ -155,7 +158,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.observer.setMedia( this._media );
         this.updateMedia();
     }
-    ngOnChanges( ): void {
+    ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
         this._anchor = parseAnchor( this.anchor );
         this._bot = parseBot( this.bot );
@@ -169,6 +172,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._position = parsePosition( this.position );
         this._preTransform = parsePreTransform( this.preTransform );
         this._ratio = parseRatio( this.ratio );
+        this._refit = parseRefit( this.refit );
         this._src = parseSrc( this.src );
         this._step = parseStep( this.step );
         this._title = parseTitle( this.title );
@@ -188,6 +192,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this._mediaTag,
                 this._mode,
                 this._preTransform,
+                this._refit,
                 this._src,
                 this._step,
                 this.videoOptions
@@ -210,6 +215,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
             this._position,
             this._preTransform,
             this._ratio,
+            this._refit,
             this._src,
             this._transition,
             this._transitionDelay,

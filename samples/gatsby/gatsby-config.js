@@ -20,7 +20,7 @@ module.exports = {
             "resolve": `@twicpics/components/gatsby`,
             "options": {
                 "twicpics": {
-                    "domain": `https://demo.twic.pics`,
+                    "domain": `https://demo.twic.it`,
                     "anticipation": 0.5,
                     "step": 100,
                     "env": `production`,

@@ -34,6 +34,7 @@ import initMagnifier from "../_/magnifier";
             [position]="position"
             [preTransform]="preTransform"
             [ratio]="ratio"
+            [refit]="refit"
             [src]="src"
             [step]="step"
             [title]="title"
@@ -56,6 +57,7 @@ import initMagnifier from "../_/magnifier";
             [position]="position"
             [preTransform]="preTransform"
             [ratio]="ratio"
+            [refit]="refit"
             [src]="src"
             [step]="step"
             [title]="title"
@@ -86,6 +88,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
     @Input() title: string = undefined;

@@ -47,7 +47,7 @@ export default {
     // modules: https://go.nuxtjs.dev/config-modules
     "modules": [ `@twicpics/components/nuxt2` ],
     "twicpics": {
-        "domain": `https://demo.twic.pics`,
+        "domain": `https://demo.twic.it`,
         "anticipation": 0.5,
         "step": 50,
     },

@@ -48,7 +48,7 @@ const mappingMode: { [key: string]: string; } = {
 
 const computeUrl = (
     // eslint-disable-next-line no-shadow
-    { anchor, focus, lqip = false, mode, placeholder, preTransform, src, step, viewSize }: UrlData
+    { anchor, focus, lqip = false, mode, placeholder, preTransform, refit, src, step, viewSize }: UrlData
 ) => {
     if ( lqip && /^placeholder:.*$/.test( src ) ) {
         return undefined;
@@ -59,14 +59,24 @@ const computeUrl = (
         {
             domain,
             src,
-            "transform": `${ computePreTransform( {
-                anchor,
-                "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
-                focus,
-                mode,
-                preTransform,
-            } ) }
-            ${ mappingMode[ mode ] }=${ width }x${ height }`,
+            "transform": `${
+              computePreTransform( {
+                  anchor,
+                  "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
+                  focus,
+                  mode,
+                  preTransform,
+                  "refit": refit && {
+                      ...refit,
+                      ...{
+                          height,
+                          width,
+                      },
+                  },
+              } )
+            }${
+              mappingMode[ mode ]
+            }=${ width }x${ height }`,
             "output": lqip ? placeholder : ``,
         }
     );

@@ -767,6 +767,168 @@ Test"
             <span>ratio="5:4"</span>
         </div>
     </div>
+    <h2>Refit (mode="contain")</h2>
+    <div class="samples">
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              refit
+              zoom="2"
+            >
+          </TwicImg>
+          <span>refit</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              refit
+              anchor="left"
+          >
+          </TwicImg>
+          <span>refit + anchor="left"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              refit="5p"
+              position="left"
+          >
+          </TwicImg>
+          <span>refit="5p" + position="left"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              refit="10,(5/100)s"
+          >
+          </TwicImg>
+          <span>refit="10,(5/100)s"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+                src="football.jpg"
+                mode="contain"
+                ratio="16/9"
+                refit
+            >
+          </TwicImg>
+          <span>refit + ratio="16/9"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              refit="5p"
+              ratio="3/4"
+          >
+          </TwicImg>
+          <span>refit="5p" ratio="3/4"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              anchor="right"
+              refit
+              preTransform="flip=x"
+          >
+          </TwicImg>
+          <span>refit + anchor="right" + flip=x</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              mode="contain"
+              anchor="left"
+              refit="2p"
+              preTransform="background=remove"
+          >
+          </TwicImg>
+          <span>refit="2p" + anchor="left" + background=remove</span>
+      </div>
+    </div>
+    <h2>Refit (mode="cover")</h2>
+    <div class="samples">
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              refit
+              zoom="2"
+            >
+          </TwicImg>
+          <span>refit</span>
+      </div>
+      <div class="item">
+          <TwicImg
+            src="football.jpg"
+            refit
+            anchor="left"
+          >
+          </TwicImg>
+          <span>refit + anchor="left"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+            src="football.jpg"
+            refit="5p"
+            anchor="left"
+          >
+          </TwicImg>
+          <span>refit="5p" + anchor="left"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+            src="football.jpg"
+            refit="10,(5/100)s"
+          >
+          </TwicImg>
+          <span>refit="10,(5/100)s"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+              src="football.jpg"
+              anchor="left"
+              ratio="3/4"
+              refit
+            >
+          </TwicImg>
+          <span>refit + ratio="3/4" + anchor="left"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+            src="football.jpg"
+            anchor="left"
+            ratio="3/4"
+            refit="5p"
+          >
+          </TwicImg>
+          <span>refit="5p" + ratio="3/4" + anchor="left"</span>
+      </div>
+      <div class="item">
+          <TwicImg
+            src="football.jpg"
+            anchor="right"
+            refit
+            preTransform="flip=x"
+          >
+          </TwicImg>
+          <span>refit + anchor="right" + flip=x</span>
+      </div>
+      <div class="item">
+          <TwicImg
+            src="football.jpg"
+            anchor="left"
+            refit="2p"
+            preTransform="background=remove"
+          >
+          </TwicImg>
+          <span>refit="2p" + anchor="left" + background=remove</span>
+      </div>
+    </div>
     <h2>Style Driven - Classical & contain</h2>
     <div class="samples">
         <div class="item">
@@ -1243,6 +1405,7 @@ Test"
         </div>
         <div class="item">
             <TwicVideo
+                refit="15p"
                 src="video/skater.mp4"
                 intrinsic="1280x720"
                 duration="2"

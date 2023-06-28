@@ -1,7 +1,15 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-nested-ternary */
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
-import type { AnchorObject, Mode, Placeholder, PlaceholderData, PreTransformData, VideoOptions } from "./types";
+import type {
+    AnchorObject,
+    Mode,
+    Placeholder,
+    PlaceholderData,
+    PreTransformData,
+    Refit,
+    VideoOptions,
+} from "./types";
 
 import { config, getDataAttributeName } from "./config";
 import { cssWithoutPx } from "./dom";
@@ -12,19 +20,36 @@ const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string )
     ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
 
 export const computePreTransform = (
-    { anchor, debug, focus, mode, preTransform, videoTransform }: PreTransformData
+    { anchor, debug, focus, mode, preTransform, refit, videoTransform }: PreTransformData
 ): string => {
     const { x, y } = anchor;
-    const actualFocus = ( mode !== `contain` ) && ( focus || ( y ? ( x ? `${ y }-${ x }` : y ) : x ) );
+    const actualAnchor = y ? ( x ? `${ y }-${ x }` : y ) : x;
+    const actualFocus = ( mode !== `contain` ) && ( focus || actualAnchor );
+    const actualRefit = refit &&
+        `${
+            mode === `contain` ?
+            `auto` :
+            `${ refit.width || `W` }x${ refit.height || `H` }`
+        }${
+            refit.padding ?
+            `(${ refit.padding })` :
+            ``
+        }${
+            ( ( mode !== `contain` ) && actualAnchor ) ?
+            `@${ actualAnchor }` :
+            ``
+        }`;
     return `${
         debug ? `debug/` : ``
-      }${
-          preTransform || ``
-      }${
-          actualFocus ? `focus=${ actualFocus }/` : ``
-      }${
-          videoTransform || ``
-      }`;
+    }${
+        preTransform || ``
+    }${
+        actualFocus ? `focus=${ actualFocus }/` : ``
+    }${
+        videoTransform || ``
+    }${
+        actualRefit ? `refit=${ actualRefit }/` : ``
+    }`;
 };
 
 /* eslint-disable dot-notation */
@@ -71,6 +96,7 @@ export const computeData = (
     mediaTag: string,
     mode: Mode,
     preTransform: string,
+    refit: Refit,
     src: string,
     step: number,
     videoOptions: VideoOptions
@@ -83,16 +109,16 @@ export const computeData = (
         focus,
         mode,
         preTransform,
+        refit,
         videoTransform,
     } );
     if ( actualPreTransform ) {
-        attributes[ getDataAttributeName( `transform` ) ] = `
-        ${
+        attributes[ getDataAttributeName( `transform` ) ] = `${
             actualPreTransform
         }${
-            videoTransform || ``
-        }${
-            `*`
+            ( refit === undefined ) || ( refit && ( mode === `contain` ) ) ?
+            `*` :
+            ``
         }`;
     }
     if ( typeof bot === `string` ) {
@@ -137,6 +163,7 @@ export const computePlaceholderStyle = (
     position: string,
     preTransform: string,
     ratio: number,
+    refit: Refit,
     src: string,
     transitions: Record< string, boolean >,
     transitionDelay: string,
@@ -153,6 +180,7 @@ export const computePlaceholderStyle = (
         placeholder,
         preTransform,
         ratio,
+        refit,
         src,
         transitions,
         videoOptions,
@@ -207,7 +235,7 @@ const PLACEHOLDER_DIM = 1000;
 // eslint-disable-next-line id-length
 export const computePlaceholderBackground = (
     element: Element,
-    { anchor, focus, mode, placeholder, preTransform, src, ratio, transitions, videoOptions }: PlaceholderData
+    { anchor, focus, mode, placeholder, preTransform, src, ratio, refit, transitions, videoOptions }: PlaceholderData
 ): string => {
     if ( !placeholder || ( transitions.hasOwnProperty( `zoom` ) ) || !config.domain ) {
         return ``;
@@ -230,13 +258,19 @@ export const computePlaceholderBackground = (
     }
     height = Math.max( 1, Math.round( height ) );
     width = Math.max( 1, Math.round( width ) );
-
     const { videoTransform } = videoOptions || {};
     const transform = `${ computePreTransform( {
         anchor,
         focus,
         mode,
         preTransform,
+        "refit": refit && {
+            ...refit,
+            ...{
+                height,
+                width,
+            },
+        },
         videoTransform,
     } )
     }${
@@ -246,7 +280,6 @@ export const computePlaceholderBackground = (
     }x${
         height
     }`;
-
     return createUrl(
         {
             "domain": config.domain,

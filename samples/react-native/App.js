@@ -8,13 +8,14 @@ import Home from './pages/Home.js';
 import List from './pages/List.js';
 import Anchor from './pages/Anchor.js';
 import Ratio from './pages/Ratio.js';
+import Refit from './pages/Refit.js';
 import Mode from './pages/Mode.js';
 import Focus from './pages/Focus.js';
 import Transform from './pages/Transform.js';
 
 installTwicpics( {
     "debug": false,
-    "domain": `https://demo.twic.pics/`,
+    "domain": `https://demo.twic.it/`,
     "step": 20,
     "maxDPR": 3,
 } );
@@ -59,6 +60,12 @@ class App extends Component {
                     <Stack.Screen name="Ratio" component={Ratio} options={{
                         "title": `Ratio`,
                     }} />
+                    <Stack.Screen
+                        name="Refit"
+                        component={Refit}
+                        options={{
+                            "title": `Refit`,
+                        }} />
                     <Stack.Screen
                         name="Transform"
                         component={Transform}

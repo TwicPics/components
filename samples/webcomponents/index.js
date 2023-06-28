@@ -3,7 +3,7 @@ import { installTwicpics, TwicBackground, TwicImg, TwicVideo, TwicView } from "@
 installTwicpics( {
     "anticipation": 0.5,
     "env": `production`,
-    "domain": `https://demo.twic.pics`,
+    "domain": `https://demo.twic.it`,
     "handleShadowDom": true,
     "step": 100,
 } );

@@ -8,34 +8,50 @@ const configs = [
     {
         "mode": `cover`,
         "ratio": `1`,
-        "refit": `2p`,
+        "refit": undefined,
+        "anchor": undefined,
+    },
+    {
+        "mode": `cover`,
+        "ratio": `1`,
+        "refit": true,
+        "anchor": `left`,
+    },
+    {
+        "mode": `cover`,
+        "ratio": `1`,
+        "refit": `5p`,
+        "anchor": `left`,
+    },
+    {
+        "mode": `cover`,
+        "ratio": `1`,
+        "refit": `5p`,
+        "anchor": `right`,
+    },
+    {
+        "mode": `contain`,
+        "ratio": `1`,
+        "refit": undefined,
+        "anchor": undefined,
+    },
+    {
+        "mode": `contain`,
+        "ratio": `1`,
+        "refit": true,
         "anchor": `left`,
     },
     {
         "mode": `contain`,
         "ratio": `1`,
-        "refit": `2p`,
+        "refit": `5p`,
         "anchor": `left`,
     },
     {
         "mode": `contain`,
         "ratio": `1`,
-        "refit": `2p`,
+        "refit": `5p`,
         "anchor": `right`,
-    },
-    {
-        "mode": `contain`,
-        "preTransform": `flip=x`,
-        "ratio": `4/3`,
-        "refit": `2p`,
-        "anchor": `right`,
-    },
-    {
-        "mode": `contain`,
-        "preTransform": `flip=x/background=remove`,
-        "ratio": `4/3`,
-        "refit": `2p`,
-        "anchor": `center`,
     },
 ];
 
@@ -54,7 +70,7 @@ const Refit = () => {
                     <Button title="Change config" onPress={() => changeConfig()} />
                     <View style={styles.imgContainer}>
                         <TwicImg
-                            src="football.jpg"
+                            src="refit/bluewater-sweden-7EekldXjkw0-unsplash.jpg"
                             anchor={config.anchor}
                             mode={config.mode}
                             preTransform={config.preTransform}

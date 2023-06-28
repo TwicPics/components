@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { parseClassName, parseDuration, parseFrom, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import { number } from "./props";
@@ -20,13 +19,13 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const posterFrom = parseFrom( props.posterFrom );
     const to = parseTo( props.to );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
-
     return (
         <div className={ `twic-i ${ className }` }>
             <TwicMedia
                 { ...props }
                 className=""
                 mediaTag="video"
+                refit={ false }
                 videoOptions={ videoOptions }
             />
         </div>
@@ -34,7 +33,6 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
 };
 
 TwicVideo.propTypes = {
-    "className": PropTypes.string,
     "duration": number,
     "from": number,
     "posterFrom": number,

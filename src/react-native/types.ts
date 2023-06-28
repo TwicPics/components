@@ -1,5 +1,5 @@
 import type { EasingFunction } from "react-native";
-import type { AnchorObject, Mode, Placeholder } from "../_/types";
+import type { AnchorObject, Mode, Placeholder, Refit } from "../_/types";
 
 export interface Attributes {
     alt?: string,
@@ -9,6 +9,7 @@ export interface Attributes {
     placeholder?: Placeholder,
     preTransform?: string,
     ratio?: number | string,
+    refit: boolean | string,
     step?: number | string,
     style?: Record< string, string | number >,
     src: string,
@@ -53,6 +54,7 @@ export interface UrlData {
     mode: Mode,
     placeholder: Placeholder,
     preTransform: string,
+    refit?: Refit,
     src: string,
     step: number,
     viewSize: SizeObject
