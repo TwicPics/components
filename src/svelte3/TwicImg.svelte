@@ -31,6 +31,7 @@ export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
@@ -57,6 +58,7 @@ $: props = {
     position,
     preTransform,
     ratio,
+    refit,
     src,
     step,
     title,

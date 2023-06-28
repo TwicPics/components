@@ -31,6 +31,7 @@ import {
     parseTransitionTimingFunction,
     parseMediaTag,
     parseClassName,
+    parseRefit,
 } from "../_/parse";
 import type {
     Anchor,
@@ -46,6 +47,7 @@ import type { BaseAttributes } from "./types";
 
 export interface MediaAttributes extends BaseAttributes {
     mediaTag: string,
+    refit?: boolean | string,
     videoOptions?: VideoOptions,
 }
 
@@ -82,6 +84,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const position = parsePosition( props.position );
     const preTransform = parsePreTransform( props.preTransform );
     const ratio = parseRatio( props.ratio );
+    const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const step = parseStep( props.step );
     const title = parseTitle( props.title );
@@ -118,6 +121,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                     MediaTag,
                     mode,
                     preTransform,
+                    refit,
                     src,
                     step,
                     videoOptions
@@ -134,6 +138,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                             position,
                             preTransform,
                             ratio,
+                            refit,
                             src,
                             transition,
                             transitionDelay,

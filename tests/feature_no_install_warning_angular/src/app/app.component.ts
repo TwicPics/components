@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 /*
 import { installTwicPics } from '@twicpics/components/angular13';
 installTwicPics( {
-    "domain": `https://demo.twic.pics`,
+    "domain": `https://demo.twic.it`,
 } );*/
 @Component( {
     "selector": `app-root`,

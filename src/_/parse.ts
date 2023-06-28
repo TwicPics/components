@@ -1,6 +1,6 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, Environment, Mode, Placeholder, Transition } from "./types";
+import type { AnchorObject, Environment, Mode, Placeholder, Refit, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
@@ -33,7 +33,7 @@ const parseBoolean = ( value: boolean | string ): boolean => {
     if ( value === undefined ) {
         return false;
     }
-    return mappingBoolean[ value.trim() ] || false;
+    return mappingBoolean[ value.trim() ];
 };
 
 const parseNumber = ( value: number | string ): number => {
@@ -158,6 +158,21 @@ export const parseRatio = ( value: number | string ): number => {
         }
     }
     return isPositiveNumber( number ) ? number : undefined;
+};
+
+export const parseRefit = ( value: boolean | string ): Refit => {
+    const parsedBoolean = parseBoolean( value );
+    if ( parsedBoolean === undefined ) {
+        const trimmed = trimOrUndefined( ( value || `` ).toString() );
+        return trimmed && {
+            "padding": trimmed.replace( /\s/g, `` ),
+        };
+    }
+    return parsedBoolean ?
+        {
+            "padding": ``,
+        } :
+        undefined;
 };
 
 export const parseStep = parseNumber;

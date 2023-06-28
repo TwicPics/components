@@ -15,6 +15,7 @@ import {
     parsePlaceholder,
     parsePreTransform,
     parseRatio,
+    parseRefit,
     parseSrc,
     parseStep,
     parseTransition,
@@ -45,6 +46,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     const mode = parseMode( props.mode ) || `cover`;
     const placeholder = parsePlaceholder( props.placeholder );
     const preTransform = parsePreTransform( props.preTransform );
+    const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const step = parseStep( props.step );
     const transition = parseTransition( props.transition );
@@ -58,6 +60,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
         mode,
         placeholder,
         preTransform,
+        refit,
         src,
         step,
         viewSize,

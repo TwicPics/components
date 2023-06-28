@@ -27,6 +27,7 @@ export {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseRefit,
     parseTo,
     parseSrc,
     parseStep,
@@ -38,8 +39,8 @@ export {
     parseZoom,
 } from "../_/parse.js";
 export {
-    preComputeVideoOptions,
     preComputePlaceholder,
+    preComputeVideoOptions,
 } from "../_/preCompute.js";
 export type {
     Attributes,
@@ -48,6 +49,7 @@ export type {
     Mode,
     Options,
     Placeholder,
+    Refit,
     State,
     StateEvent,
     VideoOptions,

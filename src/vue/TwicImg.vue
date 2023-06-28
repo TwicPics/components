@@ -4,10 +4,8 @@ import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
+import { parseZoom } from "../_/parse";
 import { rValidZoom } from "../_/validate";
-import {
-    parseZoom,
-} from "../_/parse";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};

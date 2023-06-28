@@ -15,4 +15,4 @@ export const booleanProp = ( regExp?: RegExp, _default?:boolean|string ): PropOp
 export const intProp = defineProp< number | string >( [ Number, String ], /^\d+$/ );
 export const floatProp = defineProp< number | string >( [ Number, String ], /^\d*\.?\d*$/ );
 export const stringProp = defineStringProp();
-export const videoOptionsProps = defineProp< VideoOptions >( [ Object as () => VideoOptions ] );
+export const videoOptionsProp = defineProp< VideoOptions >( [ Object as () => VideoOptions ] );

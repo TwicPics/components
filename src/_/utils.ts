@@ -2,6 +2,21 @@ declare const FRAMEWORK: string;
 
 const buildErrorMessage = ( message: string ): string => `twicpics-components ${ message }`;
 
+const mappingBoolean: { [ key: string ]: boolean; } = {
+    "true": true,
+    "false": false,
+    "": true,
+};
+export const convertToBoolean = ( value: boolean | string ): boolean => {
+    if ( typeof value === `boolean` ) {
+        return value;
+    }
+    if ( value === undefined ) {
+        return false;
+    }
+    return mappingBoolean[ value.trim() ] || undefined;
+};
+
 export interface DebounceOptions {
     leading?: boolean;
     ms?: number;

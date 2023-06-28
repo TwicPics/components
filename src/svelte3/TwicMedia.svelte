@@ -9,6 +9,7 @@ import {
     type Anchor,
     type Mode,
     type Placeholder,
+    type Refit,
     type State,
     type VideoOptions,
 } from "./_utils.js";
@@ -32,6 +33,7 @@ import {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseRefit,
     parseSrc,
     parseStep,
     parseTitle,
@@ -62,6 +64,7 @@ export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
@@ -92,6 +95,7 @@ $: parsedPlaceholder = parsePlaceholder( placeholder );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
+$: parsedRefit = parseRefit( refit );
 $: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
 $: parsedTitle = parseTitle( title );
@@ -101,7 +105,7 @@ $: parsedTransitionDuration = parseTransitionDuration( transitionDuration );
 $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTimingFunction );
 $: parsedVideoOptions = videoOptions;
 
-$: placeholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
+$: parsedPlaceholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
 
 $: _alt = computeAlt( parsedAlt, parsedMediaTag, parsedSrc );
 $: _data = computeData(
@@ -113,6 +117,7 @@ $: _data = computeData(
     parsedMediaTag,
     parsedMode,
     parsedPreTransform,
+    parsedRefit,
     parsedSrc,
     parsedStep,
     parsedVideoOptions,
@@ -121,10 +126,11 @@ $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,
     parsedMode,
-    placeholder_,
+    parsedPlaceholder_,
     parsedPosition,
     parsedPreTransform,
     parsedRatio,
+    parsedRefit,
     parsedSrc,
     parsedTransition,
     parsedTransitionDelay,
@@ -165,7 +171,7 @@ if ( isBrowser ) {
         style = { _style }
         { ..._data }
     ></svelte:element>
-    {#if placeholder_ }
+    {#if parsedPlaceholder_ }
         <div style = { _placeholderStyle } />
     {/if}
 </div>

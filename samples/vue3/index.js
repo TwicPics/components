@@ -7,7 +7,7 @@ import "@twicpics/components/style.css";
 const app = createApp( Main );
 
 app.use( TwicPics, {
-    "domain": `https://demo.twic.pics`,
+    "domain": `https://demo.twic.it`,
     "anticipation": 0.5,
     "step": 100,
     "env": `production`,

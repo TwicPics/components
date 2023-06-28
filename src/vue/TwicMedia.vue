@@ -21,6 +21,7 @@ import {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseRefit,
     parseSrc,
     parseStep,
     parseTitle,
@@ -31,7 +32,7 @@ import {
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
-import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProps } from "./props";
+import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProp } from "./props";
 import { callFactory } from "./utils";
 
 const computed = {};
@@ -51,6 +52,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `position`, stringProp, parsePosition ],
     [ `preTransform`, stringProp, parsePreTransform ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
+    [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
     [ `title`, stringProp, parseTitle ],
@@ -58,7 +60,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `transitionDelay`, stringProp, parseTransitionDelay ],
     [ `transitionDuration`, stringProp, parseTransitionDuration ],
     [ `transitionTimingFunction`, stringProp, parseTransitionTimingFunction ],
-    [ `videoOptions`, videoOptionsProps, v => v ],
+    [ `videoOptions`, videoOptionsProp, v => v ],
 ] ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
@@ -79,6 +81,7 @@ for ( const [ propName, func, args ] of [
             `mediaTag`,
             `mode`,
             `preTransform`,
+            `refit`,
             `src`,
             `step`,
             `videoOptions`,
@@ -108,6 +111,7 @@ for ( const [ propName, func, args ] of [
             `position`,
             `preTransform`,
             `ratio`,
+            `refit`,
             `src`,
             `transition`,
             `transitionDelay`,

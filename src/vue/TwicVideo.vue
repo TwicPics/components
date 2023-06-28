@@ -57,6 +57,7 @@ export default {
                 ...$attrs,
                 class: ``,
             }"
+            :refit="false"
             :video-options="_videoOptions"
             @stateChange="handleStateChange"
         />

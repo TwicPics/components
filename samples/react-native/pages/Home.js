@@ -19,6 +19,8 @@ const Home = ( { navigation } ) => (
         <Divider />
         <Button title="Ratio" onPress={() => navigation.navigate( `Ratio` )} />
         <Divider />
+        <Button title="Refit" onPress={() => navigation.navigate( `Refit` )} />
+        <Divider />
         <Button title="Transform" onPress={() => navigation.navigate( `Transform` )} />
         <Divider />
     </View>
