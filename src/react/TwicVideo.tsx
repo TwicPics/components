@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { parseClassName, parseDuration, parseFrom, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import { number } from "./props";
-import TwicMedia, { type BaseAttributes } from "./TwicMedia";
+import TwicMedia from "./TwicMedia";
+import type { BaseAttributes } from "./types";
 
 interface VideoAttributes extends BaseAttributes {
-    className?: string,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,

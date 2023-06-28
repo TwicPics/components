@@ -33,26 +33,18 @@ import {
     parseClassName,
 } from "../_/parse";
 import type {
-    Attributes,
     Anchor,
     Mode,
     Placeholder,
     State,
-    StateEvent,
     VideoOptions,
 } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 import { preComputePlaceholder } from "../_/preCompute";
 import { number } from "./props";
-
-type onStateChangeType = ( stateEvent: StateEvent ) => void;
-
-export interface BaseAttributes extends Attributes {
-    onStateChange?: onStateChangeType;
-}
+import type { BaseAttributes } from "./types";
 
 export interface MediaAttributes extends BaseAttributes {
-    className?: string,
     mediaTag: string,
     videoOptions?: VideoOptions,
 }
