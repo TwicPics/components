@@ -42,7 +42,7 @@ export {
     preComputePlaceholder,
 } from "../_/preCompute.js";
 export type {
-    Attributes as BaseAttributes,
+    Attributes,
     Anchor,
     Environment,
     Mode,

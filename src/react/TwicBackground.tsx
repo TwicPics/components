@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { parseClassName } from "../_/parse";
-import TwicMedia, { type MediaAttributes } from "./TwicMedia";
-
-interface BackgroundAttributes extends MediaAttributes {
-    className?: string,
+import TwicMedia from "./TwicMedia";
+import type { BaseAttributes } from "./types";
+interface BackgroundAttributes extends BaseAttributes {
+    mediaTag?: string,
 }
-
 const defaultProps = {
     "mediaTag": `div`,
 };

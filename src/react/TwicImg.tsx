@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { parseClassName, parseZoom } from "../_/parse";
-import TwicMedia, { type BaseAttributes } from "./TwicMedia";
+import TwicMedia from "./TwicMedia";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { number } from "./props";
+import type { BaseAttributes } from "./types";
 
 interface ImgAttributes extends BaseAttributes {
-    className?: string,
     zoom?: number | string,
 }
 
