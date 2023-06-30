@@ -138,8 +138,7 @@ export const computeData = (
     }
     if ( src && ( mediaTag === `video` ) ) {
         attributes[ getDataAttributeName( `poster` ) ] = src;
-        attributes[ getDataAttributeName( `poster-transform` ) ] = `
-        ${
+        attributes[ getDataAttributeName( `poster-transform` ) ] = `${
             actualPreTransform
         }${
             posterTransform || ``
