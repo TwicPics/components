@@ -18,7 +18,7 @@ import type {
     OnDestroy,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions, Refit } from "../_/types";
+import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
 
 import {
     computeAlt,
@@ -120,7 +120,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _position: string = undefined;
     _preTransform: string = undefined;
     _ratio: number = undefined;
-    _refit: Refit = undefined;
+    _refit: string = undefined;
     _src: string;
     _step: number = undefined;
     _title: string = undefined;

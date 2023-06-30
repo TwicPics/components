@@ -46,10 +46,18 @@ export interface Config {
     step: number,
 }
 
+export interface Context {
+  height?: number,
+  mode: string,
+  width?: number,
+}
+
 export interface CreateUrlData {
     domain: string,
+    context?: Context,
     output?: string,
     quality?: number,
+    refit?: string,
     src: string,
     transform?: string
 }
@@ -68,11 +76,11 @@ export interface Options {
 
 export interface PreTransformData {
     anchor?: AnchorObject,
+    context?: Context,
     debug?: boolean,
     focus?: string,
-    mode?: Mode,
     preTransform?: string,
-    refit?: Refit,
+    refit?: string,
     videoTransform?: string
 }
 export interface PlaceholderData {
@@ -82,16 +90,10 @@ export interface PlaceholderData {
     placeholder: Placeholder,
     preTransform: string,
     ratio: number,
-    refit?: Refit,
+    refit: string,
     src: string,
     transitions: Record< string, boolean >,
     videoOptions?: VideoOptions
-}
-
-export interface Refit {
-  height?: number,
-  padding: string,
-  width?: number,
 }
 
 export interface VideoOptions {

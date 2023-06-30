@@ -9,7 +9,6 @@ import {
     type Anchor,
     type Mode,
     type Placeholder,
-    type Refit,
     type State,
     type VideoOptions,
 } from "./_utils.js";

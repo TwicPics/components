@@ -7,10 +7,13 @@ export default ( props: ImageLoaderProps ): string => {
     const { src, width, quality } = props;
     return createUrl(
         {
+            "context": {
+                "mode": `resize`,
+                width,
+            },
             "domain": config.domain,
             quality,
             "src": parseSrc( src ),
-            "transform": `resize=${ width }`,
         }
     );
 };

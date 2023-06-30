@@ -49,7 +49,6 @@ export type {
     Mode,
     Options,
     Placeholder,
-    Refit,
     State,
     StateEvent,
     VideoOptions,
