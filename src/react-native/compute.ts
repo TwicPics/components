@@ -55,28 +55,25 @@ const computeUrl = (
     }
     const { domain, env } = config;
     const { width, height } = actualSize( step, lqip, viewSize );
+    const context = {
+        height,
+        "mode": mappingMode[ mode ],
+        width,
+    };
     return createUrl(
         {
+            context,
             domain,
+            refit,
             src,
-            "transform": `${
-              computePreTransform( {
-                  anchor,
-                  "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
-                  focus,
-                  mode,
-                  preTransform,
-                  "refit": refit && {
-                      ...refit,
-                      ...{
-                          height,
-                          width,
-                      },
-                  },
-              } )
-            }${
-              mappingMode[ mode ]
-            }=${ width }x${ height }`,
+            "transform": computePreTransform( {
+                anchor,
+                context,
+                "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
+                focus,
+                preTransform,
+                refit,
+            } ),
             "output": lqip ? placeholder : ``,
         }
     );

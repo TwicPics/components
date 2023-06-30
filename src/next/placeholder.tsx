@@ -8,10 +8,13 @@ const PLACEHOLDER_SIZE = 1000;
 export default async ( src: string ): Promise< string > => {
     const response = await fetch( createUrl(
         {
+            "context": {
+                "mode": `resize`,
+                "width": PLACEHOLDER_SIZE,
+            },
             "domain": config.domain,
             "output": `preview`,
             "src": parseSrc( src ),
-            "transform": `resize=${ PLACEHOLDER_SIZE }`,
         }
     ) );
     const arrayBuffer = await response.arrayBuffer();

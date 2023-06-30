@@ -1,6 +1,6 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, Environment, Mode, Placeholder, Refit, Transition } from "./types";
+import type { AnchorObject, Environment, Mode, Placeholder, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
@@ -137,7 +137,10 @@ export const parsePlaceholder = ( placeholder: Placeholder ) : Placeholder => {
 
 export const parsePosition = trimOrUndefined;
 
-export const parsePreTransform = regExpFinderFactory( trimTransformOrUndefined, p => p && `${ p }/` );
+export const parsePreTransform = regExpFinderFactory(
+    trimTransformOrUndefined,
+    p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1/` )
+);
 
 export const parseRatio = ( value: number | string ): number => {
     if ( value === `none` ) {
@@ -160,19 +163,13 @@ export const parseRatio = ( value: number | string ): number => {
     return isPositiveNumber( number ) ? number : undefined;
 };
 
-export const parseRefit = ( value: boolean | string ): Refit => {
+export const parseRefit = ( value: boolean | string ): string => {
     const parsedBoolean = parseBoolean( value );
     if ( parsedBoolean === undefined ) {
         const trimmed = trimOrUndefined( ( value || `` ).toString() );
-        return trimmed && {
-            "padding": trimmed.replace( /\s/g, `` ),
-        };
+        return trimmed && trimmed.replace( /\s/g, `` );
     }
-    return parsedBoolean ?
-        {
-            "padding": ``,
-        } :
-        undefined;
+    return parsedBoolean ? `` : undefined;
 };
 
 export const parseStep = parseNumber;
