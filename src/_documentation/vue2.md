@@ -129,6 +129,18 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicBulkLoading.vue&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicZoom.vue&initialpath=zoom)
+
+#include "src/_documentation/common/vue/_lifeCycle.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicState.vue&initialpath=state)
+
+#include "src/_documentation/common/_refitFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicRefit.vue&initialpath=refit)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -313,14 +325,6 @@ export default {
 ```
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicHero.vue&initialpath=hero)
-
-#include "src/_documentation/common/vue/_lifeCycle.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicState.vue&initialpath=state)
-
-#include "src/_documentation/common/_zoomFeature.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicZoom.vue&initialpath=zoom)
 
 #include "src/_documentation/common/_componentsProps.md"
 

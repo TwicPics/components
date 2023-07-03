@@ -113,6 +113,10 @@ More properties [here](#components).
 
 #include "src/_documentation/common/_bulkLoading.md"
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+#include "src/_documentation/common/_refitFeature.md"
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -307,8 +311,6 @@ Particularly useful when creating hero banner, you can specify the height of you
 <a href="https://codesandbox.io/s/web-component-hero-image-7jdll8?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit TwicPics x Web Component - Hero Image" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
-
-#include "src/_documentation/common/_zoomFeature.md"
 
 #include "src/_documentation/common/_componentsProps.md"
 

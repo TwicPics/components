@@ -98,6 +98,19 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fbulk-loading.vue&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fzoom.vue&initialpath=zoom)
+
+#include "src/_documentation/common/vue/_lifeCycle.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fstate.vue&initialpath=state)
+
+#include "src/_documentation/common/_refitFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Frefit.vue&initialpath=refit)
+
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -278,14 +291,6 @@ export default {
 ```
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fhero.vue&initialpath=hero)
-
-#include "src/_documentation/common/vue/_lifeCycle.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fstate.vue&initialpath=state)
-
-#include "src/_documentation/common/_zoomFeature.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-nuxt3?file=pages%2Fzoom.vue&initialpath=zoom)
 
 #include "src/_documentation/common/_componentsProps.md"
 

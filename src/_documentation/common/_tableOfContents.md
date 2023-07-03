@@ -8,10 +8,11 @@
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
     - [Bulk loading with TwicView](#bulk-loading-with-twicview)
+    - [Image magnifier](#image-magnifier)__TWIC_STATE_TABLE_CONTENT__
+    - [Refit Example](#refit-example)
     - [Responsive Example](#responsive-example)
     - [Style Driven Approach](#style-driven-approach)
-    - [Working with ratio="none"](#ratio-none)__TWIC_STATE_TABLE_CONTENT__
-    - [Image magnifier](#image-magnifier)
+    - [Working with ratio="none"](#ratio-none)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)

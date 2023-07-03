@@ -106,6 +106,12 @@ export default YourTemplate;
 
 #include "src/_documentation/common/_bulkLoading.md"
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+#include "src/_documentation/common/react/_lifeCycle.md"
+
+#include "src/_documentation/common/_refitFeature.md"
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -269,10 +275,6 @@ Particularly useful when creating hero banner, you can specify the height of you
   ratio="none"
 ></TwicImg>
 ```
-
-#include "src/_documentation/common/react/_lifeCycle.md"
-
-#include "src/_documentation/common/_zoomFeature.md"
 
 #include "src/_documentation/common/_componentsProps.md"
 

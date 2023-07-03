@@ -233,6 +233,62 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-style-driven%2Ftwic-style-driven.component.html&initialpath=style-driven)
 
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Binding to `stateChangeEvent` gives access to the loading state of your image or video.
+
+Here are the values the Component will emit ([see State Type definition](#state-type)) :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+```html
+<!-- component.html -->
+<TwicImg
+  src="path/to/your/image"
+  (stateChangeEvent)="handleStateChange($event)"
+></TwicImg>
+```
+
+```ts
+  // component.ts
+  import { ChangeDetectorRef, Component } from "@angular/core";
+  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
+
+  export class Component {
+
+  state?: State;
+
+  constructor(private changeDetector: ChangeDetectorRef) { }
+
+  handleStateChange = (stateEvent: StateEvent) => {
+    // Implement the logic here
+    const { state, target } = stateEvent;
+    const _target = target as TwicImgComponent;
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent emits a new state`, state );
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent source was`, _target.src );
+    this.state = state;
+    this.changeDetector.detectChanges();
+  }
+```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
+
+
+#include "src/_documentation/common/_zoomFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-zoom/twic-zoom.component.html&initialpath=zoom)
+
+#include "src/_documentation/common/_refitFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-refit/twic-refit.component.html&initialpath=refit)
 
 <div id='responsive-example'/>
 
@@ -328,57 +384,6 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-hero%2Ftwic-hero.component.html&initialpath=hero)
 
-<div id='lifecycle'/>
-
-### Lifecycle
-
-Binding to `stateChangeEvent` gives access to the loading state of your image or video.
-
-Here are the values the Component will emit ([see State Type definition](#state-type)) :
-
-- `new`: when the `img` or `video` source has not started loading
-- `loading`: when the `img` or `video` source is loading
-- `done`: when the `img` or `video` source has successfully loaded
-- `error`: when an error occurred while loading the `img` or `video` source
-
-
-```html
-<!-- component.html -->
-<TwicImg
-  src="path/to/your/image"
-  (stateChangeEvent)="handleStateChange($event)"
-></TwicImg>
-```
-
-```ts
-  // component.ts
-  import { ChangeDetectorRef, Component } from "@angular/core";
-  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
-
-  export class Component {
-
-  state?: State;
-
-  constructor(private changeDetector: ChangeDetectorRef) { }
-
-  handleStateChange = (stateEvent: StateEvent) => {
-    // Implement the logic here
-    const { state, target } = stateEvent;
-    const _target = target as TwicImgComponent;
-    // eslint-disable-next-line no-console
-    console.log( `TwicComponent emits a new state`, state );
-    // eslint-disable-next-line no-console
-    console.log( `TwicComponent source was`, _target.src );
-    this.state = state;
-    this.changeDetector.detectChanges();
-  }
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
-
-#include "src/_documentation/common/_zoomFeature.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-zoom/twic-zoom.component.html&initialpath=zoom)
 
 #include "src/_documentation/common/_componentsProps.md"
 

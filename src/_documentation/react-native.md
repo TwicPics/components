@@ -13,6 +13,7 @@
   - [Setup Options](#setup-options)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
+  - [Refit example](#refit-example)
   - [Working with ratio="none"](#working-with-rationone)
 - [Components Props](#components-props)
 - [Examples](#examples)
@@ -83,6 +84,33 @@ const styles = StyleSheet.create({
 
 export default MyComponent;
 ```
+
+### Refit example
+
+The `<TwicImg>` component allows to __reframe__ your image on the __main subject(s)__ it contains.
+
+To activate automatic cropping, simply add the `refit` property to your component.
+
+By default, the subject will be placed at the center of the resulting image but it is possible to align the subject with a given border by specifying an `anchor`.
+
+Also by default, the subject will touch the borders of the resulting image. This can be avoided by setting `refit` with a comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding.
+
+For example:
+
+```html
+  <!-- default refit: centered object(s), no padding around -->
+  <TwicImg src="image1.jpg" refit />
+
+  <!-- a 5% padding will be applied around main subject(s) -->
+  <TwicImg src="image2.jpg" refit="5p" />
+
+  <!-- a 5% padding will be applied vertically, a 10% padding will be applied horizontally -->
+  <TwicImg src="image3.jpg" refit="5p,10p" />
+
+  <!-- main subject(s) will be left aligned -->
+  <TwicImg src="image3.jpg" anchor="left" />
+```
+
 ### Working with ratio="none"
 
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing the _Cumulative Layout Shift_ metric.
@@ -126,6 +154,7 @@ export default MyComponent;
   placeholder="<preview|maincolor|meancolor|none>"
   preTransform="<String>"
   ratio="<ratio>"
+  refit="<boolean|String>"
   step="<integer>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
@@ -137,12 +166,13 @@ export default MyComponent;
 | Attribute | Description | Type | Default |
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | based on `src` |
-| `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
+| `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/reference/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
+| `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String ` | `false` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `style` | Accepts styles defined in a JavaScript object in the usual React Native style, see [React Native docs](https://reactnative.dev/docs/style). | `Object` | `null` |

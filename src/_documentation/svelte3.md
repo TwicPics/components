@@ -116,6 +116,71 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBulkLoading.svelte&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicZoom.svelte&initialpath=zoom)
+
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Binding to `state` props gives access to the loading state of your image or video.
+
+Here are the values the Component will emit :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+```html
+<!-- component.svelte -->
+<script>
+  import { TwicImg } from "@twicpics/components/svelte3";
+  let state;
+
+  $: {
+    // Implement the logic here
+    console.log( `TwicComponent emits a new state`, state );
+  }
+</script>
+
+
+<TwicImg
+  bind:state
+  src="path/to/your/image"
+/>
+```
+
+Another approach is to listen to `statechange` event.
+
+```html
+<!-- component.svelte -->
+<script>
+  import { TwicImg } from "@twicpics/components/svelte3";
+  let state;
+
+  const handleStateChange = ( e ) => {
+    // Implement the logic here
+    state = e.detail;
+    console.log( `TwicComponent emits a new state`, state );
+  }
+</script>
+
+
+<TwicImg
+  on:statechange={handleStateChange}
+  src="path/to/your/image"
+/>
+```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicState.svelte&initialpath=state)
+
+#include "src/_documentation/common/_refitFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicRefit.svelte&initialpath=refit)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -277,66 +342,6 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicHero.svelte&initialpath=hero)
 
-<div id='lifecycle'/>
-
-### Lifecycle
-
-Binding to `state` props gives access to the loading state of your image or video.
-
-Here are the values the Component will emit :
-
-- `new`: when the `img` or `video` source has not started loading
-- `loading`: when the `img` or `video` source is loading
-- `done`: when the `img` or `video` source has successfully loaded
-- `error`: when an error occurred while loading the `img` or `video` source
-
-
-```html
-<!-- component.svelte -->
-<script>
-  import { TwicImg } from "@twicpics/components/svelte3";
-  let state;
-
-  $: {
-    // Implement the logic here
-    console.log( `TwicComponent emits a new state`, state );
-  }
-</script>
-
-
-<TwicImg
-  bind:state
-  src="path/to/your/image"
-/>
-```
-
-Another approach is to listen to `statechange` event.
-
-```html
-<!-- component.svelte -->
-<script>
-  import { TwicImg } from "@twicpics/components/svelte3";
-  let state;
-
-  const handleStateChange = ( e ) => {
-    // Implement the logic here
-    state = e.detail;
-    console.log( `TwicComponent emits a new state`, state );
-  }
-</script>
-
-
-<TwicImg
-  on:statechange={handleStateChange}
-  src="path/to/your/image"
-/>
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicState.svelte&initialpath=state)
-
-#include "src/_documentation/common/_zoomFeature.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicZoom.svelte&initialpath=zoom)
 
 #include "src/_documentation/common/_componentsProps.md"
 

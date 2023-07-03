@@ -132,6 +132,18 @@ export default YourTemplate;
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%zoom%2Findex.jsx&initialpath=zoom)
+
+#include "src/_documentation/common/react/_lifeCycle.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fstate%2Findex.jsx&initialpath=state)
+
+#include "src/_documentation/common/_refitFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Frefit%2Findex.jsx&initialpath=refit)
+
 ### Style-Driven Approach
 
 You can style your components using pure CSS with [CSS variables](#css-variables).
@@ -308,13 +320,6 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fhero%2Findex.jsx&initialpath=hero)
 
-#include "src/_documentation/common/react/_lifeCycle.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fstate%2Findex.jsx&initialpath=state)
-
-#include "src/_documentation/common/_zoomFeature.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%zoom%2Findex.jsx&initialpath=zoom)
 
 #include "src/_documentation/common/_componentsProps.md"
 

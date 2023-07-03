@@ -145,6 +145,18 @@ export default YourTemplate;
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src/lib/twicBulkLoading/index.jsx&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_zoomFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%twicZoom%2Findex.jsx&initialpath=zoom)
+
+#include "src/_documentation/common/react/_lifeCycle.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicState%2Findex.jsx&initialpath=state)
+
+#include "src/_documentation/common/_refitFeature.md"
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicRefit%2Findex.jsx&initialpath=refit)
+
 <div id='style-driven-approach'/>
 
 ### Style-Driven Approach
@@ -315,14 +327,6 @@ Particularly useful when creating hero banner, you can specify the height of you
 ```
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicHero%2Findex.jsx&initialpath=hero)
-
-#include "src/_documentation/common/react/_lifeCycle.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%2FtwicState%2Findex.jsx&initialpath=state)
-
-#include "src/_documentation/common/_zoomFeature.md"
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-react?file=src%2Flib%twicZoom%2Findex.jsx&initialpath=zoom)
 
 #include "src/_documentation/common/_componentsProps.md"
 

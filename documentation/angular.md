@@ -13,11 +13,12 @@
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
     - [Bulk loading with TwicView](#bulk-loading-with-twicview)
+    - [Image magnifier](#image-magnifier)
+    - [Lifecycle](#lifecycle)
+    - [Refit Example](#refit-example)
     - [Responsive Example](#responsive-example)
     - [Style Driven Approach](#style-driven-approach)
     - [Working with ratio="none"](#ratio-none)
-    - [Lifecycle](#lifecycle)
-    - [Image magnifier](#image-magnifier)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
     - [TwicVideo](#twic-video)
@@ -313,6 +314,122 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-style-driven%2Ftwic-style-driven.component.html&initialpath=style-driven)
 
+<div id='lifecycle'/>
+
+### Lifecycle
+
+Binding to `stateChangeEvent` gives access to the loading state of your image or video.
+
+Here are the values the Component will emit ([see State Type definition](#state-type)) :
+
+- `new`: when the `img` or `video` source has not started loading
+- `loading`: when the `img` or `video` source is loading
+- `done`: when the `img` or `video` source has successfully loaded
+- `error`: when an error occurred while loading the `img` or `video` source
+
+
+```html
+<!-- component.html -->
+<TwicImg
+  src="path/to/your/image"
+  (stateChangeEvent)="handleStateChange($event)"
+></TwicImg>
+```
+
+```ts
+  // component.ts
+  import { ChangeDetectorRef, Component } from "@angular/core";
+  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
+
+  export class Component {
+
+  state?: State;
+
+  constructor(private changeDetector: ChangeDetectorRef) { }
+
+  handleStateChange = (stateEvent: StateEvent) => {
+    // Implement the logic here
+    const { state, target } = stateEvent;
+    const _target = target as TwicImgComponent;
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent emits a new state`, state );
+    // eslint-disable-next-line no-console
+    console.log( `TwicComponent source was`, _target.src );
+    this.state = state;
+    this.changeDetector.detectChanges();
+  }
+```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
+
+
+
+### Image magnifier
+
+The `<TwicImg>` component allows to display a __lazy loaded__ zoomed version of your image on __mouse over__.
+
+To activate the zoom feature, simply set the `zoom` property to a number strictly greater than 1. This number represents the magnification factor of your image.
+
+For example: 
+
+```html
+  <TwicImg src="image1.jpg" zoom="2" />
+  <TwicImg src="image2.jpg" zoom="2.5" />
+```
+
+The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
+
+To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property to `'css'` and add a new rule to your stylesheet. 
+
+For example: 
+
+```html
+  <TwicImg src="image3.jpg" zoom="css" class=".zoom-3"/>
+```
+
+```css
+.zoom-3 {
+  --twic-zoom:3;
+}
+```
+
+It applies only to `TwicImg` component in __cover__ `mode`.
+
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-zoom/twic-zoom.component.html&initialpath=zoom)
+
+
+### Refit example
+
+The `<TwicImg>` component allows to __reframe__ your image on the __main subject(s)__ it contains.
+
+In **cover** `mode`, the resulting image while respect `ratio` while maximizing the area occupied by the main subject(s).
+
+In **contain** `mode`, the image will be cropped as close as possible to the main subject(s).
+
+To activate automatic cropping, simply add the `refit` property to your component.
+
+By default, the subject will be placed at the center of the resulting image but it is possible to align the subject with a given border by specifying an `anchor`.
+
+Also by default, the subject will touch the borders of the resulting image. This can be avoided by setting `refit` with a comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) value defining padding.
+
+For example:
+
+```html
+  <!-- default refit: centered object(s), no padding around -->
+  <TwicImg src="image1.jpg" refit />
+
+  <!-- main subject(s) will be left aligned -->
+  <TwicImg src="image3.jpg" anchor="left" refit/>
+
+  <!-- a 5% padding will be applied around main subject(s) -->
+  <TwicImg src="image2.jpg" refit="5p" />
+
+  <!-- a 5% padding will be applied vertically, a 10% padding will be applied horizontally -->
+  <TwicImg src="image3.jpg" refit="5p,10p" />
+```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-refit/twic-refit.component.html&initialpath=refit)
 
 <div id='responsive-example'/>
 
@@ -408,88 +525,6 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-hero%2Ftwic-hero.component.html&initialpath=hero)
 
-<div id='lifecycle'/>
-
-### Lifecycle
-
-Binding to `stateChangeEvent` gives access to the loading state of your image or video.
-
-Here are the values the Component will emit ([see State Type definition](#state-type)) :
-
-- `new`: when the `img` or `video` source has not started loading
-- `loading`: when the `img` or `video` source is loading
-- `done`: when the `img` or `video` source has successfully loaded
-- `error`: when an error occurred while loading the `img` or `video` source
-
-
-```html
-<!-- component.html -->
-<TwicImg
-  src="path/to/your/image"
-  (stateChangeEvent)="handleStateChange($event)"
-></TwicImg>
-```
-
-```ts
-  // component.ts
-  import { ChangeDetectorRef, Component } from "@angular/core";
-  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
-
-  export class Component {
-
-  state?: State;
-
-  constructor(private changeDetector: ChangeDetectorRef) { }
-
-  handleStateChange = (stateEvent: StateEvent) => {
-    // Implement the logic here
-    const { state, target } = stateEvent;
-    const _target = target as TwicImgComponent;
-    // eslint-disable-next-line no-console
-    console.log( `TwicComponent emits a new state`, state );
-    // eslint-disable-next-line no-console
-    console.log( `TwicComponent source was`, _target.src );
-    this.state = state;
-    this.changeDetector.detectChanges();
-  }
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
-
-
-### Image magnifier
-
-The `<TwicImg>` component allows to display a __lazy loaded__ zoomed version of your image on __mouse over__.
-
-To activate the zoom feature, simply set the `zoom` property to a number strictly greater than 1. This number represents the magnification factor of your image.
-
-For example: 
-
-```html
-  <TwicImg src="image1.jpg" zoom="2" />
-  <TwicImg src="image2.jpg" zoom="2.5" />
-```
-
-The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
-
-To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property to `'css'` and add a new rule to your stylesheet. 
-
-For example: 
-
-```html
-  <TwicImg src="image3.jpg" zoom="css" class=".zoom-3"/>
-```
-
-```css
-.zoom-3 {
-  --twic-zoom:3;
-}
-```
-
-It applies only to `TwicImg` component in __cover__ `mode`.
-
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-zoom/twic-zoom.component.html&initialpath=zoom)
 
 <div id='components-props'/>
 
@@ -515,6 +550,7 @@ This component can be used in place of an `img` element.
   preTransform="<String>"
   ratio="<ratio>"
   (stateChangeEvent)="<function>"
+  refit="<boolean|String>"
   step="<integer>"
   title="<String>"
   transition="<fade|zoom|none>"
@@ -528,7 +564,7 @@ This component can be used in place of an `img` element.
 | Attribute | Description | Type | Default |
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | based on `src` |
-| `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
+| `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-bot) for more information. | `String` | |
 | `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image.  | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
@@ -538,6 +574,7 @@ This component can be used in place of an `img` element.
 | `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Syntax is the same as for CSS position properties [`background-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) and [`object-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Only use this attribute if you need precise positionning: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | `center` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
+| `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String ` | `false` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `stateChangeEvent` | An event emitter triggered each time the asset loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-step) for more information. | `Integer` | `10` |
