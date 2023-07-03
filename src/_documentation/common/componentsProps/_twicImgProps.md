@@ -22,6 +22,7 @@ This component can be used in place of an `img` element.
   placeholder="<preview|maincolor|meancolor|none>"
   preTransform="<String>"
   ratio="<ratio>"__TWIC_STATE_CHANGE_PROP__
+  refit="<boolean|String>"
   step="<integer>"
   title="<String>"
   transition="<fade|zoom|none>"
