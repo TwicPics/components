@@ -11,8 +11,8 @@
         "@vue/cli-service": "5.0.8",
         "vue": "2.7.4",
         "vue-template-compiler": "2.7.14",
-        "webpack": "5.81.0",
-        "webpack-dev-server": "4.13.3"
+        "webpack": "5.88.1",
+        "webpack-dev-server": "4.15.1"
     },
     "license": "MIT",
     "scripts": {

@@ -7,13 +7,13 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "@types/node": "20.2.5",
-        "@types/react": "18.2.7",
-        "@types/react-dom": "18.2.4",
-        "next": "13.4.4",
+        "@types/node": "20.4.1",
+        "@types/react": "18.2.14",
+        "@types/react-dom": "18.2.6",
+        "next": "13.4.9",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "typescript": "5.0.4"
+        "typescript": "5.1.6"
     },
     "license": "MIT",
     "scripts": {

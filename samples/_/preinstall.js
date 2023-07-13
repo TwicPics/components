@@ -15,7 +15,7 @@ if ( !rDependency.test( __dirname ) ) {
 
 const rTransform = /^\/\/\s*\/((?:\\.|[^/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+")\s*$/mg;
 ( async () => {
-    const htmlPromise = readFile( `${ __dirname }/Sample.html`, `utf8` );
+    const htmlPromise = readFile( `${ __dirname }/_Sample.html`, `utf8` );
     await Promise.all( ( await readdir( `${ __dirname }/templates` ) ).map( async file => {
         const replacers = [];
         let content =

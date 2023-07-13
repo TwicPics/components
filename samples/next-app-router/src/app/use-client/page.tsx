@@ -28,6 +28,14 @@ export default function Home() {
                     />
                 </div>
                 <div className="item">
+                    <TwicImg
+                        src="football.jpg"
+                        refit
+                        ratio="4/3"
+                        mode="contain"
+                    />
+                </div>
+                <div className="item">
                     <TwicVideo
                         src="video/skater.mp4"
                     />
