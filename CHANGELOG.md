@@ -8,6 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.20.0] - 2023-07-13
+
+### Add
+
+- Add `refit` property to `TwicImg` that allows to automatically reframe image to main object(s).
+
+### Changed
+
+- Upgrade dependencies.
+
+### Fixed
+
+- Fixes **React-native** sample project launch issue on **macOS**.
+- Fixes type definitions in **React** and **Svelte**.
+
 ## [0.19.0] - 2023-06-13
 
 ### Add
@@ -459,6 +474,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.20.0]: https://github.com/TwicPics/components/compare/0.19.0...0.20.0
 [0.19.0]: https://github.com/TwicPics/components/compare/0.18.0...0.19.0
 [0.18.0]: https://github.com/TwicPics/components/compare/0.17.3...0.18.0
 [0.17.3]: https://github.com/TwicPics/components/compare/0.17.2...0.17.3
