@@ -10,14 +10,14 @@ export const preComputeVideoOptions = (
     to: number
 ): VideoOptions => ( {
     "videoTransform": `${
-            from ? `from=${ from }/` : ``
+            from ? `/from=${ from }` : ``
         }${
-            to ? `to=${ to }/` : ``
+            to ? `/to=${ to }` : ``
         }${
-            duration ? `duration=${ duration }/` : ``
+            duration ? `/duration=${ duration }` : ``
         }`,
     "posterTransform": `${
-            ( posterFrom || from ) ? `from=${ posterFrom === undefined ? from : posterFrom }/` : ``
+            ( posterFrom || from ) ? `/from=${ posterFrom === undefined ? from : posterFrom }` : ``
         }`,
 } );
 

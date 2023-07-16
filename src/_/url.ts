@@ -1,4 +1,4 @@
-import type { CreateUrlData } from "./types";
+import type { Context, CreateUrlData } from "./types";
 
 const rPath = /^(?:(auth|placeholder|rel)|(image|media|video)|[^:]*):(\/*)((v[0-9]+(?=[/?]))?[^?]*(\?.*)?)$/;
 const FULL_PATH = 4;
@@ -8,11 +8,6 @@ const RESERVED = 5;
 const SPECIAL = 1;
 const VERSION = `v1`;
 
-// eslint-disable-next-line id-length
-export const shouldApplyFinalTransform = ( mode: string, refit: string ): boolean => (
-    ( refit === undefined ) || ( ( mode || `cover` ) !== `cover` )
-);
-
 export const urlInfos = ( src: string, domain = `` ) => {
     const parsed = src && rPath.exec( src );
     return {
@@ -21,20 +16,35 @@ export const urlInfos = ( src: string, domain = `` ) => {
     };
 };
 
+const computeTransform = (
+    { height, mode, width }: Context,
+    transform: string
+): string => {
+    if ( transform && ( width || height ) ) {
+        const actualHeight = height || `-`;
+        const actualWidth = width || `-`;
+        return transform.replace(
+            /(\/*\*)/g,
+            `/${ `${ mode }=${ actualWidth }x${ actualHeight }` }`
+        ).replace(
+            /WxH/g,
+            `${ actualWidth }x${ actualHeight }`
+        );
+    }
+    return transform;
+};
+
 export const createUrl = (
-    { domain, "context": { height, mode, width }, output, quality, refit, src, transform }: CreateUrlData
+    { domain, context, output, quality, src, transform }: CreateUrlData
 ): string => {
     const { isAbsolute } = urlInfos( src, domain );
     const path = isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
     const parsed = rPath.exec( path );
     const isMedia = parsed && parsed[ MEDIA ];
-    const actualFinalTransform = ( shouldApplyFinalTransform( mode, refit ) && ( width || height ) ) ?
-        `/${ `${ mode }=${ width || `-` }x${ height || `-` }` }` :
-        ``;
     const actualOutput = output ? `/output=${ output }` : ``;
     const actualPath = isMedia ? parsed[ FULL_PATH ] : path;
     const actualQuality = quality ? `/quality=${ quality }` : ``;
-    const actualTransform = transform ? `/${ transform.replace( /(.*)\//, `$1` ) }` : ``;
+    const actualTransform = computeTransform( context, transform );
     return `${
         domain
     }/${
@@ -44,8 +54,6 @@ export const createUrl = (
             VERSION
         }${
             actualTransform
-        }${
-            actualFinalTransform
         }${
             actualOutput
         }/${
@@ -63,11 +71,19 @@ export const createUrl = (
         }${
             actualTransform
         }${
-            actualFinalTransform
-        }${
             actualOutput
         }${
             actualQuality
         }`
     }`;
 };
+
+export const finalTransform = ( mode: string, refit: string ): string =>
+    (
+        (
+            ( ( mode || `cover` ) === `cover` ) &&
+            ( refit !== undefined )
+        ) ?
+        `` :
+        `/*`
+    );
