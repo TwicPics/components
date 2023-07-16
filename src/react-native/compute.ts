@@ -3,7 +3,7 @@ export * from "../_/compute";
 import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
-import { createUrl } from '../_/url';
+import { createUrl, finalTransform } from '../_/url';
 import type { MediaData, SizeObject, UrlData } from './types';
 
 const PLACEHOLDER_DIM = 1000;
@@ -60,20 +60,22 @@ const computeUrl = (
         "mode": mappingMode[ mode ],
         width,
     };
+    const actualTransform = `${ computePreTransform( {
+        anchor,
+        "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
+        focus,
+        mode,
+        preTransform,
+        refit,
+    } ) }${
+        finalTransform( mode, refit ) || ``
+    }`;
     return createUrl(
         {
             context,
             domain,
-            refit,
+            "transform": actualTransform,
             src,
-            "transform": computePreTransform( {
-                anchor,
-                context,
-                "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
-                focus,
-                preTransform,
-                refit,
-            } ),
             "output": lqip ? placeholder : ``,
         }
     );

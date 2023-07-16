@@ -3,7 +3,6 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type {
     AnchorObject,
-    Context,
     Mode,
     Placeholder,
     PlaceholderData,
@@ -14,17 +13,17 @@ import type {
 import { config, getDataAttributeName } from "./config";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
-import { createUrl, shouldApplyFinalTransform } from "./url";
+import { createUrl, finalTransform } from "./url";
 
 const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
     ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
 
-const computeRefit = ( anchor: string, { height, mode, width }: Context, refit: string ) : string =>
+const computeRefit = ( anchor: string, mode: Mode, refit: string ) : string =>
     ( refit !== undefined ) &&
     `${
         mode === `contain` ?
         `auto` :
-        `${ width || `W` }x${ height || `H` }`
+        `WxH`
     }${
         refit ? `(${ refit })` : ``
     }${
@@ -32,22 +31,19 @@ const computeRefit = ( anchor: string, { height, mode, width }: Context, refit: 
     }`;
 
 export const computePreTransform = (
-    { "anchor": { x, y }, context, debug, focus, preTransform, refit, videoTransform } : PreTransformData
+    { "anchor": { x, y }, debug, focus, mode, preTransform, refit } : PreTransformData
 ): string => {
     const anchor = y ? ( x ? `${ y }-${ x }` : y ) : x;
-    const { mode } = context || {};
     const actualFocus = ( ( mode !== `contain` ) && ( refit === undefined ) ) && ( focus || anchor );
-    const actualRefit = computeRefit( anchor, context, refit );
+    const actualRefit = computeRefit( anchor, mode, refit );
     return `${
-        debug ? `debug/` : ``
+        debug ? `/debug` : ``
     }${
-        preTransform || ``
+        preTransform ? `/${ preTransform }` : ``
     }${
-        actualFocus ? `focus=${ actualFocus }/` : ``
+        actualFocus ? `/focus=${ actualFocus }` : ``
     }${
-        videoTransform || ``
-    }${
-        actualRefit ? `refit=${ actualRefit }/` : ``
+        actualRefit ? `/refit=${ actualRefit }` : ``
     }`;
 };
 
@@ -104,20 +100,19 @@ export const computeData = (
     const { videoTransform, posterTransform } = videoOptions || {};
     const actualPreTransform = computePreTransform( {
         anchor,
-        "context": {
-            mode,
-        },
         "debug": config.env === `debug`,
         focus,
+        mode,
         preTransform,
         refit,
-        videoTransform,
     } );
-    if ( actualPreTransform ) {
+    if ( actualPreTransform || videoTransform ) {
         attributes[ getDataAttributeName( `transform` ) ] = `${
             actualPreTransform
         }${
-            shouldApplyFinalTransform( mode, refit ) ? `*` : ``
+            videoTransform || ``
+        }${
+            finalTransform( mode, refit ) || ``
         }`;
     }
     if ( typeof bot === `string` ) {
@@ -143,7 +138,7 @@ export const computeData = (
         }${
             posterTransform || ``
         }${
-            `*/output=image`
+            `/*/output=image`
         }`;
     }
     if ( step !== undefined ) {
@@ -256,25 +251,27 @@ export const computePlaceholderBackground = (
         width /= _ratio;
     }
     const { videoTransform } = videoOptions || {};
-    const context = {
-        "height": Math.max( 1, Math.round( height ) ),
-        "mode": actualMode,
-        "width": Math.max( 1, Math.round( width ) ),
-    };
+    const actualTransform = `${ computePreTransform( {
+        anchor,
+        focus,
+        mode,
+        preTransform,
+        refit,
+    } ) }${
+        videoTransform || ``
+    }${
+        finalTransform( actualMode, refit ) || ``
+    }`;
     return createUrl(
         {
-            context,
+            "context": {
+                "height": Math.max( 1, Math.round( height ) ),
+                "mode": actualMode,
+                "width": Math.max( 1, Math.round( width ) ),
+            },
             "domain": config.domain,
-            refit,
+            "transform": actualTransform,
             src,
-            "transform": computePreTransform( {
-                anchor,
-                context,
-                focus,
-                preTransform,
-                refit,
-                videoTransform,
-            } ),
             "output": placeholder,
         }
     );

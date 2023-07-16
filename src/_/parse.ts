@@ -139,7 +139,7 @@ export const parsePosition = trimOrUndefined;
 
 export const parsePreTransform = regExpFinderFactory(
     trimTransformOrUndefined,
-    p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1/` )
+    p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1` )
 );
 
 export const parseRatio = ( value: number | string ): number => {
