@@ -15,6 +15,7 @@ export default async ( src: string ): Promise< string > => {
             "domain": config.domain,
             "output": `preview`,
             "src": parseSrc( src ),
+            "transform": `*`,
         }
     ) );
     const arrayBuffer = await response.arrayBuffer();

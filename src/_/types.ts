@@ -57,9 +57,8 @@ export interface CreateUrlData {
     context?: Context,
     output?: string,
     quality?: number,
-    refit?: string,
+    transform?: string,
     src: string,
-    transform?: string
 }
 
 export interface Options {
@@ -76,12 +75,11 @@ export interface Options {
 
 export interface PreTransformData {
     anchor?: AnchorObject,
-    context?: Context,
     debug?: boolean,
     focus?: string,
+    mode?:Mode,
     preTransform?: string,
     refit?: string,
-    videoTransform?: string
 }
 export interface PlaceholderData {
     anchor: AnchorObject,
