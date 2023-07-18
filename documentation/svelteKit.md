@@ -297,7 +297,7 @@ Another approach is to listen to `statechange` event.
 
 The `<TwicImg>` component allows to __reframe__ your image on the __main subject(s)__ it contains.
 
-In **cover** `mode`, the resulting image while respect `ratio` while maximizing the area occupied by the main subject(s).
+In **cover** `mode`, the resulting image will respect`ratio` while maximizing the area occupied by the main subject(s).
 
 In **contain** `mode`, the image will be cropped as close as possible to the main subject(s).
 
