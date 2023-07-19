@@ -81,7 +81,7 @@ const styles = StyleSheet.create( {
     },
     "customImage": {
         "height": 100,
-        "backgroundColor": `#ff0000`,
+        "backgroundColor": `#8F00FF`,
     },
     "container": {
         "padding": 20,
