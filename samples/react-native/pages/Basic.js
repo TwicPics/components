@@ -13,7 +13,7 @@ const Basic = () => (
                 </View>
                 <View style={styles.imgContainer}>
                     <TwicImg src="cat_1x1.jpg" ratio="16/9" mode="cover" placeholder="maincolor"/>
-                    <Text>Mode = cover - Ratio = 16/9</Text>
+                    <Text>Mode = cover - Ratio = 16/9 - Maincolor</Text>
                 </View>
                 <View style={styles.imgContainer}>
                     <TwicImg src="cat_1x1.jpg" ratio="4/3" mode="cover" />
@@ -21,7 +21,7 @@ const Basic = () => (
                 </View>
                 <View style={styles.imgContainer}>
                     <TwicImg src="cat_1x1.jpg" ratio="16/9" mode="contain" placeholder="meancolor"/>
-                    <Text>Mode = contain - Ratio = 16/9</Text>
+                    <Text>Mode = contain - Ratio = 16/9 - Meancolor</Text>
                 </View>
                 <View style={styles.imgContainer}>
                     <TwicImg
@@ -96,8 +96,12 @@ const Basic = () => (
                     <Text>Only src</Text>
                 </View>
                 <View style={styles.imgContainer}>
-                    <TwicImg style={styles.customImage} mode="cover" />
+                    <TwicImg style={styles.customImage} mode="cover" ratio="4/3"/>
                     <Text>Mode = cover, no src</Text>
+                </View>
+                <View style={styles.imgContainer}>
+                    <TwicImg style={styles.customImage} mode="contain" ratio="4/3" />
+                    <Text>Mode = contain, no src</Text>
                 </View>
             </View>
         </ScrollView>
@@ -113,7 +117,7 @@ const styles = StyleSheet.create( {
     "customImage": {
         "width": `50%`,
         "height": 100,
-        "backgroundColor": `#FF0000`,
+        "backgroundColor": `#8F00FF`,
     },
     "container": {
         "padding": 20,
