@@ -21,8 +21,8 @@ export interface Attributes {
 
 export interface IMediaData {
     placeholder?: PlaceholderData,
+    height: number,
     width: number,
-    height: number
 }
 
 export interface MediaAttributes extends Attributes {
@@ -38,6 +38,7 @@ export interface MediaData {
 export interface PlaceholderData {
     blurRadius: number,
     color: string,
+    offset: number,
     uri: string,
 }
 

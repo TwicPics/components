@@ -16,12 +16,15 @@ export const getMediaData = async ( srcMedia: string, srcLqip: string, viewSize:
     };
     if ( srcLqip ) {
         const resp = await fetch( `${ srcLqip }/inspect` );
-        const { "output": { color, image, height, width } } = await resp.json();
+        const { "output": { color, image, height, intrinsicWidth, width } } = await resp.json();
+        const deviation = image ? width / intrinsicWidth : 0;
         return success( {
             "placeholder": {
-                "blurRadius": Platform.OS === `web` ? 0 : BLUR_RADIUS,
+                // eslint-disable-next-line no-magic-numbers
+                "blurRadius": Platform.OS === `web` ? deviation : BLUR_RADIUS,
+                "offset": Platform.OS === `web` ? deviation : 0,
                 color,
-                "uri": Platform.OS === `web` ? srcLqip : image,
+                "uri": image,
             },
             width,
             height,

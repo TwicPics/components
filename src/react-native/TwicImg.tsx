@@ -68,6 +68,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
 
     const _getMediaData = useRef( debounce( async ( _media, _lqip, _viewSize ) => {
         const _mediaData = await getMediaData( _media, _lqip, _viewSize );
+        opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
         setMediaData( _mediaData );
     }, {
         "leading": false,
@@ -78,8 +79,6 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     const [ mediaData, setMediaData ] = useState( undefined );
 
     useEffect( () => {
-        // eslint-disable-next-line no-nested-ternary
-        opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
         _getMediaData( media, lqip, viewSize );
     }, [ media, lqip ] );
 
@@ -127,24 +126,28 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
             >
                 { mediaData?.placeholder &&
                     (
-                        <Animated.Image
-                            accessibilityLabel={`${ computedAlt }-placeholder`}
-                            blurRadius={ mediaData.placeholder.blurRadius || 0}
-                            source=
-                                {
+                        <View style={ styles.placeholder }>
+                            <Animated.Image
+                                accessibilityLabel={`${ computedAlt }-placeholder`}
+                                blurRadius={ mediaData.placeholder.blurRadius || 0}
+                                source={
                                     {
                                         "uri": mediaData.placeholder.uri,
                                     }
                                 }
-                            style=
-                                {[
-                                    styles.placeholder,
+                                style={
                                     {
+                                        "aspectRatio": mediaData?.ratioIntrinsic,
                                         "backgroundColor": mediaData.placeholder.color,
+                                        "margin": -mediaData.placeholder.offset,
                                         "opacity": opacityTransition.current,
-                                    },
-                                ]}
-                        />
+                                        "width": computeWidth( mediaData, viewSize ) +
+                                                // eslint-disable-next-line no-magic-numbers
+                                                ( 2 * mediaData.placeholder.offset ),
+                                    }
+                                }
+                            />
+                        </View>
                     )
                 }
             </ImageBackground>
@@ -205,6 +208,7 @@ const styles = StyleSheet.create( {
     },
     "placeholder": {
         "height": `100%`,
+        "overflow": `hidden`,
         "width": `100%`,
     },
     "wrapper": {
