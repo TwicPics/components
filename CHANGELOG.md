@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixes
+
+- Fixes blinking issue in **React-native**.
+
+### Changed
+
+- Simplifies LQIP data retrieval by using `inspect` route in **React-native**.
+
 ## [0.20.0] - 2023-07-13
 
 ### Add
