@@ -254,6 +254,7 @@ export const computePlaceholderBackground = (
     const actualTransform = `${ computePreTransform( {
         anchor,
         focus,
+        mode,
         preTransform,
         refit,
     } ) }${
