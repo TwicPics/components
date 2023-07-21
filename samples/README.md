@@ -16,10 +16,12 @@ This directory contains sample projects for all supported frameworks.
 | `samples/angular15` | [Angular 15](https://angular.io/) version __15__ sample project |
 | `samples/angular16` | [Angular 16](https://angular.io/) version __16__ sample project |
 | `samples/gatsby` | [Gatsby](https://www.gatsbyjs.com/) sample project |
-| `samples/next` | [Next.js](https://nextjs.org/) sample project |
+| `samples/next-app-router` | [Next.js](https://nextjs.org/) sample project with app router |
+| `samples/next-page-router` | [Next.js](https://nextjs.org/) sample project with page router|
 | `samples/nuxt` | [Nuxt.js](https://nuxtjs.org/) sample project |
 | `samples/react` | [React](https://reactjs.org/) sample project |
 | `samples/svelte3` | [Svelte](https://svelte.dev/) version __3__ sample project |
+| `samples/svelte4` | [Svelte](https://svelte.dev/) version __4__ sample project |
 | `samples/svelteKit` | [SvelteKit](https://kit.svelte.dev/) sample project |
 | `samples/vue2` | [Vue.js](https://vuejs.org/) version __2__ sample project |
 | `samples/vue3` | [Vue.js](https://vuejs.org/) version __3__ sample project |

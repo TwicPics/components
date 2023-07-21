@@ -34,8 +34,8 @@ export const buildComponents = async () => {
     // 3 - adaptation of Svelte3 sources
     await replaceInFile( {
         "files": `${ srcPath }/*.*`,
-        "from": [ /\.\.\/_\//g, /import\s*".\/_\/style.css"\s*;/ ],
-        "to": [ `./_/`, `` ],
+        "from": [ /\.\.\/_\//g, /import\s*".\/_\/style.css"\s*;/, /<svelte:options tag=.*\/>/gm ],
+        "to": [ `./_/`, ``, `` ],
     } );
 
     // 4 - rollup utils.ts
