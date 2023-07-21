@@ -67,9 +67,8 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     } );
 
     const _getMediaData = useRef( debounce( async ( _media, _lqip, _viewSize ) => {
-        const _mediaData = await getMediaData( _media, _lqip, _viewSize );
         opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
-        setMediaData( _mediaData );
+        setMediaData( await getMediaData( _media, _lqip, _viewSize ) );
     }, {
         "leading": false,
         "ms": 100,
