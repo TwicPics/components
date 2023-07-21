@@ -1,7 +1,8 @@
 {
     "scripts": {
+        "copy": "node copySample.js ",
         "build": "$npm_execpath install && rollup -c",
-        "serve": "$npm_execpath install && rollup -c -w",
+        "serve": "$npm_execpath install && npm run copy && rollup -c -w",
         "start": "sirv public --no-clear --port 3000"
     },
     "devDependencies": {

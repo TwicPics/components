@@ -16,7 +16,7 @@
 /samples/nuxt3/.cache
 /samples/nuxt3/.env
 /samples/nuxt3/.output
-/samples/sveltekit/**/Sample.svelte
+/samples/**/Sample.svelte
 /samples/webcomponents/index.html
 *.bak
 *.log
