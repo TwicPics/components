@@ -13,8 +13,8 @@
         "@sveltejs/kit": "1.22.3",
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "svelte": "4.0.5",
-        "vite": "4.4.3"
+        "svelte": "4.1.1",
+        "vite": "4.4.6"
     },
     "type": "module"
 }
