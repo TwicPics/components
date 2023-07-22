@@ -15,7 +15,8 @@ import {
     type State,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
-import { get_current_component, onMount } from "svelte/internal";
+import { get_current_component } from "svelte/internal";
+import { onMount } from "svelte";
 </script>
 <script lang="ts">
 export let alt: string = undefined;
