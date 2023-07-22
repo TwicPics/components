@@ -44,7 +44,7 @@ import {
     styleToString,
 } from "./_utils.js";
 /* eslint-disable-next-line camelcase */
-import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
+import { createEventDispatcher, onDestroy, onMount } from "svelte";
 </script>
 
 <script lang="ts">
