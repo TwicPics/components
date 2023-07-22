@@ -44,7 +44,12 @@ const svelteUnitFactory = ( customElement = false ) => ( {
                 "include": /\/node_modules\/svelte\/.*$/,
                 "replacer": [ /\n\s*this\.attachShadow\([^\n]+\n/, `\n` ],
             } ),
-        ] : [] ),
+        ] : [
+            replacer( {
+                "include": /\.svelte$/,
+                "replacer": [ /<svelte:options tag=.*\/>/gm, `` ],
+            } ),
+        ] ),
     ],
     "postDefinitions": customElement && (
         code =>
