@@ -37,13 +37,15 @@ const getExportsByFramework = ( framework, customFormats ) => {
 
 const exportsPackageJson = () => units.flatMap(
     (
-        { framework, "formats": customFormats, customPackageJsonExports = false }
+        { exports, framework, "formats": customFormats, customPackageJsonExports = false }
     ) => {
         if ( customPackageJsonExports && ( typeof ( customPackageJsonExports ) === `function` ) ) {
             return customPackageJsonExports();
         }
         return customPackageJsonExports ?
-            [] : [ [ `./${ framework }`, getExportsByFramework( framework, customFormats ) ] ];
+            [] :
+            ( exports || [ framework ] )
+                .map( e => [ `./${ e }`, getExportsByFramework( framework, customFormats ) ] );
     }
 );
 
