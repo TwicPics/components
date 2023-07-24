@@ -8,6 +8,7 @@ import vue3 from "rollup-plugin-vue";
 import { packageVersion } from "./version.js";
 
 const svelteUnitFactory = ( customElement = false ) => ( {
+    "exports": customElement ? [] : [ `svelte3`, `svelte4` ],
     "external": customElement ?
         [] :
         [
