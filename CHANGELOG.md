@@ -8,13 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Fixes
+### Add
 
-- Fixes blinking issue in **React-native**.
-
+- Adds support for **Svelte4**.
+  
 ### Changed
 
 - Simplifies LQIP data retrieval by using `inspect` route in **React-native**.
+
+### Fixes
+
+- Fixes blinking issue in **React-native**.
 
 ## [0.20.0] - 2023-07-13
 
@@ -42,13 +46,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Add
 
 - Add support for **Angular 16+**
-
 - Make **TwicPics Placeholders** usable as `src` in `TwicImg`.
 
 ### Changed
 
 - Rework **SvelteKit** components builder to align with @sveltejs/package 2.0.0.
-
 - Upgrade dependencies.
 
 ### Fixed
