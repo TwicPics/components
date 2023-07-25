@@ -59,10 +59,9 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 
 Discover our demonstrations and integration examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
-TwicPics Components are available for `Svelte3` version __3.47+__.
+TwicPics Components are available for `Svelte4`.
 
-If you are using `Svelte4`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.20.0/documentation/svelte4.md).
-
+If you are using `Svelte3`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.20.0/documentation/svelte3.md).
 
 ## Installation
 
@@ -85,15 +84,15 @@ npm install @twicpics/components --D
 
 <div id='setting-up-your-project'/>
 
-### Setting-up TwicPics Components into your `Svelte3` project
+### Setting-up TwicPics Components into your `Svelte4` project
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
 Add the import part
 
 ```js
-// import TwicPics svelte3 components
-import { installTwicpics } from "@twicpics/components/svelte3";
+// import TwicPics Svelte4 components
+import { installTwicpics } from "@twicpics/components/svelte4";
 // import TwicPics components css
 import "@twicpics/components/style.css";
 ```
@@ -107,13 +106,13 @@ installTwicpics( {
 } );
 ```
 
-into the app startup of your `Svelte3` project.
+into the app startup of your `Svelte4` project.
 
 #### main.js
 
 ```js
-// Here is an example of a `Svelte3` app startup configured with TwicPics.
-import { installTwicpics } from "@twicpics/components/svelte3";
+// Here is an example of a `Svelte4` app startup configured with TwicPics.
+import { installTwicpics } from "@twicpics/components/svelte4";
 import "@twicpics/components/style.css";
 
 import App from "./App.svelte";
@@ -153,10 +152,10 @@ Add the import part in the `script` section of your `.svelte` page
 ```html
 <script>
   // this component will be used in place of an img element.
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
 
   // this component will be used in place of an video element.
-  import { TwicVideo } from "@twicpics/components/svelte3";
+  import { TwicVideo } from "@twicpics/components/svelte4";
 </script>
 ```
 
@@ -169,7 +168,7 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 ```html
 <!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
 </script>
 
 <main>
@@ -177,7 +176,7 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 </main>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBasicGrid.svelte&initialpath=basic-grid)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicBasicGrid.svelte&initialpath=basic-grid)
 
 <div id='bulk-loading-with-twicview'/>
 
@@ -197,7 +196,7 @@ For example, if you're building a carousel, you might want to bulk load all imag
 </TwicView>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicBulkLoading.svelte&initialpath=bulk-loading)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicBulkLoading.svelte&initialpath=bulk-loading)
 
 
 ### Image magnifier
@@ -232,7 +231,7 @@ For example:
 It applies only to `TwicImg` component in __cover__ `mode`.
 
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicZoom.svelte&initialpath=zoom)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicZoom.svelte&initialpath=zoom)
 
 <div id='lifecycle'/>
 
@@ -251,7 +250,7 @@ Here are the values the Component will emit :
 ```html
 <!-- component.svelte -->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
   let state;
 
   $: {
@@ -272,7 +271,7 @@ Another approach is to listen to `statechange` event.
 ```html
 <!-- component.svelte -->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
   let state;
 
   const handleStateChange = ( e ) => {
@@ -289,7 +288,7 @@ Another approach is to listen to `statechange` event.
 />
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicState.svelte&initialpath=state)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicState.svelte&initialpath=state)
 
 
 ### Refit example
@@ -322,7 +321,7 @@ For example:
   <TwicImg src="image3.jpg" refit="5p,10p" />
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicRefit.svelte&initialpath=refit)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicRefit.svelte&initialpath=refit)
 
 <div id='style-driven-approach'/>
 
@@ -333,7 +332,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 ```html
 <!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
 </script>
 
 <style>
@@ -384,7 +383,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </main>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src/lib/TwicStyleDriven.svelte&initialpath=style-driven)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src/lib/TwicStyleDriven.svelte&initialpath=style-driven)
 
 
 <div id='responsive-example'/>
@@ -397,7 +396,7 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 ```html
 <!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
 </script>
 
 <style>
@@ -447,7 +446,7 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 
 Your template features a single component that will follow your CSS directives and behave responsively.
  
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicArtDirections.svelte&initialpath=art-directions)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicArtDirections.svelte&initialpath=art-directions)
 
 <div id='ratio-none'/>
 
@@ -459,7 +458,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 ```html
 <!-- component.svelte-->
 <script>
-  import { TwicImg } from "@twicpics/components/svelte3";
+  import { TwicImg } from "@twicpics/components/svelte4";
 </script>
 
 <style>
@@ -483,7 +482,7 @@ Particularly useful when creating hero banner, you can specify the height of you
 ></TwicImg>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte3?file=src%2Flib%2FTwicHero.svelte&initialpath=hero)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicHero.svelte&initialpath=hero)
 
 
 <div id='components-props'/>
@@ -642,7 +641,7 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 
 ## Examples
 
-You can find usage examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+You can find usage examples [in our online demo project](https://twicpics-svelte4-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 <div id='getting-help'/>
 
