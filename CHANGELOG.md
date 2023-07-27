@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.21.1] - 2023-07-27
+
 ### Fixes
 
 - Fixes typing issues in Svelte4 projects.
@@ -490,6 +492,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.21.1]: https://github.com/TwicPics/components/compare/0.21.0...0.21.1
 [0.21.0]: https://github.com/TwicPics/components/compare/0.20.0...0.21.0
 [0.20.0]: https://github.com/TwicPics/components/compare/0.19.0...0.20.0
 [0.19.0]: https://github.com/TwicPics/components/compare/0.18.0...0.19.0
