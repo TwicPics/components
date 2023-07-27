@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixes
+
+- Fixes typing issues in Svelte4 projects.
+
 ## [0.21.0] - 2023-07-25
 
 ### Add
