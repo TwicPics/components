@@ -7,15 +7,15 @@ import vue2 from "rollup-plugin-vue2";
 import vue3 from "rollup-plugin-vue";
 import { packageVersion } from "./version.js";
 
-const svelteUnitFactory = ( customElement = false ) => ( {
-    "exports": customElement ? [] : [ `svelte3`, `svelte4` ],
+const svelteUnitFactory = ( { framework = `svelte3`, customElement = false } ) => ( {
     "external": customElement ?
         [] :
         [
           `svelte`,
           `svelte/internal`,
         ],
-    "framework": customElement ? `webcomponents` : `svelte3`,
+    "formats": ( framework === `svelte4` ) && [ `cjs`, `es`, `types` ],
+    "framework": customElement ? `webcomponents` : framework,
     "plugins": [
         ...( customElement ? [ nodeResolve() ] : [] ),
         svelte( {
@@ -52,20 +52,24 @@ const svelteUnitFactory = ( customElement = false ) => ( {
             } ),
         ] ),
     ],
-    "postDefinitions": customElement && (
-        code =>
-            code
-                .split( `\n` )
+    "postDefinitions": customElement ?
+        (
+            code =>
+                code
+                    .split( `\n` )
                 // eslint-disable-next-line no-magic-numbers
-                .slice( 2 )
-                .map( line => line.replace(
-                    /ComponentType<SvelteComponentTyped<[^>]*>>;/g,
+                    .slice( 2 )
+                    .map( line => line.replace(
+                        /ComponentType<SvelteComponentTyped<[^>]*>>;/g,
                     `CustomElementConstructor;`
-                ) )
-                .join( `\n` )
-                .replace( /interface Attributes[^}]+\}/g, `` )
-                .replace( /\s*,\s*Attributes\s*,\s*/, `,` )
-    ),
+                    ) )
+                    .join( `\n` )
+                    .replace( /interface Attributes[^}]+\}/g, `` )
+                    .replace( /\s*,\s*Attributes\s*,\s*/, `,` )
+        ) : ( framework === `svelte4` ) && (
+            code =>
+                code.replace( /SvelteComponentTyped/g, `SvelteComponent` )
+        ),
     "sourceDir": `svelte3`,
 } );
 
@@ -88,7 +92,12 @@ export default [
         ],
         "framework": `react-native`,
     },
-    svelteUnitFactory(),
+    svelteUnitFactory( {
+        "framework": `svelte3`,
+    } ),
+    svelteUnitFactory( {
+        "framework": `svelte4`,
+    } ),
     {
         "framework": `vue2`,
         "plugins": [ vue2() ],
@@ -182,5 +191,7 @@ export default [
         },
         "sourceFileName": `plugin`,
     },
-    svelteUnitFactory( true ),
+    svelteUnitFactory( {
+        "customElement": true,
+    } ),
 ];

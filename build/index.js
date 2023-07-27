@@ -25,7 +25,7 @@ import postBuild from "./postBuild.js";
  * for the given @param framework and the given @param customFormats
  * if @param customFormats is undefined then considers defaults formats list (see formats.js, formats property)
  */
-const getExportsByFramework = ( framework, customFormats ) => {
+const getExportsByFramework = ( customFormats, framework ) => {
     const formatsToExport = customFormats || formats;
     const exportsByFramework = {};
     for ( const format of formatsToExport ) {
@@ -37,15 +37,19 @@ const getExportsByFramework = ( framework, customFormats ) => {
 
 const exportsPackageJson = () => units.flatMap(
     (
-        { exports, framework, "formats": customFormats, customPackageJsonExports = false }
+        { customPackageJsonExports = false, "formats": customFormats, framework }
     ) => {
         if ( customPackageJsonExports && ( typeof ( customPackageJsonExports ) === `function` ) ) {
             return customPackageJsonExports();
         }
         return customPackageJsonExports ?
             [] :
-            ( exports || [ framework ] )
-                .map( e => [ `./${ e }`, getExportsByFramework( framework, customFormats ) ] );
+            [
+                [
+                    `./${ framework }`,
+                    getExportsByFramework( customFormats, framework ),
+                ],
+            ];
     }
 );
 
@@ -59,6 +63,7 @@ console.log( `generating components for ${
 })...` );
 await Promise.all( units.map( async unit => {
     const { framework, javascript, "formats": customFormats } = unit;
+    console.log()
     const { component, typeScript } = configFactory( unit, ...( customFormats || formats ) );
     try {
         await rollup( component );

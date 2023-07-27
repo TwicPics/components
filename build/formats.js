@@ -4,24 +4,27 @@
 const formatsInfo = new Map( [
     [
         `cjs`, {
+            "exports": `require`,
             "extension": `js`,
             "fileName": `index`,
-            "exports": `require`,
         },
     ],
     [
         `es`, {
+            "exports": `import`,
             "extension": `mjs`,
             "fileName": `module`,
-            "exports": `import`,
+        },
+    ],
+    [
+        `types`, {
+            "exports": `types`,
+            "extension": `d.ts`,
+            "fileName": `index`,
+            "type": true,
         },
     ],
 ] );
-
-/**
- * supported javascript formats list
- */
-export const formats = [ ...formatsInfo.keys() ];
 
 export const getFormatInfo = ( format, attribute ) => {
     const formatInfo = formatsInfo.get( format );
@@ -34,3 +37,8 @@ export const getFormatInfo = ( format, attribute ) => {
     }
     return formatInfo || {};
 };
+
+/**
+ * supported javascript formats list
+ */
+export const formats = [ ...formatsInfo.keys() ].filter( f => !getFormatInfo( f ).type );
