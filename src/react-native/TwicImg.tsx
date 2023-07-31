@@ -3,7 +3,7 @@
 /* eslint-disable react/display-name */
 import React, { Component, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Animated, ImageBackground, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 // eslint-disable-next-line no-duplicate-imports
 import type { LayoutChangeEvent } from 'react-native';
 
@@ -66,13 +66,15 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
         viewSize,
     } );
 
-    const _getMediaData = useRef( debounce( async ( _media, _lqip, _viewSize ) => {
-        opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
-        setMediaData( await getMediaData( _media, _lqip, _viewSize ) );
-    }, {
-        "leading": false,
-        "ms": 100,
-    } ) ).current;
+    const _getMediaData = useRef(
+        debounce( async ( _media, _lqip, _viewSize ) => {
+            opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
+            setMediaData( await getMediaData( _media, _lqip, _viewSize ) );
+        }, {
+            "leading": false,
+            "ms": 100,
+        } )
+    ).current;
     const opacityTransition = useRef( new Animated.Value( 0 ) );
     const scaleTransition = useRef( new Animated.Value( transition.hasOwnProperty( `zoom` ) ? 0 : 1 ) );
     const [ mediaData, setMediaData ] = useState( undefined );
@@ -107,49 +109,39 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
                 ],
             },
         ] }>
-            <ImageBackground
-                accessibilityLabel={computedAlt}
-                onLoad={onImage}
-                source={
-                    {
-                        "uri": mediaData?.src,
-                    }
-                }
-                style=
-                    {
+            <View style={{
+                "aspectRatio": mediaData?.ratioIntrinsic,
+                "overflow": `hidden`,
+                "width": computeWidth( mediaData, viewSize ),
+            }}>
+                <Animated.Image
+                    accessibilityLabel={computedAlt}
+                    onLoad={onImage}
+                    style={ [ styles.media ] }
+                    source={
                         {
-                            "aspectRatio": mediaData?.ratioIntrinsic,
-                            "width": computeWidth( mediaData, viewSize ),
+                            "uri": mediaData?.src,
                         }
                     }
-            >
-                { mediaData?.placeholder &&
-                    (
-                        <View style={ styles.placeholder }>
-                            <Animated.Image
-                                accessibilityLabel={`${ computedAlt }-placeholder`}
-                                blurRadius={ mediaData.placeholder.blurRadius || 0}
-                                source={
-                                    {
-                                        "uri": mediaData.placeholder.uri,
-                                    }
-                                }
-                                style={
-                                    {
-                                        "aspectRatio": mediaData?.ratioIntrinsic,
-                                        "backgroundColor": mediaData.placeholder.color,
-                                        "margin": -mediaData.placeholder.offset,
-                                        "opacity": opacityTransition.current,
-                                        "width": computeWidth( mediaData, viewSize ) +
-                                                // eslint-disable-next-line no-magic-numbers
-                                                ( 2 * mediaData.placeholder.offset ),
-                                    }
-                                }
-                            />
-                        </View>
-                    )
-                }
-            </ImageBackground>
+                ></Animated.Image>
+                { mediaData?.placeholder && (
+                    <Animated.Image
+                        blurRadius={ mediaData.placeholder.blurRadius || 0}
+                        style={ [
+                            styles.media, {
+                                "backgroundColor": mediaData.placeholder.color,
+                                "margin": -mediaData.placeholder.offset,
+                                "opacity": opacityTransition.current,
+                            },
+                        ] }
+                        source={
+                            {
+                                "uri": mediaData?.placeholder.uri,
+                            }
+                        }
+                    ></Animated.Image>
+                ) }
+            </View>
         </Animated.View>
     );
 } );
@@ -186,9 +178,9 @@ export default class TwicImg extends Component<Attributes, WrapperState> {
                 }
             >
                 {
-                    ( this.state.ready ) ?
-                        <TwicMedia {...props} viewSize={this.state.viewSize} /> :
-                        undefined
+                    this.state.ready && (
+                        <TwicMedia {...props} viewSize={this.state.viewSize} />
+                    )
                 }
             </View>
         );
@@ -205,10 +197,12 @@ const styles = StyleSheet.create( {
         "flexDirection": `column`,
         "overflow": `hidden`,
     },
-    "placeholder": {
-        "height": `100%`,
-        "overflow": `hidden`,
-        "width": `100%`,
+    "media": {
+        "position": `absolute`,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0,
     },
     "wrapper": {
         "overflow": `hidden`,
