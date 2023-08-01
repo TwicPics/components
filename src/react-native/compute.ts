@@ -3,7 +3,7 @@ export * from "../_/compute";
 import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
-import { createUrl, finalTransform } from '../_/url';
+import { createUrl, finalTransform, urlInfos } from '../_/url';
 import type { MediaData, SizeObject, UrlData } from './types';
 
 const PLACEHOLDER_DIM = 1000;
@@ -46,14 +46,19 @@ const mappingMode: { [key: string]: string; } = {
     "repeat": `contain-max`,
 };
 
-const computeUrl = (
+const computeUrl = ( { anchor,
     // eslint-disable-next-line no-shadow
-    { anchor, focus, lqip = false, mode, placeholder, preTransform, refit, src, step, viewSize }: UrlData
-) => {
-    if ( lqip && /^placeholder:.*$/.test( src ) ) {
-        return undefined;
-    }
+    focus,
+    inspect = false,
+    mode,
+    placeholder,
+    preTransform,
+    refit,
+    src,
+    step,
+    viewSize }: UrlData ) => {
     const { domain, env } = config;
+    const lqip = inspect && !urlInfos( src ).isSpecial;
     const { width, height } = actualSize( step, lqip, viewSize );
     const context = {
         height,
@@ -74,6 +79,7 @@ const computeUrl = (
         {
             context,
             domain,
+            inspect,
             "transform": actualTransform,
             src,
             "output": lqip ? placeholder : ``,
@@ -145,11 +151,11 @@ export const computeUrls = (
     urlData: UrlData
 ): Record< string, string> => ( {
     "media": computeUrl( urlData ),
-    "lqip": computeUrl(
+    "inspect": computeUrl(
         {
             ...urlData,
             ...{
-                "lqip": true,
+                "inspect": true,
             },
         }
     ),

@@ -16,7 +16,7 @@ import Transform from './pages/Transform.js';
 installTwicpics( {
     "debug": false,
     "domain": `https://demo.twic.it/`,
-    "step": 20,
+    "step": 100,
     "maxDPR": 3,
 } );
 

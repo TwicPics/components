@@ -34,7 +34,7 @@ import {
     computeWidth,
 } from './compute';
 import type { Attributes, MediaAttributes, WrapperState } from './types';
-import { getMediaData } from './mediaInfos';
+import { getMediaInfos } from './mediaInfos';
 import { debounce } from '../_/utils';
 
 const TwicMedia = React.memo( ( props: MediaAttributes ) => {
@@ -54,7 +54,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     const transitionDuration = parseTransitionDuration( props.transitionDuration );
     const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
     const computedAlt = computeAlt( alt, src, `img` );
-    const { media, lqip } = computeUrls( {
+    const { media, inspect } = computeUrls( {
         anchor,
         focus,
         mode,
@@ -66,37 +66,52 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
         viewSize,
     } );
 
-    const _getMediaData = useRef(
-        debounce( async ( _media, _lqip, _viewSize ) => {
-            opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
-            setMediaData( await getMediaData( _media, _lqip, _viewSize ) );
-        }, {
-            "leading": false,
-            "ms": 100,
-        } )
+    const _fetch = useRef(
+        debounce(
+            async _media => {
+                const res = await fetch( _media );
+                opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
+                if ( res.ok ) {
+                    setActualUri( URL.createObjectURL( await res.blob() ) );
+                    if ( transition.hasOwnProperty( `none` ) ) {
+                        opacityTransition.current.setValue( 0 );
+                    } else {
+                        Animated.timing(
+                            opacityTransition.current,
+                            computeTimingConfig( 0, transitionDelay, transitionDuration, transitionTimingFunction )
+                        ).start();
+                        Animated.timing(
+                            scaleTransition.current,
+                            computeTimingConfig( 1, transitionDelay, transitionDuration, transitionTimingFunction )
+                        ).start();
+                    }
+                }
+            },
+            {
+                "leading": false,
+                "ms": 100,
+            }
+        )
     ).current;
+
     const opacityTransition = useRef( new Animated.Value( 0 ) );
     const scaleTransition = useRef( new Animated.Value( transition.hasOwnProperty( `zoom` ) ? 0 : 1 ) );
-    const [ mediaData, setMediaData ] = useState( undefined );
+    const [ mediaInfos, setMediaInfos ] = useState( undefined );
+    const [ actualUri, setActualUri ] = useState( undefined );
 
     useEffect( () => {
-        _getMediaData( media, lqip, viewSize );
-    }, [ media, lqip ] );
+        (
+            async () => {
+                opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
+                setMediaInfos( await getMediaInfos( inspect, viewSize ) );
+            }
+        )();
+    }, [ inspect ] );
 
-    const onImage = () => {
-        if ( transition.hasOwnProperty( `none` ) ) {
-            opacityTransition.current.setValue( 0 );
-        } else {
-            Animated.timing(
-                opacityTransition.current,
-                computeTimingConfig( 0, transitionDelay, transitionDuration, transitionTimingFunction )
-            ).start();
-            Animated.timing(
-                scaleTransition.current,
-                computeTimingConfig( 1, transitionDelay, transitionDuration, transitionTimingFunction )
-            ).start();
-        }
-    };
+    useEffect( () => {
+        _fetch( media );
+    }, [ media ] );
+
     return (
         <Animated.View style={ [
             styles.layout,
@@ -109,36 +124,33 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
                 ],
             },
         ] }>
-            <View style={{
-                "aspectRatio": mediaData?.ratioIntrinsic,
+            <View style={ {
+                "aspectRatio": mediaInfos?.ratioIntrinsic,
                 "overflow": `hidden`,
-                "width": computeWidth( mediaData, viewSize ),
-            }}>
-                <Animated.Image
-                    accessibilityLabel={computedAlt}
-                    onLoad={onImage}
-                    style={ [ styles.media ] }
-                    source={
-                        {
-                            "uri": mediaData?.src,
-                        }
-                    }
-                ></Animated.Image>
-                { mediaData?.placeholder && (
+                "width": computeWidth( mediaInfos, viewSize ),
+            } }>
+                { actualUri && (
                     <Animated.Image
-                        blurRadius={ mediaData.placeholder.blurRadius || 0}
+                        accessibilityLabel={computedAlt}
+                        style={ [ styles.media ] }
+                        source={ {
+                            "uri": actualUri,
+                        } }
+                    ></Animated.Image>
+                ) }
+                { mediaInfos?.placeholder && (
+                    <Animated.Image
+                        blurRadius={ mediaInfos.placeholder.blurRadius || 0}
                         style={ [
                             styles.media, {
-                                "backgroundColor": mediaData.placeholder.color,
-                                "margin": -mediaData.placeholder.offset,
+                                "backgroundColor": mediaInfos.placeholder.color,
+                                "margin": mediaInfos.placeholder.offset,
                                 "opacity": opacityTransition.current,
                             },
                         ] }
-                        source={
-                            {
-                                "uri": mediaData?.placeholder.uri,
-                            }
-                        }
+                        source={ {
+                            "uri": mediaInfos?.placeholder.uri,
+                        } }
                     ></Animated.Image>
                 ) }
             </View>

@@ -19,7 +19,7 @@ export interface Attributes {
     transitionTimingFunction?: EasingFunction,
 }
 
-export interface IMediaData {
+export interface IMediaInfos {
     placeholder?: PlaceholderData,
     height: number,
     width: number,
@@ -29,10 +29,9 @@ export interface MediaAttributes extends Attributes {
     viewSize: SizeObject
 }
 
-export interface MediaData {
+export interface MediaInfos {
     placeholder?: PlaceholderData,
     ratioIntrinsic: number,
-    src: string,
 }
 
 export interface PlaceholderData {
@@ -51,7 +50,7 @@ export interface SizeObject {
 export interface UrlData {
     anchor: AnchorObject,
     focus: string,
-    lqip?:boolean,
+    inspect?: boolean,
     mode: Mode,
     placeholder: Placeholder,
     preTransform: string,

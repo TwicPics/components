@@ -35,7 +35,7 @@ const computeTransform = (
 };
 
 export const createUrl = (
-    { domain, context, output, quality, src, transform }: CreateUrlData
+    { domain, context, inspect, output, quality, src, transform }: CreateUrlData
 ): string => {
     const { isAbsolute } = urlInfos( src, domain );
     const path = isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
@@ -44,6 +44,7 @@ export const createUrl = (
     const actualOutput = output ? `/output=${ output }` : ``;
     const actualPath = isMedia ? parsed[ FULL_PATH ] : path;
     const actualQuality = quality ? `/quality=${ quality }` : ``;
+    const actualInspect = inspect ? `/inspect` : ``;
     const actualTransform = computeTransform( context, transform );
     return `${
         domain
@@ -60,6 +61,8 @@ export const createUrl = (
             isMedia ? `${ parsed[ MEDIA ] }:${ actualPath }` : actualPath
         }${
             actualQuality
+        }${
+            actualInspect
         }` :
         // catch-all syntax
         `${
@@ -72,6 +75,8 @@ export const createUrl = (
             actualTransform
         }${
             actualOutput
+        }${
+            actualInspect
         }${
             actualQuality
         }`
