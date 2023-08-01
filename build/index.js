@@ -63,7 +63,6 @@ console.log( `generating components for ${
 })...` );
 await Promise.all( units.map( async unit => {
     const { framework, javascript, "formats": customFormats } = unit;
-    console.log()
     const { component, typeScript } = configFactory( unit, ...( customFormats || formats ) );
     try {
         await rollup( component );
