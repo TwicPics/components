@@ -18,9 +18,7 @@ const VisibilityDetector: FC<Props> = props => {
     const { eager, children, measurementInterval, onVisibilityChanged } = props;
     const { anticipation } = config;
     const detector = useRef<View>( null );
-    // eslint-disable-next-line no-undef
-    let interval: NodeJS.Timer;
-
+    const interval = useRef< ReturnType< typeof setInterval > >( null );
     const measure = () => {
         if ( !detector?.current ) {
             return;
@@ -57,18 +55,20 @@ const VisibilityDetector: FC<Props> = props => {
     };
 
     const observe = () => {
-        if ( interval ) {
+        if ( interval?.current ) {
             return;
         }
         measure();
-        interval = setInterval( () => {
+        interval.current = setInterval( () => {
             measure();
         }, measurementInterval || MEASUREMENT_INTERVAL );
     };
 
     const unobserve = () => {
-        clearInterval( interval );
-        interval = null;
+        if ( interval?.current ) {
+            clearInterval( interval.current );
+            interval.current = null;
+        }
     };
 
     // eslint-disable-next-line consistent-return
