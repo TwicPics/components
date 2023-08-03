@@ -8,11 +8,13 @@
 
 - [Contents](#contents)
 - [Overview](#overview)
+  - [What is TwicPics Components?](#what-is-twicpics-components)
 - [Setup](#setup)
   - [Install TwicPics in your React Native project](#install-twicpics-in-your-react-native-project)
   - [Setup Options](#setup-options)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
+  - [Lazy Loading](#lazy-loading)
   - [Refit example](#refit-example)
   - [Working with ratio="none"](#working-with-rationone)
 - [Components Props](#components-props)
@@ -21,7 +23,19 @@
 
 #include "src/_documentation/common/_whatIsTwicPics.md"
 
-#include "src/_documentation/common/_whatIsTwicPicsComponents.md"
+### What is TwicPics Components?
+
+TwicPics Components is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
+
+TwicPics Components are a drop-in replacement for `<Image>` tag with optimized _Cumulative Layout Shift_ (CLS), low-quality image placeholders, and lazy loading out of the box.
+
+```html
+<!-- Before -->
+<Image source={{uri: "https://assets.twicpics.com/examples/football.jpg"}} style={{width: 400, height: 400}}/>
+
+<!-- After -->
+<TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
+```
 
 #include "src/_documentation/common/_installation.md"
 
@@ -55,6 +69,7 @@ For an exhaustive list of options, see [Setup Options](#setup-options).
 
 | Option | Description | Type | Default |
 |:-|:-|:-|:-|
+| `anticipation` | [TwicPics](https://www.twicpics.com/) will lazy-load images by default. To avoid a too abrupt transition with elements appearing into view and then images very obviously loading afterwards, [TwicPics](https://www.twicpics.com/) will "anticipate" lazy loading by a factor of the actual viewport. This behavior is controlled by this setting. | `Number` | `0.2` |
 | `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths). Providing it is __mandatory__. | `String` | |
 | `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
 | `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
@@ -81,6 +96,47 @@ const styles = StyleSheet.create({
     // some styles
   },
 });
+
+export default MyComponent;
+```
+
+### Lazy Loading
+
+`TwicImg ` will lazy-load images by default and "anticipate" lazy loading by a factor of the actual viewport. This can be controlled using the [anticipation option](#setup-options).
+
+When embedding `TwicImg` in a lazily loading-compatible Component like [FlatList](https://reactnative.dev/docs/flatlist), it is recommended to disable `TwcImg`'s lazy-loading feature using the `eager` prop:
+
+```jsx
+// MyComponent.jsx
+
+import React from 'react';
+import { FlatList, View, Image } from 'react-native';
+
+const data = [
+  // Data containing image URLs
+  { id: 1, imageUrl: 'image1.jpg' },
+  { id: 2, imageUrl: 'image2.jpg' },
+  // More data...
+];
+
+const renderItem = ({ item }) => (
+  <View>
+    <TwicImg
+      src={item.imageUrl}
+      eager {/* disables lazy loading for this image */} />
+  </View>
+);
+
+const MyComponent = () => {
+  return (
+    <FlatList
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id.toString()}
+      // Other FlatList props...
+    />
+  );
+};
 
 export default MyComponent;
 ```
@@ -149,6 +205,7 @@ export default MyComponent;
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  eager="<boolean>"
   focus="<auto|coordinates>"
   mode="<contain|cover>"
   placeholder="<preview|maincolor|meancolor|none>"
@@ -167,6 +224,7 @@ export default MyComponent;
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | based on `src` |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` |
+| `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/reference/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |

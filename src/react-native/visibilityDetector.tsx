@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line no-duplicate-imports
 import type { ReactNode, FC } from 'react';
 // eslint-disable-next-line no-shadow
-import { View, Dimensions, StyleSheet } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { config } from '../_/config';
 
 export interface Props {
@@ -83,16 +83,12 @@ const VisibilityDetector: FC<Props> = props => {
 
     return (
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        <View ref={ detector } style={ [ styles.detector ] }>
+        <View ref={ detector } style={ {
+            "flex": 1,
+        } }>
             { children }
         </View>
     );
 };
-
-const styles = StyleSheet.create( {
-    "detector": {
-        "height": `100%`,
-    },
-} );
 
 export default VisibilityDetector;
