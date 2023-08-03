@@ -14,15 +14,14 @@ const success = ( data: IMediaInfos, viewSize: SizeObject ): MediaInfos => {
 };
 
 export const getMediaInfos = async ( src: string, viewSize: SizeObject ): Promise< MediaInfos > => {
-
-    const resp = await fetch( `${ src }` );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const { "output": { color, image, height, intrinsicWidth, width } } = resp.ok ?
-        await resp.json() :
-        {
-            "output": {},
-        };
+    let data;
+    try {
+        const resp = await fetch( src );
+        data = await resp.json();
+    } catch ( _ ) {}
+    const { "output": { color, image, height, intrinsicWidth, width } } = data || {
+        "output": {},
+    };
     // eslint-disable-next-line no-magic-numbers
     const deviation = image ? width / ( 2 * intrinsicWidth ) : 0;
     return success( {
