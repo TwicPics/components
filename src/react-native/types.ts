@@ -41,6 +41,13 @@ export interface PlaceholderData {
     uri: string,
 }
 
+export interface TimingConfig {
+  toValue: number,
+  transitionDelay: string,
+  transitionDuration: string,
+  transitionTimingFunction: EasingFunction,
+}
+
 export interface SizeObject {
     height: number,
     width: number,
@@ -58,10 +65,5 @@ export interface UrlData {
     src: string,
     step: number,
     viewSize: SizeObject
-}
-
-export interface WrapperState {
-    viewSize: SizeObject,
-    ready: boolean,
 }
 
