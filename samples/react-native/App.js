@@ -2,18 +2,20 @@ import { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { installTwicpics } from '@twicpics/components/react-native';
-import Gallery from './pages/Gallery.js';
-import Basic from './pages/Basic.js';
-import Home from './pages/Home.js';
-import List from './pages/List.js';
 import Anchor from './pages/Anchor.js';
+import Basic from './pages/Basic.js';
+import Focus from './pages/Focus.js';
+import Gallery from './pages/Gallery.js';
+import Home from './pages/Home.js';
+import LazyLoading from './pages/LazyLoading.js';
+import List from './pages/List.js';
+import Mode from './pages/Mode.js';
 import Ratio from './pages/Ratio.js';
 import Refit from './pages/Refit.js';
-import Mode from './pages/Mode.js';
-import Focus from './pages/Focus.js';
 import Transform from './pages/Transform.js';
 
 installTwicpics( {
+    "anticipation": 0.2,
     "debug": false,
     "domain": `https://demo.twic.it/`,
     "step": 100,
@@ -30,6 +32,9 @@ class App extends Component {
                 <Stack.Navigator>
                     <Stack.Screen name="Home" component={Home} options={{
                         "title": `Home`,
+                    }} />
+                    <Stack.Screen name="Anchor" component={Anchor} options={{
+                        "title": `Anchor`,
                     }} />
                     <Stack.Screen name="Basic" component={Basic} options={{
                         "title": `Basic`,
@@ -51,11 +56,11 @@ class App extends Component {
                             "title": `Gallery`,
                         }}
                     />
+                    <Stack.Screen name="LazyLoading" component={LazyLoading} options={{
+                        "title": `LazyLoading`,
+                    }} />
                     <Stack.Screen name="Mode" component={Mode} options={{
                         "title": `Mode`,
-                    }} />
-                    <Stack.Screen name="Anchor" component={Anchor} options={{
-                        "title": `Anchor`,
                     }} />
                     <Stack.Screen name="Ratio" component={Ratio} options={{
                         "title": `Ratio`,

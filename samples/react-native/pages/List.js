@@ -210,7 +210,7 @@ const renderItem = ( { item } ) => (
             "padding": 5,
         }}
     >
-        <TwicImg src={item.url} ratio="1" mode="cover" placeholder="maincolor" />
+        <TwicImg src={item.url} eager ratio="1" mode="cover" placeholder="maincolor" />
     </View>
 );
 
