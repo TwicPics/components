@@ -57,12 +57,12 @@ export const createUrl = (
             actualTransform
         }${
             actualOutput
-        }/${
-            isMedia ? `${ parsed[ MEDIA ] }:${ actualPath }` : actualPath
         }${
             actualQuality
         }${
             actualInspect
+        }/${
+            isMedia ? `${ parsed[ MEDIA ] }:${ actualPath }` : actualPath
         }` :
         // catch-all syntax
         `${
