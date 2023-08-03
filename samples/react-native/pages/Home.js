@@ -5,15 +5,17 @@ import { Button, StyleSheet, View } from 'react-native';
 const Divider = () => <View style={styles.divider} />;
 const Home = ( { navigation } ) => (
     <View style={styles.container}>
-        <Button title="Basic" onPress={() => navigation.navigate( `Basic` )} />
-        <Divider />
         <Button title="Anchor" onPress={() => navigation.navigate( `Anchor` )} />
+        <Divider />
+        <Button title="Basic" onPress={() => navigation.navigate( `Basic` )} />
         <Divider />
         <Button title="Flatlist" onPress={() => navigation.navigate( `Flatlist` )} />
         <Divider />
         <Button title="Focus" onPress={() => navigation.navigate( `Focus` )} />
         <Divider />
         <Button title="Gallery" onPress={() => navigation.navigate( `Gallery` )} />
+        <Divider />
+        <Button title="LazyLoading" onPress={() => navigation.navigate( `LazyLoading` )} />
         <Divider />
         <Button title="Mode" onPress={() => navigation.navigate( `Mode` )} />
         <Divider />

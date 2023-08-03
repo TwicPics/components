@@ -4,6 +4,7 @@ import type { AnchorObject, Mode, Placeholder } from "../_/types";
 export interface Attributes {
     alt?: string,
     anchor?: string,
+    eager?: boolean,
     focus?: string,
     mode?: Mode,
     placeholder?: Placeholder,

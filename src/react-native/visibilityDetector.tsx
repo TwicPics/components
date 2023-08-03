@@ -6,6 +6,7 @@ import { View, Dimensions, StyleSheet } from 'react-native';
 import { config } from '../_/config';
 
 export interface Props {
+  eager?: boolean,
   children: ReactNode;
   measurementInterval?: number;
   onVisibilityChanged( visible: boolean ): unknown;
@@ -14,7 +15,7 @@ export interface Props {
 const MEASUREMENT_INTERVAL = 100;
 
 const VisibilityDetector: FC<Props> = props => {
-    const { children, measurementInterval, onVisibilityChanged } = props;
+    const { eager, children, measurementInterval, onVisibilityChanged } = props;
     const { anticipation } = config;
     const detector = useRef<View>( null );
     // eslint-disable-next-line no-undef
@@ -70,9 +71,14 @@ const VisibilityDetector: FC<Props> = props => {
         interval = null;
     };
 
+    // eslint-disable-next-line consistent-return
     useEffect( () => {
-        observe();
-        return unobserve;
+        if ( eager ) {
+            onVisibilityChanged( true );
+        } else {
+            observe();
+            return unobserve;
+        }
     }, [] );
 
     return (

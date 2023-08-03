@@ -11,6 +11,7 @@ import VisibilityDetector from './visibilityDetector';
 import {
     parseAlt,
     parseAnchor,
+    parseEager,
     parseFocus,
     parseMode,
     parsePlaceholder,
@@ -42,6 +43,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     const { viewSize } = props;
     const alt = parseAlt( props.alt );
     const anchor = parseAnchor( props.anchor );
+    const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
     const mode = parseMode( props.mode ) || `cover`;
@@ -126,9 +128,12 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     }, [ media, visible ] );
 
     return (
-        <VisibilityDetector onVisibilityChanged={ () => {
-            setVisible( true );
-        } } >
+        <VisibilityDetector
+            eager={ eager }
+            onVisibilityChanged={ () => {
+                setVisible( true );
+            } }
+        >
             <Animated.View style={ [
                 styles.layout,
                 computePosition( anchor, mode ),
