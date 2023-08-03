@@ -1,10 +1,10 @@
-import { Animated, Easing, PixelRatio, type EasingFunction, Platform } from 'react-native';
+import { Animated, Easing, PixelRatio, Platform } from 'react-native';
 export * from "../_/compute";
 import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
 import { createUrl, finalTransform, urlInfos } from '../_/url';
-import type { MediaData, SizeObject, UrlData } from './types';
+import type { MediaData, SizeObject, TimingConfig, UrlData } from './types';
 
 const PLACEHOLDER_DIM = 1000;
 const actualSize = ( step: number, lqip: boolean, viewSize: SizeObject ): SizeObject => {
@@ -127,10 +127,7 @@ export const computePosition = (
 };
 
 export const computeTimingConfig = (
-    newValue: number,
-    transitionDelay: string,
-    transitionDuration: string,
-    transitionTimingFunction: EasingFunction
+    { toValue, transitionDelay, transitionDuration, transitionTimingFunction } : TimingConfig
 ):
 Animated.TimingAnimationConfig =>
     (
@@ -139,7 +136,7 @@ Animated.TimingAnimationConfig =>
             // eslint-disable-next-line no-magic-numbers
             "duration": Number( transitionDuration || 200 ),
             "easing": transitionTimingFunction || Easing.ease,
-            "toValue": newValue,
+            toValue,
             "useNativeDriver": true,
         }
     );

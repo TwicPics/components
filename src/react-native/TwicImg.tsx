@@ -1,12 +1,13 @@
 /* eslint-disable max-lines */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/display-name */
-import React, { Component, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-shadow
 import { Animated, StyleSheet, View } from 'react-native';
 // eslint-disable-next-line no-duplicate-imports
 import type { LayoutChangeEvent } from 'react-native';
 
+import VisibilityDetector from './visibilityDetector';
 import {
     parseAlt,
     parseAnchor,
@@ -33,7 +34,7 @@ import {
     computeViewSize,
     computeWidth,
 } from './compute';
-import type { Attributes, MediaAttributes, WrapperState } from './types';
+import type { Attributes, MediaAttributes } from './types';
 import { getMediaInfos } from './mediaInfos';
 import { debounce } from '../_/utils';
 
@@ -65,24 +66,38 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
         step,
         viewSize,
     } );
-
+    const opacityTransition = useRef( new Animated.Value( 0 ) ).current;
+    const scaleTransition = useRef( new Animated.Value( transition.hasOwnProperty( `zoom` ) ? 0 : 1 ) ).current;
+    const [ actualUri, setActualUri ] = useState( undefined );
+    const [ mediaInfos, setMediaInfos ] = useState( undefined );
+    const [ visible, setVisible ] = useState( false );
     const _fetch = useRef(
         debounce(
             async _media => {
                 const res = await fetch( _media );
-                opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
+                opacityTransition.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
                 if ( res.ok ) {
                     setActualUri( URL.createObjectURL( await res.blob() ) );
                     if ( transition.hasOwnProperty( `none` ) ) {
-                        opacityTransition.current.setValue( 0 );
+                        opacityTransition.setValue( 0 );
                     } else {
                         Animated.timing(
-                            opacityTransition.current,
-                            computeTimingConfig( 0, transitionDelay, transitionDuration, transitionTimingFunction )
+                            opacityTransition,
+                            computeTimingConfig( {
+                                "toValue": 0,
+                                transitionDelay,
+                                transitionDuration,
+                                transitionTimingFunction,
+                            } )
                         ).start();
                         Animated.timing(
-                            scaleTransition.current,
-                            computeTimingConfig( 1, transitionDelay, transitionDuration, transitionTimingFunction )
+                            scaleTransition,
+                            computeTimingConfig( {
+                                "toValue": 1,
+                                transitionDelay,
+                                transitionDuration,
+                                transitionTimingFunction,
+                            } )
                         ).start();
                     }
                 }
@@ -90,114 +105,95 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
             {
                 "leading": false,
                 "ms": 100,
+                "trailing": true,
             }
         )
     ).current;
 
-    const opacityTransition = useRef( new Animated.Value( 0 ) );
-    const scaleTransition = useRef( new Animated.Value( transition.hasOwnProperty( `zoom` ) ? 0 : 1 ) );
-    const [ mediaInfos, setMediaInfos ] = useState( undefined );
-    const [ actualUri, setActualUri ] = useState( undefined );
-
     useEffect( () => {
         (
             async () => {
-                opacityTransition.current.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
+                opacityTransition.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
                 setMediaInfos( await getMediaInfos( inspect, viewSize ) );
             }
         )();
     }, [ inspect ] );
 
     useEffect( () => {
-        _fetch( media );
-    }, [ media ] );
+        if ( visible ) {
+            _fetch( media );
+        }
+    }, [ media, visible ] );
 
     return (
-        <Animated.View style={ [
-            styles.layout,
-            computePosition( anchor, mode ),
-            {
-                "transform": [
-                    {
-                        "scale": scaleTransition.current,
-                    },
-                ],
-            },
-        ] }>
-            <View style={ {
-                "aspectRatio": mediaInfos?.ratioIntrinsic,
-                "overflow": `hidden`,
-                "width": computeWidth( mediaInfos, viewSize ),
-            } }>
-                { actualUri && (
-                    <Animated.Image
-                        accessibilityLabel={computedAlt}
-                        style={ [ styles.media ] }
-                        source={ {
-                            "uri": actualUri,
-                        } }
-                    ></Animated.Image>
-                ) }
-                { mediaInfos?.placeholder && (
-                    <Animated.Image
-                        blurRadius={ mediaInfos.placeholder.blurRadius || 0}
-                        style={ [
-                            styles.media, {
-                                "backgroundColor": mediaInfos.placeholder.color,
-                                "margin": mediaInfos.placeholder.offset,
-                                "opacity": opacityTransition.current,
-                            },
-                        ] }
-                        source={ {
-                            "uri": mediaInfos?.placeholder.uri,
-                        } }
-                    ></Animated.Image>
-                ) }
-            </View>
-        </Animated.View>
+        <VisibilityDetector onVisibilityChanged={ () => {
+            setVisible( true );
+        } } >
+            <Animated.View style={ [
+                styles.layout,
+                computePosition( anchor, mode ),
+                {
+                    "transform": [
+                        {
+                            "scale": scaleTransition,
+                        },
+                    ],
+                },
+            ] } >
+                <View style={ {
+                    "aspectRatio": mediaInfos?.ratioIntrinsic,
+                    "overflow": `hidden`,
+                    "width": computeWidth( mediaInfos, viewSize ),
+                } } >
+                    { actualUri && (
+                        <Animated.Image
+                            accessibilityLabel={computedAlt}
+                            style={ [ styles.media ] }
+                            source={ {
+                                "uri": actualUri,
+                            } }
+                        ></Animated.Image>
+                    ) }
+                    { mediaInfos?.placeholder && (
+                        <Animated.Image
+                            blurRadius={ mediaInfos.placeholder.blurRadius || 0}
+                            style={ [
+                                styles.media, {
+                                    "backgroundColor": mediaInfos.placeholder.color,
+                                    "margin": mediaInfos.placeholder.offset,
+                                    "opacity": opacityTransition,
+                                },
+                            ] }
+                            source={ {
+                                "uri": mediaInfos?.placeholder.uri,
+                            } }
+                        ></Animated.Image>
+                    ) }
+                </View>
+            </Animated.View>
+        </VisibilityDetector>
     );
 } );
 
-export default class TwicImg extends Component<Attributes, WrapperState> {
-    constructor( props: Attributes ) {
-        super( props );
-        this.state = {
-            "viewSize": undefined,
-            "ready": false,
-        };
-    }
-    render() {
-        const { props } = this;
-        const ratio = parseRatio( props.ratio || 1 );
-        return (
-            <View
-                style={
-                    StyleSheet.flatten(
-                        [ styles.container, computeContainerStyle( props.style, ratio ) ]
-                    )
-                }
-                onLayout= {
-                    // eslint-disable-next-line no-shadow
-                    ( event: LayoutChangeEvent ) => {
-                        const { width, height } = event.nativeEvent.layout;
-                        this.setState(
-                            {
-                                "viewSize": computeViewSize( width, height, ratio ),
-                                "ready": ( width > 0 ) && ( height > 0 ),
-                            }
-                        );
-                    }
-                }
-            >
-                {
-                    this.state.ready && (
-                        <TwicMedia {...props} viewSize={this.state.viewSize} />
-                    )
-                }
-            </View>
-        );
-    }
-}
+const TwicImg = ( props: Attributes ) => {
+    const { "ratio": _ratio = 1, style } = props;
+    const ratio = parseRatio( _ratio );
+    const [ viewSize, setViewSize ] = useState( undefined );
+    const [ ready, setReady ] = useState( false );
+    return (
+        <View
+            // eslint-disable-next-line no-shadow
+            onLayout={ ( event: LayoutChangeEvent ) => {
+                const { width, height } = event.nativeEvent.layout;
+                setViewSize( computeViewSize( width, height, ratio ) );
+                setReady( ( width > 0 ) && ( height > 0 ) );
+            } }
+            style={ StyleSheet.flatten( [ styles.container, computeContainerStyle( style, ratio ) ] ) }
+        >
+            {ready && <TwicMedia { ...props } viewSize={ viewSize } />}
+        </View>
+    );
+};
 
 const styles = StyleSheet.create( {
     "container": {
@@ -222,3 +218,5 @@ const styles = StyleSheet.create( {
         "height": `100%`,
     },
 } );
+
+export default TwicImg;

@@ -37,6 +37,7 @@ export interface Attributes {
 }
 
 export interface Config {
+    anticipation?: number,
     class: string,
     domain: string,
     env: Environment,
