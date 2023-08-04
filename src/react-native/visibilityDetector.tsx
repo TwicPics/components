@@ -6,8 +6,8 @@ import { View, Dimensions } from 'react-native';
 import { config } from '../_/config';
 
 export interface Props {
-  eager?: boolean,
   children: ReactNode;
+  eager?: boolean,
   measurementInterval?: number;
   onVisibilityChanged( visible: boolean ): unknown;
 }
