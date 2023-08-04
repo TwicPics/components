@@ -8,11 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.22.0] - 2023-08-03
+
+### Add
+
+- Adds lazy loading support in **React Native** components.
+
 ## [0.21.1] - 2023-07-27
 
 ### Fixes
 
-- Fixes typing issues in Svelte4 projects.
+- Fixes typing issues in **Svelte4** projects.
 
 ## [0.21.0] - 2023-07-25
 
@@ -22,11 +28,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   
 ### Changed
 
-- Simplifies LQIP data retrieval by using `inspect` route in **React-native**.
+- Simplifies LQIP data retrieval by using `inspect` route in **React Native**.
 
 ### Fixes
 
-- Fixes blinking issue in **React-native**.
+- Fixes blinking issue in **React Native**.
 
 ## [0.20.0] - 2023-07-13
 
@@ -40,7 +46,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Fixes **React-native** sample project launch issue on **macOS**.
+- Fixes **React Native** sample project launch issue on **macOS**.
 - Fixes type definitions in **React** and **Svelte**.
 
 ## [0.19.0] - 2023-06-13
@@ -185,7 +191,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Fixes React-native documentation
+- Fixes React Native documentation
 - Fixes the problem preventing the **Nuxt3** module from working with [Nuxt3.0.0-rc.14](https://github.com/nuxt/framework/releases/tag/v3.0.0-rc.14)
 
 ## [0.13.0] - 2022-11-14
@@ -492,6 +498,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.22.0]: https://github.com/TwicPics/components/compare/0.21.1...0.22.0
 [0.21.1]: https://github.com/TwicPics/components/compare/0.21.0...0.21.1
 [0.21.0]: https://github.com/TwicPics/components/compare/0.20.0...0.21.0
 [0.20.0]: https://github.com/TwicPics/components/compare/0.19.0...0.20.0
