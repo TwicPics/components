@@ -57,7 +57,7 @@ class App extends Component {
                         }}
                     />
                     <Stack.Screen name="LazyLoading" component={LazyLoading} options={{
-                        "title": `LazyLoading`,
+                        "title": `Lazy Loading`,
                     }} />
                     <Stack.Screen name="Mode" component={Mode} options={{
                         "title": `Mode`,

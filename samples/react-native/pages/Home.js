@@ -15,7 +15,7 @@ const Home = ( { navigation } ) => (
         <Divider />
         <Button title="Gallery" onPress={() => navigation.navigate( `Gallery` )} />
         <Divider />
-        <Button title="LazyLoading" onPress={() => navigation.navigate( `LazyLoading` )} />
+        <Button title="Lazy Loading" onPress={() => navigation.navigate( `LazyLoading` )} />
         <Divider />
         <Button title="Mode" onPress={() => navigation.navigate( `Mode` )} />
         <Divider />

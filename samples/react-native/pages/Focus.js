@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { TwicImg } from '@twicpics/components/react-native';
 
 const focuses = [ `50px50p`, `auto`, `right` ];
@@ -15,21 +15,17 @@ const Focus = () => {
         setFocus( focuses[ indiceFocus ] );
     };
     return (
-        <View>
-            <ScrollView>
-                <View style={styles.container}>
-                    <Button title={`Change focus - ${ focus }`} onPress={() => changeFocus()} />
-                    <View style={styles.imgContainer}>
-                        <TwicImg
-                            src="football.jpg"
-                            focus={focus}
-                            ratio="3/4"
-                            mode="cover"
-                            style={styles.customImage}
-                        />
-                    </View>
-                </View>
-            </ScrollView>
+        <View style={styles.container}>
+            <Button title={`Change focus - ${ focus }`} onPress={() => changeFocus()} />
+            <View style={styles.imgContainer}>
+                <TwicImg
+                    src="football.jpg"
+                    focus={focus}
+                    ratio="3/4"
+                    mode="cover"
+                    style={styles.customImage}
+                />
+            </View>
         </View>
     );
 };
