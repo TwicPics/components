@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { TwicImg } from '@twicpics/components/react-native';
 
 const config = [
@@ -55,22 +55,18 @@ const Anchor = () => {
         setConfig( config[ indiceConfig ] );
     };
     return (
-        <View>
-            <ScrollView>
-                <View style={styles.container}>
-                    <Button title="Change position" onPress={() => changeAnchor()} />
-                    <View style={styles.imgContainer}>
-                        <TwicImg
-                            src="cat_1x1.jpg"
-                            anchor={value.anchor}
-                            mode={value.mode}
-                            placeholder="preview"
-                            ratio={value.ratio}
-                            style={styles.customImage}
-                        />
-                    </View>
-                </View>
-            </ScrollView>
+        <View style={styles.container}>
+            <Button title="Change position" onPress={() => changeAnchor()} />
+            <View style={styles.imgContainer}>
+                <TwicImg
+                    src="cat_1x1.jpg"
+                    anchor={value.anchor}
+                    mode={value.mode}
+                    placeholder="preview"
+                    ratio={value.ratio}
+                    style={styles.customImage}
+                />
+            </View>
         </View>
     );
 };

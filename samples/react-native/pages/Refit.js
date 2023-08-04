@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { TwicImg } from '@twicpics/components/react-native';
 
 const configs = [
@@ -64,23 +64,19 @@ const Refit = () => {
         setConfig( configs[ indiceConfig ] );
     };
     return (
-        <View>
-            <ScrollView>
-                <View style={styles.container}>
-                    <Button title="Change config" onPress={() => changeConfig()} />
-                    <View style={styles.imgContainer}>
-                        <TwicImg
-                            src="refit/bluewater-sweden-7EekldXjkw0-unsplash.jpg"
-                            anchor={config.anchor}
-                            mode={config.mode}
-                            preTransform={config.preTransform}
-                            ratio={config.ratio}
-                            refit={config.refit}
-                            style={styles.customImage}
-                        />
-                    </View>
-                </View>
-            </ScrollView>
+        <View style={styles.container}>
+            <Button title="Change config" onPress={() => changeConfig()} />
+            <View style={styles.imgContainer}>
+                <TwicImg
+                    src="refit/bluewater-sweden-7EekldXjkw0-unsplash.jpg"
+                    anchor={config.anchor}
+                    mode={config.mode}
+                    preTransform={config.preTransform}
+                    ratio={config.ratio}
+                    refit={config.refit}
+                    style={styles.customImage}
+                />
+            </View>
         </View>
     );
 };

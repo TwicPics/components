@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { TwicImg } from '@twicpics/components/react-native';
 
 const modes = [ `cover`, `contain` ];
@@ -14,21 +14,17 @@ const Mode = () => {
         setMode( modes[ indiceMode ] );
     };
     return (
-        <View>
-            <ScrollView>
-                <View style={styles.container}>
-                    <Button title="Change mode" onPress={() => changeMode()} />
-                    <View style={styles.imgContainer}>
-                        <TwicImg
-                            src="cat_1x1.jpg"
-                            ratio="4/3"
-                            mode={mode}
-                            placeholder="preview"
-                            style={styles.customImage}
-                        />
-                    </View>
-                </View>
-            </ScrollView>
+        <View style={styles.container}>
+            <Button title="Change mode" onPress={() => changeMode()} />
+            <View style={styles.imgContainer}>
+                <TwicImg
+                    src="cat_1x1.jpg"
+                    ratio="4/3"
+                    mode={mode}
+                    placeholder="preview"
+                    style={styles.customImage}
+                />
+            </View>
         </View>
     );
 };
