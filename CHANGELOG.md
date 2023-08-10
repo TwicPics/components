@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.22.1-beta.0] - 2023-08-10
+
+### Add
+
+- Exports components property types in **React**.
+- Exports `Environment` type in **Angular**. 
+
 ## [0.22.0] - 2023-08-03
 
 ### Add
@@ -498,6 +505,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.22.1-beta.0]: https://github.com/TwicPics/components/compare/0.22.0...0.22.1-beta.0
 [0.22.0]: https://github.com/TwicPics/components/compare/0.21.1...0.22.0
 [0.21.1]: https://github.com/TwicPics/components/compare/0.21.0...0.21.1
 [0.21.0]: https://github.com/TwicPics/components/compare/0.20.0...0.21.0
