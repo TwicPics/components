@@ -79,29 +79,33 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
                 const res = await fetch( _media );
                 opacityTransition.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
                 if ( res.ok ) {
-                    setActualUri( URL.createObjectURL( await res.blob() ) );
-                    if ( transition.hasOwnProperty( `none` ) ) {
-                        opacityTransition.setValue( 0 );
-                    } else {
-                        Animated.timing(
-                            opacityTransition,
-                            computeTimingConfig( {
-                                "toValue": 0,
-                                transitionDelay,
-                                transitionDuration,
-                                transitionTimingFunction,
-                            } )
-                        ).start();
-                        Animated.timing(
-                            scaleTransition,
-                            computeTimingConfig( {
-                                "toValue": 1,
-                                transitionDelay,
-                                transitionDuration,
-                                transitionTimingFunction,
-                            } )
-                        ).start();
-                    }
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL( await res.blob() );
+                    fileReader.onload = () => {
+                        setActualUri( fileReader.result );
+                        if ( transition.hasOwnProperty( `none` ) ) {
+                            opacityTransition.setValue( 0 );
+                        } else {
+                            Animated.timing(
+                                opacityTransition,
+                                computeTimingConfig( {
+                                    "toValue": 0,
+                                    transitionDelay,
+                                    transitionDuration,
+                                    transitionTimingFunction,
+                                } )
+                            ).start();
+                            Animated.timing(
+                                scaleTransition,
+                                computeTimingConfig( {
+                                    "toValue": 1,
+                                    transitionDelay,
+                                    transitionDuration,
+                                    transitionTimingFunction,
+                                } )
+                            ).start();
+                        }
+                    };
                 }
             },
             {
