@@ -82,10 +82,13 @@ const VisibilityDetector: FC<Props> = props => {
     }, [] );
 
     return (
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        <View ref={ detector } style={ {
-            "flex": 1,
-        } }>
+        <View
+            collapsable={false}
+            ref={ detector }
+            style={ {
+                "flex": 1,
+            }
+            }>
             { children }
         </View>
     );
