@@ -3,7 +3,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, Image, StyleSheet, View } from 'react-native';
 // eslint-disable-next-line no-duplicate-imports
 import type { LayoutChangeEvent } from 'react-native';
 
@@ -155,13 +155,13 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
                     "width": computeWidth( mediaInfos, viewSize ),
                 } } >
                     { actualUri && (
-                        <Animated.Image
+                        <Image
                             accessibilityLabel={computedAlt}
                             style={ [ styles.media ] }
                             source={ {
                                 "uri": actualUri,
                             } }
-                        ></Animated.Image>
+                        ></Image>
                     ) }
                     { mediaInfos?.placeholder && (
                         <Animated.Image
