@@ -11,7 +11,7 @@
         "@vue/cli-service": "5.0.8",
         "@vue/compiler-sfc": "3.3.4",
         "vue": "3.3.4",
-        "webpack": "5.88.1",
+        "webpack": "5.88.2",
         "webpack-dev-server": "4.15.1"
     },
     "license": "MIT",
