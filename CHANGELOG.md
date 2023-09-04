@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.22.1] - 2023-09-04
+
+### Fixes
+
+- Fixes display issue of images on **Android** in **React Native**.
+
+### Changed
+
+- Upgrade dependencies.
+
 ## [0.22.1-beta.0] - 2023-08-10
 
 ### Add
