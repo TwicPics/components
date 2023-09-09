@@ -53,14 +53,16 @@ export interface MediaAttributes extends BaseAttributes {
 
 const TwicMedia: React.FC< MediaAttributes > = props => {
     const media = useRef< HTMLElement >( null );
-    const observer = new Observer( ( state: State ) => {
-        if ( props.onStateChange ) {
-            props.onStateChange( {
-                "target": media.current,
-                state,
-            } );
-        }
-    } );
+    const observer = useRef< Observer >(
+        new Observer( ( state: State ) => {
+            if ( props.onStateChange ) {
+                props.onStateChange( {
+                    "target": media.current,
+                    state,
+                } );
+            }
+        } )
+    ).current;
     useEffect(
         () => {
             observer.setMedia( media.current );
