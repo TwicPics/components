@@ -36,7 +36,6 @@ export class Observer {
 
     private media: HTMLElement;
     private placeholderData: PlaceholderData;
-    private placeHolderElement: HTMLDivElement;
     private savedWrapperBackground: string;
     private stateHandler: ( state: State ) => void;
 
@@ -57,15 +56,16 @@ export class Observer {
     };
 
     public refreshBackground = debounce( () => {
-        if ( this.placeholderData ) {
+        if ( this.media && this.placeholderData ) {
+            const placeHolderElement = this.media.nextElementSibling as unknown as HTMLDivElement;
             const wrapperBackground = computePlaceholderBackground(
-                this.placeHolderElement,
+                placeHolderElement,
                 this.placeholderData
             );
             if ( wrapperBackground && ( wrapperBackground !== this.savedWrapperBackground ) ) {
                 this.savedWrapperBackground = wrapperBackground;
                 // eslint-disable-next-line no-param-reassign
-                this.placeHolderElement.style.backgroundImage = `url(${ JSON.stringify( wrapperBackground ) })`;
+                placeHolderElement.style.backgroundImage = `url(${ JSON.stringify( wrapperBackground ) })`;
             }
         }
     }, {
@@ -76,7 +76,6 @@ export class Observer {
             config.handleShadowDom( media );
             this.media = media;
             elementToObserver.set( this.media, this );
-            this.placeHolderElement = media.nextElementSibling as unknown as HTMLDivElement;
             if ( mutationObserver ) {
                 mutationObserver.observe( this.media, {
                     "attributes": true,
