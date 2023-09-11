@@ -8,12 +8,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.22.2] - 2023-09-11
+
+### Fixes
+
+- Fix issue with regeneration of Low-Quality Placeholder when property values are updated.
+
 ## [0.22.1] - 2023-09-04
 
 ### Add
 
-- Exports components property types in **React**.
-- Exports `Environment` type in **Angular**. 
+- Export components property types in **React**.
+- Export `Environment` type in **Angular**. 
 
 ### Changed
 
@@ -21,33 +27,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixes
 
-- Fixes display issue of images on **Android** in **React Native**.
+- Fix display issue of images on **Android** in **React Native**.
 
 ## [0.22.0] - 2023-08-03
 
 ### Add
 
-- Adds lazy loading support in **React Native** components.
+- Add lazy loading support in **React Native** components.
 
 ## [0.21.1] - 2023-07-27
 
 ### Fixes
 
-- Fixes typing issues in **Svelte4** projects.
+- Fix typing issues in **Svelte4** projects.
 
 ## [0.21.0] - 2023-07-25
 
 ### Add
 
-- Adds support for **Svelte4**.
+- Add support for **Svelte4**.
   
 ### Changed
 
-- Simplifies LQIP data retrieval by using `inspect` route in **React Native**.
+- Simplify LQIP data retrieval by using `inspect` route in **React Native**.
 
 ### Fixes
 
-- Fixes blinking issue in **React Native**.
+- Fix blinking issue in **React Native**.
 
 ## [0.20.0] - 2023-07-13
 
@@ -61,8 +67,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Fixes **React Native** sample project launch issue on **macOS**.
-- Fixes type definitions in **React** and **Svelte**.
+- Fix **React Native** sample project launch issue on **macOS**.
+- Fix type definitions in **React** and **Svelte**.
 
 ## [0.19.0] - 2023-06-13
 
@@ -513,6 +519,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.22.2]: https://github.com/TwicPics/components/compare/0.22.1...0.22.2
 [0.22.1]: https://github.com/TwicPics/components/compare/0.22.0...0.22.1
 [0.22.0]: https://github.com/TwicPics/components/compare/0.21.1...0.22.0
 [0.21.1]: https://github.com/TwicPics/components/compare/0.21.0...0.21.1
