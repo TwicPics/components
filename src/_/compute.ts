@@ -230,7 +230,7 @@ export const computePlaceholderBackground = (
     element: Element,
     { anchor, focus, mode, placeholder, preTransform, src, ratio, refit, transitions, videoOptions }: PlaceholderData
 ): string => {
-    if ( !placeholder || ( transitions.hasOwnProperty( `zoom` ) ) || !config.domain ) {
+    if ( !config.domain || !element || !placeholder || ( transitions.hasOwnProperty( `zoom` ) ) ) {
         return ``;
     }
     const computedStyle = getComputedStyle( element );

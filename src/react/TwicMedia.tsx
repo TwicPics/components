@@ -57,7 +57,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
         new Observer( ( state: State ) => {
             if ( props.onStateChange ) {
                 props.onStateChange( {
-                    "target": media.current,
+                    "target": media,
                     state,
                 } );
             }
