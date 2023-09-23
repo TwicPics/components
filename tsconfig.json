@@ -8,7 +8,10 @@
         "sourceMap": true,
         "strict": true,
         "strictNullChecks": false,
-        "types": [ "vue-typescript-import-dts" ]
+        "types": [
+          "node",
+          "vue-typescript-import-dts"
+        ]
     },
     "exclude": [
         "node_modules"
