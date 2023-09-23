@@ -4,7 +4,7 @@ import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
 import { createUrl, finalTransform, urlInfos } from '../_/url';
-import type { MediaData, SizeObject, TimingConfig, UrlData } from './types';
+import type { MediaInfos, SizeObject, TimingConfig, UrlData } from './types';
 
 const PLACEHOLDER_DIM = 1000;
 const actualSize = ( step: number, lqip: boolean, viewSize: SizeObject ): SizeObject => {
@@ -158,9 +158,9 @@ export const computeUrls = (
     ),
 } );
 
-export const computeWidth = ( mediaData: MediaData, viewSize: SizeObject ): number => {
-    if ( mediaData ) {
-        const { ratioIntrinsic } = mediaData;
+export const computeWidth = ( mediaInfos: MediaInfos, viewSize: SizeObject ): number => {
+    if ( mediaInfos ) {
+        const { ratioIntrinsic } = mediaInfos;
         const ratioView = viewSize.width / viewSize.height;
         return Math.max(
             1,
