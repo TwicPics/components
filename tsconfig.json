@@ -11,7 +11,10 @@
         "types": [
           "node",
           "vue-typescript-import-dts"
-        ]
+        ],
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "verbatimModuleSyntax": true,
     },
     "exclude": [
         "node_modules"
