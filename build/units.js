@@ -14,7 +14,7 @@ const svelteUnitFactory = ( { framework = `svelte3`, customElement = false } ) =
           `svelte`,
           `svelte/internal`,
         ],
-    "formats": ( framework === `svelte4` ) && [ `cjs`, `es`, `types` ],
+    "formats": [ `cjs`, `es`, `types` ],
     "framework": customElement ? `webcomponents` : framework,
     "plugins": [
         ...( customElement ? [ nodeResolve() ] : [] ),
@@ -79,6 +79,7 @@ export default [
             `prop-types`,
             `react`,
         ],
+        "formats": [ `cjs`, `es`, `types` ],
         "framework": `react`,
         "postTerser": [ banner2( () => `'use client';` ) ],
     },
@@ -90,6 +91,7 @@ export default [
             `react-native`,
             `react-native-web`,
         ],
+        "formats": [ `cjs`, `es`, `types` ],
         "framework": `react-native`,
     },
     svelteUnitFactory( {
@@ -99,6 +101,7 @@ export default [
         "framework": `svelte4`,
     } ),
     {
+        "formats": [ `cjs`, `es`, `types` ],
         "framework": `vue2`,
         "plugins": [ vue2() ],
         "postDefinitions":
@@ -110,6 +113,7 @@ export default [
     },
     {
         "external": [ `vue` ],
+        "formats": [ `cjs`, `es`, `types` ],
         "framework": `vue3`,
         "plugins": [ vue3() ],
         "postDefinitions":
@@ -128,6 +132,7 @@ export default [
             `react-dom`,
             `next`,
         ],
+        "formats": [ `cjs`, `es`, `types` ],
         "framework": `next`,
     },
     {
