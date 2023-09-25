@@ -1,20 +1,24 @@
 {
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not dead"
-    ],
-    "dependencies": {
-        "@twicpics/components": "file:../../dist",
-        "@twicpics/components-sample": "file:../_",
-        "react": "18.2.0",
-        "react-app-rewired": "2.2.1",
-        "react-dom": "18.2.0",
-        "react-scripts": "5.0.1"
-    },
-    "license": "MIT",
-    "scripts": {
-        "build": "$npm_execpath install && DISABLE_ESLINT_PLUGIN=true SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
-        "serve": "$npm_execpath install && DISABLE_ESLINT_PLUGIN=true SKIP_PREFLIGHT_CHECK=true PORT=3000 react-app-rewired start"
-    }
+  "name": "react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "yarn && vite"
+  },
+  "dependencies": {
+    "@twicpics/components": "file:../../dist",
+    "@twicpics/components-sample": "file:../_",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.22",
+    "@types/react-dom": "18.2.7",
+    "@vitejs/plugin-react": "4.1.0",
+    "vite": "4.4.9"
+  }
 }
