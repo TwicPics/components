@@ -16,10 +16,10 @@ const sourcemapPathTransform =
 
 const rJS = /\.m?js$/;
 
+import terser from '@rollup/plugin-terser';
+import typeScript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
-import { terser } from "rollup-plugin-terser";
-import typeScript from "@rollup/plugin-typescript";
 import minifier from "./minifier.js";
 import replacer from "./replacer.js";
 
