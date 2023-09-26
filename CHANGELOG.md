@@ -8,7 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.23.0-beta.0] - 2023-09-26
+
+### Changed
+
+- Migrates from TypeScript 4 to TypeScript 5.
+- Updates samples dependencies.
+- Now uses `Vite` to build the `React` sample project.
+
+### Fixes
+
+- Adds missing `Types` entries to `package.json`.
+
 ## [0.22.3] - 2023-09-19
+
+### Changed
 
 - Updates brand: TwicPics becomes TwicPics by Frontify.
 
@@ -522,7 +536,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
+
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.22.3]: https://github.com/TwicPics/components/compare/0.22.3...0.23.0-beta.0
 [0.22.3]: https://github.com/TwicPics/components/compare/0.22.2...0.22.3
 [0.22.2]: https://github.com/TwicPics/components/compare/0.22.1...0.22.2
 [0.22.1]: https://github.com/TwicPics/components/compare/0.22.0...0.22.1
