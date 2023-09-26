@@ -7,10 +7,10 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "@types/node": "20.5.9",
-        "@types/react": "18.2.21",
+        "@types/node": "20.7.0",
+        "@types/react": "18.2.22",
         "@types/react-dom": "18.2.7",
-        "next": "13.4.19",
+        "next": "13.5.3",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "typescript": "5.2.2"
