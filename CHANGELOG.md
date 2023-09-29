@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.23.1] - 2023-09-29
+
+### Changed
+
+- Updates samples dependencies.
+
+### Fixes
+
+- Fixes excessive package size.
+
 ## [0.23.0] - 2023-09-26
 
 ### Changed
@@ -538,6 +548,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.23.1]: https://github.com/TwicPics/components/compare/0.23.0...0.23.1
 [0.23.0]: https://github.com/TwicPics/components/compare/0.22.3...0.23.0
 [0.22.3]: https://github.com/TwicPics/components/compare/0.22.2...0.22.3
 [0.22.2]: https://github.com/TwicPics/components/compare/0.22.1...0.22.2
