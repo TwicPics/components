@@ -14,7 +14,7 @@
   "dependencies": {
     "@twicpics/components": "file:../../dist",
     "@twicpics/components-sample": "file:../_",
-    "gatsby": "5.12.4",
+    "gatsby": "5.12.5",
     "gatsby-plugin-compile-es6-packages": "2.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"

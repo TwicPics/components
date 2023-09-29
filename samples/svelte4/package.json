@@ -11,10 +11,10 @@
     "serve": "$npm_execpath install && npm run copy && vite"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "2.4.3",
+    "@sveltejs/vite-plugin-svelte": "2.4.6",
     "@twicpics/components": "file:../../dist",
     "@twicpics/components-sample": "file:../_",
-    "svelte": "4.2.0",
+    "svelte": "4.2.1",
     "vite": "4.4.9"
   }
 }
