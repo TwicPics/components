@@ -1,6 +1,5 @@
 import "../_/style.css";
 import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import {
     computeAlt,
     computeData,
@@ -42,7 +41,7 @@ import type {
 } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 import { preComputePlaceholder } from "../_/preCompute";
-import { number } from "./props";
+import { boolean, func, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
 
 export interface MediaAttributes extends BaseAttributes {
@@ -157,26 +156,26 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
 };
 
 TwicMedia.propTypes = {
-    "alt": PropTypes.string,
-    "anchor": PropTypes.oneOf< Anchor >( validAnchors ),
-    "bot": PropTypes.string,
-    "className": PropTypes.string,
-    "focus": PropTypes.string,
-    "intrinsic": PropTypes.string,
-    "mode": PropTypes.oneOf< Mode >( validModes ),
-    "eager": PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
-    "onStateChange": PropTypes.func,
-    "placeholder": PropTypes.oneOf< Placeholder >( validPlaceholders ),
-    "position": PropTypes.string,
-    "preTransform": PropTypes.string,
+    "alt": string,
+    "anchor": oneOf< Anchor >( validAnchors ),
+    "bot": string,
+    "className": string,
+    "focus": string,
+    "intrinsic": string,
+    "mode": oneOf< Mode >( validModes ),
+    "eager": oneOfType( [ boolean, string ] ),
+    "onStateChange": func,
+    "placeholder": oneOf< Placeholder >( validPlaceholders ),
+    "position": string,
+    "preTransform": string,
     "ratio": number,
-    "src": PropTypes.string,
+    "src": string,
     "step": number,
-    "title": PropTypes.string,
-    "transition": PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
-    "transitionDelay": PropTypes.string,
-    "transitionDuration": PropTypes.string,
-    "transitionTimingFunction": PropTypes.string,
+    "title": string,
+    "transition": oneOfType( [ boolean, string ] ),
+    "transitionDelay": string,
+    "transitionDuration": string,
+    "transitionTimingFunction": string,
 };
 
 export default TwicMedia;
