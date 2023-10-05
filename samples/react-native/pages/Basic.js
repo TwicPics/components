@@ -7,7 +7,7 @@ const Basic = () => (
     <ScrollView>
         <View style={styles.container}>
             <View style={styles.imgContainer}>
-                <TwicImg src="cat_1x1.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
+                <TwicImg alt="a cat" src="cat_1x1.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
                 <Text>Mode = cover - Ratio = 1 (default)</Text>
             </View>
             <View style={styles.imgContainer}>

@@ -106,7 +106,7 @@ $: parsedVideoOptions = videoOptions;
 
 $: parsedPlaceholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
 
-$: _alt = computeAlt( parsedAlt, parsedMediaTag, parsedSrc );
+$: _alt = computeAlt( parsedAlt, parsedMediaTag );
 $: _data = computeData(
     parsedAnchor,
     parsedBot,

@@ -181,7 +181,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
         this._placeholder_ = preComputePlaceholder( this._placeholder, this._src );
-        this.description = computeAlt( this._alt, this._mediaTag, this._src );
+        this.description = computeAlt( this._alt, this._mediaTag );
         this.mediaAttributes = {
             ...computeData(
                 this._anchor,

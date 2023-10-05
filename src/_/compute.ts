@@ -67,20 +67,8 @@ const preComputeStyle = (
 };
 /* eslint-enable dot-notation */
 
-const rAlt = /\/?([^/?#.]+)(?:\.[^/?#]*)?(?:[?#].*)?$/;
-
 export const computeAlt =
-    ( alt: string, mediaTag: string, src: string ): string => {
-        if ( mediaTag === `img` ) {
-            if ( !alt ) {
-                const tmp = rAlt.exec( src );
-                // eslint-disable-next-line no-param-reassign
-                alt = ( tmp && tmp[ 1 ] ) || `image`;
-            }
-            return alt;
-        }
-        return undefined;
-    };
+    ( alt: string, mediaTag: string ): string => ( ( mediaTag === `img` ) ? alt : undefined );
 
 export const computeData = (
     anchor: AnchorObject,

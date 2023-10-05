@@ -56,7 +56,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
     const transitionDelay = parseTransitionDelay( props.transitionDelay );
     const transitionDuration = parseTransitionDuration( props.transitionDuration );
     const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
-    const computedAlt = computeAlt( alt, src, `img` );
+    const computedAlt = computeAlt( alt, `img` );
     const { media, inspect } = computeUrls( {
         anchor,
         focus,
@@ -156,7 +156,7 @@ const TwicMedia = React.memo( ( props: MediaAttributes ) => {
                 } } >
                     { actualUri && (
                         <Image
-                            accessibilityLabel={computedAlt}
+                            alt={computedAlt}
                             style={ [ styles.media ] }
                             source={ {
                                 "uri": actualUri,
