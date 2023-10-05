@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import { registerScript } from "../_/install";
 import {
     parseAnticipation,
@@ -14,7 +13,7 @@ import {
 } from "../_/parse";
 import type { Environment } from "../_/types";
 import { rValidDomain, validEnvironment } from "../_/validate";
-import { propTypeRegExpFactory, number } from "./props";
+import { boolean, number, oneOf, propType, string } from "./props";
 import { setConfig } from "../_/config";
 
 interface InstallAttributes {
@@ -55,13 +54,13 @@ const TwicInstall: React.FC< InstallAttributes > = props => {
 
 TwicInstall.propTypes = {
     "anticipation": number,
-    "class": PropTypes.string,
-    "debug": PropTypes.bool,
-    "domain": propTypeRegExpFactory( rValidDomain ),
-    "env": PropTypes.oneOf< Environment >( validEnvironment ),
-    "handleShadowDom": PropTypes.bool,
+    "class": string,
+    "debug": boolean,
+    "domain": propType( `string`, rValidDomain ),
+    "env": oneOf< Environment >( validEnvironment ),
+    "handleShadowDom": boolean,
     "maxDPR": number,
-    "path": PropTypes.string,
+    "path": string,
     "step": number,
 };
 

@@ -8,7 +8,6 @@
         "@rollup/pluginutils": "5.0.4",
         "@rollup/plugin-terser": "0.4.3",
         "@tsconfig/svelte": "3.0.0",
-        "@types/prop-types": "15.7.7",
         "@types/react": "18.2.22",
         "@types/react-dom": "18.2.7",
         "@types/react-native": "0.72.2",

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { number } from "./props";
+import { boolean, number, oneOfType, string } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import { computeMagnifierStyle } from "../_/compute";
@@ -48,7 +47,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
 };
 
 TwicImg.propTypes = {
-    "refit": PropTypes.oneOfType( [ PropTypes.bool, PropTypes.string ] ),
+    "refit": oneOfType( [ boolean, string ] ),
     "zoom": number,
 };
 export default TwicImg;

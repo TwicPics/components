@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { parseClassName } from "../_/parse";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
+import { string } from "./props";
 interface BackgroundAttributes extends BaseAttributes {
     mediaTag?: string,
 }
@@ -25,7 +25,7 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
 };
 
 TwicBackground.propTypes = {
-    "mediaTag": PropTypes.string,
+    "mediaTag": string,
 };
 
 export default TwicBackground;
