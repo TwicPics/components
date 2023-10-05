@@ -104,7 +104,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
         >
             <MediaTag
                 ref={ media }
-                alt={ computeAlt( alt, MediaTag, src ) }
+                alt={ computeAlt( alt, MediaTag ) }
                 style={ computeStyle(
                     anchor,
                     MediaTag,

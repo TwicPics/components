@@ -69,7 +69,7 @@ export const parseAnchor = ( anchor: string ) : AnchorObject => {
     };
 };
 
-export const parseAlt = trimOrUndefined;
+export const parseAlt = ( value: string ) => trimOrUndefined( value ) || ``;
 
 export const parseAnticipation = parseNumber;
 

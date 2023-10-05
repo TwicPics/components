@@ -68,7 +68,7 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_undefined` ] = () => undefined;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag`, `src` ] ],
+    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
     [
         `_dataAttributes`,
         computeData,
