@@ -8,9 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.23.2] - 2023-10-12
+
 ### Changed
 
-- Makes the default value for 'alt' property an empty string in order to indicates AT that the image can be safely ignored.
+- Makes `alt` property default value an empty string in order to indicates AT that the image can be safely ignored.
 
 ## [0.23.1] - 2023-09-29
 
@@ -552,6 +554,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.23.2]: https://github.com/TwicPics/components/compare/0.23.1...0.23.2
 [0.23.1]: https://github.com/TwicPics/components/compare/0.23.0...0.23.1
 [0.23.0]: https://github.com/TwicPics/components/compare/0.22.3...0.23.0
 [0.22.3]: https://github.com/TwicPics/components/compare/0.22.2...0.22.3
