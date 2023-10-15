@@ -14,7 +14,7 @@ type Validator = (
     componentName: string,
 ) => null | Error;
 
-const isEmpty = ( value:unknown ) => ( value === null ) || ( value === undefined );
+const isEmpty = ( value: unknown ) => ( value === null ) || ( value === undefined );
 const validationError = ( validationErrorParams: ValidationErrorParams ) => {
     const { componentName, expectedType, expectedValue, props, propName } = validationErrorParams;
     return new Error(
@@ -62,15 +62,7 @@ const oneOfTypeFactory = ( validators: Validator[] ) =>
         propName: string,
         componentName: string
     ) => {
-        const validation = validators.reduce(
-            ( acc: boolean, validator: Validator ) => {
-                if ( acc ) {
-                    return acc;
-                }
-                return !validator( props, propName, componentName );
-            },
-            false
-        );
+        const validation = validators.some( validator => !validator( props, propName, componentName ) );
         // eslint-disable-next-line consistent-return
         return validation ? null : validationError( {
             componentName,
