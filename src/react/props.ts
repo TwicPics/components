@@ -38,14 +38,15 @@ const validationError = ( validationErrorParams: ValidationErrorParams ) => {
     );
 };
 
-const oneOfFactory = < T >( expectedValues: T[] ) =>
-    (
+const oneOfFactory = < T >( expectedValues: T[] ) => {
+    const set = new Set< T >( expectedValues );
+    return (
         props: Record<string, unknown>,
         propName: string,
         componentName: string
     ) => {
         const value = props[ propName ];
-        if ( !isEmpty( value ) && !expectedValues.includes( value as unknown as T ) ) {
+        if ( !isEmpty( value ) && !set.has( value as unknown as T ) ) {
             return validationError( {
                 componentName,
                 "expectedValue": `one of '${ expectedValues.toString() }'`,
@@ -55,6 +56,7 @@ const oneOfFactory = < T >( expectedValues: T[] ) =>
         }
         return null;
     };
+};
 
 const oneOfTypeFactory = ( validators: Validator[] ) =>
     (
