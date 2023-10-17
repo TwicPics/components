@@ -8,35 +8,37 @@ type Validator = (
 ) => null | Error;
 interface ValidationErrorParams {
   componentName: string,
-  expectedType?: string,
-  expectedValue?: string,
+  expectedTypes?: unknown[],
+  expectedValues?: unknown[],
   props: Record<string, unknown>,
   propName: string,
 }
 class ValidationError extends Error {
-    message: string;
     expected: string;
-    constructor( validationErrorParams: ValidationErrorParams ) {
-        super();
-        const { componentName, expectedType, expectedValue, props, propName } = validationErrorParams;
-        this.message = `Invalid prop '${
-            propName
-        }'${
-            expectedValue ?
-            ` value '${ props[ propName ] }'` :
-            ``
-        }${
-            expectedType ?
-            ` type '${ typeof props[ propName ] }'` :
-            ``
-        } supplied to '${
-            componentName
-        }'${
-            ( expectedType || expectedValue ) ?
-            `, expected ${ expectedType || expectedValue }` :
-            ``
-        }.`;
-        this.expected = expectedType || expectedValue;
+    constructor( { componentName, expectedTypes, expectedValues, props, propName }: ValidationErrorParams ) {
+        const _expected = expectedTypes || expectedValues;
+        super(
+          `Invalid prop '${
+              propName
+          }'${
+              expectedValues ? ` value '${ props[ propName ] }'` : ``
+          }${
+              expectedTypes ? ` type '${ typeof props[ propName ] }'` : ``
+          } supplied to '${
+              componentName
+          }'${
+              _expected ?
+                  ` expected ${
+                      _expected.length > 1 ? `one of ` : ``
+                  }${
+                      expectedTypes ? `type ` : ``
+                  }'${
+                      _expected.join( `, ` )
+                  }'` :
+              ``
+          }.`
+        );
+        this.expected = _expected && _expected[ 0 ] as string;
     }
 }
 
@@ -51,7 +53,7 @@ const oneOfFactory = < T >( expectedValues: T[] ) => {
         if ( !isEmpty( value ) && !set.has( value as unknown as T ) ) {
             return new ValidationError( {
                 componentName,
-                "expectedValue": `one of '${ expectedValues.toString() }'`,
+                expectedValues,
                 props,
                 propName,
             } );
@@ -75,7 +77,7 @@ const oneOfTypeFactory = ( validators: Validator[] ) => (
     }
     return new ValidationError( {
         componentName,
-        "expectedType": `one of type [ ${ expectedTypes.join( `,` ) } ]`,
+        expectedTypes,
         props,
         propName,
     } );
@@ -96,7 +98,7 @@ const propTypeFactory = ( expectedType: string, regExp?: RegExp ): Validator => 
         return new ValidationError( {
             ...errorMessage,
             ...{
-                expectedType,
+                'expectedTypes': [ expectedType ],
             },
         } );
     }
