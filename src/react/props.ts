@@ -1,24 +1,25 @@
 /* eslint-disable no-shadow */
-interface ValidationErrorParams {
-    componentName: string,
-    displayValue?: boolean,
-    expectedType?: string,
-    expectedValue?: string,
-    props: Record<string, unknown>,
-    propName: string,
-    regExp?: RegExp,
-}
+const isEmpty = ( value: unknown ) => ( value === null ) || ( value === undefined );
+
 type Validator = (
     props: Record<string, unknown>,
     propName: string,
     componentName: string,
 ) => null | Error;
-
-const isEmpty = ( value: unknown ) => ( value === null ) || ( value === undefined );
-const validationError = ( validationErrorParams: ValidationErrorParams ) => {
-    const { componentName, expectedType, expectedValue, props, propName } = validationErrorParams;
-    return new Error(
-        `Invalid prop '${
+interface ValidationErrorParams {
+  componentName: string,
+  expectedType?: string,
+  expectedValue?: string,
+  props: Record<string, unknown>,
+  propName: string,
+}
+class ValidationError extends Error {
+    message: string;
+    expected: string;
+    constructor( validationErrorParams: ValidationErrorParams ) {
+        super();
+        const { componentName, expectedType, expectedValue, props, propName } = validationErrorParams;
+        this.message = `Invalid prop '${
             propName
         }'${
             expectedValue ?
@@ -34,9 +35,10 @@ const validationError = ( validationErrorParams: ValidationErrorParams ) => {
             ( expectedType || expectedValue ) ?
             `, expected ${ expectedType || expectedValue }` :
             ``
-        }.`
-    );
-};
+        }.`;
+        this.expected = expectedType || expectedValue;
+    }
+}
 
 const oneOfFactory = < T >( expectedValues: T[] ) => {
     const set = new Set< T >( expectedValues );
@@ -47,7 +49,7 @@ const oneOfFactory = < T >( expectedValues: T[] ) => {
     ) => {
         const value = props[ propName ];
         if ( !isEmpty( value ) && !set.has( value as unknown as T ) ) {
-            return validationError( {
+            return new ValidationError( {
                 componentName,
                 "expectedValue": `one of '${ expectedValues.toString() }'`,
                 props,
@@ -58,47 +60,51 @@ const oneOfFactory = < T >( expectedValues: T[] ) => {
     };
 };
 
-const oneOfTypeFactory = ( validators: Validator[] ) =>
-    (
-        props: Record<string, unknown>,
-        propName: string,
-        componentName: string
-    ) => {
-        const validation = validators.some( validator => !validator( props, propName, componentName ) );
-        // eslint-disable-next-line consistent-return
-        return validation ? null : validationError( {
-            componentName,
-            props,
-            propName,
-        } );
-    };
+const oneOfTypeFactory = ( validators: Validator[] ) => (
+    props: Record<string, unknown>,
+    propName: string,
+    componentName: string
+) => {
+    const expectedTypes = [];
+    for ( const validator of validators ) {
+        const validationError = validator( props, propName, componentName );
+        if ( validationError === null ) {
+            return null;
+        }
+        expectedTypes.push( ( validationError as ValidationError ).expected );
+    }
+    return new ValidationError( {
+        componentName,
+        "expectedType": `one of type [ ${ expectedTypes.join( `,` ) } ]`,
+        props,
+        propName,
+    } );
+};
 
-const propTypeFactory = ( expectedType: string, regExp?: RegExp ): Validator =>
-// eslint-disable-next-line consistent-return
-    (
-        props: Record<string, unknown>,
-        propName: string,
-        componentName: string
-    ) => {
-        const value = props[ propName ];
-        const errorMessage: ValidationErrorParams = {
-            componentName,
-            props,
-            propName,
-        };
-        if ( !isEmpty( value ) && ( typeof value !== expectedType ) ) {
-            return validationError( {
-                ...errorMessage,
-                ...{
-                    expectedType,
-                },
-            } );
-        }
-        if ( regExp && !regExp.test( String( value ) ) ) {
-            return validationError( errorMessage );
-        }
-        return null;
+const propTypeFactory = ( expectedType: string, regExp?: RegExp ): Validator => (
+    props: Record<string, unknown>,
+    propName: string,
+    componentName: string
+) => {
+    const value = props[ propName ];
+    const errorMessage: ValidationErrorParams = {
+        componentName,
+        props,
+        propName,
     };
+    if ( !isEmpty( value ) && ( typeof value !== expectedType ) ) {
+        return new ValidationError( {
+            ...errorMessage,
+            ...{
+                expectedType,
+            },
+        } );
+    }
+    if ( regExp && !regExp.test( String( value ) ) ) {
+        return new ValidationError( errorMessage );
+    }
+    return null;
+};
 
 export const boolean = propTypeFactory( `boolean` );
 export const func = propTypeFactory( `function` );
