@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import type { EasingFunction } from "react-native";
 import type { AnchorObject, Mode, Placeholder } from "../_/types";
 
@@ -20,14 +21,27 @@ export interface Attributes {
     transitionTimingFunction?: EasingFunction,
 }
 
+export type MediaTag = `img` | `video`;
+
+export interface MediaAttributes extends Attributes {
+    mediaTag: MediaTag,
+    viewSize: SizeObject,
+    visible?: boolean,
+}
+
+export interface WrapperAttributes {
+    onLayout: ( ( viewSize: SizeObject ) => void ) ;
+    onVisibilityChanged: ( ( visible: boolean ) => void );
+    eager?: boolean,
+    ratio?: number | string,
+    style?: Record< string, string | number >,
+    children: React.ReactNode,
+}
+
 export interface IMediaInfos {
     placeholder?: PlaceholderData,
     height: number,
     width: number,
-}
-
-export interface MediaAttributes extends Attributes {
-    viewSize: SizeObject
 }
 
 export interface MediaInfos {
@@ -67,4 +81,3 @@ export interface UrlData {
     step: number,
     viewSize: SizeObject
 }
-

@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { installTwicpics } from '@twicpics/components/react-native';
 import Anchor from './pages/Anchor.js';
+import AnchorVideo from './pages/AnchorVideo.js';
 import Basic from './pages/Basic.js';
 import Focus from './pages/Focus.js';
 import Gallery from './pages/Gallery.js';
@@ -13,6 +14,7 @@ import Mode from './pages/Mode.js';
 import Ratio from './pages/Ratio.js';
 import Refit from './pages/Refit.js';
 import Transform from './pages/Transform.js';
+import Video from './pages/Video.js';
 
 installTwicpics( {
     "anticipation": 0.2,
@@ -35,6 +37,9 @@ class App extends Component {
                     }} />
                     <Stack.Screen name="Anchor" component={Anchor} options={{
                         "title": `Anchor`,
+                    }} />
+                    <Stack.Screen name="AnchorVideo" component={AnchorVideo} options={{
+                        "title": `Anchor Video`,
                     }} />
                     <Stack.Screen name="Basic" component={Basic} options={{
                         "title": `Basic`,
@@ -76,6 +81,13 @@ class App extends Component {
                         component={Transform}
                         options={{
                             "title": `Transform`,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Video"
+                        component={Video}
+                        options={{
+                            "title": `Video`,
                         }}
                     />
                 </Stack.Navigator>
