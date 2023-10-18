@@ -7,6 +7,8 @@ const Home = ( { navigation } ) => (
     <View style={styles.container}>
         <Button title="Anchor" onPress={() => navigation.navigate( `Anchor` )} />
         <Divider />
+        <Button title="Anchor Video" onPress={() => navigation.navigate( `AnchorVideo` )} />
+        <Divider />
         <Button title="Basic" onPress={() => navigation.navigate( `Basic` )} />
         <Divider />
         <Button title="Flatlist" onPress={() => navigation.navigate( `Flatlist` )} />
@@ -24,6 +26,8 @@ const Home = ( { navigation } ) => (
         <Button title="Refit" onPress={() => navigation.navigate( `Refit` )} />
         <Divider />
         <Button title="Transform" onPress={() => navigation.navigate( `Transform` )} />
+        <Divider />
+        <Button title="Video" onPress={() => navigation.navigate( `Video` )} />
         <Divider />
     </View>
 );
