@@ -56,7 +56,7 @@ const AnchorVideo = () => {
     };
     return (
         <View style={styles.container}>
-            <Button title="Change position" onPress={() => changeAnchor()} />
+            <Button title="Change anchor" onPress={() => changeAnchor()} />
             <View style={styles.imgContainer}>
                 <TwicVideo
                     src="video/skater.mp4"

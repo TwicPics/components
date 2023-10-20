@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import type { Attributes } from './types';
+import type { ImgAttributes } from './types';
 import Wrapper from './Wrapper';
 import Media from './Media';
 
-const TwicImg = ( props: Attributes ) => {
+const TwicImg = ( props: ImgAttributes ) => {
     const [ viewSize, setViewSize ] = useState( undefined );
     const [ visible, setVisible ] = useState( false );
     return (

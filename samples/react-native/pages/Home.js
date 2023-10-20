@@ -29,6 +29,8 @@ const Home = ( { navigation } ) => (
         <Divider />
         <Button title="Video" onPress={() => navigation.navigate( `Video` )} />
         <Divider />
+        <Button title="Video Slicing" onPress={() => navigation.navigate( `VideoSlicing` )} />
+        <Divider />
     </View>
 );
 

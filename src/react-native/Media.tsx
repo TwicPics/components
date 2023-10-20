@@ -99,7 +99,7 @@ const Media = ( props: MediaAttributes ) => {
     const transitionDelay = parseTransitionDelay( props.transitionDelay );
     const transitionDuration = parseTransitionDuration( props.transitionDuration );
     const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
-    const computedAlt = computeAlt( alt, `img` );
+    const computedAlt = computeAlt( alt, mediaTag );
     const { media, inspect } = computeUrls( {
         anchor,
         focus,
@@ -129,6 +129,7 @@ const Media = ( props: MediaAttributes ) => {
             }
         )
     ).current;
+
     const onLoad = () => {
         if ( transition.hasOwnProperty( `none` ) ) {
             opacityTransition.setValue( 0 );
@@ -153,11 +154,13 @@ const Media = ( props: MediaAttributes ) => {
             ).start();
         }
     };
+
     useEffect( () => {
         if ( visible ) {
             _debounce( media );
         }
     }, [ media, visible ] );
+
     useEffect( () => {
         (
             async () => {
@@ -166,6 +169,7 @@ const Media = ( props: MediaAttributes ) => {
             }
         )();
     }, [ inspect ] );
+
     return (
         <Animated.View style={ [
             styles.layout,
