@@ -56,7 +56,7 @@ const Anchor = () => {
     };
     return (
         <View style={styles.container}>
-            <Button title="Change position" onPress={() => changeAnchor()} />
+            <Button title="Change anchor" onPress={() => changeAnchor()} />
             <View style={styles.imgContainer}>
                 <TwicImg
                     src="cat_1x1.jpg"

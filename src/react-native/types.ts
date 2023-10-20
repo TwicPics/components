@@ -1,8 +1,8 @@
 import type * as React from 'react';
 import type { EasingFunction } from "react-native";
-import type { AnchorObject, Mode, Placeholder } from "../_/types";
+import type { AnchorObject, Mode, Placeholder, VideoOptions } from "../_/types";
 
-export interface Attributes {
+export interface BaseAttributes {
     alt?: string,
     anchor?: string,
     eager?: boolean,
@@ -11,7 +11,6 @@ export interface Attributes {
     placeholder?: Placeholder,
     preTransform?: string,
     ratio?: number | string,
-    refit: boolean | string,
     step?: number | string,
     style?: Record< string, string | number >,
     src: string,
@@ -21,12 +20,25 @@ export interface Attributes {
     transitionTimingFunction?: EasingFunction,
 }
 
+export interface ImgAttributes extends BaseAttributes {
+    refit: boolean | string,
+}
+
+export interface VideoAttributes extends BaseAttributes {
+    duration?: number | string,
+    from?: number | string,
+    posterFrom?: number | string,
+    to?: number | string,
+}
+
 export type MediaTag = `img` | `video`;
 
-export interface MediaAttributes extends Attributes {
-    mediaTag: MediaTag,
-    viewSize: SizeObject,
+export interface MediaAttributes extends BaseAttributes {
+    mediaTag: string,
+    refit?: boolean | string,
+    videoOptions?: VideoOptions,
     visible?: boolean,
+    viewSize: SizeObject,
 }
 
 export interface WrapperAttributes {

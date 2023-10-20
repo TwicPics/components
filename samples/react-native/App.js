@@ -15,6 +15,7 @@ import Ratio from './pages/Ratio.js';
 import Refit from './pages/Refit.js';
 import Transform from './pages/Transform.js';
 import Video from './pages/Video.js';
+import VideoSlicing from './pages/VideoSlicing.js';
 
 installTwicpics( {
     "anticipation": 0.2,
@@ -88,6 +89,13 @@ class App extends Component {
                         component={Video}
                         options={{
                             "title": `Video`,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="VideoSlicing"
+                        component={VideoSlicing}
+                        options={{
+                            "title": `Video Slicing`,
                         }}
                     />
                 </Stack.Navigator>
