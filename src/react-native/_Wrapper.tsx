@@ -1,16 +1,16 @@
+/* eslint-disable react/display-name */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 // eslint-disable-next-line no-shadow, no-duplicate-imports
 import { StyleSheet, View } from 'react-native';
 import { computeContainerStyle, computeViewSize } from './compute';
-import { parseEager, parseRatio } from "./parse";
+import { parseRatio } from "./parse";
 import type { WrapperAttributes } from "./types";
-import VisibilityDetector from './visibilityDetector';
+import { styles } from './styles';
 
-const Wrapper = ( props: WrapperAttributes ) => {
-    const { "eager": _eager, "ratio": _ratio = 1, style } = props;
-    const eager = parseEager( _eager );
+export default ( props: WrapperAttributes ) => {
+    const { "ratio": _ratio = 1, style } = props;
     const ratio = parseRatio( _ratio );
     return (
         <View
@@ -25,23 +25,8 @@ const Wrapper = ( props: WrapperAttributes ) => {
                 StyleSheet.flatten( [ styles.container, computeContainerStyle( style, ratio ) ] )
             }
         >
-            <VisibilityDetector
-                eager={ eager }
-                onVisibilityChanged={ () => {
-                    props.onVisibilityChanged( true );
-                } }
-            >
-                { props.children }
-            </VisibilityDetector>
+            { props.children }
         </View>
     );
 };
 
-const styles = StyleSheet.create( {
-    "container": {
-        "overflow": `hidden`,
-        "width": `100%`,
-    },
-} );
-
-export default Wrapper;
