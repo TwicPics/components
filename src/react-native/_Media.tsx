@@ -1,14 +1,13 @@
-/* eslint-disable max-lines */
-
+/* eslint-disable react/display-name */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { ResizeMode, Video } from 'expo-av';
 import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Animated, Image, StyleSheet, View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import {
     parseAlt,
     parseAnchor,
+    parseEager,
     parseFocus,
     parseMode,
     parsePlaceholder,
@@ -32,61 +31,17 @@ import {
 import type { MediaAttributes } from './types';
 import { getMediaInfos } from './mediaInfos';
 import { debounce } from '../_/utils';
+// eslint-disable-next-line no-shadow
+import Image from './_Image';
+import Video from './_Video';
+import { styles } from './styles';
+import VisibilityDetector from './visibilityDetector';
 
-interface AssetAttributes {
-  alt?: string,
-  onLoad: ( ( ) => void ) ;
-  uri: string,
-}
-
-const isSameAsset = ( prevProps : AssetAttributes, nextProps: AssetAttributes ) => {
-    const result = prevProps.uri === nextProps.uri;
-    return result;
-};
-
-// eslint-disable-next-line react/display-name
-const _Image = React.memo( ( props: AssetAttributes ) => {
-    const { alt, uri, onLoad } = props;
-    return (
-        uri && <Image
-            alt = { alt }
-            onLoad={ onLoad }
-            source={ {
-                uri,
-            } }
-            style={ [ styles.asset ] }
-        ></Image>
-    );
-}, isSameAsset );
-
-// eslint-disable-next-line react/display-name
-const _Video = React.memo( ( props: AssetAttributes ) => {
-    const { uri, onLoad } = props;
-    return (
-        uri && <Video
-            isLooping
-            isMuted
-            onReadyForDisplay={() => {
-                onLoad();
-            }}
-            resizeMode={ ResizeMode.COVER }
-            shouldPlay
-            source={ {
-                uri,
-            } }
-            style={ [ styles.asset ] }
-            videoStyle= { {
-                "width": `100%`,
-                "height": `100%`,
-            }}
-        ></Video>
-    );
-}, isSameAsset );
-
-const Media = ( props: MediaAttributes ) => {
-    const { mediaTag, visible, viewSize } = props;
+export default ( props: MediaAttributes ) => {
+    const { mediaTag, viewSize } = props;
     const alt = parseAlt( props.alt );
     const anchor = parseAnchor( props.anchor );
+    const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
     const mode = parseMode( props.mode ) || `cover`;
@@ -115,6 +70,7 @@ const Media = ( props: MediaAttributes ) => {
     const scaleTransition = useRef( new Animated.Value( transition.hasOwnProperty( `zoom` ) ? 0 : 1 ) ).current;
     const [ actualUri, setActualUri ] = useState( undefined );
     const [ mediaInfos, setMediaInfos ] = useState( undefined );
+    const [ visible, setVisible ] = useState( false );
 
     const _debounce = useRef(
         debounce(
@@ -171,64 +127,55 @@ const Media = ( props: MediaAttributes ) => {
     }, [ inspect ] );
 
     return (
-        <Animated.View style={ [
-            styles.layout,
-            computePosition( anchor, mode ),
-            {
-                "transform": [
-                    {
-                        "scale": scaleTransition,
-                    },
-                ],
-            },
-        ] } >
-            <View style={ {
-                "aspectRatio": mediaInfos?.ratioIntrinsic,
-                "overflow": `hidden`,
-                "width": computeWidth( mediaInfos, viewSize ),
-            } } >
-                { ( mediaTag === `img` ) && ( <_Image
-                    alt={ computedAlt }
-                    onLoad={ onLoad }
-                    uri= { actualUri }
-                /> ) }
-                { ( mediaTag === `video` ) && ( <_Video
-                    onLoad={ onLoad }
-                    uri= { actualUri }
-                /> ) }
-                { mediaInfos?.placeholder && (
-                    <Animated.Image
-                        blurRadius={ mediaInfos.placeholder.blurRadius || 0}
-                        style={ [
-                            styles.asset, {
-                                "backgroundColor": mediaInfos.placeholder.color,
-                                "margin": mediaInfos.placeholder.offset,
-                                "opacity": opacityTransition,
-                            },
-                        ] }
-                        source={ {
-                            "uri": mediaInfos?.placeholder.uri,
-                        } }
-                    ></Animated.Image>
-                ) }
-            </View>
-        </Animated.View>
+        <VisibilityDetector
+            eager={ eager }
+            onVisibilityChanged={ () => {
+                setVisible( true );
+            } }
+        >
+            <Animated.View style={ [
+                styles.layout,
+                computePosition( anchor, mode ),
+                {
+                    "transform": [
+                        {
+                            "scale": scaleTransition,
+                        },
+                    ],
+                },
+            ] } >
+                <View style={ {
+                    "aspectRatio": mediaInfos?.ratioIntrinsic,
+                    "overflow": `hidden`,
+                    "width": computeWidth( mediaInfos, viewSize ),
+                } } >
+                    { ( mediaTag === `img` ) && ( <Image
+                        alt={ computedAlt }
+                        onLoad={ onLoad }
+                        uri= { actualUri }
+                    /> ) }
+                    { ( mediaTag === `video` ) && ( <Video
+                        onLoad={ onLoad }
+                        uri= { actualUri }
+                    /> ) }
+                    { mediaInfos?.placeholder && (
+                        <Animated.Image
+                            blurRadius={ mediaInfos.placeholder.blurRadius || 0}
+                            style={ [
+                                styles.asset, {
+                                    "backgroundColor": mediaInfos.placeholder.color,
+                                    "margin": mediaInfos.placeholder.offset,
+                                    "opacity": opacityTransition,
+                                },
+                            ] }
+                            source={ {
+                                "uri": mediaInfos?.placeholder.uri,
+                            } }
+                        ></Animated.Image>
+                    ) }
+                </View>
+            </Animated.View>
+        </VisibilityDetector>
     );
 };
 
-const styles = StyleSheet.create( {
-    "layout": {
-        "flex": 1,
-        "flexDirection": `column`,
-        "overflow": `hidden`,
-    },
-    "asset": {
-        "position": `absolute`,
-        "top": 0,
-        "right": 0,
-        "bottom": 0,
-        "left": 0,
-    },
-} );
-
-export default Media;

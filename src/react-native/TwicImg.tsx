@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import type { ImgAttributes } from './types';
-import Wrapper from './Wrapper';
-import Media from './Media';
+import Wrapper from './_Wrapper';
+import Media from './_Media';
 
 const TwicImg = ( props: ImgAttributes ) => {
     const [ viewSize, setViewSize ] = useState( undefined );
-    const [ visible, setVisible ] = useState( false );
     return (
         <Wrapper
             onLayout={ _viewSize => {
                 setViewSize( _viewSize );
             } }
-            onVisibilityChanged={ _visible => {
-                setVisible( _visible );
-            } }
             ratio={ props.ratio }
             style={ props.style }
         >
-            { viewSize && <Media { ...props } mediaTag={ `img` } viewSize={ viewSize } visible={ visible }/> }
+            { viewSize && < Media { ...props } mediaTag={ `img` } viewSize={ viewSize } /> }
         </Wrapper>
     );
 };

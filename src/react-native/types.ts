@@ -2,6 +2,14 @@ import type * as React from 'react';
 import type { EasingFunction } from "react-native";
 import type { AnchorObject, Mode, Placeholder, VideoOptions } from "../_/types";
 
+export type MediaTag = `img` | `video`;
+
+export interface AssetAttributes {
+  alt?: string,
+  onLoad: ( ( ) => void ) ;
+  uri: string,
+}
+
 export interface BaseAttributes {
     alt?: string,
     anchor?: string,
@@ -31,20 +39,15 @@ export interface VideoAttributes extends BaseAttributes {
     to?: number | string,
 }
 
-export type MediaTag = `img` | `video`;
-
 export interface MediaAttributes extends BaseAttributes {
     mediaTag: string,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
-    visible?: boolean,
     viewSize: SizeObject,
 }
 
 export interface WrapperAttributes {
     onLayout: ( ( viewSize: SizeObject ) => void ) ;
-    onVisibilityChanged: ( ( visible: boolean ) => void );
-    eager?: boolean,
     ratio?: number | string,
     style?: Record< string, string | number >,
     children: React.ReactNode,
