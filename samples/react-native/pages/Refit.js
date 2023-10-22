@@ -3,6 +3,7 @@ import { useState } from 'react';
 // eslint-disable-next-line no-shadow
 import { Button, StyleSheet, View } from 'react-native';
 import { TwicImg } from '@twicpics/components/react-native';
+import { Text } from 'react-native';
 
 const configs = [
     {
@@ -66,6 +67,12 @@ const Refit = () => {
     return (
         <View style={styles.container}>
             <Button title="Change config" onPress={() => changeConfig()} />
+            <View>
+                <Text>mode = { config.mode }</Text>
+                <Text>ratio = { config.ratio }</Text>
+                <Text>refit = { config.refit }</Text>
+                <Text>anchor = { config.anchor }</Text>
+            </View>
             <View style={styles.imgContainer}>
                 <TwicImg
                     src="refit/bluewater-sweden-7EekldXjkw0-unsplash.jpg"

@@ -15,7 +15,7 @@ const Ratio = () => {
     };
     return (
         <View style={styles.container}>
-            <Button title="Change ratio" onPress={() => changeRatio()} />
+            <Button title={`Change ratio - ${ ratio }`} onPress={() => changeRatio()} />
             <View style={styles.imgContainer}>
                 <TwicImg
                     src="football.jpg"
