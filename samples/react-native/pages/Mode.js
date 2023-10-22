@@ -15,7 +15,7 @@ const Mode = () => {
     };
     return (
         <View style={styles.container}>
-            <Button title="Change mode" onPress={() => changeMode()} />
+            <Button title={`Change mode - ${ mode }`} onPress={() => changeMode()} />
             <View style={styles.imgContainer}>
                 <TwicImg
                     src="cat_1x1.jpg"

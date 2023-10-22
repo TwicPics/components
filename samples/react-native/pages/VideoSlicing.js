@@ -1,10 +1,16 @@
 /* eslint-disable no-use-before-define */
 import { useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { TwicVideo } from '@twicpics/components/react-native';
 
 const config = [
+    {
+        "from": undefined,
+        "to": undefined,
+        "duration": undefined,
+        "posterFrom": 5,
+    },
     {
         "from": undefined,
         "to": undefined,
@@ -66,6 +72,12 @@ const VideoSlicing = () => {
     return (
         <View style={styles.container}>
             <Button title="Change slicing" onPress={() => changeConfig()} />
+            <View>
+                <Text>From { value.from }</Text>
+                <Text>To { value.to }</Text>
+                <Text>Duration { value.duration }</Text>
+                <Text>PosterFrom { value.posterFrom }</Text>
+            </View>
             <View style={styles.imgContainer}>
                 <TwicVideo
                     src="video/skater.mp4"

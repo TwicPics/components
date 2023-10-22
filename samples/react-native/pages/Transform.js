@@ -15,7 +15,7 @@ const Transform = () => {
     };
     return (
         <View style={styles.container}>
-            <Button title="Change transform" onPress={() => changeTransform()} />
+            <Button title={`Change transform - ${ transform }`} onPress={() => changeTransform()} />
             <View style={styles.imgContainer}>
                 <TwicImg
                     src="cat_1x1.jpg"
