@@ -12,54 +12,29 @@ const config = [
         "posterFrom": 5,
     },
     {
-        "from": undefined,
+        "from": 5.1,
         "to": undefined,
         "duration": undefined,
+        "posterFrom": undefined,
+    },
+    {
+        "from": 15.4,
+        "to": 16.6,
+        "duration": undefined,
+        "posterFrom": undefined,
+    },
+    {
+        "from": 15.4,
+        "to": undefined,
+        "duration": 1.2,
         "posterFrom": undefined,
     },
     {
         "from": 1,
-        "to": undefined,
-        "duration": undefined,
-        "posterFrom": undefined,
-    },
-    {
-        "from": undefined,
         "to": 2,
         "duration": undefined,
         "posterFrom": undefined,
     },
-    {
-        "from": 1,
-        "to": 2,
-        "duration": undefined,
-        "posterFrom": undefined,
-    },
-    {
-        "from": undefined,
-        "to": undefined,
-        "duration": 3,
-        "posterFrom": undefined,
-    },
-    {
-        "from": 1,
-        "to": undefined,
-        "duration": 3,
-        "posterFrom": undefined,
-    },
-    {
-        "from": undefined,
-        "to": undefined,
-        "duration": undefined,
-        "posterFrom": 5,
-    },
-    {
-        "from": 2,
-        "to": 3,
-        "duration": undefined,
-        "posterFrom": 5,
-    },
-
 ];
 let indiceConfig = 0;
 
