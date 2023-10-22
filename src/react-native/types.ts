@@ -7,6 +7,7 @@ export type MediaTag = `img` | `video`;
 export interface AssetAttributes {
   alt?: string,
   onLoad: ( ( ) => void ) ;
+  poster?: string,
   uri: string,
 }
 
@@ -40,7 +41,7 @@ export interface VideoAttributes extends BaseAttributes {
 }
 
 export interface MediaAttributes extends BaseAttributes {
-    mediaTag: string,
+    mediaTag: MediaTag,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
     viewSize: SizeObject,
@@ -90,9 +91,11 @@ export interface UrlData {
     inspect?: boolean,
     mode: Mode,
     placeholder: Placeholder,
+    poster?: boolean,
     preTransform: string,
     refit?: string,
     src: string,
     step: number,
+    videoOptions?: VideoOptions,
     viewSize: SizeObject
 }

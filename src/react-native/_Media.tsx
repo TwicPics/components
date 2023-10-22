@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-shadow
 import { Animated, View } from 'react-native';
-
 import {
     parseAlt,
     parseAnchor,
@@ -20,7 +19,6 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
 } from './parse';
-
 import {
     computeAlt,
     computePosition,
@@ -38,7 +36,8 @@ import { styles } from './styles';
 import VisibilityDetector from './visibilityDetector';
 
 export default ( props: MediaAttributes ) => {
-    const { mediaTag, viewSize } = props;
+    const { mediaTag, videoOptions, viewSize } = props;
+    const MediaComponent = mediaTag === `img` ? Image : Video;
     const alt = parseAlt( props.alt );
     const anchor = parseAnchor( props.anchor );
     const eager = parseEager( props.eager );
@@ -55,17 +54,20 @@ export default ( props: MediaAttributes ) => {
     const transitionDuration = parseTransitionDuration( props.transitionDuration );
     const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
     const computedAlt = computeAlt( alt, mediaTag );
-    const { media, inspect } = computeUrls( {
-        anchor,
-        focus,
-        mode,
-        placeholder,
-        preTransform,
-        refit,
-        src,
-        step,
-        viewSize,
-    } );
+    const { media, inspect, poster } = computeUrls(
+        mediaTag, {
+            anchor,
+            focus,
+            mode,
+            placeholder,
+            preTransform,
+            refit,
+            src,
+            step,
+            videoOptions,
+            viewSize,
+        }
+    );
     const opacityTransition = useRef( new Animated.Value( 0 ) ).current;
     const scaleTransition = useRef( new Animated.Value( transition.hasOwnProperty( `zoom` ) ? 0 : 1 ) ).current;
     const [ actualUri, setActualUri ] = useState( undefined );
@@ -149,15 +151,12 @@ export default ( props: MediaAttributes ) => {
                     "overflow": `hidden`,
                     "width": computeWidth( mediaInfos, viewSize ),
                 } } >
-                    { ( mediaTag === `img` ) && ( <Image
+                    <MediaComponent
                         alt={ computedAlt }
                         onLoad={ onLoad }
                         uri= { actualUri }
-                    /> ) }
-                    { ( mediaTag === `video` ) && ( <Video
-                        onLoad={ onLoad }
-                        uri= { actualUri }
-                    /> ) }
+                        poster= { poster }
+                    />
                     { mediaInfos?.placeholder && (
                         <Animated.Image
                             blurRadius={ mediaInfos.placeholder.blurRadius || 0}

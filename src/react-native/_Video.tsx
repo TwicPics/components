@@ -7,8 +7,7 @@ import { Image } from "react-native";
 
 // eslint-disable-next-line react/display-name
 export default React.memo( ( props: AssetAttributes ) => {
-    const { uri, onLoad } = props;
-    const uriPoster = `${ uri }/output=image`;
+    const { onLoad, poster, uri } = props;
     return (
         uri && <Video
             isLooping
@@ -24,7 +23,7 @@ export default React.memo( ( props: AssetAttributes ) => {
                         onLoad();
                     } }
                     source={ {
-                        "uri": uriPoster,
+                        "uri": poster,
                     } }
                     style={ [ styles.asset ] }
                 />

@@ -4,7 +4,7 @@ import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
 import { createUrl, finalTransform, urlInfos } from '../_/url';
-import type { MediaInfos, SizeObject, TimingConfig, UrlData } from './types';
+import type { MediaInfos, MediaTag, SizeObject, TimingConfig, UrlData } from './types';
 
 const PLACEHOLDER_DIM = 1000;
 const actualSize = ( step: number, lqip: boolean, viewSize: SizeObject ): SizeObject => {
@@ -44,47 +44,6 @@ const mappingMode: { [key: string]: string; } = {
     "contain": `contain`,
     "stretch": `resize`,
     "repeat": `contain-max`,
-};
-
-const computeUrl = ( { anchor,
-    // eslint-disable-next-line no-shadow
-    focus,
-    inspect = false,
-    mode,
-    placeholder,
-    preTransform,
-    refit,
-    src,
-    step,
-    viewSize }: UrlData ) => {
-    const { domain, env } = config;
-    const lqip = inspect && !urlInfos( src ).isSpecial;
-    const { width, height } = actualSize( step, lqip, viewSize );
-    const context = {
-        height,
-        "mode": mappingMode[ mode ],
-        width,
-    };
-    const actualTransform = `${ computePreTransform( {
-        anchor,
-        "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
-        focus,
-        mode,
-        preTransform,
-        refit,
-    } ) }${
-        finalTransform( mode, refit ) || ``
-    }`;
-    return createUrl(
-        {
-            context,
-            domain,
-            inspect,
-            "transform": actualTransform,
-            src,
-            "output": lqip ? placeholder : ``,
-        }
-    );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -141,12 +100,57 @@ Animated.TimingAnimationConfig =>
         }
     );
 
-/**
- * returns both the url of the final image and the url of the LQIP image
- */
-export const computeUrls = (
-    urlData: UrlData
-): Record< string, string> => ( {
+const computeUrl = ( { anchor,
+    // eslint-disable-next-line no-shadow
+    focus,
+    inspect = false,
+    mode,
+    placeholder,
+    poster,
+    preTransform,
+    refit,
+    src,
+    step,
+    viewSize,
+    videoOptions }: UrlData ) => {
+    const { domain, env } = config;
+    const lqip = inspect && !urlInfos( src ).isSpecial;
+    const { width, height } = actualSize( step, lqip, viewSize );
+    const { posterTransform, videoTransform } = videoOptions || {};
+    const context = {
+        height,
+        "mode": mappingMode[ mode ],
+        width,
+    };
+    // eslint-disable-next-line no-nested-ternary
+    const actualOutput = ( poster ? `image` : ( lqip ? placeholder : `` ) ) || ``;
+    const actualVideoTransform = ( poster ? posterTransform : videoTransform ) || ``;
+    const actualTransform = `${
+          computePreTransform( {
+              anchor,
+              "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
+              focus,
+              mode,
+              preTransform,
+              refit,
+          } ) }${
+          actualVideoTransform
+      }${
+          finalTransform( mode, refit ) || ``
+      }`;
+    return createUrl(
+        {
+            context,
+            domain,
+            inspect,
+            "transform": actualTransform,
+            src,
+            "output": actualOutput,
+        }
+    );
+};
+
+export const computeUrls = ( mediaTag: MediaTag, urlData: UrlData ): Record< string, string> => ( {
     "media": computeUrl( urlData ),
     "inspect": computeUrl(
         {
@@ -156,6 +160,12 @@ export const computeUrls = (
             },
         }
     ),
+    "poster": mediaTag && computeUrl( {
+        ...urlData,
+        ...{
+            "poster": true,
+        },
+    } ),
 } );
 
 export const computeWidth = ( mediaInfos: MediaInfos, viewSize: SizeObject ): number => {
