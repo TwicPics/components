@@ -27,14 +27,14 @@ const getInputFileName = ( sourceDir, sourceFileName, javascript ) =>
 `${ __dirname }/../${ `src/${ sourceDir }/${ sourceFileName }.${ javascript ? `js` : `ts` }` }`;
 
 const getOutputFileName = ( framework, outputFileName, format ) => `${
-    __dirname
-}/../dist/${
-    framework
-}/${
-    outputFileName || getFormatInfo( format, `fileName` ) || format
-}.${
-    getFormatInfo( format, `extension` ) || `js`
-}`;
+            __dirname
+        }/../dist/${
+          framework
+        }/${
+          outputFileName || getFormatInfo( format, `fileName` ) || format
+        }.${
+          getFormatInfo( format, `extension` ) || `js`
+      }`;
 
 const getTsConfigFileName = () => `${ __dirname }/../tsconfig.json`;
 
@@ -48,7 +48,8 @@ export default ( { bundleCss = true,
     postTerser = [],
     sourceDir = framework,
     sourceFileName = `index`,
-    outputFileName = undefined }, ...formats ) => {
+    outputFileName = undefined,
+    sourcemap = true }, ...formats ) => {
     const actualFormats = formats.filter( f => !getFormatInfo( f ).type );
     return {
         "component": {
@@ -64,7 +65,7 @@ export default ( { bundleCss = true,
                 "exports": `named`,
                 "file": getOutputFileName( framework, outputFileName, format ),
                 format,
-                "sourcemap": true,
+                sourcemap,
                 sourcemapPathTransform,
             } ) ),
             "plugins": [

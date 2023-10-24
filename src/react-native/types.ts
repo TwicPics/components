@@ -12,7 +12,6 @@ export interface AssetAttributes {
 }
 
 export interface BaseAttributes {
-    alt?: string,
     anchor?: string,
     eager?: boolean,
     focus?: string,
@@ -30,7 +29,8 @@ export interface BaseAttributes {
 }
 
 export interface ImgAttributes extends BaseAttributes {
-    refit: boolean | string,
+    alt?: string,
+    refit?: boolean | string,
 }
 
 export interface VideoAttributes extends BaseAttributes {
@@ -41,6 +41,7 @@ export interface VideoAttributes extends BaseAttributes {
 }
 
 export interface MediaAttributes extends BaseAttributes {
+    alt?: string,
     mediaTag: MediaTag,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
