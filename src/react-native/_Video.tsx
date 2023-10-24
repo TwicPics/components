@@ -13,13 +13,11 @@ export default React.memo( ( props: AssetAttributes ) => {
             isLooping
             isMuted
             onReadyForDisplay={() => {
-                console.log( `Video loaded` );
                 onLoad();
             }}
             PosterComponent={() => (
                 <Image
                     onLoad={ () => {
-                        console.log( `poster loaded` );
                         onLoad();
                     } }
                     source={ {

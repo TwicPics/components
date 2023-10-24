@@ -90,6 +90,7 @@ export default [
         ],
         "formats": [ `cjs`, `es`, `types` ],
         "framework": `react-native`,
+        "sourcemap": false,
     },
     svelteUnitFactory( {
         "framework": `svelte3`,
