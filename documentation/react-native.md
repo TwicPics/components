@@ -8,8 +8,14 @@
 - [Contents](#contents)
 - [Overview](#overview)
   - [What is TwicPics Components?](#what-is-twicpics-components)
+  - [Platform Compatibility](#platform-compatibility)
+- [Installation](#installation)
+  - [Installing TwicPics Components](#installing-twicpics-components)
+  - [Installing Expo-AV module](#installing-expo-av-module)
+    - [For React Native Expo Go projects](#for-react-native-expo-go-projects)
+    - [For React Native CLI projects](#for-react-native-cli-projects)
 - [Setup](#setup)
-  - [Install TwicPics in your React Native project](#install-twicpics-in-your-react-native-project)
+  - [Setting-up TwicPics Components in your React Native project](#setting-up-twicpics-components-in-your-react-native-project)
   - [Setup Options](#setup-options)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
@@ -17,6 +23,8 @@
   - [Refit example](#refit-example)
   - [Working with ratio="none"](#working-with-rationone)
 - [Components Props](#components-props)
+  - [`TwicImg`](#twicimg)
+  - [`TwicVideo`](#twicvideo)
 - [Examples](#examples)
 ## Overview
 
@@ -32,23 +40,35 @@ TwicPics acts as an **proxy**. It retrieves your master file — from your own w
 
 ### What is TwicPics Components?
 
-TwicPics Components is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
+TwicPics Components is a __collection of components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects with optimized _Cumulative Layout Shift_ (CLS), low-quality image placeholders, and lazy loading out of the box.
 
-TwicPics Components are a drop-in replacement for `<Image>` tag with optimized _Cumulative Layout Shift_ (CLS), low-quality image placeholders, and lazy loading out of the box.
+`<TwicImg>` is a drop-in replacement for `<Image>` component.
 
 ```html
 <!-- Before -->
 <Image source={{uri: "https://assets.twicpics.com/examples/football.jpg"}} style={{width: 400, height: 400}}/>
 
 <!-- After -->
-<TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
+<TwicImg src="football.jpg" />
 ```
 
-<div id="setting-up-your-project"/>
+`<TwicVideo>` is a component for seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization).
+
+```html
+<TwicVideo src="path/to/your/video"/>
+```
+
+### Platform Compatibility
+
+| Android | iOS | Web |
+| :-: | :-: | :-: |
+| [x] | [x] | [x] |
 
 ## Installation
 
-Add the `@twicpics/components` package to your project:
+### Installing TwicPics Components
+
+Add the `@twicpics/components` package to your React Native project:
 
 ```bash
 # Using yarn
@@ -58,14 +78,57 @@ yarn add @twicpics/components
 npm install @twicpics/components
 ```
 
+If you plan to use `TwicVideo`, you will also need to install [Expo-AV module](#installing-expo-av-module). If not, proceed directly to [setup](#setup) section.
+
+### Installing Expo-AV module
+
+The installation process for [Expo-AV](https://docs.expo.dev/versions/latest/sdk/av/) depends on your project's origin, whether [Expo Go](https://reactnative.dev/docs/environment-setup?guide=quickstart&package-manager=yarn) or [React Native CLI](https://reactnative.dev/docs/environment-setup?guide=native&package-manager=yarn).
+
+#### For React Native Expo Go projects
+
+Since `Expo` is already installed, add the [Expo-AV](https://docs.expo.dev/versions/latest/sdk/av/) dependency:
+
+```bash
+# Using yarn
+yarn add expo-av
+
+# Or using npm
+npm install expo-av
+```
+
+Once completed, proceed to [setup](#setup) section.
+
+#### For React Native CLI projects
+
+First, install and configure the `expo` package.
+
+```bash
+npx install-expo-modules@latest
+```
+
+**Note:** If the command fails, please refer to [Expo Modules documentation](https://docs.expo.dev/bare/installing-expo-modules/).
+
+After `expo` package is installed and configured, add `expo-av` dependency :
+
+```bash
+# Using yarn
+yarn add expo-av
+
+# Or using npm
+npm install expo-av
+```
+
+For **iOS** targeting, reinstall the project's `CocoaPods`: 
+
+```bash
+npx pod-install
+```
 
 ## Setup
 
-### Install TwicPics in your React Native project
+### Setting-up TwicPics Components in your React Native project
 
 **Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
-
-This example uses ES module imports, but TwicPics Components is compatible with CommonJS and `require` statements.
 
 ```js
 // App.js
@@ -98,39 +161,51 @@ For an exhaustive list of options, see [Setup Options](#setup-options).
 
 ## Usage
 
-> Note: `<TwicVideo>` is not supported yet for React Native.
-
 ### Basic usage
 
 ```jsx
 // MyComponent.jsx
 
-import { TwicImg } from "@twicpics/components/react-native";
+import { TwicImg, TwicVideo } from '@twicpics/components/react-native'
 
 const MyComponent = () => (
-  <TwicImg src="image.jpg" style={styles.customImage} mode="cover" placeholder="preview"/>
+  <TwicImg
+    src="path/to/your/image"
+    style={styles.customImage}
+    mode="cover"
+    placeholder="preview"
+  />
+  <TwicVideo
+    src="path/to/your/video"
+    style={styles.customVideo}
+    mode="cover"
+    placeholder="preview"
+  />
 );
 
 const styles = StyleSheet.create({
   "customImage": {
     // some styles
   },
-});
+  "customVideo": {
+    // some styles
+  },
+})
 
 export default MyComponent;
 ```
 
 ### Lazy Loading
 
-`TwicImg ` will lazy-load images by default and "anticipate" lazy loading by a factor of the actual viewport. This can be controlled using the [anticipation option](#setup-options).
+`TwicImg` and `TwicVideo` will lazy-load assets by default and "anticipate" lazy loading by a factor of the actual viewport. This can be controlled using the [anticipation option](#setup-options).
 
-When embedding `TwicImg` in a lazily loading-compatible Component like [FlatList](https://reactnative.dev/docs/flatlist), it is recommended to disable `TwcImg`'s lazy-loading feature using the `eager` prop:
+When embedding `TwicImg` or `TwicVideo` in a lazily loading-compatible Component like [FlatList](https://reactnative.dev/docs/flatlist), it is recommended to disable `TwicImg` or `TwicVideo`'s lazy-loading feature using the `eager` prop:
 
 ```jsx
 // MyComponent.jsx
 
 import React from 'react';
-import { FlatList, View, Image } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 const data = [
   // Data containing image URLs
@@ -219,6 +294,9 @@ export default MyComponent;
 
 ## Components Props
 
+### `TwicImg`
+
+This component can be used in place of an `<Image>` component.
 
 ```html
 <TwicImg
@@ -233,6 +311,7 @@ export default MyComponent;
   ratio="<ratio>"
   refit="<boolean|String>"
   step="<integer>"
+  style="<Object>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
@@ -249,11 +328,57 @@ export default MyComponent;
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/reference/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
-| `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
+| `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
 | `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String ` | `false` |
-| `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
+| `src` | Path to the image. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `style` | Accepts styles defined in a JavaScript object in the usual React Native style, see [React Native docs](https://reactnative.dev/docs/style). | `Object` | `null` |
+| `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
+| `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
+| `transitionTimingFunction` | React Native [Easing](https://reactnative.dev/docs/easing) function applied to the transition effect. | `Function` | `ease` |
+| `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
+
+### `TwicVideo`
+
+```html
+<TwicVideo
+  src="<path>"
+  anchor="<String>"
+  duration="<String|number>"
+  eager="<boolean>"
+  from="<String|number>"
+  focus="<coordinates>"
+  mode="<contain|cover>"
+  posterFrom="<String|number>"
+  placeholder="<preview|maincolor|meancolor|none>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  step="<integer>"
+  style="<Object>"
+  to="<String|number>"
+  transition="<fade|zoom|none>"
+  transitionDelay="<String>"
+  transitionDuration="<String>"
+  transitionTimingFunction="<String>"
+/>
+```
+
+| Attribute | Description | Type | Default |
+|:-|:-|:-|:-|
+| `anchor` | Positions the video in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
+| `duration` | Limits the duration of the video. `duration` is expressed in seconds and must be a positive number. `duration` will not move the starting point of the video: to do so, you'll have to use the `from` property. See [duration documentation](https://www.twicpics.com/docs/reference/transformations#duration). | `String or number` | |
+| `eager` | Load the video as soon as the component is mounted. This effectively means disabling lazy loading for this video.  | `boolean` | `false` |
+| `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
+| `from` | Moves the starting point of the video. `from` is expressed in seconds and must be a positive number. `from` will not move the end point of the video: to do so, you'll have to use the `duration` or `to` properties. See from documentation. See [from documentation](https://www.twicpics.com/docs/reference/transformations#from). | `String or number` | |
+| `mode` | Can be `contain` or `cover` and determines if the video fills the area and is cropped accordingly (`cover`) or if the video will sit inside the area with no cropping (`contain`). | `String` | `cover` |
+| `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/reference/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` | 
+| `posterFrom` | Determines which frame of the source video should be used as a poster / preview. `posterFrom` is expressed in seconds and must be a positive number. By default `posterFrom` is equal to 0, meaning the very first frame of the video is used. `posterFrom` will not modify the video in any way: to do so, you'll have to use the `duration`, `from` or `to` properties. | `String or number` | |
+| `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the video (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
+| `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
+| `src` | Path to the video. | `String` | |
+| `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-step) for more information. | `Integer` | `10` |
+| `style` | Accepts styles defined in a JavaScript object in the usual React Native style, see [React Native docs](https://reactnative.dev/docs/style). | `Object` | `null` |
+| `to` | Moves the end point of the video. `to` is expressed in seconds and must be a positive number. `to` will not move the starting point of the video: to do so, you'll have to use the `from` property. See [to documentation](https://www.twicpics.com/docs/reference/transformations#to). | `String or number` | |
 | `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | React Native [Easing](https://reactnative.dev/docs/easing) function applied to the transition effect. | `Function` | `ease` |
