@@ -75,10 +75,7 @@ const svelteUnitFactory = ( { framework = `svelte3`, customElement = false } ) =
 
 export default [
     {
-        "external": [
-            `prop-types`,
-            `react`,
-        ],
+        "external": [ `react` ],
         "formats": [ `cjs`, `es`, `types` ],
         "framework": `react`,
         "postTerser": [ banner2( () => `'use client';` ) ],

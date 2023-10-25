@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.24.0] - 2023-10-25
+
 ### Changed
 
 - Removes dependency on `prop-types` library in **React** components.
@@ -556,8 +558,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
-
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.24.0]: https://github.com/TwicPics/components/compare/0.23.2...0.24.0
 [0.23.2]: https://github.com/TwicPics/components/compare/0.23.1...0.23.2
 [0.23.1]: https://github.com/TwicPics/components/compare/0.23.0...0.23.1
 [0.23.0]: https://github.com/TwicPics/components/compare/0.22.3...0.23.0
