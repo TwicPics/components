@@ -1,9 +1,8 @@
 /* eslint-disable no-use-before-define */
 import { useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { TwicVideo } from '@twicpics/components/react-native';
-import { Text } from 'react-native';
 
 const config = [
     {
@@ -72,6 +71,7 @@ const AnchorVideo = () => {
                     preTransform="crop=720x720"
                     ratio={value.ratio}
                     style={styles.customImage}
+                    posterFrom={8}
                     from={4}
                 />
             </View>
