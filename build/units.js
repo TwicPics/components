@@ -83,6 +83,7 @@ export default [
     {
         "bundleCss": false,
         "external": [
+            `expo-av`,
             `react`,
             `react-dom`,
             `react-native`,
