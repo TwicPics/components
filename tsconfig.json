@@ -15,6 +15,7 @@
         "preserveValueImports": false,
         "importsNotUsedAsValues": "remove",
         "verbatimModuleSyntax": true,
+        "module": "ES2022"
     },
     "exclude": [
         "node_modules"
