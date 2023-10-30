@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Updates **Next** samples dependencies up to Next14.
+
 ## [0.24.0] - 2023-10-25
 
 ### Changed
