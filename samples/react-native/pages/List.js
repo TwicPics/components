@@ -207,10 +207,10 @@ const images = [ ...seed, ...seed, ...seed, ...seed ].map( e => ( {
 const renderItem = ( { item } ) => (
     <View
         style={{
-            "padding": 5,
+            "padding": 30,
         }}
     >
-        <TwicImg src={item.url} eager ratio="1" mode="cover" placeholder="maincolor" />
+        <TwicImg src={ item.url } eager ratio="2.35" focus={ item.focus} />
     </View>
 );
 

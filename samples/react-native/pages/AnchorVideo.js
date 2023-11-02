@@ -6,9 +6,14 @@ import { TwicVideo } from '@twicpics/components/react-native';
 
 const config = [
     {
-        "anchor": `top`,
+        "anchor": `center`,
         "mode": `contain`,
-        "ratio": `3/4`,
+        "ratio": `4/3`,
+    },
+    {
+        "anchor": `left`,
+        "mode": `contain`,
+        "ratio": `4/3`,
     },
     {
         "anchor": `right`,
@@ -21,29 +26,44 @@ const config = [
         "ratio": `3/4`,
     },
     {
-        "anchor": `left`,
+        "anchor": `center`,
         "mode": `contain`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `top`,
+        "mode": `contain`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `center`,
+        "mode": `cover`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `left`,
+        "mode": `cover`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `right`,
+        "mode": `cover`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `bottom`,
+        "mode": `cover`,
+        "ratio": `4/3`,
+    },
+    {
+        "anchor": `center`,
+        "mode": `cover`,
         "ratio": `4/3`,
     },
     {
         "anchor": `top`,
         "mode": `cover`,
-        "ratio": `16/9`,
-    },
-    {
-        "anchor": `bottom`,
-        "mode": `cover`,
-        "ratio": `16/9`,
-    },
-    {
-        "anchor": `left`,
-        "mode": `cover`,
-        "ratio": `9/16`,
-    },
-    {
-        "anchor": `right`,
-        "mode": `cover`,
-        "ratio": `9/16`,
+        "ratio": `4/3`,
     },
 ];
 let indiceConfig = 0;
@@ -67,12 +87,8 @@ const AnchorVideo = () => {
                     src="video/skater.mp4"
                     anchor={value.anchor}
                     mode={value.mode}
-                    placeholder="preview"
                     preTransform="crop=720x720"
                     ratio={value.ratio}
-                    style={styles.customImage}
-                    posterFrom={8}
-                    from={4}
                 />
             </View>
         </View>
@@ -82,10 +98,6 @@ const AnchorVideo = () => {
 const styles = StyleSheet.create( {
     "imgContainer": {
         "marginTop": 20,
-    },
-    "customImage": {
-        "height": 100,
-        "backgroundColor": `#8F00FF`,
     },
     "container": {
         "padding": 20,

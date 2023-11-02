@@ -219,23 +219,16 @@ class Gallery extends Component {
                 {images.map( ( image, i ) => (
                     <View
                         style={{
-                            "padding": 5,
+                            "width": `30%`,
+                            "margin": `1.5%`,
                         }}
                         key={i}
                     >
                         <TwicImg
                             src={image.url}
-                            ratio="3/4"
-                            mode="cover"
-                            focus="bottom"
+                            focus={ image.focus }
                             step="20"
-                            style={[
-                                styles.image,
-                                {
-                                    "width": ( i % 2 === 1 ) ? 120 : 100,
-                                },
-                            ]}
-                            transition="zoom"
+                            style={ styles.image }
                         />
                     </View>
                 ) )}
@@ -249,16 +242,6 @@ const styles = StyleSheet.create( {
         "marginHorizontal": 4,
         "marginTop": 30,
         "width": `100%`,
-    },
-    "image": {
-        "shadowColor": `black`,
-        "shadowOffset": {
-            "width": -5,
-            "height": 5,
-        },
-        "shadowOpacity": 0.1,
-        "shadowRadius": 2,
-        "elevation": 3,
     },
 } );
 

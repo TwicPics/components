@@ -22,8 +22,6 @@ const Focus = () => {
                     src="football.jpg"
                     focus={focus}
                     ratio="3/4"
-                    mode="cover"
-                    style={styles.customImage}
                 />
             </View>
         </View>
@@ -33,9 +31,6 @@ const Focus = () => {
 const styles = StyleSheet.create( {
     "imgContainer": {
         "marginTop": 20,
-    },
-    "customImage": {
-        "height": 100,
     },
     "container": {
         "padding": 20,

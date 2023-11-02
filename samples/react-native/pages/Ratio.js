@@ -21,7 +21,6 @@ const Ratio = () => {
                     src="football.jpg"
                     ratio={ratio}
                     mode="contain"
-                    style={styles.customImage}
                     transitionDuration="200"
                 />
             </View>
@@ -32,10 +31,6 @@ const Ratio = () => {
 const styles = StyleSheet.create( {
     "imgContainer": {
         "marginTop": 20,
-    },
-    "customImage": {
-        "height": 100,
-        "backgroundColor": `#FF0000`,
     },
     "container": {
         "padding": 20,

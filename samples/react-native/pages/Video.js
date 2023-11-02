@@ -108,7 +108,6 @@ const styles = StyleSheet.create( {
     "customImage": {
         "width": `50%`,
         "height": 100,
-        "backgroundColor": `#8F00FF`,
     },
     "container": {
         "padding": 20,

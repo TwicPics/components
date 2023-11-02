@@ -74,13 +74,12 @@ const Refit = () => {
             </View>
             <View style={styles.imgContainer}>
                 <TwicImg
-                    src="refit/bluewater-sweden-7EekldXjkw0-unsplash.jpg"
+                    src="components/refit/dog-looking-water.jpg"
                     anchor={config.anchor}
                     mode={config.mode}
                     preTransform={config.preTransform}
                     ratio={config.ratio}
                     refit={config.refit}
-                    style={styles.customImage}
                 />
             </View>
         </View>
@@ -90,10 +89,6 @@ const Refit = () => {
 const styles = StyleSheet.create( {
     "imgContainer": {
         "marginTop": 20,
-    },
-    "customImage": {
-        "height": 100,
-        "backgroundColor": `#FFFFFF`,
     },
     "container": {
         "padding": 20,

@@ -6,9 +6,14 @@ import { TwicImg } from '@twicpics/components/react-native';
 
 const config = [
     {
-        "anchor": `top`,
+        "anchor": `center`,
         "mode": `contain`,
-        "ratio": `3/4`,
+        "ratio": `4/3`,
+    },
+    {
+        "anchor": `left`,
+        "mode": `contain`,
+        "ratio": `4/3`,
     },
     {
         "anchor": `right`,
@@ -21,29 +26,44 @@ const config = [
         "ratio": `3/4`,
     },
     {
-        "anchor": `left`,
+        "anchor": `center`,
         "mode": `contain`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `top`,
+        "mode": `contain`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `center`,
+        "mode": `cover`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `left`,
+        "mode": `cover`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `right`,
+        "mode": `cover`,
+        "ratio": `3/4`,
+    },
+    {
+        "anchor": `bottom`,
+        "mode": `cover`,
+        "ratio": `4/3`,
+    },
+    {
+        "anchor": `center`,
+        "mode": `cover`,
         "ratio": `4/3`,
     },
     {
         "anchor": `top`,
         "mode": `cover`,
-        "ratio": `16/9`,
-    },
-    {
-        "anchor": `bottom`,
-        "mode": `cover`,
-        "ratio": `16/9`,
-    },
-    {
-        "anchor": `left`,
-        "mode": `cover`,
-        "ratio": `9/16`,
-    },
-    {
-        "anchor": `right`,
-        "mode": `cover`,
-        "ratio": `9/16`,
+        "ratio": `4/3`,
     },
 ];
 let indiceConfig = 0;
@@ -56,7 +76,7 @@ const Anchor = () => {
     };
     return (
         <View style={styles.container}>
-            <Button title="Change anchor" onPress={() => changeAnchor()} />
+            <Button title="Change anchor" onPress={() => changeAnchor()} style={styles.button}/>
             <View>
                 <Text>anchor = { value.anchor }</Text>
                 <Text>mode = { value.mode }</Text>
@@ -67,9 +87,7 @@ const Anchor = () => {
                     src="cat_1x1.jpg"
                     anchor={value.anchor}
                     mode={value.mode}
-                    placeholder="preview"
                     ratio={value.ratio}
-                    style={styles.customImage}
                 />
             </View>
         </View>
@@ -77,12 +95,20 @@ const Anchor = () => {
 };
 
 const styles = StyleSheet.create( {
+    "button": {
+        "alignItems": `center`,
+        "justifyContent": `center`,
+        "paddingVertical": 12,
+        "paddingHorizontal": 32,
+        "borderRadius": 50,
+        "elevation": 3,
+        "backgroundColor": `#8D00F4`,
+        "position": `absolute`,
+        "right": 5,
+        "top": 5,
+    },
     "imgContainer": {
         "marginTop": 20,
-    },
-    "customImage": {
-        "height": 100,
-        "backgroundColor": `#8F00FF`,
     },
     "container": {
         "padding": 20,

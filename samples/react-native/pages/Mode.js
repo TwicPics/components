@@ -22,7 +22,6 @@ const Mode = () => {
                     ratio="4/3"
                     mode={mode}
                     placeholder="preview"
-                    style={styles.customImage}
                 />
             </View>
         </View>
@@ -32,10 +31,6 @@ const Mode = () => {
 const styles = StyleSheet.create( {
     "imgContainer": {
         "marginTop": 20,
-    },
-    "customImage": {
-        "height": 100,
-        "backgroundColor": `#8F00FF`,
     },
     "container": {
         "padding": 20,
