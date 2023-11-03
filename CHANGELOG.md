@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.25.0] - 2023-11-02
+
+### Add
+
+- Adds video support in **React Native** components.
+
 ### Changed
 
 - Updates **Next** samples dependencies up to Next14.
@@ -563,6 +569,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.25.0]: https://github.com/TwicPics/components/compare/0.24.0...0.25.0
 [0.24.0]: https://github.com/TwicPics/components/compare/0.23.2...0.24.0
 [0.23.2]: https://github.com/TwicPics/components/compare/0.23.1...0.23.2
 [0.23.1]: https://github.com/TwicPics/components/compare/0.23.0...0.23.1
