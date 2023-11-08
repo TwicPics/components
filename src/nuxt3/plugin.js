@@ -1,5 +1,5 @@
 import TwicPics from "@twicpics/components/vue3";
-import { defineNuxtPlugin, useRuntimeConfig } from '#app';
+import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
 
 export default defineNuxtPlugin( nuxtApp => {
     const runtimeConfig = useRuntimeConfig();
