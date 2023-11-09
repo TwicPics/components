@@ -1,4 +1,4 @@
-import { default as installTwicPics } from "../_/install";
+import { installTwicPics } from "../_/install";
 import TwicBackground from "./TwicBackground";
 import TwicImg from "./TwicImg";
 import TwicInstall from "./TwicInstall";

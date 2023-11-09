@@ -1,6 +1,6 @@
 import type { Options as BaseOptions } from "../_/types";
 import type { PluginFunction, default as Vue } from "vue";
-import { default as install } from "../_/install";
+import { installTwicPics } from "../_/install";
 import register from "./register";
 import TwicBackground from "./TwicBackground.vue";
 import TwicImg from "./TwicImg.vue";
@@ -16,7 +16,7 @@ interface Options extends BaseOptions {
 }
 
 const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Options ): void => {
-    install( options );
+    installTwicPics( options );
     if ( options.TwicImg && ( options.TwicImg === options.TwicVideo ) ) {
         throwError( `TwicImg and TwicVideo components must have different names` );
     }

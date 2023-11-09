@@ -1,6 +1,6 @@
 /* eslint-disable no-import-assign */
 
-import installTwicPics from '../_/install';
+import { installTwicPics } from '../_/install';
 import type { Options } from '../_/types';
 import { config } from '../_/config';
 

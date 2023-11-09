@@ -12,7 +12,7 @@ const parametersMap = [
     [ `maxDPR`, `max-dpr` ],
     [ `step`, `step` ],
 ];
-export const registerScript = ( options: Options ): void => {
+const registerScript = ( options: Options ): void => {
     if ( isBrowser && !isReactNative ) {
         const parts = [ `${ config.domain }/?${ VERSION }` ];
         parametersMap.forEach( p => {
@@ -24,7 +24,6 @@ export const registerScript = ( options: Options ): void => {
                 }
             }
         } );
-
         createElement( {
             "element": document.head,
             "value": [
@@ -43,15 +42,30 @@ export const registerScript = ( options: Options ): void => {
                     },
                     "elementName": `script`,
                 },
-                {
-                    "value": configBasedStyle(),
-                    "elementName": `style`,
-                },
             ],
         } );
     }
 };
-export default ( options: Options ): void => {
+
+const registerStyle = (): void => {
+    const style = createElement( {
+        "elementName": `style`,
+        "value": configBasedStyle(),
+    } );
+    document.head.appendChild( style );
+
+    // re-register styles during astro view-transition
+    document.addEventListener( `astro:after-swap`, () => document.head.appendChild( style ) );
+};
+
+export const register = ( options: Options ): void => {
+    if ( isBrowser && !isReactNative ) {
+        registerScript( options );
+        registerStyle();
+    }
+};
+
+export const installTwicPics = ( options: Options ): void => {
     if ( !options ) {
         throwError( `install options not provided` );
     }
@@ -73,5 +87,6 @@ export default ( options: Options ): void => {
             "path": parsePath( path ),
         },
     } );
-    registerScript( options );
+
+    register( options );
 };

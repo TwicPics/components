@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { registerScript } from "../_/install";
+import { register } from "../_/install";
 import {
     parseAnticipation,
     parseClass,
@@ -43,7 +43,7 @@ const TwicInstall: React.FC< InstallAttributes > = props => {
     setConfig( options );
     useEffect(
         () => {
-            registerScript( options );
+            register( options );
         },
         []
     );

@@ -8,7 +8,7 @@ export {
     computeWrapperStyle,
 } from "../_/compute.js";
 export { getDataAttributeName } from "../_/config.js";
-export { default as installTwicPics } from "../_/install.js";
+export { installTwicPics } from "../_/install.js";
 export { default as initMagnifier } from "../_/magnifier";
 export { Observer } from "../_/Observer.js";
 export {
