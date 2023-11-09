@@ -9,12 +9,12 @@
         "preview": "vite preview --port 3000"
     },
     "devDependencies": {
-        "@sveltejs/adapter-auto": "2.1.0",
-        "@sveltejs/kit": "1.25.1",
+        "@sveltejs/adapter-auto": "2.1.1",
+        "@sveltejs/kit": "1.27.3",
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "svelte": "4.2.1",
-        "vite": "4.4.9"
+        "svelte": "4.2.2",
+        "vite": "4.5.0"
     },
     "type": "module"
 }
