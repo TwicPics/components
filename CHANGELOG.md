@@ -8,7 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.25.1] - 2023-11-10
+
 ### Fixes
+
+- Imports **Nuxt** composables from #imports.
 
 - Styles now persist throughout **Astro3** `View Transitions`.
 
@@ -577,6 +581,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.25.1]: https://github.com/TwicPics/components/compare/0.25.0...0.25.1
 [0.25.0]: https://github.com/TwicPics/components/compare/0.24.0...0.25.0
 [0.24.0]: https://github.com/TwicPics/components/compare/0.23.2...0.24.0
 [0.23.2]: https://github.com/TwicPics/components/compare/0.23.1...0.23.2
