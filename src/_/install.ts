@@ -49,8 +49,11 @@ const registerScript = ( options: Options ): void => {
 
 const registerStyle = (): void => {
     const style = createElement( {
-        "elementName": `style`,
-        "value": configBasedStyle(),
+        "attributes": {
+            "rel": `stylesheet`,
+            "href": `data:text/css;base64,${ btoa( configBasedStyle() ) }`,
+        },
+        "elementName": `link`,
     } );
     document.head.appendChild( style );
 
