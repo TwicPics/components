@@ -75,6 +75,9 @@ import { preComputePlaceholder } from "../_/preCompute";
     "styleUrls": [ `../_/style.css` ],
     "changeDetection": ChangeDetectionStrategy.OnPush,
     "encapsulation": ViewEncapsulation.None,
+    "host": {
+        "ngSkipHydration": `true`,
+    },
 } )
 export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() alt: string = undefined;
