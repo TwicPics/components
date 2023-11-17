@@ -1,6 +1,9 @@
 /* eslint-disable no-magic-numbers */
 export default {
-    "from": 11,
-    "to": 16,
+    // built versions
     "build": [ 11, 12 ],
+    "from": 11,
+    "to": 17,
+    // versions that do not support directory import
+    "noDirectoryImport": [ 17 ],
 };

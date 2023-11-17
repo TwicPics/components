@@ -19,9 +19,9 @@ const clean = async dir => Promise.all(
     } )
 );
 
-export default () => {
+export default async () => {
     console.log( `cleaning dependencies in samples subdirectory...` );
-    clean( `${ __dirname }/../samples` );
+    await clean( `${ __dirname }/../samples` );
     console.log( `cleaning dependencies in tests subdirectory...` );
-    clean( `${ __dirname }/../tests` );
+    await clean( `${ __dirname }/../tests` );
 };
