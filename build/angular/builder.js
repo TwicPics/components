@@ -4,8 +4,14 @@ import __dirname from "../__dirname.js";
 import { getJsonFromPath, writeJson } from "../json.js";
 import rollup from "../rollup.js";
 import { gitHubRawPath, packageAuthor, packageName, packageVersion } from "../version.js";
-import config from "./config.js";
-import { getAngularDirectories, getDistFolder, getProjectsByDirectory } from "./utils.js";
+import {
+    getAngularDirectories,
+    getDistFolder,
+    getExportsKeys,
+    getPackageJsonMap,
+    getProjectsByDirectory,
+    getVersionAliases,
+} from "./utils.js";
 import { execSync } from "child_process";
 import { existsSync } from "fs";
 import { readFile } from "fs/promises";
@@ -297,43 +303,56 @@ export const buildComponents = async () => {
             console.warn( `No angular configuration for ${ angularDirectory.name }` );
         }
     }
+
     // creation of aliases to reference versions
-    console.log( `Duplication starts` );
-    const { build, from, to } = config;
-    let referenceVersion;
-    const aliases = [];
-    for ( let version = from; version <= to; version++ ) {
-        if ( build.includes( version ) ) {
-            referenceVersion = version;
-        } else {
-            aliases.push( {
-                "destination": `angular${ version }`,
-                "source": `angular${ referenceVersion }`,
-            } );
+    console.log( `Angular duplication starts` );
+    const packageJsonMap = await getPackageJsonMap();
+    await Promise.all( getVersionAliases().map(
+        async versionAlias => {
+            const { reference, version } = versionAlias;
+            // duplicates only when needed
+            if ( reference !== version ) {
+                // create a clone of package.json
+                const packageJson = {
+                    ...packageJsonMap.get( reference ),
+                };
+                // modification of generated package.json to point to the reference files
+                getExportsKeys( packageJson ).forEach( key => {
+                    // point to reference file
+                    packageJson[ key ] = `../angular${ reference }/${ packageJson[ key ] }`;
+                } );
+                // write package.json to "version" dist directory
+                await writeJson(
+                    `${ __dirname }/../dist/angular${ version }/package.json`,
+                    packageJson
+                );
+            }
         }
-    }
-    await Promise.all( aliases.map( async alias => {
-        const { destination, source } = alias;
-        const packageJson = await getJsonFromPath( `${ __dirname }/../dist/${ source }/package.json` );
-        // modification of original package.json
-        Object.keys( packageJson )
-            .filter( key => key.match( /^(module)|(main)|(((fesm)|(es))[0-9]+)|(typings)|(metadata)$/ ) )
-            .forEach( key => {
-                packageJson[ key ] = `../${ source }/${ packageJson[ key ] }`;
-            } );
-        await writeJson( `${ __dirname }/../dist/${ destination }/package.json`, packageJson );
-    } ) );
-    console.log( `Duplication ends` );
+    ) );
+    console.log( `Angular duplication ends` );
 };
 
 /**
- * generates and returns exports attributes to be added to generated package.json
+ * generates and returns exports attributes to be added to the main generated package.json
+ * handles the case where version needs a full exports (aka no directory import issue)
  */
-export const exportsPackageJson = () => {
+export const exportsPackageJson = async () => {
     const exports = new Map();
-    const { from, to } = config;
-    for ( let version = from; version <= to; version++ ) {
-        exports.set( `./angular${ version }`, `./angular${ version }` );
+    const packageJsonMap = await getPackageJsonMap();
+    const versionAliases = getVersionAliases();
+    for ( const { noDirectoryImport, reference, version } of versionAliases ) {
+        // classical case: import from directory
+        let _exports = `./angular${ version }`;
+        if ( noDirectoryImport ) {
+            // handles no directory import issue
+            const packageJson = packageJsonMap.get( reference );
+            _exports = getExportsKeys( packageJson ).reduce( ( acc, key ) => {
+                // eslint-disable-next-line no-param-reassign
+                acc[ key ] = `./angular${ reference }/${ packageJson[ key ] }`;
+                return acc;
+            }, {} );
+        }
+        exports.set( `./angular${ version }`, _exports );
     }
     return exports;
 };
