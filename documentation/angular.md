@@ -57,9 +57,12 @@ TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags wit
 ```
 
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
+TwicPics Components are available in Angular __version 11 to 17__.
 
-TwicPics Components are available in Angular __version 11 to 16_.
+Discover our demonstrations and integration examples [in a standalone components based project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
+
+For an example of integration into an NgModule-based project, please refer to [this repo](https://github.com/TwicPics/components-demo-angular/tree/ng-module-based-application).
+
 
 <div id="setting-up-your-project"/>
 
@@ -80,89 +83,46 @@ npm install @twicpics/components
 
 ## Setup
 
-<div id='setting-up-your-project'/>
-
 ### Setting-up TwicPics Components into your `Angular` project
 
-TwicPics components for `Angular` comes as an `Angular Module` and is configured as [such](https://angular.io/guide/architecture-modules).
+<doc-alert type="info">You will need a TwicPics domain to initialize the package. <a href="https://account.twicpics.com/signup" target="_blank">Create an account for free</a> to get your domain.</doc-alert>
 
-**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
-
-<div id='module-declaration'/>
-
-#### Module declaration in `app.module.ts`
-
-You need to import the TwicPicsComponentsModule within your `app.module.ts` file.
-
-__WARNING__: while importing angular components or module, you will have to select the targeted version.
-
-eg :
-```ts
-// imports TwicPicsComponentsModule
-import { TwicPicsComponentsModule } from "@twicpics/components/angular11"
-``` 
-
-Add the import part
+Add the import part 
 
 ```ts
-// import TwicPics Angular Module
-import { TwicPicsComponentsModule } from "@twicpics/components/angular<your-targeted-version>"
+import { installTwicPics } from '@twicpics/components/angular17'
 ```
 
-and the usage declaration of the module
+and the configuration part (see [Setup Options](#setup-options))
 
 ```ts
-@NgModule( {
-  "imports": [
-    TwicPicsComponentsModule,
-  ],
-} )
+installTwicPics({
+  // domain is mandatory
+  domain: 'https://<your-domain>.twic.pics',
+})
 ```
 
-into your main module.
+into the main component of your `Angular` project.
 
-```ts
-// here is an example of a `app.module.ts` configured with TwicPics.
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppComponent } from "./app.component";
-import { TwicPicsComponentsModule } from "@twicpics/components/angular14";
-
-@NgModule( {
-  "declarations": [ AppComponent ],
-  "imports": [
-    BrowserModule,
-    TwicPicsComponentsModule,
-  ],
-  "providers": [],
-  "bootstrap": [ AppComponent ],
-} )
-export class AppModule { }
-```
-
-#### TwicPics Components Configuration in `app.component.ts`
-
-The configuration part (see [Setup Options](#setup-options)) is done in `app.component.ts`.
-
-__WARNING__: here again, you will have to select the targeted version while importing angular components. 
+#### app.component.ts
 
 ```ts
 //here is an example of a `Angular` app.component.ts configured with TwicPics.
-import { Component } from "@angular/core";
-import { installTwicpics } from "@twicpics/components/angular14";
-@Component( {
-  "selector": "app-root",
-  "templateUrl": "./app.component.html",
-} )
-export class AppComponent {
-}
+import { Component } from '@angular/core'
+import { installTwicPics } from '@twicpics/components/angular17'
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: ''./app.component.css',
+})
+export class AppComponent {}
 
-// TwicPics Components configuration (see Setup Options)
-installTwicpics( {
-  "domain": "https://<your-domain>.twic.pics",
-  "anticipation": 0.5,
-  "step": 100,
-} );
+// TwicPics Components configuration
+installTwicPics({
+  domain: 'https://<your-domain>.twic.pics',
+  anticipation: 0.5,
+  step: 100,
+})
 ```
 
 <div id='setup-options'/>
@@ -178,6 +138,53 @@ installTwicpics( {
 | `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
 | `path` | Path to prepend to all src attributes. For instance, if path is `"some/folder"` then a src attribute set to `"image.jpg"` will be expanded into `"some/folder/image.jpg"` | `String` | |
 | `step` | To avoid requesting too may variants of the same image, [TwicPics](https://www.twicpics.com/) will round the width of images to the closest multiple of step. The height will then be computed in order to respect the original aspect ratio. | `Integer` | `10` |
+
+## Components importation
+
+TwicPics components for `Angular` comes as an [Angular Module](https://angular.io/guide/architecture-modules).
+
+Depending on the nature of your application, you'll need to import them either:
+- directly into a [standalone component](https://angular.io/guide/standalone-components)
+- into the application's **root module** (when using a [NgModule-based application](https://angular.io/guide/architecture-modules))
+
+### Using in a standalone component
+
+```ts
+// src/app/example/example.component.ts
+import { Component } from '@angular/core';
+import { TwicPicsComponentsModule } from '@twicpics/components/angular17';
+
+@Component({
+  // example is a standalone component
+  standalone: true,
+  selector: 'app-example',
+  styleUrls: ['./example.component.scss'],
+  templateUrl: './example.component.html',
+  // TwicPics components are imported directly into you standalone component
+  imports: [ TwicPicsComponentsModule ]
+})
+export class ExampleComponent {
+  // logic
+}
+```
+
+### Using in NgModule-based application
+
+```ts
+// src/app/app.module.ts
+import { NgModule } from '@angular/core'
+import { AppComponent } from './app.component'
+import { TwicPicsComponentsModule } from '@twicpics/components/angular14'
+// other imports
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [TwicPicsComponentsModule, ... other imported modules],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
 
 <div id='usage'/>
 
@@ -335,6 +342,44 @@ Here are the values the Component will emit ([see State Type definition](#state-
   (stateChangeEvent)="handleStateChange($event)"
 ></TwicImg>
 ```
+#### Using standalone component
+
+```ts
+  // component.ts
+  import { ChangeDetectorRef, Component } from "@angular/core";
+  import { State, StateEvent, TwicPicsComponentsModule, TwicImgComponent } from "@twicpics/components/angular13";
+
+  @Component({
+    ...
+    standalone: true,
+    imports: [TwicPicsComponentsModule]
+    ...
+  })
+  export class Component {
+
+    state?: State;
+
+    constructor(private changeDetector: ChangeDetectorRef) { }
+
+    handleStateChange = (stateEvent: StateEvent) => {
+      // Implement the logic here
+      const { state, target } = stateEvent;
+      const _target = target as TwicImgComponent;
+      // eslint-disable-next-line no-console
+      console.log( `TwicComponent emits a new state`, state );
+      // eslint-disable-next-line no-console
+      console.log( `TwicComponent source was`, _target.src );
+      this.state = state;
+      this.changeDetector.detectChanges();
+    }
+
+    // other logic
+  }
+```
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
+
+#### Using NgModule-based application
 
 ```ts
   // component.ts
@@ -359,9 +404,6 @@ Here are the values the Component will emit ([see State Type definition](#state-
     this.changeDetector.detectChanges();
   }
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-state/twic-state.component.html&initialpath=state)
-
 
 
 ### Image magnifier
