@@ -9,12 +9,14 @@ This directory contains sample projects for all supported frameworks.
 | subdirectory | content |
 | - | - |
 | `samples/_` | sample component |
-| `samples/angular11` | [Angular 11](https://angular.io/) version __11__ sample project |
-| `samples/angular12` | [Angular 12](https://angular.io/) version __12__ sample project |
-| `samples/angular13` | [Angular 13](https://angular.io/) version __13__ sample project |
-| `samples/angular14` | [Angular 14](https://angular.io/) version __14__ sample project |
-| `samples/angular15` | [Angular 15](https://angular.io/) version __15__ sample project |
-| `samples/angular16` | [Angular 16](https://angular.io/) version __16__ sample project |
+| `samples/angular11` | [Angular](https://angular.io/) version __11__ sample project |
+| `samples/angular12` | [Angular](https://angular.io/) version __12__ sample project |
+| `samples/angular13` | [Angular](https://angular.io/) version __13__ sample project |
+| `samples/angular14` | [Angular](https://angular.io/) version __14__ sample project |
+| `samples/angular15` | [Angular](https://angular.io/) version __15__ sample project |
+| `samples/angular16` | [Angular](https://angular.io/) version __16__ sample project |
+| `samples/angular17/ng-modules` | [Angular](https://angular.io/) version __17__ sample using an [NgModule-based](https://angular.io/guide/architecture-modules) project |
+| `samples/angular17/stand-alone-components` | [Angular](https://angular.io/) version __17__ sample project using [standalone components](https://angular.io/guide/standalone-components) |
 | `samples/gatsby` | [Gatsby](https://www.gatsbyjs.com/) sample project |
 | `samples/next-app-router` | [Next.js](https://nextjs.org/) sample project with app router |
 | `samples/next-page-router` | [Next.js](https://nextjs.org/) sample project with page router|
