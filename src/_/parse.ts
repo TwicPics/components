@@ -1,6 +1,6 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, Environment, Mode, Placeholder, Transition } from "./types";
+import type { AnchorObject, BreakPoint, Environment, Mode, Placeholder, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
@@ -16,7 +16,7 @@ import {
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const rMedia = /^((image|media|video):)?\/*/;
-export const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `.+?` ) );
+export const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `(?:.|\n)+?` ) );
 const trimTransformOrUndefined = trimRegExpFactory( `.+?`, {
     "border": `[\\s\\/]`,
 } );
@@ -73,6 +73,35 @@ export const parseAlt = ( value: string ) => trimOrUndefined( value ) || ``;
 
 export const parseAnticipation = parseNumber;
 
+const rBreakPoints = /(?:@(?<breakpoint>xs|sm|md|lg|xl|2xl|\d*)\s+)?(?<value>[^@]+)/gm;
+const parseBreakpointsFactory = <T = string>( parse: ( value: T | string ) => T, _default?: T ) =>
+    ( value: T | string ) => {
+        const parsedBreakPoints: Record<number, T> = {
+            "0": parse( _default ),
+        };
+        if ( value ) {
+            if ( typeof value === `number` ) {
+                parsedBreakPoints[ 0 ] = parse( value );
+            } else {
+                let match;
+                while ( ( match = rBreakPoints.exec( value.toString() ) ) !== null ) {
+                    const { breakpoint, "value": _value } = match.groups || {};
+                    const numericBreakPoint = Number( breakpoint || `0` );
+                    parsedBreakPoints[
+                        isNaN( numericBreakPoint ) ?
+                            config.breakpoints[ breakpoint as BreakPoint ] :
+                            numericBreakPoint
+                    ] = parse(
+                        _value ?
+                            _value.replace( /\s*,\s*$/g, `` ) :
+                            _default
+                    );
+                }
+            }
+        }
+        return parsedBreakPoints;
+    };
+
 export const parseBot = ( value: string ) => ( typeof value === `string` ? value.trim() : undefined );
 
 export const parseClass = trimOrUndefined;
@@ -93,6 +122,8 @@ export const parseEager = parseBoolean;
 export const parseEnv = regExpFinderFactory< Environment >( rValidEnvironment );
 
 export const parseFocus = trimOrUndefined;
+
+export const parseFocuses = parseBreakpointsFactory<string>( parseFocus );
 
 export const parseFrom = parseNumber;
 
@@ -122,6 +153,8 @@ export const parseMediaTag = ( value: string ): string => {
 };
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
+
+export const parseModes = parseBreakpointsFactory<Mode>( parseMode, `cover` );
 
 export const parsePath = ( value: string ): string => {
     const path = trimOrUndefined( value );
@@ -163,6 +196,8 @@ export const parseRatio = ( value: number | string ): number => {
     return isPositiveNumber( number ) ? number : undefined;
 };
 
+export const parseRatios = parseBreakpointsFactory<number>( parseRatio, 1 );
+
 export const parseRefit = ( value: boolean | string ): string => {
     const parsedBoolean = parseBoolean( value );
     if ( parsedBoolean === undefined ) {
@@ -171,6 +206,10 @@ export const parseRefit = ( value: boolean | string ): string => {
     }
     return parsedBoolean ? `` : undefined;
 };
+
+export const parseSize = trimOrUndefined;
+
+export const parseSizes = parseBreakpointsFactory<string>( parseSize );
 
 export const parseStep = parseNumber;
 

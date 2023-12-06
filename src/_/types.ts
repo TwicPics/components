@@ -1,5 +1,6 @@
 export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
+export type BreakPoint = `xs` | `sm` | `md` | `lg` | `xl` | `2xl`;
 export type Environment = `debug` | `offline` | `production`;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
@@ -38,6 +39,7 @@ export interface Attributes {
 
 export interface Config {
     anticipation?: number,
+    breakpoints: { [ key in BreakPoint ]: number },
     class: string,
     domain: string,
     env: Environment,
