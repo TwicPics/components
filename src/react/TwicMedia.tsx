@@ -34,6 +34,7 @@ import {
 } from "../_/parse";
 import type {
     Anchor,
+    ScriptAttributes,
     Mode,
     Placeholder,
     State,
@@ -44,7 +45,7 @@ import { preComputePlaceholder } from "../_/preCompute";
 import { boolean, func, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
 
-export interface MediaAttributes extends BaseAttributes {
+export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
     mediaTag: string,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
