@@ -19,22 +19,25 @@ export interface AnchorObject {
 export interface Attributes {
     alt?: string,
     anchor?: string,
-    bot?: string,
     focus?: string,
-    intrinsic?: string,
     mode?: Mode,
     eager?: boolean | string,
-    placeholder?: Placeholder,
     position?: string,
     preTransform?:string,
     ratio?: number | string,
-    step?: number | string,
     src: string,
     title?: string,
-    transition?: boolean | string,
-    transitionDelay?: string,
-    transitionDuration?: string,
-    transitionTimingFunction?: string,
+}
+
+export interface ScriptAttributes {
+  bot?: string,
+  intrinsic?: string,
+  placeholder?: Placeholder,
+  step?: number | string,
+  transition?: boolean | string,
+  transitionDelay?: string,
+  transitionDuration?: string,
+  transitionTimingFunction?: string,
 }
 
 export interface Config {

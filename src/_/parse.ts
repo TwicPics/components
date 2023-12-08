@@ -154,8 +154,6 @@ export const parseMediaTag = ( value: string ): string => {
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
-export const parseModes = parseBreakpointsFactory<Mode>( parseMode, `cover` );
-
 export const parsePath = ( value: string ): string => {
     const path = trimOrUndefined( value );
     return path ? path.replace( rValidPath, `$1/` ) : ``;
@@ -207,7 +205,7 @@ export const parseRefit = ( value: boolean | string ): string => {
     return parsedBoolean ? `` : undefined;
 };
 
-export const parseSize = trimOrUndefined;
+const parseSize = trimOrUndefined;
 
 export const parseSizes = parseBreakpointsFactory<string>( parseSize );
 

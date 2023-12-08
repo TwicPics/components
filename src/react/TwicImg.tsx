@@ -5,8 +5,9 @@ import type { BaseAttributes } from "./types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { parseClassName, parseZoom } from "../_/parse";
+import type { ScriptAttributes } from "../_/types";
 
-interface ImgAttributes extends BaseAttributes {
+interface ImgAttributes extends BaseAttributes, ScriptAttributes {
     refit?: boolean | string,
     zoom?: number | string,
 }

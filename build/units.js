@@ -64,8 +64,8 @@ const svelteUnitFactory = ( { framework = `svelte3`, customElement = false } ) =
                     `CustomElementConstructor;`
                     ) )
                     .join( `\n` )
-                    .replace( /interface (?:Base|Background|Img|Media|Video|)Attributes[^}]+\}/g, `` )
-                    .replace( /\s*,?\s*(?:Base|Background|Img|Media|Video|)Attributes,\s*/g, `,` )
+                    .replace( /interface (?:Base|Background|Img|Media|Picture|Script|Video|)Attributes[^}]+\}/g, `` )
+                    .replace( /\s*,?\s*(?:Base|Background|Img|Media|Picture|Script|Video|)Attributes,\s*/g, `,` )
                     .replace( /,,/g, `,` )
         ) : ( framework === `svelte4` ) && (
             code =>
