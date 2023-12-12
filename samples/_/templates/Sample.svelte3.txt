@@ -4,6 +4,7 @@
 
 <script context="module">
     import { TwicBackground } from "@twicpics/components/svelte3";
+    import { TwicPicture } from "@twicpics/components/svelte3";
     import { TwicImg } from "@twicpics/components/svelte3";
     import { TwicVideo } from "@twicpics/components/svelte3";
     import { TwicView } from "@twicpics/components/svelte3";

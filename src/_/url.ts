@@ -86,7 +86,7 @@ export const createUrl = (
 export const finalTransform = ( mode: string, refit: string ): string =>
     (
         (
-            ( ( mode || `cover` ) === `cover` ) &&
+            ( mode === `cover` ) &&
             ( refit !== undefined )
         ) ?
         `` :

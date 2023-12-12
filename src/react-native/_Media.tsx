@@ -43,7 +43,7 @@ export default ( props: MediaAttributes ) => {
     const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
-    const mode = parseMode( props.mode ) || `cover`;
+    const mode = parseMode( props.mode );
     const placeholder = parsePlaceholder( props.placeholder );
     const preTransform = parsePreTransform( props.preTransform );
     const refit = parseRefit( props.refit );

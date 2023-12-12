@@ -3,6 +3,7 @@
 // /___eager_false___/ => "eager={false}"
 <script context="module">
     import { TwicBackground } from "@twicpics/components/sveltekit";
+    import { TwicPicture} from "@twicpics/components/sveltekit";
     import { TwicImg} from "@twicpics/components/sveltekit";
     import { TwicVideo } from "@twicpics/components/sveltekit";
     import { TwicView } from "@twicpics/components/sveltekit";

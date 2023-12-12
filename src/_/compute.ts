@@ -3,6 +3,7 @@
 /* eslint max-params: off, no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import type {
     AnchorObject,
+    ArtDirective,
     Mode,
     Placeholder,
     PlaceholderData,
@@ -29,6 +30,85 @@ const computeRefit = ( anchor: string, mode: Mode, refit: string ) : string =>
     }${
         ( anchor && ( mode !== `contain` ) ) ? `@${ anchor }` : ``
     }`;
+
+/* eslint-disable dot-notation */
+export const computePictureData = (
+    artDirectives: ArtDirective [] | undefined,
+    eager: boolean,
+    mode: Mode,
+    preTransform: string,
+    refit: string,
+    src: string
+) => {
+    if ( !config.domain ) {
+        return undefined;
+    }
+    const datas = artDirectives &&
+          artDirectives
+              .sort( ( a, b ) => b.breakpoint - a.breakpoint )
+              .map(
+                  ( artDirective, index ) => {
+                      const attributes: Record< string, string > = {};
+                      const { anchor, focus, media, ratio, resolutions, sizes, width, height } = artDirective;
+
+                      const actualPreTransform = `${
+                            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                            computePreTransform(
+                                {
+                                    anchor,
+                                    focus,
+                                    mode,
+                                    preTransform,
+                                    refit,
+                                }
+                            ) }${
+                                finalTransform( mode, refit ) || ``
+                            }`;
+
+                      const actualResolutionSet = new Set< number >();
+                      for ( let dpr = 1; dpr <= config.maxDPR; dpr++ ) {
+                          resolutions.forEach( resolution => actualResolutionSet.add( resolution * dpr ) );
+                      }
+
+                      const srcMap = new Map < number, string >();
+                      for ( const _width of Array.from( actualResolutionSet ).sort( ( a, b ) => b - a ) ) {
+                          srcMap.set(
+                              _width,
+                              createUrl( {
+                                  "context": {
+                                      "height": ratio ? Math.round( _width * ratio ) : undefined,
+                                      mode,
+                                      "width": _width,
+                                  },
+                                  "domain": config.domain,
+                                  "transform": actualPreTransform,
+                                  src,
+                              } )
+                          );
+                      }
+
+                      attributes[ `height` ] = height;
+                      attributes[ `media` ] = ( index === ( artDirectives.length - 1 ) ) ? undefined : media;
+                      attributes[ `sizes` ] = sizes;
+                      attributes[ `srcset` ] = Array.from(
+                          srcMap,
+                          ( [ _width, _src ] ) => `${ _src } ${ _width }w`
+                      ).join( `,` );
+                      attributes[ `width` ] = `${ width }`;
+                      if ( index === ( artDirectives.length - 1 ) ) {
+                          attributes[ `fetchpriority` ] = eager ? `high` : undefined;
+                          attributes[ `loading` ] = eager ? undefined : `lazy`;
+                          attributes[ `src` ] = srcMap.get( width );
+                      }
+                      return attributes;
+                  }
+              );
+    return {
+        "sources": datas.slice( 0, -1 ),
+        "fallback": datas[ datas.length - 1 ],
+    };
+};
+/* eslint-enable dot-notation */
 
 export const computePreTransform = (
     { "anchor": { x, y }, debug, focus, mode, preTransform, refit } : PreTransformData
@@ -222,7 +302,7 @@ export const computePlaceholderBackground = (
         return ``;
     }
     const computedStyle = getComputedStyle( element );
-    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
+    const actualMode = mode || parseMode( computedStyle.backgroundSize );
     let _ratio;
     if ( ratio === 0 ) {
         _ratio = actualMode === `contain` ?

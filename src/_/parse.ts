@@ -36,6 +36,30 @@ const parseBoolean = ( value: boolean | string ): boolean => {
     return mappingBoolean[ value.trim() ];
 };
 
+const rBreakPoints = /(?:@(?<breakpoint>xs|sm|md|lg|xl|2xl|\d*)\s+)?(?<value>[^@]+)/gm;
+const parseBreakpointsFactory = <T = string, U = string>( parse: ( value: string | U ) => T, _default?: U ) =>
+    ( value: T | string ) => {
+        const parsedBreakPoints: Record<number, T> = {
+            "0": parse( _default ),
+        };
+        const trimmed = trimOrUndefined( ( value || `` ).toString() );
+        if ( trimmed ) {
+            let match;
+            while ( ( match = rBreakPoints.exec( trimmed ) ) !== null ) {
+                const { breakpoint, "value": _value } = match.groups || {};
+                const numericBreakPoint = Number( breakpoint || `0` );
+                parsedBreakPoints[
+                    isNaN( numericBreakPoint ) ? config.breakpoints[ breakpoint as BreakPoint ] : numericBreakPoint
+                ] = parse(
+                    _value ?
+                        _value.replace( /\s*,\s*$/g, `` ) :
+                        _default
+                );
+            }
+        }
+        return parsedBreakPoints;
+    };
+
 const parseNumber = ( value: number | string ): number => {
     if ( typeof value !== `number` ) {
         const trimmed = trimOrUndefined( value );
@@ -69,38 +93,11 @@ export const parseAnchor = ( anchor: string ) : AnchorObject => {
     };
 };
 
+export const parseAnchors = parseBreakpointsFactory<AnchorObject>( parseAnchor );
+
 export const parseAlt = ( value: string ) => trimOrUndefined( value ) || ``;
 
 export const parseAnticipation = parseNumber;
-
-const rBreakPoints = /(?:@(?<breakpoint>xs|sm|md|lg|xl|2xl|\d*)\s+)?(?<value>[^@]+)/gm;
-const parseBreakpointsFactory = <T = string>( parse: ( value: T | string ) => T, _default?: T ) =>
-    ( value: T | string ) => {
-        const parsedBreakPoints: Record<number, T> = {
-            "0": parse( _default ),
-        };
-        if ( value ) {
-            if ( typeof value === `number` ) {
-                parsedBreakPoints[ 0 ] = parse( value );
-            } else {
-                let match;
-                while ( ( match = rBreakPoints.exec( value.toString() ) ) !== null ) {
-                    const { breakpoint, "value": _value } = match.groups || {};
-                    const numericBreakPoint = Number( breakpoint || `0` );
-                    parsedBreakPoints[
-                        isNaN( numericBreakPoint ) ?
-                            config.breakpoints[ breakpoint as BreakPoint ] :
-                            numericBreakPoint
-                    ] = parse(
-                        _value ?
-                            _value.replace( /\s*,\s*$/g, `` ) :
-                            _default
-                    );
-                }
-            }
-        }
-        return parsedBreakPoints;
-    };
 
 export const parseBot = ( value: string ) => ( typeof value === `string` ? value.trim() : undefined );
 
@@ -152,7 +149,9 @@ export const parseMediaTag = ( value: string ): string => {
     return trimmed && trimmed.toLocaleLowerCase();
 };
 
-export const parseMode = regExpFinderFactory< Mode >( rValidMode );
+export const parseMode = regExpFinderFactory< Mode >( rValidMode, {
+    "defaultValue": `cover`,
+} );
 
 export const parsePath = ( value: string ): string => {
     const path = trimOrUndefined( value );
@@ -170,7 +169,9 @@ export const parsePosition = trimOrUndefined;
 
 export const parsePreTransform = regExpFinderFactory(
     trimTransformOrUndefined,
-    p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1` )
+    {
+        "filter": p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1` ),
+    }
 );
 
 export const parseRatio = ( value: number | string ): number => {
@@ -194,7 +195,7 @@ export const parseRatio = ( value: number | string ): number => {
     return isPositiveNumber( number ) ? number : undefined;
 };
 
-export const parseRatios = parseBreakpointsFactory<number>( parseRatio, 1 );
+export const parseRatios = parseBreakpointsFactory<number, number>( parseRatio, 1 );
 
 export const parseRefit = ( value: boolean | string ): string => {
     const parsedBoolean = parseBoolean( value );
@@ -205,7 +206,10 @@ export const parseRefit = ( value: boolean | string ): string => {
     return parsedBoolean ? `` : undefined;
 };
 
-const parseSize = trimOrUndefined;
+export const parseSize = ( value: string ) => {
+    const trimmed = trimOrUndefined( value );
+    return trimmed && trimmed.replace( /\n\s*/g, `` );
+};
 
 export const parseSizes = parseBreakpointsFactory<string>( parseSize );
 

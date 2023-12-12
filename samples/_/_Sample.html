@@ -1533,4 +1533,181 @@ Test"
             zoom="css">
         </TwicImg>
     </div>
+    <h2>TwicPicture</h2>
+    <div>
+        <TwicPicture
+            src="football.jpg"
+            alt="A footballer"
+            eager
+            focus="auto, @xl top"
+            preTransform="flip=x"
+            ratio="4/3, @xl 21/9"
+            title="Picture Title"
+        >
+        </TwicPicture>
+    </div>
+    <h2>TwicPicture ratio + sizes</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+            >
+            </TwicPicture>
+            <span>Default</span>
+        </div>
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+                ratio="3/4"
+                sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+            >
+            </TwicPicture>
+            <span>ratio="3/4"</span>
+        </div>
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+                ratio="4/3"
+                sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+            >
+            </TwicPicture>
+            <span>ratio="4/3"</span>
+        </div>
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+                ratio="16/9"
+                sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+            >
+            </TwicPicture>
+            <span>ratio="16/9"</span>
+        </div>
+    </div>
+    <h2>TwicPicture anchor / focus </h2>
+    <div class="samples">
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+                ratio="21/9"
+                focus="top"
+                sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+            >
+            </TwicPicture>
+            <span>focus="top"</span>
+        </div>
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+                ratio="21/9"
+                anchor="top"
+                sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+            >
+            </TwicPicture>
+            <span>anchor="top"</span>
+        </div>
+        <div class="item">
+            <TwicPicture
+                src="football.jpg"
+                ratio="21/9"
+                focus="bottom"
+                sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+            >
+            </TwicPicture>
+            <span>focus="bottom"</span>
+        </div>
+        <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              ratio="21/9"
+              anchor="bottom"
+              sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+          >
+          </TwicPicture>
+          <span>anchor="bottom"</span>
+        </div>
+        <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              ratio="3/4"
+              focus="left"
+              sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+          >
+          </TwicPicture>
+          <span>focus="left"</span>
+        </div>
+        <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              ratio="3/4"
+              anchor="left"
+              sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+          >
+          </TwicPicture>
+          <span>anchor="left"</span>
+        </div>
+        <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              ratio="3/4"
+              focus="right"
+              sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+          >
+          </TwicPicture>
+          <span>focus="right"</span>
+        </div>
+        <div class="item">
+          <TwicPicture
+            src="football.jpg"
+            ratio="3/4"
+            anchor="right"
+            sizes="
+                  (max-width: 750px) 100vm,
+                  (max-width: 1140px) 400px,
+                  350px
+                "
+          >
+          </TwicPicture>
+          <span>anchor="right"</span>
+        </div>
+    </div>
 </main>
