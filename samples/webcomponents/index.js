@@ -1,4 +1,9 @@
-import { installTwicpics, TwicBackground, TwicImg, TwicVideo, TwicView } from "@twicpics/components/webcomponents";
+import { installTwicpics,
+    TwicBackground,
+    TwicPicture,
+    TwicImg,
+    TwicVideo,
+    TwicView } from "@twicpics/components/webcomponents";
 
 installTwicpics( {
     "anticipation": 0.5,
@@ -9,6 +14,7 @@ installTwicpics( {
 } );
 
 customElements.define( `twic-background`, TwicBackground );
+customElements.define( `twic-picture`, TwicPicture );
 customElements.define( `twic-img`, TwicImg );
 customElements.define( `twic-video`, TwicVideo );
 customElements.define( `twic-view`, TwicView );

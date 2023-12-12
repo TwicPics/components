@@ -16,6 +16,18 @@ export interface AnchorObject {
     x: string | undefined,
     y: string | undefined,
 }
+export interface ArtDirective {
+    breakpoint: number,
+    anchor?: AnchorObject,
+    focus?: string;
+    height?: string;
+    media?: string,
+    ratio?: number;
+    resolutions?: number[];
+    sizes?: string;
+    width?: number;
+    [ key: string ]: AnchorObject | number | number[] | string;
+}
 export interface Attributes {
     alt?: string,
     anchor?: string,

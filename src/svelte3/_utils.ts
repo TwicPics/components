@@ -2,6 +2,7 @@ export {
     computeAlt,
     computeData,
     computeMagnifierStyle,
+    computePictureData,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -14,6 +15,7 @@ export { Observer } from "../_/Observer.js";
 export {
     parseAlt,
     parseAnchor,
+    parseAnchors,
     parseBot,
     parseClassName,
     parseDuration,
@@ -42,6 +44,7 @@ export {
     parseZoom,
 } from "../_/parse.js";
 export {
+    preComputeArtDirectives,
     preComputePlaceholder,
     preComputeVideoOptions,
 } from "../_/preCompute.js";

@@ -68,13 +68,20 @@ export const logWarning = ( message: string ): void => {
 
 export const noop = () :void => undefined;
 
-export const regExpFinderFactory = < T = string >( regExp: RegExp, filter: ( ( value: T ) => T ) = undefined ) =>
-    ( value: T | string ): T => {
+interface RegExpFinderOptions < T = string > {
+  filter?: ( ( value: T ) => T );
+  defaultValue?: T;
+}
+
+export const regExpFinderFactory = < T = string > (
+    regExp: RegExp,
+    { filter, defaultValue }: RegExpFinderOptions< T > = {}
+) => ( value: T | string ): T => {
         let found;
         if ( value ) {
             `${ value }`.replace( regExp, ( _, v ) => ( found = v ) );
         }
-        return filter ? filter( found ) : found;
+        return ( filter ? filter( found ) : found ) || defaultValue;
     };
 
 export const throwError = ( message: string ): never => {
