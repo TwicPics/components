@@ -10,9 +10,7 @@ import {
     parseAnchors,
     parseClassName,
     parseFocuses,
-    parseMode,
     parseEager,
-    parsePosition,
     parsePreTransform,
     parseRatios,
     parseRefit,
@@ -24,6 +22,8 @@ import {
     computeAlt,
     isWebComponents,
     parseFetchPriority,
+    parseModes,
+    parsePositions,
 } from "./_utils.js";
 import { get_current_component } from "svelte/internal";
 </script>
@@ -52,8 +52,8 @@ $: parsedClassName = parseClassName( className ) || ``;
 $: parsedEager = parseEager( eager );
 $: parsedFetchPriority = parseFetchPriority( fetchpriority );
 $: parsedFocuses = parseFocuses( focus );
-$: parsedMode = parseMode( mode );
-$: parsedPosition = parsePosition( position );
+$: parsedModes = parseModes( mode );
+$: parsedPositions = parsePositions( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatios = parseRatios( ratio );
 $: parsedRefit = parseRefit( refit );
@@ -72,6 +72,8 @@ $: parsedArtDirectives = preComputeArtDirectives(
     {
       anchors: parsedAnchors,
       focuses: parsedFocuses,
+      modes: parsedModes,
+      positions: parsedPositions,
       ratios: parsedRatios,
       sizes: parsedSizes,
     }
@@ -82,14 +84,13 @@ $: _computePictureData = computePictureData(
     parsedArtDirectives,
     parsedEager,
     parsedFetchPriority,
-    parsedMode,
     parsedPreTransform,
     parsedRefit,
     parsedSrc
 );
 </script>
 {#if isWebComponents}
-    <picture title = { parsedTitle }>
+    <picture class="twic-p" title = { parsedTitle }>
       {#if _computePictureData?.sources}
           {#each _computePictureData.sources as data }
               <source { ...data } />
@@ -102,7 +103,7 @@ $: _computePictureData = computePictureData(
     </picture>
 {:else}
 <div class = {`twic-i ${ parsedClassName }`}>
-  <picture title = { parsedTitle }>
+  <picture class="twic-p" title = { parsedTitle }>
     {#if _computePictureData?.sources}
         {#each _computePictureData.sources as data }
             <source { ...data } />

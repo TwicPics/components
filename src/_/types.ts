@@ -23,11 +23,13 @@ export interface ArtDirective {
     focus?: string;
     height?: string;
     media?: string,
+    mode?: Mode,
+    position?: string;
     ratio?: number;
     resolutions?: number[];
     sizes?: string;
     width?: number;
-    [ key: string ]: AnchorObject | number | number[] | string;
+    [ key: string ]: AnchorObject | Mode | number | number[] | string;
 }
 export interface Attributes {
     alt?: string,

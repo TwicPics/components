@@ -156,6 +156,8 @@ export const parseMode = regExpFinderFactory< Mode >( rValidMode, {
     "defaultValue": `cover`,
 } );
 
+export const parseModes = parseBreakpointsFactory<Mode>( parseMode );
+
 export const parsePath = ( value: string ): string => {
     const path = trimOrUndefined( value );
     return path ? path.replace( rValidPath, `$1/` ) : ``;
@@ -169,6 +171,8 @@ export const parsePlaceholder = ( placeholder: Placeholder ) : Placeholder => {
 };
 
 export const parsePosition = trimOrUndefined;
+
+export const parsePositions = parseBreakpointsFactory<string>( parsePosition );
 
 export const parsePreTransform = regExpFinderFactory(
     trimTransformOrUndefined,

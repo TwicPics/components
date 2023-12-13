@@ -5,9 +5,9 @@ import {
 } from "../_/compute";
 import {
     parseAlt,
-    parseMode,
+    parseModes,
     parseEager,
-    parsePosition,
+    parsePositions,
     parsePreTransform,
     parseSrc,
     parseTitle,
@@ -36,16 +36,16 @@ export interface PictureAttributes extends BaseAttributes {
 
 const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
-    const anchor = parseAnchors( props.anchor );
+    const anchors = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
     const eager = parseEager( props.eager );
     const fetchPriority = parseFetchPriority( props.fetchpriority );
     // eslint-disable-next-line no-shadow
-    const focus = parseFocuses( props.focus );
-    const mode = parseMode( props.mode );
-    const position = parsePosition( props.position );
+    const focuses = parseFocuses( props.focus );
+    const modes = parseModes( props.mode );
+    const positions = parsePositions( props.position );
     const preTransform = parsePreTransform( props.preTransform );
-    const ratio = parseRatios( props.ratio );
+    const ratios = parseRatios( props.ratio );
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
@@ -53,9 +53,11 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     const artDirectives = preComputeArtDirectives(
         {
-            "anchors": anchor,
-            "focuses": focus,
-            "ratios": ratio,
+            anchors,
+            focuses,
+            modes,
+            positions,
+            ratios,
             sizes,
         }
     );
@@ -64,7 +66,6 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
         artDirectives,
         eager,
         fetchPriority,
-        mode,
         preTransform,
         refit,
         src
@@ -72,7 +73,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     return (
         <div className={ `twic-i ${ className }` } >
-            <picture title={ title }>
+            <picture className="twic-p" title={ title }>
                 { pictureData?.sources && pictureData.sources.map(
                     ( data, key ) => (
                         <source key={ key } { ...data } />
