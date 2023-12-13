@@ -41,7 +41,7 @@ export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
-export let sizes: string;
+export let sizes: string = undefined;
 export let title: string = undefined;
 
 let hostElement: any;
