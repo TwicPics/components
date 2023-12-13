@@ -23,6 +23,7 @@ import {
     computePictureData,
     computeAlt,
     isWebComponents,
+    parseFetchPriority,
 } from "./_utils.js";
 import { get_current_component } from "svelte/internal";
 </script>
@@ -32,6 +33,7 @@ export let anchor: Anchor = undefined;
 let className: string = undefined;
 export { className as class };
 export let eager: boolean = false;
+export let fetchpriority: string = undefined;
 export let focus: string = undefined;
 export let mode: Mode = undefined;
 export let position: string = undefined;
@@ -48,6 +50,7 @@ $: parsedAlt = parseAlt( alt );
 $: parsedAnchors = parseAnchors( anchor );
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedEager = parseEager( eager );
+$: parsedFetchPriority = parseFetchPriority( fetchpriority );
 $: parsedFocuses = parseFocuses( focus );
 $: parsedMode = parseMode( mode );
 $: parsedPosition = parsePosition( position );
@@ -76,13 +79,14 @@ $: parsedArtDirectives = preComputeArtDirectives(
 
 $: _alt = computeAlt( parsedAlt, `img` );
 $: _computePictureData = computePictureData(
-      parsedArtDirectives,
-      parsedEager,
-      parsedMode,
-      parsedPreTransform,
-      parsedRefit,
-      parsedSrc
-    );
+    parsedArtDirectives,
+    parsedEager,
+    parsedFetchPriority,
+    parsedMode,
+    parsedPreTransform,
+    parsedRefit,
+    parsedSrc
+);
 </script>
 {#if isWebComponents}
     <picture title = { parsedTitle }>

@@ -28,6 +28,7 @@ export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
 }
 
 export interface PictureAttributes extends BaseAttributes {
+    fetchpriority?: string,
     sizes?: string
 }
 

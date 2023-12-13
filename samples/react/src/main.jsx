@@ -10,6 +10,7 @@ installTwicpics( {
     "anticipation": 0.5,
     "step": 100,
     "env": `production`,
+    "maxDPR": 3,
 } );
 
 ReactDOM.createRoot( document.getElementById( `root` ) ).render(

@@ -17,6 +17,7 @@ import {
     parseRatios,
     parseFocuses,
     parseSizes,
+    parseFetchPriority,
 } from "../_/parse";
 import type {
     Anchor,
@@ -28,6 +29,7 @@ import type { BaseAttributes } from "./types";
 import { preComputeArtDirectives } from "../_/preCompute";
 
 export interface PictureAttributes extends BaseAttributes {
+    fetchpriority?: string,
     refit?: boolean | string,
     sizes?: string
 }
@@ -37,6 +39,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const anchor = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
     const eager = parseEager( props.eager );
+    const fetchPriority = parseFetchPriority( props.fetchpriority );
     // eslint-disable-next-line no-shadow
     const focus = parseFocuses( props.focus );
     const mode = parseMode( props.mode );
@@ -60,6 +63,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const pictureData = computePictureData(
         artDirectives,
         eager,
+        fetchPriority,
         mode,
         preTransform,
         refit,
@@ -88,6 +92,7 @@ TwicPicture.propTypes = {
     "anchor": oneOf< Anchor >( validAnchors ),
     "className": string,
     "eager": oneOfType( [ boolean, string ] ),
+    "fetchpriority": string,
     "focus": string,
     "mode": oneOf< Mode >( validModes ),
     "position": string,
