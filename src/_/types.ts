@@ -2,6 +2,7 @@ export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type BreakPoint = `xs` | `sm` | `md` | `lg` | `xl` | `2xl`;
 export type Environment = `debug` | `offline` | `production`;
+export type FetchPriority = `high` | `low` | `auto`;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 export type StateEvent = {

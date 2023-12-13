@@ -1541,10 +1541,53 @@ Test"
             eager
             focus="auto, @xl top"
             preTransform="flip=x"
-            ratio="3/4, @md 1, @lg 4/3, @xl 21/9"
+            ratio="
+                3/4
+                @md 1
+                @lg 4/3
+                @xl 21/9
+            "
             title="Picture Title"
         >
         </TwicPicture>
+    </div>
+    <h2>TwicPicture fetch and loading</h2>
+    <div class="samples">
+      <div class="item">
+        <TwicPicture
+            src="football.jpg"
+            eager
+        >
+        </TwicPicture>
+        <span>Eager</span>
+      </div>
+      <div class="item">
+        <TwicPicture
+            src="football.jpg"
+            eager
+            fetchpriority="high"
+        >
+        </TwicPicture>
+        <span>Eager + fetchpriority="high"</span>
+      </div>
+      <div class="item">
+        <TwicPicture
+            src="football.jpg"
+            eager
+            fetchpriority="low"
+        >
+        </TwicPicture>
+        <span>Eager + fetchpriority="low"</span>
+      </div>
+      <div class="item">
+        <TwicPicture
+            src="football.jpg"
+            eager
+            fetchpriority="auto"
+        >
+        </TwicPicture>
+        <span>Eager + fetchpriority="auto"</span>
+      </div>
     </div>
     <h2>TwicPicture ratio + sizes</h2>
     <div class="samples">

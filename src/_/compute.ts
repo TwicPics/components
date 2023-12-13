@@ -4,6 +4,7 @@
 import type {
     AnchorObject,
     ArtDirective,
+    FetchPriority,
     Mode,
     Placeholder,
     PlaceholderData,
@@ -35,6 +36,7 @@ const computeRefit = ( anchor: string, mode: Mode, refit: string ) : string =>
 export const computePictureData = (
     artDirectives: ArtDirective [] | undefined,
     eager: boolean,
+    fetchPriority: FetchPriority,
     mode: Mode,
     preTransform: string,
     refit: string,
@@ -96,8 +98,8 @@ export const computePictureData = (
                       ).join( `,` );
                       attributes[ `width` ] = `${ width }`;
                       if ( index === ( artDirectives.length - 1 ) ) {
-                          attributes[ `fetchpriority` ] = eager ? `high` : undefined;
-                          attributes[ `loading` ] = eager ? undefined : `lazy`;
+                          attributes[ `fetchpriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
+                          attributes[ `loading` ] = eager ? `eager` : `lazy`;
                           attributes[ `src` ] = srcMap.get( width );
                       }
                       return attributes;

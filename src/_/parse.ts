@@ -1,11 +1,12 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, BreakPoint, Environment, Mode, Placeholder, Transition } from "./types";
+import type { AnchorObject, BreakPoint, Environment, FetchPriority, Mode, Placeholder, Transition } from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
     rValidDomain,
     rValidEnvironment,
+    rValidFetchPriority,
     rValidIntrinsic,
     rValidMode,
     rValidPath,
@@ -115,6 +116,8 @@ export const parseDomain = ( value: string ) => {
 export const parseDuration = parseNumber;
 
 export const parseEager = parseBoolean;
+
+export const parseFetchPriority = regExpFinderFactory< FetchPriority >( rValidFetchPriority );
 
 export const parseEnv = regExpFinderFactory< Environment >( rValidEnvironment );
 

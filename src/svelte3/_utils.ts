@@ -19,6 +19,7 @@ export {
     parseBot,
     parseClassName,
     parseDuration,
+    parseFetchPriority,
     parseFocus,
     parseFocuses,
     parseFrom,
