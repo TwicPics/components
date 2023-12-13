@@ -18,14 +18,12 @@ import { parseMode } from "./parse";
 import { createUrl, finalTransform } from "./url";
 
 const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
-    ( mode === `contain` ) && ( position || ( y ? ( x ? `${ x } ${ y }` : y ) : x ) );
+    ( mode === `contain` ) && ( position || ( y ? ( x ? `${ y } ${ x }` : y ) : x ) );
 
 const computeRefit = ( anchor: string, mode: Mode, refit: string ) : string =>
     ( refit !== undefined ) &&
     `${
-        mode === `contain` ?
-        `auto` :
-        `WxH`
+        mode === `contain` ? `auto` : `WxH`
     }${
         refit ? `(${ refit })` : ``
     }${
@@ -37,7 +35,6 @@ export const computePictureData = (
     artDirectives: ArtDirective [] | undefined,
     eager: boolean,
     fetchPriority: FetchPriority,
-    mode: Mode,
     preTransform: string,
     refit: string,
     src: string
@@ -45,14 +42,26 @@ export const computePictureData = (
     if ( !config.domain ) {
         return undefined;
     }
+
     const datas = artDirectives &&
           artDirectives
               .sort( ( a, b ) => b.breakpoint - a.breakpoint )
               .map(
                   ( artDirective, index ) => {
                       const attributes: Record< string, string > = {};
-                      const { anchor, focus, media, ratio, resolutions, sizes, width, height } = artDirective;
+                      const { anchor,
+                          focus,
+                          media,
+                          mode,
+                          position,
+                          ratio,
+                          resolutions,
+                          sizes,
+                          width,
+                          height } = artDirective;
 
+                      const actualMode = mode === `contain` ? `inside` : mode;
+                      const actualPosition = computePosition( anchor, mode, position );
                       const actualPreTransform = `${
                             // eslint-disable-next-line @typescript-eslint/no-use-before-define
                             computePreTransform(
@@ -65,6 +74,8 @@ export const computePictureData = (
                                 }
                             ) }${
                                 finalTransform( mode, refit ) || ``
+                            }${
+                                actualPosition ? `@${ actualPosition.replace( /(\s)/g, `-` ) }` : ``
                             }`;
 
                       const actualResolutionSet = new Set< number >();
@@ -79,7 +90,7 @@ export const computePictureData = (
                               createUrl( {
                                   "context": {
                                       "height": ratio ? Math.round( _width * ratio ) : undefined,
-                                      mode,
+                                      "mode": actualMode,
                                       "width": _width,
                                   },
                                   "domain": config.domain,
@@ -92,7 +103,7 @@ export const computePictureData = (
                       attributes[ `height` ] = height;
                       attributes[ `media` ] = ( index === ( artDirectives.length - 1 ) ) ? undefined : media;
                       attributes[ `sizes` ] = sizes;
-                      attributes[ `srcset` ] = Array.from(
+                      attributes[ `srcSet` ] = Array.from(
                           srcMap,
                           ( [ _width, _src ] ) => `${ _src } ${ _width }w`
                       ).join( `,` );

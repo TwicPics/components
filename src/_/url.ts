@@ -83,12 +83,6 @@ export const createUrl = (
     }`;
 };
 
-export const finalTransform = ( mode: string, refit: string ): string =>
-    (
-        (
-            ( mode === `cover` ) &&
-            ( refit !== undefined )
-        ) ?
-        `` :
-        `/*`
-    );
+export const finalTransform = ( mode: string, refit: string ): string => (
+    ( ( mode === `cover` ) && ( refit !== undefined ) ) ? `` : `/*`
+);
