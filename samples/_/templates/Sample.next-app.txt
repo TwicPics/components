@@ -6,7 +6,7 @@
 // /___eager_true___/ => "eager={true}"
 // /___eager_false___/ => "eager={false}"
 import React from "react";
-import { TwicBackground, TwicImg, TwicVideo, TwicView } from "@twicpics/components/react";
+import { TwicBackground, TwicImg, TwicPicture, TwicVideo, TwicView } from "@twicpics/components/react";
 const Sample = () => {
     return (
         ###

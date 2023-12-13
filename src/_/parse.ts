@@ -206,7 +206,7 @@ export const parseRefit = ( value: boolean | string ): string => {
     return parsedBoolean ? `` : undefined;
 };
 
-export const parseSize = ( value: string ) => {
+const parseSize = ( value: string ) => {
     const trimmed = trimOrUndefined( value );
     return trimmed && trimmed.replace( /\n\s*/g, `` );
 };

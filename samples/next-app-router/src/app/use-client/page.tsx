@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react/react-in-jsx-scope */
 
-import { TwicImg, TwicVideo } from "@twicpics/components/react";
+import { TwicImg, TwicPicture, TwicVideo } from "@twicpics/components/react";
 import MenuBar from "../../components/menuBar";
 
 export default function Home() {
@@ -45,6 +45,16 @@ export default function Home() {
                         src="video/purple-shirt.mp4"
                         preTransform="focus=50px30p/crop=300x300"
                         to={9}
+                    />
+                </div>
+                <div className="item">
+                    <TwicPicture
+                        src="football.jpg"
+                        sizes="
+                          (max-width: 750px) 100vm,
+                          (max-width: 1140px) 400px,
+                          350px
+                        "
                     />
                 </div>
             </div>
