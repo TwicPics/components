@@ -1,7 +1,6 @@
 
 import { config } from "./config";
-import { ResolutionMax, Resolutions } from "./const";
-import type { AnchorObject, ArtDirective, Placeholder, VideoOptions } from "./types";
+import type { AnchorObject, ArtDirective, BreakPoint, Placeholder, VideoOptions } from "./types";
 import { urlInfos } from "./url";
 
 interface ArtDirectivesData {
@@ -10,6 +9,11 @@ interface ArtDirectivesData {
   ratios: Record< number, number >,
   sizes: Record< number, string >,
 }
+
+const RESOLUTIONS = [ `xs`, `sm`, `md`, `lg`, `xl`, `2xl` ]
+    .map( r => config.breakpoints[ r as BreakPoint ] )
+    .sort( ( a, b ) => a - b );
+const MAX_RESOLUTION = RESOLUTIONS[ RESOLUTIONS.length - 1 ];
 
 export const preComputeArtDirectives = ( { anchors, focuses, ratios, sizes }: ArtDirectivesData ): ArtDirective[] => {
     // deduplicate breakpoints by merging keys from various objects
@@ -48,14 +52,14 @@ export const preComputeArtDirectives = ( { anchors, focuses, ratios, sizes }: Ar
             // eslint-disable-next-line no-shadow, @typescript-eslint/no-shadow
             const { anchor, breakpoint, focus, ratio, sizes } = source;
             const nextBreakpoint = artDirectives[ index + 1 ]?.breakpoint ?? undefined;
-            const width = breakpoint || nextBreakpoint || ResolutionMax;
+            const width = breakpoint || nextBreakpoint || MAX_RESOLUTION;
             return {
                 anchor,
                 breakpoint,
                 focus,
                 "media": `(min-width: ${ breakpoint }px)`,
                 ratio,
-                "resolutions": Resolutions.filter(
+                "resolutions": RESOLUTIONS.filter(
                     resolution =>
                         ( resolution >= breakpoint ) &&
                         ( ( nextBreakpoint === undefined ) || ( resolution <= nextBreakpoint ) )

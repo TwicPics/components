@@ -72,18 +72,19 @@ const handleShadowDomFactory = ( attributeName: string ) => {
     };
 };
 
+const DEFAULT_MAX_DPR = 2;
 export const setConfig = ( options: Options ): void => {
-    const { debug, domain, "class": _class, env, handleShadowDom, path } = options;
+    const { debug, domain, "class": _class, env, handleShadowDom, maxDPR, path } = options;
     config.class = _class || config.class;
     config.domain = domain;
     config.env = debug ? `debug` : env;
+    config.maxDPR = Math.max( 1, maxDPR || DEFAULT_MAX_DPR );
     config.path = path;
     config.handleShadowDom = ( handleShadowDom && isBrowser && !isReactNative ) ?
         handleShadowDomFactory( getDataAttributeName( `component` ) ) :
         noop;
     if ( isReactNative ) {
-        const { maxDPR, step } = options;
-        config.maxDPR = maxDPR;
+        const { step } = options;
         config.step = step;
     }
 };
