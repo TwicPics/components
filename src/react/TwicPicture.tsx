@@ -2,7 +2,7 @@ import "../_/style.css";
 import React from "react";
 import {
     computeAlt,
-    computePictureData,
+    computePicture,
 } from "../_/compute";
 import {
     parseAlt,
@@ -20,14 +20,10 @@ import {
     parseTitle,
     parseSizes,
 } from "../_/parse";
-import type {
-    Anchor,
-    Mode,
-} from "../_/types";
-import { validAnchors, validModes } from "../_/validate";
+import type { Anchor } from "../_/types";
+import { validAnchors } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
-import { preComputeArtDirectives } from "../_/preCompute";
 
 export interface PictureAttributes extends BaseAttributes {
     fetchpriority?: string,
@@ -52,21 +48,17 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const sizes = parseSizes( props.sizes );
     const title = parseTitle( props.title );
 
-    const artDirectives = preComputeArtDirectives(
+    const pictureData = computePicture(
         anchors,
+        eager,
+        fetchPriority,
         focuses,
         modes,
         positions,
-        ratios,
-        sizes
-    );
-
-    const pictureData = computePictureData(
-        artDirectives,
-        eager,
-        fetchPriority,
         preTransform,
+        ratios,
         refit,
+        sizes,
         src
     );
 
@@ -80,7 +72,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 ) }
                 <img
                     alt={ computeAlt( alt, `img` ) }
-                    { ...pictureData?.fallback }
+                    { ...pictureData?.img }
                 />
             </picture>
         </div>
@@ -94,7 +86,7 @@ TwicPicture.propTypes = {
     "eager": oneOfType( [ boolean, string ] ),
     "fetchpriority": string,
     "focus": string,
-    "mode": oneOf< Mode >( validModes ),
+    "mode": string,
     "position": string,
     "preTransform": string,
     "ratio": number,
