@@ -26,6 +26,17 @@
                 />
                 <span>ratio = {{ res.ratio }}, transition = "zoom"</span>
             </div>
+            <div class="item">
+                <TwicPicture
+                    src="football.jpg"
+                    sizes="
+                      (max-width: 750px) 100vm,
+                      (max-width: 1140px) 400px,
+                      350px
+                    "
+                />
+                <span>TwicPicture</span>
+            </div>
         </div>
     </main>
 </template>

@@ -32,6 +32,7 @@ import {
     parseClassName,
     parseRefit,
 } from "../_/parse";
+import { preComputePlaceholder } from "../_/preCompute";
 import type {
     Anchor,
     ScriptAttributes,
@@ -41,7 +42,7 @@ import type {
     VideoOptions,
 } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
-import { preComputePlaceholder } from "../_/preCompute";
+
 import { boolean, func, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
 

@@ -1557,6 +1557,11 @@ Test"
         <TwicPicture
             src="football.jpg"
             eager
+            sizes="
+              (max-width: 750px) 100vm,
+              (max-width: 1140px) 400px,
+              350px
+            "
         >
         </TwicPicture>
         <span>Eager</span>
@@ -1566,6 +1571,11 @@ Test"
             src="football.jpg"
             eager
             fetchpriority="high"
+            sizes="
+              (max-width: 750px) 100vm,
+              (max-width: 1140px) 400px,
+              350px
+            "
         >
         </TwicPicture>
         <span>Eager + fetchpriority="high"</span>
@@ -1575,6 +1585,11 @@ Test"
             src="football.jpg"
             eager
             fetchpriority="low"
+            sizes="
+              (max-width: 750px) 100vm,
+              (max-width: 1140px) 400px,
+              350px
+            "
         >
         </TwicPicture>
         <span>Eager + fetchpriority="low"</span>
@@ -1584,6 +1599,11 @@ Test"
             src="football.jpg"
             eager
             fetchpriority="auto"
+            sizes="
+              (max-width: 750px) 100vm,
+              (max-width: 1140px) 400px,
+              350px
+            "
         >
         </TwicPicture>
         <span>Eager + fetchpriority="auto"</span>

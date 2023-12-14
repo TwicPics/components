@@ -60,6 +60,8 @@ export const computePictureData = (
                           width,
                           height } = artDirective;
 
+                      // we use `inside` rather than `contain` to avoid cls when using TwicPicture
+                      // (padding-trick can not be used there)
                       const actualMode = mode === `contain` ? `inside` : mode;
                       const actualPosition = computePosition( anchor, mode, position );
                       const actualPreTransform = `${
@@ -109,7 +111,7 @@ export const computePictureData = (
                       ).join( `,` );
                       attributes[ `width` ] = `${ width }`;
                       if ( index === ( artDirectives.length - 1 ) ) {
-                          attributes[ `fetchpriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
+                          attributes[ `fetchPriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
                           attributes[ `loading` ] = eager ? `eager` : `lazy`;
                           attributes[ `src` ] = srcMap.get( width );
                       }
@@ -122,7 +124,6 @@ export const computePictureData = (
     };
 };
 /* eslint-enable dot-notation */
-
 export const computePreTransform = (
     { "anchor": { x, y }, debug, focus, mode, preTransform, refit } : PreTransformData
 ): string => {

@@ -1,28 +1,23 @@
 
+/* eslint max-params: off */
 import { config } from "./config";
 import type { AnchorObject, ArtDirective, BreakPoint, Mode, Placeholder, VideoOptions } from "./types";
 import { urlInfos } from "./url";
-
-interface ArtDirectivesData {
-  anchors: Record< number, AnchorObject >,
-  focuses: Record< number, string >,
-  modes: Record< number, Mode >,
-  positions: Record< number, string >,
-  ratios: Record< number, number >,
-  sizes: Record< number, string >,
-}
 
 const RESOLUTIONS = [ `xs`, `sm`, `md`, `lg`, `xl`, `2xl` ]
     .map( r => config.breakpoints[ r as BreakPoint ] )
     .sort( ( a, b ) => a - b );
 const MAX_RESOLUTION = RESOLUTIONS[ RESOLUTIONS.length - 1 ];
 
-export const preComputeArtDirectives = ( { anchors,
-    focuses,
-    modes,
-    positions,
-    ratios,
-    sizes }: ArtDirectivesData ): ArtDirective[] => {
+export const preComputeArtDirectives = (
+    anchors: Record< number, AnchorObject >,
+    focuses:Record< number, string >,
+    modes:Record< number, Mode >,
+    positions: Record< number, string >,
+    ratios: Record< number, number >,
+    sizes: Record< number, string >
+): ArtDirective[] => {
+
     // deduplicate breakpoints by merging keys from various objects
     const allBreakpoints = new Set( [
         ...Object.keys( anchors ).map( Number ),

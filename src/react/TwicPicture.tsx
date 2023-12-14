@@ -1,23 +1,24 @@
 import "../_/style.css";
 import React from "react";
 import {
-    computeAlt, computePictureData,
+    computeAlt,
+    computePictureData,
 } from "../_/compute";
 import {
     parseAlt,
-    parseModes,
+    parseAnchors,
+    parseClassName,
     parseEager,
+    parseFetchPriority,
+    parseFocuses,
+    parseModes,
     parsePositions,
     parsePreTransform,
+    parseRatios,
+    parseRefit,
     parseSrc,
     parseTitle,
-    parseClassName,
-    parseRefit,
-    parseAnchors,
-    parseRatios,
-    parseFocuses,
     parseSizes,
-    parseFetchPriority,
 } from "../_/parse";
 import type {
     Anchor,
@@ -52,14 +53,12 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const title = parseTitle( props.title );
 
     const artDirectives = preComputeArtDirectives(
-        {
-            anchors,
-            focuses,
-            modes,
-            positions,
-            ratios,
-            sizes,
-        }
+        anchors,
+        focuses,
+        modes,
+        positions,
+        ratios,
+        sizes
     );
 
     const pictureData = computePictureData(
