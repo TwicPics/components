@@ -4,6 +4,7 @@ import { installTwicPics } from "../_/install";
 import register from "./register";
 import TwicBackground from "./TwicBackground.vue";
 import TwicImg from "./TwicImg.vue";
+import TwicPicture from "./TwicPicture.vue";
 import TwicVideo from "./TwicVideo.vue";
 import TwicView from "./TwicView.vue";
 import { throwError } from "../_/utils";
@@ -11,21 +12,30 @@ import { throwError } from "../_/utils";
 interface Options extends BaseOptions {
     TwicBackground?: string,
     TwicImg?: string,
+    TwicPicture?: string,
     TwicVideo?: string,
     TwicView?:string,
+    [key: string]: number | boolean | string;
 }
+
+const componentNames: string[] = [ `TwicImg`, `TwicView`, `TwicVideo`, `TwicPicture` ];
 
 const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Options ): void => {
     installTwicPics( options );
-    if ( options.TwicImg && ( options.TwicImg === options.TwicVideo ) ) {
-        throwError( `TwicImg and TwicVideo components must have different names` );
+
+    for ( let i = 0; i < componentNames.length; i++ ) {
+        for ( let j = i + 1; j < componentNames.length; j++ ) {
+            if (
+                options[ componentNames[ i ] ] &&
+                ( options[ componentNames[ i ] ] === options[ componentNames[ j ] ] )
+            ) {
+                throwError(
+                  `${ componentNames[ i ] } and ${ componentNames[ j ] } components must have different names`
+                );
+            }
+        }
     }
-    if ( options.TwicView && ( options.TwicView === options.TwicImg ) ) {
-        throwError( `TwicView and TwicImg components must have different names` );
-    }
-    if ( options.TwicView && ( options.TwicView === options.TwicVideo ) ) {
-        throwError( `TwicView and TwicVideo components must have different names` );
-    }
+
     register( VueObject, {
         "component": TwicBackground,
         "componentName": options.TwicBackground || `TwicBackground`,
@@ -33,6 +43,10 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
     register( VueObject, {
         "component": TwicImg,
         "componentName": options.TwicImg || `TwicImg`,
+    } );
+    register( VueObject, {
+        "component": TwicPicture,
+        "componentName": options.TwicPicture || `TwicPicture`,
     } );
     register( VueObject, {
         "component": TwicVideo,

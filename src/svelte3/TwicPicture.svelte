@@ -69,15 +69,13 @@ $: {
 }
 
 $: parsedArtDirectives = preComputeArtDirectives(
-    {
-      anchors: parsedAnchors,
-      focuses: parsedFocuses,
-      modes: parsedModes,
-      positions: parsedPositions,
-      ratios: parsedRatios,
-      sizes: parsedSizes,
-    }
-  );
+    parsedAnchors,
+    parsedFocuses,
+    parsedModes,
+    parsedPositions,
+    parsedRatios,
+    parsedSizes,
+);
 
 $: _alt = computeAlt( parsedAlt, `img` );
 $: _computePictureData = computePictureData(
