@@ -1,7 +1,7 @@
 <script>
 import {
     computeAlt,
-    computePictureData,
+    computePicture,
 } from "../_/compute";
 import {
     parseAlt,
@@ -18,7 +18,6 @@ import {
     parseTitle,
     parseSizes,
 } from "../_/parse";
-import { preComputeArtDirectives } from "../_/preCompute";
 import { booleanProp, stringProp } from "./props";
 import { callFactory } from "./utils";
 
@@ -48,26 +47,19 @@ computed[ `p_mediaTag` ] = () => `img`;
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
     [
-        `p_artDirectives`,
-        preComputeArtDirectives,
+        `_pictureData`,
+        computePicture,
         [
             `anchor`,
+            `eager`,
+            `fetchpriority`,
             `focus`,
             `mode`,
             `position`,
-            `ratio`,
-            `sizes`,
-        ],
-    ],
-    [
-        `_pictureData`,
-        computePictureData,
-        [
-            `artDirectives`,
-            `eager`,
-            `fetchpriority`,
             `preTransform`,
+            `ratio`,
             `refit`,
+            `sizes`,
             `src`,
         ],
     ],
@@ -93,10 +85,10 @@ export default {
                     v-bind="{ ...data }"
                 >
             </template>
-            <template v-if="_pictureData && _pictureData.fallback">
+            <template v-if="_pictureData && _pictureData.img">
                 <img
                     :alt="_alt"
-                    v-bind="{ ..._pictureData.fallback }"
+                    v-bind="{ ..._pictureData.img }"
                 >
             </template>
         </picture>

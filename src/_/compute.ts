@@ -4,8 +4,10 @@
 import type {
     AnchorObject,
     ArtDirective,
+    BreakPoint,
     FetchPriority,
     Mode,
+    Picture,
     Placeholder,
     PlaceholderData,
     PreTransformData,
@@ -30,19 +32,107 @@ const computeRefit = ( anchor: string, mode: Mode, refit: string ) : string =>
         ( anchor && ( mode !== `contain` ) ) ? `@${ anchor }` : ``
     }`;
 
+const RESOLUTIONS = [ `xs`, `sm`, `md`, `lg`, `xl`, `2xl` ]
+    .map( r => config.breakpoints[ r as BreakPoint ] )
+    .sort( ( a, b ) => a - b );
+const MAX_RESOLUTION = RESOLUTIONS[ RESOLUTIONS.length - 1 ];
+
+const preComputeArtDirectives = (
+    anchors: Record< number, AnchorObject >,
+    focuses:Record< number, string >,
+    modes:Record< number, Mode >,
+    positions: Record< number, string >,
+    ratios: Record< number, number >,
+    sizes: Record< number, string >
+): ArtDirective[] => {
+
+    // deduplicate breakpoints by merging keys from various objects
+    const allBreakpoints = new Set( [
+        ...Object.keys( anchors ).map( Number ),
+        ...Object.keys( focuses ).map( Number ),
+        ...Object.keys( modes ).map( Number ),
+        ...Object.keys( positions ).map( Number ),
+        ...Object.keys( ratios ).map( Number ),
+        ...Object.keys( sizes ).map( Number ),
+    ] );
+
+    // build array of art directives by sorting and mapping breakpoints
+    const artDirectives: ArtDirective[] = Array
+        .from( allBreakpoints )
+        .sort( ( a, b ) => a - b )
+        .map( breakpoint => (
+            {
+                breakpoint,
+                "anchor": anchors[ breakpoint ],
+                "focus": focuses[ breakpoint ],
+                "mode": modes[ breakpoint ],
+                "position": positions[ breakpoint ],
+                "ratio": ratios[ breakpoint ],
+                "sizes": sizes[ breakpoint ],
+            }
+        ) );
+
+    // fill the missing values with the one of previous item (mobile-first approach)
+    for ( let i = 1; i < artDirectives.length; i++ ) {
+        const previous = artDirectives[ i - 1 ];
+        const current = artDirectives[ i ];
+        for ( const key of Object.keys( artDirectives[ 0 ] ) ) {
+            current[ key ] ||= previous[ key ];
+        }
+    }
+
+    return artDirectives.map(
+        ( source, index ) => {
+            // eslint-disable-next-line no-shadow, @typescript-eslint/no-shadow
+            const { anchor, breakpoint, focus, mode, position, ratio, sizes } = source;
+            const nextBreakpoint = artDirectives[ index + 1 ]?.breakpoint ?? undefined;
+            const width = breakpoint || nextBreakpoint || MAX_RESOLUTION;
+            return {
+                anchor,
+                breakpoint,
+                focus,
+                "media": `(min-width: ${ breakpoint }px)`,
+                mode,
+                position,
+                ratio,
+                "resolutions": RESOLUTIONS.filter(
+                    resolution =>
+                        ( resolution >= breakpoint ) &&
+                        ( ( nextBreakpoint === undefined ) || ( resolution <= nextBreakpoint ) )
+                ),
+                sizes,
+                width,
+                "height": ratio ? `${ Math.round( width * ratio ) }` : undefined,
+            };
+        }
+    );
+};
+
 /* eslint-disable dot-notation */
-export const computePictureData = (
-    artDirectives: ArtDirective [] | undefined,
+export const computePicture = (
+    anchors: Record< number, AnchorObject >,
     eager: boolean,
     fetchPriority: FetchPriority,
+    focuses:Record< number, string >,
+    modes:Record< number, Mode >,
+    positions: Record< number, string >,
     preTransform: string,
+    ratios: Record< number, number >,
     refit: string,
+    sizes: Record< number, string >,
     src: string
-) => {
+): Picture => {
     if ( !config.domain ) {
         return undefined;
     }
-
+    const artDirectives = preComputeArtDirectives(
+        anchors,
+        focuses,
+        modes,
+        positions,
+        ratios,
+        sizes
+    );
     const datas = artDirectives &&
           artDirectives
               .sort( ( a, b ) => b.breakpoint - a.breakpoint )
@@ -56,7 +146,7 @@ export const computePictureData = (
                           position,
                           ratio,
                           resolutions,
-                          sizes,
+                          "sizes": _sizes,
                           width,
                           height } = artDirective;
 
@@ -101,17 +191,16 @@ export const computePictureData = (
                               } )
                           );
                       }
-
                       attributes[ `height` ] = height;
                       attributes[ `media` ] = ( index === ( artDirectives.length - 1 ) ) ? undefined : media;
-                      attributes[ `sizes` ] = sizes;
+                      attributes[ `sizes` ] = _sizes;
                       attributes[ `srcSet` ] = Array.from(
                           srcMap,
                           ( [ _width, _src ] ) => `${ _src } ${ _width }w`
                       ).join( `,` );
                       attributes[ `width` ] = `${ width }`;
                       if ( index === ( artDirectives.length - 1 ) ) {
-                          attributes[ `fetchPriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
+                          attributes[ `fetchpriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
                           attributes[ `loading` ] = eager ? `eager` : `lazy`;
                           attributes[ `src` ] = srcMap.get( width );
                       }
@@ -120,7 +209,7 @@ export const computePictureData = (
               );
     return {
         "sources": datas.slice( 0, -1 ),
-        "fallback": datas[ datas.length - 1 ],
+        "img": datas[ datas.length - 1 ],
     };
 };
 /* eslint-enable dot-notation */

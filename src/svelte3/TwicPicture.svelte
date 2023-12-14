@@ -17,8 +17,7 @@ import {
     parseSizes,
     parseSrc,
     parseTitle,
-    preComputeArtDirectives,
-    computePictureData,
+    computePicture,
     computeAlt,
     isWebComponents,
     parseFetchPriority,
@@ -68,22 +67,18 @@ $: {
     }
 }
 
-$: parsedArtDirectives = preComputeArtDirectives(
+$: _alt = computeAlt( parsedAlt, `img` );
+$: _computePictureData = computePicture(
     parsedAnchors,
+    parsedEager,
+    parsedFetchPriority,
     parsedFocuses,
     parsedModes,
     parsedPositions,
-    parsedRatios,
-    parsedSizes,
-);
-
-$: _alt = computeAlt( parsedAlt, `img` );
-$: _computePictureData = computePictureData(
-    parsedArtDirectives,
-    parsedEager,
-    parsedFetchPriority,
     parsedPreTransform,
+    parsedRatios,
     parsedRefit,
+    parsedSizes,
     parsedSrc
 );
 </script>
@@ -96,7 +91,7 @@ $: _computePictureData = computePictureData(
       {/if}
       <img
           alt = { _alt }
-          { ..._computePictureData?.fallback }
+          { ..._computePictureData?.img }
       />
     </picture>
 {:else}
@@ -109,7 +104,7 @@ $: _computePictureData = computePictureData(
     {/if}
     <img
         alt = { _alt }
-        { ..._computePictureData?.fallback }
+        { ..._computePictureData?.img }
     />
   </picture>
 </div>

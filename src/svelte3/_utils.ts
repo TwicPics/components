@@ -2,7 +2,7 @@ export {
     computeAlt,
     computeData,
     computeMagnifierStyle,
-    computePictureData,
+    computePicture,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -47,7 +47,6 @@ export {
     parseZoom,
 } from "../_/parse.js";
 export {
-    preComputeArtDirectives,
     preComputePlaceholder,
     preComputeVideoOptions,
 } from "../_/preCompute.js";

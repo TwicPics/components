@@ -95,6 +95,11 @@ export interface Options {
     step?: number,
 }
 
+export interface Picture {
+  sources: Record< string, string >[],
+  img: Record< string, string >,
+}
+
 export interface PreTransformData {
     anchor?: AnchorObject,
     debug?: boolean,
