@@ -64,7 +64,6 @@ export interface Config {
     handleShadowDom: ( item?: Element ) => void,
     maxDPR: number;
     path: string,
-    resolutions: number[]
     step: number,
 }
 
