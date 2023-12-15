@@ -55,6 +55,7 @@ import {
     parseTitle,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
+import { attributes, styles } from "./utils";
 
 @Component( {
     "selector": `TwicMedia`,
@@ -238,28 +239,10 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         if ( this._media ) {
             // eslint-disable-next-line dot-notation
             this.mediaAttributes[ `alt` ] = this.description;
-            Object.entries( this.mediaAttributes || [] ).forEach( ( [ n, v ] ) => {
-                if ( v === undefined ) {
-                    this.renderer.removeAttribute( this._media, n );
-                } else {
-                    this.renderer.setAttribute(
-                        this._media,
-                        n,
-                        v
-                    );
-                }
-            } );
-            Object.entries( this.mediaStyle || [] ).forEach( ( [ n, v ] ) => {
-                if ( n === undefined ) {
-                    this.renderer.removeStyle( this._media, n );
-                } else {
-                    this.renderer.setStyle(
-                        this._media,
-                        n,
-                        v
-                    );
-                }
-            } );
+            // updates attributes to this._media HTML element
+            attributes( this.mediaAttributes, this._media, this.renderer );
+            // updates style to this._media HTML element
+            styles( this.mediaStyle, this._media, this.renderer );
         }
     }
 }

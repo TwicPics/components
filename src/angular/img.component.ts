@@ -16,6 +16,7 @@ import { parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
+import { styles } from "./utils";
 
 @Component( {
     "selector": `TwicImg`,
@@ -120,13 +121,8 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     }
     updateTemplate(): void {
         if ( this.hostElement?.nativeElement ) {
-            Object.entries( this.magnifierStyle || [] ).forEach( ( [ n, v ] ) => {
-                if ( n === undefined ) {
-                    this.renderer.removeStyle( this.hostElement.nativeElement, n );
-                } else {
-                    this.hostElement.nativeElement.style.setProperty( n, v );
-                }
-            } );
+            // updates style to this.hostElement.nativeElement HTML element
+            styles( this.magnifierStyle, this.hostElement.nativeElement, this.renderer );
         }
     }
 }
