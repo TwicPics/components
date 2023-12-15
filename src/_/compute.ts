@@ -4,7 +4,6 @@
 import type {
     AnchorObject,
     ArtDirective,
-    BreakPoint,
     FetchPriority,
     Mode,
     Picture,
@@ -32,11 +31,6 @@ const computeRefit = ( anchor: string, mode: Mode, refit: string ) : string =>
         ( anchor && ( mode !== `contain` ) ) ? `@${ anchor }` : ``
     }`;
 
-const RESOLUTIONS = [ `xs`, `sm`, `md`, `lg`, `xl`, `2xl` ]
-    .map( r => config.breakpoints[ r as BreakPoint ] )
-    .sort( ( a, b ) => a - b );
-const MAX_RESOLUTION = RESOLUTIONS[ RESOLUTIONS.length - 1 ];
-
 const preComputeArtDirectives = (
     anchors: Record< number, AnchorObject >,
     focuses:Record< number, string >,
@@ -56,6 +50,7 @@ const preComputeArtDirectives = (
         ...Object.keys( sizes ).map( Number ),
     ] );
 
+    const MAX_RESOLUTION = Math.max( ...config.resolutions );
     // build array of art directives by sorting and mapping breakpoints
     const artDirectives: ArtDirective[] = Array
         .from( allBreakpoints )
@@ -71,7 +66,6 @@ const preComputeArtDirectives = (
                 "sizes": sizes[ breakpoint ],
             }
         ) );
-
     // fill the missing values with the one of previous item (mobile-first approach)
     for ( let i = 1; i < artDirectives.length; i++ ) {
         const previous = artDirectives[ i - 1 ];
@@ -80,7 +74,6 @@ const preComputeArtDirectives = (
             current[ key ] ||= previous[ key ];
         }
     }
-
     return artDirectives.map(
         ( source, index ) => {
             // eslint-disable-next-line no-shadow, @typescript-eslint/no-shadow
@@ -95,7 +88,7 @@ const preComputeArtDirectives = (
                 mode,
                 position,
                 ratio,
-                "resolutions": RESOLUTIONS.filter(
+                "resolutions": config.resolutions.filter(
                     resolution =>
                         ( resolution >= breakpoint ) &&
                         ( ( nextBreakpoint === undefined ) || ( resolution <= nextBreakpoint ) )

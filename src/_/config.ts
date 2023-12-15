@@ -1,5 +1,5 @@
 import { createElement } from "./dom";
-import type { Config, Options } from "./types";
+import type { BreakPoint, Config, Options } from "./types";
 import { isBrowser, isReactNative, noop } from "./utils";
 
 const defaultConfig: Config = {
@@ -17,6 +17,7 @@ const defaultConfig: Config = {
     "handleShadowDom": noop,
     "maxDPR": undefined,
     "path": ``,
+    "resolutions": [],
     "step": undefined,
 };
 const w = isBrowser && window as unknown as Record< string, Config >;
@@ -74,12 +75,19 @@ const handleShadowDomFactory = ( attributeName: string ) => {
 
 const DEFAULT_MAX_DPR = 2;
 export const setConfig = ( options: Options ): void => {
-    const { debug, domain, "class": _class, env, handleShadowDom, maxDPR, path } = options;
+    const { breakpoints = {}, debug, domain, "class": _class, env, handleShadowDom, maxDPR, path } = options;
+    config.breakpoints = {
+        ...config.breakpoints,
+        ...breakpoints,
+    };
     config.class = _class || config.class;
     config.domain = domain;
     config.env = debug ? `debug` : env;
     config.maxDPR = Math.max( 1, maxDPR || DEFAULT_MAX_DPR );
     config.path = path;
+    config.resolutions = [ `xs`, `sm`, `md`, `lg`, `xl`, `2xl` ]
+        .map( r => config.breakpoints[ r as BreakPoint ] )
+        .sort( ( a, b ) => a - b );
     config.handleShadowDom = ( handleShadowDom && isBrowser && !isReactNative ) ?
         handleShadowDomFactory( getDataAttributeName( `component` ) ) :
         noop;

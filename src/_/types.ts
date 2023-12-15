@@ -64,6 +64,7 @@ export interface Config {
     handleShadowDom: ( item?: Element ) => void,
     maxDPR: number;
     path: string,
+    resolutions: number[]
     step: number,
 }
 
@@ -85,6 +86,7 @@ export interface CreateUrlData {
 
 export interface Options {
     anticipation?: number,
+    breakpoints: { [ key in BreakPoint ]: number },
     class?: string,
     debug?: boolean,
     domain: string,
