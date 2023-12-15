@@ -50,7 +50,8 @@ const preComputeArtDirectives = (
         ...Object.keys( sizes ).map( Number ),
     ] );
 
-    const MAX_RESOLUTION = Math.max( ...config.resolutions );
+    const resolutionsList = Object.values( config.breakpoints ).sort( ( a, b ) => a - b );
+    const MAX_RESOLUTION = Math.max( ...resolutionsList );
     // build array of art directives by sorting and mapping breakpoints
     const artDirectives: ArtDirective[] = Array
         .from( allBreakpoints )
@@ -88,7 +89,7 @@ const preComputeArtDirectives = (
                 mode,
                 position,
                 ratio,
-                "resolutions": config.resolutions.filter(
+                "resolutions": resolutionsList.filter(
                     resolution =>
                         ( resolution >= breakpoint ) &&
                         ( ( nextBreakpoint === undefined ) || ( resolution <= nextBreakpoint ) )
