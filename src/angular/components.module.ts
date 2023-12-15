@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { TwicBackgroundComponent } from "./background.component";
 import { TwicImgComponent } from "./img.component";
 import { TwicMediaComponent } from "./media.component";
+import { TwicPictureComponent } from "./picture.component";
 import { TwicVideoComponent } from "./video.component";
 import { TwicViewComponent } from "./view.component";
 
@@ -11,6 +12,7 @@ import { TwicViewComponent } from "./view.component";
         TwicBackgroundComponent,
         TwicImgComponent,
         TwicMediaComponent,
+        TwicPictureComponent,
         TwicVideoComponent,
         TwicViewComponent,
     ],
@@ -18,6 +20,7 @@ import { TwicViewComponent } from "./view.component";
     "exports": [
         TwicBackgroundComponent,
         TwicImgComponent,
+        TwicPictureComponent,
         TwicVideoComponent,
         TwicViewComponent,
     ],

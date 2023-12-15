@@ -31,5 +31,5 @@ export class AppComponent {
 }
 
 installTwicPics( {
-    "domain": `https://demo.twic.pics`,
+    "domain": `https://demo.twic.it`,
 } );

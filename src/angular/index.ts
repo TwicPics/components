@@ -5,6 +5,7 @@ export type { Anchor, Environment, Mode, Placeholder, State, StateEvent } from "
 export * from "./background.component";
 export * from "./img.component";
 export * from "./media.component";
+export * from "./picture.component";
 export * from "./video.component";
 export * from "./view.component";
 export * from "./components.module";
