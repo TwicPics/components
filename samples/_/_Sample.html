@@ -1539,7 +1539,13 @@ Test"
             src="football.jpg"
             alt="A footballer"
             eager
-            focus="auto, @xl top"
+            focus="
+              auto
+              @md bottom
+              @lg auto
+              @xl top
+            "
+            mode="@md contain, @lg cover"
             preTransform="flip=x"
             ratio="
                 3/4
