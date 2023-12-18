@@ -85,7 +85,7 @@ export interface CreateUrlData {
 
 export interface Options {
     anticipation?: number,
-    breakpoints: { [ key in BreakPoint ]: number },
+    breakpoints?: { [ key in BreakPoint ]?: number },
     class?: string,
     debug?: boolean,
     domain: string,
