@@ -13,6 +13,7 @@
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
     - [Bulk loading with TwicView](#bulk-loading-with-twicview)
+    - [Critical Images](#critical-images)
     - [Image magnifier](#image-magnifier)
     - [Lifecycle](#lifecycle)
     - [Refit Example](#refit-example)
@@ -21,8 +22,10 @@
     - [Working with ratio="none"](#ratio-none)
 - [Components properties](#components-props)
     - [TwicImg](#twic-img)
+    - [TwicPicture](#twic-picture)
     - [TwicVideo](#twic-video)
 - [CSS variables](#css-variables)
+- [Default Breakpoints](#default-breakpoints)
 - [Examples](#examples)
 - [Questions and feedback](#getting-help)
 - [Other frameworks](#other-frameworks)
@@ -44,16 +47,73 @@ TwicPics acts as an **proxy**. It retrieves your master file — from your own w
 
 ### What is TwicPics Components?
 
-TwicPics Components is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
+__TwicPics Components__ is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
 
-TwicPics Components are a drop-in replacement for `<img>` and `<video>` tags with optimized _Cumulative Layout Shift_ (CLS), low-quality image placeholders, and lazy loading out of the box.
+Whether you need to display a content image, showcase a short video or ensure optimal performance with _Large Contentful Paint_ (LCP) care, TwicPics Components has you covered.
+
+#### Display a Content Image
+
+If you want to display a __content pixel-perfect image__ with optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box, you can use the `<TwicImg>` component.
+
+It's a drop-in replacement for the standard `img` tag and is based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/script).
 
 ```html
 <!-- Before -->
-<img src="https://assets.twicpics.com/examples/football.jpg" />
+<img src="https://example.com/your-image.jpg" />
 
 <!-- After -->
-<TwicImg src="https://assets.twicpics.com/examples/football.jpg" />
+<TwicImg src="your-image.jpg" />
+```
+
+#### Display a Critical Image
+
+If you need to display __critical images__ with _art direction_ support, you can use the `<TwicPicture>` component.
+
+It serves as a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests) without any additional effort.
+
+
+```html
+<!-- Before -->
+<picture>
+  <source
+    media="(min-width: 1280px)"
+    srcset="wide-image.jpg, wide-image-2x.jpg 2x, wide-image-3x.jpg 3x"
+  >
+  <source
+    media="(min-width: 768px)"
+    srcset="squared-image.jpg, squared-image-2x.jpg 2x, squared-image-3x.jpg 3x"
+  >
+  <img
+    srcset="portrait-image.jpg, portrait-image-2x.jpg 2x, portrait-image-3x.jpg 3x"
+    src="portrait-image.jpg"
+  >
+</picture>
+
+<!-- After -->
+<TwicPicture
+  src="your-master-image.jpg"
+  ratio="
+    3/4
+    @md 1
+    @xl 16/9
+  "
+/>
+```
+
+#### Display a Video
+
+For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
+
+
+```html
+<!-- Before -->
+<video >
+  <source src="https://example.com/your-video.mp4" type="video/mp4">
+  <!-- ... other video sources ... -->
+</video>
+
+<!-- After -->
+<TwicVideo src="your-video.mp4" />
 ```
 
 
@@ -128,6 +188,7 @@ module.exports = {
 | Option | Description | Type | Default |
 |:-|:-|:-|:-|
 | `anticipation` | [TwicPics](https://www.twicpics.com/) will lazy-load images by default. To avoid too abrupt a transition with elements appearing into view and then images very obviously loading afterwards, [TwicPics](https://www.twicpics.com/) will "anticipate" lazy loading by a factor of the actual viewport. This behavior is controlled by this setting. | `Number` | `0.2` |
+| `breakpoints`| Customizes breakpoints value for responsive behavior. | `object` | `{ xs: 320, sm: 640, md: 768, lg: 1024, xl: 1280, '2xl': 1536 }` |
 | `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths). Providing it is __mandatory__. | `String` | |
 | `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
 | `handleShadowDom` | Must be set to `true` when using TwicComponents within a shadow DOM. | `boolean` | `false` |
@@ -139,7 +200,9 @@ module.exports = {
 
 ## Usage
 
-Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
+Import TwicPics Components such as `TwicImg`, `TwicPicture`, or `TwicVideo` into your template files.
+
+Replace standard `img`, `picture`, or `video` tags with these components to enhance functionality and customization (see [Components Properties](#components-properties)).
 
 Add the import part
 ```js
@@ -147,12 +210,16 @@ Add the import part
 // nb : Gatsby uses react components
 import { TwicImg } from "@twicpics/components/react";
 
-// this component will be used in place of an video element.
+// this component will be used in place of a `picture` element.
+// nb : Gatsby uses react components
+import { TwicPicture } from "@twicpics/components/react";
+
+// this component will be used in place of a video element.
 // nb : Gatsby uses react components
 import { TwicVideo } from "@twicpics/components/react";
 ```
 
-then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<video>` (see [Components Properties](#components)).
+then, use `<TwicImg>`, `<TwicPicture>` or `<TwicVideo>` in place of standard tags `<img>`, `<picture>` or `<video>` (see [Components Properties](#components)).
 
 <div id='basic-usage'/>
 
@@ -171,6 +238,113 @@ const YourTemplate = () => (
 
 export default YourTemplate;
 ```
+
+### Critical Images
+
+`TwicPicture` streamlines the use of `picture` elements and `srcset` attributes.
+
+It operates independently of the [TwicPics Script](https://www.twicpics.com/docs/essentials/script) and dynamically generates `source` elements and `srcset` attributes from a single master file using variants transformed through the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests).
+
+#### Resolution switching
+
+Following examples illustrate how to serve different resolutions of the same image accordingly to `breakpoints` and `maxDPR` defined in [Setup Options](#setup-options).
+
+```html
+<!-- Populate srcset and fallback with a list of squared variants -->
+<TwicPicture src="your-lcp-image.jpg"></TwicPicture>
+```
+
+```html
+<!-- Populate srcset and fallback with a list of 16/9 variants -->
+<TwicPicture
+  src="your-lcp-image.jpg"
+  ratio="16/9"
+></TwicPicture>
+```
+
+```html
+<!-- eager disables lazy-loading and sets fetchpriority to high -->
+<TwicPicture
+  src="your-lcp-image.jpg"
+  eager
+></TwicPicture>
+```
+
+```html
+<!-- for best performances set sizes attribute is a best practice -->
+<TwicPicture
+  src="your-lcp-image.jpg"
+  eager
+  sizes="
+    (min-width: 1000px) 33vw,
+    96vw
+  "
+></TwicPicture>
+```
+
+For a comprehensive list of properties and detailed information, please refer to [TwicPicture](#twic-picture).
+
+#### Art Direction
+
+To achieve _art direction_, simply configure the following `TwicPicture`'s properties in accordance with the __mobile-first principle__:
+
+- anchor
+- focus
+- mode
+- position
+- ratio
+
+Following examples illustrate how to serve various image variations based on distinct _artistic directions_ and 
+[default breakpoints value](#default-breakpoints):
+
+```html
+<!--
+  This will display a :
+  squared variant (default ratio) for screen with a width < 1024 px
+  4/3 variant for screen with a width >= 1024 px
+  21/9 variant for screen with a width >= 1280 px
+-->
+<TwicPicture
+  src="art.jpg"
+  alt="Art Direction Example"
+  ratio="
+    @lg 4/3
+    @xl 21/9
+  "
+/>
+
+<!--
+  This allows to change the focus point for screen with a width >= 1280 px
+-->
+<TwicPicture
+  src="art.jpg"
+  alt="Art Direction Example"
+  ratio="
+    @lg 4/3
+    @xl 21/9
+  "
+  focus="@xl top"
+/>
+
+<!--
+  You can also configure a custom breakpoint
+-->
+<TwicPicture
+  src="art.jpg"
+  alt="Art Direction Example"
+  ratio="
+    @lg 4/3
+    @xl 21/9
+  "
+  focus="
+    @666 bottom
+    @xl top
+  "
+/>
+```
+
+[Default breakpoints value](#default-breakpoints) can be configured [here](setup-options).
+
 
 <div id='bulk-loading-with-twicview'/>
 
@@ -227,7 +401,7 @@ It applies only to `TwicImg` component in __cover__ `mode`.
 
 ### Lifecycle
 
-Passing a callback function to `onStateChange` gives access to the loading state of your image or video.
+For `TwicImg` and `TwicVideo` components, passing a callback function to `onStateChange` gives access to the loading state of your image or video.
 
 Here are the values the Component will emit ([see State Type definition](#state-type)) :
 
@@ -282,7 +456,7 @@ __WARNING__: when using `onStateChange` in a **Server Components module graph**,
 
 ### Refit example
 
-The `<TwicImg>` component allows to __reframe__ your image on the __main subject(s)__ it contains.
+`<TwicImg>` and `<TwicPicture>` components allow to __reframe__ your image on the __main subject(s)__ they contain.
 
 In **cover** `mode`, the resulting image will respect`ratio` while maximizing the area occupied by the main subject(s).
 
@@ -314,7 +488,7 @@ For example:
 
 ### Style-Driven Approach
 
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+You can set up `TwicImg` and `TwicVideo` components using pure CSS and the power of [CSS variables](#css-variables).
 
 `styles.css`
 
@@ -392,7 +566,10 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 ### Responsive Example
 
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
+Setting up `TwicImg` and `TwicVideo` components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
+
+Your template features a single component that will follow your CSS directives and behave responsively.
+
 
 `styles.css`
 
@@ -432,8 +609,6 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
   }
 }
 ```
-
-Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
 <!-- component.html -->
@@ -447,7 +622,25 @@ src="path/to/your/image"
 
 ### Working with ratio="none"
 
+#### With TwicPicture
+
+Useful if you want to display an image with its intrinsic aspect ratio without cropping.
+
+When using `ratio="none"` there is no CLS optimization and you are responsible for it.
+
+```html
+<!-- will display your image with it's intrinsic ratio, without any cropping -->
+<TwicPicture>
+  src="path/to/your/image"
+  ratio="none"
+</TwicPicture>
+```
+
+#### With TwicImg and TwicVideo
+
 Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+
+When using `ratio="none"`, you are responsible for properly sizing the component.
 
 `styles.css`
 
@@ -481,7 +674,10 @@ Particularly useful when creating hero banner, you can specify the height of you
 
 ### `TwicImg`
 
-This component can be used in place of an `img` element.
+This component is a drop-in replacement for `img` dedicated to content images.
+
+It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
+
 
 ```html
 <TwicImg
@@ -514,7 +710,7 @@ This component can be used in place of an `img` element.
 | `alt` | `alt` attribute content | `String` | |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` | |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-bot) for more information. | `String` | |
-| `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image.  | `boolean` | `false` |
+| `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `intrinsic` | Dimensions in pixels of the __original__ image, formatted `<width>x<height>` (eg. 1920x1080). It prevents image upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the __resulting__ image. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-intrinsic).| `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
@@ -532,11 +728,55 @@ This component can be used in place of an `img` element.
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
 | `zoom` | Enables zoom feature and sets the magnification factor. Must be a number strictly greater than 1 as in `"1.5"` or `1.5`. When set to `'css'`, magnification factor is defined through the CSS variable `--twic-zoom`.Should only be applied to images in cover `mode`. See [Image magnifier](#image-magnifier).| `String | number` | `1` |
+<div id='twic-picture'/>
+
+### `TwicPicture`
+
+This component serves as a seamless replacement for the `picture` element.
+
+With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score with optimized _Cumulative Layout Shift_ (CLS), it effortlessly generates the `srcset` and `source` attributes for _resolution switching_ and _art direction_, all derived from a __single master file__ transformed through the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests).
+
+
+```html
+<TwicPicture
+  src="<path>"
+  alt="<String>"
+  anchor="<String>"
+  eager="<boolean>"
+  fetchpriority="<high|low|auto>"
+  focus="<auto|coordinates>"
+  mode="<contain|cover>"
+  position="<String>"
+  preTransform="<String>"
+  ratio="<ratio>"
+  refit="<boolean|String>"
+  sizes="<String>"
+  title="<String>"
+/>
+```
+
+| Attribute | Description | Type | Default |
+|:-|:-|:-|:-|
+| `alt` | `alt` attribute content | `String` | |
+| `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. [Can be set at different breakpoints](#art-direction). | `String` |
+| `eager` | Load the image as soon as the `picture` element is processed and set `fetchpriority` to `high`. This effectively means disabling lazy loading for this image. Recommended for optimal Largest Contentful Paint (LCP) display. | `boolean` | `false` |
+| `fetchpriority` | Acts as standard [fetchpriority property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/fetchPriority). Can be `high`, `low`or `auto`. Defaults to `high` when `eager` is true. | `string` | |
+| `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. [Can be set at different breakpoints](#art-direction). | `String` | |
+| `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). [Can be set at different breakpoints](#art-direction). | `String` | `cover` |
+| `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. [Can be set at different breakpoints](#art-direction). | `String` | `center` |
+| `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
+| `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, the image is displayed with its intrinsic aspect ratio. In this case, you are responsible for optimizing the Cumulative Layout Shift (CLS). [Can be set at different breakpoints](#art-direction). | `String or number` | `1` |
+| `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String ` | `false` |
+| `sizes` | Specifies the layout width of the image for each breakpoints using media query syntax. The value of this parameter has a significant impact on performance. Ensure to configure it carefully. See [sizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes).| `String` | |
+| `src` | Path to the image. | `String` | |
+| `title` | `title` representing information related to the image. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
 <div id='twic-video'/>
 
 ### `TwicVideo`
 
-This component can be used in place of a `video` element.
+This component is a drop-in replacement for `video`.
+
+It provides seamless playback for [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), offering advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
 
 ```html
 <TwicVideo
@@ -566,10 +806,10 @@ This component can be used in place of a `video` element.
 
 | Attribute | Description | Type | Default |
 |:-|:-|:-|:-|
-| `anchor` | Positions the video in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. | `String` |
+| `anchor` | Positions the video in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` | |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-bot) for more information. | `String` | |
 | `duration` | Limits the duration of the video. `duration` is expressed in seconds and must be a positive number. `duration` will not move the starting point of the video: to do so, you'll have to use the `from` property. See [duration documentation](https://www.twicpics.com/docs/reference/transformations#duration). | `String or number` | |
-| `eager` | Load the video as soon as the component is mounted. This effectively means disabling lazy loading for this video.  | `boolean` | `false` |
+| `eager` | Load the video as soon as the component is mounted. This effectively means disabling lazy loading for this video. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `from` | Moves the starting point of the video. `from` is expressed in seconds and must be a positive number. `from` will not move the end point of the video: to do so, you'll have to use the `duration` or `to` properties. See from documentation. See [from documentation](https://www.twicpics.com/docs/reference/transformations#from). | `String or number` | |
 | `intrinsic` | Dimensions in pixels of the __original__ video, formatted `<width>x<height>` (eg. 1920x1080). It prevents video upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the __resulting__ video. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/reference/script-attributes#data-twic-intrinsic).| `String` | |
@@ -588,6 +828,7 @@ This component can be used in place of a `video` element.
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
 | `transitionDelay` | Transition delay of the transition effect. | `String` | `0ms` |
+
 
 
 
@@ -650,6 +891,24 @@ Each CSS variable corresponds to one of the components attributes listed in the 
 | `--twic-transition-duration` | [Duration of the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration) | `transitionDuration` | `400ms` |
 | `--twic-transition-timing-function` | [CSS timing function applied to the transition effect.](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) | `transitionTimingFunction` | `ease` |
 | `--twic-zoom` | Strictly greater than 1 floating point value corresponding to the zoom factor to be applied. Only applies to `TwicImg` with `zoom` property set to `"CSS"`. | `number` | |
+
+<div id='default-breakpoints'/>
+
+## Default Breakpoints
+
+There are six default breakpoints, each corresponding to common device resolutions:
+
+| Breakpoint | Size (pixels) |
+|:-|:-|
+| `xs` | 320 |
+| `sm` | 640 |
+| `md` | 768 |
+| `lg` | 1024 |
+| `xl` | 1280 |
+| `2xl` | 1536 |
+
+These values are customizable during component configuration. Refer to [Setup Options](#setup-options).
+
 
 <div id='example'/>
 

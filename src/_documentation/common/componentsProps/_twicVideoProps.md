@@ -5,7 +5,9 @@
 
 ### `TwicVideo`
 
-This component can be used in place of a `video` element.
+This component is a drop-in replacement for `video`.
+
+It provides seamless playback for [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), offering advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
 
 ```html
 <TwicVideo

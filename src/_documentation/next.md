@@ -128,6 +128,8 @@ export default YourTemplate;
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fbasic-grid%2Findex.jsx&initialpath=basic-grid)
 
+#include "src/_documentation/common/_criticalImages.md"
+
 #include "src/_documentation/common/_bulkLoading.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/bulk-loading/index.jsx&initialpath=bulk-loading)
@@ -144,9 +146,7 @@ export default YourTemplate;
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Frefit%2Findex.jsx&initialpath=refit)
 
-### Style-Driven Approach
-
-You can style your components using pure CSS with [CSS variables](#css-variables).
+#include "src/_documentation/common/_styleDrivenApproach.md"
 
 **CSS**
 
@@ -223,9 +223,7 @@ You can style your components using pure CSS with [CSS variables](#css-variables
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/style-driven/index.jsx&initialpath=style-driven)
 
-### Responsive Example
-
-[CSS variables](#css-variables) also enable you to create responsive designs without hassle.
+#include "src/_documentation/common/_responsiveExample.md"
 
 ```css
 /* styles.css */
@@ -285,13 +283,7 @@ export default function() {
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages%2Fart-directions%2Findex.jsx&initialpath=art-directions)
 
-<div id='ratio-none'/>
-
-### Working with ratio="none"
-
-This is particularly useful when creating hero banner. You can use it to specify an height of your image or vieo while preserving its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
-
-When using `ratio="none"`, you are responsible for properly sizing the component.
+#include "src/_documentation/common/_workingWithRatioNone.md"
 
 ```css
 /* style.css */
@@ -326,6 +318,8 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 #include "src/_documentation/common/react/_stateType.md"
 
 #include "src/_documentation/common/_cssVariables.md"
+
+#include "src/_documentation/common/_breakpoints.md"
 
 ## Next.js Image Loader
 

@@ -1,7 +1,7 @@
 
 ### Refit example
 
-The `<TwicImg>` component allows to __reframe__ your image on the __main subject(s)__ it contains.
+`<TwicImg>` and `<TwicPicture>` components allow to __reframe__ your image on the __main subject(s)__ they contain.
 
 In **cover** `mode`, the resulting image will respect`ratio` while maximizing the area occupied by the main subject(s).
 

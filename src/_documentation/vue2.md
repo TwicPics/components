@@ -97,9 +97,7 @@ You can then reference the component using the alternate name:
 
 ## Usage
 
-`TwicImg` and `TwicVideo` are available in your templates as long as you have [configured the TwicPics Vue2 Plugin](#setting-up-your-project).
-
-Just use them in your template files in place of `img` or `video` tags (see [Components Properties](#components)).
+#include "src/_documentation/common/_usage.md"
 
 ```html
 <template>
@@ -129,6 +127,8 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicBulkLoading.vue&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_criticalImages.md"
+
 #include "src/_documentation/common/_zoomFeature.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicZoom.vue&initialpath=zoom)
@@ -141,11 +141,7 @@ Just use them in your template files in place of `img` or `video` tags (see [Com
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src%2Fcomponents%2FTwicRefit.vue&initialpath=refit)
 
-<div id='style-driven-approach'/>
-
-### Style-Driven Approach
-
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+#include "src/_documentation/common/_styleDrivenApproach.md"
 
 
 ```html
@@ -220,11 +216,7 @@ export default {
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicStyleDriven.vue&initialpath=style-driven)
 
 
-<div id='responsive-example'/>
-
-### Responsive Example
-
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
+#include "src/_documentation/common/_responsiveExample.md"
 
 
 ```html
@@ -282,16 +274,9 @@ export default {
 </style>
 ```
 
-Your template features a single component that will follow your CSS directives and behave responsively.
- 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-vue2?file=src/components/TwicArtDirections.vue&initialpath=art-directions)
 
-<div id='ratio-none'/>
-
-### Working with ratio="none"
-
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
-
+#include "src/_documentation/common/_workingWithRatioNone.md"
 
 ```html
 <!-- component.vue -->
@@ -331,6 +316,8 @@ export default {
 #include "src/_documentation/common/vue/_stateType.md"
 
 #include "src/_documentation/common/_cssVariables.md"
+
+#include "src/_documentation/common/_breakpoints.md"
 
 <div id='example'/>
 
