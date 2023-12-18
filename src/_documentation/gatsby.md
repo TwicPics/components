@@ -71,7 +71,7 @@ module.exports = {
 
 ## Usage
 
-Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
+#include "src/_documentation/common/_usage.md"
 
 Add the import part
 ```js
@@ -79,12 +79,16 @@ Add the import part
 // nb : Gatsby uses react components
 import { TwicImg } from "@twicpics/components/react";
 
-// this component will be used in place of an video element.
+// this component will be used in place of a `picture` element.
+// nb : Gatsby uses react components
+import { TwicPicture } from "@twicpics/components/react";
+
+// this component will be used in place of a video element.
 // nb : Gatsby uses react components
 import { TwicVideo } from "@twicpics/components/react";
 ```
 
-then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<video>` (see [Components Properties](#components)).
+then, use `<TwicImg>`, `<TwicPicture>` or `<TwicVideo>` in place of standard tags `<img>`, `<picture>` or `<video>` (see [Components Properties](#components)).
 
 <div id='basic-usage'/>
 
@@ -103,6 +107,7 @@ const YourTemplate = () => (
 
 export default YourTemplate;
 ```
+#include "src/_documentation/common/_criticalImages.md"
 
 #include "src/_documentation/common/_bulkLoading.md"
 
@@ -112,11 +117,7 @@ export default YourTemplate;
 
 #include "src/_documentation/common/_refitFeature.md"
 
-<div id='style-driven-approach'/>
-
-### Style-Driven Approach
-
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+#include "src/_documentation/common/_styleDrivenApproach.md"
 
 `styles.css`
 
@@ -190,11 +191,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 </div>
 ```
 
-<div id='responsive-example'/>
-
-### Responsive Example
-
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
+#include "src/_documentation/common/_responsiveExample.md"
 
 `styles.css`
 
@@ -234,8 +231,6 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
   }
 }
 ```
-
-Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
 <!-- component.html -->
@@ -245,11 +240,7 @@ src="path/to/your/image"
 ></TwicImg>
 ```
 
-<div id='ratio-none'/>
-
-### Working with ratio="none"
-
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+#include "src/_documentation/common/_workingWithRatioNone.md"
 
 `styles.css`
 
@@ -281,6 +272,8 @@ Particularly useful when creating hero banner, you can specify the height of you
 #include "src/_documentation/common/react/_stateType.md"
 
 #include "src/_documentation/common/_cssVariables.md"
+
+#include "src/_documentation/common/_breakpoints.md"
 
 <div id='example'/>
 

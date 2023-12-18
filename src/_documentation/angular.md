@@ -68,6 +68,9 @@ export class AppComponent {}
 installTwicPics({
   domain: 'https://<your-domain>.twic.pics',
   anticipation: 0.5,
+  breakpoints: {
+    sm: 576,
+  }
   step: 100,
 })
 ```
@@ -125,13 +128,15 @@ export class AppModule {}
 
 ## Usage
 
-`TwicImg` and `TwicVideo` are available for use in the scope of the module into which you have imported `TwicPicsComponentsModule` [see Module Declaration](#module-declaration).
+`TwicImg`, `TwicPicture` and `TwicVideo` are available for use in the scope of the module into which you have imported `TwicPicsComponentsModule` [see Module Declaration](#module-declaration).
 
-Just use them in your template files in place of `img` or `video` tags.
+Just use them in your template files in place of `img`, `picture` or `video` tags.
 
 ```html
 <!-- component.html -->
 <TwicImg src="path/to/your/image"></TwicImg>
+<TwicPicture src="path/to/your/video"></TwicPicture>
+<TwicVideo src="path/to/your/video"></TwicVideo>
 ```
 
 <div id='basic-usage'/>
@@ -147,15 +152,13 @@ Just use them in your template files in place of `img` or `video` tags.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-basic-grid%2Ftwic-basic-grid.component.html&initialpath=basic-grid)
 
+#include "src/_documentation/common/_criticalImages.md"
+
 #include "src/_documentation/common/_bulkLoading.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-bulk-loading%2Ftwic-bulk-loading.component.html&initialpath=bulk-loading)
 
-<div id='style-driven-approach'/>
-
-### Style-Driven Approach
-
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+#include "src/_documentation/common/_styleDrivenApproach.md"
 
 `<your-component-within-app.module>.component.css`
 
@@ -244,7 +247,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 
 ### Lifecycle
 
-Binding to `stateChangeEvent` gives access to the loading state of your image or video.
+For `TwicImg` and `TwicVideo` components, binding to `stateChangeEvent` gives access to the loading state of your image or video.
 
 Here are the values the Component will emit ([see State Type definition](#state-type)) :
 
@@ -332,11 +335,7 @@ Here are the values the Component will emit ([see State Type definition](#state-
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-refit/twic-refit.component.html&initialpath=refit)
 
-<div id='responsive-example'/>
-
-### Responsive Example
-
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
+#include "src/_documentation/common/_responsiveExample.md"
 
 `<your-component-within-app.module>.component.css`
 
@@ -378,8 +377,6 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 }
 
 ```
-
-Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
 <!-- component.html -->
@@ -392,11 +389,7 @@ Your template features a single component that will follow your CSS directives a
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-art-direction%2Ftwic-art-direction.component.html&initialpath=art-direction)
 
-<div id='ratio-none'/>
-
-### Working with ratio="none"
-
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+#include "src/_documentation/common/_workingWithRatioNone.md"
 
 `styles.css`
 
@@ -555,10 +548,9 @@ export type StateEvent = {
 };
 ```
 
-
 #include "src/_documentation/common/_cssVariables.md"
 
-
+#include "src/_documentation/common/_breakpoints.md"
 
 <div id='example'/>
 

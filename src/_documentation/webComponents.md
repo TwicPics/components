@@ -92,7 +92,7 @@ customElements.define( `twic-img`, TwicImg );
 
 ## Usage
 
-TwicPics Web Components comes as `Custom Html Elements`. Just use them in place of `img` or `video` tags according to the custom alias you have specified.
+TwicPics Web Components comes as `Custom Html Elements`. Just use them in place of `img`, `picture` or `video` tags according to the custom alias you have specified.
 
 ```html
 <twic-img src="path/to/your/image"/>
@@ -113,15 +113,13 @@ More properties [here](#components).
 
 #include "src/_documentation/common/_bulkLoading.md"
 
+#include "src/_documentation/common/_criticalImages.md"
+
 #include "src/_documentation/common/_zoomFeature.md"
 
 #include "src/_documentation/common/_refitFeature.md"
 
-<div id='style-driven-approach'/>
-
-### Style-Driven Approach
-
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+#include "src/_documentation/common/_styleDrivenApproach.md"
 
 
 ```html
@@ -206,13 +204,8 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
   <img alt="Edit web-component - Style Driven" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-<div id='responsive-example'/>
+#include "src/_documentation/common/_responsiveExample.md"
 
-### Responsive Example
-
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
-
-Your template features a single component that will follow your CSS directives and behave responsively.
  
 ```html
 <!-- page.html -->
@@ -274,11 +267,7 @@ Your template features a single component that will follow your CSS directives a
   <img alt="Edit web-component - Art Direction" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-<div id='ratio-none'/>
-
-### Working with ratio="none"
-
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+#include "src/_documentation/common/_workingWithRatioNone.md"
 
 
 ```html
@@ -315,6 +304,8 @@ Particularly useful when creating hero banner, you can specify the height of you
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"
+
+#include "src/_documentation/common/_breakpoints.md"
 
 <div id='example'/>
 

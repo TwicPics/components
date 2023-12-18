@@ -6,7 +6,10 @@
 
 ### `TwicImg`
 
-This component can be used in place of an `img` element.
+This component is a drop-in replacement for `img` dedicated to content images.
+
+It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
+
 
 ```html
 <TwicImg

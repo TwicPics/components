@@ -2,7 +2,7 @@
 
 ### Lifecycle
 
-Passing a callback function to `stateChange` emitter gives access to the loading state of your image or video.
+For `TwicImg` and `TwicVideo` components, passing a callback function to `stateChange` emitter gives access to the loading state of your image or video.
 
 Here are the values the Component will emit ([see State Type definition](#state-type)) :
 

@@ -72,7 +72,7 @@ If you don't already have a [layout](https://kit.svelte.dev/docs/routing#layout-
 
 ## Usage
 
-Import TwicPics Components `TwicImg` and `TwicVideo` in your template files and use them in place of `img` or `video` tags.
+#include "src/_documentation/common/_usage.md"
 
 Add the import part in the `script` section of your `.svelte` file
 ```html
@@ -92,12 +92,15 @@ or
   // this component will be used in place of an img element.
   import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
 
-  // this component will be used in place of an video element.
+    // this component will be used in place of a `picture` element.
+  import TwicPicture from "@twicpics/components/sveltekit/TwicPicture.svelte";
+
+  // this component will be used in place of a video element.
   import TwicVideo from "@twicpics/components/sveltekit/TwicVideo.svelte";
 </script>
 ```
 
-then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<video>` (see [Components Properties](#components)).
+then, use `<TwicImg>`, `<TwicPicture>` or `<TwicVideo>` in place of standard tags `<img>`, `picture`  or `<video>` (see [Components Properties](#components)).
 
 <div id='basic-usage'/>
 
@@ -120,6 +123,8 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fbulk-loading%2F%2Bpage.svelte&initialpath=bulk-loading)
 
+#include "src/_documentation/common/_criticalImages.md"
+
 #include "src/_documentation/common/_zoomFeature.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fzoom%2F%2Bpage.svelte&initialpath=zoom)
@@ -128,7 +133,7 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 
 ### Lifecycle
 
-Binding to `state` props gives access to the loading state of your image or video.
+For `TwicImg` and `TwicVideo` components, binding `state` props gives access to the loading state of your image or video.
 
 Here are the values the Component will emit :
 
@@ -186,11 +191,7 @@ Another approach is to listen to `statechange` event.
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Frefit%2F%2Bpage.svelte&initialpath=refit)
 
 
-<div id='style-driven-approach'/>
-
-### Style-Driven Approach
-
-You can set up components using pure CSS and the power of [CSS variables](#css-variables)
+#include "src/_documentation/common/_styleDrivenApproach.md"
 
 ```html
 <script>
@@ -249,11 +250,7 @@ You can set up components using pure CSS and the power of [CSS variables](#css-v
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fstyle-driven%2F%2Bpage.svelte&initialpath=style-driven)
 
 
-<div id='responsive-example'/>
-
-### Responsive Example
-
-Setting up components using CSS and [CSS variables](#css-variables) enables hassle-free responsive designs.
+#include "src/_documentation/common/_responsiveExample.md"
 
 
 ```html
@@ -307,16 +304,9 @@ Setting up components using CSS and [CSS variables](#css-variables) enables hass
 </main>
 ```
 
-Your template features a single component that will follow your CSS directives and behave responsively.
- 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-sveltekit?file=src%2Froutes%2Fart-directions%2F%2Bpage.svelte&initialpath=art-directions)
 
-<div id='ratio-none'/>
-
-### Working with ratio="none"
-
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
-
+#include "src/_documentation/common/_workingWithRatioNone.md"
 
 ```html
 <script>
@@ -351,6 +341,8 @@ Particularly useful when creating hero banner, you can specify the height of you
 #include "src/_documentation/common/_componentsProps.md"
 
 #include "src/_documentation/common/_cssVariables.md"
+
+#include "src/_documentation/common/_breakpoints.md"
 
 <div id='example'/>
 
