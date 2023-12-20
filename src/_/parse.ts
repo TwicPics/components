@@ -121,7 +121,10 @@ export const parseFetchPriority = regExpFinderFactory< FetchPriority >( rValidFe
 
 export const parseEnv = regExpFinderFactory< Environment >( rValidEnvironment );
 
-export const parseFocus = trimOrUndefined;
+export const parseFocus = ( value: string ) => {
+    const trimmed = trimOrUndefined( value );
+    return trimmed === `none` ? undefined : trimmed;
+};
 
 export const parseFocuses = parseBreakpointsFactory<string>( parseFocus );
 
