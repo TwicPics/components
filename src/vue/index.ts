@@ -1,4 +1,4 @@
-import type { Options as BaseOptions } from "../_/types";
+import type { Options as BaseOptions, BreakPoint } from "../_/types";
 import type { PluginFunction, default as Vue } from "vue";
 import { installTwicPics } from "../_/install";
 import register from "./register";
@@ -14,8 +14,8 @@ interface Options extends BaseOptions {
     TwicImg?: string,
     TwicPicture?: string,
     TwicVideo?: string,
-    TwicView?:string,
-    [key: string]: number | boolean | string;
+    TwicView?: string,
+    [ key: string]: number | boolean | string | { [ key in BreakPoint ]?: number };
 }
 
 const componentNames: string[] = [ `TwicImg`, `TwicView`, `TwicVideo`, `TwicPicture` ];
@@ -57,5 +57,4 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
         "componentName": options.TwicView || `TwicView`,
     } );
 };
-
 export default plugin;
