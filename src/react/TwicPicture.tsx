@@ -24,6 +24,7 @@ import type { Anchor } from "../_/types";
 import { validAnchors } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
+import { isBrowser } from "../_/utils";
 
 export interface PictureAttributes extends BaseAttributes {
     fetchpriority?: string,
@@ -62,6 +63,11 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
         src
     );
 
+    if ( isBrowser && pictureData?.img && pictureData.img.hasOwnProperty( `fetchPriority` ) ) {
+        // until react fixes the bug (ok with Next.js)
+        delete pictureData.img.fetchPriority;
+    }
+
     return (
         <div className={ `twic-i ${ className }` } >
             <picture className="twic-p" title={ title }>
@@ -71,6 +77,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                     )
                 ) }
                 <img
+                    suppressHydrationWarning
                     alt={ computeAlt( alt, `img` ) }
                     { ...pictureData?.img }
                 />
