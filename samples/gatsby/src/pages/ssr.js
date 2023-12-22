@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 // eslint-disable-next-line no-use-before-define
 import * as React from "react";
-import { TwicImg } from "@twicpics/components/react";
+import { TwicImg, TwicPicture } from "@twicpics/components/react";
 import { getSampleImage } from "@twicpics/components-sample/fakeServer.js";
 import MenuBar from "../components/menuBar";
 
@@ -37,6 +37,18 @@ const SSRPage = ( { serverData } ) => (
                     transition = "zoom"
                 />
                 <span>ratio = { serverData.ratio }, transition = "zoom"</span>
+            </div>
+            <div className="item">
+                <TwicPicture
+                    eager
+                    src="football.jpg"
+                    sizes="
+                      (max-width: 750px) 100vm,
+                      (max-width: 1140px) 400px,
+                      350px
+                    "
+                />
+                <span>TwicPicture</span>
             </div>
         </div>
     </main> );
