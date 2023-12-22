@@ -194,7 +194,7 @@ export const computePicture = (
                       ).join( `,` );
                       attributes[ `width` ] = `${ width }`;
                       if ( index === ( artDirectives.length - 1 ) ) {
-                          attributes[ `fetchpriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
+                          attributes[ `fetchPriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
                           attributes[ `loading` ] = eager ? `eager` : `lazy`;
                           attributes[ `src` ] = srcMap.get( width );
                       }
