@@ -28,6 +28,7 @@ import { isBrowser } from "../_/utils";
 
 export interface PictureAttributes extends BaseAttributes {
     fetchpriority?: string,
+    mode?: string,
     refit?: boolean | string,
     sizes?: string
 }
