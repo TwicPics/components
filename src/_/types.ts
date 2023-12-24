@@ -35,7 +35,6 @@ export interface Attributes {
     alt?: string,
     anchor?: string,
     focus?: string,
-    mode?: Mode,
     eager?: boolean | string,
     position?: string,
     preTransform?:string,
@@ -47,6 +46,7 @@ export interface Attributes {
 export interface ScriptAttributes {
   bot?: string,
   intrinsic?: string,
+  mode?: Mode,
   placeholder?: Placeholder,
   step?: number | string,
   transition?: boolean | string,
