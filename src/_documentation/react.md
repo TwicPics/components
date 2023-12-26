@@ -13,23 +13,20 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-react-demo.netlify.app/).
+> [!NOTE]
+> Discover our demonstrations and integration examples [in our online demo project](https://twicpics-react-demo.netlify.app/).
 
 #include "src/_documentation/common/_installation.md"
-
-<div id='setup'/>
 
 ## Setup
 
 #include "src/_documentation/common/_requirement.md"
 
-<div id='setting-up-your-project'/>
-
-### Setting-up TwicPics Components into your `React` project
+### Setting up TwicPics Components in your `React` project
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
-Add the import part
+Add the import part:
 
 ```jsx
 // import TwicPics react components
@@ -38,7 +35,7 @@ import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 ```
 
-and the configuration part (see [Setup Options](#setup-options))
+And the configuration part (see [Setup Options](#setup-options)):
 
 ```jsx
 installTwicpics( {
@@ -47,7 +44,7 @@ installTwicpics( {
 } );
 ```
 
-into the entry point file your `React` project.
+In the entry point file your `React` project.
 
 #### index.jsx (React 16+)
 
@@ -104,31 +101,26 @@ root.render(
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
-
-## Usage
-
 #include "src/_documentation/common/_usage.md"
 
-Add the import part
+Add the import part:
 ```jsx
-// this component will be used in place of an img element.
+// this component will be used in instead of an img element.
 import { TwicImg } from "@twicpics/components/react";
 
-// this component will be used in place of a `picture` element.
+// this component will be used in instead of a `picture` element.
 import { TwicPicture } from "@twicpics/components/react";
 
-// this component will be used in place of an video element.
+// this component will be used in instead of an video element.
 import { TwicVideo } from "@twicpics/components/react";
 ```
 
-then, use `<TwicImg>`, `TwicPicture` or `<TwicVideo>` in place of standard tags `<img>`, `<picture>` or `<video>` (see [Components Properties](#components)).
-
-<div id='basic-usage'/>
+then, use `<TwicImg>`, `TwicPicture` or `<TwicVideo>` instead of standard tags `<img>`, `<picture>` or `<video>` (see [Components Properties](#components-properties)).
 
 ### Basic usage
 
-__NB__ : TwicPics Components can also be used in `js`, `jsx`, `ts`, `tsx` files.
+> [!TIPS]
+> TwicPics Components can also be used in `js`, `jsx`, `ts`, `tsx` files.
 
 ```jsx
 // component.jsx
@@ -326,8 +318,6 @@ export default YourTemplate;
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

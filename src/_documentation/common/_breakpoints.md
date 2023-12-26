@@ -1,5 +1,3 @@
-<div id='default-breakpoints'/>
-
 ## Default Breakpoints
 
 There are six default breakpoints, each corresponding to common device resolutions:

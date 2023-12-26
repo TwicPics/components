@@ -16,7 +16,7 @@
     - [For React Native Expo Go projects](#for-react-native-expo-go-projects)
     - [For React Native CLI projects](#for-react-native-cli-projects)
 - [Setup](#setup)
-  - [Setting-up TwicPics Components in your React Native project](#setting-up-twicpics-components-in-your-react-native-project)
+  - [Setting up TwicPics Components in your React Native project](#setting-up-twicpics-components-in-your-react-native-project)
   - [Setup Options](#setup-options)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
@@ -119,7 +119,7 @@ npx pod-install
 
 ## Setup
 
-### Setting-up TwicPics Components in your React Native project
+### Setting up TwicPics Components in your React Native project
 
 #include "src/_documentation/common/_requirement.md"
 
@@ -257,7 +257,8 @@ For example:
 
 ### Working with ratio="none"
 
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing the _Cumulative Layout Shift_ metric.
+It is particularly useful when creating a "hero" banner. You can specify the height of your image while respecting its natural aspect ratio, and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+
 When using `ratio="none"` your style **must** specify the image height.
 
 ```jsx
@@ -289,7 +290,7 @@ export default MyComponent;
 
 ### `TwicImg`
 
-This component can be used in place of an `<Image>` component.
+This component can be used in instead of an `<Image>` component.
 
 ```html
 <TwicImg

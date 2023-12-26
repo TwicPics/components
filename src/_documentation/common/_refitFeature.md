@@ -1,17 +1,17 @@
 
 ### Refit example
 
-`<TwicImg>` and `<TwicPicture>` components allow to __reframe__ your image on the __main subject(s)__ they contain.
+`<TwicImg>` and `<TwicPicture>` components allow to **reframe** your image on the **main subject(s)** they contain.
 
-In **cover** `mode`, the resulting image will respect`ratio` while maximizing the area occupied by the main subject(s).
+In **cover** `mode`, the resulting image will respect the `ratio` while maximizing the area occupied by the main subject(s).
 
-In **contain** `mode`, the image will be cropped as close as possible to the main subject(s).
+In **contain** `mode`, the image is cropped as close as possible to the main subject(s).
 
-To activate automatic cropping, simply add the `refit` property to your component.
+To activate automatic cropping, add the `refit` property to your component.
 
-By default, the subject will be placed at the center of the resulting image but it is possible to align the subject with a given border by specifying an `anchor`.
+By default, the subject will be placed at the center of the resulting image, but it is possible to align the subject with a given border by specifying an `anchor`.
 
-Also by default, the subject will touch the borders of the resulting image. This can be avoided by setting `refit` with a comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) value defining padding.
+Also, by default, the subject will touch the borders of the resulting image. This can be avoided by setting `refit` with a comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) value defining padding.
 
 For example:
 

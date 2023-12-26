@@ -2,7 +2,7 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Next.js"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://nextjs.org/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "next"
-// /(\b)setup-options(\b)/gm => "twic-install"
+// /(\b)setup-options(\b)/gm => "twicinstall"
 // /(\b)Setup Options(\b)/gm => "TwicInstall"
 #include "src/_documentation/common/react/_replacerRules.md"
 
@@ -16,7 +16,8 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+> [!NOTE]
+> Discover our demonstrations and integration examples [in our online demo project](https://twicpics-next-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_installation.md"
 
@@ -28,9 +29,7 @@ If you only want to use the **Next.js loader**, skip to [Next.js Image Loader](#
 
 #include "src/_documentation/common/_requirement.md"
 
-Configuration of `TwicPics Components` depends on the setup of your application, whether you are using [Next Pages Router](#page-router) or [Next App Router](#app-router).
-
-<div id='page-router'/>
+Configuration of `TwicPics Components` depends on your application's setup, whether you are using [Next Pages Router](#using-next-pages-router) or [Next App Router](#using-next-app-router-next-13).
 
 #### Using Next Pages Router
 
@@ -53,8 +52,6 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 ```
-
-<div id='app-router'/>
 
 #### Using Next App Router (Next 13+)
 
@@ -79,8 +76,6 @@ export default function RootLayout( { children }: {
 }
 ```
 
-<div id='twic-install'/>
-
 ### TwicInstall
 
 This component configures `TwicPics Components` and must be placed in your project's entry point file.
@@ -98,17 +93,7 @@ This component configures `TwicPics Components` and must be placed in your proje
 />
 ```
 
-| Option | Description | Type | Default |
-|:-|:-|:-|:-|
-| `anticipation` | [TwicPics](https://www.twicpics.com/) will lazy-load images by default. To avoid too abrupt a transition with elements appearing into view and then images very obviously loading afterwards, [TwicPics](https://www.twicpics.com/) will "anticipate" lazy loading by a factor of the actual viewport. This behavior is controlled by this setting. | `Number` | `0.2` |
-| `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths). Providing it is __mandatory__. | `String` | |
-| `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
-| `handleShadowDom` | Must be set to `true` when using TwicComponents within a shadow DOM. | `boolean` | `false` |
-| `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
-| `path` | Path to prepend to all src attributes. For instance, if path is `"some/folder"` then a src attribute set to `"image.jpg"` will be expanded into `"some/folder/image.jpg"` | `String` | |
-| `step` | To avoid requesting too may variants of the same image, [TwicPics](https://www.twicpics.com/) will round the width of images to the closest multiple of step. The height will then be computed in order to respect the original aspect ratio. | `Integer` | `10` |
-
-<div id='usage'/>
+#include "src/_documentation/common/_optionsList.md"
 
 ## Usage
 
@@ -148,7 +133,7 @@ export default YourTemplate;
 
 #include "src/_documentation/common/_styleDrivenApproach.md"
 
-**CSS**
+#### CSSS
 
 ```css
 .landscape {
@@ -192,7 +177,7 @@ export default YourTemplate;
 }
 ```
 
-**Template**
+#### Template
 
 ```html
 <div className="landscape">
@@ -219,7 +204,7 @@ export default YourTemplate;
 </div>
 ```
 
-**Demo**
+#### Demo
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-next?file=pages/style-driven/index.jsx&initialpath=style-driven)
 
@@ -264,7 +249,7 @@ export default YourTemplate;
 }
 ```
 
-Now, your template can feature a single component that follows your CSS directives and behave responsively.
+Now, your template can feature a single component that follows your CSS directives and behaves responsively.
 
 ```jsx
 // MyComponent.jsx
@@ -323,7 +308,8 @@ export default function() {
 
 ## Next.js Image Loader
 
-**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
+> [!IMPORTANT]
+> You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup?utm_source=github&utm_medium=organic&utm_campaign=components) to get your domain.
 
 
 If it does not exist, create a `.env` file at the root of your project. 
@@ -358,12 +344,13 @@ const MyImage = (props) => {
 }
 ```
 
-Please note that this will stretch the image to fit the specified size, which might not match the desired aspect ratio. 
+Please note that this will stretch the image to fit the specified size, which might not match the desired aspect ratio.
 
-For easier aspect ratio management, consider using the `<TwicImg>` component (see [Setup](#setup)). This will also give you access to all [TwicPics features](https://www.twicpics.com/docs/reference/transformations) like smart cropping, automatic next-gen formats, and more.
+For more straightforward aspect ratio management, consider using the `<TwicImg>` component (see [Setup](#setup)). This will also give you access to all [TwicPics features](https://www.twicpics.com/docs/reference/transformations) like smart-cropping, automatic next-gen formats, and more.
 
 ### Using Placeholders
 
+> [!WARNING]
 > This is only supported from Next.js 13.
 
 The Next Image component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
@@ -399,8 +386,6 @@ const MyImage = ({ data }) => {
   )
 }
 ```
-
-<div id='example'/>
 
 ## Examples
 

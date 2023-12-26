@@ -1,10 +1,8 @@
-<div id='lifecycle'/>
-
 ### Lifecycle
 
-For `TwicImg` and `TwicVideo` components, passing a callback function to `onStateChange` gives access to the loading state of your image or video.
+For the `TwicImg` and the `TwicVideo` components, passing a callback function to `onStateChange` gives access to your image or video loading state.
 
-Here are the values the Component will emit ([see State Type definition](#state-type)) :
+Here are the values the Component will emit ([see State Type definition](#loading-state-values)):
 
 - `new`: when the `img` or `video` source has not started loading
 - `loading`: when the `img` or `video` source is loading
@@ -30,7 +28,8 @@ Here are the values the Component will emit ([see State Type definition](#state-
   )
 ```
 
-__WARNING__: when using `onStateChange` in a **Server Components module graph**, your component must be decorated with [use client directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive), as in
+> [!WARNING]
+> When using `onStateChange` in a **Server Components module graph**, your component must be decorated with [use client directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive), as in:
 
 ```js
   'use client'

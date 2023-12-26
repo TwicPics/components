@@ -13,18 +13,17 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
-#include "src/_documentation/common/_installation.md"
+> [!NOTE]
+> Discover our demonstrations and integration examples [in our online demo project](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
-<div id='setup'/>
+
+#include "src/_documentation/common/_installation.md"
 
 ## Setup
 
-<div id='setting-up-your-project'/>
+### Setting up TwicPics Components in your `Nuxt2` project
 
-### Setting-up TwicPics Components into your `Nuxt2` project
-
-TwicPics components for `Nuxt2` comes as an `Nuxt2 Module` and is configured as [such](https://nuxtjs.org/docs/directory-structure/modules).
+TwicPics components for `Nuxt2` come as a `Nuxt2 Module` and are configured as [such](https://nuxtjs.org/docs/directory-structure/modules).
 
 #include "src/_documentation/common/_requirement.md"
 
@@ -78,13 +77,11 @@ export default {
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
-
 ## Usage
 
-`TwicImg`, `TwicPicture` and `TwicVideo` are available in your templates as long as you have [configured the TwicPics Nuxt2 Module](#setting-up-your-project).
+`TwicImg`, `TwicPicture` and `TwicVideo` are available in your templates as long as you have [configured the TwicPics Nuxt2 Module](#setup).
 
-Just use them in your template files in place of `img`, `picture` or `video` tags (see [Components Properties](#components)).
+Just use them in your template files in instead of `img`, `picture` or `video` tags (see [Components Properties](#components-properties)).
 
 ```html
 <template>
@@ -93,8 +90,6 @@ Just use them in your template files in place of `img`, `picture` or `video` tag
   </main>
 </template>
 ```
-
-<div id='basic-usage'/>
 
 ### Basic usage
 
@@ -304,8 +299,6 @@ export default {
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

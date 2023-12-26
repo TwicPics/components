@@ -1,13 +1,11 @@
 // <__TWIC_SCOPE_video__> /^(?:__.*twicVideo.*__)?(\|.*\|.*)$/gm => "$1"
 // <__TWIC_SCOPE_video__> /^(?:__.*twic.*__)(\|.*\|.*)$/gm => "__REMOVE_LINE__"
 
-<div id='twic-video'/>
-
-### `TwicVideo`
+### TwicVideo
 
 This component is a drop-in replacement for `video`.
 
-It provides seamless playback for [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), offering advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
+It provides seamless playback for [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), offering advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box.
 
 ```html
 <TwicVideo

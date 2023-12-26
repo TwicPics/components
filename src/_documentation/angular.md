@@ -2,9 +2,9 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Angular"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://angular.io/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "angular"
-// /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n    - [Lifecycle](#lifecycle)"
+// /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n  - [Lifecycle](#lifecycle)"
 // /(\b)__TWIC_STATE_CHANGE_PROP__(\b)/gm => "\n  (stateChangeEvent)=\"<function>\""
-// /(\b)__TWIC_STATE_CHANGE__(\b)/gm => "\n| `stateChangeEvent` | An event emitter triggered each time the asset loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#state-event-type) | |"
+// /(\b)__TWIC_STATE_CHANGE__(\b)/gm => "\n| `stateChangeEvent` | An event emitter triggered each time the asset loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`EventEmitter<StateEvent>`](#loading-state-values) | |"
 
 
 #include "src/_documentation/common/_cover.md"
@@ -17,30 +17,25 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-TwicPics Components are available in Angular __version 11 to 17__.
-
-Discover our demonstrations and integration examples [in a standalone components based project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic).
-
-For an example of integration into an NgModule-based project, please refer to [this repo](https://github.com/TwicPics/components-demo-angular/tree/ng-module-based-application).
-
-
 #include "src/_documentation/common/_installation.md"
 
-<div id='setup'/>
+> [!NOTE]
+> TwicPics Components are available in Angular **version 11 to 17**. Discover our demonstrations and integration examples [in a standalone components based project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic). For an example of integration into an NgModule-based project, please refer to [this repo](https://github.com/TwicPics/components-demo-angular/tree/ng-module-based-application).
 
 ## Setup
 
-### Setting-up TwicPics Components into your `Angular` project
+### Setting up TwicPics Components in your `Angular` project
 
-<doc-alert type="info">You will need a TwicPics domain to initialize the package. <a href="https://account.twicpics.com/signup" target="_blank">Create an account for free</a> to get your domain.</doc-alert>
+> [!IMPORTANT]
+> You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup?utm_source=github&utm_medium=organic&utm_campaign=components) to get your domain.
 
-Add the import part 
+Add the import part:
 
 ```ts
 import { installTwicPics } from '@twicpics/components/angular17'
 ```
 
-and the configuration part (see [Setup Options](#setup-options))
+And the configuration part (see [Setup Options](#setup-options)):
 
 ```ts
 installTwicPics({
@@ -79,13 +74,14 @@ installTwicPics({
 
 ## Components importation
 
-TwicPics components for `Angular` comes as an [Angular Module](https://angular.io/guide/architecture-modules).
+TwicPics components for `Angular` come as an [Angular Module](https://angular.io/guide/architecture-modules).
 
 Depending on the nature of your application, you'll need to import them either:
+
 - directly into a [standalone component](https://angular.io/guide/standalone-components)
 - into the application's **root module** (when using a [NgModule-based application](https://angular.io/guide/architecture-modules))
 
-### Using in a standalone component
+### Usage within a standalone component
 
 ```ts
 // src/app/example/example.component.ts
@@ -106,7 +102,7 @@ export class ExampleComponent {
 }
 ```
 
-### Using in NgModule-based application
+### Usage within NgModule-based application
 
 ```ts
 // src/app/app.module.ts
@@ -124,13 +120,11 @@ import { TwicPicsComponentsModule } from '@twicpics/components/angular14'
 export class AppModule {}
 ```
 
-<div id='usage'/>
-
 ## Usage
 
-`TwicImg`, `TwicPicture` and `TwicVideo` are available for use in the scope of the module into which you have imported `TwicPicsComponentsModule` [see Module Declaration](#module-declaration).
+`TwicImg`, `TwicPicture` and `TwicVideo` are available in the module scope into which you have imported `TwicPicsComponentsModule`.
 
-Just use them in your template files in place of `img`, `picture` or `video` tags.
+Use them in your template files instead of `img`, `picture`, or `video` tags.
 
 ```html
 <!-- component.html -->
@@ -138,8 +132,6 @@ Just use them in your template files in place of `img`, `picture` or `video` tag
 <TwicPicture src="path/to/your/video"></TwicPicture>
 <TwicVideo src="path/to/your/video"></TwicVideo>
 ```
-
-<div id='basic-usage'/>
 
 ### Basic usage
 
@@ -243,13 +235,11 @@ Just use them in your template files in place of `img`, `picture` or `video` tag
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src%2Fapp%2Ftwic-style-driven%2Ftwic-style-driven.component.html&initialpath=style-driven)
 
-<div id='lifecycle'/>
-
 ### Lifecycle
 
 For `TwicImg` and `TwicVideo` components, binding to `stateChangeEvent` gives access to the loading state of your image or video.
 
-Here are the values the Component will emit ([see State Type definition](#state-type)) :
+Here are the values the Component will emit ([see State Type definition](#loading-state-values)):
 
 - `new`: when the `img` or `video` source has not started loading
 - `loading`: when the `img` or `video` source is loading
@@ -264,6 +254,7 @@ Here are the values the Component will emit ([see State Type definition](#state-
   (stateChangeEvent)="handleStateChange($event)"
 ></TwicImg>
 ```
+
 #### Using standalone component
 
 ```ts
@@ -424,7 +415,7 @@ Here are the values the Component will emit ([see State Type definition](#state-
 
 ### Anchor Type
 
-Union type for all possible values on `anchor` property.
+Union type for all possible values on `anchor` property:
 
 ```ts
 type Anchor = `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
@@ -432,7 +423,7 @@ type Anchor = `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `t
 
 #### Usage
 
-To dynamically set the `anchor` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Anchor`.
+To dynamically set the `anchor` property with the `TwicImg`, `TwicPicture` or `TwicVideo` component, you must declare a variable of type `Anchor`.
 
 ```ts
 // component.ts
@@ -456,7 +447,7 @@ export class YourComponent {
 
 ### Mode Type
 
-Union type for all possible values on `mode` property.
+Union type for all possible values on `mode` property:
 
 ```ts
 type Mode = `contain` | `cover`;
@@ -464,7 +455,7 @@ type Mode = `contain` | `cover`;
 
 #### Usage
 
-To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Mode`.
+To dynamically set the `mode` property with the `TwicImg`, `TwicPicture` or `TwicVideo` component, you must declare a variable of type `Mode`.
 
 ```ts
 // component.ts
@@ -487,7 +478,7 @@ export class YourComponent {
 
 ### Placeholder Type
 
-Union type for all possible values on `placeholder` property.
+Union type for all possible values on `placeholder` property:
 
 ```ts
 type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
@@ -495,7 +486,7 @@ type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 
 #### Usage
 
-To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component you must declare a variable of type `Placeholder`.
+To dynamically set the `mode` property with the `TwicImg`, `TwicPicture` or `TwicVideo` component, you must declare a variable of type `Placeholder`.
 
 ```ts
   // component.ts
@@ -519,11 +510,9 @@ To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component y
 </TwicImg>
 ```
 
-<div id='state-type'/>
-
 ### Loading State Values
 
-Union type for all possible state values emitted through `@output` property `stateChangeEvent`.
+Union type for all possible state values emitted through `@output` property `stateChangeEvent`:
 
 ```ts
 type State = `error` | `done` | `loading` | `new`;
@@ -535,11 +524,9 @@ type State = `error` | `done` | `loading` | `new`;
 - `error`: when an error occurred while loading the `img` or `video` source
 
 
-<div id='state-event-type'/>
-
 ### State Change Event
 
-Data type emitted by `@output` property `stateChangeEvent`.
+Data type emitted by `@output` property `stateChangeEvent`:
 
 ```ts
 export type StateEvent = {
@@ -551,8 +538,6 @@ export type StateEvent = {
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

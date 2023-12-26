@@ -15,7 +15,7 @@
     - [For React Native Expo Go projects](#for-react-native-expo-go-projects)
     - [For React Native CLI projects](#for-react-native-cli-projects)
 - [Setup](#setup)
-  - [Setting-up TwicPics Components in your React Native project](#setting-up-twicpics-components-in-your-react-native-project)
+  - [Setting up TwicPics Components in your React Native project](#setting-up-twicpics-components-in-your-react-native-project)
   - [Setup Options](#setup-options)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
@@ -28,15 +28,13 @@
 - [Examples](#examples)
 ## Overview
 
-### What is TwicPics? 
-
-> We've recently launched TwicPics for videos. [Read the announcement](https://www.twicpics.com/blog/announcing-twicpics-for-videos/?utm_source=github&utm_medium=organic&utm_campaign=components). 🚀
+### What is TwicPics?
 
 [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) is a **Responsive Media Service Solution** (SaaS) that enables **on-demand responsive image & video generation**.
 
 With TwicPics, developers only deal with high-resolution versions of their media while end-users receive **optimized, perfectly sized, device-adapted** versions **delivered from a server close to them**.
 
-TwicPics acts as an **proxy**. It retrieves your master file — from your own web server, cloud storage, or DAM — and generates a **device-adapted** version with **best-in-class compression**, delivered directly to the end-user from the **closest delivery point** available.
+TwicPics acts as a **proxy**. It retrieves your master file — from your web server, cloud storage, or DAM — and generates a **device-adapted** version with **best-in-class compression**, delivered directly to the end-user from the **closest available delivery point**.
 
 ### What is TwicPics Components?
 
@@ -126,9 +124,10 @@ npx pod-install
 
 ## Setup
 
-### Setting-up TwicPics Components in your React Native project
+### Setting up TwicPics Components in your React Native project
 
-**Note:** You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup) to get your domain.
+> [!NOTE]
+> You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup?utm_source=github&utm_medium=organic&utm_campaign=components) to get your domain.
 
 ```js
 // App.js
@@ -264,7 +263,8 @@ For example:
 
 ### Working with ratio="none"
 
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing the _Cumulative Layout Shift_ metric.
+It is particularly useful when creating a "hero" banner. You can specify the height of your image while respecting its natural aspect ratio, and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+
 When using `ratio="none"` your style **must** specify the image height.
 
 ```jsx
@@ -296,7 +296,7 @@ export default MyComponent;
 
 ### `TwicImg`
 
-This component can be used in place of an `<Image>` component.
+This component can be used in instead of an `<Image>` component.
 
 ```html
 <TwicImg
@@ -388,23 +388,18 @@ This component can be used in place of an `<Image>` component.
 
 You can find usage examples [in our online demo project](https://twicpics-react-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) (examples are in React, but most apply to React Native as well!)
 
-<div id='getting-help'/>
 
 ## Questions and feedback
 
-Fell free to submit an [issue](https://github.com/TwicPics/components/issues) or to ask us anything by dropping an email at [support@twic.pics](mailto:support@twic.pics).
+Feel free to submit an [issue](https://github.com/TwicPics/components/issues) or ask us anything by emailing [support@twic.pics](mailto:support@twic.pics).
 
-
-<div id='other-frameworks'/>
 
 ## Other frameworks
 
 [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) provides the most versatile solution on the market for delivering responsive media.
 
-TwicPics Components are available [in the most popular javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
+TwicPics Components are available [in the most popular Javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
 
-
-<div id='license'/>
 
 ## License
 
@@ -415,3 +410,4 @@ TwicPics Components are available [in the most popular javascript frameworks](ht
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
 [npm-image]: https://img.shields.io/badge/npm-v0.26.0-orange.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@twicpics/components/v/0.26.0
+
