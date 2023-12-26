@@ -1,14 +1,11 @@
 // <__TWIC_SCOPE_image__> /^(?:__.*twicImg.*__)?(\|.*\|.*)$/gm => "$1"
 // <__TWIC_SCOPE_image__> /^(?:__.*twic.*__)(\|.*\|.*)$/gm => "__REMOVE_LINE__"
 
+### TwicImg
 
-<div id='twic-img'/>
+This component is a drop-in replacement for the `img` tag dedicated to content images.
 
-### `TwicImg`
-
-This component is a drop-in replacement for `img` dedicated to content images.
-
-It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
+It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box.
 
 
 ```html

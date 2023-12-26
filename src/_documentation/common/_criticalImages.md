@@ -7,7 +7,7 @@ It operates independently of the [TwicPics Script](https://www.twicpics.com/docs
 
 #### Resolution switching
 
-Following examples illustrate how to serve different resolutions of the same image accordingly to `breakpoints` and `maxDPR` defined in [Setup Options](#setup-options).
+The following examples illustrate how to serve different resolutions of the same image according to `breakpoints` and `maxDPR` defined in [Setup Options](#setup-options).
 
 ```html
 <!-- Populate srcset and fallback with a list of squared variants -->
@@ -42,11 +42,12 @@ Following examples illustrate how to serve different resolutions of the same ima
 ></TwicPicture>
 ```
 
-For a comprehensive list of properties and detailed information, please refer to [TwicPicture](#twic-picture).
+For a comprehensive list of properties and detailed information, please refer to [TwicPicture](#twicpicture).
 
+<a name="art-direction"></a>
 #### Art Direction
 
-To achieve _art direction_, simply configure the following `TwicPicture`'s properties in accordance with the __mobile-first principle__:
+To achieve _art direction_, configure the following `TwicPicture`'s properties following the **mobile-first principle**:
 
 - anchor
 - focus
@@ -54,8 +55,7 @@ To achieve _art direction_, simply configure the following `TwicPicture`'s prope
 - position
 - ratio
 
-Following examples illustrate how to serve various image variations based on distinct _artistic directions_ and 
-[default breakpoints value](#default-breakpoints):
+The following examples illustrate how to serve various image variations based on distinct _artistic directions_ and [default breakpoint values](#default-breakpoints):
 
 ```html
 <!--
@@ -103,4 +103,4 @@ Following examples illustrate how to serve various image variations based on dis
 />
 ```
 
-[Default breakpoints value](#default-breakpoints) can be configured [here](setup-options).
+[Default breakpoint values](#default-breakpoints) can be configured [here](#setup-options).

@@ -2,7 +2,7 @@
 // /(\b)__FRAMEWORK_NAME__(\b)/gm => "Svelte4"
 // /(\b)__FRAMEWORK_URL__(\b)/gm => "https://svelte.dev/"
 // /(\b)__INTERCOM_TERM__(\b)/gm => "svelte"
-// /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n    - [Lifecycle](#lifecycle)"
+// /(\b)__TWIC_STATE_TABLE_CONTENT__(\b)/gm => "\n  - [Lifecycle](#lifecycle)"
 // /(\b)__TWIC_STATE_CHANGE_PROP__(\b)/gm => "\n  bind:state=\"<String>\"\n  on:statechange=\"<function>\""
 // /(\b)__TWIC_STATE_CHANGE__(\b)/gm => "\n| `state` | A string property being update each time the asset loading state is updated. Values can be `new`, `loading`, `done` or `error`.| `String` | |\n| `statechange` | A custom event dispatched each time the image loading state is updated. Emitted values can be `new`, `loading`, `done` or `error`.| `( e: CustomEvent ) => void` | |"
 
@@ -16,27 +16,25 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+> [!NOTE]
+> Discover our demonstrations and integration examples [in our online demo project](https://twicpics-svelte-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
-TwicPics Components are available for `Svelte4`.
-
-If you are using `Svelte3`, you can find their documentation [here](__GITHUB_BLOB_PATH__/documentation/svelte3.md).
 
 #include "src/_documentation/common/_installationDevDependencies.md"
 
-<div id='setup'/>
+> [!NOTE]
+> TwicPics Components are available for `Svelte4`.
+> If you are using `Svelte3`, you can find their documentation [here](__GITHUB_BLOB_PATH__/documentation/svelte3.md).
 
 ## Setup
 
 #include "src/_documentation/common/_requirement.md"
 
-<div id='setting-up-your-project'/>
-
-### Setting-up TwicPics Components into your `Svelte4` project
+### Setting up TwicPics Components in your `Svelte4` project
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
-Add the import part
+Add the import part:
 
 ```js
 // import TwicPics Svelte4 components
@@ -45,7 +43,7 @@ import { installTwicpics } from "@twicpics/components/svelte4";
 import "@twicpics/components/style.css";
 ```
 
-and the configuration part (see [Setup Options](#setup-options))
+And the configuration part (see [Setup Options](#setup-options)):
 
 ```js
 installTwicpics( {
@@ -78,29 +76,23 @@ export default app;
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
-
-## Usage
-
 #include "src/_documentation/common/_usage.md"
 
-Add the import part in the `script` section of your `.svelte` page
+Add the import part in the `script` section of your `.svelte` page:
 ```html
 <script>
-  // this component will be used in place of an img element.
+  // this component will be used in instead of an img element.
   import { TwicImg } from "@twicpics/components/svelte4";
 
-  // this component will be used in place of a `picture` element.
+  // this component will be used in instead of a `picture` element.
   import { TwicPicture } from "@twicpics/components/svelte4";
 
-  // this component will be used in place of a video element.
+  // this component will be used in instead of a video element.
   import { TwicVideo } from "@twicpics/components/svelte4";
 </script>
 ```
 
-then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<video>` (see [Components Properties](#components)).
-
-<div id='basic-usage'/>
+then, use `<TwicImg>` or `<TwicVideo>` instead of standard tags `<img>` or `<video>` (see [Components Properties](#components-properties)).
 
 ### Basic usage
 
@@ -126,8 +118,6 @@ then, use `<TwicImg>` or `<TwicVideo>` in place of standard tags `<img>` or `<vi
 #include "src/_documentation/common/_zoomFeature.md"
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-svelte4?file=src%2Flib%2FTwicZoom.svelte&initialpath=zoom)
-
-<div id='lifecycle'/>
 
 ### Lifecycle
 
@@ -160,7 +150,7 @@ Here are the values the Component will emit :
 />
 ```
 
-Another approach is to listen to `statechange` event.
+Another approach is to listen to the `statechange` event.
 
 ```html
 <!-- component.svelte -->
@@ -340,8 +330,6 @@ Another approach is to listen to `statechange` event.
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

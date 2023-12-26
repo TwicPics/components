@@ -1,11 +1,11 @@
 
 ### Image magnifier
 
-The `<TwicImg>` component allows to display a __lazy loaded__ zoomed version of your image on __mouse over__.
+The `<TwicImg>` component lets you display a **lazy loaded**, zoomed version of your image on **mouseover**.
 
-To activate the zoom feature, simply set the `zoom` property to a number strictly greater than 1. This number represents the magnification factor of your image.
+To activate the zoom feature, set the `zoom` property to a number strictly greater than 1. This number represents the magnification factor of your image.
 
-For example: 
+For example:
 
 ```html
   <TwicImg src="image1.jpg" zoom="2" />
@@ -14,9 +14,9 @@ For example:
 
 The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
 
-To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property to `'css'` and add a new rule to your stylesheet. 
+To activate the [style-driven zoom](#style-driven-approach), set the `zoom` property to `'css'` and add a new rule to your stylesheet.
 
-For example: 
+For example:
 
 ```html
   <TwicImg src="image3.jpg" zoom="css" class=".zoom-3"/>
@@ -28,4 +28,4 @@ For example:
 }
 ```
 
-It applies only to `TwicImg` component in __cover__ `mode`.
+It applies only to the `TwicImg` component in **cover** `mode`.

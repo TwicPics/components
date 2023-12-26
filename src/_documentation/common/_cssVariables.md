@@ -1,8 +1,6 @@
-<div id='css-variables'/>
-
 ## CSS Variables
 
-List of variables that can be used to configure your components using pure CSS.
+List of variables that can be used to configure your components using pure CSS:
 
 ```css
 <selector> {
@@ -16,7 +14,7 @@ List of variables that can be used to configure your components using pure CSS.
 }
 ```
 
-Each CSS variable corresponds to one of the components attributes listed in the [Components Properties section](#components). If present, the attribute takes precedence over the corresponding CSS variable.
+Each CSS variable corresponds to one of the components attributes listed in the [Components Properties section](#components-properties). If present, the attribute takes precedence over the corresponding CSS variable.
 
 | Variable | Description | HTML Attribute | Default |
 |:-|:-|:-|:-|

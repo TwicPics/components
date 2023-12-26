@@ -1,30 +1,15 @@
-<div id='what-is-twicpics-components'/>
 
 ### What is TwicPics Components?
 
-__TwicPics Components__ is a __collection of web components__ that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your own projects.
+**TwicPics Components** is a **collection of web components** that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) in your projects.
 
-Whether you need to display a content image, showcase a short video or ensure optimal performance with _Large Contentful Paint_ (LCP) care, TwicPics Components has you covered.
-
-#### Display a Content Image
-
-If you want to display a __content pixel-perfect image__ with optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box, you can use the `<TwicImg>` component.
-
-It's a drop-in replacement for the standard `img` tag and is based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/script).
-
-```html
-<!-- Before -->
-<img src="https://example.com/your-image.jpg" />
-
-<!-- After -->
-<TwicImg src="your-image.jpg" />
-```
+Whether you need to display a content image, showcase a short video, or ensure optimal performance with _Large Contentful Paint_ (LCP) care, TwicPics Components has you covered.
 
 #### Display a Critical Image
 
-If you need to display __critical images__ with _art direction_ support, you can use the `<TwicPicture>` component.
+If you need to display **critical images** with _art direction_ support, you can use the `<TwicPicture>` component.
 
-It serves as a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests) without any additional effort.
+It is a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests?utm_source=github&utm_medium=organic&utm_campaign=components) without additional effort.
 
 
 ```html
@@ -47,17 +32,27 @@ It serves as a drop-in replacement for the standard `picture` tag and is based d
 <!-- After -->
 <TwicPicture
   src="your-master-image.jpg"
-  ratio="
-    3/4
-    @md 1
-    @xl 16/9
-  "
+  ratio="3/4, @md 1, @xl 16/9"
 />
+```
+
+#### Display a Content Image
+
+Suppose you want to display a **pixel-perfect image** with optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box. In that case, you can use the `<TwicImg>` component.
+
+It's a drop-in replacement for the standard `img` tag based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/script?utm_source=github&utm_medium=organic&utm_campaign=components).
+
+```html
+<!-- Before -->
+<img src="https://example.com/your-image.jpg" />
+
+<!-- After -->
+<TwicImg src="your-image.jpg" />
 ```
 
 #### Display a Video
 
-For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
+For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization?utm_source=github&utm_medium=organic&utm_campaign=components), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
 
 
 ```html

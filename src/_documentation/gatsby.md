@@ -14,25 +14,22 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
-
 #include "src/_documentation/common/_installation.md"
 
-<div id='setup'/>
+> [!NOTE]
+> Discover our demonstrations and integration examples [in our online demo project](https://twicpics-gatsby-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 ## Setup
 
-<div id='setting-up-your-project'/>
+### Setting up TwicPics Components in your `Gatsby` project
 
-### Setting-up TwicPics Components into your `Gatsby` project
-
-TwicPics components for `Gatsby` comes as an `Gatsby Plugin` and is configured as [such](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/using-a-plugin-in-your-site/).
+TwicPics components for `Gatsby` come as a `Gatsby Plugin` and are configured as [such](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/using-a-plugin-in-your-site/).
 
 #include "src/_documentation/common/_requirement.md"
 
 #### `gatsby-config.js`
 
-Add `@twicpics/components/gatsby` to the plugins section with your twicpics configuration as plugin options : 
+Add `@twicpics/components/gatsby` to the plugins section with your TwicPics configuration as plugin options:
 
 ```json
 {
@@ -67,34 +64,29 @@ module.exports = {
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
-
-## Usage
-
 #include "src/_documentation/common/_usage.md"
 
-Add the import part
+Add the import part:
 ```js
-// this component will be used in place of an img element.
+// this component will be used in instead of an img element.
 // nb : Gatsby uses react components
 import { TwicImg } from "@twicpics/components/react";
 
-// this component will be used in place of a `picture` element.
+// this component will be used in instead of a `picture` element.
 // nb : Gatsby uses react components
 import { TwicPicture } from "@twicpics/components/react";
 
-// this component will be used in place of a video element.
+// this component will be used in instead of a video element.
 // nb : Gatsby uses react components
 import { TwicVideo } from "@twicpics/components/react";
 ```
 
-then, use `<TwicImg>`, `<TwicPicture>` or `<TwicVideo>` in place of standard tags `<img>`, `<picture>` or `<video>` (see [Components Properties](#components)).
-
-<div id='basic-usage'/>
+then, use `<TwicImg>`, `<TwicPicture>` or `<TwicVideo>` instead of standard tags `<img>`, `<picture>` or `<video>` (see [Components Properties](#components-properties)).
 
 ### Basic usage
 
-__NB__ : TwicPics Components can also be used in `js`, `jsx`, `ts`, `tsx` files.
+> [!TIPS]
+> TwicPics Components can also be used in `js`, `jsx`, `ts`, `tsx` files.
 
 ```js
 // component.js
@@ -274,8 +266,6 @@ src="path/to/your/image"
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

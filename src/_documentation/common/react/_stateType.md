@@ -1,8 +1,6 @@
-<div id='state-type'/>
-
 ### Loading State Values
 
-Union type for all possible image or video loading state.
+Union type for all possible image or video loading states:
 
 ```ts
 type State = `error` | `done` | `loading` | `new`;
@@ -13,12 +11,9 @@ type State = `error` | `done` | `loading` | `new`;
 - `done`: when the `img` or `video` source has successfully loaded
 - `error`: when an error occurred while loading the `img` or `video` source
 
-
-<div id='state-event-type'/>
-
 ### State Change Event
 
-Data type passed as parameter to `onStateChange` function.
+Data type passed as a parameter to the `onStateChange` function:
 
 ```ts
 export type StateEvent = {

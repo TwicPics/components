@@ -16,7 +16,8 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-__WARNING__: every single Shadow DOM the TwicPics components are descendants of must be opened. That's the only way the TwicPics Script will be able to reach them.
+> [!WARNING]
+> Every single Shadow DOM the TwicPics components are descendants of must be opened. That's the only way the TwicPics Script will be able to reach them.
 
 <a href="https://codesandbox.io/s/web-component-basic-19j1fm?fontsize=14&hidenavigation=1&theme=dark">
   <img alt="Edit web-component - Basic" src="https://codesandbox.io/static/img/play-codesandbox.svg">
@@ -24,19 +25,15 @@ __WARNING__: every single Shadow DOM the TwicPics components are descendants of 
 
 #include "src/_documentation/common/_installation.md"
 
-<div id='setup'/>
-
 ## Setup
 
 #include "src/_documentation/common/_requirement.md"
 
-<div id='setting-up-your-project'/>
-
-### Setting-up TwicPics Components into your project
+### Setting up TwicPics Components in your project
 
 While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
-Add the import part
+Add the import part:
 
 ```jsx
 // import TwicPics webcomponents
@@ -45,7 +42,7 @@ import { installTwicpics } from "@twicpics/components/webcomponents";
 import "@twicpics/components/style.css";
 ```
 
-and the configuration part (see [Setup Options](#setup-options))
+And the configuration part (see [Setup Options](#setup-options)):
 
 ```js
 installTwicpics( {
@@ -88,19 +85,16 @@ customElements.define( `twic-img`, TwicImg );
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
 
 ## Usage
 
-TwicPics Web Components comes as `Custom Html Elements`. Just use them in place of `img`, `picture` or `video` tags according to the custom alias you have specified.
+TwicPics Web Components comes as `Custom Html Elements`. Just use them instead of `img`, `picture` or `video` tags according to the custom alias you have specified.
 
 ```html
 <twic-img src="path/to/your/image"/>
 ```
 
-More properties [here](#components).
-
-<div id='basic-usage'/>
+More properties [here](#components-properties).
 
 ### Basic usage
 
@@ -306,8 +300,6 @@ More properties [here](#components).
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

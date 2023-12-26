@@ -14,23 +14,20 @@
 
 #include "src/_documentation/common/_whatIsTwicPicsComponents.md"
 
-Discover our demonstrations and integration examples [in our online demo project](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
+> [!NOTE]
+> Discover our demonstrations and integration examples [in our online demo project](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic).
 
 #include "src/_documentation/common/_installation.md"
-
-<div id='setup'/>
 
 ## Setup
 
 #include "src/_documentation/common/_requirement.md"
 
-<div id='setting-up-your-project'/>
+### Setting up TwicPics Components in your `Vue2` project
 
-### Setting-up TwicPics Components into your `Vue2` project
+TwicPics components for `Vue2` come as a `Vue2 Plugin` and are configured as [such](https://vuejs.org/guide/reusability/plugins.html).
 
-TwicPics components for `Vue2` comes as an `Vue2 Plugin` and is configured as [such](https://vuejs.org/guide/reusability/plugins.html).
-
-Add the import part
+Add the import part:
 
 ```js
 // import TwicPics vue2 plugin
@@ -93,10 +90,6 @@ You can then reference the component using the alternate name:
 
 #include "src/_documentation/common/_setupOptions.md"
 
-<div id='usage'/>
-
-## Usage
-
 #include "src/_documentation/common/_usage.md"
 
 ```html
@@ -106,8 +99,6 @@ You can then reference the component using the alternate name:
   </main>
 </template>
 ```
-
-<div id='basic-usage'/>
 
 ### Basic usage
 
@@ -318,8 +309,6 @@ export default {
 #include "src/_documentation/common/_cssVariables.md"
 
 #include "src/_documentation/common/_breakpoints.md"
-
-<div id='example'/>
 
 ## Examples
 

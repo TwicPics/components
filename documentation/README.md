@@ -6,6 +6,8 @@
 
 ![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.26.0/documentation/resources/components-cover.png)
 
+
+
 ## What is TwicPics?
 
 [TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) is a **Responsive Media Service Solution** (SaaS) that enables **on-demand responsive image & video generation**.
@@ -13,6 +15,7 @@
 With TwicPics, developers only deal with high-resolution versions of their media while end-users receive **optimized, perfectly sized, device-adapted** versions **delivered from a server close to them**.
 
 TwicPics acts as a **proxy**. It retrieves your master file — from your web server, cloud storage, or DAM — and generates a **device-adapted** version with **best-in-class compression**, delivered directly to the end-user from the **closest available delivery point**.
+
 
 ## What is TwicPics Components?
 
@@ -24,7 +27,8 @@ Whether you need to display a content image, showcase a short video, or ensure o
 
 If you need to display **critical images** with _art direction_ support, you can use the `<TwicPicture>` component.
 
-It is a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests) without additional effort.
+It is a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests?utm_source=github&utm_medium=organic&utm_campaign=components) without additional effort.
+
 
 ```html
 <!-- Before -->
@@ -54,7 +58,7 @@ It is a drop-in replacement for the standard `picture` tag and is based directly
 
 Suppose you want to display a **pixel-perfect image** with optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box. In that case, you can use the `<TwicImg>` component.
 
-It's a drop-in replacement for the standard `img` tag based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/script).
+It's a drop-in replacement for the standard `img` tag based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/script?utm_source=github&utm_medium=organic&utm_campaign=components).
 
 ```html
 <!-- Before -->
@@ -66,7 +70,8 @@ It's a drop-in replacement for the standard `img` tag based on the [TwicPics Scr
 
 ### Display a Video
 
-For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
+For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization?utm_source=github&utm_medium=organic&utm_campaign=components), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
+
 
 ```html
 <!-- Before -->
@@ -79,10 +84,11 @@ For seamless playback of [videos optimized with TwicPics](https://www.twicpics.c
 <TwicVideo src="your-video.mp4" />
 ```
 
+
 ## Supported frameworks
 
 - [Angular](https://github.com/TwicPics/components/blob/0.26.0/documentation/angular.md) (version 11+)
-- [React](https://github.com/TwicPics/components/blob/0.26.0/documentation/react.md), [React Native](https://github.com/TwicPics/components/blob/0.26.0/documentation/react-native.md), [Gatsby](https://github.com/TwicPics/components/blob/0.26.0/documentation/gatsby.md), and [Next.js](https://github.com/TwicPics/components/blob/0.26.0/documentation/next.md)
+- [React](https://github.com/TwicPics/components/blob/0.26.0/documentation/react.md), [React Native](https://github.com/TwicPics/components/blob/0.26.0/documentation/react-native.md), [Gatsby](https://github.com/TwicPics/components/blob/0.26.0/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.26.0/documentation/next.md)
 - [Svelte (version 3)](https://github.com/TwicPics/components/blob/0.26.0/documentation/svelte3.md), [Svelte (version 4)](https://github.com/TwicPics/components/blob/0.26.0/documentation/svelte4.md) and [SvelteKit](https://github.com/TwicPics/components/blob/0.26.0/documentation/svelteKit.md)
 - [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.26.0/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.26.0/documentation/vue3.md), [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.26.0/documentation/nuxt2.md) and [Nuxt.js (version 3)](https://github.com/TwicPics/components/blob/0.26.0/documentation/nuxt3.md)
 - [Web Components](https://github.com/TwicPics/components/blob/0.26.0/documentation/webComponents.md)
@@ -98,9 +104,11 @@ Explore our demos and integration examples for :
 - [Vue.js (version 2)](https://twicpics-vue2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Vue.js (version 3)](https://twicpics-vue3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Nuxt.js (version 2)](https://twicpics-nuxt2-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [Nuxt.js (version 3)](https://twicpics-nuxt3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 - [Svelte (version 3)](https://twicpics-svelte3-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic), [Svelte (version 4)](https://twicpics-svelte4-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic) and [SvelteKit](https://twicpics-sveltekit-demo.netlify.app/?utm_source=github&utm_campaign=components&utm_medium=organic)
 
+
 ## Questions and feedback
 
 Feel free to submit an [issue](https://github.com/TwicPics/components/issues) or ask us anything by emailing [support@twic.pics](mailto:support@twic.pics).
+
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE

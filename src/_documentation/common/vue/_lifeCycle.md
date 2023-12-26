@@ -1,10 +1,8 @@
-<div id='lifecycle'/>
-
 ### Lifecycle
 
-For `TwicImg` and `TwicVideo` components, passing a callback function to `stateChange` emitter gives access to the loading state of your image or video.
+For `TwicImg` and `TwicVideo` components, passing a callback function to the `stateChange` emitter gives access to your image's or video's loading state.
 
-Here are the values the Component will emit ([see State Type definition](#state-type)) :
+Here are the values the Component will emit ([see State Type definition](#loading-state-values)):
 
 - `new`: when the `img` or `video` source has not started loading
 - `loading`: when the `img` or `video` source is loading

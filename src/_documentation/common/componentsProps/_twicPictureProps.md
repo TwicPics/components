@@ -4,13 +4,12 @@
 // /(\spicture\.)/gm => " image."
 
 
-<div id='twic-picture'/>
 
-### `TwicPicture`
+### TwicPicture
 
 This component serves as a seamless replacement for the `picture` element.
 
-With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score with optimized _Cumulative Layout Shift_ (CLS), it effortlessly generates the `srcset` and `source` attributes for _resolution switching_ and _art direction_, all derived from a __single master file__ transformed through the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests).
+With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score with optimized _Cumulative Layout Shift_ (CLS), it effortlessly generates the `srcset` and `source` attributes for _resolution switching_ and _art direction_, all derived from a **single master file** transformed through the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests).
 
 
 ```html

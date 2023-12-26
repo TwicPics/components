@@ -1,5 +1,3 @@
-<div id="setting-up-your-project"/>
-
 ## Installation
 
 Add the `@twicpics/components` package to your project:
