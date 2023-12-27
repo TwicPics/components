@@ -298,4 +298,4 @@ You can find usage examples [in our sample project](https://twicpics-nuxt3-demo.
 
 #include "src/_documentation/common/_otherFrameworks.md"
 
-#include "src/_documentation/common/_licence.md"
+#include "src/_documentation/common/_license.md"

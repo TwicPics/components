@@ -327,4 +327,4 @@ You can find usage examples [in our sample project](https://twicpics-vue3-demo.n
 
 #include "src/_documentation/common/_otherFrameworks.md"
 
-#include "src/_documentation/common/_licence.md"
+#include "src/_documentation/common/_license.md"

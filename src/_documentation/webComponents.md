@@ -317,4 +317,4 @@ You can find usage examples [in our sample project](https://github.com/twicpics/
 
 #include "src/_documentation/common/_otherFrameworks.md"
 
-#include "src/_documentation/common/_licence.md"
+#include "src/_documentation/common/_license.md"

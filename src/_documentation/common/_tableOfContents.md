@@ -23,4 +23,4 @@
 - [Examples](#examples)
 - [Questions and feedback](#getting-help)
 - [Other frameworks](#other-frameworks)
-- [Licence](#licence)
+- [License](#license)
