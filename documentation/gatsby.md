@@ -27,7 +27,7 @@
 - [Examples](#examples)
 - [Questions and feedback](#questions-and-feedback)
 - [Other frameworks](#other-frameworks)
-- [Licence](#licence)
+- [License](#license)
 
 ## Overview
 
@@ -318,11 +318,11 @@ The following examples illustrate how to serve various image variations based on
 />
 ```
 
-[Default breakpoint values](#default-breakpoints) can be configured [here](setup-options).
+[Default breakpoint values](#default-breakpoints) can be configured [here](#setup-options).
 
 ### Bulk loading with TwicView
 
-By default, `<TwicImg>` and `<TwicVideo>` will only start loading when they come into the viewport. But sometimes, you may want to load multiple assets in bulk instead of lazy loading them. This is where `<TwicView>` comes into play.
+By default, `<TwicImg>` and `<TwicVideo>` will only start loading when they enter the viewport. But sometimes, you may want to load multiple assets in bulk instead of lazy loading them. This is where `<TwicView>` comes into play.
 
 The `<TwicView>` component eagerly loads all of his `<TwicImg>` and `<TwicVideo>` children as soon as it comes into the viewport (depending on your [anticipation settings](#setup-options).)
 
@@ -338,7 +338,7 @@ For example, if you're building a carousel, you might want to bulk-load all imag
 
 ### Image magnifier
 
-The `<TwicImg>` component lets you to display a **lazy loaded** zoomed version of your image on **mouseover**.
+The `<TwicImg>` component lets you display a **lazy loaded** zoomed version of your image on **mouseover**.
 
 To activate the zoom feature, set the `zoom` property to a number strictly greater than 1. This number represents the magnification factor of your image.
 
@@ -365,7 +365,7 @@ For example:
 }
 ```
 
-It applies only to `TwicImg` component in **cover** `mode`.
+It applies only to the `TwicImg` component in **cover** `mode`.
 
 ### Lifecycle
 
@@ -585,7 +585,7 @@ src="path/to/your/image"
 
 It is helpful if you want to display an image with its intrinsic aspect ratio without cropping.
 
-When using `ratio="none"` there is no CLS optimization, and you are responsible for it.
+When using `ratio="none"`, there is no CLS optimization, and you are responsible for it.
 
 ```html
 <!-- will display your image with it's intrinsic ratio, without any cropping -->
@@ -630,9 +630,9 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 
 ### `TwicImg`
 
-This component is a drop-in replacement for `img` dedicated to content images.
+This component is a drop-in replacement for the `img` tag dedicated to content images.
 
-It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
+It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box.
 
 ```html
 <TwicImg
@@ -862,7 +862,7 @@ Feel free to submit an [issue](https://github.com/TwicPics/components/issues) or
 
 TwicPics Components are available [in the most popular Javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
 
-## Licence
+## License
 
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]

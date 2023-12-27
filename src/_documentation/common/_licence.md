@@ -1,6 +1,4 @@
-<div id='licence'/>
-
-## Licence
+## License
 
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]

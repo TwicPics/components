@@ -404,9 +404,9 @@ Fell free to submit an [issue](https://github.com/TwicPics/components/issues) or
 TwicPics Components are available [in the most popular javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
 
 
-<div id='licence'/>
+<div id='license'/>
 
-## Licence
+## License
 
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]

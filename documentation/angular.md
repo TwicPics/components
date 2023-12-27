@@ -27,7 +27,7 @@
 - [Examples](#examples)
 - [Questions and feedback](#questions-and-feedback)
 - [Other frameworks](#other-frameworks)
-- [Licence](#licence)
+- [License](#license)
 
 ## Overview
 
@@ -356,7 +356,7 @@ The following examples illustrate how to serve various image variations based on
 />
 ```
 
-[Default breakpoint values](#default-breakpoints) can be configured [here](setup-options).
+[Default breakpoint values](#default-breakpoints) can be configured [here](#setup-options).
 
 ### Bulk loading with TwicView
 
@@ -560,7 +560,7 @@ For example:
 
 The zoom factor can also be configured through the `--twic-zoom` [CSS variable](#css-variables).
 
-To activate the [style-driven zoom](#style-driven-approach), simply set `zoom` property to `'css'` and add a new rule to your stylesheet.
+To activate the [style-driven zoom](#style-driven-approach), set the `zoom` property to `'css'` and add a new rule to your stylesheet.
 
 For example:
 
@@ -574,7 +574,7 @@ For example:
 }
 ```
 
-It applies only to `TwicImg` component in **cover** `mode`.
+It applies only to the `TwicImg` component in **cover** `mode`.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TwicPics/components-demo-angular?file=src/app/twic-zoom/twic-zoom.component.html&initialpath=zoom)
 
@@ -672,9 +672,9 @@ Your template features a single component that will follow your CSS directives a
 
 #### With TwicPicture
 
-Useful if you want to display an image with its intrinsic aspect ratio without cropping.
+It is helpful if you want to display an image with its intrinsic aspect ratio without cropping.
 
-When using `ratio="none"` there is no CLS optimization, and you are responsible for it.
+When using `ratio="none"`, there is no CLS optimization, and you are responsible for it.
 
 ```html
 <!-- will display your image with it's intrinsic ratio, without any cropping -->
@@ -686,7 +686,7 @@ When using `ratio="none"` there is no CLS optimization, and you are responsible 
 
 #### With TwicImg and TwicVideo
 
-Particularly useful when creating hero banner, you can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
+It is helpful when creating a "hero" banner. You can specify the height of your image while respecting its natural aspect ratio and optimizing your _Cumulative Layout Shift_ (CLS) metric.
 
 When using `ratio="none"`, you are responsible for properly sizing the component.
 
@@ -722,7 +722,7 @@ When using `ratio="none"`, you are responsible for properly sizing the component
 
 ### `TwicImg`
 
-This component is a drop-in replacement for `img` dedicated to content images.
+This component is a drop-in replacement for the `img` tag dedicated to content images.
 
 It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box.
 
@@ -820,7 +820,7 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
 
 This component is a drop-in replacement for `video`.
 
-It provides seamless playback for [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), offering advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP) and lazy loading out of the box.
+It provides seamless playback for [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization), offering advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box.
 
 ```html
 <TwicVideo
@@ -884,7 +884,7 @@ type Anchor = `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `t
 
 #### Usage
 
-To dynamically set the `anchor` property in `TwicImg` (or `TwicVideo`) component, you must declare a variable of type `Anchor`.
+To dynamically set the `anchor` property with the `TwicImg` (or `TwicVideo`) component, you must declare a variable of type `Anchor`.
 
 ```ts
 // component.ts
@@ -915,7 +915,7 @@ type Mode = `contain` | `cover`;
 
 #### Usage
 
-To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component, you must declare a variable of type `Mode`.
+To dynamically set the `mode` property with the `TwicImg` (or `TwicVideo`) component, you must declare a variable of type `Mode`.
 
 ```ts
 // component.ts
@@ -946,7 +946,7 @@ type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
 
 #### Usage
 
-To dynamically set the `mode` property in `TwicImg` (or `TwicVideo`) component, you must declare a variable of type `Placeholder`.
+To dynamically set the `mode` property with the `TwicImg` (or `TwicVideo`) component, you must declare a variable of type `Placeholder`.
 
 ```ts
   // component.ts
@@ -1051,7 +1051,7 @@ Feel free to submit an [issue](https://github.com/TwicPics/components/issues) or
 
 TwicPics Components are available [in the most popular Javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
 
-## Licence
+## License
 
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]

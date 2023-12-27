@@ -562,4 +562,4 @@ You can find usage examples [in our online demo project](https://twicpics-angula
 
 #include "src/_documentation/common/_otherFrameworks.md"
 
-#include "src/_documentation/common/_licence.md"
+#include "src/_documentation/common/_license.md"
