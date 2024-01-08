@@ -49,9 +49,15 @@ const preComputeArtDirectives = (
         ...Object.keys( ratios ).map( Number ),
         ...Object.keys( sizes ).map( Number ),
     ] );
-
-    const resolutionsList = Object.values( config.breakpoints ).sort( ( a, b ) => a - b );
-    const MAX_RESOLUTION = Math.max( ...resolutionsList );
+    // creates resolution list from config.breakpoints and potential custom breakpoint
+    const resolutionsList = [
+        ...new Set(
+            [
+                ...Object.values( config.breakpoints ),
+                ...Array.from( allBreakpoints ).filter( w => w > 0 ),
+            ]
+        ),
+    ].sort( ( a, b ) => a - b );
     // build array of art directives by sorting and mapping breakpoints
     const artDirectives: ArtDirective[] = Array
         .from( allBreakpoints )
@@ -80,7 +86,7 @@ const preComputeArtDirectives = (
             // eslint-disable-next-line no-shadow, @typescript-eslint/no-shadow
             const { anchor, breakpoint, focus, mode, position, ratio, sizes } = source;
             const nextBreakpoint = artDirectives[ index + 1 ]?.breakpoint ?? undefined;
-            const width = breakpoint || nextBreakpoint || MAX_RESOLUTION;
+            const width = breakpoint || nextBreakpoint || Math.max( ...resolutionsList );
             return {
                 anchor,
                 breakpoint,
@@ -92,7 +98,7 @@ const preComputeArtDirectives = (
                 "resolutions": resolutionsList.filter(
                     resolution =>
                         ( resolution >= breakpoint ) &&
-                        ( ( nextBreakpoint === undefined ) || ( resolution <= nextBreakpoint ) )
+                        ( ( nextBreakpoint === undefined ) || ( resolution < nextBreakpoint ) )
                 ),
                 sizes,
                 width,
@@ -127,6 +133,7 @@ export const computePicture = (
         ratios,
         sizes
     );
+
     const datas = artDirectives &&
           artDirectives
               .sort( ( a, b ) => b.breakpoint - a.breakpoint )
@@ -143,7 +150,6 @@ export const computePicture = (
                           "sizes": _sizes,
                           width,
                           height } = artDirective;
-
                       // we use `inside` rather than `contain` to avoid cls when using TwicPicture
                       // (padding-trick can not be used there)
                       const actualMode = mode === `contain` ? `inside` : mode;
