@@ -7,5 +7,9 @@ export default defineNuxtConfig( {
         "anticipation": 0.5,
         "step": 50,
         "env": `production`,
+        "breakpoints": {
+            "md": 666,
+            "2xl": 4000,
+        },
     },
 } );

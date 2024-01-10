@@ -49,6 +49,7 @@ export default function Home() {
                 </div>
                 <div className="item">
                     <TwicPicture
+                        eager
                         src="football.jpg"
                         sizes="
                           (max-width: 750px) 100vm,
