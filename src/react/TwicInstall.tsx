@@ -11,13 +11,14 @@ import {
     parsePath,
     parseStep,
 } from "../_/parse";
-import type { Environment } from "../_/types";
+import type { BreakPoint, Environment } from "../_/types";
 import { rValidDomain, validEnvironment } from "../_/validate";
 import { boolean, number, oneOf, propType, string } from "./props";
 import { setConfig } from "../_/config";
 
 interface InstallAttributes {
     anticipation?: number | string,
+    breakpoints?: { [ key in BreakPoint ]?: number },
     class?: string,
     debug?: boolean,
     domain: string,
@@ -31,6 +32,7 @@ interface InstallAttributes {
 const TwicInstall: React.FC< InstallAttributes > = props => {
     const options = {
         "anticipation": parseAnticipation( props.anticipation ),
+        "breakpoints": props.breakpoints,
         "class": parseClass( props.class ),
         "debug": parseDebug( props.debug ),
         "domain": parseDomain( props.domain ),
