@@ -6,6 +6,11 @@ import "@twicpics/components/style.css";
 import "@twicpics/components-sample/Sample.css";
 import { TwicInstall } from "@twicpics/components/react";
 
+const breakpoints = {
+  "2xl": 4000,
+  "md": 666,
+}
+
 export default function RootLayout( { children }: {
     children: React.ReactNode
 } ) {
@@ -17,6 +22,7 @@ export default function RootLayout( { children }: {
                 anticipation="0.50"
                 step="100"
                 env="production"
+                breakpoints={breakpoints}
             ></TwicInstall>
             <body>
                 {children}

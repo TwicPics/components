@@ -25,7 +25,7 @@ export default {
         "domain": `https://demo.twic.it`,
         "anticipation": 0.5,
         "step": 50,
-        "env": `production`,
+        "env": `production`
     },
     "components": true,
 };
