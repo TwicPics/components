@@ -8,7 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Add
+
+- Add new `<TwicPicture>` component, a drop-in replacement for the `picture` tag, compatible with all frameworks except **Flutter** and **React Native**.
+
+### Changed
+
+- Updates samples dependencies.
+
+### Fixes
+
+- Hydration warning message when using **Next** in `dev` mode.
+
 ## [0.26.0] - 2023-11-21
+
+### Add
 
 - Add support for **Angular 17**.
 
@@ -585,6 +599,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.27.0]: https://github.com/TwicPics/components/compare/0.26.0...0.27.0
 [0.26.0]: https://github.com/TwicPics/components/compare/0.25.1...0.26.0
 [0.25.1]: https://github.com/TwicPics/components/compare/0.25.0...0.25.1
 [0.25.0]: https://github.com/TwicPics/components/compare/0.24.0...0.25.0
