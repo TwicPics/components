@@ -99,6 +99,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const placeholder_ = preComputePlaceholder( placeholder, src );
     return (
         <div
+            suppressHydrationWarning
             className={ computeWrapperClass( className, props.src, transition ) }
             style={ computeWrapperStyle( ratio ) }
             title={ title }
@@ -132,6 +133,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
             />
             { placeholder_ && (
                 <div
+                    suppressHydrationWarning
                     style = {
                         computePlaceholderStyle(
                             anchor,
