@@ -24,7 +24,6 @@ import type { Anchor } from "../_/types";
 import { validAnchors } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
-import { isBrowser } from "../_/utils";
 
 export interface PictureAttributes extends BaseAttributes {
     fetchpriority?: string,
@@ -64,8 +63,9 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
         src
     );
 
-    if ( isBrowser && pictureData?.img && pictureData.img.hasOwnProperty( `fetchPriority` ) ) {
-        // until react fixes the bug (ok with Next.js)
+    if ( pictureData?.img?.fetchPriority ) {
+        // until react fixes https://github.com/facebook/react/issues/27233 (ok with Next.js)
+        ( { "fetchPriority": pictureData.img.fetchpriority } = pictureData.img );
         delete pictureData.img.fetchPriority;
     }
 
