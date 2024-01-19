@@ -86,6 +86,10 @@ const preComputeArtDirectives = (
             // eslint-disable-next-line no-shadow, @typescript-eslint/no-shadow
             const { anchor, breakpoint, focus, mode, position, ratio, sizes } = source;
             const nextBreakpoint = artDirectives[ index + 1 ]?.breakpoint ?? undefined;
+            // current asset width is:
+            //    breakpoint if not equal to zero
+            //    or next breakpoint if defined
+            //    or max resolution
             const width = breakpoint || nextBreakpoint || Math.max( ...resolutionsList );
             return {
                 anchor,
@@ -98,14 +102,17 @@ const preComputeArtDirectives = (
                 "resolutions": resolutionsList.filter(
                     resolution =>
                         ( resolution >= breakpoint ) &&
-                        ( ( nextBreakpoint === undefined ) || ( resolution < nextBreakpoint ) )
+                        (
+                            ( ( nextBreakpoint === undefined ) || ( resolution < nextBreakpoint ) ) ||
+                            ( ( breakpoint === 0 ) && ( resolution <= nextBreakpoint ) )
+                        )
                 ),
                 sizes,
                 width,
                 "height": ratio ? `${ Math.round( width * ratio ) }` : undefined,
             };
         }
-    );
+    ).sort( ( a, b ) => b.breakpoint - a.breakpoint );
 };
 
 /* eslint-disable dot-notation */
@@ -134,79 +141,81 @@ export const computePicture = (
         sizes
     );
 
-    const datas = artDirectives &&
-          artDirectives
-              .sort( ( a, b ) => b.breakpoint - a.breakpoint )
-              .map(
-                  ( artDirective, index ) => {
-                      const attributes: Record< string, string > = {};
-                      const { anchor,
-                          focus,
-                          media,
-                          mode,
-                          position,
-                          ratio,
-                          resolutions,
-                          "sizes": _sizes,
-                          width,
-                          height } = artDirective;
-                      // we use `inside` rather than `contain` to avoid cls when using TwicPicture
-                      // (padding-trick can not be used there)
-                      const actualMode = mode === `contain` ? `inside` : mode;
-                      const actualPosition = computePosition( anchor, mode, position );
-                      const actualPreTransform = `${
-                            // eslint-disable-next-line @typescript-eslint/no-use-before-define
-                            computePreTransform(
-                                {
-                                    anchor,
-                                    focus,
-                                    mode,
-                                    preTransform,
-                                    refit,
-                                }
-                            ) }${
-                                finalTransform( mode, refit ) || ``
-                            }${
-                                actualPosition ? `@${ actualPosition.replace( /(\s)/g, `-` ) }` : ``
-                            }`;
+    const datas = artDirectives.map(
+        ( artDirective, index ) => {
+            const { anchor,
+                focus,
+                media,
+                mode,
+                position,
+                ratio,
+                resolutions,
+                "sizes": _sizes,
+                width,
+                height } = artDirective;
+            // we use `inside` rather than `contain` to avoid cls when using TwicPicture
+            // (padding-trick can not be used there)
+            const actualMode = mode === `contain` ? `inside` : mode;
+            const actualPosition = computePosition( anchor, mode, position );
+            const actualPreTransform = `${
+                // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                computePreTransform(
+                    {
+                        anchor,
+                        focus,
+                        mode,
+                        preTransform,
+                        refit,
+                    }
+                ) }${
+                    finalTransform( mode, refit ) || ``
+                }${
+                    actualPosition ? `@${ actualPosition.replace( /(\s)/g, `-` ) }` : ``
+                }`;
 
-                      const actualResolutionSet = new Set< number >();
-                      for ( let dpr = 1; dpr <= config.maxDPR; dpr++ ) {
-                          resolutions.forEach( resolution => actualResolutionSet.add( resolution * dpr ) );
-                      }
+            const actualResolutionSet = new Set< number >();
+            for ( let dpr = 1; dpr <= config.maxDPR; dpr++ ) {
+                resolutions.forEach( resolution => actualResolutionSet.add( resolution * dpr ) );
+            }
 
-                      const srcMap = new Map < number, string >();
-                      for ( const _width of Array.from( actualResolutionSet ).sort( ( a, b ) => b - a ) ) {
-                          srcMap.set(
-                              _width,
-                              createUrl( {
-                                  "context": {
-                                      "height": ratio ? Math.round( _width * ratio ) : undefined,
-                                      "mode": actualMode,
-                                      "width": _width,
-                                  },
-                                  "domain": config.domain,
-                                  "transform": actualPreTransform,
-                                  src,
-                              } )
-                          );
-                      }
-                      attributes[ `height` ] = height;
-                      attributes[ `media` ] = ( index === ( artDirectives.length - 1 ) ) ? undefined : media;
-                      attributes[ `sizes` ] = _sizes;
-                      attributes[ `srcSet` ] = Array.from(
-                          srcMap,
-                          ( [ _width, _src ] ) => `${ _src } ${ _width }w`
-                      ).join( `,` );
-                      attributes[ `width` ] = `${ width }`;
-                      if ( index === ( artDirectives.length - 1 ) ) {
-                          attributes[ `fetchPriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
-                          attributes[ `loading` ] = eager ? `eager` : `lazy`;
-                          attributes[ `src` ] = srcMap.get( width );
-                      }
-                      return attributes;
-                  }
-              );
+            const srcMap = new Map<number, string>();
+            Array.from( actualResolutionSet )
+                .sort( ( a, b ) => b - a )
+                .forEach( _width => {
+                    srcMap.set(
+                        _width,
+                        createUrl( {
+                            "context": {
+                                "height": ratio ? Math.round( _width * ratio ) : undefined,
+                                "mode": actualMode,
+                                "width": _width,
+                            },
+                            "domain": config.domain,
+                            "transform": actualPreTransform,
+                            src,
+                        } )
+                    );
+                } );
+
+            const attributes: Record<string, string> = {
+                height,
+                "sizes": _sizes,
+                "srcSet": Array.from(
+                    srcMap,
+                    ( [ _width, _src ] ) => `${ _src } ${ _width }w`
+                ).join( `,` ),
+                "width": `${ width }`,
+            };
+            if ( index === ( artDirectives.length - 1 ) ) {
+                attributes[ `fetchPriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
+                attributes[ `loading` ] = eager ? `eager` : `lazy`;
+                attributes[ `src` ] = srcMap.get( width );
+            } else {
+                attributes[ `media` ] = media;
+            }
+            return attributes;
+        }
+    );
     return {
         "sources": datas.slice( 0, -1 ),
         "img": datas[ datas.length - 1 ],
