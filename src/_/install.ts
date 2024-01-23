@@ -24,6 +24,7 @@ const registerScript = ( options: Options ): void => {
                 }
             }
         } );
+        const { scriptElementId } = options;
         createElement( {
             "element": document.head,
             "value": [
@@ -38,6 +39,9 @@ const registerScript = ( options: Options ): void => {
                     "attributes": {
                         "async": ``,
                         "defer": ``,
+                        ...( scriptElementId && {
+                            "id": scriptElementId,
+                        } ),
                         "src": parts.join( `&` ),
                     },
                     "elementName": `script`,

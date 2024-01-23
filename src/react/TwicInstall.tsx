@@ -29,6 +29,8 @@ interface InstallAttributes {
     step?: number | string,
 }
 
+const SCRIPT_ELEMENT_ID = `__twicpics__DO_NOT_USE__`;
+
 const TwicInstall: React.FC< InstallAttributes > = props => {
     const options = {
         "anticipation": parseAnticipation( props.anticipation ),
@@ -40,18 +42,19 @@ const TwicInstall: React.FC< InstallAttributes > = props => {
         "handleShadowDom": parseHandleShadowDom( props.handleShadowDom ),
         "maxDPR": parseMaxDrp( props.maxDPR ),
         "path": parsePath( props.path ),
+        "scriptElementId": SCRIPT_ELEMENT_ID,
         "step": parseStep( props.step ),
     };
     setConfig( options );
     useEffect(
         () => {
-            register( options );
+            if ( !document.getElementById( SCRIPT_ELEMENT_ID ) ) {
+                register( options );
+            }
         },
         []
     );
-    return (
-        <></>
-    );
+    return ( null );
 };
 
 TwicInstall.propTypes = {
