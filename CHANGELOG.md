@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixes
+
+- TwicPics Components for **React** throws null ref error when using `Strict Mode` in `development` environment.
+
 ## [0.27.0] - 2024-01-22
 
 ### Add
