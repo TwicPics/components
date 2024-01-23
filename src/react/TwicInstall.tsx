@@ -29,7 +29,7 @@ interface InstallAttributes {
     step?: number | string,
 }
 
-const SCRIPT_ELEMENT_ID = `__twicpics__DO_NOT_USE__`;
+const SCRIPT_ELEMENT_ID = `twicpics-script`;
 
 const TwicInstall: React.FC< InstallAttributes > = props => {
     const options = {
