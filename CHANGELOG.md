@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.27.1] - 2024-01-24
+
 ### Fixes
 
 - TwicPics Components for **React** throws null ref error when using `Strict Mode` in `development` environment.
@@ -605,6 +607,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.27.1]: https://github.com/TwicPics/components/compare/0.27.0...0.27.1
 [0.27.0]: https://github.com/TwicPics/components/compare/0.26.0...0.27.0
 [0.26.0]: https://github.com/TwicPics/components/compare/0.25.1...0.26.0
 [0.25.1]: https://github.com/TwicPics/components/compare/0.25.0...0.25.1
