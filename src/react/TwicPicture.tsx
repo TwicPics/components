@@ -24,7 +24,7 @@ import type { Anchor } from "../_/types";
 import { validAnchors } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
-import { fetchPriorityAttr } from "./utils";
+import { fetchPriorityName } from "./utils";
 
 export interface PictureAttributes extends BaseAttributes {
     fetchpriority?: string,
@@ -77,7 +77,9 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 <img
                     suppressHydrationWarning
                     alt={ computeAlt( alt, `img` ) }
-                    { ...fetchPriorityAttr( _fetchPriority ) }
+                    { ...{
+                        [ fetchPriorityName ]: _fetchPriority,
+                    } }
                     { ...rest }
                 />
             </picture>

@@ -1,5 +1,10 @@
 import { version } from "react";
 
+const [ major, minor ] = version.split( `.` ).map( n => {
+    const parsed = Number( n );
+    return isNaN( parsed ) ? 0 : parsed;
+} );
+
 /**
  * in React 18.3.0 or newer, we must use camelCase attribute
  * to avoid "Warning: Invalid DOM property".
@@ -7,17 +12,7 @@ import { version } from "react";
  * to avoid "Warning: Invalid DOM property".
  * see https://github.com/facebook/react/pull/25927
  */
-const fetchPriorityAttrFactory = () => {
-    const [ _major, _minor ] = version.split( `.` ).map( Number );
-    const major = isNaN( _major ) ? 0 : _major;
-    const minor = isNaN( _minor ) ? 0 : _minor;
-    // eslint-disable-next-line no-magic-numbers
-    const actual = ( major > 18 ) || ( ( major === 18 ) && ( minor >= 3 ) ) ?
-      `fetchPriority` :
-      `fetchpriority`;
-    return ( fetchPriority: string ): Record<string, string> => ( {
-        [ actual ]: fetchPriority,
-    } );
-};
-
-export const fetchPriorityAttr = fetchPriorityAttrFactory();
+// eslint-disable-next-line no-magic-numbers
+export const fetchPriorityName = ( major > 18 ) || ( ( major === 18 ) && ( minor >= 3 ) ) ?
+    `fetchPriority` :
+    `fetchpriority`;
