@@ -28,6 +28,7 @@ import {
 } from './compute';
 import type { MediaAttributes } from './types';
 import { getMediaInfos } from './mediaInfos';
+import { config } from '../_/config';
 import { debounce } from '../_/utils';
 // eslint-disable-next-line no-shadow
 import Image from './_Image';
@@ -79,6 +80,10 @@ export default ( props: MediaAttributes ) => {
             _media => {
                 opacityTransition.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
                 setActualUri( _media );
+                if ( config.env === `debug` ) {
+                    // eslint-disable-next-line no-console
+                    console.debug( `Downloading: `, _media );
+                }
             },
             {
                 "leading": false,

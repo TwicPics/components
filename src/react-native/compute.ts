@@ -1,5 +1,5 @@
-import { Animated, Easing, PixelRatio, Platform } from 'react-native';
-export * from "../_/compute";
+import { Animated, Easing, PixelRatio } from 'react-native';
+export * from '../_/compute';
 import { computePreTransform } from '../_/compute';
 import { config } from '../_/config';
 import type { AnchorObject, Mode } from '../_/types';
@@ -15,13 +15,6 @@ const actualSize = ( step: number, lqip: boolean, viewSize: SizeObject ): SizeOb
     const pixelRatio = Math.min( Math.max( 1, PixelRatio.get() ), config.maxDPR );
     let _actualWidth = actualWidth( viewSize.width * pixelRatio );
     let _actualHeight = viewSize.ratio ? _actualWidth * viewSize.ratio : viewSize.height * pixelRatio;
-    if ( config.env === `debug` ) {
-        // eslint-disable-next-line no-console
-        console.debug( `size and pixelRatio`, viewSize, pixelRatio, {
-            _actualWidth,
-            _actualHeight,
-        } );
-    }
     if ( lqip ) {
         const actualRatio = _actualWidth / _actualHeight;
         // eslint-disable-next-line no-multi-assign
@@ -113,7 +106,7 @@ const computeUrl = ( { anchor,
     step,
     viewSize,
     videoOptions }: UrlData ) => {
-    const { domain, env } = config;
+    const { domain } = config;
     const lqip = inspect && !urlInfos( src ).isSpecial;
     const { width, height } = actualSize( step, lqip, viewSize );
     const { posterTransform, videoTransform } = videoOptions || {};
@@ -128,7 +121,6 @@ const computeUrl = ( { anchor,
     const actualTransform = `${
           computePreTransform( {
               anchor,
-              "debug": ( env === `debug` ) && ( Platform.OS === `web` ) && !lqip,
               focus,
               mode,
               preTransform,
