@@ -24,7 +24,7 @@ import type { Anchor } from "../_/types";
 import { validAnchors } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
-import { reactVersion } from "./utils";
+import { fetchPriorityAttr } from "./utils";
 
 export interface PictureAttributes extends BaseAttributes {
     fetchpriority?: string,
@@ -32,24 +32,6 @@ export interface PictureAttributes extends BaseAttributes {
     refit?: boolean | string,
     sizes?: string
 }
-
-/**
- * in React 18.3.0 or newer, we must use camelCase attribute
- * to avoid "Warning: Invalid DOM property".
- * in React 18.2.0 or older, we must use lowercase attribute
- * to avoid "Warning: Invalid DOM property".
- * see https://github.com/facebook/react/pull/25927
- */
-const fetchPriorityAttribute = ( fetchPriority: string ): Record< string, string > => {
-    const { major, minor } = reactVersion;
-    return {
-        // eslint-disable-next-line no-magic-numbers
-        [ ( major > 18 ) || ( ( major === 18 ) && ( minor >= 3 ) ) ?
-          `fetchPriority` :
-          `fetchpriority`
-        ]: fetchPriority,
-    };
-};
 
 const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
@@ -95,7 +77,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 <img
                     suppressHydrationWarning
                     alt={ computeAlt( alt, `img` ) }
-                    { ...fetchPriorityAttribute( _fetchPriority ) }
+                    { ...fetchPriorityAttr( _fetchPriority ) }
                     { ...rest }
                 />
             </picture>
