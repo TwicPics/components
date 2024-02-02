@@ -10,7 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Makes `debug` mode display the actual loaded URL in **React Native**.
+
 - Updates **React Native** sample dependencies.
+
+### Fixes
+
+- Fixes `Invalid Dom Property` warning for the **React** `TwicPicture` component under development environment.
 
 ## [0.27.1] - 2024-01-24
 
