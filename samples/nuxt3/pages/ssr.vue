@@ -2,7 +2,8 @@
 <script setup>
 import { getSampleImage } from "@twicpics/components-sample/fakeServer.js";
 import "@twicpics/components-sample/Sample.css";
-const res = await getSampleImage();
+// eslint-disable-next-line no-undef
+const { "data": res } = await useAsyncData( `res`, () => getSampleImage() );
 </script>
 <template>
     <main>
