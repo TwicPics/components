@@ -1,11 +1,10 @@
 <svelte:options tag={null}/>
 <script context="module" lang="ts">
-import { getDataAttributeName, isWebComponents } from "./_utils.js";
-import { get_current_component } from "svelte/internal";
+import { getCurrentComponent, getDataAttributeName, isWebComponents } from "./_utils.js";
 </script>
 <script lang="ts">
 if ( isWebComponents ) {
-    get_current_component().setAttribute( getDataAttributeName( `view` ), `` );
+    getCurrentComponent().setAttribute( getDataAttributeName( `view` ), `` );
 }
 </script>
 { #if isWebComponents }

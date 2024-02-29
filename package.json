@@ -7,7 +7,7 @@
         "@rollup/plugin-terser": "0.4.4",
         "@rollup/plugin-typescript": "11.1.5",
         "@rollup/pluginutils": "5.0.5",
-        "@tsconfig/svelte": "3.0.0",
+        "@tsconfig/svelte": "5.0.2",
         "@types/react": "18.2.37",
         "@types/react-dom": "18.2.15",
         "@types/react-native": "0.72.6",

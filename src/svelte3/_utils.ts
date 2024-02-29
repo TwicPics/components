@@ -57,11 +57,14 @@ export type {
     Mode,
     Options,
     Placeholder,
+    ScriptAttributes,
     State,
     StateEvent,
     VideoOptions,
 } from "../_/types.js";
 export { isBrowser, isWebComponents } from "../_/utils.js";
+import { get_current_component as getCurrentComponent } from "svelte/internal";
+export { getCurrentComponent };
 
 export const styleToString = ( properties: Record< string, string > ): string => (
     Object.keys( properties ).length ?

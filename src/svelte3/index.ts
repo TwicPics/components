@@ -1,6 +1,15 @@
 import type { ComponentType, SvelteComponentTyped } from "svelte";
 import "../_/style.css";
-import type { Anchor, Attributes, Environment, Mode, Placeholder, State, StateEvent } from "./_utils.js";
+import type {
+    Anchor,
+    Attributes,
+    Environment,
+    Mode,
+    Placeholder,
+    ScriptAttributes,
+    State,
+    StateEvent,
+} from "./_utils.js";
 // eslint-disable-next-line no-duplicate-imports
 import { installTwicPics } from "./_utils.js";
 import { default as _TwicBackground } from "./TwicBackground.svelte";
@@ -8,7 +17,6 @@ import { default as _TwicImg } from "./TwicImg.svelte";
 import { default as _TwicPicture } from "./TwicPicture.svelte";
 import { default as _TwicVideo } from "./TwicVideo.svelte";
 import { default as _TwicView } from "./TwicView.svelte";
-import type { ScriptAttributes } from "../_/types";
 export interface BaseAttributes extends Attributes {
     class?: string,
     state?: State,

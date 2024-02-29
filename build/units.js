@@ -35,11 +35,8 @@ const svelteUnitFactory = ( { framework = `svelte3`, customElement = false } ) =
                     [ /transitionDelay/g, `transitiondelay` ],
                     [ /transitionDuration/g, `transitionduration` ],
                     [ /transitionTimingFunction/g, `transitiontimingfunction` ],
+                    [ /\.shadowRoot\b/g, `` ],
                 ],
-            } ),
-            replacer( {
-                "include": /\.svelte$/,
-                "replacer": [ /\.shadowRoot\b/g, `` ],
             } ),
             replacer( {
                 "include": /\/node_modules\/svelte\/.*$/,
@@ -61,7 +58,7 @@ const svelteUnitFactory = ( { framework = `svelte3`, customElement = false } ) =
                     .slice( 2 )
                     .map( line => line.replace(
                         /ComponentType<SvelteComponentTyped<[^>]*>>;/g,
-                    `CustomElementConstructor;`
+                        `CustomElementConstructor;`
                     ) )
                     .join( `\n` )
                     .replace( /interface (?:Base|Background|Img|Media|Picture|Script|Video|)Attributes[^}]+\}/g, `` )

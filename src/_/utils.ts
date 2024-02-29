@@ -52,9 +52,10 @@ export const debounce = ( fn: ( ...args:any[] ) => void, options: DebounceOption
     };
 };
 
+export const isReact = ( FRAMEWORK === `react` );
+export const isReactNative = ( FRAMEWORK === `react-native` );
 export const isWebComponents = ( FRAMEWORK === `webcomponents` );
 export const isBrowser = isWebComponents || ( typeof document !== `undefined` );
-export const isReactNative = ( FRAMEWORK === `react-native` );
 
 export const logError = ( message: string ): void => {
     // eslint-disable-next-line no-console
