@@ -14,7 +14,7 @@
     let state;
     $: {
         if (state) {
-            console.log("Svelte - TwicImg prop state has changed = ", state);
+            console.log("Svelte4 - TwicImg prop state has changed = ", state);
         }
     }
 </script>

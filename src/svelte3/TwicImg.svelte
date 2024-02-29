@@ -3,6 +3,7 @@
 <script context="module" lang="ts">
 import {
     computeMagnifierStyle,
+    getCurrentComponent,
     isBrowser,
     isWebComponents,
     initMagnifier,
@@ -15,7 +16,6 @@ import {
     type State,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
-import { get_current_component } from "svelte/internal";
 import { onMount } from "svelte";
 </script>
 <script lang="ts">
@@ -71,11 +71,7 @@ $: props = {
 $: _magnifierStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
 $: {
     if ( isWebComponents ) {
-        hostElement = get_current_component();
-    }
-}
-$: {
-    if ( hostElement && isWebComponents) {
+        hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
         hostElement.style = _magnifierStyle;
     }

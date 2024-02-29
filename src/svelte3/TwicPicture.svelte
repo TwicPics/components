@@ -6,6 +6,7 @@ import type {
     Mode,
 } from "./_utils.js";
 import {
+    getCurrentComponent,
     parseAlt,
     parseAnchors,
     parseClassName,
@@ -24,7 +25,6 @@ import {
     parseModes,
     parsePositions,
 } from "./_utils.js";
-import { get_current_component } from "svelte/internal";
 </script>
 <script lang="ts">
 export let alt: string = undefined;
@@ -43,8 +43,6 @@ export let src: string;
 export let sizes: string = undefined;
 export let title: string = undefined;
 
-let hostElement: any;
-
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchors = parseAnchors( anchor );
 $: parsedClassName = parseClassName( className ) || ``;
@@ -61,9 +59,8 @@ $: parsedSrc = parseSrc( src );
 $: parsedTitle = parseTitle( title );
 
 $: {
-    if ( isWebComponents ) {
-        hostElement = get_current_component();
-        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+    if ( isWebComponents ) {;
+        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
     }
 }
 

@@ -1,0 +1,22 @@
+{
+  "name": "svelte4",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "copy": "node copySample.js ",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "$npm_execpath install && npm run copy && vite"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "3.0.2",
+    "@tsconfig/svelte": "5.0.2",
+    "@twicpics/components": "file:../../dist",
+    "@twicpics/components-sample": "file:../_",
+    "svelte": "5.0.0-next.69",
+    "svelte-check": "3.6.4",
+    "vite": "5.1.4"
+  }
+}

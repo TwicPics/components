@@ -13,7 +13,7 @@
     let state;
     $: {
         if (state) {
-            console.log("Svelte - TwicImg prop state has changed = ", state);
+            console.log("SvelteKit - TwicImg prop state has changed = ", state);
         }
     }
 </script>

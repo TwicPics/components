@@ -2,6 +2,7 @@
 
 <script context="module" lang="ts">
 import {
+    getCurrentComponent,
     isWebComponents,
     parseClassName,
     type Anchor,
@@ -10,7 +11,6 @@ import {
     type State
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
-import { get_current_component } from "svelte/internal";
 </script>
 <script lang="ts">
 export let anchor: Anchor = undefined;
@@ -58,7 +58,7 @@ $: props = {
 }
 $: {
     if ( isWebComponents ) {
-        get_current_component().className = `${ parsedClassName } twic-d twic-i`;
+        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
     }
 }
 </script>

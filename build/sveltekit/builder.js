@@ -5,6 +5,7 @@ import minifier from "../minifier.js";
 import replacer from "../replacer.js";
 import rollup from "../rollup.js";
 import { gitHubRawPath, packageVersion } from "../version.js";
+import config from "./config.js";
 import { svelteKitInfos } from "./utils.js";
 import typeScript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
@@ -15,9 +16,11 @@ const { copy, remove } = fs;
 import { readFile, writeFile } from "fs/promises";
 import replaceInFile from "replace-in-file";
 
+const { versions = [] } = config;
+
 /* eslint-disable no-console */
 export const buildComponents = async () => {
-    console.log( `Building Sveltekit components` );
+    console.log( `Building ${ versions.join( `,` ) } components` );
 
     // source path within building project
     const srcPath = `${ svelteKitInfos.templatePath }src/lib`;
@@ -34,8 +37,18 @@ export const buildComponents = async () => {
     // 3 - adaptation of Svelte3 sources
     await replaceInFile( {
         "files": `${ srcPath }/*.*`,
-        "from": [ /\.\.\/_\//g, /import\s*".\/_\/style.css"\s*;/, /<svelte:options tag=.*\/>/gm ],
-        "to": [ `./_/`, ``, `` ],
+        "from": [
+            /\.\.\/_\//g,
+            /import\s*".\/_\/style.css"\s*;/,
+            /<svelte:options tag=.*\/>/gm,
+            /import.*"svelte\/internal"\s*;/gm,
+        ],
+        "to": [
+            `./_/`,
+            ``,
+            ``,
+            `const getCurrentComponent = () :HTMLElement => undefined;`,
+        ],
     } );
 
     // 4 - rollup utils.ts
@@ -126,12 +139,14 @@ export const buildComponents = async () => {
  */
 export const exportsPackageJson = () => {
     const exports = new Map();
-    exports.set( `./sveltekit`, {
-        "main": `./sveltekit/index.js`,
-        "module": `./sveltekit/index.js`,
-        "svelte": `./sveltekit/index.js`,
-        "types": `./sveltekit/index.d.ts`,
-    } );
+    for ( const version of versions ) {
+        exports.set( `./${ version }`, {
+            "main": `./sveltekit/index.js`,
+            "module": `./sveltekit/index.js`,
+            "svelte": `./sveltekit/index.js`,
+            "types": `./sveltekit/index.d.ts`,
+        } );
+    }
     exports.set( `./sveltekit/`, `./sveltekit/` );
     return exports;
 };

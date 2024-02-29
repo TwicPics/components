@@ -17,6 +17,7 @@ import { config, getDataAttributeName } from "./config";
 import { cssWithoutPx } from "./dom";
 import { parseMode } from "./parse";
 import { createUrl, finalTransform } from "./url";
+import { isReact } from "./utils";
 
 const computePosition = ( { x, y }: AnchorObject, mode: Mode, position: string ): string =>
     ( mode === `contain` ) && ( position || ( y ? ( x ? `${ y } ${ x }` : y ) : x ) );
@@ -115,6 +116,7 @@ const preComputeArtDirectives = (
     ).sort( ( a, b ) => b.breakpoint - a.breakpoint );
 };
 
+const srcSetName = isReact ? `srcSet` : `srcset`;
 /* eslint-disable dot-notation */
 export const computePicture = (
     anchors: Record< number, AnchorObject >,
@@ -200,12 +202,12 @@ export const computePicture = (
             const attributes: Record<string, string> = {
                 height,
                 "sizes": _sizes,
-                "srcSet": Array.from(
-                    srcMap,
-                    ( [ _width, _src ] ) => `${ _src } ${ _width }w`
-                ).join( `,` ),
                 "width": `${ width }`,
             };
+            attributes[ srcSetName ] = Array.from(
+                srcMap,
+                ( [ _width, _src ] ) => `${ _src } ${ _width }w`
+            ).join( `,` );
             if ( index === ( artDirectives.length - 1 ) ) {
                 attributes[ `fetchPriority` ] = eager ? ( fetchPriority || `high` ) : fetchPriority;
                 attributes[ `loading` ] = eager ? `eager` : `lazy`;
@@ -217,8 +219,8 @@ export const computePicture = (
         }
     );
     return {
-        "sources": datas.slice( 0, -1 ),
-        "img": datas[ datas.length - 1 ],
+        "img": datas.pop(),
+        "sources": datas,
     };
 };
 /* eslint-enable dot-notation */
