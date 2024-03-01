@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Add
+
+- Add support for **Svelte5**.
+
 ## [0.27.2] - 2024-02-05
 
 ### Changed
