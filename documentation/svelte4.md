@@ -130,7 +130,7 @@ npm install @twicpics/components --D
 
 > [!NOTE]
 > TwicPics Components are available for `Svelte4`.
-> If you are using `Svelte3`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte3.md).
+> If you are using `Svelte3` or `Svelte5`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte3.md) and [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte5.md) respectively.
 
 ## Setup
 

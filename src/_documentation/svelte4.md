@@ -24,7 +24,7 @@
 
 > [!NOTE]
 > TwicPics Components are available for `Svelte4`.
-> If you are using `Svelte3`, you can find their documentation [here](__GITHUB_BLOB_PATH__/documentation/svelte3.md).
+> If you are using `Svelte3` or `Svelte5`, you can find their documentation [here](__GITHUB_BLOB_PATH__/documentation/svelte3.md) and [here](__GITHUB_BLOB_PATH__/documentation/svelte5.md) respectively.
 
 ## Setup
 

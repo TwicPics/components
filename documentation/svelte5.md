@@ -133,7 +133,7 @@ npm install @twicpics/components --D
 
 > [!NOTE]
 > TwicPics Components are available for `Svelte5`.
-> If you are using `Svelte3` or `Svelte4`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte3.md) and [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte4.md).
+> If you are using `Svelte3` or `Svelte4`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte3.md) and [here](https://github.com/TwicPics/components/blob/0.28.0/documentation/svelte4.md) respectively.
 
 ## Setup
 
@@ -141,8 +141,6 @@ npm install @twicpics/components --D
 > You will need a TwicPics domain to initialize the package. [Create an account for free](https://account.twicpics.com/signup?utm_source=github&utm_medium=organic&utm_campaign=components) to get your domain.
 
 ### Setting up TwicPics Components in your `Svelte5` project
-
-While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
 Add the import part:
 

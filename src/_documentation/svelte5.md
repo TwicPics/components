@@ -27,15 +27,13 @@
 
 > [!NOTE]
 > TwicPics Components are available for `Svelte5`.
-> If you are using `Svelte3` or `Svelte4`, you can find their documentation [here](__GITHUB_BLOB_PATH__/documentation/svelte3.md) and [here](__GITHUB_BLOB_PATH__/documentation/svelte4.md).
+> If you are using `Svelte3` or `Svelte4`, you can find their documentation [here](__GITHUB_BLOB_PATH__/documentation/svelte3.md) and [here](__GITHUB_BLOB_PATH__/documentation/svelte4.md) respectively.
 
 ## Setup
 
 #include "src/_documentation/common/_requirement.md"
 
 ### Setting up TwicPics Components in your `Svelte5` project
-
-While we recommend going the `ES module` route and use `import` statements, [TwicPics Components](https://www.npmjs.com/package/@twicpics/components) is also backward compatible with `CommonJS` and `require` statements.
 
 Add the import part:
 
