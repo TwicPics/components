@@ -1,6 +1,5 @@
 import __dirname from "../__dirname.js";
 import { getJsonFromPath, writeJson } from "../json.js";
-
 import minifier from "../minifier.js";
 import replacer from "../replacer.js";
 import rollup from "../rollup.js";
@@ -10,12 +9,12 @@ import { svelteKitInfos } from "./utils.js";
 import typeScript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import { execSync } from "child_process";
-import dts from "rollup-plugin-dts";
 import fs from 'fs-extra';
-const { copy, remove } = fs;
 import { readFile, writeFile } from "fs/promises";
 import replaceInFile from "replace-in-file";
+import dts from "rollup-plugin-dts";
 
+const { copy, remove } = fs;
 const { versions = [] } = config;
 
 /* eslint-disable no-console */
