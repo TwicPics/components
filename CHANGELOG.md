@@ -224,7 +224,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Add
 
-- Add `duration`, `from`, `posterFrom` and `to` properties to **TwicVideo** component in order to manage [video slicing](https://www.twicpics.com/docs/topics/video-optimization#video-slicing).
+- Add `duration`, `from`, `posterFrom` and `to` properties to **TwicVideo** component in order to manage [video slicing](https://www.twicpics.com/docs/guides/video-optimization#video-slicing).
 - Add support for **Angular 15+**
 
 ### Changed
