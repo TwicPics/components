@@ -9,7 +9,7 @@ Whether you need to display a content image, showcase a short video, or ensure o
 
 If you need to display **critical images** with _art direction_ support, you can use the `<TwicPicture>` component.
 
-It is a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests?utm_source=github&utm_medium=organic&utm_campaign=components) without additional effort.
+It is a drop-in replacement for the standard `picture` tag and is based directly on the [TwicPics API](https://www.twicpics.com/docs/essentials/api?utm_source=github&utm_medium=organic&utm_campaign=components) without additional effort.
 
 
 ```html
@@ -40,7 +40,7 @@ It is a drop-in replacement for the standard `picture` tag and is based directly
 
 Suppose you want to display a **pixel-perfect image** with optimized _Cumulative Layout Shift_ (CLS), _Low-Quality Image Placeholder_ (LQIP), and lazy loading out of the box. In that case, you can use the `<TwicImg>` component.
 
-It's a drop-in replacement for the standard `img` tag based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/script?utm_source=github&utm_medium=organic&utm_campaign=components).
+It's a drop-in replacement for the standard `img` tag based on the [TwicPics Script](https://www.twicpics.com/docs/essentials/native?utm_source=github&utm_medium=organic&utm_campaign=components).
 
 ```html
 <!-- Before -->
@@ -52,7 +52,7 @@ It's a drop-in replacement for the standard `img` tag based on the [TwicPics Scr
 
 #### Display a Video
 
-For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization?utm_source=github&utm_medium=organic&utm_campaign=components), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
+For seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/guides/video-optimization?utm_source=github&utm_medium=organic&utm_campaign=components), use the `<TwicVideo>` component. It's a sibling of `<TwicImg>` and serves as a drop-in replacement for the standard `video` tag.
 
 
 ```html

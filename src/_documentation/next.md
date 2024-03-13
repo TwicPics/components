@@ -314,7 +314,7 @@ export default function() {
 
 If it does not exist, create a `.env` file at the root of your project. 
 
-Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics domain](https://www.twicpics.com/docs/getting-started/fundamentals#domains-and-paths):
+Set the `NEXT_PUBLIC_TWICPICS_DOMAIN` environment variable to your own [Twicpics domain](https://www.twicpics.com/docs/getting-started/why-twicpics#domains-and-paths):
 
 
 ```bash
@@ -353,7 +353,7 @@ For more straightforward aspect ratio management, consider using the `<TwicImg>`
 > [!WARNING]
 > This is only supported from Next.js 13.
 
-The Next Image component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/topics/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
+The Next Image component allows to implement [low quality image placeholders](https://www.twicpics.com/docs/guides/image-best-practices#lqip--blurry-image-placeholder) by setting the `placeholder` prop to `blur`.
 
 When doing so, we need to set the `blurDataURL` prop. This prop expects the URL of a Base64-encoded image. TwicPics provides a `twicpicsPlaceholder` helper that returns such URL.
 

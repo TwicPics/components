@@ -3,7 +3,7 @@
 
 `TwicPicture` streamlines the use of `picture` elements and `srcset` attributes.
 
-It operates independently of the [TwicPics Script](https://www.twicpics.com/docs/essentials/script) and dynamically generates `source` elements and `srcset` attributes from a single master file using variants transformed through the [TwicPics API](https://www.twicpics.com/docs/guides/writing-api-requests).
+It operates independently of the [TwicPics Script](https://www.twicpics.com/docs/essentials/native) and dynamically generates `source` elements and `srcset` attributes from a single master file using variants transformed through the [TwicPics API](https://www.twicpics.com/docs/essentials/api).
 
 #### Resolution switching
 
