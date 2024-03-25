@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { register } from "../_/install";
+import { register, validate } from "../_/install";
 import {
     parseAnticipation,
     parseClass,
@@ -12,8 +12,7 @@ import {
     parseStep,
 } from "../_/parse";
 import type { BreakPoint, Environment } from "../_/types";
-import { rValidDomain, validEnvironment } from "../_/validate";
-import { boolean, number, oneOf, propType, string } from "./props";
+import { boolean, number, string } from "./props";
 import { setConfig } from "../_/config";
 
 interface InstallAttributes {
@@ -30,6 +29,11 @@ interface InstallAttributes {
 }
 
 const TwicInstall: React.FC< InstallAttributes > = props => {
+    validate( {
+        "domain": props.domain,
+        "env": props.env,
+        "path": props.path,
+    } );
     const options = {
         "anticipation": parseAnticipation( props.anticipation ),
         "breakpoints": props.breakpoints,
@@ -59,8 +63,8 @@ TwicInstall.propTypes = {
     "anticipation": number,
     "class": string,
     "debug": boolean,
-    "domain": propType( `string`, rValidDomain ),
-    "env": oneOf< Environment >( validEnvironment ),
+    "domain": string,
+    "env": string,
     "handleShadowDom": boolean,
     "maxDPR": number,
     "path": string,

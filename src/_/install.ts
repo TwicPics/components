@@ -12,8 +12,10 @@ const parametersMap = [
     [ `maxDPR`, `max-dpr` ],
     [ `step`, `step` ],
 ];
-const registerScript = ( options: Options ): void => {
+
+export const register = ( options: Options ): void => {
     if ( isBrowser && !isReactNative ) {
+        // register script
         const parts = [ `${ config.domain }/?${ VERSION }` ];
         parametersMap.forEach( p => {
             const [ key, actualKey ] = p;
@@ -48,28 +50,20 @@ const registerScript = ( options: Options ): void => {
                 },
             ],
         } );
+
+        // register style
+        const style = createElement( {
+            "elementName": `style`,
+            "value": configBasedStyle(),
+        } );
+        document.head.appendChild( style );
+
+        // re-register styles during astro view-transition
+        document.addEventListener( `astro:after-swap`, () => document.head.appendChild( style ) );
     }
 };
 
-const registerStyle = (): void => {
-    const style = createElement( {
-        "elementName": `style`,
-        "value": configBasedStyle(),
-    } );
-    document.head.appendChild( style );
-
-    // re-register styles during astro view-transition
-    document.addEventListener( `astro:after-swap`, () => document.head.appendChild( style ) );
-};
-
-export const register = ( options: Options ): void => {
-    if ( isBrowser && !isReactNative ) {
-        registerScript( options );
-        registerStyle();
-    }
-};
-
-export const installTwicPics = ( options: Options ): void => {
+export const validate = ( options: Options ) => {
     if ( !options ) {
         throwError( `install options not provided` );
     }
@@ -83,6 +77,11 @@ export const installTwicPics = ( options: Options ): void => {
     if ( env && !rValidEnvironment.test( env ) ) {
         throwError( `install env "${ env }" is invalid` );
     }
+};
+
+export const installTwicPics = ( options: Options ): void => {
+    validate( options );
+    const { domain, env, path } = options;
     setConfig( {
         ...options,
         ...{
@@ -91,6 +90,5 @@ export const installTwicPics = ( options: Options ): void => {
             "path": parsePath( path ),
         },
     } );
-
     register( options );
 };
