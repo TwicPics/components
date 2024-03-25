@@ -8,7 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-## [0.28.2] - 2024-03-04
+### Fixes
+
+- Fixes `domain` validation when using `TwicInstall` in production projects.
+
+## [0.28.0] - 2024-03-04
 
 ### Add
 

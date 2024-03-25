@@ -1,4 +1,5 @@
 import { createElement } from "./dom";
+import { parseDomain, parseEnv, parsePath } from "./parse";
 import type { Config, Options } from "./types";
 import { isBrowser, isReactNative, noop } from "./utils";
 
@@ -80,10 +81,10 @@ export const setConfig = ( options: Options ): void => {
         ...breakpoints,
     };
     config.class = _class || config.class;
-    config.domain = domain;
-    config.env = debug ? `debug` : env;
+    config.domain = parseDomain( domain );
+    config.env = debug ? `debug` : parseEnv( env );
     config.maxDPR = Math.max( 1, maxDPR || DEFAULT_MAX_DPR );
-    config.path = path;
+    config.path = parsePath( path );
     config.handleShadowDom = ( handleShadowDom && isBrowser && !isReactNative ) ?
         handleShadowDomFactory( getDataAttributeName( `component` ) ) :
         noop;
