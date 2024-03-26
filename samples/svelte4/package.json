@@ -15,6 +15,6 @@
     "@twicpics/components": "file:../../dist",
     "@twicpics/components-sample": "file:../_",
     "svelte": "4.2.12",
-    "vite": "5.1.4"
+    "vite": "5.2.6"
   }
 }
