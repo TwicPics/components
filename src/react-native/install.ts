@@ -1,18 +1,20 @@
 /* eslint-disable no-import-assign */
 
 import { installTwicPics } from '../_/install';
-import type { Options } from '../_/types';
 import { config } from '../_/config';
+import type { Options } from './types';
 
 const ANTICIPATION = 0.2;
+const STEP = 10;
 export default ( options: Options ): void => {
-    const { anticipation = ANTICIPATION } = options;
+    const { anticipation = ANTICIPATION, cachePolicy, step } = options;
     installTwicPics( {
         ...{
             "maxDPR": 2,
-            "step": 10,
         },
         ...options,
     } );
     config.anticipation = anticipation;
+    config.step = step || STEP;
+    config.cachePolicy = cachePolicy || `none`;
 };

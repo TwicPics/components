@@ -3,12 +3,12 @@ import React from "react";
 import { Image } from "react-native";
 import { styles } from "./styles";
 import type { AssetAttributes } from "./types";
-import useExpoAV from "./useExpoAv";
+import useExpo from "./useExpo";
 import { isSameAsset } from "./utils";
 
 // eslint-disable-next-line react/display-name
 export default React.memo( ( { onLoad, poster, uri }: AssetAttributes ) => {
-    const { Video } = useExpoAV();
+    const { Video } = useExpo( `Video` );
     return (
         uri && Video && <Video
             isLooping

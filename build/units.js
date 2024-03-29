@@ -82,6 +82,7 @@ export default [
         "bundleCss": false,
         "external": [
             `expo-av`,
+            `expo-image`,
             `react`,
             `react-dom`,
             `react-native`,

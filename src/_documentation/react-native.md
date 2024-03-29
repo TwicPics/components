@@ -12,7 +12,7 @@
   - [Platform Compatibility](#platform-compatibility)
 - [Installation](#installation)
   - [Installing TwicPics Components](#installing-twicpics-components)
-  - [Installing Expo-AV module](#installing-expo-av-module)
+  - [Installing Expo modules](#installing-expo-modules)
     - [For React Native Expo Go projects](#for-react-native-expo-go-projects)
     - [For React Native CLI projects](#for-react-native-cli-projects)
 - [Setup](#setup)
@@ -20,6 +20,7 @@
   - [Setup Options](#setup-options)
 - [Usage](#usage)
   - [Basic usage](#basic-usage)
+  - [Image Caching](#image-caching)
   - [Lazy Loading](#lazy-loading)
   - [Refit example](#refit-example)
   - [Working with ratio="none"](#working-with-rationone)
@@ -71,29 +72,41 @@ yarn add @twicpics/components
 npm install @twicpics/components
 ```
 
-If you plan to use `TwicVideo`, you will also need to install [Expo-AV module](#installing-expo-av-module). If not, proceed directly to [setup](#setup) section.
+If you plan to use **image caching** or `TwicVideo`, you will also need to install additional [Expo Modules](#installing-expo-modules). If not, proceed directly to [setup](#setup) section.
 
-### Installing Expo-AV module
+### Installing Expo modules
 
-The installation process for [Expo-AV](https://docs.expo.dev/versions/latest/sdk/av/) depends on your project's origin, whether [Expo Go](https://reactnative.dev/docs/environment-setup?guide=quickstart&package-manager=yarn) or [React Native CLI](https://reactnative.dev/docs/environment-setup?guide=native&package-manager=yarn).
+The installation process for additional **Expo modules** depends on your project's origin, whether [Expo Go](https://reactnative.dev/docs/environment-setup?guide=quickstart&package-manager=yarn) or [React Native CLI](https://reactnative.dev/docs/environment-setup?guide=native&package-manager=yarn).
 
 #### For React Native Expo Go projects
 
-Since `Expo` is already installed, add the [Expo-AV](https://docs.expo.dev/versions/latest/sdk/av/) dependency:
+Since `Expo` is already installed, add the required dependencies as follows, depending on your needs:
 
 ```bash
-# Using yarn
+# Expo AV installation (required for TwicVideo component)
+
+## Using yarn
 yarn add expo-av
 
-# Or using npm
+## Or using npm
 npm install expo-av
+```
+
+```bash
+# Expo Image installation (required for image caching)
+
+## Using yarn
+yarn add expo-image
+
+## Or using npm
+npm install expo-image
 ```
 
 Once completed, proceed to [setup](#setup) section.
 
 #### For React Native CLI projects
 
-First, install and configure the `expo` package.
+First, install and configure the `Expo` package.
 
 ```bash
 npx install-expo-modules@latest
@@ -101,14 +114,26 @@ npx install-expo-modules@latest
 
 **Note:** If the command fails, please refer to [Expo Modules documentation](https://docs.expo.dev/bare/installing-expo-modules/).
 
-After `expo` package is installed and configured, add `expo-av` dependency :
+After `Expo` package is installed and configured, add the required dependencies as follows, depending on your needs:
 
 ```bash
-# Using yarn
+# Expo AV installation (required for TwicVideo component)
+
+## Using yarn
 yarn add expo-av
 
-# Or using npm
+## Or using npm
 npm install expo-av
+```
+
+```bash
+# Expo Image installation (required for image caching)
+
+## Using yarn
+yarn add expo-image
+
+## Or using npm
+npm install expo-image
 ```
 
 For **iOS** targeting, reinstall the project's `CocoaPods`: 
@@ -146,6 +171,7 @@ For an exhaustive list of options, see [Setup Options](#setup-options).
 | Option | Description | Type | Default |
 |:-|:-|:-|:-|
 | `anticipation` | [TwicPics](https://www.twicpics.com/) will lazy-load images by default. To avoid a too abrupt transition with elements appearing into view and then images very obviously loading afterwards, [TwicPics](https://www.twicpics.com/) will "anticipate" lazy loading by a factor of the actual viewport. This behavior is controlled by this setting. | `Number` | `0.2` |
+| `cachePolicy` | Determines whether to cache images and where: no caching, on disk, in memory or both. Possible values are respectively `none`, `disk`, `memory` or `memory-disk`. When using a value different from `none`, you need to add [Expo Image](https://docs.expo.dev/versions/latest/sdk/image/) as a dependency to your project (see [Installing Expo Modules](#installing-expo-modules)).| `String` | `none` |
 | `domain` | This is your very own [TwicPics domain](https://www.twicpics.com/docs/getting-started/why-twicpics#domains-and-paths). Providing it is __mandatory__. | `String` | |
 | `env` | Can be `debug`, `offline` or `production`. When set to `debug`, a gray lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of all medias targeted by their `src` value. When set to `offline`, these medias are replaced by a simple placeholder that allows to visualise their display area. | `String` | `"production"` |
 | `maxDPR` | [TwicPics](https://www.twicpics.com/) will take the "Device Pixel Ratio" (`DPR`) of the current device into consideration when determining the sizes of images to load. By default, it will not take a `DPR` greater than `2` into consideration. If the `DPR` of the device is higher than `2`, [TwicPics](https://www.twicpics.com/) will assume it to be `2`. Using `maxDPR`, you can lower this limit down to `1` or be more permissive (for instance by setting it to `3` or `4`). | `Number` | `2` |
@@ -187,6 +213,48 @@ const styles = StyleSheet.create({
 
 export default MyComponent;
 ```
+
+### Image Caching
+
+By default, the `<TwicImg>` component only manages image caching for **web platform**.
+
+If you plan to use image caching for **iOS** or **Android** platforms, you'll need to install [Expo Image](#installing-expo-modules) as a dependency of your project and configure the cache policy as follows:
+
+```js
+// App.js
+
+import { installTwicpics } from '@twicpics/components/react-native';
+
+// defines the cache policy for the entire application during setup
+installTwicpics({
+  "domain": `https://<your-domain>.twic.pics/`,
+  "cachePolicy": `disk`, // set the cache policy to 'disk' for persistent storage
+});
+```
+
+```jsx
+// MyComponent.jsx
+
+import { TwicImg } from "@twicpics/components/react-native";
+
+const MyComponent = () => (
+  <View>
+    <TwicImg 
+      src="path/to/your/image" {/* image will be cached to disk as defined in setup options */}
+    />
+    <TwicImg
+      src="path/to/your/image"
+      cachePolicy="memory" {/* overrides setup option with `memory` value for in-memory caching  */}
+    />
+    <TwicImg
+      src="path/to/your/image"
+      cachePolicy="none" {/* overrides setup option with `none` value: image will not be cached */}
+    />
+  </View>
+);
+```
+
+For more information about the possible `cachePolicy` values, please refer to the [Expo Image documentation](https://docs.expo.dev/versions/latest/sdk/image/#cachepolicy).
 
 ### Lazy Loading
 
@@ -297,6 +365,7 @@ This component can be used in instead of an `<Image>` component.
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  cachePolicy="<none|disk|memory|memory-disk>" 
   eager="<boolean>"
   focus="<auto|coordinates>"
   mode="<contain|cover>"
@@ -317,6 +386,7 @@ This component can be used in instead of an `<Image>` component.
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | based on `src` |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` |
+| `cachePolicy` | Overrides the [global cache policy configuration](setting-up-twicpics-components-in-your-react-native-project) and determines whether to cache the image and where: no caching, on disk, in memory or both. Possible values are respectively `none`, `disk`, `memory` or `memory-disk`. When using a value different from `none`, you need to add [Expo Image](https://docs.expo.dev/versions/latest/sdk/image/) as a dependency to your project (see [Installing Expo Modules](#installing-expo-modules)). | `String` | `none` |
 | `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
