@@ -4,7 +4,7 @@ import { readdir, stat } from "fs/promises";
 import { remove } from "fs-extra";
 
 const toDelete = new Set( [
-    `.angular`, `.cache`, `.next`, `.nuxt`, `.svelte-kit`, `build`, `dist`, `node_modules`,
+    `.angular`, `.cache`, `.expo`, `.next`, `.nuxt`, `.svelte-kit`, `build`, `dist`, `node_modules`,
     `package-lock.json`, `yarn.lock`,
 ] );
 
