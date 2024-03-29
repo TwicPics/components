@@ -20,6 +20,7 @@ import VideoSlicing from './pages/VideoSlicing.js';
 
 installTwicpics( {
     "anticipation": 0.2,
+    "cachePolicy": `disk`,
     "debug": true,
     "domain": `https://demo.twic.it/`,
     "step": 100,
