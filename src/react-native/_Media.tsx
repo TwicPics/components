@@ -6,6 +6,7 @@ import { Animated, View } from 'react-native';
 import {
     parseAlt,
     parseAnchor,
+    parseCachePolicy,
     parseEager,
     parseFocus,
     parseMode,
@@ -32,15 +33,16 @@ import { config } from '../_/config';
 import { debounce } from '../_/utils';
 // eslint-disable-next-line no-shadow
 import Image from './_Image';
+import ImageCache from './_ImageCache';
 import Video from './_Video';
 import { styles } from './styles';
 import VisibilityDetector from './visibilityDetector';
 
 export default ( props: MediaAttributes ) => {
     const { mediaTag, videoOptions, viewSize } = props;
-    const MediaComponent = mediaTag === `img` ? Image : Video;
     const alt = parseAlt( props.alt );
     const anchor = parseAnchor( props.anchor );
+    const cachePolicy = parseCachePolicy( props.cachePolicy ) || config.cachePolicy;
     const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
@@ -54,6 +56,10 @@ export default ( props: MediaAttributes ) => {
     const transitionDelay = parseTransitionDelay( props.transitionDelay );
     const transitionDuration = parseTransitionDuration( props.transitionDuration );
     const transitionTimingFunction = parseTransitionTimingFunction( props.transitionTimingFunction );
+    // eslint-disable-next-line no-nested-ternary
+    const MediaComponent = mediaTag === `img` ?
+        ( cachePolicy === `none` ? Image : ImageCache ) :
+        Video;
     const computedAlt = computeAlt( alt, mediaTag );
     const { media, inspect, poster } = computeUrls(
         mediaTag, {
@@ -82,7 +88,7 @@ export default ( props: MediaAttributes ) => {
                 setActualUri( _media );
                 if ( config.env === `debug` ) {
                     // eslint-disable-next-line no-console
-                    console.debug( `Downloading: `, _media );
+                    console.debug( `Displaying: `, _media );
                 }
             },
             {
@@ -158,9 +164,10 @@ export default ( props: MediaAttributes ) => {
                 } } >
                     <MediaComponent
                         alt={ computedAlt }
+                        cachePolicy={ cachePolicy }
                         onLoad={ onLoad }
-                        uri= { actualUri }
-                        poster= { poster }
+                        uri={ actualUri }
+                        poster={ poster }
                     />
                     { mediaInfos?.placeholder && (
                         <Animated.Image

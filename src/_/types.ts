@@ -55,8 +55,12 @@ export interface ScriptAttributes {
   transitionTimingFunction?: string,
 }
 
+// only for react-native
+export type CachePolicy = `memory-disk` | `memory` | `none` | `disk`;
+
 export interface Config {
     anticipation?: number,
+    cachePolicy?: CachePolicy,
     breakpoints: { [ key in BreakPoint ]: number },
     class: string,
     domain: string,

@@ -87,8 +87,4 @@ export const setConfig = ( options: Options ): void => {
     config.handleShadowDom = ( handleShadowDom && isBrowser && !isReactNative ) ?
         handleShadowDomFactory( getDataAttributeName( `component` ) ) :
         noop;
-    if ( isReactNative ) {
-        const { step } = options;
-        config.step = step;
-    }
 };
