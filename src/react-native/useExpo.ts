@@ -11,7 +11,7 @@ const requireOrImportConfig: Record< Module, () => Promise< Expo > > = {
     "Image": async () => {
         let _expo:Expo = {};
         try {
-        // eslint-disable-next-line no-undef
+            // eslint-disable-next-line no-undef
             _expo = require( `expo-image` );
         } catch {
             try {
@@ -27,7 +27,7 @@ const requireOrImportConfig: Record< Module, () => Promise< Expo > > = {
     "Video": async () => {
         let _expo:Expo = {};
         try {
-        // eslint-disable-next-line no-undef
+            // eslint-disable-next-line no-undef
             _expo = require( `expo-av` );
         } catch {
             try {
@@ -44,15 +44,11 @@ const requireOrImportConfig: Record< Module, () => Promise< Expo > > = {
 
 export const useExpoFactory = ( module: Module ) => {
     let cache: Promise< Expo >;
-
-    // eslint-disable-next-line dot-notation
-    const requireOrImport = requireOrImportConfig[ module ];
-
-    const useExpo = () => {
+    return () => {
         const [ expoModule, setExpoModule ] = useState< Expo >( {} );
         useEffect( () => {
             if ( !cache ) {
-                cache = requireOrImport();
+                cache = requireOrImportConfig[ module ]();
             }
             cache.then( _module => {
                 setExpoModule( _module || {} );
@@ -60,5 +56,4 @@ export const useExpoFactory = ( module: Module ) => {
         }, [] );
         return expoModule;
     };
-    return useExpo;
 };
