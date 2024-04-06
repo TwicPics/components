@@ -15,8 +15,6 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@twicpics/components": "../../dist",
     "expo": "~50.0.5",
-    "expo-av": "13.10.5",
-    "expo-image": "1.10.6",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

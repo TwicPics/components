@@ -2,58 +2,73 @@ import { useEffect, useState } from 'react';
 import { logWarning } from '../_/utils';
 
 type Expo = {
-  Image?: unknown;
-  Video?: unknown;
+    Image?: unknown;
+    Video?: unknown;
 }
 type Module = `Image` | `Video`;
 
-const requireOrImportConfig: Record< Module, () => Promise< Expo > > = {
-    "Image": async () => {
-        let _expo:Expo = {};
-        try {
-            // eslint-disable-next-line no-undef
-            _expo = require( `expo-image` );
-        } catch {
-            try {
-                _expo = await import( `expo-image` );
-            } catch {}
-        }
-        if ( _expo?.Image === undefined ) {
-            // eslint-disable-next-line max-len
-            logWarning( `Image Caching requires 'Expo' and 'Expo-Image' dependencies. For more information, refer to the documentation: https://www.twicpics.com/docs/components/react-native` );
-        }
-        return _expo;
-    },
-    "Video": async () => {
-        let _expo:Expo = {};
-        try {
-            // eslint-disable-next-line no-undef
-            _expo = require( `expo-av` );
-        } catch {
-            try {
-                _expo = await import( `expo-av` );
-            } catch {}
-        }
-        if ( _expo?.Video === undefined ) {
-            // eslint-disable-next-line max-len
-            logWarning( `TwicVideo requires 'Expo' and 'Expo-AV' dependencies. For more information, refer to the documentation: https://www.twicpics.com/docs/components/react-native` );
-        }
-        return _expo;
-    },
+const messageConfig: Record< Module, string > = {
+    "Image":
+        // eslint-disable-next-line max-len
+        `Image Caching requires 'expo' and 'expo-image' dependencies. For more information, refer to the documentation: https://www.twicpics.com/docs/components/react-native`,
+    "Video":
+        // eslint-disable-next-line max-len
+        `TwicVideo requires 'expo' and 'expo-av' dependencies. For more information, refer to the documentation: https://www.twicpics.com/docs/components/react-native`,
 };
 
-export const useExpoFactory = ( module: Module ) => {
-    let cache: Promise< Expo >;
-    return () => {
-        const [ expoModule, setExpoModule ] = useState< Expo >( {} );
-        useEffect( () => {
-            if ( !cache ) {
-                cache = requireOrImportConfig[ module ]();
+/**
+ * stores already loaded libraries
+ */
+const _expo: Expo = {};
+
+/**
+ * requires optional `expo-av`
+ * this can be `expo-av` but also `expo-image` if `expo-av` is not installed
+ */
+const requireExpoAv = ( module: Module ) => {
+    try {
+        // eslint-disable-next-line no-undef, @typescript-eslint/no-var-requires, no-shadow
+        const { Image, Video } = require( `expo-av` );
+        _expo.Video = Video || ( module === `Video` ? null : Video );
+        _expo.Image = Image;
+    } catch {
+        // if there is no `expo-av,` we should have found `expo-image` instead
+        // as it is not the case, it means that there is no `expo-image` either
+        _expo.Image = module === `Image` ? null : undefined;
+        _expo.Video = module === `Video` ? null : undefined;
+    }
+};
+
+/**
+ * requires optional `expo-image`
+ * this can only be `expo-image`
+ */
+const requireExpoImage = ( module: Module ) => {
+    if ( ( module === `Image` ) && ( _expo.Image === undefined ) ) {
+        try {
+            // eslint-disable-next-line no-shadow, no-undef, @typescript-eslint/no-var-requires
+            const { Image } = require( `expo-image` );
+            _expo.Image = Image;
+        } catch {
+            _expo.Image = null;
+        }
+    }
+};
+
+export default ( module: Module ) => {
+    const [ expo, setExpo ] = useState< Expo >( {} );
+    useEffect( () => {
+        if (
+            ( ( module === `Image` ) && ( _expo.Image === undefined ) ) ||
+            ( ( module === `Video` ) && ( _expo.Video === undefined ) )
+        ) {
+            requireExpoAv( module );
+            requireExpoImage( module );
+            if ( !_expo[ module ] ) {
+                logWarning( messageConfig[ module ] );
             }
-            cache.then( _module => {
-                setExpoModule( _module || {} );
-            } );
-        }, [] );
-        return expoModule;
-    };
+        }
+        setExpo( _expo );
+    }, [] );
+    return expo;
 };
