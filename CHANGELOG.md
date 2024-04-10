@@ -8,17 +8,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.29.0] - 2024-04-08
+
+### Added
+
+- Adds image caching support for **React Native**.
+
 ## [0.28.1] - 2024-03-26
 
-### Fixes
+### Fixed
 
 - Fixes `domain` validation when using `TwicInstall` in production projects.
 
 ## [0.28.0] - 2024-03-04
 
-### Add
+### Added
 
-- Add support for **Svelte5**.
+- Adds support for **Svelte5**.
 
 ## [0.27.2] - 2024-02-05
 
@@ -28,39 +34,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updates **React Native** sample dependencies.
 
-### Fixes
+### Fixed
 
 - Fixes `Invalid Dom Property` warning for the **React** `TwicPicture` component under development environment.
 
 ## [0.27.1] - 2024-01-24
 
-### Fixes
+### Fixed
 
 - TwicPics Components for **React** throws null ref error when using `Strict Mode` in `development` environment.
 
 ## [0.27.0] - 2024-01-22
 
-### Add
+### Added
 
-- Add new `<TwicPicture>` component, a drop-in replacement for the `picture` tag, compatible with all frameworks except **Flutter** and **React Native**.
+- Adds new `<TwicPicture>` component, a drop-in replacement for the `picture` tag, compatible with all frameworks except **Flutter** and **React Native**.
 
 ### Changed
 
 - Updates samples dependencies.
 
-### Fixes
+### Fixed
 
 - Hydration warning message when using **Next** in `dev` mode.
 
 ## [0.26.0] - 2023-11-21
 
-### Add
+### Added
 
-- Add support for **Angular 17**.
+- Adds support for **Angular 17**.
 
 ## [0.25.1] - 2023-11-10
 
-### Fixes
+### Fixed
 
 - Imports **Nuxt** composables from #imports.
 
@@ -72,7 +78,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.25.0] - 2023-11-02
 
-### Add
+### Added
 
 - Adds video support in **React Native** components.
 
@@ -98,7 +104,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updates samples dependencies.
 
-### Fixes
+### Fixed
 
 - Fixes excessive package size.
 
@@ -110,7 +116,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Updates samples dependencies.
 - Now uses `Vite` to build the `React` sample project.
 
-### Fixes
+### Fixed
 
 - Adds missing `Types` entries to `package.json`.
 
@@ -122,13 +128,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.22.2] - 2023-09-11
 
-### Fixes
+### Fixed
 
 - Fix issue with regeneration of Low-Quality Placeholder when property values are updated.
 
 ## [0.22.1] - 2023-09-04
 
-### Add
+### Added
 
 - Export components property types in **React**.
 - Export `Environment` type in **Angular**. 
@@ -137,41 +143,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Upgrade dependencies.
 
-### Fixes
+### Fixed
 
 - Fix display issue of images on **Android** in **React Native**.
 
 ## [0.22.0] - 2023-08-03
 
-### Add
+### Added
 
-- Add lazy loading support in **React Native** components.
+- Adds lazy loading support in **React Native** components.
 
 ## [0.21.1] - 2023-07-27
 
-### Fixes
+### Fixed
 
 - Fix typing issues in **Svelte4** projects.
 
 ## [0.21.0] - 2023-07-25
 
-### Add
+### Added
 
-- Add support for **Svelte4**.
+- Adds support for **Svelte4**.
   
 ### Changed
 
 - Simplify LQIP data retrieval by using `inspect` route in **React Native**.
 
-### Fixes
+### Fixed
 
 - Fix blinking issue in **React Native**.
 
 ## [0.20.0] - 2023-07-13
 
-### Add
+### Added
 
-- Add `refit` property to `TwicImg` that allows to automatically reframe image to main object(s).
+- Adds `refit` property to `TwicImg` that allows to automatically reframe image to main object(s).
 
 ### Changed
 
@@ -184,15 +190,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.19.0] - 2023-06-13
 
-### Add
+### Added
 
-- Add support for **React Server Components** and **Next.js App Router**.
+- Adds support for **React Server Components** and **Next.js App Router**.
 
 ## [0.18.0] - 2023-06-01
 
-### Add
+### Added
 
-- Add support for **Angular 16+**
+- Adds support for **Angular 16+**
 - Make **TwicPics Placeholders** usable as `src` in `TwicImg`.
 
 ### Changed
@@ -214,7 +220,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Add control over `domain` and `path` values when using the **Next.js Image** component.
+- Adds control over `domain` and `path` values when using the **Next.js Image** component.
 
 ### Fixed
 
@@ -228,10 +234,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.17.0] - 2023-04-12
 
-### Add
+### Added
 
-- Add `duration`, `from`, `posterFrom` and `to` properties to **TwicVideo** component in order to manage [video slicing](https://www.twicpics.com/docs/guides/video-optimization#video-slicing).
-- Add support for **Angular 15+**
+- Adds `duration`, `from`, `posterFrom` and `to` properties to **TwicVideo** component in order to manage [video slicing](https://www.twicpics.com/docs/guides/video-optimization#video-slicing).
+- Adds support for **Angular 15+**
 
 ### Changed
 
@@ -248,11 +254,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.16.0] - 2023-03-21
 
-### Add
+### Added
 
-- Add new `TwicBackground` component that allows to display a background image in any HTML element.
-- Add `title` property that allows to handle [title global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
-- Add `zoom` property to `TwicImg` that allows to display a lazy loaded and enlarged image on `mouseover` event.
+- Adds new `TwicBackground` component that allows to display a background image in any HTML element.
+- Adds `title` property that allows to handle [title global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title).
+- Adds `zoom` property to `TwicImg` that allows to display a lazy loaded and enlarged image on `mouseover` event.
 
 ### Changed
 
@@ -273,9 +279,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.15.0] - 2023-01-20
 
-### Add
+### Added
 
-- Add support for **SvelteKit**.
+- Adds support for **SvelteKit**.
 
 ### Changed
 
@@ -290,10 +296,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.14.2] - 2022-12-21
 
-### Add
+### Added
 
-- Add `Anchor` type export to **Angular** components.
-- Add `center` to the list of possible values for the `anchor` property.
+- Adds `Anchor` type export to **Angular** components.
+- Adds `center` to the list of possible values for the `anchor` property.
 
 ## [0.14.1] - 2022-12-08
 
@@ -309,8 +315,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add a custom loader for **Next.js Image**
-- Add alias for installation function: both `installTwicpics` and `installTwicPics` can be used
+- Adds a custom loader for **Next.js Image**
+- Adds alias for installation function: both `installTwicpics` and `installTwicPics` can be used
 
 ### Changed
 
@@ -331,7 +337,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add `TwicImg` support for **React Native**
+- Adds `TwicImg` support for **React Native**
 
 ### Changed
 
@@ -348,9 +354,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add automatic poster generation for `<TwicVideo>`
-- Add `eager` prop to disable lazy loading on `<TwicImg>` and `<TwicVideo>`
-- Add new `<TwicView>` component that eager loads all its children in bulk as soon as the TwicView itself becomes visible
+- Adds automatic poster generation for `<TwicVideo>`
+- Adds `eager` prop to disable lazy loading on `<TwicImg>` and `<TwicVideo>`
+- Adds new `<TwicView>` component that eager loads all its children in bulk as soon as the TwicView itself becomes visible
 
 ### Changed
 
@@ -361,11 +367,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add API to listen to the loading state of images and videos.
+- Adds API to listen to the loading state of images and videos.
 
 ### Changed
 
-- Add some video samples.
+- Adds some video samples.
 - Upgrade dependencies.
 
 ### Fixed
@@ -376,7 +382,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add `intrinsic` attribute to prevent upscaling and limit number of variants.
+- Adds `intrinsic` attribute to prevent upscaling and limit number of variants.
 
 ### Changed
 
@@ -397,9 +403,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add `anchor` attribute to position image in both `contain` and `cover` mode
-- Add `bot` attribute to specify SEO-friendly transformations for search engine bots
-- Add support for **Angular 14+**
+- Adds `anchor` attribute to position image in both `contain` and `cover` mode
+- Adds `bot` attribute to specify SEO-friendly transformations for search engine bots
+- Adds support for **Angular 14+**
 - `ratio` can now be specified as `<width>:<height>` in addition to `<width>/<height>`
 
 ### Changed
@@ -434,7 +440,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Aspect ratio can now be managed via the container dimensions
-- Add demo link to **Svelte 3** documentation
+- Adds demo link to **Svelte 3** documentation
 
 ### Changed
 
@@ -450,8 +456,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add support for **Nuxt 3**
-- Add `preTransform` attribute to configure a list of TwicPics API transformations
+- Adds support for **Nuxt 3**
+- Adds `preTransform` attribute to configure a list of TwicPics API transformations
 - Allow runtime environment configuration (`offline`, `debug` or `production` by default)
 
 ### Changed
@@ -476,14 +482,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add demo link to the `Nuxt 2` documentation
-- Add `path` to the initialization parameter list
+- Adds demo link to the `Nuxt 2` documentation
+- Adds `path` to the initialization parameter list
 
 ## [0.6.4] - 2022-04-25
 
 ### Added
 
-- Add demo link to the **Vue 2** documentation
+- Adds demo link to the **Vue 2** documentation
 
 ### Fixed
 
@@ -493,16 +499,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add demo link to the **Angular** documentation
-- Add `Mode` and `Placeholder` types exports to **Angular** components
-- Add `zoom` as a `transition` value
+- Adds demo link to the **Angular** documentation
+- Adds `Mode` and `Placeholder` types exports to **Angular** components
+- Adds `zoom` as a `transition` value
 
 ## [0.6.2] - 2022-03-21
 
 ### Added
 
 - New framework-specific documentation
-- Add support for **Gatsby**
+- Adds support for **Gatsby**
 
 ### Changed
 
@@ -547,7 +553,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add warning message in the browser console when components not initialized
+- Adds warning message in the browser console when components not initialized
 
 ### Fixed
 
@@ -557,7 +563,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add support for **Angular 12+**
+- Adds support for **Angular 12+**
 - Allow to style components using pure CSS
 - Allow passing `className` props to **React** (and **Next**) and **Svelte 3** components
 
@@ -582,7 +588,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Clarify the documentation regarding transition-related attributes
 - Component names can now be changed in **Vue**
-- Add support for native **Web Components**
+- Adds support for native **Web Components**
 
 ### Changed
 
@@ -604,9 +610,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add example usages for all frameworks
-- Add **TypeScript** definitions for all frameworks
-- Add `<noscript>` tags generation in SSR mode
+- Adds example usages for all frameworks
+- Adds **TypeScript** definitions for all frameworks
+- Adds `<noscript>` tags generation in SSR mode
 
 ## [0.2.1] - 2021-07-28
 
@@ -618,7 +624,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add support for **Svelte 3**
+- Adds support for **Svelte 3**
 
 ### Changed
 
@@ -631,6 +637,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.29.0]: https://github.com/TwicPics/components/compare/0.28.1...0.29.0
 [0.28.1]: https://github.com/TwicPics/components/compare/0.28.0...0.28.1
 [0.28.0]: https://github.com/TwicPics/components/compare/0.27.2...0.28.0
 [0.27.2]: https://github.com/TwicPics/components/compare/0.27.1...0.27.2
