@@ -11,12 +11,12 @@
     "serve": "$npm_execpath install && npm run copy && vite"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "3.0.2",
-    "@tsconfig/svelte": "5.0.2",
+    "@sveltejs/vite-plugin-svelte": "3.1.0",
+    "@tsconfig/svelte": "5.0.4",
     "@twicpics/components": "file:../../dist",
     "@twicpics/components-sample": "file:../_",
-    "svelte": "5.0.0-next.84",
-    "svelte-check": "3.6.4",
-    "vite": "5.1.4"
+    "svelte": "5.0.0-next.96",
+    "svelte-check": "3.6.9",
+    "vite": "5.2.8"
   }
 }
