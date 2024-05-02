@@ -1,18 +1,12 @@
-import { version } from "react";
-
-const [ major, minor ] = version.split( `.` ).map( n => {
-    const parsed = Number( n );
-    return isNaN( parsed ) ? 0 : parsed;
-} );
+import React from 'react';
 
 /**
- * in React 18.3.0 or newer, we must use camelCase attribute
+ * in React 19+ and Canary (versions that expose `use`) we must use camelCase attribute
  * to avoid "Warning: Invalid DOM property".
- * in React 18.2.0 or older, we must use lowercase attribute
+ * in React version that does not expose `use`, we must use lowercase attribute
  * to avoid "Warning: Invalid DOM property".
- * see https://github.com/facebook/react/pull/25927
+ * 
+ * see https://github.com/vercel/next.js/pull/65235
  */
-// eslint-disable-next-line no-magic-numbers
-export const fetchPriorityName = ( major > 18 ) || ( ( major === 18 ) && ( minor >= 3 ) ) ?
-    `fetchPriority` :
-    `fetchpriority`;
+// @ts-ignore
+export const fetchPriorityName = React.use ? `fetchPriority` : `fetchpriority`;

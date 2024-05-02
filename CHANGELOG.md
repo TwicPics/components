@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updates sample projects dependencies.
 
+### Fixed
+
+- Fixes `Invalid Dom Property` warning for the **React** `TwicPicture`.
+
 ## [0.29.0] - 2024-04-08
 
 ### Added
