@@ -27,7 +27,7 @@ const mappingBoolean: { [ key: string ]: boolean; } = {
     "false": false,
     "": true,
 };
-const parseBoolean = ( value: boolean | string ): boolean => {
+const parseBoolean = ( value: boolean | string | undefined ): boolean => {
     if ( typeof value === `boolean` ) {
         return value;
     }
@@ -152,7 +152,7 @@ export const parseMaxDrp = ( value: number | string ): number => {
 
 export const parseMediaTag = ( value: string ): string => {
     const trimmed = trimOrUndefined( value );
-    return trimmed && trimmed.toLocaleLowerCase();
+    return trimmed && trimmed.toLowerCase();
 };
 
 export const parseMode = regExpFinderFactory< Mode >( rValidMode, {

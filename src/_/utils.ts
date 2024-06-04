@@ -14,7 +14,7 @@ export const convertToBoolean = ( value: boolean | string ): boolean => {
     if ( value === undefined ) {
         return false;
     }
-    return mappingBoolean[ value.trim() ] || undefined;
+    return mappingBoolean[ value.trim() ] ?? undefined;
 };
 
 export interface DebounceOptions {
