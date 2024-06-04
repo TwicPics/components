@@ -1,7 +1,8 @@
 /build/angular/_templates/angular*/lib/src
 /build/sveltekit/template/src/lib
-/test/**/.next
-/test/**/.nuxt
+/tests/**/.next
+/tests/**/.nuxt
+/tests/tmp/
 /samples/**/.cache
 /samples/**/.next
 /samples/**/.nitro
