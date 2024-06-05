@@ -1047,7 +1047,6 @@ describe( 'Parsing functions', () => {
         after();
       }
     } );
-    console.log(config);
   } );
 
   describe( 'parseTo', () => {
