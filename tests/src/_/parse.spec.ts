@@ -5,6 +5,7 @@ import { describe, expect, test } from 'vitest';
 import { config } from '../../../src/_/config';
 import {
   parseAnchor,
+  parseAnchors,
   parseAlt,
   parseAnticipation,
   parseBot,
@@ -204,6 +205,56 @@ describe( 'Parsing functions', () => {
     ] )( 'it should $description', ( { input, expected } ) =>
       expect( parseAnchor( input ) ).toEqual( expected )
     );
+  } );
+
+  describe( 'parseAnchors', () => {
+    test.each( [
+      {
+        input: '@sm left @md right @lg top @xl bottom-left @2xl center',
+        expected: {
+          '0': {},
+          '640': { x: 'left' },
+          '768': { x: 'right' },
+          '1024': { y: 'top' },
+          '1280': { x: 'left', y: 'bottom' },
+          '1536': {},
+        },
+        description: 'should parse breakpoints with anchors values using tailwind notation'
+      },
+      {
+        input: '    @sm  left  @md  right    @lg  top  @xl   bottom-left   @2xl   center   ',
+        expected: {
+          '0': {},
+          '640': { x: 'left' },
+          '768': { x: 'right' },
+          '1024': { y: 'top' },
+          '1280': { x: 'left', y: 'bottom' },
+          '1536': {},
+        },
+        description: 'should trim values and parse breakpoints with anchors values using tailwind notation'
+      },
+      {
+        input: '@111 left @222 right @333 top @444 bottom-left @555 center',
+        expected: {
+          '0': {},
+          '111': { x: 'left' },
+          '222': { x: 'right' },
+          '333': { y: 'top' },
+          '444': { x: 'left', y: 'bottom' },
+          '555': {},
+        },
+        description: 'should parse breakpoints with anchors values using fixed breakpoint'
+      },
+      {
+        input: '',
+        expected: {
+          '0': {},
+        },
+        description: 'should return default anchors when empty is provided'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      expect( parseAnchors( input ) ).toEqual( expected );
+    } );
   } );
 
   describe( 'parseAlt', () => {
