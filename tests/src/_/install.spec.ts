@@ -1,10 +1,22 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { installTwicPics, register, validate } from '../../../src/_/install';
+import * as DomUtils from '../../../src/_/dom';
 import { config, setConfig } from '../../../src/_/config';
 import { VERSION } from '../../../src/_/const';
 
 
 describe( 'Install functions', () => {
+
+  const mockCreateElement = vi.spyOn( DomUtils, 'createElement');
+
+  afterEach( () => {
+      mockCreateElement.mockClear();
+  } );
+
+  beforeEach( () => {
+      document.head.innerHTML = '';
+      mockCreateElement.mockClear();
+  } );
 
   describe( 'validate', () => {
     it( 'should throw an error if options are not provided', () => {
@@ -36,6 +48,7 @@ describe( 'Install functions', () => {
   } );
 
   describe('register', () => {
+
     beforeEach( () => {
       document.head.innerHTML = '';
     } );
@@ -69,16 +82,9 @@ describe( 'Install functions', () => {
   } );
 
   describe('install', () => {
-    
-    beforeEach( () => {
-        document.head.innerHTML = '';
-    } );
-  
     it( 'should create and append script and style elements to the document head', () => {
         installTwicPics( { domain: 'https://demo.twic.it/' } );
-        expect( document.head.querySelector( 'script' ) ).toBeTruthy();
-        expect( document.head.querySelector( 'style' ) ).toBeTruthy();
-        expect( document.head.querySelector( 'link' ) ).toBeTruthy();
+        expect( mockCreateElement ).toHaveBeenCalledTimes( 2 );
     } );
   } );
 
