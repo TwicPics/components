@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, test } from 'vitest';
+import { describe, expect, it, test } from 'vitest';
 
 import { createUrl, urlInfos } from '../../../src/_/url';
 
