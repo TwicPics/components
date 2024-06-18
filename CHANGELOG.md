@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixes lazy loading performance issue in **React Native** [#103](https://github.com/TwicPics/components/issues/103).
+
 ## [0.29.1] - 2024-05-02
 
 ### Changed
