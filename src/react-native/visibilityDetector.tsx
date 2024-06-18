@@ -19,7 +19,6 @@ const VisibilityDetector: FC<Props> = (
     const { anticipation } = config;
     const detector = useRef< View >( null );
     const timeout = useRef< ReturnType< typeof setTimeout > >( null );
-
     const observe = () => {
         if ( !detector?.current ) {
             return;
