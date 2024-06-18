@@ -8,27 +8,25 @@ import { config } from '../_/config';
 export interface Props {
   children: ReactNode;
   eager?: boolean,
-  measurementInterval?: number;
   onVisibilityChanged( visible: boolean ): unknown;
 }
 
 const MEASUREMENT_INTERVAL = 100;
 
-const VisibilityDetector: FC<Props> = props => {
-    const { eager, children, measurementInterval, onVisibilityChanged } = props;
+const VisibilityDetector: FC<Props> = (
+    { eager, children, onVisibilityChanged }
+) => {
     const { anticipation } = config;
-    const detector = useRef<View>( null );
-    const interval = useRef< ReturnType< typeof setInterval > >( null );
-    const measure = () => {
+    const detector = useRef< View >( null );
+    const timeout = useRef< ReturnType< typeof setTimeout > >( null );
+
+    const observe = () => {
         if ( !detector?.current ) {
             return;
         }
         const viewport = Dimensions.get( `window` );
         // eslint-disable-next-line max-params
         detector.current.measure( ( _, __, width, height, pageX, pageY ) => {
-            if ( height === 0 ) {
-                return;
-            }
             const mediaBox = {
                 "top": pageY,
                 "bottom": pageY + height,
@@ -42,32 +40,27 @@ const VisibilityDetector: FC<Props> = props => {
                 "right": viewport.width * ( 1 + anticipation ),
             };
             if (
+                // handles the case of media boxes with no size yet defined
+                ( height > 0 ) &&
+                // checks that media box is in the viewport box
                 ( mediaBox.bottom >= viewportBox.top ) &&
                 ( mediaBox.top <= viewportBox.bottom ) &&
                 ( mediaBox.right >= viewportBox.left ) &&
                 ( mediaBox.left <= viewportBox.right )
             ) {
                 onVisibilityChanged( true );
-                // eslint-disable-next-line @typescript-eslint/no-use-before-define
-                unobserve();
+            } else {
+                timeout.current = setTimeout( () => {
+                    observe();
+                }, MEASUREMENT_INTERVAL );
             }
         } );
     };
 
-    const observe = () => {
-        if ( interval?.current ) {
-            return;
-        }
-        measure();
-        interval.current = setInterval( () => {
-            measure();
-        }, measurementInterval || MEASUREMENT_INTERVAL );
-    };
-
     const unobserve = () => {
-        if ( interval?.current ) {
-            clearInterval( interval.current );
-            interval.current = null;
+        if ( timeout?.current ) {
+            clearTimeout( timeout.current );
+            timeout.current = null;
         }
     };
 
