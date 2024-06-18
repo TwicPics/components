@@ -7,8 +7,8 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "@types/node": "20.12.8",
-        "@types/react": "18.3.1",
+        "@types/node": "20.12.13",
+        "@types/react": "18.3.3",
         "@types/react-dom": "18.3.0",
         "next": "14.2.3",
         "react": "18.3.1",
