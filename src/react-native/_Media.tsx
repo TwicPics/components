@@ -125,7 +125,7 @@ export default ( props: MediaAttributes ) => {
     };
 
     useEffect( () => {
-        if ( visible ) {
+        if ( visible || eager ) {
             _debounce( media );
         }
     }, [ media, visible ] );

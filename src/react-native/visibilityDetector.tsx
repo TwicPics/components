@@ -66,9 +66,7 @@ const VisibilityDetector: FC<Props> = (
 
     // eslint-disable-next-line consistent-return
     useEffect( () => {
-        if ( eager ) {
-            onVisibilityChanged( true );
-        } else {
+        if ( !eager ) {
             observe();
             return unobserve;
         }
@@ -80,8 +78,7 @@ const VisibilityDetector: FC<Props> = (
             ref={ detector }
             style={ {
                 "flex": 1,
-            }
-            }>
+            } }>
             { children }
         </View>
     );
