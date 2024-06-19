@@ -56,7 +56,7 @@ const requireExpoImage = ( module: Module ) => {
 };
 
 export default ( module: Module ) => {
-    const [ expo, setExpo ] = useState< Expo >( {} );
+    const [ expo, setExpo ] = useState< Expo >( _expo );
     useEffect( () => {
         if (
             ( ( module === `Image` ) && ( _expo.Image === undefined ) ) ||
@@ -67,8 +67,8 @@ export default ( module: Module ) => {
             if ( !_expo[ module ] ) {
                 logWarning( messageConfig[ module ] );
             }
+            setExpo( _expo );
         }
-        setExpo( _expo );
     }, [] );
     return expo;
 };
