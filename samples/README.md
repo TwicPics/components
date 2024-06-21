@@ -17,6 +17,7 @@ This directory contains sample projects for all supported frameworks.
 | `samples/angular16` | [Angular](https://angular.io/) version __16__ sample project |
 | `samples/angular17/ng-modules` | [Angular](https://angular.io/) version __17__ sample using an [NgModule-based](https://angular.io/guide/architecture-modules) project |
 | `samples/angular17/stand-alone-components` | [Angular](https://angular.io/) version __17__ sample project using [standalone components](https://angular.io/guide/standalone-components) |
+| `samples/angular18` | [Angular](https://angular.io/) version __18__ sample project using [standalone components](https://angular.io/guide/standalone-components) |
 | `samples/gatsby` | [Gatsby](https://www.gatsbyjs.com/) sample project |
 | `samples/next-app-router` | [Next.js](https://nextjs.org/) sample project with app router |
 | `samples/next-page-router` | [Next.js](https://nextjs.org/) sample project with page router|

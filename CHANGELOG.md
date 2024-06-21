@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Adds support for **Angular 18**.
+
 ## [0.29.2] - 2024-06-21
 
 ### Fixed
