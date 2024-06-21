@@ -137,7 +137,7 @@ npm install @twicpics/components
 Add the import part:
 
 ```ts
-import { installTwicPics } from '@twicpics/components/angular17'
+import { installTwicPics } from '@twicpics/components/angular18'
 ```
 
 And the configuration part (see [Setup Options](#setup-options)):
@@ -156,7 +156,7 @@ into the main component of your `Angular` project.
 ```ts
 //here is an example of a `Angular` app.component.ts configured with TwicPics.
 import { Component } from '@angular/core'
-import { installTwicPics } from '@twicpics/components/angular17'
+import { installTwicPics } from '@twicpics/components/angular18'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -203,7 +203,7 @@ Depending on the nature of your application, you'll need to import them either:
 ```ts
 // src/app/example/example.component.ts
 import { Component } from '@angular/core';
-import { TwicPicsComponentsModule } from '@twicpics/components/angular17';
+import { TwicPicsComponentsModule } from '@twicpics/components/angular18';
 
 @Component({
   // example is a standalone component
