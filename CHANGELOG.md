@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.29.2] - 2024-06-21
+
 ### Fixed
 
 - Fixes lazy loading performance issue in **React Native** [#103](https://github.com/TwicPics/components/issues/103).
@@ -651,6 +653,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.29.2]: https://github.com/TwicPics/components/compare/0.29.1...0.29.2
 [0.29.1]: https://github.com/TwicPics/components/compare/0.29.0...0.29.1
 [0.29.0]: https://github.com/TwicPics/components/compare/0.28.1...0.29.0
 [0.28.1]: https://github.com/TwicPics/components/compare/0.28.0...0.28.1
