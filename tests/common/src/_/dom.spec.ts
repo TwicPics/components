@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { createElement, cssWithoutPx } from "../../../src/_/dom";
+import { createElement, cssWithoutPx } from "../../../../src/_/dom";
 
 describe( 'Dom functions', () => {
   describe('createElement', () => {

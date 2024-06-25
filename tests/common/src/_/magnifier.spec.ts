@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, test } from 'vitest';
 import { JSDOM } from 'jsdom';
-import initMagnifier from '../../../src/_/magnifier';
+import initMagnifier from '../../../../src/_/magnifier';
 
 describe('magnifier', () => {
     let wrapperContainer: HTMLDivElement;

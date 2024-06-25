@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { setConfig } from '../../../src/_/config';
-import { preComputeVideoOptions, preComputePlaceholder } from '../../../src/_/preCompute';
+import { setConfig } from '../../../../src/_/config';
+import { preComputeVideoOptions, preComputePlaceholder } from '../../../../src/_/preCompute';
 
 describe( 'PreCompute functions', () => {
   describe( 'preComputeVideoOptions', () => {

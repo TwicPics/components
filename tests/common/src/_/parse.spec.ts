@@ -2,7 +2,7 @@
 
 import { describe, expect, test } from 'vitest';
 
-import { config } from '../../../src/_/config';
+import { config } from '../../../../src/_/config';
 import {
   parseAnchor,
   parseAnchors,
@@ -44,8 +44,8 @@ import {
   parseTransitionDuration,
   parseTransitionTimingFunction,
   parseZoom,
-} from '../../../src/_/parse';
-import { Mode, Placeholder } from '../../../src/_/types';
+} from '../../../../src/_/parse';
+import { Mode, Placeholder } from '../../../../src/_/types';
 
 const testEmptyString = ( expected: any ) => (
   { 

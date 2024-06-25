@@ -8,7 +8,7 @@ import {
   regExpFinderFactory,
   throwError,
   trimRegExpFactory
-} from '../../../src/_/utils';
+} from '../../../../src/_/utils';
 
 describe('Utils', () => {
   describe( 'convertToBoolean', () => {

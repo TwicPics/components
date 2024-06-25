@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
-import { setConfig } from '../../../src/_/config';
-import { computeAlt, computeData, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../src/_/compute';
-import { Mode, PlaceholderData } from '../../../src/_/types';
+import { setConfig } from '../../../../src/_/config';
+import { computeAlt, computeData, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
+import { Mode, PlaceholderData } from '../../../../src/_/types';
 
 const dummyAnchor = { x: 'center', y: 'top' };
 const dummyVideoOptions = { posterTransform: "/from=5", videoTransform: "/from=5/to=10" };

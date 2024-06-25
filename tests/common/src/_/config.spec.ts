@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { config, setConfig } from '../../../src/_/config';
-import { noop } from '../../../src/_/utils';
+import { config, setConfig } from '../../../../src/_/config';
+import { noop } from '../../../../src/_/utils';
 
 describe( 'Config function', () => {
   beforeEach( () => {

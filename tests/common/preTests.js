@@ -10,7 +10,7 @@ const tmpTestDirectory =  `${ __dirname }/tmp`;
 await remove( `${ tmpTestDirectory }/_` );
 
 // copy original sources to the directory where they will be tested.
-await copy( `${ __dirname }/../src/_/`, `${ tmpTestDirectory }/_` );
+await copy( `${ __dirname }/../../src/_/`, `${ tmpTestDirectory }/_` );
 
 // copy test files to the testing directory
 await copy( `${ __dirname }/src/_/`, `${ tmpTestDirectory }/_` );
@@ -19,7 +19,7 @@ await replaceInFile( {
   "files": `${ tmpTestDirectory }/_/*.*`,
   "from": [
       /\bFRAMEWORK([^:])/g,
-      /(\.\.\/){3}src\/_/g,
+      /(\.\.\/){4}src\/_/g,
   ],
   "to": [
       `'react'`,

@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { installTwicPics, register, validate } from '../../../src/_/install';
-import * as DomUtils from '../../../src/_/dom';
-import { config, setConfig } from '../../../src/_/config';
-import { VERSION } from '../../../src/_/const';
+import { installTwicPics, register, validate } from '../../../../src/_/install';
+import * as DomUtils from '../../../../src/_/dom';
+import { config, setConfig } from '../../../../src/_/config';
+import { VERSION } from '../../../../src/_/const';
 
 
 describe( 'Install functions', () => {

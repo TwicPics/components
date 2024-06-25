@@ -10,7 +10,7 @@ units.forEach( unit => {
     
       const getAssetData = async( page ) => {
         return await page.evaluate(() => {
-            const asset = document.querySelector('.twic-w img');
+            const asset = document.querySelector( '.twic-w img' );
             const styles = window.getComputedStyle( asset );
             return {
               src: asset ? asset.src : ``,

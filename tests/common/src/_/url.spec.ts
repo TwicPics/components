@@ -1,6 +1,6 @@
 import { describe, expect, it, test } from 'vitest';
 
-import { createUrl, urlInfos } from '../../../src/_/url';
+import { createUrl, urlInfos } from '../../../../src/_/url';
 
 describe( 'Url functions', () => {
 
