@@ -17,7 +17,7 @@ export const urlInfos = ( src: string, domain = `` ) => {
 };
 
 const computeTransform = (
-    { height, mode, width }: Context,
+    { height, mode = `cover`, width }: Context,
     transform: string
 ): string => {
     if ( transform && ( width || height ) ) {
@@ -84,5 +84,5 @@ export const createUrl = (
 };
 
 export const finalTransform = ( mode: string, refit: string ): string => (
-    ( ( mode === `cover` ) && ( refit !== undefined ) ) ? `` : `/*`
+    ( ( ( mode || `cover` ) === `cover` ) && ( refit !== undefined ) ) ? `` : `/*`
 );

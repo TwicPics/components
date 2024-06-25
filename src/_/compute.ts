@@ -416,7 +416,7 @@ export const computePlaceholderBackground = (
         return ``;
     }
     const computedStyle = getComputedStyle( element );
-    const actualMode = mode || parseMode( computedStyle.backgroundSize );
+    const actualMode = mode || parseMode( computedStyle.backgroundSize ) || `cover`;
     let _ratio;
     if ( ratio === 0 ) {
         _ratio = actualMode === `contain` ?

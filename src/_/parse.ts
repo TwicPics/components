@@ -155,11 +155,9 @@ export const parseMediaTag = ( value: string ): string => {
     return trimmed && trimmed.toLowerCase();
 };
 
-export const parseMode = regExpFinderFactory< Mode >( rValidMode, {
-    "defaultValue": `cover`,
-} );
+export const parseMode = regExpFinderFactory< Mode >( rValidMode );
 
-export const parseModes = parseBreakpointsFactory<Mode>( parseMode );
+export const parseModes = parseBreakpointsFactory<Mode>( parseMode, `cover` );
 
 export const parsePath = ( value: string ): string => {
     const path = trimOrUndefined( value );
