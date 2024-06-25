@@ -1,0 +1,35 @@
+/* Common CSS file for all testing projects */
+.default {
+  max-width: 400px;
+}
+
+.landscape {
+  max-width: 400px;
+  --twic-ratio: calc(4/3);
+}
+
+.portrait {
+  max-width: 400px;
+  --twic-ratio: calc(3/4);
+}
+
+.contain {
+  max-width: 400px;
+  --twic-mode: contain;
+}
+
+.top {
+  max-width: 400px;
+  --twic-position: top;
+}
+
+.style-driven {
+  max-width: 400px;
+  --twic-ratio: calc(3/4);
+}
+
+@media ( min-width: 300px ) {
+  .style-driven {
+    --twic-ratio: calc(1);
+  }
+}

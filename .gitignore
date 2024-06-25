@@ -2,6 +2,7 @@
 /build/sveltekit/template/src/lib
 /tests/**/.next
 /tests/**/.nuxt
+/tests/**/build
 /tests/tmp/
 /samples/**/.cache
 /samples/**/.next
