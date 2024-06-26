@@ -4,11 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "serve": "yarn && vite",
-    "test": "yarn vitest run ."
+    "serve": "vite"
   },
   "dependencies": {
     "@twicpics/components": "file:../../../dist",

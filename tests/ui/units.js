@@ -14,5 +14,17 @@ export default [
   {
     "framework": `svelte5`,
     "port": 5030,
-  }
+  },
+  {
+    "framework": `sveltekit`,
+    "port": 5040,
+  },
+  {
+    "framework": `vue2`,
+    "port": 5050,
+  },
+  {
+    "framework": `vue3`,
+    "port": 5060,
+  },
 ]

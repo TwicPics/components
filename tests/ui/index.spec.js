@@ -1,10 +1,12 @@
-import { beforeEach, afterEach, describe, test } from 'vitest';
+import { beforeEach, afterEach, describe, test, expect } from 'vitest';
 import puppeteer from 'puppeteer';
 import units from "./units.js";
 
+const queryParams = ( params = {} ) => encodeURIComponent( JSON.stringify( params ) );
+
 units.forEach( unit => {
     const { framework, port } = unit;
-    describe( `it should ${unit.framework}`, () => {
+    describe( `${unit.framework} components`, () => {
       let browser;
       let page;
     
@@ -41,14 +43,53 @@ units.forEach( unit => {
       afterEach(async () => {
         await browser.close();
       });
+
+      // testing html structure
+      test.each( [
+        {
+          input: {},
+          description: `TwicImg should render correct HTML`,
+        },
+        {
+          input: {
+            placeholder : `none`,
+          },
+          description: `TwicImg should render correct HTML without placeholder`,
+        },
+        {
+          input: {
+            src: `video/skater.mp4`,
+            media : `video`,
+          },
+          description: `TwicVideo should render correct HTML`,
+        },
+      ] )( '$description', async( { input } ) => {
+          const { media = `img` } = input;
+          const params = {
+            src: "football.jpg",
+            ...input
+          }
+        
+          await page.goto( `http://localhost:${ port }?params=${ queryParams( params ) }` );
+          await page.waitForSelector( `.twic-i` );
+          const asset = await page.$( `.twic-i>.twic-w.twic-tf>${ media }` );
+          const placeholder = await page.$( `.twic-i>.twic-w.twic-tf>${ media }~div` );
+          expect( asset ).not.toBe( null );
+          expect( placeholder ).toEqual( input.placeholder !== 'none' ? expect.anything() : null );
+      } );
+  
     
       test(`should display an image with ${ framework }`, async () => {
-          await page.goto( `http://localhost:${ port }` );
+          const params = {
+            src: "football.jpg",
+            mode:'contain',
+          }
+          await page.goto( `http://localhost:${ port }?params=${ queryParams( params ) }` );
           await page.waitForSelector( `.twic-i` );
           await page.waitForSelector( `.twic-done` );
       
-          console.log( 'Background Image URL:', await getPlacholderData( page ) ); 
-          console.log( 'Image src:', await getAssetData( page ) ); 
+          //console.log( 'Background Image URL:', await getPlacholderData( page ) ); 
+          //console.log( 'Image src:', await getAssetData( page ) ); 
     
           await page.setViewport( {
             width: 200,
@@ -58,9 +99,7 @@ units.forEach( unit => {
     
           await page.waitForSelector( `.twic-loading` );
           await page.waitForSelector( `.twic-done` );
-    
-          console.log( 'Background Image URL:', await getPlacholderData( page ) ); 
-          console.log( 'Image src:', await getAssetData( page ) ); 
+  
       } );  
     } );
 } )

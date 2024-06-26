@@ -1,6 +1,5 @@
 {
     "scripts": {
-        "build": "$npm_execpath install && rollup -c",
         "serve": "sirv public --no-clear"
     },
     "devDependencies": {

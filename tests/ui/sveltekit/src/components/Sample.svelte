@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { TwicImg, TwicVideo, TwicPicture } from "@twicpics/components/svelte5";
+  import { TwicImg, TwicVideo, TwicPicture } from "@twicpics/components/sveltekit";
   import "@twicpics/components/style.css";
 
   let src = 'football.jpg';
