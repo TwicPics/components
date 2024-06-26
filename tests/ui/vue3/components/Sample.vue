@@ -2,6 +2,25 @@
   <component
     :is="TwicComponent"
     :src="src"
+    :alt="alt"
+    :anchor="anchor"
+    :bot="bot"
+    :eager="eager"
+    :focus="focus"
+    :intrinsic="intrinsic"
+    :mode="mode"
+    :position="position"
+    :placeholder="placeholder"
+    :pre-transform="preTransform"
+    :ratio="ratio"
+    :refit="refit"
+    :step="step"
+    :title="title"
+    :transition="transition"
+    :transition-delay="transitionDelay"
+    :transition-duration="transitionDuration"
+    :transition-timing-function="transitionTimingFunction"
+    :zoom="zoom"
   />
 </template>
 
