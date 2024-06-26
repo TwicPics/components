@@ -1,30 +1,30 @@
 export default [
   {
     "framework": `react`,
-    "port": 5000,
+    "port": 4000,
   },
   {
     "framework": `svelte3`,
-    "port": 5010,
+    "port": 4001,
   },
   {
     "framework": `svelte4`,
-    "port": 5020,
+    "port": 4002,
   },
   {
     "framework": `svelte5`,
-    "port": 5030,
+    "port": 4003,
   },
   {
     "framework": `sveltekit`,
-    "port": 5040,
+    "port": 4004,
   },
   {
     "framework": `vue2`,
-    "port": 5050,
+    "port": 4005,
   },
   {
     "framework": `vue3`,
-    "port": 5060,
+    "port": 4006,
   },
 ]

@@ -2,8 +2,11 @@ import { exec, spawn } from "child_process";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import units from "./units.js";
+import { killports } from "./utils.js";
 
 const __dirname = dirname( fileURLToPath( import.meta.url ) );
+
+await killports();
 
 await Promise.all( units.map( async unit => { 
     const { framework, port } = unit;
