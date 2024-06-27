@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "serve": "sirv public --no-clear"
+        "serve": "rollup -c -w",
+        "start": "sirv public --no-clear -p 4040"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "25.0.7",
