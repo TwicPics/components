@@ -58,7 +58,6 @@ export const setupUnitTests = ( units, testCases ) => {
 
             beforeEach( async () => {
                 ( { page } = await setupPuppeteer() );
-                console.log( "page", page );
             } );
 
             testCases.forEach( testCase => {
