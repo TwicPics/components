@@ -1,7 +1,7 @@
-// tests/twicComponents.test.js
 import { expect } from 'vitest';
 import units from '../units.js';
-import { goto, setupUnitTests } from '../helpers';
+import { getPlaceholderData, goto, setupUnitTests } from '../helpers.js';
+import { isTruthy } from '../utils.js';
 
 const testCases = [
     {
@@ -11,10 +11,10 @@ const testCases = [
               src: 'football.jpg',
             };
             await goto( { page, params, port } );
-            const asset = await page.$( `.twic-i > .twic-w.twic-tf >img, .twic-i > twicmedia > .twic-w.twic-tf > img` );
-            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >img~div, .twic-i > twicmedia > .twic-w.twic-tf >img~div`);
+            const asset = await page.$( `.twic-i > .twic-w > img, .twic-i > twicmedia > .twic-w > img` );
+            const placeholderData = await getPlaceholderData( page, `img~div` );
             expect( asset ).not.toBe( null );
-            expect( placeholder ).not.toBe( null );
+            expect( isTruthy( placeholderData[ 'background-image' ] ) ).toBe( true );
         },
     },
     {
@@ -25,10 +25,10 @@ const testCases = [
               placeholder: 'none',
             };
             await goto( { page, params, port } );
-            const asset = await page.$( `.twic-i > .twic-w.twic-tf >img, .twic-i > twicmedia > .twic-w.twic-tf > img` );
-            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >img~div, .twic-i > twicmedia > .twic-w.twic-tf >img~div`);
+            const asset = await page.$( `.twic-i > .twic-w > img, .twic-i > twicmedia > .twic-w > img` );
+            const placeholderData = await getPlaceholderData( page, `img~div` );
             expect( asset ).not.toBe( null );
-            expect( placeholder ).toBe( null );
+            expect( isTruthy( placeholderData[ 'background-image' ] ) ).toBe( false );
         },
     },
     {
@@ -39,10 +39,10 @@ const testCases = [
               media: 'video',
             };
             await goto( { page, params, port } );
-            const asset = await page.$( `.twic-i > .twic-w.twic-tf >video, .twic-i > twicmedia > .twic-w.twic-tf > video` );
-            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >video~div, .twic-i > twicmedia > .twic-w.twic-tf >video~div`);
+            const asset = await page.$( `.twic-i > .twic-w > video, .twic-i > twicmedia > .twic-w > video` );
+            const placeholderData = await getPlaceholderData( page, `video~div` );
             expect( asset ).not.toBe( null );
-            expect( placeholder ).not.toBe( null );
+            expect( isTruthy( placeholderData[ 'background-image' ] ) ).toBe( true );
         },
     },
     {
@@ -54,10 +54,10 @@ const testCases = [
                 placeholder: 'none'
             };
             await goto( { page, params, port } );
-            const asset = await page.$( `.twic-i > .twic-w.twic-tf >video, .twic-i > twicmedia > .twic-w.twic-tf > video` );
-            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >video~div, .twic-i > twicmedia > .twic-w.twic-tf >video~div`);
+            const asset = await page.$( `.twic-i > .twic-w > video, .twic-i > twicmedia > .twic-w > video` );
+            const placeholderData = await getPlaceholderData( page, `video~div` );
             expect( asset ).not.toBe( null );
-            expect( placeholder ).toBe( null );
+            expect( isTruthy( placeholderData[ 'background-image' ] ) ).toBe( false );
         },
     },
     {

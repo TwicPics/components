@@ -4,23 +4,24 @@ import { afterEach, beforeEach, describe, test } from 'vitest';
 export const getAssetData = async ( page ) => {
     return await page.evaluate( () => {
         const asset = document.querySelector( `.twic-w img` );
-        const styles = window.getComputedStyle( asset );
+        const styles = asset && window.getComputedStyle( asset );
         return {
             src: asset ? asset.src : '',
-            'object-fit': styles.getPropertyValue( `object-fit` )
+            'object-fit': styles?.getPropertyValue( `object-fit` )
         };
     });
 };
 
-export const getPlacholderData = async ( page ) => {
-    return await page.evaluate( () => {
-        const placeholder = document.querySelector( `.twic-w div` );
-        const styles = window.getComputedStyle( placeholder );
+export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
+    return await page.evaluate( ( arg ) => {
+        console.log( arg );
+        const placeholder = document.querySelector( arg );
+        const styles = placeholder && window.getComputedStyle( placeholder );
         return {
-            'background-image': styles.getPropertyValue( `background-image` ).replace(/url\(['"]?(.*?)['"]?\)/i, '$1'),
-            'background-size': styles.getPropertyValue( `background-size` )
+            'background-image': styles?.getPropertyValue( `background-image` )?.replace(/url\(['"]?(.*?)['"]?\)/i, '$1'),
+            'background-size': styles?.getPropertyValue( `background-size` )
         };
-    } );
+    }, selector );
 };
 
 export const goto = async ( { page, params = {}, port } ) => {
@@ -65,4 +66,3 @@ export const setupUnitTests = ( units, testCases ) => {
         } );
     } );
 };
-

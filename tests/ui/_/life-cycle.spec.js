@@ -1,5 +1,5 @@
 import units from '../units.js';
-import { getAssetData, getPlacholderData, goto, setupUnitTests } from '../helpers';
+import { getAssetData, getPlaceholderData, goto, setupUnitTests } from '../helpers';
 
 const testCases = [
   {
@@ -13,8 +13,8 @@ const testCases = [
 
           await page.waitForSelector('.twic-done');
 
-          console.log('Background Image URL:', await getPlacholderData(page));
-          console.log('Image src:', await getAssetData(page));
+          //console.log('Background Image URL:', await getPlaceholderData(page));
+          //console.log('Image src:', await getAssetData(page));
 
           await page.setViewport({
             width: 200,
