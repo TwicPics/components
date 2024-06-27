@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "serve": "nuxt dev"
+  },
+  "dependencies": {
+    "@twicpics/components": "file:../../../dist"
+  },
+  "devDependencies": {
+    "nuxt": "3.11.2"
+  }
+}
