@@ -11,10 +11,8 @@ const testCases = [
               src: 'football.jpg',
             };
             await goto( { page, params, port } );
-
-            await page.waitForSelector( `.twic-i` );
-            const asset = await page.$( `.twic-i>.twic-w.twic-tf>img` );
-            const placeholder = await page.$( `.twic-i>.twic-w.twic-tf>img~div `);
+            const asset = await page.$( `.twic-i > .twic-w.twic-tf >img, .twic-i > twicmedia > .twic-w.twic-tf > img` );
+            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >img~div, .twic-i > twicmedia > .twic-w.twic-tf >img~div`);
             expect( asset ).not.toBe( null );
             expect( placeholder ).not.toBe( null );
         },
@@ -27,9 +25,8 @@ const testCases = [
               placeholder: 'none',
             };
             await goto( { page, params, port } );
-
-            const asset = await page.$( `.twic-i>.twic-w.twic-tf>img` );
-            const placeholder = await page.$( `.twic-i>.twic-w.twic-tf>img~div `);
+            const asset = await page.$( `.twic-i > .twic-w.twic-tf >img, .twic-i > twicmedia > .twic-w.twic-tf > img` );
+            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >img~div, .twic-i > twicmedia > .twic-w.twic-tf >img~div`);
             expect( asset ).not.toBe( null );
             expect( placeholder ).toBe( null );
         },
@@ -42,9 +39,8 @@ const testCases = [
               media: 'video',
             };
             await goto( { page, params, port } );
-
-            const asset = await page.$( `.twic-i>.twic-w.twic-tf>video` );
-            const placeholder = await page.$( `.twic-i>.twic-w.twic-tf>video~div `);
+            const asset = await page.$( `.twic-i > .twic-w.twic-tf >video, .twic-i > twicmedia > .twic-w.twic-tf > video` );
+            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >video~div, .twic-i > twicmedia > .twic-w.twic-tf >video~div`);
             expect( asset ).not.toBe( null );
             expect( placeholder ).not.toBe( null );
         },
@@ -58,9 +54,8 @@ const testCases = [
                 placeholder: 'none'
             };
             await goto( { page, params, port } );
-
-            const asset = await page.$( `.twic-i>.twic-w.twic-tf>video` );
-            const placeholder = await page.$( `.twic-i>.twic-w.twic-tf>video~div `);
+            const asset = await page.$( `.twic-i > .twic-w.twic-tf >video, .twic-i > twicmedia > .twic-w.twic-tf > video` );
+            const placeholder = await page.$( `.twic-i > .twic-w.twic-tf >video~div, .twic-i > twicmedia > .twic-w.twic-tf >video~div`);
             expect( asset ).not.toBe( null );
             expect( placeholder ).toBe( null );
         },
@@ -73,8 +68,7 @@ const testCases = [
               media: 'picture',
           };
           await goto( { page, params, port } );
-
-          const asset = await page.$( `.twic-i>picture.twic-p>img` );
+          const asset = await page.$( `.twic-i > picture.twic-p > img, twicpicture > picture.twic-p > img` );
           expect( asset ).not.toBe( null );
       },
   },

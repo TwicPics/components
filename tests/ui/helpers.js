@@ -24,13 +24,8 @@ export const getPlacholderData = async ( page ) => {
 };
 
 export const goto = async ( { page, params = {}, port } ) => {
-    await page.goto( `http://localhost:${
-            port
-        }?params=${
-            encodeURIComponent( JSON.stringify( params ) )
-        }
-    `);
-    await page.waitForSelector( `.twic-i` );
+    await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
+    await page.waitForSelector( `.twic-i, .twic-p` );
 }
 
 
@@ -39,6 +34,7 @@ const setupPuppeteer = async () => {
         headless: true,
     } );
     const page = await browser.newPage();
+    page.setDefaultTimeout( 10000 );
 
     afterEach(async () => {
         await browser.close();
