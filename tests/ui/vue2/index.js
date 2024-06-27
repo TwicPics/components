@@ -11,7 +11,7 @@ Vue.use( TwicPics, {
     "env": `production`,
 } );
 
-import Sample from './components/Sample.vue';
+import Sample from './Sample.vue';
 
 Vue.config.productionTip = false;
 

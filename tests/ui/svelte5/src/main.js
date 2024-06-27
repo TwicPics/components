@@ -1,6 +1,6 @@
 import { installTwicpics } from "@twicpics/components/svelte5";
 import { mount } from 'svelte';
-import Sample from "./components/Sample.svelte";
+import Sample from "./Sample.svelte";
 
 import "@twicpics/components/style.css";
 

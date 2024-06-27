@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 
-import Sample from './components/Sample.vue';
+import Sample from './Sample.vue';
 import TwicPics from "@twicpics/components/vue3";
 import "@twicpics/components/style.css";
 
