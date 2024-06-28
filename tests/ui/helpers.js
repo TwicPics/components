@@ -6,7 +6,11 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
         const asset = document.querySelector( arg );
         const styles = asset && window.getComputedStyle( asset );
         return {
+            'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
+            'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
+            'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),
             'data-twic-src' : asset?.getAttribute( 'data-twic-src' ),
+            'data-twic-step' : asset?.getAttribute( 'data-twic-step' ),
             'data-twic-transform' : asset?.getAttribute( 'data-twic-transform' ),
             'data-twic-poster' : asset?.getAttribute( 'data-twic-poster' ),
             'data-twic-poster-transform' : asset?.getAttribute( 'data-twic-poster-transform' ),

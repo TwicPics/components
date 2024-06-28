@@ -5,18 +5,22 @@
     :alt="alt"
     :anchor="anchor"
     :bot="bot"
+    :duration="duration"
     :eager="eager"
     :fetchpriority="fetchpriority"
+    :from="from"
     :focus="focus"
     :intrinsic="intrinsic"
     :mode="mode"
     :position="position"
+    :posterFrom="posterFrom"
     :placeholder="placeholder"
     :pre-transform="preTransform"
     :ratio="ratio"
     :refit="refit"
     :step="step"
     :title="title"
+    :to="to"
     :transition="transition"
     :transition-delay="transitionDelay"
     :transition-duration="transitionDuration"
@@ -35,7 +39,9 @@ export default {
       alt: undefined,
       anchor: undefined,
       bot: undefined,
+      duration: undefined,
       eager: undefined,
+      from: undefined,
       fetchpriority: undefined,
       focus: undefined,
       intrinsic: undefined,
@@ -43,11 +49,13 @@ export default {
       mode: undefined,
       position: undefined,
       placeholder: undefined,
+      posterFrom: undefined,
       preTransform: undefined,
       ratio: undefined,
       refit: undefined,
       step: undefined,
       title: undefined,
+      to: undefined,
       transition: undefined,
       transitionDelay: undefined,
       transitionDuration: undefined,
@@ -64,19 +72,23 @@ export default {
     this.alt = params.alt || undefined;
     this.anchor = params.anchor || undefined;
     this.bot = params.bot || undefined;
+    this.duration = params.duration || undefined;
     this.eager = params.eager || undefined;
     this.fetchpriority = params.fetchpriority || undefined;
     this.focus = params.focus || undefined;
+    this.from = params.from || undefined;
     this.intrinsic = params.intrinsic || undefined;
     this.media = params.media || this.media;
     this.mode = params.mode || undefined;
     this.position = params.position || undefined;
     this.placeholder = params.placeholder || undefined;
+    this.posterFrom = params.posterFrom || undefined;
     this.preTransform = params.preTransform || undefined;
     this.ratio = params.ratio || undefined;
     this.refit = params.refit || undefined;
     this.step = params.step || undefined;
     this.title = params.title || undefined;
+    this.to = params.to || undefined;
     this.transition = params.transition || undefined;
     this.transitionDelay = params.transitionDelay || undefined;
     this.transitionDuration = params.transitionDuration || undefined;

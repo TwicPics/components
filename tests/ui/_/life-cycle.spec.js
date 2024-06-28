@@ -1,3 +1,6 @@
+// WIP
+// test loading, done, error
+// test resize ?
 import units from '../units.js';
 import { getAssetData, getPlaceholderData, goto, setupUnitTests } from '../helpers';
 

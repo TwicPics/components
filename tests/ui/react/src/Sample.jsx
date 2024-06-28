@@ -17,19 +17,23 @@ const Sample = () => {
     alt,
     anchor,
     bot,
+    duration,
     eager,
     fetchpriority,
     focus,
+    from,
     intrinsic,
     media = 'img',
     mode,
     position,
+    posterFrom,
     placeholder,
     preTransform,
     ratio,
     refit,
     step,
     title,
+    to,
     transition,
     transitionDelay,
     transitionDuration,
@@ -45,18 +49,22 @@ const Sample = () => {
       alt={ alt }
       anchor={ anchor }
       bot={ bot }
+      duration = { duration }
       eager={ eager }
       fetchpriority = { fetchpriority }
       focus={ focus }
+      from = { from }
       intrinsic={ intrinsic }
       mode={ mode }
       position={ position }
       placeholder={ placeholder }
+      posterFrom={ posterFrom }
       preTransform={ preTransform }
       ratio={ ratio }
       refit={ refit }
       step={ step }
       title={ title }
+      to = { to }
       transition={ transition }
       transitionDelay={ transitionDelay }
       transitionDuration={ transitionDuration }
