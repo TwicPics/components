@@ -1,20 +1,24 @@
 import puppeteer from 'puppeteer';
 import { afterEach, beforeEach, describe, test } from 'vitest';
 
-export const getAssetData = async ( page ) => {
-    return await page.evaluate( () => {
-        const asset = document.querySelector( `.twic-w img` );
+export const getAssetData = async ( page, selector = `.twic-w img` ) => {
+    return await page.evaluate( ( arg ) => {
+        const asset = document.querySelector( arg );
         const styles = asset && window.getComputedStyle( asset );
         return {
+            'data-twic-src' : asset?.getAttribute( 'data-twic-src' ),
+            'data-twic-transform' : asset?.getAttribute( 'data-twic-transform' ),
+            'data-twic-poster' : asset?.getAttribute( 'data-twic-poster' ),
+            'data-twic-poster-transform' : asset?.getAttribute( 'data-twic-poster-transform' ),
             src: asset ? asset.src : '',
+            srcset: asset ? asset.srcset : '',
             'object-fit': styles?.getPropertyValue( `object-fit` )
         };
-    });
+    }, selector );
 };
 
 export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
     return await page.evaluate( ( arg ) => {
-        console.log( arg );
         const placeholder = document.querySelector( arg );
         const styles = placeholder && window.getComputedStyle( placeholder );
         return {

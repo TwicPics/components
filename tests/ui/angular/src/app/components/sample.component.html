@@ -45,6 +45,17 @@
   ></TwicVideo>
   <TwicPicture
       *ngSwitchCase="'picture'"
-      [src]="params.src">
-  </TwicPicture>
+      [src]="params.src"
+      [alt]="params.alt"
+      [anchor]="params.anchor"
+      [eager]="params.eager"
+      [fetchpriority]="params.fetchpriority"
+      [focus]="params.focus"
+      [mode]="params.mode"
+      [position]="params.position"
+      [preTransform]="params.preTransform"
+      [ratio]="params.ratio"
+      [refit]="params.refit"
+      [title]="params.title"
+  ></TwicPicture>
 </ng-container>

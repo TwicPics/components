@@ -27,4 +27,3 @@ await Promise.all( units.map( async unit => {
 } ) );
 
 console.log( `All servers running.` );
-

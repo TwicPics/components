@@ -6,6 +6,7 @@
     :anchor="anchor"
     :bot="bot"
     :eager="eager"
+    :fetchpriority="fetchpriority"
     :focus="focus"
     :intrinsic="intrinsic"
     :mode="mode"
@@ -35,6 +36,7 @@ export default {
       anchor: undefined,
       bot: undefined,
       eager: undefined,
+      fetchpriority: undefined,
       focus: undefined,
       intrinsic: undefined,
       media: 'img',
@@ -63,6 +65,7 @@ export default {
     this.anchor = params.anchor || undefined;
     this.bot = params.bot || undefined;
     this.eager = params.eager || undefined;
+    this.fetchpriority = params.fetchpriority || undefined;
     this.focus = params.focus || undefined;
     this.intrinsic = params.intrinsic || undefined;
     this.media = params.media || this.media;

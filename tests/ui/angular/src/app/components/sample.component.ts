@@ -16,6 +16,5 @@ export class SampleComponent implements OnInit {
       media: 'img',
       ...JSON.parse(queryParams.get('params') || '{}')
     };
-    console.log(this.params);
   }
 }

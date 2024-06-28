@@ -18,6 +18,7 @@ const Sample = () => {
     anchor,
     bot,
     eager,
+    fetchpriority,
     focus,
     intrinsic,
     media = 'img',
@@ -45,6 +46,7 @@ const Sample = () => {
       anchor={ anchor }
       bot={ bot }
       eager={ eager }
+      fetchpriority = { fetchpriority }
       focus={ focus }
       intrinsic={ intrinsic }
       mode={ mode }

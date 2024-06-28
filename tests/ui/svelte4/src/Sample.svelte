@@ -8,6 +8,7 @@
   let anchor;
   let bot;
   let eager;
+  let fetchpriority;
   let focus;
   let intrinsic;
   let media = 'img';
@@ -35,6 +36,7 @@
     anchor = params.anchor;
     bot = params.bot;
     eager = params.eager;
+    fetchpriority = params.fetchpriority;
     focus = params.focus;
     intrinsic = params.intrinsic;
     media = params.media || media;
@@ -65,6 +67,7 @@
       anchor={ anchor }
       bot={ bot }
       eager={ eager }
+      fetchpriority= { fetchpriority }
       focus={ focus }
       intrinsic={ intrinsic }
       mode={ mode }
