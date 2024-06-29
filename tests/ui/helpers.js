@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import { afterEach, beforeEach, describe, test } from 'vitest';
+import { delay } from './utils';
 
 export const getAssetData = async ( page, selector = `.twic-w img` ) => {
     return await page.evaluate( ( arg ) => {
@@ -35,6 +36,7 @@ export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
 export const goto = async ( { page, params = {}, port } ) => {
     await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
     await page.waitForSelector( `.twic-i, .twic-p` );
+    await delay ( 250 );
 }
 
 
@@ -43,8 +45,6 @@ const setupPuppeteer = async () => {
         headless: true,
     } );
     const page = await browser.newPage();
-    page.setDefaultTimeout( 10000 );
-
     afterEach(async () => {
         await browser.close();
     });
