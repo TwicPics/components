@@ -11,8 +11,7 @@ export default {
   name: "Sample",
   data() {
     return {
-      src: 'football.jpg',
-      media: 'img',
+      src: '',
       TwicComponent: 'TwicImg',
       rest: {}
     };
@@ -20,14 +19,10 @@ export default {
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
     const params = JSON.parse(queryParams.get('params') || '{}');
-
-    this.src = params.src || this.src;
-    this.media = params.media || this.media;
-    this.TwicComponent = this.media === 'img' ? 'TwicImg' : (this.media === 'video' ? 'TwicVideo' : 'TwicPicture');
-
-    // Remove 'src' and 'media' from params and set otherParams
-    const { src, media, ...rest } = params;
+    const { src = 'football.jpg' , media = 'img' , ...rest } = params;
+    this.TwicComponent = media === 'img' ? 'TwicImg' : ( media === 'video' ? 'TwicVideo' : 'TwicPicture' );
     this.rest = rest;
+    this.src = src;
   }
 };
 </script>
