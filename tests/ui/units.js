@@ -1,4 +1,4 @@
-export default [
+const frameworks = [
   {
     "framework": `angular`,
     "port": 4000,
@@ -10,7 +10,8 @@ export default [
   {
     "framework": `nuxt2`,
     "port": 4020,
-  },  {
+  },
+  {
     "framework": `nuxt3`,
     "port": 4030,
   },
@@ -43,3 +44,7 @@ export default [
     "port": 4100,
   },
 ]
+
+const only = frameworks.find( f => f.only );
+export default only ? [ only ] : frameworks.filter( f => !f.disabled );
+
