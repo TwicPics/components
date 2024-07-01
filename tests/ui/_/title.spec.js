@@ -23,41 +23,37 @@ let components = [
 
 const testCases = [];
 components.forEach( component => {
-    testCases.push(
-        {
-            description: `${ component.name } should render an empty title attribute`,
-            fn: async ( page, port ) => {
-                const params = {
-                  media: component.media,
-                  src: getSrc( component.media ),
-                };
-            
-                await goto( { page, params, port } );
+    testCases.push( {
+        description: `${ component.name } should render an empty title attribute`,
+        fn: async ( page, port ) => {
+            const params = {
+              component: component.name,
+              src: getSrc( component.name ),
+            };
+        
+            await goto( { page, params, port } );
 
-                const wrapperData = await getWrapperData ( page, wrapperSelector() );
-                expect( wrapperData[ 'title' ] ).toBeUndefined();
-            },
-        },
-    );
-    testCases.push(
-        {
-            description: `${ component.name } should render the correct title attribute`,
-            fn: async ( page, port ) => {
-                const params = {
-                  media: component.media,
-                  src: getSrc( component.media ),
-                  title: 'a title'
-                };
-            
-                await goto( { page, params, port } );
+            const wrapperData = await getWrapperData ( page, wrapperSelector() );
+            expect( wrapperData[ 'title' ] ).toBeUndefined();
+        }
+    } );
+    testCases.push( {
+        description: `${ component.name } should render the correct title attribute`,
+        fn: async ( page, port ) => {
+            const params = {
+              component: component.name,
+              src: getSrc( component.name ),
+              title: 'a title'
+            };
+        
+            await goto( { page, params, port } );
 
-                const wrapperData = await getWrapperData ( page, wrapperSelector() );
-                expect( wrapperData[ 'title' ] ).toBe( `a title` );
-            },
-        },
-    );
+            const wrapperData = await getWrapperData ( page, wrapperSelector() );
+            expect( wrapperData[ 'title' ] ).toBe( `a title` );
+        }
+    } );
 } );
 
-describe( `Alt property test`, () => {
+describe( `Title property test`, () => {
     setupUnitTests( units, testCases );
 } );

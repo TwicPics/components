@@ -13,7 +13,7 @@ export class SampleComponent implements OnInit {
     const queryParams = new URLSearchParams( window.location.search );
     this.params = {
       src: 'football.jpg',
-      media: 'img',
+      component: 'TwicImg',
       ...JSON.parse(queryParams.get('params') || '{}')
     };
   }

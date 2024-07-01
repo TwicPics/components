@@ -16,6 +16,8 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             'data-twic-transform' : asset?.getAttribute( 'data-twic-transform' ),
             'data-twic-poster' : asset?.getAttribute( 'data-twic-poster' ),
             'data-twic-poster-transform' : asset?.getAttribute( 'data-twic-poster-transform' ),
+            fetchpriority: asset?.getAttribute( 'fetchpriority' ),
+            loading: asset?.loading,
             src: asset ? asset.src : '',
             srcset: asset ? asset.srcset : '',
             'object-fit': styles?.getPropertyValue( `object-fit` )
@@ -45,32 +47,17 @@ export const getWrapperData = async ( page, selector = `.twic-w` ) => {
   }, selector );
 };
 
-const mediaSourceMap = {
-  img: `football.jpg`,
-  video: `video/skater.mp4`,
-  picture: `football.jpg`,
+const componentSourceMap = {
+  TwicImg: `football.jpg`,
+  TwicVideo: `video/skater.mp4`,
+  TwicPicture: `football.jpg`,
 }
-export const getSrc = ( media ) => mediaSourceMap[ media ];
+export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
-    const { media = `img`, ...rest } = params;
-    await page.goto( `http://localhost:${
-        port
-    }/?params=${
-        encodeURIComponent( JSON.stringify( {
-            media: media.match( /^picture-(img|source)$/ ) ? `picture` : media,
-            ...rest,
-        } ) )
-    }`);
+    await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
 
-    /*console.log( `http://localhost:${
-        port
-    }/?params=${
-        encodeURIComponent( JSON.stringify( {
-            media: media.match( /^picture-(img|source)$/ ) ? `picture` : media,
-            ...rest,
-        } ) )
-    }` );*/
+    //console.log(`http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
 
     await page.waitForSelector( `.twic-i, .twic-p` );
     await delay ( 250 );

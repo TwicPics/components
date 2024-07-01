@@ -58,7 +58,7 @@ const testCases = [
         fn: async ( page, port ) => {
             const params = {
               src: 'video/skater.mp4',
-              media: 'video',
+              component: 'TwicVideo',
             };
             const _assetSelector = assetSelector( `video` );
             
@@ -85,7 +85,7 @@ const testCases = [
         fn: async (page, port ) => {
             const params = {
                 src: 'video/skater.mp4',
-                media: 'video',
+                component: 'TwicVideo',
                 placeholder: 'none'
             };
             const _assetSelector = assetSelector( `video` );
@@ -113,7 +113,7 @@ const testCases = [
         fn: async (page, port ) => {
             const params = {
                 src: 'football.jpg',
-                media: 'picture',
+                component: 'TwicPicture',
             };
             const imgSelector = assetSelector( `picture-img` );
             
@@ -140,7 +140,7 @@ const testCases = [
       fn: async (page, port ) => {
           const params = {
               src: 'football.jpg',
-              media: 'picture',
+              component: 'TwicPicture',
               ratio: '@md 4/3 @lg 3'
           };
           await goto( { page, params, port } );

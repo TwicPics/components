@@ -13,11 +13,11 @@ const Sample = () => {
 
   const {
     src = 'football.jpg',
-    media = 'img',
+    component = 'TwicImg',
     ...others
   } = params;
 
-  const TwicComponent = media === 'img' ? TwicImg : ( media === 'video' ? TwicVideo : TwicPicture );
+  const TwicComponent = component === 'TwicImg' ? TwicImg : ( component === 'TwicVideo' ? TwicVideo : TwicPicture );
 
   return (
     <TwicComponent

@@ -19,8 +19,8 @@ export default {
   mounted() {
     const queryParams = new URLSearchParams(window.location.search);
     const params = JSON.parse(queryParams.get('params') || '{}');
-    const { src = 'football.jpg' , media = 'img' , ...rest } = params;
-    this.TwicComponent = media === 'img' ? 'TwicImg' : ( media === 'video' ? 'TwicVideo' : 'TwicPicture' );
+    const { src = 'football.jpg' , component = 'TwicImg' , ...rest } = params;
+    this.TwicComponent = component === 'TwicImg' ? 'TwicImg' : ( component === 'TwicVideo' ? 'TwicVideo' : 'TwicPicture' );
     this.rest = rest;
     this.src = src;
   }

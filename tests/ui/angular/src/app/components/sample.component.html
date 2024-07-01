@@ -1,7 +1,7 @@
 <!-- src/app/app.component.html -->
-<ng-container [ngSwitch]="params.media">
+<ng-container [ngSwitch]="params.component">
   <TwicImg
-      *ngSwitchCase="'img'"
+      *ngSwitchCase="'TwicImg'"
       [src]="params.src"
       [alt]="params.alt"
       [anchor]="params.anchor"
@@ -24,7 +24,7 @@
       [zoom]="params.zoom"
   ></TwicImg>
   <TwicVideo
-      *ngSwitchCase="'video'"
+      *ngSwitchCase="'TwicVideo'"
       [src]="params.src"
       [anchor]="params.anchor"
       [bot]="params.bot"
@@ -48,7 +48,7 @@
       [transitionTimingFunction]="params.transitionTimingFunction"
   ></TwicVideo>
   <TwicPicture
-      *ngSwitchCase="'picture'"
+      *ngSwitchCase="'TwicPicture'"
       [src]="params.src"
       [alt]="params.alt"
       [anchor]="params.anchor"

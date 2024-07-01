@@ -1,5 +1,5 @@
 // Here are unit tests for verifying:
-// the correct functionality of the "alt" property in the TwicImg and TwicPicture components.
+// the correct functionality of the "bot" property in the TwicImg and TwicVideo component.
 
 import { describe, expect } from 'vitest';
 import { assetSelector } from '../domSelector.js';
@@ -12,15 +12,15 @@ let components = [
       name: `TwicImg`
   },
   {
-      media: `picture-img`,
-      name: `TwicPicture`
+      media: `video`,
+      name: `TwicVideo`
   }
 ];
 
 const testCases = [];
 components.forEach( component => {
     testCases.push( {
-        description: `${ component.name } should render an empty alt attribute`,
+        description: `${ component.name } should not render data-twic-bot`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
@@ -30,26 +30,26 @@ components.forEach( component => {
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
-            expect( assetData[ 'alt' ] ).toBe( `` );
+            expect( assetData[ 'data-twic-bot' ] ).toBeNull();
         },
     } );
     testCases.push( {
-        description: `${ component.name } should render the correct alt attribute`,
+        description: `${ component.name } should render data-twic-bot`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
               src: getSrc( component.name ),
-              alt: 'alternative description'
+              bot: `cover=100x100`
             };
         
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
-            expect( assetData[ 'alt' ] ).toBe( `alternative description` );
-        }
+            expect( assetData[ 'data-twic-bot' ] ).toEqual( `cover=100x100` );
+        },
     } );
 } );
 
-describe( `Alt property test`, () => {
+describe( `Bot property test`, () => {
     setupUnitTests( units, testCases );
 } );
