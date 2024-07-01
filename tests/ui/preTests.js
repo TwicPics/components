@@ -4,6 +4,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import units from "./units.js";
 import { killports } from "./utils.js";
+import { exit } from "process";
 
 const __dirname = dirname( fileURLToPath( import.meta.url ) );
 
