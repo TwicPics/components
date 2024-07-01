@@ -142,7 +142,7 @@
         "pretest": "node tests/common/preTests.js",
         "pretest:ui": "node tests/ui/preTests.js",
         "test": "vitest run tests/common/tmp",
-        "test:ui": "vitest --no-file-parallelism run tests/ui",
+        "test:ui": "vitest run tests/ui",
         "posttest": "node tests/common/postTests.js",
         "posttest:ui": "node tests/ui/postTests.js"
     },
