@@ -3,6 +3,7 @@
 // test resize ?
 import units from '../units.js';
 import { getAssetData, getPlaceholderData, goto, setupUnitTests } from '../helpers';
+import { describe } from 'vitest';
 
 const testCases = [
   {
@@ -31,4 +32,6 @@ const testCases = [
   },
 ];
 
-setupUnitTests( units, testCases );
+describe( `Life-cyle`, () => {
+  setupUnitTests( units, testCases );
+} )

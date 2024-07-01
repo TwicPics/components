@@ -7,6 +7,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
         const asset = document.querySelector( arg );
         const styles = asset && window.getComputedStyle( asset );
         return {
+            'alt' : asset?.alt,
             'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
             'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
             'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),
@@ -33,8 +34,44 @@ export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
     }, selector );
 };
 
+export const getWrapperData = async ( page, selector = `.twic-w` ) => {
+  return await page.evaluate( ( arg ) => {
+      const wrapper = document.querySelector( arg );
+      const styles = wrapper && window.getComputedStyle( wrapper );
+      return {
+          'padding-top': styles?.getPropertyValue( `padding-top` ),
+          'title': ( wrapper && wrapper.hasAttribute( `title` ) ) ? wrapper.title : undefined,
+      };
+  }, selector );
+};
+
+const mediaSourceMap = {
+  img: `football.jpg`,
+  video: `video/skater.mp4`,
+  picture: `football.jpg`,
+}
+export const getSrc = ( media ) => mediaSourceMap[ media ];
+
 export const goto = async ( { page, params = {}, port } ) => {
-    await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
+    const { media = `img`, ...rest } = params;
+    await page.goto( `http://localhost:${
+        port
+    }/?params=${
+        encodeURIComponent( JSON.stringify( {
+            media: media.match( /^picture-(img|source)$/ ) ? `picture` : media,
+            ...rest,
+        } ) )
+    }`);
+
+    /*console.log( `http://localhost:${
+        port
+    }/?params=${
+        encodeURIComponent( JSON.stringify( {
+            media: media.match( /^picture-(img|source)$/ ) ? `picture` : media,
+            ...rest,
+        } ) )
+    }` );*/
+
     await page.waitForSelector( `.twic-i, .twic-p` );
     await delay ( 250 );
 }

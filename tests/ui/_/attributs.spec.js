@@ -1,12 +1,11 @@
 // Here are unit tests for verifying:
-// - the correct data attributes rendering of TwicImg, TwicVideo and TwicPicture 
+// the correct rendering of data attributes
+// used by the TwicPics script for TwicImg and TwicVideo components.
 
 import { describe, expect } from 'vitest';
 import { assetSelector } from '../domSelector.js';
-import { getAssetData, goto, setupUnitTests } from '../helpers.js';
+import { getAssetData, getSrc, goto, setupUnitTests } from '../helpers.js';
 import units from '../units.js';
-
-const getSrc = ( media ) => media === `img` ? `football.jpg` : `video/skater.mp4`;
 
 let components = [
   {
@@ -34,7 +33,7 @@ components.forEach( component => {
                 await goto( { page, params, port } );
 
                 const assetData = await getAssetData ( page, assetSelector( component.media ) );
-                // asset should have data-twic-transform
+                // asset should have data-twic-bot
                 expect( assetData[ 'data-twic-bot' ] ).toEqual( `cover=100x100` );
             },
         },
@@ -52,7 +51,7 @@ components.forEach( component => {
                 await goto( { page, params, port } );
 
                 const assetData = await getAssetData ( page, assetSelector( component.media ) );
-                // asset should have data-twic-transform
+                // asset should have data-twic-eager
                 expect( assetData[ 'data-twic-eager' ] ).not.toBe( null );
             },
         },
@@ -241,6 +240,6 @@ components.forEach( component => {
     }
 } );
 
-describe.only( `Attributes test`, () => {
+describe( `Attributes test`, () => {
     setupUnitTests( units, testCases );
 } );
