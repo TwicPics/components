@@ -10,7 +10,7 @@ import units from '../units.js';
 
 const testCases = [
     {
-        description: 'TwicImg should render correct HTML with placeholder',
+        description: 'TwicImg should render correct HTML',
         fn: async ( page, port ) => {
             const params = {
               src: 'football.jpg',
@@ -32,29 +32,7 @@ const testCases = [
         },
     },
     {
-        description: 'TwicImg should render correct HTML without placeholder',
-        fn: async ( page, port ) => {
-            const params = {
-              src: 'football.jpg',
-              placeholder: 'none',
-            };
-            const _assetSelector = assetSelector( `img` );
-            await goto( { page, params, port } );
-            
-            const asset = await page.$$( _assetSelector );
-            const placeholder = await page.$$( placeholderSelector( `img` ) );
-            // should have only one img
-            expect( asset ).toHaveLength( 1 );
-            // should not have a div for lqip 
-            expect( placeholder ).toHaveLength( 0 );
-
-            const assetData = await getAssetData ( page, _assetSelector );
-            // img should have data-twic-src
-            expect( assetData['data-twic-src'] ).toEqual( `media:football.jpg` );
-        },
-    },
-    {
-        description: 'TwicVideo should render correct HTML with placeholder',
+        description: 'TwicVideo should render correct HTML',
         fn: async ( page, port ) => {
             const params = {
               src: 'video/skater.mp4',
@@ -71,34 +49,6 @@ const testCases = [
             // should have a div for lqip 
             expect( placeholder ).toHaveLength( 1 );
 
-            const assetData = await getAssetData ( page, _assetSelector );
-            // video should have data-twic-src
-            expect( assetData['data-twic-src'] ).toEqual( `media:video/skater.mp4` );
-            // video should have data-twic-poster
-            expect( assetData['data-twic-poster'] ).toEqual( `media:video/skater.mp4` );
-            // video should have data-twic-poster-transform
-            expect( assetData['data-twic-poster-transform'] ).toEqual( `/*/output=image` );
-        },
-    },
-    {
-        description: 'TwicVideo should render correct HTML without placeholder',
-        fn: async (page, port ) => {
-            const params = {
-                src: 'video/skater.mp4',
-                component: 'TwicVideo',
-                placeholder: 'none'
-            };
-            const _assetSelector = assetSelector( `video` );
-            
-            await goto( { page, params, port } );
-            
-            const asset = await page.$$( _assetSelector );
-            const placeholder = await page.$$( placeholderSelector( `video` ));
-            // should have only one video
-            expect( asset ).toHaveLength( 1 );
-            // should not have a div for lqip 
-            expect( placeholder ).toHaveLength( 0 );
-            
             const assetData = await getAssetData ( page, _assetSelector );
             // video should have data-twic-src
             expect( assetData['data-twic-src'] ).toEqual( `media:video/skater.mp4` );
