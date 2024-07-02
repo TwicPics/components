@@ -32,27 +32,13 @@ components.forEach( component => {
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
             expect( assetData[ 'data-twic-transform' ] ).toEqual( `/flip=x/*` );
-        }
-    } );
-    if ( component.name === `TwicVideo` ) {
-        testCases.push( {
-            description: `${ component.name } should render data-twic-poster and data-twic-poster-transform`,
-            fn: async ( page, port ) => {
-                const params = {
-                  component: component.name,
-                  src: getSrc( component.name ),
-                  preTransform: `flip=x`
-                };
-            
-                await goto( { page, params, port } );
 
-                const assetData = await getAssetData ( page, assetSelector( component.media ) );
-                expect( assetData[ 'data-twic-transform' ] ).toEqual( `/flip=x/*` );
+            if ( component.name === `TwicVideo` ) {
                 expect( assetData[ 'data-twic-poster' ] ).toEqual( `media:${ getSrc( component.name ) }` );
                 expect( assetData[ 'data-twic-poster-transform' ] ).toEqual( `/flip=x/*/output=image` );
-            },
-        } );
-    }
+            }
+        }
+    } );
 } );
 
 describe( `PreTransform property test`, () => {
