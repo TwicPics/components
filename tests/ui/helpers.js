@@ -6,8 +6,11 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
     return await page.evaluate( ( arg ) => {
         const asset = document.querySelector( arg );
         const styles = asset && window.getComputedStyle( asset );
+        const rect = asset && asset.getBoundingClientRect();
+        const aspectRatio = rect && rect.height ? rect.width / rect.height : undefined;
         return {
             'alt' : asset?.alt,
+            'aspect-ratio': aspectRatio,
             'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
             'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
             'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),
