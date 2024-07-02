@@ -23,7 +23,8 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             loading: asset?.loading,
             src: asset ? asset.src : '',
             srcset: asset ? asset.srcset : '',
-            'object-fit': styles?.getPropertyValue( `object-fit` )
+            'object-fit': styles?.getPropertyValue( `object-fit` ),
+            'object-position': styles?.getPropertyValue( `object-position` )
         };
     }, selector );
 };
@@ -34,6 +35,7 @@ export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
         const styles = placeholder && window.getComputedStyle( placeholder );
         return {
             'background-image': styles?.getPropertyValue( `background-image` )?.replace(/url\(['"]?(.*?)['"]?\)/i, '$1'),
+            'background-position': styles?.getPropertyValue( `background-position` ),
             'background-size': styles?.getPropertyValue( `background-size` )
         };
     }, selector );

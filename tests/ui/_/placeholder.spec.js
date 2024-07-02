@@ -43,7 +43,7 @@ components.forEach( component => {
                 if ( p !== `none` ) {
                     const placeholderData = await getPlaceholderData ( page, placeholderSelector( component.media ) );
                     expect (
-                      placeholderData[ `background-image` ]
+                        placeholderData[ `background-image` ]
                     ).toEqual(
                         `https://demo.twic.it/${
                             getSrc( component.name ) 
