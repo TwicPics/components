@@ -2,8 +2,8 @@
 // the correct functionality of the "ratio" property in the TwicImg, TwicVideo and TwicPicture component.
 
 import { describe, expect } from 'vitest';
-import { assetSelector } from '../domSelector.js';
-import { getAssetData, getSrc, goto, setupUnitTests } from '../helpers.js';
+import { assetSelector, placeholderSelector } from '../domSelector.js';
+import { getAssetData, getPlaceholderData, getSrc, goto, setupUnitTests } from '../helpers.js';
 import units from '../units.js';
 
 let components = [
@@ -39,6 +39,11 @@ components.forEach( component => {
 
                 const assetData = await getAssetData ( page, assetSelector( component.media ) );
                 expect( assetData[ 'aspect-ratio' ] ).toBeCloseTo( eval ( ratio || 1 ), 2 );
+
+                if ( component.name !== `TwicPicture` ) {
+                    const placeholderData = await getPlaceholderData ( page, placeholderSelector( component.media ) );
+                    expect( placeholderData[ 'aspect-ratio' ] ).toBeCloseTo( eval ( ratio || 1 ), 2 );
+                }
             },
         } );
     } )

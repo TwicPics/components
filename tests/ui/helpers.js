@@ -33,8 +33,14 @@ export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
     return await page.evaluate( ( arg ) => {
         const placeholder = document.querySelector( arg );
         const styles = placeholder && window.getComputedStyle( placeholder );
+        const backgroundImage = styles?.getPropertyValue( `background-image` )?.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+        const finalTransformationReg = /(?:cover|contain|inside)=(\d*)x(\d*)/;
+        const [ _, width, height ] = ( backgroundImage?.match( finalTransformationReg ) || [] );
         return {
-            'background-image': styles?.getPropertyValue( `background-image` )?.replace(/url\(['"]?(.*?)['"]?\)/i, '$1'),
+            height,
+            width,
+            'aspect-ratio': ( width && height ) ? width / height : undefined,
+            'background-image': backgroundImage,
             'background-position': styles?.getPropertyValue( `background-position` ),
             'background-size': styles?.getPropertyValue( `background-size` )
         };
