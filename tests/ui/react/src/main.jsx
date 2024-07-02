@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
+import "./app.css";
 import Sample from './Sample';
 
 installTwicpics( {

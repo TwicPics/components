@@ -42,7 +42,15 @@ components.forEach( component => {
                 expect( placeholder ).toHaveLength( p === `none` ? 0 : 1 );
                 if ( p !== `none` ) {
                     const placeholderData = await getPlaceholderData ( page, placeholderSelector( component.media ) );
-                    expect ( placeholderData[ `background-image` ] ).toContain( `output=${ p || `preview` }` );
+                    expect (
+                      placeholderData[ `background-image` ]
+                    ).toEqual(
+                        `https://demo.twic.it/${
+                            getSrc( component.name ) 
+                        }?twic=v1/cover=1000x1000/output=${
+                            p || `preview`
+                        }`
+                    );
                 }
             },
         } );

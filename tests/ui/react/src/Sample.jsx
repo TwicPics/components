@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { TwicImg, TwicVideo, TwicPicture } from "@twicpics/components/react";
 
+
 const Sample = () => {
   const [ params, setParams ] = useState({});
 
@@ -13,6 +14,7 @@ const Sample = () => {
 
   const {
     src = 'football.jpg',
+    containerClass= 'default',
     component = 'TwicImg',
     ...others
   } = params;
@@ -20,10 +22,12 @@ const Sample = () => {
   const TwicComponent = component === 'TwicImg' ? TwicImg : ( component === 'TwicVideo' ? TwicVideo : TwicPicture );
 
   return (
-    <TwicComponent
-      src={ src }
-      { ... others }
-    />
+    <div className={ containerClass }>
+        <TwicComponent
+          src={ src }
+          { ... others }
+        />
+    </div>
   );
 };
 

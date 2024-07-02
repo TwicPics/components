@@ -1,10 +1,6 @@
 import { TwicInstall } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
-
-const breakpoints = {
-  "2xl": 4000,
-  "md": 666,
-}
+import './app.css';
 
 function MyApp( { Component, pageProps } ) {
     return (
@@ -12,7 +8,6 @@ function MyApp( { Component, pageProps } ) {
             <TwicInstall
                 domain="https://demo.twic.it"
                 anticipation="0.5"
-                breakpoints={breakpoints}
                 step="100"
                 env="production"
             />
