@@ -27,7 +27,7 @@ const testCases = [];
 components.forEach( component => {
     modes.forEach( mode => {
         testCases.push( {
-            description: `${ component.name } should display an image in ${ mode == `` ? `cover by default ` : mode } mode by default`,
+            description: `${ component.name } should display an image with mode= ${ mode == `` ? `cover by default` : mode }.`,
             fn: async ( page, port ) => {
                 const params = {
                     component: component.name,
