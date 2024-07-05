@@ -27,3 +27,15 @@ This project uses yarn as dependency manager.
 ### Building 
 
 Simply type `yarn build`. Dependencies are installed automatically.
+
+### Testing
+
+To run tests, use the following commands:
+
+```sh
+# testing common code accross all frameworks
+yarn test
+
+# testing ui
+yarn test:ui
+```
