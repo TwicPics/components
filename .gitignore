@@ -3,7 +3,7 @@
 /tests/**/.next
 /tests/**/.nuxt
 /tests/**/build
-/tests/tmp/
+/tests/**/tmp/
 /samples/**/.cache
 /samples/**/.next
 /samples/**/.nitro

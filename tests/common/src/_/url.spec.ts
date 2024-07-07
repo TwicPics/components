@@ -46,7 +46,6 @@ describe( 'Url functions', () => {
           domain: 'https://demo.twic.it',
           context: {
             height: 100,
-            mode: 'cover',
             width: 200,
           },
           src: 'media:cat.jpg',
@@ -60,7 +59,20 @@ describe( 'Url functions', () => {
           domain: 'https://demo.twic.it',
           context: {
             height: 100,
-            mode: 'cover',
+            mode: `contain`,
+            width: 200,
+          },
+          src: 'media:cat.jpg',
+          transform: '*',
+        },
+        expected: 'https://demo.twic.it/cat.jpg?twic=v1/contain=200x100',
+        description: 'create TwicPics api url from path src with mode=contain'
+      },
+      {
+        input: {
+          domain: 'https://demo.twic.it',
+          context: {
+            height: 100,
             width: 200,
           },
           src: 'https://demo.twic.it/cat.jpg',
@@ -74,7 +86,6 @@ describe( 'Url functions', () => {
           domain: 'https://demo.twic.it',
           context: {
             height: 100,
-            mode: 'cover',
             width: 200,
           },
           src: 'https://demo.twic.it/cat.jpg',
