@@ -2,13 +2,9 @@ import { installTwicpics } from "@twicpics/components/svelte3";
 import Sample from "./Sample.svelte";
 import "@twicpics/components/style.css";
 import "../../_/sample.css";
+import config from '../../_/config';
 
-installTwicpics( {
-    "domain": `https://demo.twic.it`,
-    "anticipation": 0.5,
-    "step": 100,
-    "env": `production`,
-} );
+installTwicpics( config );
 
 export default new Sample( {
     "target": document.body,
