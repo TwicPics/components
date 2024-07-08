@@ -3,14 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { installTwicpics } from "@twicpics/components/react";
 import "@twicpics/components/style.css";
 import "../../_/Sample.css";
+import config from '../../_/config';
 import Sample from './Sample';
 
-installTwicpics( {
-    "domain": `https://demo.twic.it`,
-    "anticipation": 0.5,
-    "step": 100,
-    "env": `production`,
-} );
+installTwicpics( config );
 
 ReactDOM.createRoot( document.getElementById( `root` ) ).render(
     <React.StrictMode>

@@ -1,17 +1,9 @@
 
 // eslint-disable-next-line no-undef
+import config from '../_/config';
 export default defineNuxtConfig( {
     "modules": [ `@twicpics/components/nuxt3` ],
-    "twicpics": {
-        "domain": `https://demo.twic.it`,
-        "anticipation": 0.5,
-        "step": 50,
-        "env": `production`,
-        "breakpoints": {
-            "md": 666,
-            "2xl": 4000,
-        },
-    },
+    "twicpics": config,
     "css": [
       '@/styles.css'
     ],

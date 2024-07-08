@@ -1,3 +1,4 @@
+import config from '../_/config';
 export default {
     "head": {
         "title": `TwicPics Components`,
@@ -19,12 +20,7 @@ export default {
     },
     "modules": [ `@twicpics/components/nuxt2` ],
     "build": {},
-    "twicpics": {
-        "domain": `https://demo.twic.it`,
-        "anticipation": 0.5,
-        "step": 50,
-        "env": `production`,
-    },
+    "twicpics": config,
     css: [
       '@/styles.css'
     ],
