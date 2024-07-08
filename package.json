@@ -139,12 +139,9 @@
         "documentation": "node build/documentation.js",
         "lint": "eslint .",
         "postinstall": "node build/postinstall.js",
-        "pretest": "node tests/common/preTests.js",
-        "pretest:ui": "node tests/ui/preTests.js",
-        "test": "vitest run tests/common/tmp",
-        "test:ui": "vitest run tests/ui",
-        "posttest": "node tests/common/postTests.js",
-        "posttest:ui": "node tests/ui/postTests.js"
+        "test:common": "node tests/common/preTests.js && vitest run tests/common/tmp; node tests/common/postTests.js",
+        "test:ui": "node tests/ui/preTests.js && vitest run tests/ui; node tests/ui/postTests.js",
+        "test": "$npm_execpath run test:common && $npm_execpath run test:ui"
     },
     "type": "module",
     "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"

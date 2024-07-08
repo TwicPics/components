@@ -34,8 +34,11 @@ To run tests, use the following commands:
 
 ```sh
 # testing common code accross all frameworks
-yarn test
+yarn test:common
 
 # testing ui
 yarn test:ui
+
+# testing common + ui
+yarn test
 ```
