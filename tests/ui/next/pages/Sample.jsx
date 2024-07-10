@@ -19,7 +19,13 @@ const Sample = () => {
     ...others
   } = params;
 
-  const TwicComponent = component === 'TwicImg' ? TwicImg : ( component === 'TwicVideo' ? TwicVideo : TwicPicture );
+  const componentMap = new Map( [
+      [ 'TwicImg', TwicImg ],
+      [ 'TwicVideo', TwicVideo ],
+      [ 'TwicPicture', TwicPicture ],
+  ] );
+
+  const TwicComponent = componentMap.get( component ) || TwicImg;
 
   return (
     <div className={ containerClass }>
