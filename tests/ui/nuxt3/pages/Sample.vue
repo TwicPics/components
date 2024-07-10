@@ -9,6 +9,12 @@
 </template>
 
 <script>
+const componentMap = new Map( [
+    [ 'TwicImg', 'TwicImg' ],
+    [ 'TwicVideo', 'TwicVideo' ],
+    [ 'TwicPicture', 'TwicPicture' ]
+] );
+
 export default {
   name: "Sample",
   data() {
@@ -23,7 +29,7 @@ export default {
     const queryParams = new URLSearchParams(window.location.search);
     const params = JSON.parse(queryParams.get('params') || '{}');
     const { src = 'football.jpg' , containerClass = 'default', component = 'TwicImg' , ...rest } = params;
-    this.TwicComponent = component === 'TwicImg' ? 'TwicImg' : ( component === 'TwicVideo' ? 'TwicVideo' : 'TwicPicture' );
+    this.TwicComponent = componentMap.get( component ) || 'TwicImg';
     this.containerClass = containerClass;
     this.rest = rest;
     this.src = src;

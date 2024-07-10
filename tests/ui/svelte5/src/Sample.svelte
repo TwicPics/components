@@ -1,6 +1,11 @@
 <script context="module">
   import { onMount } from 'svelte';
   import { TwicImg, TwicVideo, TwicPicture } from "@twicpics/components/svelte5";
+  const componentMap = new Map( [
+      [ 'TwicImg', TwicImg ],
+      [ 'TwicVideo', TwicVideo ],
+      [ 'TwicPicture', TwicPicture ]
+  ] );
 </script>
 <script>
   let src;
@@ -13,7 +18,7 @@
     const queryParams = new URLSearchParams(window.location.search);
     const params = JSON.parse(queryParams.get('params') || '{}');
     ( { src = 'football.jpg' , component = 'TwicImg' , containerClass= 'default', ...rest }  = params );
-    TwicComponent = component === 'TwicImg' ? TwicImg : (component === 'TwicVideo' ? TwicVideo : TwicPicture);
+    TwicComponent = componentMap.get( component ) || TwicImg;
   });
 </script>
 
