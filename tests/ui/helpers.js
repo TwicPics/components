@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, test } from 'vitest';
-import units from './units';
+import { getFrameworks } from './units';
 
 export const getAssetData = async ( page, selector = `.twic-w img` ) => {
     return await page.evaluate( ( arg ) => {
@@ -94,7 +94,7 @@ export const setupUnitTests = async ( testCases ) => {
         await browser.close();
     } );
 
-    await Promise.all( units.map( async ( unit ) => {
+    await Promise.all( getFrameworks( process.env.FRAMEWORK_FILTERS ).map( async ( unit ) => {
         const { framework, port } = unit;
         describe( `${ framework } components`, async () => {
             let page;

@@ -1,6 +1,6 @@
 import http from "http";
 import kill from 'kill-port';
-import units from './units.js';
+import { getFrameworks } from "./units.js";
 
 export const checkPort = async ( port, wait = false ) => new Promise( resolve => {
     let timeoutId;
@@ -24,7 +24,7 @@ export const checkPort = async ( port, wait = false ) => new Promise( resolve =>
 } );
 
 
-export const killports = async() => await Promise.all( units.map( async unit => {
+export const killports = async() => await Promise.all( getFrameworks().map( async unit => {
     const { port } = unit;
     if ( await checkPort( port ) ) {
         console.log( `Stopping port ${ port }.`);

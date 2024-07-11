@@ -1,14 +1,17 @@
 import { exec, spawn } from "child_process";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import units from "./units.js";
+import { getFrameworks } from "./units.js";
 import { checkPort, killports } from "./utils.js";
 
+const FRAMEWORK_FILTERS = process.argv.slice(2).join(',');
 
+// stop servers if needed
 await killports();
 
 const __dirname = dirname( fileURLToPath( import.meta.url ) );
-await Promise.all( units.map( async unit => { 
+
+await Promise.all( getFrameworks( FRAMEWORK_FILTERS ).map( async unit => { 
     const { framework, port } = unit;
     console.log( `Starting ${ framework } on port ${ port }.` );
     await new Promise( ( resolve ) => {
@@ -29,3 +32,20 @@ await Promise.all( units.map( async unit => {
 } ) );
 
 console.log( `All servers running.` );
+
+// starts tests
+const vitestProcess = spawn(
+    'npx',
+    [ 'vitest', 'run', 'tests/ui' ],
+    {
+        stdio: 'inherit',
+        env: {
+            ...process.env,
+            FRAMEWORK_FILTERS,
+        },
+    } 
+);
+
+vitestProcess.on('close', async () => {
+    await killports();
+} );
