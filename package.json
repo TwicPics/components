@@ -140,7 +140,7 @@
         "lint": "eslint .",
         "postinstall": "node build/postinstall.js",
         "test:common": "node tests/common/preTests.js && vitest run tests/common/tmp; node tests/common/postTests.js",
-        "test:ui": "node tests/ui/preTests.js && vitest run tests/ui; node tests/ui/postTests.js",
+        "test:ui": "node tests/ui",
         "test": "$npm_execpath run test:common && $npm_execpath run test:ui"
     },
     "type": "module",

@@ -1,6 +1,4 @@
 // This file defines the list of frameworks to be tested.
-// Use `only: true` in one or more framework objects to test those frameworks exclusively,
-// or `disabled: true` to exclude a framework from beging tested.
 const units = [
   {
     "framework": `angular`,
@@ -21,6 +19,7 @@ const units = [
   {
     "framework": `react`,
     "port": 4040,
+    only: true
   },
   {
     "framework": `svelte3`,
@@ -48,5 +47,26 @@ const units = [
   },
 ]
 
-export default units.some( f => f.only ) ? units.filter( f => f.only ) : units.filter( f => !f.disabled );
+export const getFrameworks = ( filters = `` ) => {
+    const filterArray = filters.split( `,` ).map( f => f.trim() ).filter( f => f );
+    const inclusiveFilters = filterArray.filter( f => !f.startsWith( `^` ) );
+    const exclusiveFilters = filterArray.filter( f => f.startsWith( `^` ) ).map( f => f.substring(1) );
+    let frameworks = units;
+
+    if ( inclusiveFilters.length ) {
+        const matchedFrameworks = units.filter(
+            unit => inclusiveFilters.some( filter => new RegExp( `^${ filter }` ).test( unit.framework ) )
+        );
+        frameworks = matchedFrameworks.length ? matchedFrameworks : frameworks;
+    }
+
+    if ( exclusiveFilters.length ) {
+        frameworks = frameworks.filter(
+            unit => !exclusiveFilters.some( filter => new RegExp( `^${ filter }` ).test( unit.framework ) )
+        );
+    }
+
+    return frameworks.length > 0 ? frameworks : units;
+}
+
 

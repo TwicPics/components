@@ -39,6 +39,7 @@ yarn test:common
 # testing ui
 yarn test:ui
 
-# testing common + ui
-yarn test
+# testing ui for specific frameworks
+yarn test:ui react svelte          # only test UI for react and svelte3, svelte4, svelte5 and sveltekit
+yarn test:ui ^vue                  # test UI for all frameworks except vue2 and vue3
 ```
