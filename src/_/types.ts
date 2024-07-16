@@ -45,15 +45,15 @@ export interface Attributes {
 }
 
 export interface ScriptAttributes {
-  bot?: string,
-  intrinsic?: string,
-  mode?: Mode,
-  placeholder?: Placeholder,
-  step?: number | string,
-  transition?: boolean | string,
-  transitionDelay?: string,
-  transitionDuration?: string,
-  transitionTimingFunction?: string,
+    bot?: string,
+    intrinsic?: string,
+    mode?: Mode,
+    placeholder?: Placeholder,
+    step?: number | string,
+    transition?: boolean | string,
+    transitionDelay?: string,
+    transitionDuration?: string,
+    transitionTimingFunction?: string,
 }
 
 // only for react-native
@@ -73,9 +73,9 @@ export interface Config {
 }
 
 export interface Context {
-  height?: number,
-  mode: string,
-  width?: number,
+    height?: number,
+    mode: string,
+    width?: number,
 }
 
 export interface CreateUrlData {
@@ -103,8 +103,8 @@ export interface Options {
 }
 
 export interface Picture {
-  sources: Record< string, string >[],
-  img: Record< string, string >,
+    sources: Record< string, string >[],
+    img: Record< string, string >,
 }
 
 export interface PreTransformData {
