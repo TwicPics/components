@@ -1,11 +1,13 @@
 <script>
 import {
     computeAlt,
+    computeHostAttributes,
     computePicture,
 } from "../_/compute";
 import {
     parseAlt,
     parseAnchors,
+    parseDraggable,
     parseEager,
     parseFetchPriority,
     parseFocuses,
@@ -26,6 +28,7 @@ const computed = {};
 for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
+    [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
     [ `mode`, stringProp, parseModes ],
@@ -46,6 +49,7 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ `draggable` ] ],
     [
         `_pictureData`,
         computePicture,
@@ -73,7 +77,10 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
+    <div
+        class="twic-i"
+        v-bind="{ ..._hostAttributes }"
+    >
         <picture
             class="twic-p"
             :title="p_title"

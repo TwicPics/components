@@ -2,11 +2,15 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
+    HostBinding,
     Input,
     Output,
     ViewEncapsulation,
 } from "@angular/core";
+// eslint-disable-next-line no-duplicate-imports
+import type { OnChanges } from "@angular/core";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
+import { parseDraggable } from "../_/parse";
 
 @Component( {
     "selector": `TwicBackground`,
@@ -38,9 +42,10 @@ import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicBackgroundComponent {
+export class TwicBackgroundComponent implements OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() draggable: boolean | string;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mediaTag = `div`;
@@ -57,7 +62,14 @@ export class TwicBackgroundComponent {
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     @Output() stateChangeEvent = new EventEmitter< StateEvent >();
+    @HostBinding( `attr.draggable` ) get twicDraggable() {
+        return this._draggable;
+    }
+    _draggable: boolean | undefined = undefined;
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );
+    }
+    ngOnChanges(): void {
+        this._draggable = parseDraggable( this.draggable );
     }
 }

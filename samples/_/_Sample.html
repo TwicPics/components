@@ -245,6 +245,44 @@
             <span>preTransform="flip=y" + bot=""</span>
         </div>
     </div>
+    <h2>Draggable</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Draggable default"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                draggable
+            >
+            </TwicImg>
+          <span>TwicImg Draggable</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                draggable="true"
+            >
+            </TwicImg>
+            <span>TwicImg Draggable "true"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                draggable="false"
+            >
+            </TwicImg>
+          <span>TwicImg Draggable "false"</span>
+        </div>
+    </div>
     <h2>Flex layout</h2>
     <div class="flex">
         <div class="flex-item">
@@ -1244,27 +1282,30 @@ Test"
         <div class="item">
             <TwicBackground
                 ___state___
+                draggable
                 src="https://assets.twicpics.com/examples/football.jpg"
                 focus="auto"
                 title="Title test">
             </TwicBackground>
-            <span>no ratio (state emitter) + title</span>
+            <span>no ratio (state emitter) + title + draggable</span>
         </div>
         <div class="item">
             <TwicBackground
                 src="https://assets.twicpics.com/examples/football.jpg"
+                draggable="false"
                 focus="auto"
                 ratio="16/9">
             </TwicBackground>
-            <span>ratio="16/9"</span>
+            <span>ratio="16/9" + draggable = false</span>
         </div>
         <div class="item">
             <TwicBackground
                 src="https://assets.twicpics.com/examples/football.jpg"
+                draggable="true"
                 focus="auto"
                 ratio="4/3">
             </TwicBackground>
-            <span>ratio="4/3"</span>
+            <span>ratio="4/3" + draggable=true</span>
         </div>
         <div class="item">
             <TwicBackground
@@ -1358,12 +1399,13 @@ Test"
         <div class="item">
             <TwicVideo
                 src="video/skater.mp4"
+                draggable="true"
                 intrinsic="1280x720"
                 ratio="16/9"
                 placeholder="maincolor"
                 title="Title test"
             ></TwicVideo>
-            <span>ratio="16/9" + placeholder = "main" + title</span>
+            <span>ratio="16/9" + placeholder = "main" + title + draggable</span>
         </div>
         <div class="item">
             <TwicVideo

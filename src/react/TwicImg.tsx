@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { boolean, number, oneOfType, string } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import { computeMagnifierStyle } from "../_/compute";
+import { computeHostAttributes, computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseClassName, parseZoom } from "../_/parse";
+import { parseClassName, parseDraggable, parseZoom } from "../_/parse";
 import type { ScriptAttributes } from "../_/types";
 
 interface ImgAttributes extends BaseAttributes, ScriptAttributes {
@@ -28,6 +28,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
         <div
             ref={ hostElement }
             className={ `twic-i ${ className } ${ zoom ? `twic-z` : `` }` }
+            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
             style={ computeMagnifierStyle( zoom ) }
         >
             { zoom && (

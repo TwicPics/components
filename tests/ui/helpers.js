@@ -40,6 +40,16 @@ export const getBackgoundImageData = ( backgroundImage ) => {
         width,
     }
 }
+
+export const getHostElementData = async ( page, selector ) => {
+  return await page.evaluate( ( arg ) => {
+      const hostElement = document.querySelector( arg );
+      return {
+          'draggable' : hostElement?.getAttribute( 'draggable' ),
+      };
+  }, selector );
+};
+
 export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
     const result =  await page.evaluate( ( arg ) => {
         const placeholder = document.querySelector( arg );

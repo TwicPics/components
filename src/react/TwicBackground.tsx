@@ -1,5 +1,6 @@
 import React from "react";
-import { parseClassName } from "../_/parse";
+import { computeHostAttributes } from "../_/compute";
+import { parseClassName, parseDraggable } from "../_/parse";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import { string } from "./props";
@@ -18,7 +19,10 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
     };
     const parsedClassName = parseClassName( className ) || ``;
     return (
-        <div className={ `twic-i ${ parsedClassName }` }>
+        <div
+            className={ `twic-i ${ parsedClassName }` }
+            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+        >
             <TwicMedia { ...mediaAttributes } className="" />
         </div>
     );

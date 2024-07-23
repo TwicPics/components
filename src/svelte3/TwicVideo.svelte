@@ -2,9 +2,11 @@
 
 <script context="module" lang="ts">
 import {
+    computeHostAttributes,
     getCurrentComponent,
     isWebComponents,
     parseClassName,
+    parseDraggable,
     parseDuration,
     parseFrom,
     parseTo,
@@ -21,6 +23,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let draggable: boolean | string = undefined;
 export let duration: number | string = undefined;
 export let focus: string = undefined;
 export let from: number | string = undefined;
@@ -43,6 +46,7 @@ export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 
 $: parsedClassName = parseClassName( className ) || ``;
+$: parsedDraggable = parseDraggable( draggable );
 $: parsedDuration = parseDuration( duration );
 $: parsedFrom = parseFrom( from );
 $: parsedPosterFrom = parseFrom( posterFrom );
@@ -73,6 +77,7 @@ $: videoOptions = preComputeVideoOptions( parsedDuration, parsedFrom, parsedPost
 $: {
     if ( isWebComponents ) {
         getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
+        parsedDraggable !== undefined && getCurrentComponent().setAttribute( `draggable`, parsedDraggable );
     }
 }
 </script>
@@ -85,7 +90,10 @@ $: {
     on:statechange
 ></TwicMedia>
 {:else}
-<div class = {`twic-i ${ parsedClassName }`}>
+<div
+    class = {`twic-i ${ parsedClassName }`}
+    { ...computeHostAttributes( parsedDraggable ) }
+>
     <TwicMedia
         mediaTag="video"
         bind:state

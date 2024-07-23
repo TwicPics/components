@@ -3,6 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    HostBinding,
     Input,
     Renderer2,
     ViewChild,
@@ -25,6 +26,7 @@ import {
 import {
     parseAlt,
     parseAnchors,
+    parseDraggable,
     parseEager,
     parseFocuses,
     parseModes,
@@ -59,6 +61,7 @@ import { attributes } from "./utils";
 export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
+    @Input() draggable: boolean | string;
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
     @Input() focus: string = undefined;
@@ -70,6 +73,9 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() sizes: string;
     @Input() src: string;
     @Input() title: string = undefined;
+    @HostBinding( `attr.draggable` ) get twicDraggable() {
+        return this._draggable;
+    }
     @ViewChild( `container`, {
         "static": true,
     } ) containerRef!: ElementRef;
@@ -78,6 +84,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     } ) imageRef!: ElementRef;
     _alt: string = undefined;
     _anchors: Record< number, AnchorObject > = undefined;
+    _draggable: boolean | undefined = undefined;
     _eager: boolean;
     _fetchpriority: FetchPriority = undefined;
     _focuses: Record< number, string > = undefined;
@@ -114,6 +121,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
         this._anchors = parseAnchors( this.anchor );
+        this._draggable = parseDraggable( this.draggable );
         this._focuses = parseFocuses( this.focus );
         this._modes = parseModes( this.mode );
         this._eager = parseEager( this.eager );

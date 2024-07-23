@@ -6,6 +6,7 @@ import type {
     Mode,
 } from "./_utils.js";
 import {
+    computeHostAttributes,
     getCurrentComponent,
     parseAlt,
     parseAnchors,
@@ -25,6 +26,7 @@ import {
     parseFetchPriority,
     parseModes,
     parsePositions,
+    parseDraggable,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -32,6 +34,7 @@ export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 let className: string = undefined;
 export { className as class };
+export let draggable: boolean | string = undefined;
 export let eager: boolean = false;
 export let fetchpriority: string = undefined;
 export let focus: string = undefined;
@@ -47,6 +50,7 @@ export let title: string = undefined;
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchors = parseAnchors( anchor );
 $: parsedClassName = parseClassName( className ) || ``;
+$: parsedDraggable = parseDraggable( draggable );
 $: parsedEager = parseEager( eager );
 $: parsedFetchPriority = parseFetchPriority( fetchpriority );
 $: parsedFocuses = parseFocuses( focus );
@@ -62,6 +66,7 @@ $: parsedTitle = parseTitle( title );
 $: {
     if ( isWebComponents ) {;
         getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
+        parsedDraggable !== undefined && getCurrentComponent().setAttribute( `draggable`, parsedDraggable );
     }
 }
 
@@ -93,17 +98,20 @@ $: _computePictureData = computePicture(
       />
     </picture>
 {:else}
-<div class = {`twic-i ${ parsedClassName }`}>
-  <picture class="twic-p" title = { parsedTitle }>
-    {#if _computePictureData?.sources}
-        {#each _computePictureData.sources as data }
-            <source { ...data } />
-        {/each}
-    {/if}
-    <img
-        alt = { _alt }
-        { ..._computePictureData?.img }
-    />
-  </picture>
+<div
+    class = {`twic-i ${ parsedClassName }`}
+    { ...computeHostAttributes( parsedDraggable ) }
+>
+    <picture class="twic-p" title = { parsedTitle }>
+        {#if _computePictureData?.sources}
+            {#each _computePictureData.sources as data }
+                <source { ...data } />
+            {/each}
+        {/if}
+        <img
+            alt = { _alt }
+            { ..._computePictureData?.img }
+        />
+    </picture>
 </div>
 {/if}

@@ -45,6 +45,7 @@ import {
   parseTransitionDuration,
   parseTransitionTimingFunction,
   parseZoom,
+  parseDraggable,
 } from '../../../../src/_/parse';
 import { Mode, Placeholder } from '../../../../src/_/types';
 
@@ -60,7 +61,7 @@ const testUndefined = ( expected: any ) => (
   { 
       input: undefined,
       expected: expected,
-      description: `return ${ expected } when string empty`,
+      description: `return ${ expected } when string undefined`,
   }
 );
 
@@ -83,9 +84,9 @@ const testTrimOrUndefinedCases = [
   },
 ]
 
-const testParseBooleanCases = [
+const testParseBooleanCasesFactory = ( expectedWhenUndefined: boolean | undefined ) => [
   {
-    ...testUndefined( false ),
+    ...testUndefined( expectedWhenUndefined ),
   },
   {
     input: true,
@@ -111,6 +112,8 @@ const testParseBooleanCases = [
     description: 'return false when false is passed as string'
   },
 ];
+
+const testParseBooleanCases = testParseBooleanCasesFactory( false );
 
 const testParseNumberCases = [
   {
@@ -377,6 +380,14 @@ describe( 'Parsing functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( parseDomain( input ) ).toBe( expected );
+    } );
+  } );
+
+  describe( 'parseDraggable', () => {
+    testParseBooleanCasesFactory( undefined ).forEach(( { description, input, expected } ) => {
+      test( `it should ${ description } `, () => {
+        expect( parseDraggable( input ) ).toBe( expected );
+      } );
     } );
   } );
 

@@ -336,6 +336,16 @@ export const computeData = (
 };
 
 /* eslint-disable dot-notation */
+export const computeHostAttributes = ( draggable: boolean | undefined ): Record< string, unknown > => {
+    const hostElementData: Record< string, unknown > = {};
+    if ( draggable !== undefined ) {
+        hostElementData[ `draggable` ] = draggable;
+    }
+    return hostElementData;
+};
+/* eslint-enable dot-notation */
+
+/* eslint-disable dot-notation */
 export const computePlaceholderStyle = (
     anchor: AnchorObject,
     focus: string,

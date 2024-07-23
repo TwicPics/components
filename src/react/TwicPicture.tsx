@@ -2,6 +2,7 @@ import "../_/style.css";
 import React from "react";
 import {
     computeAlt,
+    computeHostAttributes,
     computePicture,
 } from "../_/compute";
 import {
@@ -19,6 +20,7 @@ import {
     parseSrc,
     parseTitle,
     parseSizes,
+    parseDraggable,
 } from "../_/parse";
 import type { Anchor } from "../_/types";
 import { validAnchors } from "../_/validate";
@@ -67,7 +69,10 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const { "fetchPriority": _fetchPriority, ...rest } = pictureData?.img || {};
 
     return (
-        <div className={ `twic-i ${ className }` } >
+        <div
+            className={ `twic-i ${ className }` }
+            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+        >
             <picture className="twic-p" title={ title }>
                 { pictureData?.sources && pictureData.sources.map(
                     ( data, key ) => (

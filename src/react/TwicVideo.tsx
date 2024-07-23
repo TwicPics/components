@@ -1,5 +1,6 @@
 import React from "react";
-import { parseClassName, parseDuration, parseFrom, parseTo } from "../_/parse";
+import { parseClassName, parseDraggable, parseDuration, parseFrom, parseTo } from "../_/parse";
+import { computeHostAttributes } from "../_/compute";
 import { preComputeVideoOptions } from "../_/preCompute";
 import { number } from "./props";
 import TwicMedia from "./TwicMedia";
@@ -21,7 +22,10 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const to = parseTo( props.to );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
     return (
-        <div className={ `twic-i ${ className }` }>
+        <div
+            className={ `twic-i ${ className }` }
+            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+        >
             <TwicMedia
                 { ...props }
                 className=""

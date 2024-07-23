@@ -2,13 +2,14 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
+    HostBinding,
     Input,
     Output,
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { OnChanges } from "@angular/core";
-import { parseDuration, parseFrom, parseTo } from "../_/parse";
+import { parseDraggable, parseDuration, parseFrom, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
 
@@ -48,6 +49,7 @@ export class TwicVideoComponent implements OnChanges {
     mediaTag = `video`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() draggable: boolean | string;
     @Input() duration: number | string = undefined;
     @Input() focus: string = undefined;
     @Input() from: number | string = undefined;
@@ -68,12 +70,17 @@ export class TwicVideoComponent implements OnChanges {
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     @Output() stateChangeEvent = new EventEmitter< StateEvent >();
+    @HostBinding( `attr.draggable` ) get twicDraggable() {
+        return this._draggable;
+    }
+    _draggable: boolean | undefined = undefined;
     _duration: number;
     _from: number;
     _posterFrom: number;
     _to: number;
     videoOption: VideoOptions;
     ngOnChanges( ): void {
+        this._draggable = parseDraggable( this.draggable );
         this._duration = parseDuration( this.duration );
         this._from = parseFrom( this.from );
         this._posterFrom = parseDuration( this.posterFrom );

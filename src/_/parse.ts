@@ -119,6 +119,10 @@ export const parseDomain = ( value: string ) => {
     return rValidDomain.test( domain ) ? domain.replace( rValidDomain, `$1` ) : undefined;
 };
 
+export const parseDraggable = ( value: boolean | string | undefined ): boolean => (
+    value === undefined ? undefined : parseBoolean( value )
+);
+
 export const parseDuration = parseNumber;
 
 export const parseEager = parseBoolean;
