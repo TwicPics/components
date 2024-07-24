@@ -29,6 +29,7 @@ import {
     parseDraggable,
     parseEager,
     parseFocuses,
+    parseId,
     parseModes,
     parsePositions,
     parsePreTransforms,
@@ -65,6 +66,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
     @Input() focus: string = undefined;
+    @Input() id: string = undefined;
     @Input() mode: string = undefined;
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
@@ -75,6 +77,9 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() title: string = undefined;
     @HostBinding( `attr.draggable` ) get twicDraggable() {
         return this._draggable;
+    }
+    @HostBinding( `attr.id` ) get twicId() {
+        return this._id;
     }
     @ViewChild( `container`, {
         "static": true,
@@ -88,6 +93,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _eager: boolean;
     _fetchpriority: FetchPriority = undefined;
     _focuses: Record< number, string > = undefined;
+    _id: string | undefined = undefined;
     _modes: Record< number, Mode > = undefined;
     _positions: Record< number, string > = undefined;
     _preTransforms: Record< number, string > = undefined;
@@ -123,6 +129,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._anchors = parseAnchors( this.anchor );
         this._draggable = parseDraggable( this.draggable );
         this._focuses = parseFocuses( this.focus );
+        this._id = parseId( this.id );
         this._modes = parseModes( this.mode );
         this._eager = parseEager( this.eager );
         this._positions = parsePositions( this.position );

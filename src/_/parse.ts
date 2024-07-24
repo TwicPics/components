@@ -7,6 +7,7 @@ import {
     rValidDomain,
     rValidEnvironment,
     rValidFetchPriority,
+    rValidId,
     rValidIntrinsic,
     rValidMode,
     rValidPath,
@@ -141,6 +142,8 @@ export const parseFocuses = parseBreakpointsFactory<string>( parseFocus );
 export const parseFrom = parseNumber;
 
 export const parseHandleShadowDom = parseBoolean;
+
+export const parseId = regExpFinderFactory( rValidId );
 
 export const parseIntrinsic = ( value: string ): string => {
     if ( !value ) {

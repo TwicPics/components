@@ -1,9 +1,10 @@
 import React from "react";
 import { computeHostAttributes } from "../_/compute";
-import { parseClassName, parseDraggable } from "../_/parse";
+import { parseClassName, parseDraggable, parseId } from "../_/parse";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import { string } from "./props";
+import { propType, string } from "./props";
+import { rValidId } from "../_/validate";
 interface BackgroundAttributes extends BaseAttributes {
     mediaTag?: string,
 }
@@ -21,7 +22,10 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
     return (
         <div
             className={ `twic-i ${ parsedClassName }` }
-            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+            { ...computeHostAttributes(
+                parseDraggable( props.draggable ),
+                parseId( props.id )
+            ) }
         >
             <TwicMedia { ...mediaAttributes } className="" />
         </div>
@@ -29,6 +33,7 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
 };
 
 TwicBackground.propTypes = {
+    "id": propType( `string`, rValidId ),
     "mediaTag": string,
 };
 

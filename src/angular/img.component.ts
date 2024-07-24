@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
-import { parseDraggable, parseZoom } from "../_/parse";
+import { parseDraggable, parseId, parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
@@ -83,6 +83,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() bot: string = undefined;
     @Input() draggable: boolean | string;
     @Input() focus: string = undefined;
+    @Input() id: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
     @Input() eager: boolean | string;
@@ -103,10 +104,14 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @HostBinding( `attr.draggable` ) get twicDraggable() {
         return this._draggable;
     }
+    @HostBinding( `attr.id` ) get twicId() {
+        return this._id;
+    }
     @HostBinding( `class.twic-z` ) get twicZoom() {
         return this._zoom;
     }
     _draggable: boolean | undefined = undefined;
+    _id: string | undefined = undefined;
     _zoom: boolean | number = false;
     magnifierStyle: Record<string, string>;
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
@@ -121,6 +126,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     }
     ngOnChanges( ): void {
         this._draggable = parseDraggable( this.draggable );
+        this._id = parseId( this.id );
         this._zoom = parseZoom( this.zoom );
         this.magnifierStyle = computeMagnifierStyle( this._zoom );
         this.updateTemplate();

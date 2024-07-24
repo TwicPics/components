@@ -11,9 +11,9 @@ import {
     parseAlt,
     parseAnchors,
     parseClassName,
-    parseFocuses,
     parseEager,
-    parsePreTransform,
+    parseFocuses,
+    parseId,
     parsePreTransforms,
     parseRatios,
     parseRefit,
@@ -38,6 +38,7 @@ export let draggable: boolean | string = undefined;
 export let eager: boolean = false;
 export let fetchpriority: string = undefined;
 export let focus: string = undefined;
+export let id: string = undefined;
 export let mode: Mode = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
@@ -54,6 +55,7 @@ $: parsedDraggable = parseDraggable( draggable );
 $: parsedEager = parseEager( eager );
 $: parsedFetchPriority = parseFetchPriority( fetchpriority );
 $: parsedFocuses = parseFocuses( focus );
+$: parsedId = parseId( id );
 $: parsedModes = parseModes( mode );
 $: parsedPositions = parsePositions( position );
 $: parsedPreTransforms = parsePreTransforms( preTransform );
@@ -64,9 +66,11 @@ $: parsedSrc = parseSrc( src );
 $: parsedTitle = parseTitle( title );
 
 $: {
-    if ( isWebComponents ) {;
-        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
-        parsedDraggable !== undefined && getCurrentComponent().setAttribute( `draggable`, parsedDraggable );
+    if ( isWebComponents ) {
+        const hostElement = getCurrentComponent();
+        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
+        parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
     }
 }
 
@@ -100,7 +104,7 @@ $: _computePictureData = computePicture(
 {:else}
 <div
     class = {`twic-i ${ parsedClassName }`}
-    { ...computeHostAttributes( parsedDraggable ) }
+    { ...computeHostAttributes( parsedDraggable, parsedId ) }
 >
     <picture class="twic-p" title = { parsedTitle }>
         {#if _computePictureData?.sources}

@@ -18,6 +18,7 @@ import { default as _TwicPicture } from "./TwicPicture.svelte";
 import { default as _TwicVideo } from "./TwicVideo.svelte";
 import { default as _TwicView } from "./TwicView.svelte";
 export interface BaseAttributes extends Attributes {
+    id?: string;
     class?: string,
     draggable?: boolean | string,
     state?: State,

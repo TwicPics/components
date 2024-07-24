@@ -1,17 +1,19 @@
 <script>
 import TwicMedia from "./TwicMedia.vue";
-import { booleanProp, floatProp } from "./props";
+import { booleanProp, defineStringProp, floatProp } from "./props";
 import { callFactory } from "./utils";
 import {
     parseDraggable,
     parseDuration,
     parseFrom,
+    parseId,
     parseTo,
 } from "../_/parse";
 import {
     preComputeVideoOptions,
 } from "../_/preCompute";
 import { computeHostAttributes } from "../_/compute";
+import { rValidId } from "../_/validate";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};
@@ -21,6 +23,7 @@ for (
         [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
         [ `duration`, floatProp, parseDuration ],
         [ `from`, floatProp, parseFrom ],
+        [ `id`, defineStringProp( rValidId ), parseId ],
         [ `posterFrom`, floatProp, parseFrom ],
         [ `to`, floatProp, parseTo ],
     ]
@@ -29,7 +32,7 @@ for (
     props[ propName ] = type;
 }
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id` ] ],
     [ `_videoOptions`, preComputeVideoOptions, [ `duration`, `from`, `posterFrom`, `to` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

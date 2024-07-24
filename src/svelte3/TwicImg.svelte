@@ -10,6 +10,7 @@ import {
     initMagnifier,
     parseClassName,
     parseDraggable,
+    parseId,
     parseZoom,
     styleToString,
     type Anchor,
@@ -28,6 +29,7 @@ let className: string = undefined;
 export { className as class };
 export let draggable: boolean | string = undefined;
 export let focus: string = undefined;
+export let id: string = undefined;
 export let intrinsic: string = undefined;
 export let mode: Mode = undefined;
 export let eager: boolean = false;
@@ -50,7 +52,7 @@ let hostElement:HTMLDivElement | any;
 
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedDraggable = parseDraggable( draggable );
-$: console.log(parsedDraggable);
+$: parsedId = parseId( id );
 $: parsedZoom = parseZoom( zoom );
 $: props = {
     alt,
@@ -79,6 +81,7 @@ $: {
         hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
         parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
+        parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
         hostElement.style = _magnifierStyle;
     }
 }
@@ -99,7 +102,7 @@ if ( isBrowser ) {
 <div
     bind:this={ hostElement }
     class = { `twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }` }
-    { ...computeHostAttributes( parsedDraggable ) }
+    { ...computeHostAttributes( parsedDraggable, parsedId ) }
     style = { _magnifierStyle }
 >
     {#if parsedZoom}

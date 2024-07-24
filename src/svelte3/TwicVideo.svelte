@@ -9,6 +9,7 @@ import {
     parseDraggable,
     parseDuration,
     parseFrom,
+    parseId,
     parseTo,
     preComputeVideoOptions,
     type Anchor,
@@ -27,6 +28,7 @@ export let draggable: boolean | string = undefined;
 export let duration: number | string = undefined;
 export let focus: string = undefined;
 export let from: number | string = undefined;
+export let id: string = undefined;
 export let intrinsic: string = undefined;
 export let mode: Mode = undefined;
 export let eager: boolean = false;
@@ -49,6 +51,7 @@ $: parsedClassName = parseClassName( className ) || ``;
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedDuration = parseDuration( duration );
 $: parsedFrom = parseFrom( from );
+$: parsedId = parseId( id );
 $: parsedPosterFrom = parseFrom( posterFrom );
 $: parsedTo = parseTo( to );
 
@@ -76,8 +79,10 @@ $: videoOptions = preComputeVideoOptions( parsedDuration, parsedFrom, parsedPost
 
 $: {
     if ( isWebComponents ) {
-        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
-        parsedDraggable !== undefined && getCurrentComponent().setAttribute( `draggable`, parsedDraggable );
+        const hostElement = getCurrentComponent();
+        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
+        parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
     }
 }
 </script>
@@ -92,7 +97,7 @@ $: {
 {:else}
 <div
     class = {`twic-i ${ parsedClassName }`}
-    { ...computeHostAttributes( parsedDraggable ) }
+    { ...computeHostAttributes( parsedDraggable, parsedId ) }
 >
     <TwicMedia
         mediaTag="video"

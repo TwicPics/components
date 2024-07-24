@@ -25,6 +25,7 @@ export {
     parseFocus,
     parseFocuses,
     parseFrom,
+    parseId,
     parseIntrinsic,
     parseMode,
     parseModes,

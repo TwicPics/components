@@ -4,6 +4,7 @@ import {
     computeHostAttributes,
     computePicture,
 } from "../_/compute";
+import { rValidId } from "../_/validate";
 import {
     parseAlt,
     parseAnchors,
@@ -11,6 +12,7 @@ import {
     parseEager,
     parseFetchPriority,
     parseFocuses,
+    parseId,
     parseModes,
     parsePositions,
     parsePreTransforms,
@@ -20,7 +22,7 @@ import {
     parseTitle,
     parseSizes,
 } from "../_/parse";
-import { booleanProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, stringProp } from "./props";
 import { callFactory } from "./utils";
 
 const props = {};
@@ -31,6 +33,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
+    [ `id`, defineStringProp( rValidId ), parseId ],
     [ `mode`, stringProp, parseModes ],
     [ `eager`, booleanProp( null, false ), parseEager ],
     [ `position`, stringProp, parsePositions ],
@@ -49,7 +52,7 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id` ] ],
     [
         `_pictureData`,
         computePicture,

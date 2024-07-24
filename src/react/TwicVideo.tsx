@@ -1,11 +1,12 @@
 import React from "react";
-import { parseClassName, parseDraggable, parseDuration, parseFrom, parseTo } from "../_/parse";
+import { parseClassName, parseDraggable, parseDuration, parseFrom, parseId, parseTo } from "../_/parse";
 import { computeHostAttributes } from "../_/compute";
 import { preComputeVideoOptions } from "../_/preCompute";
-import { number } from "./props";
+import { number, propType } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import type { ScriptAttributes } from "../_/types";
+import { rValidId } from "../_/validate";
 
 interface VideoAttributes extends BaseAttributes, ScriptAttributes {
     duration?: number | string,
@@ -24,7 +25,10 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     return (
         <div
             className={ `twic-i ${ className }` }
-            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+            { ...computeHostAttributes(
+                parseDraggable( props.draggable ),
+                parseId( props.id )
+            ) }
         >
             <TwicMedia
                 { ...props }
@@ -40,6 +44,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
 TwicVideo.propTypes = {
     "duration": number,
     "from": number,
+    "id": propType( `string`, rValidId ),
     "posterFrom": number,
     "to": number,
 };

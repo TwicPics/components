@@ -336,10 +336,16 @@ export const computeData = (
 };
 
 /* eslint-disable dot-notation */
-export const computeHostAttributes = ( draggable: boolean | undefined ): Record< string, unknown > => {
+export const computeHostAttributes = (
+    draggable: boolean | undefined,
+    id: string
+): Record< string, unknown > => {
     const hostElementData: Record< string, unknown > = {};
     if ( draggable !== undefined ) {
         hostElementData[ `draggable` ] = draggable;
+    }
+    if ( id ) {
+        hostElementData[ `id` ] = id;
     }
     return hostElementData;
 };

@@ -46,6 +46,7 @@ import {
   parseTransitionTimingFunction,
   parseZoom,
   parseDraggable,
+  parseId,
 } from '../../../../src/_/parse';
 import { Mode, Placeholder } from '../../../../src/_/types';
 
@@ -561,6 +562,35 @@ describe( 'Parsing functions', () => {
       test( `it should ${ description } `, () => {
         expect( parseHandleShadowDom( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseId', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        ...testEmptyString( undefined ),
+      },
+      {
+        input: 'my-id',
+        expected: 'my-id',
+        description: 'return a correct id'
+      },
+      {
+        input: '  my-id  ',
+        expected: 'my-id',
+        description: 'return a correct trimed id'
+      },
+      {
+        input: 'inv alid',
+        expected: undefined,
+        description: 'return undefined for invalid values'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      // @ts-ignore
+      expect( parseId( input ) ).toBe( expected );
     } );
   } );
 

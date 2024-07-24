@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { boolean, number, oneOfType, string } from "./props";
+import { boolean, number, oneOfType, propType, string } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import { computeHostAttributes, computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseClassName, parseDraggable, parseZoom } from "../_/parse";
+import { parseClassName, parseDraggable, parseId, parseZoom } from "../_/parse";
 import type { ScriptAttributes } from "../_/types";
+import { rValidId } from "../_/validate";
 
 interface ImgAttributes extends BaseAttributes, ScriptAttributes {
     refit?: boolean | string,
@@ -28,7 +29,10 @@ const TwicImg: React.FC< ImgAttributes > = props => {
         <div
             ref={ hostElement }
             className={ `twic-i ${ className } ${ zoom ? `twic-z` : `` }` }
-            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+            { ...computeHostAttributes(
+                parseDraggable( props.draggable ),
+                parseId( props.id )
+            ) }
             style={ computeMagnifierStyle( zoom ) }
         >
             { zoom && (
@@ -49,6 +53,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
 };
 
 TwicImg.propTypes = {
+    "id": propType( `string`, rValidId ),
     "refit": oneOfType( [ boolean, string ] ),
     "zoom": number,
 };

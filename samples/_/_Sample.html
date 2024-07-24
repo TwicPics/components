@@ -398,6 +398,44 @@
         >
         </TwicVideo>
     </div>
+    <h2>Id</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg id default"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                id
+            >
+            </TwicImg>
+          <span>TwicImg empty id</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                id="inv lid"
+            >
+            </TwicImg>
+            <span>TwicImg invalid id</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                id="#a-valid-id"
+            >
+            </TwicImg>
+          <span>TwicImg with valid id</span>
+        </div>
+    </div>
     <h2>Isolation Test</h2>
     <div class="samples">
         <TwicImg src="football.jpg" zoom="2"></TwicImg>

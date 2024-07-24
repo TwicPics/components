@@ -15,6 +15,7 @@ export const rValidAnchor = trimRegExpFactory( validAnchors );
 export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
 export const validFetchPriorities: Array< FetchPriority > = [ `high`, `low`, `auto` ];
 export const rValidFetchPriority = trimRegExpFactory( validFetchPriorities );
+export const rValidId = trimRegExpFactory( `[^\\s]*` );
 export const rValidIntrinsic = trimRegExpFactory( `\\s*(\\d+)\\s*[x]\\s*(\\d+)\\s*` );
 export const validModes: Array< Mode > = [ `contain`, `cover` ];
 export const rValidMode = trimRegExpFactory( validModes );

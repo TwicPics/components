@@ -21,10 +21,11 @@ import {
     parseTitle,
     parseSizes,
     parseDraggable,
+    parseId,
 } from "../_/parse";
 import type { Anchor } from "../_/types";
-import { validAnchors } from "../_/validate";
-import { boolean, number, oneOf, oneOfType, string } from "./props";
+import { rValidId, validAnchors } from "../_/validate";
+import { boolean, number, oneOf, oneOfType, propType, string } from "./props";
 import type { BaseAttributes } from "./types";
 import { fetchPriorityName } from "./utils";
 
@@ -71,7 +72,10 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     return (
         <div
             className={ `twic-i ${ className }` }
-            { ...computeHostAttributes( parseDraggable( props.draggable ) ) }
+            { ...computeHostAttributes(
+                parseDraggable( props.draggable ),
+                parseId( props.id )
+            ) }
         >
             <picture className="twic-p" title={ title }>
                 { pictureData?.sources && pictureData.sources.map(
@@ -99,6 +103,7 @@ TwicPicture.propTypes = {
     "eager": oneOfType( [ boolean, string ] ),
     "fetchpriority": string,
     "focus": string,
+    "id": propType( `string`, rValidId ),
     "mode": string,
     "position": string,
     "preTransform": string,

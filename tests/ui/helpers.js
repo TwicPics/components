@@ -46,6 +46,7 @@ export const getHostElementData = async ( page, selector ) => {
       const hostElement = document.querySelector( arg );
       return {
           'draggable' : hostElement?.getAttribute( 'draggable' ),
+          'id' : hostElement?.getAttribute( 'id' ),
       };
   }, selector );
 };

@@ -1,17 +1,18 @@
 <script>
-import { booleanProp, defineNumberProp } from "./props";
+import { booleanProp, defineNumberProp, defineStringProp } from "./props";
 import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
 import { computeMagnifierStyle, computeHostAttributes } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseDraggable, parseZoom } from "../_/parse";
-import { rValidZoom } from "../_/validate";
+import { parseDraggable, parseId, parseZoom } from "../_/parse";
+import { rValidId, rValidZoom } from "../_/validate";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};
 for (
     const [ propName, type, parseMethod ] of [
         [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
+        [ `id`, defineStringProp( rValidId ), parseId ],
         [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ],
     ]
 ) {
@@ -20,7 +21,7 @@ for (
 }
 
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id` ] ],
     [ `_magnifierStyle`, computeMagnifierStyle, [ `zoom` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );
