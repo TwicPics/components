@@ -31,6 +31,7 @@ import {
   parsePosition,
   parsePositions,
   parsePreTransform,
+  parsePreTransforms,
   parseRatio,
   parseRatios,
   parseRefit,
@@ -485,7 +486,7 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
-  describe( 'parseFocused', () => {
+  describe( 'parseFocuses', () => {
     test.each( [
       {
         input: 'none @sm auto @md 0px10px @lg 10px20px @xl 20px30px @2xl 40px50px',
@@ -845,6 +846,11 @@ describe( 'Parsing functions', () => {
         ...testUndefined( undefined ),
       },
       {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none'
+      },
+      {
         input: 'flip=x',
         expected: 'flip=x',
         description: 'return correct simple transformation'
@@ -867,6 +873,56 @@ describe( 'Parsing functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( parsePreTransform( input ) ).toBe( expected );
+    } );
+  } );
+
+  describe( 'parsePreTransforms', () => {
+    test.each( [
+      {
+        input: 'none @sm flip=x @md none @lg flip=y/background=remove @xl flip=both @2xl none',
+        expected: {
+          '0': undefined,
+          '640': 'flip=x',
+          '768': undefined,
+          '1024': 'flip=y/background=remove',
+          '1280': 'flip=both',
+          '1536': undefined,
+        },
+        description: 'should parse breakpoints with preTransform values using tailwind notation'
+      },
+      {
+        input: '  none    @sm    flip=x    @md   none    @lg   flip=y/background=remove   @xl   flip=both  @2xl none   ',
+        expected: {
+          '0': undefined,
+          '640': 'flip=x',
+          '768': undefined,
+          '1024': 'flip=y/background=remove',
+          '1280': 'flip=both',
+          '1536': undefined,
+        },
+        description: 'should trim values and parse breakpoints with preTransform values using tailwind notation'
+      },
+      {
+        input: 'none @111 flip=x @222 none @333 flip=y/background=remove @444 flip=both @555 none',
+        expected: {
+          '0': undefined,
+          '111': 'flip=x',
+          '222': undefined,
+          '333': 'flip=y/background=remove',
+          '444': 'flip=both',
+          '555': undefined,
+        },
+        description: 'should parse breakpoints with preTransform values using fixed breakpoint'
+      },
+      {
+        input: '',
+        expected: {
+          '0': undefined,
+        },
+        description: 'should return default preTransform when empty is provided'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      expect( parsePreTransforms( input ) ).toEqual( expected );
     } );
   } );
 

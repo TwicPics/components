@@ -29,7 +29,7 @@ import {
     parseFocuses,
     parseModes,
     parsePositions,
-    parsePreTransform,
+    parsePreTransforms,
     parseRatios,
     parseRefit,
     parseSizes,
@@ -83,7 +83,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _focuses: Record< number, string > = undefined;
     _modes: Record< number, Mode > = undefined;
     _positions: Record< number, string > = undefined;
-    _preTransform: string = undefined;
+    _preTransforms: Record< number, string > = undefined;
     _ratios: Record< number, number > = undefined;
     _refit: string = undefined;
     _sizes: Record< number, string > = undefined;
@@ -118,7 +118,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._modes = parseModes( this.mode );
         this._eager = parseEager( this.eager );
         this._positions = parsePositions( this.position );
-        this._preTransform = parsePreTransform( this.preTransform );
+        this._preTransforms = parsePreTransforms( this.preTransform );
         this._ratios = parseRatios( this.ratio );
         this._refit = parseRefit( this.refit );
         this._sizes = parseSizes( this.sizes );
@@ -133,7 +133,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
                 this._focuses,
                 this._modes,
                 this._positions,
-                this._preTransform,
+                this._preTransforms,
                 this._ratios,
                 this._refit,
                 this._sizes,

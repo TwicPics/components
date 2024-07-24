@@ -29,11 +29,12 @@ describe( 'Compute functions', () => {
         const focuses = { '0': 'auto' };
         const modes = { 0: 'cover' as Mode };
         const positions = { 0: 'center' };
+        const preTransforms = { 0: 'flip=x' };
         const ratios = { 0: 0.5 };
         const sizes = { '0': '(max-width: 1200px) calc(100vw - 48px),1200px' };
         const src = 'media:example.jpg';
         
-        const result = computePicture( anchors, true, 'auto', focuses, modes, positions, '', ratios, '', sizes, src );
+        const result = computePicture( anchors, true, 'auto', focuses, modes, positions, preTransforms, ratios, '', sizes, src );
         expect( result ).toBeDefined();
         expect( result.img ).toBeDefined();
         expect( result.sources ).toHaveLength( 0 );
@@ -44,10 +45,10 @@ describe( 'Compute functions', () => {
             height: '768',
             sizes: '(max-width: 1200px) calc(100vw - 48px),1200px',
             width: '1536',
-            srcSet: 'https://demo.twic.it/example.jpg?twic=v1/refit=3072x1536@top-center 3072w,https://demo.twic.it/example.jpg?twic=v1/refit=2560x1280@top-center 2560w,https://demo.twic.it/example.jpg?twic=v1/refit=2048x1024@top-center 2048w,https://demo.twic.it/example.jpg?twic=v1/refit=1536x768@top-center 1536w,https://demo.twic.it/example.jpg?twic=v1/refit=1280x640@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/refit=1024x512@top-center 1024w,https://demo.twic.it/example.jpg?twic=v1/refit=768x384@top-center 768w,https://demo.twic.it/example.jpg?twic=v1/refit=640x320@top-center 640w,https://demo.twic.it/example.jpg?twic=v1/refit=320x160@top-center 320w',
+            srcSet: 'https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=3072x1536@top-center 3072w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=2560x1280@top-center 2560w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=2048x1024@top-center 2048w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=1536x768@top-center 1536w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=1280x640@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=1024x512@top-center 1024w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=768x384@top-center 768w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=640x320@top-center 640w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=320x160@top-center 320w',
             fetchPriority: 'auto',
             loading: 'eager',
-            src: 'https://demo.twic.it/example.jpg?twic=v1/refit=1536x768@top-center'
+            src: 'https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=1536x768@top-center'
           }
         );
     });
@@ -57,11 +58,12 @@ describe( 'Compute functions', () => {
         const focuses = {};
         const modes = { 0: 'cover' as Mode, 640: 'contain' as Mode };
         const positions = {};
+        const preTransforms = { 0: undefined, '640': 'flip=x' };
         const ratios = { '0': 1.3333333333333333, '640': 1, '768': 0.75, };
         const sizes = { '0': '(max-width: 1200px) calc(100vw - 48px),1200px' };
         const src = 'media:example.jpg';
 
-        const result = computePicture( anchors, true, 'auto', focuses, modes, positions, '', ratios, '', sizes, src );
+        const result = computePicture( anchors, true, 'auto', focuses, modes, positions, preTransforms, ratios, '', sizes, src );
         
         expect( result ).toBeDefined();
         expect( result.img ).toBeDefined();
@@ -86,14 +88,14 @@ describe( 'Compute functions', () => {
               height: '576',
               sizes: '(max-width: 1200px) calc(100vw - 48px),1200px',
               width: '768',
-              srcSet: 'https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=3072x2304@top-center 3072w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=2560x1920@top-center 2560w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=2048x1536@top-center 2048w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1536x1152@top-center 1536w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1280x960@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1024x768@top-center 1024w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=768x576@top-center 768w',
+              srcSet: 'https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=3072x2304@top-center 3072w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=2560x1920@top-center 2560w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=2048x1536@top-center 2048w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1536x1152@top-center 1536w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1280x960@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1024x768@top-center 1024w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=768x576@top-center 768w',
               media: '(min-width: 768px)'
             },
             {
               height: '640',
               sizes: '(max-width: 1200px) calc(100vw - 48px),1200px',
               width: '640',
-              srcSet: 'https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1280x1280@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=640x640@top-center 640w',
+              srcSet: 'https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1280x1280@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=640x640@top-center 640w',
               media: '(min-width: 640px)'
             }
           ]

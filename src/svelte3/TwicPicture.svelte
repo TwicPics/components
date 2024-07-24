@@ -13,6 +13,7 @@ import {
     parseFocuses,
     parseEager,
     parsePreTransform,
+    parsePreTransforms,
     parseRatios,
     parseRefit,
     parseSizes,
@@ -51,7 +52,7 @@ $: parsedFetchPriority = parseFetchPriority( fetchpriority );
 $: parsedFocuses = parseFocuses( focus );
 $: parsedModes = parseModes( mode );
 $: parsedPositions = parsePositions( position );
-$: parsedPreTransform = parsePreTransform( preTransform );
+$: parsedPreTransforms = parsePreTransforms( preTransform );
 $: parsedRatios = parseRatios( ratio );
 $: parsedRefit = parseRefit( refit );
 $: parsedSizes = parseSizes( sizes );
@@ -72,7 +73,7 @@ $: _computePictureData = computePicture(
     parsedFocuses,
     parsedModes,
     parsedPositions,
-    parsedPreTransform,
+    parsedPreTransforms,
     parsedRatios,
     parsedRefit,
     parsedSizes,

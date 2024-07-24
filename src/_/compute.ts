@@ -37,6 +37,7 @@ const preComputeArtDirectives = (
     focuses:Record< number, string >,
     modes:Record< number, Mode >,
     positions: Record< number, string >,
+    preTransforms: Record< number, string >,
     ratios: Record< number, number >,
     sizes: Record< number, string >
 ): ArtDirective[] => {
@@ -47,6 +48,7 @@ const preComputeArtDirectives = (
         ...Object.keys( focuses ).map( Number ),
         ...Object.keys( modes ).map( Number ),
         ...Object.keys( positions ).map( Number ),
+        ...Object.keys( preTransforms ).map( Number ),
         ...Object.keys( ratios ).map( Number ),
         ...Object.keys( sizes ).map( Number ),
     ] );
@@ -70,6 +72,7 @@ const preComputeArtDirectives = (
                 "focus": focuses[ breakpoint ],
                 "mode": modes[ breakpoint ],
                 "position": positions[ breakpoint ],
+                "preTransform": preTransforms[ breakpoint ],
                 "ratio": ratios[ breakpoint ],
                 "sizes": sizes[ breakpoint ],
             }
@@ -85,7 +88,7 @@ const preComputeArtDirectives = (
     return artDirectives.map(
         ( source, index ) => {
             // eslint-disable-next-line no-shadow, @typescript-eslint/no-shadow
-            const { anchor, breakpoint, focus, mode, position, ratio, sizes } = source;
+            const { anchor, breakpoint, focus, mode, position, preTransform, ratio, sizes } = source;
             const nextBreakpoint = artDirectives[ index + 1 ]?.breakpoint ?? undefined;
             // current asset width is:
             //    breakpoint if not equal to zero
@@ -99,6 +102,7 @@ const preComputeArtDirectives = (
                 "media": `(min-width: ${ breakpoint }px)`,
                 mode,
                 position,
+                preTransform,
                 ratio,
                 "resolutions": resolutionsList.filter(
                     resolution =>
@@ -122,10 +126,10 @@ export const computePicture = (
     anchors: Record< number, AnchorObject >,
     eager: boolean,
     fetchPriority: FetchPriority,
-    focuses:Record< number, string >,
+    focuses:Record< number, string | undefined >,
     modes:Record< number, Mode >,
     positions: Record< number, string >,
-    preTransform: string,
+    preTransforms: Record< number, string | undefined >,
     ratios: Record< number, number >,
     refit: string,
     sizes: Record< number, string >,
@@ -139,6 +143,7 @@ export const computePicture = (
         focuses,
         modes,
         positions,
+        preTransforms,
         ratios,
         sizes
     );
@@ -150,6 +155,7 @@ export const computePicture = (
                 media,
                 mode,
                 position,
+                preTransform,
                 ratio,
                 resolutions,
                 "sizes": _sizes,
