@@ -178,9 +178,15 @@ export const parsePositions = parseBreakpointsFactory<string>( parsePosition );
 export const parsePreTransform = regExpFinderFactory(
     trimTransformOrUndefined,
     {
-        "filter": p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1` ),
+        "filter": p => (
+            p === `none` ?
+                `` :
+                p && p.replace( /^\/*(.*[^/])\/*$/, `$1` )
+        ),
     }
 );
+
+export const parsePreTransforms = parseBreakpointsFactory<string>( parsePreTransform );
 
 export const parseRatio = ( value: number | string ): number => {
     if ( value === `none` ) {

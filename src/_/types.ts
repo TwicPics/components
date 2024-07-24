@@ -25,6 +25,7 @@ export interface ArtDirective {
     media?: string,
     mode?: Mode,
     position?: string;
+    preTransform?: string;
     ratio?: number;
     resolutions?: number[];
     sizes?: string;

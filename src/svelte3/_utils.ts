@@ -32,6 +32,7 @@ export {
     parsePosition,
     parsePositions,
     parsePreTransform,
+    parsePreTransforms,
     parseRatio,
     parseRatios,
     parseRefit,

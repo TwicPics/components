@@ -13,7 +13,7 @@ import {
     parseFocuses,
     parseModes,
     parsePositions,
-    parsePreTransform,
+    parsePreTransforms,
     parseRatios,
     parseRefit,
     parseSrc,
@@ -43,7 +43,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const focuses = parseFocuses( props.focus );
     const modes = parseModes( props.mode );
     const positions = parsePositions( props.position );
-    const preTransform = parsePreTransform( props.preTransform );
+    const preTransforms = parsePreTransforms( props.preTransform );
     const ratios = parseRatios( props.ratio );
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
@@ -57,7 +57,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
         focuses,
         modes,
         positions,
-        preTransform,
+        preTransforms,
         ratios,
         refit,
         sizes,
