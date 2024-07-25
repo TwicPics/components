@@ -37,13 +37,19 @@ const parseBoolean = ( value: boolean | string | undefined ): boolean => {
     return mappingBoolean[ value.trim() ];
 };
 
-const rBreakPoints = /(?:@(?<breakpoint>xs|sm|md|lg|xl|2xl|\d*)\s+)?(?<value>[^@]+)/gm;
+const rBreakPoints = /(?:§(?<breakpoint>xs|sm|md|lg|xl|2xl|\d*)\s+)?(?<value>[^§]+)/gm;
 const parseBreakpointsFactory = <T = string, U = string>( parse: ( value: string | U ) => T, _default?: U ) =>
     ( value: T | string ) => {
         const parsedBreakPoints: Record<number, T> = {
             "0": parse( _default ),
         };
-        const trimmed = trimOrUndefined( ( value || `` ).toString() );
+        const trimmed = ( value || `` )
+            .toString()
+            .trim()
+            // `@` used in breakpoints are replaced by `§`
+            // this allows to parse anchor eg crop=300x300@1000x1000
+            // distinguishing `@` used in breakpoints and `@` used in anchors
+            .replace( /(?:^|\s|,)@/g, `§` );
         if ( trimmed ) {
             let match;
             while ( ( match = rBreakPoints.exec( trimmed ) ) !== null ) {
@@ -53,7 +59,7 @@ const parseBreakpointsFactory = <T = string, U = string>( parse: ( value: string
                     isNaN( numericBreakPoint ) ? config.breakpoints[ breakpoint as BreakPoint ] : numericBreakPoint
                 ] = parse(
                     _value ?
-                        _value.replace( /\s*,\s*$/g, `` ) :
+                        _value.replace( /\s*,+\s*$/g, `` ) :
                         _default
                 );
             }

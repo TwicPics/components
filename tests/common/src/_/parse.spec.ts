@@ -870,6 +870,16 @@ describe( 'Parsing functions', () => {
         expected: 'flip=x/background=remove+blue',
         description: 'trim and return correct chained transformation'
       },
+      {
+        input: '  crop=1000x1000@200x200  ',
+        expected: 'crop=1000x1000@200x200',
+        description: 'parse crop with anchor and numerical values'
+      },
+      {
+        input: '  crop=1000x1000@0.5sx0.6s  ',
+        expected: 'crop=1000x1000@0.5sx0.6s',
+        description: 'parse crop with anchor and relative values'
+      },
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( parsePreTransform( input ) ).toBe( expected );
@@ -879,12 +889,12 @@ describe( 'Parsing functions', () => {
   describe( 'parsePreTransforms', () => {
     test.each( [
       {
-        input: 'none @sm flip=x @md none @lg flip=y/background=remove @xl flip=both @2xl none',
+        input: 'none @sm crop=1000x1000@200x200 @md none @lg flip=y/crop=1000x1000@200x200/background=remove @xl flip=both @2xl none',
         expected: {
           '0': '',
-          '640': 'flip=x',
+          '640': 'crop=1000x1000@200x200',
           '768': '',
-          '1024': 'flip=y/background=remove',
+          '1024': 'flip=y/crop=1000x1000@200x200/background=remove',
           '1280': 'flip=both',
           '1536': '',
         },
