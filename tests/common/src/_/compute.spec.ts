@@ -55,10 +55,10 @@ describe( 'Compute functions', () => {
 
     it( 'should return correct picture object with art directive', () => {
         const anchors = { '0': { x: 'left', y: undefined}, '640': dummyAnchor };
-        const focuses = {};
+        const focuses = { '0' : '', '640': 'auto', '768': '' };
         const modes = { 0: 'cover' as Mode, 640: 'contain' as Mode };
         const positions = {};
-        const preTransforms = { 0: undefined, '640': 'flip=x' };
+        const preTransforms = { 0: ``, '640': 'flip=x', '768': '' };
         const ratios = { '0': 1.3333333333333333, '640': 1, '768': 0.75, };
         const sizes = { '0': '(max-width: 1200px) calc(100vw - 48px),1200px' };
         const src = 'media:example.jpg';
@@ -88,7 +88,7 @@ describe( 'Compute functions', () => {
               height: '576',
               sizes: '(max-width: 1200px) calc(100vw - 48px),1200px',
               width: '768',
-              srcSet: 'https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=3072x2304@top-center 3072w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=2560x1920@top-center 2560w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=2048x1536@top-center 2048w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1536x1152@top-center 1536w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1280x960@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=1024x768@top-center 1024w,https://demo.twic.it/example.jpg?twic=v1/flip=x/refit=auto/inside=768x576@top-center 768w',
+              srcSet: 'https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=3072x2304@top-center 3072w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=2560x1920@top-center 2560w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=2048x1536@top-center 2048w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1536x1152@top-center 1536w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1280x960@top-center 1280w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=1024x768@top-center 1024w,https://demo.twic.it/example.jpg?twic=v1/refit=auto/inside=768x576@top-center 768w',
               media: '(min-width: 768px)'
             },
             {

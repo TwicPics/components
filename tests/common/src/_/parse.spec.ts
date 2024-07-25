@@ -467,8 +467,8 @@ describe( 'Parsing functions', () => {
       },
       {
         input: 'none',
-        expected: undefined,
-        description: 'return undefined when "none" is passed'
+        expected: '',
+        description: 'return string empty when "none" is passed'
       },
       {
         input: 'auto',
@@ -491,7 +491,7 @@ describe( 'Parsing functions', () => {
       {
         input: 'none @sm auto @md 0px10px @lg 10px20px @xl 20px30px @2xl 40px50px',
         expected: {
-          '0': undefined,
+          '0': '',
           '640': 'auto',
           '768': '0px10px',
           '1024': '10px20px',
@@ -503,7 +503,7 @@ describe( 'Parsing functions', () => {
       {
         input: '  none   @sm  auto  @md  0px10px    @lg  10px20px  @xl   20px30px   @2xl   40px50px   ',
         expected: {
-          '0': undefined,
+          '0': '',
           '640': 'auto',
           '768': '0px10px',
           '1024': '10px20px',
@@ -515,7 +515,7 @@ describe( 'Parsing functions', () => {
       {
         input: 'none @111 auto @222 0px10px @333 10px20px @444 20px30px @555 40px50px',
         expected: {
-          '0': undefined,
+          '0': '',
           '111': 'auto',
           '222': '0px10px',
           '333': '10px20px',
@@ -847,8 +847,8 @@ describe( 'Parsing functions', () => {
       },
       {
         input: 'none',
-        expected: undefined,
-        description: 'return undefined when none'
+        expected: '',
+        description: 'return string empty when none'
       },
       {
         input: 'flip=x',
@@ -881,36 +881,36 @@ describe( 'Parsing functions', () => {
       {
         input: 'none @sm flip=x @md none @lg flip=y/background=remove @xl flip=both @2xl none',
         expected: {
-          '0': undefined,
+          '0': '',
           '640': 'flip=x',
-          '768': undefined,
+          '768': '',
           '1024': 'flip=y/background=remove',
           '1280': 'flip=both',
-          '1536': undefined,
+          '1536': '',
         },
         description: 'should parse breakpoints with preTransform values using tailwind notation'
       },
       {
         input: '  none    @sm    flip=x    @md   none    @lg   flip=y/background=remove   @xl   flip=both  @2xl none   ',
         expected: {
-          '0': undefined,
+          '0': '',
           '640': 'flip=x',
-          '768': undefined,
+          '768': '',
           '1024': 'flip=y/background=remove',
           '1280': 'flip=both',
-          '1536': undefined,
+          '1536': '',
         },
         description: 'should trim values and parse breakpoints with preTransform values using tailwind notation'
       },
       {
         input: 'none @111 flip=x @222 none @333 flip=y/background=remove @444 flip=both @555 none',
         expected: {
-          '0': undefined,
+          '0': '',
           '111': 'flip=x',
-          '222': undefined,
+          '222': '',
           '333': 'flip=y/background=remove',
           '444': 'flip=both',
-          '555': undefined,
+          '555': '',
         },
         description: 'should parse breakpoints with preTransform values using fixed breakpoint'
       },
