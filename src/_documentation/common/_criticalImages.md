@@ -53,6 +53,7 @@ To achieve _art direction_, configure the following `TwicPicture`'s properties f
 - focus
 - mode
 - position
+- preTransform
 - ratio
 
 The following examples illustrate how to serve various image variations based on distinct _artistic directions_ and [default breakpoint values](#default-breakpoints):
@@ -84,6 +85,23 @@ The following examples illustrate how to serve various image variations based on
     @xl 21/9
   "
   focus="@xl top"
+/>
+
+<!--
+  This allows to set the cropping and focus point for small device
+  and reset the setting for screen with a width >= 768 px
+-->
+<TwicPicture
+  src="art.jpg"
+  alt="Art Direction Example"
+  preTransform="
+    crop=1000x1000@0.25sx0.25s
+    @md none
+  "
+  focus="
+    0.5sx1s
+    @md none
+  "
 />
 
 <!--

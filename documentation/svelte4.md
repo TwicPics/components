@@ -305,6 +305,7 @@ To achieve _art direction_, configure the following `TwicPicture`'s properties f
 - focus
 - mode
 - position
+- preTransform
 - ratio
 
 The following examples illustrate how to serve various image variations based on distinct _artistic directions_ and [default breakpoint values](#default-breakpoints):
@@ -336,6 +337,23 @@ The following examples illustrate how to serve various image variations based on
     @xl 21/9
   "
   focus="@xl top"
+/>
+
+<!--
+  This allows to set the cropping and focus point for small device
+  and reset the setting for screen with a width >= 768 px
+-->
+<TwicPicture
+  src="art.jpg"
+  alt="Art Direction Example"
+  preTransform="
+    crop=1000x1000@0.25sx0.25s
+    @md none
+  "
+  focus="
+    0.5sx1s
+    @md none
+  "
 />
 
 <!--
@@ -748,7 +766,7 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. [Can be set at different breakpoints](#art-direction). | `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). [Can be set at different breakpoints](#art-direction). | `String` | `cover` |
 | `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. [Can be set at different breakpoints](#art-direction). | `String` | `center` |
-| `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied **after** `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
+| `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied **after** `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! [Can be set at different breakpoints](#art-direction).| `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, the image is displayed with its intrinsic aspect ratio. In this case, you are responsible for optimizing the Cumulative Layout Shift (CLS). [Can be set at different breakpoints](#art-direction). | `String or number` | `1` |
 | `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String` | `false` |
 | `sizes` | Specifies the layout width of the image for each breakpoints using media query syntax. The value of this parameter has a significant impact on performance. Ensure to configure it carefully. See [sizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes).| `String` | |

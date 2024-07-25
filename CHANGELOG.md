@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Enables the `preTransform` property for art direction in `TwicPicture`.
+
+### Fixed
+
+- Fixes the issue that prevents resetting focus in `TwicPicture` when using art directives.
+
 ## [0.29.3] - 2024-07-12
 
 ### Added
