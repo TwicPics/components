@@ -123,7 +123,7 @@ export const parseEnv = regExpFinderFactory< Environment >( rValidEnvironment );
 
 export const parseFocus = ( value: string ) => {
     const trimmed = trimOrUndefined( value );
-    return trimmed === `none` ? undefined : trimmed;
+    return trimmed === `none` ? `` : trimmed;
 };
 
 export const parseFocuses = parseBreakpointsFactory<string>( parseFocus );
@@ -175,16 +175,15 @@ export const parsePosition = trimOrUndefined;
 
 export const parsePositions = parseBreakpointsFactory<string>( parsePosition );
 
-export const parsePreTransform = regExpFinderFactory(
-    trimTransformOrUndefined,
-    {
-        "filter": p => (
-            p === `none` ?
-                `` :
-                p && p.replace( /^\/*(.*[^/])\/*$/, `$1` )
-        ),
-    }
-);
+export const parsePreTransform = ( value: string ) => {
+    const trimmed = regExpFinderFactory(
+        trimTransformOrUndefined,
+        {
+            "filter": p => p && p.replace( /^\/*(.*[^/])\/*$/, `$1` ),
+        }
+    )( value );
+    return trimmed === `none` ? `` : trimmed;
+};
 
 export const parsePreTransforms = parseBreakpointsFactory<string>( parsePreTransform );
 

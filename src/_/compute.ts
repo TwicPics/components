@@ -82,7 +82,7 @@ const preComputeArtDirectives = (
         const previous = artDirectives[ i - 1 ];
         const current = artDirectives[ i ];
         for ( const key of Object.keys( artDirectives[ 0 ] ) ) {
-            current[ key ] ||= previous[ key ];
+            current[ key ] = current[ key ] ?? previous[ key ];
         }
     }
     return artDirectives.map(
