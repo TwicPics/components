@@ -17,6 +17,7 @@ import {
     type Mode,
     type Placeholder,
     type State,
+    sanitize,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { onMount } from "svelte";
@@ -79,7 +80,7 @@ $: _magnifierStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
 $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
-        hostElement.className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
+        hostElement.className = sanitize( `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i` );
         parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
         parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
         hostElement.style = _magnifierStyle;
@@ -101,7 +102,7 @@ if ( isBrowser ) {
 {:else}
 <div
     bind:this={ hostElement }
-    class = { `twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }` }
+    class = { sanitize( `twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }` ) }
     { ...computeHostAttributes( parsedDraggable, parsedId ) }
     style = { _magnifierStyle }
 >

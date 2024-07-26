@@ -24,6 +24,7 @@ import {
     parseId,
 } from "../_/parse";
 import type { Anchor } from "../_/types";
+import { sanitize } from "../_/utils";
 import { rValidId, validAnchors } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, propType, string } from "./props";
 import type { BaseAttributes } from "./types";
@@ -71,7 +72,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     return (
         <div
-            className={ `twic-i ${ className }` }
+            className={ sanitize( `twic-i ${ className }` ) }
             { ...computeHostAttributes(
                 parseDraggable( props.draggable ),
                 parseId( props.id )

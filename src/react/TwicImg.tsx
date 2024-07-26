@@ -6,6 +6,7 @@ import { computeHostAttributes, computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { parseClassName, parseDraggable, parseId, parseZoom } from "../_/parse";
 import type { ScriptAttributes } from "../_/types";
+import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
 interface ImgAttributes extends BaseAttributes, ScriptAttributes {
@@ -28,7 +29,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
     return (
         <div
             ref={ hostElement }
-            className={ `twic-i ${ className } ${ zoom ? `twic-z` : `` }` }
+            className={ sanitize( `twic-i ${ className } ${ zoom ? `twic-z` : `` }` ) }
             { ...computeHostAttributes(
                 parseDraggable( props.draggable ),
                 parseId( props.id )

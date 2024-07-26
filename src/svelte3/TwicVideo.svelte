@@ -12,6 +12,7 @@ import {
     parseId,
     parseTo,
     preComputeVideoOptions,
+    sanitize,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -80,7 +81,7 @@ $: videoOptions = preComputeVideoOptions( parsedDuration, parsedFrom, parsedPost
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
-        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
         parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
         parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
     }
@@ -96,7 +97,7 @@ $: {
 ></TwicMedia>
 {:else}
 <div
-    class = {`twic-i ${ parsedClassName }`}
+    class = { sanitize( `twic-i ${ parsedClassName }` ) }
     { ...computeHostAttributes( parsedDraggable, parsedId ) }
 >
     <TwicMedia

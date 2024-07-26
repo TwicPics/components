@@ -27,6 +27,7 @@ import {
     parseModes,
     parsePositions,
     parseDraggable,
+    sanitize,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -68,7 +69,7 @@ $: parsedTitle = parseTitle( title );
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
-        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
         parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
         parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
     }
@@ -103,7 +104,7 @@ $: _computePictureData = computePicture(
     </picture>
 {:else}
 <div
-    class = {`twic-i ${ parsedClassName }`}
+    class = { sanitize( `twic-i ${ parsedClassName }` ) }
     { ...computeHostAttributes( parsedDraggable, parsedId ) }
 >
     <picture class="twic-p" title = { parsedTitle }>

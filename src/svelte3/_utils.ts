@@ -66,7 +66,7 @@ export type {
     StateEvent,
     VideoOptions,
 } from "../_/types.js";
-export { isBrowser, isWebComponents } from "../_/utils.js";
+export { isBrowser, isWebComponents, sanitize } from "../_/utils.js";
 import { get_current_component as getCurrentComponent } from "svelte/internal";
 export { getCurrentComponent };
 

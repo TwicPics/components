@@ -8,6 +8,7 @@ import {
     parseClassName,
     parseDraggable,
     parseId,
+    sanitize,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -66,7 +67,7 @@ $: props = {
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
-        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
         parsedDraggable !== undefined && getCurrentComponent().setAttribute( `draggable`, parsedDraggable );
         parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
     }
@@ -76,7 +77,7 @@ $: {
 <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 {:else}
 <div
-    class = {`twic-i ${ parsedClassName }`}
+    class = { sanitize(`twic-i ${ parsedClassName }` ) }
     { ...computeHostAttributes( parsedDraggable, parsedId ) }
 >
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>

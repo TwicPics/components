@@ -6,6 +6,7 @@ import { number, propType } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import type { ScriptAttributes } from "../_/types";
+import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
 interface VideoAttributes extends BaseAttributes, ScriptAttributes {
@@ -24,7 +25,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
     return (
         <div
-            className={ `twic-i ${ className }` }
+            className={ sanitize( `twic-i ${ className }` ) }
             { ...computeHostAttributes(
                 parseDraggable( props.draggable ),
                 parseId( props.id )

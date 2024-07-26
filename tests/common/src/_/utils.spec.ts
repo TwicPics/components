@@ -6,6 +6,7 @@ import {
   logWarning,
   noop,
   regExpFinderFactory,
+  sanitize,
   throwError,
   trimRegExpFactory
 } from '../../../../src/_/utils';
@@ -146,6 +147,18 @@ describe('Utils', () => {
       expect( finder('hello world') ).toBe( 'WORLD' );
     });
   });
+
+  describe( 'sanitize', () => {
+    it( 'should return undefined when undefined is passed', () => {
+      expect( sanitize( undefined ) ).toBe( undefined );
+    });
+    it( 'should return a sanitized string', () => {
+      expect( sanitize( `    class1   class3       class7 ` ) ).toEqual( `class1 class3 class7` );
+    });
+    it( 'should return identity if nothing to sanitize', () => {
+      expect( sanitize( `class` ) ).toEqual( `class` );
+    });
+  } );
 
   describe( 'throwError', () => {
     it( 'should throw an error with the correct message', () => {
