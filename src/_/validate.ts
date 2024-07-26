@@ -13,6 +13,8 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
 export const rInvalidPath = /\?|^\/*$/;
 export const rValidAnchor = trimRegExpFactory( validAnchors );
 export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
+export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
+export const rValidEnvironment = trimRegExpFactory( validEnvironment );
 export const validFetchPriorities: Array< FetchPriority > = [ `high`, `low`, `auto` ];
 export const rValidFetchPriority = trimRegExpFactory( validFetchPriorities );
 export const rValidId = trimRegExpFactory( `[^\\s]*` );
@@ -23,8 +25,7 @@ export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor
 export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
 export const rValidPath = /^\/*(.+?)\/*$/;
 export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*[\\/:]\\s*(\\d+(?:\\.\\d+)?))?|(none)` );
-export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
-export const rValidEnvironment = trimRegExpFactory( validEnvironment );
+export const rValidTabIndex = trimRegExpFactory( `\\d*` );
 export const rValidZoom = trimRegExpFactory( `(\\d+\\.?\\d*)|(css)`, {
     "regExpFlags": `i`,
 } );

@@ -38,6 +38,7 @@ import {
   parseSizes,
   parseStep,
   parseSrc,
+  parseTabIndex,
   parseTo,
   parseTitle,
   parseTransition,
@@ -1213,6 +1214,45 @@ describe( 'Parsing functions', () => {
         // @ts-ignore
         expect( parseTo( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseTabIndex', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        ...testEmptyString( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 12,
+        expected: '12',
+        description: 'return a correct tabindex from num'
+      },
+      {
+        input: '23',
+        expected: '23',
+        description: 'return a correct tabindex from string'
+      },
+      {
+        input: '  23  ',
+        expected: '23',
+        description: 'return a correct trimed tabindex from string'
+      },
+      {
+        input: '  23.3  ',
+        expected: undefined,
+        description: 'return undefined as input is not an interger'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+        // @ts-ignore
+        expect( parseTabIndex( input ) ).toBe( expected );
     } );
   } );
 

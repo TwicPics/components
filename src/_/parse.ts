@@ -13,6 +13,7 @@ import {
     rValidPath,
     rValidPlaceholder,
     rValidRatio,
+    rValidTabIndex,
     rValidZoom,
 } from "./validate";
 
@@ -255,6 +256,8 @@ export const parseSrc = ( value: string ): string => {
             src.replace( rMedia, `media:${ config.path }` );
 
 };
+
+export const parseTabIndex = regExpFinderFactory( rValidTabIndex );
 
 export const parseTo = parseNumber;
 
