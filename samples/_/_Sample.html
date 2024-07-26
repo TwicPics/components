@@ -1546,7 +1546,12 @@ Test"
               @xl top
             "
             mode="@md contain, @lg cover"
-            preTransform="flip=x"
+            preTransform="
+                none
+                @md flip=x
+                @lg flip=both/background=remove
+                @xl none
+            "
             ratio="
                 3/4
                 @md 1
@@ -2088,6 +2093,60 @@ Test"
             </TwicPicture>
             <span>anchor="top" + position="bottom"</span>
         </div>
+    </div>
+    <h2>TwicPicture + preTransform</h2>
+    <div class="samples">
+      <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              sizes="
+                (max-width: 750px) 100vm,
+                (max-width: 1140px) 400px,
+                350px
+              "
+          >
+          </TwicPicture>
+          <span>default</span>
+      </div>
+      <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              preTransform="flip=x/colorize=blue"
+              sizes="
+                (max-width: 750px) 100vm,
+                (max-width: 1140px) 400px,
+                350px
+              "
+          >
+          </TwicPicture>
+          <span>flip=x/colorize=blue</span>
+      </div>
+      <div class="item">
+          <TwicPicture
+              src="football.jpg"
+              preTransform="flip=x/colorize=blue @lg none"
+              sizes="
+                (max-width: 750px) 100vm,
+                (max-width: 1140px) 400px,
+                350px
+              "
+          >
+          </TwicPicture>
+          <span>flip=x/colorize=blue @lg none</span>
+      </div>
+      <div class="item">
+            <TwicPicture
+            src="football.jpg"
+            preTransform="none @lg flip=x/colorize=blue"
+            sizes="
+              (max-width: 750px) 100vm,
+              (max-width: 1140px) 400px,
+              350px
+            "
+        >
+        </TwicPicture>
+        <span>none @lg flip=x/colorize=blue</span>
+      </div>
     </div>
     <h2>TwicPicture + Refit (mode="contain")</h2>
     <div class="samples">
