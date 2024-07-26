@@ -24,6 +24,7 @@ import '@twicpics/components/style.css';
             [ratio]="params.ratio"
             [refit]="params.refit"
             [step]="params.step"
+            [tabindex]="params.tabindex"
             [title]="params.title"
             [transition]="params.transition"
             [transitionDelay]="params.transitionDelay"
@@ -50,6 +51,7 @@ import '@twicpics/components/style.css';
             [preTransform]="params.preTransform"
             [ratio]="params.ratio"
             [step]="params.step"
+            [tabindex]="params.tabindex"
             [to]="params.to"
             [title]="params.title"
             [transition]="params.transition"
@@ -72,6 +74,7 @@ import '@twicpics/components/style.css';
             [preTransform]="params.preTransform"
             [ratio]="params.ratio"
             [refit]="params.refit"
+            [tabindex]="params.tabindex"
             [title]="params.title"
         ></TwicPicture>
       </ng-container>

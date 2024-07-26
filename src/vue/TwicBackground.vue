@@ -1,9 +1,9 @@
 <script>
 import { computeHostAttributes } from "../_/compute";
-import { parseDraggable, parseId } from "../_/parse";
+import { parseDraggable, parseId, parseTabIndex } from "../_/parse";
 import { rValidId } from "../_/validate";
 import TwicMedia from "./TwicMedia.vue";
-import { booleanProp, defineStringProp } from "./props";
+import { booleanProp, defineStringProp, intProp } from "./props";
 import { callFactory } from "./utils";
 const emits = [ `stateChange` ];
 const props = {
@@ -14,13 +14,19 @@ for (
     const [ propName, type, parseMethod ] of [
         [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
         [ `id`, defineStringProp( rValidId ), parseId ],
+        [ `tabindex`, intProp, parseTabIndex ],
     ]
 ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
 }
 
-for ( const [ propName, func, args ] of [ [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id` ] ] ]
+for ( const [ propName, func, args ] of [
+    [
+        `_hostAttributes`,
+        computeHostAttributes, [ `draggable`, `id`, `tabindex` ],
+    ],
+]
 ) {
     computed[ propName ] = callFactory( func, args );
 }

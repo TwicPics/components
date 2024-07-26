@@ -28,6 +28,8 @@ import {
     parsePositions,
     parseDraggable,
     sanitize,
+    parseTabIndex,
+    setAttributes,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -47,6 +49,7 @@ export let ratio: number | string = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let sizes: string = undefined;
+export let tabindex: number | string = undefined;
 export let title: string = undefined;
 
 $: parsedAlt = parseAlt( alt );
@@ -64,14 +67,16 @@ $: parsedRatios = parseRatios( ratio );
 $: parsedRefit = parseRefit( refit );
 $: parsedSizes = parseSizes( sizes );
 $: parsedSrc = parseSrc( src );
+$: parsedTabIndex = parseTabIndex( tabindex );
 $: parsedTitle = parseTitle( title );
 
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
         hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
-        parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
-        parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
+        setAttributes( `draggable`, parsedDraggable, hostElement  );
+        setAttributes( `id`, parsedId, hostElement  );
+        setAttributes( `tabindex`, parsedTabIndex, hostElement  );
     }
 }
 
@@ -105,7 +110,11 @@ $: _computePictureData = computePicture(
 {:else}
 <div
     class = { sanitize( `twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes( parsedDraggable, parsedId ) }
+    { ...computeHostAttributes(
+        parsedDraggable,
+        parsedId,
+        parsedTabIndex
+    ) }
 >
     <picture class="twic-p" title = { parsedTitle }>
         {#if _computePictureData?.sources}

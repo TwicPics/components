@@ -257,7 +257,8 @@ export const parseSrc = ( value: string ): string => {
 
 };
 
-export const parseTabIndex = regExpFinderFactory( rValidTabIndex );
+export const parseTabIndex = ( value: number | string = `` ): string =>
+    regExpFinderFactory( rValidTabIndex )( value.toString() );
 
 export const parseTo = parseNumber;
 

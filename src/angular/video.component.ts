@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { OnChanges } from "@angular/core";
-import { parseDraggable, parseDuration, parseFrom, parseId, parseTo } from "../_/parse";
+import { parseDraggable, parseDuration, parseFrom, parseId, parseTabIndex, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
 
@@ -64,6 +64,7 @@ export class TwicVideoComponent implements OnChanges {
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number | string = undefined;
+    @Input() tabindex: number | string = undefined;
     @Input() title: string = undefined;
     @Input() to: number | string = undefined;
     @Input() transition:boolean | string;
@@ -77,11 +78,15 @@ export class TwicVideoComponent implements OnChanges {
     @HostBinding( `attr.id` ) get twicId() {
         return this._id;
     }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
+    }
     _draggable: boolean | undefined = undefined;
     _duration: number;
     _from: number;
     _id: string | undefined = undefined;
     _posterFrom: number;
+    _tabindex: string | undefined = undefined;
     _to: number;
     videoOption: VideoOptions;
     ngOnChanges( ): void {
@@ -90,6 +95,7 @@ export class TwicVideoComponent implements OnChanges {
         this._from = parseFrom( this.from );
         this._id = parseId( this.id );
         this._posterFrom = parseDuration( this.posterFrom );
+        this._tabindex = parseTabIndex( this.tabindex );
         this._to = parseTo( this.to );
         this.videoOption = preComputeVideoOptions( this._duration, this._from, this._posterFrom, this._to );
     }

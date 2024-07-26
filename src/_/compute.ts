@@ -338,7 +338,8 @@ export const computeData = (
 /* eslint-disable dot-notation */
 export const computeHostAttributes = (
     draggable: boolean | undefined,
-    id: string
+    id: string,
+    tabindex: string
 ): Record< string, unknown > => {
     const hostElementData: Record< string, unknown > = {};
     if ( draggable !== undefined ) {
@@ -346,6 +347,9 @@ export const computeHostAttributes = (
     }
     if ( id ) {
         hostElementData[ `id` ] = id;
+    }
+    if ( tabindex ) {
+        hostElementData[ `tabindex` ] = tabindex;
     }
     return hostElementData;
 };

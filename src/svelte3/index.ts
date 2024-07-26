@@ -22,6 +22,7 @@ export interface BaseAttributes extends Attributes {
     class?: string,
     draggable?: boolean | string,
     state?: State,
+    tabindex?: number | string,
 }
 
 interface BackgroundAttributes extends BaseAttributes {

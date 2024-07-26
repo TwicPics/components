@@ -37,6 +37,7 @@ import {
     parseRefit,
     parseSizes,
     parseSrc,
+    parseTabIndex,
     parseTitle,
 } from "../_/parse";
 import { attributes } from "./utils";
@@ -74,12 +75,16 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() refit: boolean | string;
     @Input() sizes: string;
     @Input() src: string;
+    @Input() tabindex: number | string = undefined;
     @Input() title: string = undefined;
     @HostBinding( `attr.draggable` ) get twicDraggable() {
         return this._draggable;
     }
     @HostBinding( `attr.id` ) get twicId() {
         return this._id;
+    }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
     }
     @ViewChild( `container`, {
         "static": true,
@@ -102,6 +107,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _sizes: Record< number, string > = undefined;
     _sources: HTMLElement[] = [];
     _src: string;
+    _tabindex: string | undefined = undefined;
     _title: string = undefined;
     description: string;
     pictureData: Picture;
@@ -138,6 +144,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._refit = parseRefit( this.refit );
         this._sizes = parseSizes( this.sizes );
         this._src = parseSrc( this.src );
+        this._tabindex = parseTabIndex( this.tabindex );
         this._title = parseTitle( this.title );
         this.description = computeAlt( this._alt, `img` );
         this.pictureData = {

@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
-import { parseDraggable, parseId, parseZoom } from "../_/parse";
+import { parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
@@ -95,6 +95,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() src: string;
     @Input() step: number | string = undefined;
     @Input() title: string = undefined;
+    @Input() tabindex: number | string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
@@ -107,11 +108,15 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @HostBinding( `attr.id` ) get twicId() {
         return this._id;
     }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
+    }
     @HostBinding( `class.twic-z` ) get twicZoom() {
         return this._zoom;
     }
     _draggable: boolean | undefined = undefined;
     _id: string | undefined = undefined;
+    _tabindex: string | undefined = undefined;
     _zoom: boolean | number = false;
     magnifierStyle: Record<string, string>;
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
@@ -127,6 +132,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     ngOnChanges( ): void {
         this._draggable = parseDraggable( this.draggable );
         this._id = parseId( this.id );
+        this._tabindex = parseTabIndex( this.tabindex );
         this._zoom = parseZoom( this.zoom );
         this.magnifierStyle = computeMagnifierStyle( this._zoom );
         this.updateTemplate();

@@ -40,6 +40,7 @@ export {
     parseRatios,
     parseRefit,
     parseSizes,
+    parseTabIndex,
     parseTo,
     parseSrc,
     parseStep,
@@ -69,6 +70,15 @@ export type {
 export { isBrowser, isWebComponents, sanitize } from "../_/utils.js";
 import { get_current_component as getCurrentComponent } from "svelte/internal";
 export { getCurrentComponent };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setAttributes = ( attributes: string, value: any, hostElement: any ): void => {
+    if ( value === undefined ) {
+        hostElement.removeAttribute( attributes );
+    } else {
+        hostElement.setAttribute( attributes, value );
+    }
+};
 
 export const styleToString = ( properties: Record< string, string > ): string => (
     Object.keys( properties ).length ?

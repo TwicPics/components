@@ -1,12 +1,13 @@
 <script>
 import TwicMedia from "./TwicMedia.vue";
-import { booleanProp, defineStringProp, floatProp } from "./props";
+import { booleanProp, defineStringProp, floatProp, intProp } from "./props";
 import { callFactory } from "./utils";
 import {
     parseDraggable,
     parseDuration,
     parseFrom,
     parseId,
+    parseTabIndex,
     parseTo,
 } from "../_/parse";
 import {
@@ -25,6 +26,7 @@ for (
         [ `from`, floatProp, parseFrom ],
         [ `id`, defineStringProp( rValidId ), parseId ],
         [ `posterFrom`, floatProp, parseFrom ],
+        [ `tabindex`, intProp, parseTabIndex ],
         [ `to`, floatProp, parseTo ],
     ]
 ) {
@@ -32,7 +34,7 @@ for (
     props[ propName ] = type;
 }
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id`, `tabindex` ] ],
     [ `_videoOptions`, preComputeVideoOptions, [ `duration`, `from`, `posterFrom`, `to` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

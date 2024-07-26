@@ -18,6 +18,8 @@ import {
     type Placeholder,
     type State,
     sanitize,
+    parseTabIndex,
+    setAttributes,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { onMount } from "svelte";
@@ -42,6 +44,7 @@ export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
+export let tabindex: number | string = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
@@ -54,6 +57,7 @@ let hostElement:HTMLDivElement | any;
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedId = parseId( id );
+$: parsedTabIndex = parseTabIndex( tabindex );
 $: parsedZoom = parseZoom( zoom );
 $: props = {
     alt,
@@ -81,8 +85,9 @@ $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
         hostElement.className = sanitize( `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i` );
-        parsedDraggable !== undefined && hostElement.setAttribute( `draggable`, parsedDraggable );
-        parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
+        setAttributes( `draggable`, parsedDraggable, hostElement  );
+        setAttributes( `id`, parsedId, hostElement  );
+        setAttributes( `tabindex`, parsedTabIndex, hostElement  );
         hostElement.style = _magnifierStyle;
     }
 }
@@ -103,7 +108,11 @@ if ( isBrowser ) {
 <div
     bind:this={ hostElement }
     class = { sanitize( `twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }` ) }
-    { ...computeHostAttributes( parsedDraggable, parsedId ) }
+    { ...computeHostAttributes(
+        parsedDraggable,
+        parsedId,
+        parsedTabIndex
+    ) }
     style = { _magnifierStyle }
 >
     {#if parsedZoom}

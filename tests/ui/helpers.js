@@ -47,6 +47,7 @@ export const getHostElementData = async ( page, selector ) => {
       return {
           'draggable' : hostElement?.getAttribute( 'draggable' ),
           'id' : hostElement?.getAttribute( 'id' ),
+          'tabindex' : hostElement?.getAttribute( 'tabindex' ),
       };
   }, selector );
 };

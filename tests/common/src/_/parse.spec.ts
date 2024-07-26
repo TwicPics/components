@@ -1251,7 +1251,6 @@ describe( 'Parsing functions', () => {
         description: 'return undefined as input is not an interger'
       },
     ] )( 'it should $description', ( { input, expected } ) => {
-        // @ts-ignore
         expect( parseTabIndex( input ) ).toBe( expected );
     } );
   } );

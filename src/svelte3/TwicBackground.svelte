@@ -8,7 +8,9 @@ import {
     parseClassName,
     parseDraggable,
     parseId,
+    parseTabIndex,
     sanitize,
+    setAttributes,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -35,6 +37,7 @@ export let ratio: number | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
+export let tabindex: number | string = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
@@ -44,6 +47,7 @@ export let transitionTimingFunction: string = undefined;
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedId = parseId( id );
+$: parsedTabIndex = parseTabIndex( tabindex );
 
 $: props = {
     anchor,
@@ -68,8 +72,9 @@ $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
         hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
-        parsedDraggable !== undefined && getCurrentComponent().setAttribute( `draggable`, parsedDraggable );
-        parsedId !== undefined ? hostElement.setAttribute( `id` , parsedId) : hostElement.removeAttribute( `id` );
+        setAttributes( `draggable`, parsedDraggable, hostElement  );
+        setAttributes( `id`, parsedId, hostElement  );
+        setAttributes( `tabindex`, parsedTabIndex, hostElement  );
     }
 }
 </script>
@@ -78,7 +83,11 @@ $: {
 {:else}
 <div
     class = { sanitize(`twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes( parsedDraggable, parsedId ) }
+    { ...computeHostAttributes(
+        parsedDraggable,
+        parsedId,
+        parsedTabIndex
+    ) }
 >
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { parseClassName, parseDraggable, parseDuration, parseFrom, parseId, parseTo } from "../_/parse";
+import { parseClassName, parseDraggable, parseDuration, parseFrom, parseId, parseTabIndex, parseTo } from "../_/parse";
 import { computeHostAttributes } from "../_/compute";
 import { preComputeVideoOptions } from "../_/preCompute";
 import { number, propType } from "./props";
@@ -18,17 +18,21 @@ interface VideoAttributes extends BaseAttributes, ScriptAttributes {
 
 const TwicVideo: React.FC< VideoAttributes > = props => {
     const className = parseClassName( props.className ) || ``;
+    const draggable = parseDraggable( props.draggable );
     const duration = parseDuration( props.duration );
     const from = parseFrom( props.from );
+    const id = parseId( props.id );
     const posterFrom = parseFrom( props.posterFrom );
+    const tabindex = parseTabIndex( props.tabindex );
     const to = parseTo( props.to );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
     return (
         <div
             className={ sanitize( `twic-i ${ className }` ) }
             { ...computeHostAttributes(
-                parseDraggable( props.draggable ),
-                parseId( props.id )
+                draggable,
+                id,
+                tabindex
             ) }
         >
             <TwicMedia

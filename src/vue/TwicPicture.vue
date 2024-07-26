@@ -21,8 +21,9 @@ import {
     parseSrc,
     parseTitle,
     parseSizes,
+    parseTabIndex,
 } from "../_/parse";
-import { booleanProp, defineStringProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import { callFactory } from "./utils";
 
 const props = {};
@@ -42,6 +43,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `sizes`, stringProp, parseSizes ],
+    [ `tabindex`, intProp, parseTabIndex ],
     [ `title`, stringProp, parseTitle ],
 
 ] ) {
@@ -52,7 +54,7 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id`, `tabindex` ] ],
     [
         `_pictureData`,
         computePicture,

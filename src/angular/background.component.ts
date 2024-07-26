@@ -10,7 +10,7 @@ import {
 // eslint-disable-next-line no-duplicate-imports
 import type { OnChanges } from "@angular/core";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
-import { parseDraggable, parseId } from "../_/parse";
+import { parseDraggable, parseId, parseTabIndex } from "../_/parse";
 
 @Component( {
     "selector": `TwicBackground`,
@@ -58,6 +58,7 @@ export class TwicBackgroundComponent implements OnChanges {
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number | string = undefined;
+    @Input() tabindex: number | string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
@@ -69,13 +70,18 @@ export class TwicBackgroundComponent implements OnChanges {
     @HostBinding( `attr.id` ) get twicId() {
         return this._id;
     }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
+    }
     _draggable: boolean | undefined = undefined;
     _id: string | undefined = undefined;
+    _tabindex: string | undefined = undefined;
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );
     }
     ngOnChanges(): void {
         this._draggable = parseDraggable( this.draggable );
         this._id = parseId( this.id );
+        this._tabindex = parseTabIndex( this.tabindex );
     }
 }

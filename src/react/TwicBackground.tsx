@@ -1,6 +1,6 @@
 import React from "react";
 import { computeHostAttributes } from "../_/compute";
-import { parseClassName, parseDraggable, parseId } from "../_/parse";
+import { parseClassName, parseDraggable, parseId, parseTabIndex } from "../_/parse";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import { propType, string } from "./props";
@@ -16,17 +16,21 @@ const defaultProps = {
 
 const TwicBackground: React.FC< BackgroundAttributes > = props => {
 
-    const { className, ...mediaAttributes } = {
+    const { className, draggable, id, tabindex, ...mediaAttributes } = {
         ...defaultProps,
         ...props,
     };
     const parsedClassName = parseClassName( className ) || ``;
+    const parsedDraggable = parseDraggable( draggable );
+    const parsedId = parseId( id );
+    const parsedTabIndex = parseTabIndex( tabindex );
     return (
         <div
             className={ sanitize( `twic-i ${ parsedClassName }` ) }
             { ...computeHostAttributes(
-                parseDraggable( props.draggable ),
-                parseId( props.id )
+                parsedDraggable,
+                parsedId,
+                parsedTabIndex
             ) }
         >
             <TwicMedia { ...mediaAttributes } className="" />

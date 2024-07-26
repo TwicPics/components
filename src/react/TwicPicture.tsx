@@ -22,6 +22,7 @@ import {
     parseSizes,
     parseDraggable,
     parseId,
+    parseTabIndex,
 } from "../_/parse";
 import type { Anchor } from "../_/types";
 import { sanitize } from "../_/utils";
@@ -41,10 +42,11 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
     const anchors = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
+    const draggable = parseDraggable( props.draggable );
     const eager = parseEager( props.eager );
     const fetchPriority = parseFetchPriority( props.fetchpriority );
-    // eslint-disable-next-line no-shadow
     const focuses = parseFocuses( props.focus );
+    const id = parseId( props.id );
     const modes = parseModes( props.mode );
     const positions = parsePositions( props.position );
     const preTransforms = parsePreTransforms( props.preTransform );
@@ -52,6 +54,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
+    const tabindex = parseTabIndex( props.tabindex );
     const title = parseTitle( props.title );
 
     const pictureData = computePicture(
@@ -74,8 +77,9 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
         <div
             className={ sanitize( `twic-i ${ className }` ) }
             { ...computeHostAttributes(
-                parseDraggable( props.draggable ),
-                parseId( props.id )
+                draggable,
+                id,
+                tabindex
             ) }
         >
             <picture className="twic-p" title={ title }>
