@@ -1,5 +1,5 @@
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.29.3/documentation/resources/svelte-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.30.0/documentation/resources/svelte-cover.png)
 
 
 
@@ -130,7 +130,7 @@ npm install @twicpics/components --D
 
 > [!NOTE]
 > TwicPics Components are availableTwicPics Components are available for `Svelte3` version __3.47+__.
-> If you are using `Svelte4` or `Svelte5`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.29.3/documentation/svelte4.md) and [here](https://github.com/TwicPics/components/blob/0.29.3/documentation/svelte5.md) respectively.
+> If you are using `Svelte4` or `Svelte5`, you can find their documentation [here](https://github.com/TwicPics/components/blob/0.30.0/documentation/svelte4.md) and [here](https://github.com/TwicPics/components/blob/0.30.0/documentation/svelte5.md) respectively.
 
 ## Setup
 
@@ -903,6 +903,6 @@ TwicPics Components are available [in the most popular Javascript frameworks](ht
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.29.3-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.29.3
+[npm-image]: https://img.shields.io/badge/npm-v0.30.0-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.30.0
 

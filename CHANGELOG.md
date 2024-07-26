@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.30.0] - 2024-07-26
+
 ### Added
 
 - Enables the `preTransform` property for art direction in `TwicPicture`.
@@ -671,6 +673,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.30.0]: https://github.com/TwicPics/components/compare/0.29.3...0.30.0
 [0.29.3]: https://github.com/TwicPics/components/compare/0.29.2...0.29.3
 [0.29.2]: https://github.com/TwicPics/components/compare/0.29.1...0.29.2
 [0.29.1]: https://github.com/TwicPics/components/compare/0.29.0...0.29.1
