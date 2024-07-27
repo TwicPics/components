@@ -24,7 +24,7 @@ for (
 for ( const [ propName, func, args ] of [
     [
         `_hostAttributes`,
-        computeHostAttributes, [ `draggable`, `id`, `tabindex` ],
+        computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ],
     ],
 ]
 ) {

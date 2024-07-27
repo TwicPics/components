@@ -33,11 +33,11 @@ const TwicImg: React.FC< ImgAttributes > = props => {
         <div
             ref={ hostElement }
             className={ sanitize( `twic-i ${ className } ${ zoom ? `twic-z` : `` }` ) }
-            { ...computeHostAttributes(
+            { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabindex
-            ) }
+                tabindex,
+            } ) }
             style={ computeMagnifierStyle( zoom ) }
         >
             { zoom && (

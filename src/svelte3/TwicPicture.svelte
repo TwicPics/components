@@ -110,11 +110,11 @@ $: _computePictureData = computePicture(
 {:else}
 <div
     class = { sanitize( `twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes(
-        parsedDraggable,
-        parsedId,
-        parsedTabIndex
-    ) }
+    { ...computeHostAttributes( {
+        draggable: parsedDraggable,
+        id: parsedId,
+        tabindex: parsedTabIndex,
+    } ) }
 >
     <picture class="twic-p" title = { parsedTitle }>
         {#if _computePictureData?.sources}

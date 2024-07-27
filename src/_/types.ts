@@ -88,6 +88,12 @@ export interface CreateUrlData {
     src: string,
 }
 
+export interface HostAttributesData {
+    draggable?: boolean | undefined,
+    id?: string,
+    tabindex?: string,
+}
+
 export interface Options {
     anticipation?: number,
     breakpoints?: { [ key in BreakPoint ]?: number },

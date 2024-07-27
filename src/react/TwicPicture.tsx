@@ -76,11 +76,11 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     return (
         <div
             className={ sanitize( `twic-i ${ className }` ) }
-            { ...computeHostAttributes(
+            { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabindex
-            ) }
+                tabindex,
+            } ) }
         >
             <picture className="twic-p" title={ title }>
                 { pictureData?.sources && pictureData.sources.map(

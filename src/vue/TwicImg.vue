@@ -22,7 +22,7 @@ for (
 }
 
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id`, `tabindex` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
     [ `_magnifierStyle`, computeMagnifierStyle, [ `zoom` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

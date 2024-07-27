@@ -27,11 +27,11 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
     return (
         <div
             className={ sanitize( `twic-i ${ parsedClassName }` ) }
-            { ...computeHostAttributes(
-                parsedDraggable,
-                parsedId,
-                parsedTabIndex
-            ) }
+            { ...computeHostAttributes( {
+                "draggable": parsedDraggable,
+                "id": parsedId,
+                "tabindex": parsedTabIndex,
+            } ) }
         >
             <TwicMedia { ...mediaAttributes } className="" />
         </div>

@@ -108,11 +108,11 @@ if ( isBrowser ) {
 <div
     bind:this={ hostElement }
     class = { sanitize( `twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }` ) }
-    { ...computeHostAttributes(
-        parsedDraggable,
-        parsedId,
-        parsedTabIndex
-    ) }
+    { ...computeHostAttributes( {
+        draggable: parsedDraggable,
+        id: parsedId,
+        tabindex: parsedTabIndex,
+    } ) }
     style = { _magnifierStyle }
 >
     {#if parsedZoom}

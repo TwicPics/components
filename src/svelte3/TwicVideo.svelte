@@ -103,11 +103,11 @@ $: {
 {:else}
 <div
     class = { sanitize( `twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes(
-        parsedDraggable,
-        parsedId,
-        parsedTabIndex
-    ) }
+    { ...computeHostAttributes( {
+        draggable: parsedDraggable,
+        id: parsedId,
+        tabindex: parsedTabIndex,
+    } ) }
 >
     <TwicMedia
         mediaTag="video"

@@ -29,11 +29,11 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     return (
         <div
             className={ sanitize( `twic-i ${ className }` ) }
-            { ...computeHostAttributes(
+            { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabindex
-            ) }
+                tabindex,
+            } ) }
         >
             <TwicMedia
                 { ...props }

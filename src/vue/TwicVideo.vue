@@ -34,7 +34,7 @@ for (
     props[ propName ] = type;
 }
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id`, `tabindex` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
     [ `_videoOptions`, preComputeVideoOptions, [ `duration`, `from`, `posterFrom`, `to` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

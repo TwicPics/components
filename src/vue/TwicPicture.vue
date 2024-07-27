@@ -54,7 +54,7 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
-    [ `_hostAttributes`, computeHostAttributes, [ `draggable`, `id`, `tabindex` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
     [
         `_pictureData`,
         computePicture,

@@ -5,6 +5,7 @@ import type {
     AnchorObject,
     ArtDirective,
     FetchPriority,
+    HostAttributesData,
     Mode,
     Picture,
     Placeholder,
@@ -335,25 +336,15 @@ export const computeData = (
     return attributes;
 };
 
-/* eslint-disable dot-notation */
+/* eslint-disable object-curly-newline */
 export const computeHostAttributes = (
-    draggable: boolean | undefined,
-    id: string,
-    tabindex: string
-): Record< string, unknown > => {
-    const hostElementData: Record< string, unknown > = {};
-    if ( draggable !== undefined ) {
-        hostElementData[ `draggable` ] = draggable;
-    }
-    if ( id ) {
-        hostElementData[ `id` ] = id;
-    }
-    if ( tabindex ) {
-        hostElementData[ `tabindex` ] = tabindex;
-    }
-    return hostElementData;
-};
-/* eslint-enable dot-notation */
+    { draggable, id, tabindex }: HostAttributesData
+): Record< string, unknown > => ( {
+    ...( ( draggable !== undefined ) && { draggable } ),
+    ...( id && { id } ),
+    ...( tabindex && { tabindex } ),
+} );
+/* eslint-enable object-curly-newline */
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (

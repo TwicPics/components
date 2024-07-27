@@ -83,11 +83,11 @@ $: {
 {:else}
 <div
     class = { sanitize(`twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes(
-        parsedDraggable,
-        parsedId,
-        parsedTabIndex
-    ) }
+    { ...computeHostAttributes( {
+        draggable: parsedDraggable,
+        id: parsedId,
+        tabindex: parsedTabIndex,
+    } ) }
 >
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>
