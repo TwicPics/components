@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { setConfig } from '../../../../src/_/config';
-import { computeAlt, computeData, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
+import { computeAlt, computeData, computeHostAttributes, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
 import { Mode, PlaceholderData } from '../../../../src/_/types';
 
 const dummyAnchor = { x: 'center', y: 'top' };
@@ -484,6 +484,47 @@ describe( 'Compute functions', () => {
       
     } );
   } );
+
+  describe ( 'computeHostAttributes', () => {
+      it( 'should return empty object when no data passed ', () => {
+          expect(
+            computeHostAttributes( {} )
+          ).toEqual( {} )
+      } );
+      it( 'should return empty object when data without value', () => {
+          expect(
+              computeHostAttributes( {
+                  draggable: undefined,
+                  id: undefined,
+                  tabindex: undefined
+              })
+          ).toEqual( {} )
+      } );
+      it( 'should only not return id nor tabindex' , () => {
+          expect(
+            computeHostAttributes( { 
+                draggable: false,
+                id: ``,
+                tabindex: ``
+            } )
+          ).toEqual({
+              "draggable": false
+          })
+      } );
+      it( 'should draggable, id and tabindex' , () => {
+          expect(
+            computeHostAttributes( { 
+                draggable: false,
+                id: `#my-id`,
+                tabindex: `2`
+            } )
+          ).toEqual({
+              "draggable": false,
+              "id": "#my-id",
+              "tabindex": "2"
+          })
+      } );
+  } )
 
   describe( 'computePlaceholderStyle' , () => {
       it( 'should compute placeholder style with default values', () => {
