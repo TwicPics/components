@@ -24,6 +24,7 @@ import '@twicpics/components/style.css';
             [ratio]="params.ratio"
             [refit]="params.refit"
             [step]="params.step"
+            [style]="params.style"
             [tabindex]="params.tabindex"
             [title]="params.title"
             [transition]="params.transition"
@@ -51,6 +52,7 @@ import '@twicpics/components/style.css';
             [preTransform]="params.preTransform"
             [ratio]="params.ratio"
             [step]="params.step"
+            [style]="params.style"
             [tabindex]="params.tabindex"
             [to]="params.to"
             [title]="params.title"
@@ -74,6 +76,7 @@ import '@twicpics/components/style.css';
             [preTransform]="params.preTransform"
             [ratio]="params.ratio"
             [refit]="params.refit"
+            [style]="params.style"
             [tabindex]="params.tabindex"
             [title]="params.title"
         ></TwicPicture>

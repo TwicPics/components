@@ -3,6 +3,7 @@
 <script context="module" lang="ts">
 import {
     computeHostAttributes,
+    computeHostStyle,
     getCurrentComponent,
     isWebComponents,
     parseClassName,
@@ -10,11 +11,13 @@ import {
     parseDuration,
     parseFrom,
     parseId,
+    parseStyle,
     parseTabIndex,
     parseTo,
     preComputeVideoOptions,
     sanitize,
     setAttributes,
+    styleToString,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -42,6 +45,7 @@ export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
+export let style: string | Record< string, unknown >;
 export let state: State = undefined;
 export let title: string = undefined;
 export let tabindex: number | string = undefined;
@@ -57,6 +61,7 @@ $: parsedDuration = parseDuration( duration );
 $: parsedFrom = parseFrom( from );
 $: parsedId = parseId( id );
 $: parsedPosterFrom = parseFrom( posterFrom );
+$: parsedStyle = parseStyle( style );
 $: parsedTabIndex = parseTabIndex( tabindex );
 $: parsedTo = parseTo( to );
 
@@ -82,6 +87,10 @@ $: props = {
 
 $: videoOptions = preComputeVideoOptions( parsedDuration, parsedFrom, parsedPosterFrom, parsedTo);
 
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parsedStyle,
+} ) );
+
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
@@ -89,6 +98,7 @@ $: {
         setAttributes( `draggable`, parsedDraggable, hostElement  );
         setAttributes( `id`, parsedId, hostElement  );
         setAttributes( `tabindex`, parsedTabIndex, hostElement  );
+        setAttributes( `style`, hostStyle, hostElement  );
     }
 }
 </script>
@@ -108,6 +118,7 @@ $: {
         id: parsedId,
         tabindex: parsedTabIndex,
     } ) }
+    style = { hostStyle }
 >
     <TwicMedia
         mediaTag="video"

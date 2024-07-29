@@ -1,17 +1,21 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    ElementRef,
     EventEmitter,
     HostBinding,
     Input,
     Output,
+    Renderer2,
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
-import type { OnChanges } from "@angular/core";
-import { parseDraggable, parseDuration, parseFrom, parseId, parseTabIndex, parseTo } from "../_/parse";
+import type { AfterViewInit, OnChanges } from "@angular/core";
+import { parseDraggable, parseDuration, parseFrom, parseId, parseStyle, parseTabIndex, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
+import { computeHostStyle } from "../_/compute";
+import { updateHostElement } from "./utils";
 
 @Component( {
     "selector": `TwicVideo`,
@@ -45,7 +49,7 @@ import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/t
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicVideoComponent implements OnChanges {
+export class TwicVideoComponent implements AfterViewInit, OnChanges {
     mediaTag = `video`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
@@ -64,6 +68,7 @@ export class TwicVideoComponent implements OnChanges {
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number | string = undefined;
+    @Input() style: string | Record< string, unknown > = undefined;
     @Input() tabindex: number | string = undefined;
     @Input() title: string = undefined;
     @Input() to: number | string = undefined;
@@ -88,7 +93,13 @@ export class TwicVideoComponent implements OnChanges {
     _posterFrom: number;
     _tabindex: string | undefined = undefined;
     _to: number;
+    _hostStyle: Record<string, unknown>;
     videoOption: VideoOptions;
+    // eslint-disable-next-line no-useless-constructor
+    constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
+    ngAfterViewInit(): void {
+        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
+    }
     ngOnChanges( ): void {
         this._draggable = parseDraggable( this.draggable );
         this._duration = parseDuration( this.duration );
@@ -97,7 +108,11 @@ export class TwicVideoComponent implements OnChanges {
         this._posterFrom = parseDuration( this.posterFrom );
         this._tabindex = parseTabIndex( this.tabindex );
         this._to = parseTo( this.to );
+        this._hostStyle = computeHostStyle( {
+            "style": parseStyle( this.style ),
+        } );
         this.videoOption = preComputeVideoOptions( this._duration, this._from, this._posterFrom, this._to );
+        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );

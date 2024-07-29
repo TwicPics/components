@@ -1,6 +1,6 @@
 import React from "react";
-import { computeHostAttributes } from "../_/compute";
-import { parseClassName, parseDraggable, parseId, parseTabIndex } from "../_/parse";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
+import { parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex } from "../_/parse";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import { propType, string } from "./props";
@@ -23,6 +23,7 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
     const parsedClassName = parseClassName( className ) || ``;
     const parsedDraggable = parseDraggable( draggable );
     const parsedId = parseId( id );
+    const style = parseStyle( props.style );
     const parsedTabIndex = parseTabIndex( tabindex );
     return (
         <div
@@ -31,6 +32,9 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
                 "draggable": parsedDraggable,
                 "id": parsedId,
                 "tabindex": parsedTabIndex,
+            } ) }
+            style={ computeHostStyle( {
+                style,
             } ) }
         >
             <TwicMedia { ...mediaAttributes } className="" />

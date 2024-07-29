@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { boolean, number, oneOfType, propType, string } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import { computeHostAttributes, computeMagnifierStyle } from "../_/compute";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseClassName, parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
+import { parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
 import type { ScriptAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
@@ -27,6 +27,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
     const className = parseClassName( props.className ) || ``;
     const draggable = parseDraggable( props.draggable );
     const id = parseId( props.id );
+    const style = parseStyle( props.style );
     const tabindex = parseTabIndex( props.tabindex );
     const zoom = parseZoom( props.zoom );
     return (
@@ -38,7 +39,10 @@ const TwicImg: React.FC< ImgAttributes > = props => {
                 id,
                 tabindex,
             } ) }
-            style={ computeMagnifierStyle( zoom ) }
+            style={ computeHostStyle( {
+                style,
+                zoom,
+            } ) }
         >
             { zoom && (
                 <TwicMedia

@@ -7,6 +7,7 @@ export interface BaseAttributes extends Attributes {
     className?: string;
     draggable?: boolean | string,
     onStateChange?: onStateChangeType;
+    style?: string | Record< string, unknown >,
     tabindex?: number | string,
 }
 

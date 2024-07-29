@@ -12,11 +12,11 @@ import {
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
-import { parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
+import { parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
-import { computeMagnifierStyle } from "../_/compute";
+import { computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { styles } from "./utils";
+import { updateHostElement } from "./utils";
 
 @Component( {
     "selector": `TwicImg`,
@@ -43,7 +43,7 @@ import { styles } from "./utils";
             [transitionDelay]="transitionDelay"
             [transitionDuration]="transitionDuration"
             [transitionTimingFunction]="transitionTimingFunction"
-            [ngStyle]="magnifierStyle"
+            [ngStyle]="_hostStyle"
         ></TwicMedia>
         <TwicMedia
             [alt]="alt"
@@ -94,6 +94,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
+    @Input() style: string | Record< string, unknown > = undefined;
     @Input() title: string = undefined;
     @Input() tabindex: number | string = undefined;
     @Input() transition:boolean | string;
@@ -118,13 +119,13 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     _id: string | undefined = undefined;
     _tabindex: string | undefined = undefined;
     _zoom: boolean | number = false;
-    magnifierStyle: Record<string, string>;
+    _hostStyle: Record<string, unknown> = undefined;
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
         if ( this._zoom ) {
             initMagnifier( this.hostElement.nativeElement.firstElementChild );
         }
-        this.updateTemplate();
+        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );
@@ -134,13 +135,10 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
         this._id = parseId( this.id );
         this._tabindex = parseTabIndex( this.tabindex );
         this._zoom = parseZoom( this.zoom );
-        this.magnifierStyle = computeMagnifierStyle( this._zoom );
-        this.updateTemplate();
-    }
-    updateTemplate(): void {
-        if ( this.hostElement?.nativeElement ) {
-            // updates style to this.hostElement.nativeElement HTML element
-            styles( this.magnifierStyle, this.hostElement.nativeElement, this.renderer );
-        }
+        this._hostStyle = computeHostStyle( {
+            "style": parseStyle( this.style ),
+            "zoom": this._zoom,
+        } );
+        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }
 }

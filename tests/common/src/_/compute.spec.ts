@@ -1,6 +1,18 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { setConfig } from '../../../../src/_/config';
-import { computeAlt, computeData, computeHostAttributes, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
+import {
+    computeAlt,
+    computeData,
+    computeHostAttributes,
+    computeHostStyle,
+    computePicture,
+    computePlaceholderBackground,
+    computePlaceholderStyle,
+    computePreTransform,
+    computeStyle,
+    computeWrapperClass,
+    computeWrapperStyle
+} from '../../../../src/_/compute';
 import { Mode, PlaceholderData } from '../../../../src/_/types';
 
 const dummyAnchor = { x: 'center', y: 'top' };
@@ -999,21 +1011,49 @@ describe( 'Compute functions', () => {
     } );
   } );
 
-  describe( 'computeMagnifierStyle', () => {
+  describe( 'computeHostStyle', () => {
     test.each( [
       {
-        input: { zoom : undefined},
+        input: {},
         expected: {},
-        description: 'return empty stule as there is no zoom',
+        description: 'return empty style as there is no zoom nor style',
       },
       {
-        input: { zoom : 2},
+        input: { zoom: 2},
         expected: { "--twic-zoom": "2" },
-        description: 'return correct zoom style',
+        description: 'return correct style with zoom',
       },
-    ] )( 'it should $description', ( { input: { zoom }, expected } ) => {
+      {
+        input: {
+          style: {
+            "width":`100%`,
+            "height": `300px` 
+          } 
+        },
+        expected: {
+            "height": `300px`,
+            "width":`100%`,  
+        },
+        description: 'return correct style from given style',
+      },
+      {
+        input: {
+          style: {
+            "width":`100%`,
+            "height": `300px` 
+          },
+          zoom : 2 
+        },
+        expected: {
+            "height": `300px`,
+            "width":`100%`,
+            "--twic-zoom": `2`, 
+        },
+        description: 'return correct merged style from given style + zoom',
+      },
+    ] )( 'it should $description', ( { input: { style, zoom }, expected } ) => {
       // @ts-ignore
-      expect( computeMagnifierStyle( zoom ) ).toEqual( expected );
+      expect( computeHostStyle( { style, zoom } ) ).toEqual( expected );
     } );
   } );
 } );

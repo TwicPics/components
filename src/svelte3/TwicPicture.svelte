@@ -19,6 +19,7 @@ import {
     parseRefit,
     parseSizes,
     parseSrc,
+    parseStyle,
     parseTitle,
     computePicture,
     computeAlt,
@@ -30,6 +31,8 @@ import {
     sanitize,
     parseTabIndex,
     setAttributes,
+    styleToString,
+    computeHostStyle,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -49,6 +52,7 @@ export let ratio: number | string = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let sizes: string = undefined;
+export let style: string | Record< string, unknown >;
 export let tabindex: number | string = undefined;
 export let title: string = undefined;
 
@@ -67,9 +71,12 @@ $: parsedRatios = parseRatios( ratio );
 $: parsedRefit = parseRefit( refit );
 $: parsedSizes = parseSizes( sizes );
 $: parsedSrc = parseSrc( src );
+$: parsedStyle = parseStyle( style );
 $: parsedTabIndex = parseTabIndex( tabindex );
 $: parsedTitle = parseTitle( title );
-
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parsedStyle,
+} ) );
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
@@ -77,6 +84,7 @@ $: {
         setAttributes( `draggable`, parsedDraggable, hostElement  );
         setAttributes( `id`, parsedId, hostElement  );
         setAttributes( `tabindex`, parsedTabIndex, hostElement  );
+        setAttributes( `style`, hostStyle, hostElement  );
     }
 }
 
@@ -115,6 +123,7 @@ $: _computePictureData = computePicture(
         id: parsedId,
         tabindex: parsedTabIndex,
     } ) }
+    style = { hostStyle }
 >
     <picture class="twic-p" title = { parsedTitle }>
         {#if _computePictureData?.sources}

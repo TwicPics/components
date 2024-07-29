@@ -94,6 +94,11 @@ export interface HostAttributesData {
     tabindex?: string,
 }
 
+export interface HostStyleData {
+    style? : Record< string, unknown >,
+    zoom?: boolean | number
+}
+
 export interface Options {
     anticipation?: number,
     breakpoints?: { [ key in BreakPoint ]?: number },

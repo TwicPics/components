@@ -3,6 +3,7 @@ import React from "react";
 import {
     computeAlt,
     computeHostAttributes,
+    computeHostStyle,
     computePicture,
 } from "../_/compute";
 import {
@@ -23,6 +24,7 @@ import {
     parseDraggable,
     parseId,
     parseTabIndex,
+    parseStyle,
 } from "../_/parse";
 import type { Anchor } from "../_/types";
 import { sanitize } from "../_/utils";
@@ -54,6 +56,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
+    const style = parseStyle( props.style );
     const tabindex = parseTabIndex( props.tabindex );
     const title = parseTitle( props.title );
 
@@ -80,6 +83,9 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 draggable,
                 id,
                 tabindex,
+            } ) }
+            style={ computeHostStyle( {
+                style,
             } ) }
         >
             <picture className="twic-p" title={ title }>

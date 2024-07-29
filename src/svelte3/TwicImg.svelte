@@ -3,7 +3,7 @@
 <script context="module" lang="ts">
 import {
     computeHostAttributes,
-    computeMagnifierStyle,
+    computeHostStyle,
     getCurrentComponent,
     isBrowser,
     isWebComponents,
@@ -11,6 +11,7 @@ import {
     parseClassName,
     parseDraggable,
     parseId,
+    parseStyle,
     parseZoom,
     styleToString,
     type Anchor,
@@ -44,6 +45,7 @@ export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
+export let style: string | Record< string, unknown >;
 export let tabindex: number | string = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;
@@ -58,6 +60,9 @@ $: parsedClassName = parseClassName( className ) || ``;
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedId = parseId( id );
 $: parsedTabIndex = parseTabIndex( tabindex );
+$: parsedStyle = parseStyle( style );
+
+console.log("Style", style, parsedStyle);
 $: parsedZoom = parseZoom( zoom );
 $: props = {
     alt,
@@ -80,7 +85,10 @@ $: props = {
     transitionDuration,
     transitionTimingFunction
 }
-$: _magnifierStyle = styleToString( computeMagnifierStyle( parsedZoom ) );
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parsedStyle,
+    zoom: parsedZoom,
+} ) );
 $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
@@ -88,7 +96,7 @@ $: {
         setAttributes( `draggable`, parsedDraggable, hostElement  );
         setAttributes( `id`, parsedId, hostElement  );
         setAttributes( `tabindex`, parsedTabIndex, hostElement  );
-        hostElement.style = _magnifierStyle;
+        setAttributes( `style`, hostStyle, hostElement  );
     }
 }
 if ( isBrowser ) {
@@ -113,7 +121,7 @@ if ( isBrowser ) {
         id: parsedId,
         tabindex: parsedTabIndex,
     } ) }
-    style = { _magnifierStyle }
+    style = { hostStyle }
 >
     {#if parsedZoom}
         <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>

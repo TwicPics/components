@@ -13,6 +13,7 @@ import {
   parseClassName,
   parseDebug,
   parseDomain,
+  parseDraggable,
   parseDuration,
   parseEager,
   parseEnv,
@@ -21,6 +22,7 @@ import {
   parseFocuses,
   parseFrom,
   parseHandleShadowDom,
+  parseId,
   parseIntrinsic,
   parseMaxDrp,
   parseMediaTag,
@@ -36,8 +38,9 @@ import {
   parseRatios,
   parseRefit,
   parseSizes,
-  parseStep,
   parseSrc,
+  parseStep,
+  parseStyle,
   parseTabIndex,
   parseTo,
   parseTitle,
@@ -45,9 +48,7 @@ import {
   parseTransitionDelay,
   parseTransitionDuration,
   parseTransitionTimingFunction,
-  parseZoom,
-  parseDraggable,
-  parseId,
+  parseZoom
 } from '../../../../src/_/parse';
 import { Mode, Placeholder } from '../../../../src/_/types';
 
@@ -1141,15 +1142,6 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
-  describe( 'parseStep', () => {
-    testParseNumberCases.forEach(( { description, input, expected } ) => {
-      test( `it should ${ description } `, () => {
-        // @ts-ignore
-        expect( parseStep( input ) ).toBe( expected );
-      } );
-    } );
-  } );
-
   describe( 'parseSrc', () => {
     const originalConfig = { ...config };
     test.each( [
@@ -1205,6 +1197,68 @@ describe( 'Parsing functions', () => {
       if (after) {
         after();
       }
+    } );
+  } );
+
+  describe( 'parseStep', () => {
+    testParseNumberCases.forEach(( { description, input, expected } ) => {
+      test( `it should ${ description } `, () => {
+        // @ts-ignore
+        expect( parseStep( input ) ).toBe( expected );
+      } );
+    } );
+  } );
+
+  describe( 'parseStyle', () => {
+    test.each( [
+      {
+        input: undefined,
+        expected: undefined,
+        description: 'return empty object when undefined'
+      },
+      {
+        input: ``,
+        expected: {},
+        description: 'return empty object when empty string'
+      },
+      {
+        input: `invalid`,
+        expected: {},
+        description: 'return empty object when invalid'
+      },
+      {
+        input: `width:100%;height:auto;max-width:300px;`,
+        expected: {
+            "height": "auto",
+            "max-width": "300px",
+            "width": "100%",
+        },
+        description: 'return correct style from string'
+      },
+      {
+        input: ` width : 100% ;   height:auto;    max-width:  300px ; `,
+        expected: {
+            "height": "auto",
+            "max-width": "300px",
+            "width": "100%",
+        },
+        description: 'return correct trimmed style from string'
+      },
+      {
+        input: {
+            width: `100%`,
+            "max-width": `300px`,
+            height: `auto`
+        },
+        expected: {
+            "height": "auto",
+            "max-width": "300px",
+            "width": "100%",
+        },
+        description: 'return correct style from object'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+        expect( parseStyle( input ) ).toEqual( expected );
     } );
   } );
 

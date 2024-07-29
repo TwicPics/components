@@ -2,7 +2,7 @@
 import { booleanProp, defineNumberProp, defineStringProp, intProp } from "./props";
 import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
-import { computeMagnifierStyle, computeHostAttributes } from "../_/compute";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
 import { rValidId, rValidZoom } from "../_/validate";
@@ -23,7 +23,7 @@ for (
 
 for ( const [ propName, func, args ] of [
     [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
-    [ `_magnifierStyle`, computeMagnifierStyle, [ `zoom` ] ],
+    [ `_hostStyle`, computeHostStyle, [ [ `zoom` ] ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );
 }
@@ -58,7 +58,7 @@ export default {
         ref="hostElement"
         class="twic-i"
         :class="{ 'twic-z': p_zoom }"
-        :style="_magnifierStyle"
+        :style="_hostStyle"
         v-bind="{ ..._hostAttributes }"
     >
         <TwicMedia

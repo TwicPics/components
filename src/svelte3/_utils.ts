@@ -2,7 +2,7 @@ export {
     computeAlt,
     computeData,
     computeHostAttributes,
-    computeMagnifierStyle,
+    computeHostStyle,
     computePicture,
     computePlaceholderStyle,
     computeStyle,
@@ -40,6 +40,7 @@ export {
     parseRatios,
     parseRefit,
     parseSizes,
+    parseStyle,
     parseTabIndex,
     parseTo,
     parseSrc,
@@ -73,14 +74,20 @@ export { getCurrentComponent };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setAttributes = ( attributes: string, value: any, hostElement: any ): void => {
-    if ( value === undefined ) {
+    if (
+        ( value === undefined ) ||
+        (
+            ( typeof value === `object` ) &&
+            ( Object.keys( value || {} ).length === 0 )
+        )
+    ) {
         hostElement.removeAttribute( attributes );
     } else {
         hostElement.setAttribute( attributes, value );
     }
 };
 
-export const styleToString = ( properties: Record< string, string > ): string => (
+export const styleToString = ( properties: Record< string, unknown > ): string => (
     Object.keys( properties ).length ?
         Object.entries( properties ).flatMap(
             ( [ p, v ] ) => (

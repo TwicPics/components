@@ -1,6 +1,15 @@
 import React from "react";
-import { parseClassName, parseDraggable, parseDuration, parseFrom, parseId, parseTabIndex, parseTo } from "../_/parse";
-import { computeHostAttributes } from "../_/compute";
+import {
+    parseClassName,
+    parseDraggable,
+    parseDuration,
+    parseFrom,
+    parseId,
+    parseStyle,
+    parseTabIndex,
+    parseTo,
+} from "../_/parse";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import { preComputeVideoOptions } from "../_/preCompute";
 import { number, propType } from "./props";
 import TwicMedia from "./TwicMedia";
@@ -25,6 +34,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const posterFrom = parseFrom( props.posterFrom );
     const tabindex = parseTabIndex( props.tabindex );
     const to = parseTo( props.to );
+    const style = parseStyle( props.style );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
     return (
         <div
@@ -33,6 +43,9 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
                 draggable,
                 id,
                 tabindex,
+            } ) }
+            style={ computeHostStyle( {
+                style,
             } ) }
         >
             <TwicMedia

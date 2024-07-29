@@ -1,4 +1,4 @@
-import type { Renderer2 } from "@angular/core";
+import type { ElementRef, Renderer2 } from "@angular/core";
 
 export const attributes = ( data: Record< string, string >, element: HTMLElement, renderer: Renderer2 ) => {
     if ( !element || !renderer ) {
@@ -17,7 +17,7 @@ export const attributes = ( data: Record< string, string >, element: HTMLElement
     } );
 };
 
-export const styles = ( data: Record< string, string >, element: HTMLElement, renderer: Renderer2 ) => {
+export const styles = ( data: Record< string, unknown >, element: HTMLElement, renderer: Renderer2 ) => {
     if ( !element || !renderer ) {
         return;
     }
@@ -32,4 +32,14 @@ export const styles = ( data: Record< string, string >, element: HTMLElement, re
             );
         }
     } );
+};
+
+export const updateHostElement = (
+    hostElement: ElementRef,
+    renderer: Renderer2,
+    style: Record < string, unknown >
+): void => {
+    if ( hostElement?.nativeElement ) {
+        styles( style, hostElement.nativeElement, renderer );
+    }
 };

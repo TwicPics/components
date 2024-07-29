@@ -20,6 +20,7 @@ import type { Anchor, AnchorObject, FetchPriority, Mode, Picture } from "../_/ty
 
 import {
     computeAlt,
+    computeHostStyle,
     computePicture,
 } from "../_/compute";
 
@@ -37,10 +38,11 @@ import {
     parseRefit,
     parseSizes,
     parseSrc,
+    parseStyle,
     parseTabIndex,
     parseTitle,
 } from "../_/parse";
-import { attributes } from "./utils";
+import { attributes, updateHostElement } from "./utils";
 
 @Component( {
     "selector": `TwicPicture`,
@@ -75,6 +77,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() refit: boolean | string;
     @Input() sizes: string;
     @Input() src: string;
+    @Input() style: string | Record< string, unknown > = undefined;
     @Input() tabindex: number | string = undefined;
     @Input() title: string = undefined;
     @HostBinding( `attr.draggable` ) get twicDraggable() {
@@ -110,11 +113,10 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _tabindex: string | undefined = undefined;
     _title: string = undefined;
     description: string;
+    _hostStyle: Record<string, unknown>;
     pictureData: Picture;
     // eslint-disable-next-line no-useless-constructor
-    constructor(
-        private renderer: Renderer2
-    ) { }
+    constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
         if ( this.pictureData?.sources ) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
@@ -129,6 +131,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             } );
         }
         this.updateMedia();
+        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }
     ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
@@ -147,6 +150,9 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._tabindex = parseTabIndex( this.tabindex );
         this._title = parseTitle( this.title );
         this.description = computeAlt( this._alt, `img` );
+        this._hostStyle = computeHostStyle( {
+            "style": parseStyle( this.style ),
+        } );
         this.pictureData = {
             ...computePicture(
                 this._anchors,
@@ -163,6 +169,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             ),
         };
         this.updateMedia();
+        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }
     private updateMedia(): void {
         if ( this.imageRef.nativeElement ) {

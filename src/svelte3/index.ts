@@ -22,6 +22,7 @@ export interface BaseAttributes extends Attributes {
     class?: string,
     draggable?: boolean | string,
     state?: State,
+    style?: string | Record< string, unknown >,
     tabindex?: number | string,
 }
 

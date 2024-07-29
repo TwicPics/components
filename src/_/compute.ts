@@ -6,6 +6,7 @@ import type {
     ArtDirective,
     FetchPriority,
     HostAttributesData,
+    HostStyleData,
     Mode,
     Picture,
     Placeholder,
@@ -346,6 +347,14 @@ export const computeHostAttributes = (
 } );
 /* eslint-enable object-curly-newline */
 
+export const computeHostStyle = ( { style, zoom }: HostStyleData ) : Record < string, unknown > => {
+    const hostStyle = style || {};
+    if ( ( typeof zoom !== `boolean` ) && zoom ) {
+        hostStyle[ `--twic-zoom` ] = `${ zoom }`;
+    }
+    return hostStyle;
+};
+
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (
     anchor: AnchorObject,
@@ -517,11 +526,3 @@ export const computeWrapperStyle = ( ratio: number ): Record< string, string > =
         "paddingTop": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
     }
 );
-
-export const computeMagnifierStyle = ( zoom: boolean | number ) : Record < string, string > => {
-    const magnifierStyle: Record< string, string > = {};
-    if ( ( typeof zoom !== `boolean` ) && zoom ) {
-        magnifierStyle[ `--twic-zoom` ] = `${ zoom }`;
-    }
-    return magnifierStyle;
-};

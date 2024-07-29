@@ -1006,6 +1006,44 @@ Test"
           <span>refit="2p" + anchor="left" + background=remove</span>
       </div>
     </div>
+    <h2>Style</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg style default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                style=""
+            >
+            </TwicImg>
+            <span>TwicImg style=""</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              ratio="none"
+              style="height:100px;"
+          >
+          </TwicImg>
+          <span>TwicImg style="height:100px"</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              ratio="none"
+              style="height:100px; width:100px"
+          >
+          </TwicImg>
+          <span>TwicImg style="height:100px;width:100px"</span>
+      </div>
+    </div>
     <h2>Tabindex</h2>
     <div class="samples">
         <div class="item">
@@ -1565,9 +1603,10 @@ Test"
             <TwicImg
                 src="https://assets.twicpics.com/examples/football.jpg"
                 focus="auto"
+                style="width:100px"
                 zoom="3.1">
             </TwicImg>
-            <span>Zoom = 3.1</span>
+            <span>Zoom = 3.1 + width=100</span>
         </div>
         <div class="item">
             <TwicImg

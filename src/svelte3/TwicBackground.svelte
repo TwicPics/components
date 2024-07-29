@@ -3,14 +3,17 @@
 <script context="module" lang="ts">
 import {
     computeHostAttributes,
+    computeHostStyle,
     getCurrentComponent,
     isWebComponents,
     parseClassName,
     parseDraggable,
     parseId,
+    parseStyle,
     parseTabIndex,
     sanitize,
     setAttributes,
+    styleToString,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -37,6 +40,7 @@ export let ratio: number | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
+export let style: string | Record< string, unknown >;
 export let tabindex: number | string = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;
@@ -47,6 +51,7 @@ export let transitionTimingFunction: string = undefined;
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedId = parseId( id );
+$: parsedStyle = parseStyle( style );
 $: parsedTabIndex = parseTabIndex( tabindex );
 
 $: props = {
@@ -68,6 +73,9 @@ $: props = {
     transitionDuration,
     transitionTimingFunction
 }
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parsedStyle,
+} ) );
 $: {
     if ( isWebComponents ) {
         const hostElement = getCurrentComponent();
@@ -75,6 +83,7 @@ $: {
         setAttributes( `draggable`, parsedDraggable, hostElement  );
         setAttributes( `id`, parsedId, hostElement  );
         setAttributes( `tabindex`, parsedTabIndex, hostElement  );
+        setAttributes( `style`, hostStyle, hostElement  );
     }
 }
 </script>
@@ -88,6 +97,7 @@ $: {
         id: parsedId,
         tabindex: parsedTabIndex,
     } ) }
+    style = { hostStyle }
 >
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>

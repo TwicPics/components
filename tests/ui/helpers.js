@@ -47,6 +47,7 @@ export const getHostElementData = async ( page, selector ) => {
       return {
           'draggable' : hostElement?.getAttribute( 'draggable' ),
           'id' : hostElement?.getAttribute( 'id' ),
+          'style' : hostElement?.getAttribute( 'style' ),
           'tabindex' : hostElement?.getAttribute( 'tabindex' ),
       };
   }, selector );
@@ -119,6 +120,16 @@ export const setupUnitTests = async ( testCases ) => {
             } );
 
             testCases.forEach( testCase => {
+                const { excluded } = testCase;
+                if (
+                    excluded && 
+                    excluded.some(
+                        excludedItem => new RegExp( `^${ excludedItem && excludedItem.trim() }`, `i` ).test( framework )
+                    )
+                ) {
+                  return;
+                }
+
                 test( testCase.description, async () => {
                     const { fn } = testCase;
                     await fn( page, port );
