@@ -10,7 +10,7 @@ import {
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
-import type { AfterViewInit, OnChanges } from "@angular/core";
+import type { OnChanges } from "@angular/core";
 import { parseDraggable, parseDuration, parseFrom, parseId, parseStyle, parseTabIndex, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
@@ -49,7 +49,7 @@ import { updateHostElement } from "./utils";
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicVideoComponent implements AfterViewInit, OnChanges {
+export class TwicVideoComponent implements OnChanges {
     mediaTag = `video`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
@@ -93,13 +93,9 @@ export class TwicVideoComponent implements AfterViewInit, OnChanges {
     _posterFrom: number;
     _tabindex: string | undefined = undefined;
     _to: number;
-    _hostStyle: Record<string, unknown>;
     videoOption: VideoOptions;
     // eslint-disable-next-line no-useless-constructor
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
-    ngAfterViewInit(): void {
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
-    }
     ngOnChanges( ): void {
         this._draggable = parseDraggable( this.draggable );
         this._duration = parseDuration( this.duration );
@@ -108,11 +104,15 @@ export class TwicVideoComponent implements AfterViewInit, OnChanges {
         this._posterFrom = parseDuration( this.posterFrom );
         this._tabindex = parseTabIndex( this.tabindex );
         this._to = parseTo( this.to );
-        this._hostStyle = computeHostStyle( {
-            "style": parseStyle( this.style ),
-        } );
         this.videoOption = preComputeVideoOptions( this._duration, this._from, this._posterFrom, this._to );
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
+
     }
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );

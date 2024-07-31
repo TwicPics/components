@@ -112,7 +112,6 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _src: string;
     _tabindex: string | undefined = undefined;
     _title: string = undefined;
-    _hostStyle: Record<string, unknown>;
     mediaAttributes: Record<string, string>;
     pictureData: Picture;
     // eslint-disable-next-line no-useless-constructor
@@ -131,7 +130,6 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             } );
         }
         this.updateMedia();
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }
     ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
@@ -149,9 +147,6 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._src = parseSrc( this.src );
         this._tabindex = parseTabIndex( this.tabindex );
         this._title = parseTitle( this.title );
-        this._hostStyle = computeHostStyle( {
-            "style": parseStyle( this.style ),
-        } );
         this.pictureData = {
             ...computePicture(
                 this._anchors,
@@ -168,24 +163,29 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             ),
         };
         this.mediaAttributes = {
+            ...this.pictureData?.img,
             ...computeMediaAttributes( {
                 "alt": this._alt,
                 "mediaTag": `img`,
             } ),
-            ...this.pictureData?.img,
         };
+
         this.updateMedia();
-        this.updateMedia();
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
+
+        // updates host element (ie twicpicture)
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
     }
     private updateMedia(): void {
-        if ( this.imageRef.nativeElement ) {
-            // updates attributes to this.imageRef.nativeElement HTML element
-            attributes( this.pictureData?.img, this.imageRef.nativeElement, this.renderer );
-        }
-        for ( const index in this._sources ) {
-            const actualSourceElement = this._sources[ index ];
-            // updates attributes to actualSourceElement HTML element
+        // updates img tag
+        attributes( this.mediaAttributes, this.imageRef.nativeElement, this.renderer );
+        // updates each source tag
+        for ( const [ index, actualSourceElement ] of this._sources.entries() ) {
             attributes( this.pictureData?.sources[ index ], actualSourceElement, this.renderer );
         }
     }

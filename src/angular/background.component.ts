@@ -11,7 +11,7 @@ import {
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
-import type { AfterViewInit, OnChanges } from "@angular/core";
+import type { OnChanges } from "@angular/core";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { parseDraggable, parseId, parseStyle, parseTabIndex } from "../_/parse";
 import { computeHostStyle } from "../_/compute";
@@ -47,7 +47,7 @@ import { updateHostElement } from "./utils";
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicBackgroundComponent implements AfterViewInit, OnChanges {
+export class TwicBackgroundComponent implements OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() draggable: boolean | string;
@@ -82,21 +82,20 @@ export class TwicBackgroundComponent implements AfterViewInit, OnChanges {
     _draggable: boolean | undefined = undefined;
     _id: string | undefined = undefined;
     _tabindex: string | undefined = undefined;
-    _hostStyle: Record<string, unknown> = undefined;
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
-    ngAfterViewInit(): void {
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
-    }
-    onStateChange( stateEvent: StateEvent ) {
-        this.stateChangeEvent.emit( stateEvent );
-    }
     ngOnChanges(): void {
         this._draggable = parseDraggable( this.draggable );
         this._id = parseId( this.id );
-        this._hostStyle = computeHostStyle( {
-            "style": parseStyle( this.style ),
-        } );
         this._tabindex = parseTabIndex( this.tabindex );
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
+    }
+    onStateChange( stateEvent: StateEvent ) {
+        this.stateChangeEvent.emit( stateEvent );
     }
 }

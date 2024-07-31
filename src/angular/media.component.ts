@@ -185,10 +185,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
         this._placeholder_ = preComputePlaceholder( this._placeholder, this._src );
         this.mediaAttributes = {
-            ...computeMediaAttributes( {
-                "alt": this._alt,
-                "mediaTag": this._mediaTag,
-            } ),
             ...computeData(
                 this._anchor,
                 this._bot,
@@ -203,6 +199,10 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this._step,
                 this.videoOptions
             ),
+            ...computeMediaAttributes( {
+                "alt": this._alt,
+                "mediaTag": this._mediaTag,
+            } ),
         };
         this.mediaStyle = computeStyle(
             this._anchor,
@@ -238,11 +238,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.observer.destroy();
     }
     private updateMedia(): void {
-        if ( this._media ) {
-            // updates attributes to this._media HTML element
-            attributes( this.mediaAttributes, this._media, this.renderer );
-            // updates style to this._media HTML element
-            styles( this.mediaStyle, this._media, this.renderer );
-        }
+        attributes( this.mediaAttributes, this._media, this.renderer );
+        styles( this.mediaStyle, this._media, this.renderer );
     }
 }

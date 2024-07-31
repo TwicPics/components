@@ -43,7 +43,7 @@ import { updateHostElement } from "./utils";
             [transitionDelay]="transitionDelay"
             [transitionDuration]="transitionDuration"
             [transitionTimingFunction]="transitionTimingFunction"
-            [ngStyle]="_hostStyle"
+            [ngStyle]="magnifiedStyle"
         ></TwicMedia>
         <TwicMedia
             [alt]="alt"
@@ -119,26 +119,30 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     _id: string | undefined = undefined;
     _tabindex: string | undefined = undefined;
     _zoom: boolean | number = false;
-    _hostStyle: Record<string, unknown> = undefined;
+    magnifiedStyle: Record<string, unknown> = undefined;
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
         if ( this._zoom ) {
             initMagnifier( this.hostElement.nativeElement.firstElementChild );
         }
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
-    }
-    onStateChange( stateEvent: StateEvent ) {
-        this.stateChangeEvent.emit( stateEvent );
     }
     ngOnChanges( ): void {
         this._draggable = parseDraggable( this.draggable );
         this._id = parseId( this.id );
         this._tabindex = parseTabIndex( this.tabindex );
         this._zoom = parseZoom( this.zoom );
-        this._hostStyle = computeHostStyle( {
-            "style": parseStyle( this.style ),
+        this.magnifiedStyle = computeHostStyle( {
             "zoom": this._zoom,
         } );
-        updateHostElement( this.hostElement, this.renderer, this._hostStyle );
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
+    }
+    onStateChange( stateEvent: StateEvent ) {
+        this.stateChangeEvent.emit( stateEvent );
     }
 }

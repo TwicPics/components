@@ -35,9 +35,9 @@ export const styles = ( data: Record< string, unknown >, element: HTMLElement, r
 };
 
 export const updateHostElement = (
+    style: Record < string, unknown >,
     hostElement: ElementRef,
-    renderer: Renderer2,
-    style: Record < string, unknown >
+    renderer: Renderer2
 ): void => {
     if ( hostElement?.nativeElement ) {
         styles( style, hostElement.nativeElement, renderer );
