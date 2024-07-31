@@ -1,9 +1,19 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, BreakPoint, Environment, FetchPriority, Mode, Placeholder, Transition } from "./types";
+import type {
+    AnchorObject,
+    BreakPoint,
+    CrossOrigin,
+    Environment,
+    FetchPriority,
+    Mode,
+    Placeholder,
+    Transition,
+} from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
+    rValidCrossOrigin,
     rValidDomain,
     rValidEnvironment,
     rValidFetchPriority,
@@ -104,7 +114,7 @@ export const parseAnchor = ( anchor: string ) : AnchorObject => {
 
 export const parseAnchors = parseBreakpointsFactory<AnchorObject>( parseAnchor );
 
-export const parseAlt = ( value: string ) => trimOrUndefined( value ) || ``;
+export const parseAlt = ( value: string ) => trimOrUndefined( value );
 
 export const parseAnticipation = parseNumber;
 
@@ -113,6 +123,11 @@ export const parseBot = ( value: string ) => ( typeof value === `string` ? value
 export const parseClass = trimOrUndefined;
 
 export const parseClassName = trimOrUndefined;
+
+export const parseCrossOrigin = regExpFinderFactory< CrossOrigin >( rValidCrossOrigin,
+    {
+        "filter": p => ( ( p === `none` ) ? undefined : p ),
+    } );
 
 export const parseDebug = parseBoolean;
 
@@ -178,11 +193,12 @@ export const parsePath = ( value: string ): string => {
     return path ? path.replace( rValidPath, `$1/` ) : ``;
 };
 
-export const parsePlaceholder = ( placeholder: Placeholder ) : Placeholder => {
-    if ( ( config.env === `offline` ) || ( placeholder === `none` ) ) {
+export const parsePlaceholder = ( value: string ) : Placeholder | undefined => {
+    const parsedPlaceholder = regExpFinderFactory< Placeholder >( rValidPlaceholder )( value );
+    if ( ( config.env === `offline` ) || ( parsedPlaceholder === `none` ) ) {
         return undefined;
     }
-    return rValidPlaceholder.test( placeholder ) ? placeholder : `preview`;
+    return parsedPlaceholder || `preview`;
 };
 
 export const parsePosition = trimOrUndefined;

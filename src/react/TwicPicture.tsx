@@ -1,9 +1,9 @@
 import "../_/style.css";
 import React from "react";
 import {
-    computeAlt,
     computeHostAttributes,
     computeHostStyle,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 import {
@@ -76,6 +76,14 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     const { "fetchPriority": _fetchPriority, ...rest } = pictureData?.img || {};
 
+    const mediaAttributes = {
+        ...computeMediaAttributes( {
+            "mediaTag": `img`,
+            alt,
+        } ),
+        [ fetchPriorityName ]: _fetchPriority,
+    };
+
     return (
         <div
             className={ sanitize( `twic-i ${ className }` ) }
@@ -96,10 +104,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 ) }
                 <img
                     suppressHydrationWarning
-                    alt={ computeAlt( alt, `img` ) }
-                    { ...{
-                        [ fetchPriorityName ]: _fetchPriority,
-                    } }
+                    { ...mediaAttributes }
                     { ...rest }
                 />
             </picture>

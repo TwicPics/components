@@ -7,6 +7,7 @@ import type {
     FetchPriority,
     HostAttributesData,
     HostStyleData,
+    MediaAttributesData,
     Mode,
     Picture,
     Placeholder,
@@ -269,9 +270,6 @@ const preComputeStyle = (
 };
 /* eslint-enable dot-notation */
 
-export const computeAlt =
-    ( alt: string, mediaTag: string ): string => ( ( mediaTag === `img` ) ? alt : undefined );
-
 export const computeData = (
     anchor: AnchorObject,
     bot: string,
@@ -354,6 +352,14 @@ export const computeHostStyle = ( { style, zoom }: HostStyleData ) : Record < st
     }
     return hostStyle;
 };
+
+/* eslint-disable object-curly-newline */
+export const computeMediaAttributes = (
+    { alt = ``, mediaTag }: MediaAttributesData
+): Record< string, string > => ( {
+    ...( ( mediaTag === `img` ) && { alt } ),
+} );
+/* eslint-enable object-curly-newline */
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (

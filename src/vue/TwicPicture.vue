@@ -1,7 +1,7 @@
 <script>
 import {
-    computeAlt,
     computeHostAttributes,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 import { rValidId } from "../_/validate";
@@ -53,8 +53,8 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
     [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `mediaTag` ] ] ],
     [
         `_pictureData`,
         computePicture,
@@ -100,7 +100,10 @@ export default {
             <template v-if="_pictureData && _pictureData.img">
                 <img
                     :alt="_alt"
-                    v-bind="{ ..._pictureData.img }"
+                    v-bind="{
+                        ..._mediaAttributes,
+                        ..._pictureData.img
+                    }"
                 >
             </template>
         </picture>

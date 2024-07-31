@@ -19,8 +19,8 @@ import type {
 import type { Anchor, AnchorObject, FetchPriority, Mode, Picture } from "../_/types";
 
 import {
-    computeAlt,
     computeHostStyle,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 
@@ -52,7 +52,7 @@ import { attributes, updateHostElement } from "./utils";
           class="twic-p"
           [attr.title]="_title"
       >
-        <img #image [attr.alt]="description"/>
+        <img #image/>
       </picture>
   `,
     "styleUrls": [ `../_/style.css` ],
@@ -112,8 +112,8 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _src: string;
     _tabindex: string | undefined = undefined;
     _title: string = undefined;
-    description: string;
     _hostStyle: Record<string, unknown>;
+    mediaAttributes: Record<string, string>;
     pictureData: Picture;
     // eslint-disable-next-line no-useless-constructor
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
@@ -149,7 +149,6 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._src = parseSrc( this.src );
         this._tabindex = parseTabIndex( this.tabindex );
         this._title = parseTitle( this.title );
-        this.description = computeAlt( this._alt, `img` );
         this._hostStyle = computeHostStyle( {
             "style": parseStyle( this.style ),
         } );
@@ -168,6 +167,14 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
                 this._src
             ),
         };
+        this.mediaAttributes = {
+            ...computeMediaAttributes( {
+                "alt": this._alt,
+                "mediaTag": `img`,
+            } ),
+            ...this.pictureData?.img,
+        };
+        this.updateMedia();
         this.updateMedia();
         updateHostElement( this.hostElement, this.renderer, this._hostStyle );
     }

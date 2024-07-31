@@ -21,8 +21,8 @@ import {
     parseSrc,
     parseStyle,
     parseTitle,
+    computeMediaAttributes,
     computePicture,
-    computeAlt,
     isWebComponents,
     parseFetchPriority,
     parseModes,
@@ -87,9 +87,11 @@ $: {
         setAttributes( `style`, hostStyle, hostElement  );
     }
 }
-
-$: _alt = computeAlt( parsedAlt, `img` );
-$: _computePictureData = computePicture(
+$: _computedMediaAttributes = computeMediaAttributes( {
+    alt: parsedAlt,
+    mediaTag: `img`
+} );
+$: _computedPictureData = computePicture(
     parsedAnchors,
     parsedEager,
     parsedFetchPriority,
@@ -105,14 +107,15 @@ $: _computePictureData = computePicture(
 </script>
 {#if isWebComponents}
     <picture class="twic-p" title = { parsedTitle }>
-      {#if _computePictureData?.sources}
-          {#each _computePictureData.sources as data }
+      {#if _computedPictureData?.sources}
+          {#each _computedPictureData.sources as data }
               <source { ...data } />
           {/each}
       {/if}
+      <!-- svelte-ignore a11y-missing-attribute -->
       <img
-          alt = { _alt }
-          { ..._computePictureData?.img }
+          { ..._computedMediaAttributes }
+          { ..._computedPictureData?.img }
       />
     </picture>
 {:else}
@@ -126,14 +129,15 @@ $: _computePictureData = computePicture(
     style = { hostStyle }
 >
     <picture class="twic-p" title = { parsedTitle }>
-        {#if _computePictureData?.sources}
-            {#each _computePictureData.sources as data }
+        {#if _computedPictureData?.sources}
+            {#each _computedPictureData.sources as data }
                 <source { ...data } />
             {/each}
         {/if}
+        <!-- svelte-ignore a11y-missing-attribute -->
         <img
-            alt = { _alt }
-            { ..._computePictureData?.img }
+            { ..._computedPictureData?.img }
+            { ..._computedMediaAttributes }
         />
     </picture>
 </div>

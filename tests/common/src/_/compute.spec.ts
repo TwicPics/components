@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { setConfig } from '../../../../src/_/config';
 import {
-    computeAlt,
     computeData,
     computeHostAttributes,
     computeHostStyle,
+    computeMediaAttributes,
     computePicture,
     computePlaceholderBackground,
     computePlaceholderStyle,
@@ -234,15 +234,6 @@ describe( 'Compute functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( computePreTransform( input ) ).toBe( expected );
-    } );
-  } );
-
-  describe( 'computeAlt', () => {
-    it( 'should compute alt correctly for img tag', () => {
-        expect( computeAlt( 'alt text', 'img' ) ).toBe( 'alt text' );
-    });
-    it( 'should return undefined for video tag', () => {
-        expect( computeAlt( 'alt text', 'video' ) ).toBeUndefined();
     } );
   } );
 
@@ -536,7 +527,59 @@ describe( 'Compute functions', () => {
               "tabindex": "2"
           })
       } );
-  } )
+  } );
+
+  describe( 'computeMediaAttributes', () => {
+    test.each( [
+      {
+        input: {},
+        expected: {},
+        description: 'return empty object'
+      },
+      {
+        input: { 
+          mediaTag: `video`,
+          alt: `a video`,
+        },
+        expected: {},
+        description: 'should not return alt as mediatag is video'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+          alt: `my image`,
+        },
+        expected: {
+          alt: `my image`
+        },
+        description: 'should return alt with given value'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+        },
+        expected: {
+          alt: ``
+        },
+        description: 'should return alt with empty string as default value'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+          alt: ``,
+        },
+        expected: {
+          alt: ``
+        },
+        description: 'should return alt with empty string'
+      },
+    ] )( 'it should $description', ( { 
+        input,
+        expected
+      } ) => {
+      expect( computeMediaAttributes( input ) ).toEqual( expected );
+    } );
+  } );
 
   describe( 'computePlaceholderStyle' , () => {
       it( 'should compute placeholder style with default values', () => {

@@ -1,4 +1,4 @@
-import type { Anchor, Mode, Placeholder, Environment, FetchPriority } from "./types";
+import type { Anchor, Mode, Placeholder, Environment, FetchPriority, CrossOrigin } from "./types";
 import { trimRegExpFactory } from "./utils";
 
 export const validAnchors: Array< Anchor > = [ `center` ];
@@ -13,6 +13,8 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
 export const rInvalidPath = /\?|^\/*$/;
 export const rValidAnchor = trimRegExpFactory( validAnchors );
 export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
+export const validCrossOrigins: Array< CrossOrigin > = [ `anonymous`, `none`, `use-credentials` ];
+export const rValidCrossOrigin = trimRegExpFactory( validCrossOrigins );
 export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
 export const rValidEnvironment = trimRegExpFactory( validEnvironment );
 export const validFetchPriorities: Array< FetchPriority > = [ `high`, `low`, `auto` ];

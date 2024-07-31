@@ -1,7 +1,7 @@
 <script>
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -68,7 +68,6 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_undefined` ] = () => undefined;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
     [
         `_dataAttributes`,
         computeData,
@@ -87,6 +86,7 @@ for ( const [ propName, func, args ] of [
             `videoOptions`,
         ],
     ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `mediaTag` ] ] ],
     [
         `_style`,
         computeStyle,
@@ -166,9 +166,11 @@ export default {
         <component
             :is="p_mediaTag"
             ref="media"
-            :alt="p_mediaTag === `img` ? _alt : undefined"
             :style="_style"
-            v-bind="{ ..._dataAttributes }"
+            v-bind="{
+                ..._dataAttributes,
+                ..._mediaAttributes
+            }"
         />
         <div
             v-if="p_placeholder_"

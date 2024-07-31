@@ -1,8 +1,8 @@
 export {
-    computeAlt,
     computeData,
     computeHostAttributes,
     computeHostStyle,
+    computeMediaAttributes,
     computePicture,
     computePlaceholderStyle,
     computeStyle,
@@ -19,6 +19,7 @@ export {
     parseAnchors,
     parseBot,
     parseClassName,
+    parseCrossOrigin,
     parseDraggable,
     parseDuration,
     parseFetchPriority,

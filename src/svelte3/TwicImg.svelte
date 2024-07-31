@@ -61,8 +61,6 @@ $: parsedDraggable = parseDraggable( draggable );
 $: parsedId = parseId( id );
 $: parsedTabIndex = parseTabIndex( tabindex );
 $: parsedStyle = parseStyle( style );
-
-console.log("Style", style, parsedStyle);
 $: parsedZoom = parseZoom( zoom );
 $: props = {
     alt,

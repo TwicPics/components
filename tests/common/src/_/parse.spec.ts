@@ -11,6 +11,7 @@ import {
   parseBot,
   parseClass,
   parseClassName,
+  parseCrossOrigin,
   parseDebug,
   parseDomain,
   parseDraggable,
@@ -48,7 +49,7 @@ import {
   parseTransitionDelay,
   parseTransitionDuration,
   parseTransitionTimingFunction,
-  parseZoom
+  parseZoom,
 } from '../../../../src/_/parse';
 import { Mode, Placeholder } from '../../../../src/_/types';
 
@@ -267,10 +268,10 @@ describe( 'Parsing functions', () => {
   describe( 'parseAlt', () => {
     test.each( [
       {
-        ...testUndefined( '' ),
+        ...testUndefined( undefined ),
       },
       {
-        ...testEmptyString(''),
+        ...testEmptyString( undefined ),
       },
       {
         input: 'an image description',
@@ -341,6 +342,42 @@ describe( 'Parsing functions', () => {
         // @ts-ignore
         expect( parseClassName( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  // `anonymous` | `none` | `use-credentials`;
+  describe( 'parseCrossOrigin', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 'anonymous',
+        expected: 'anonymous',
+        description: 'return anonymous crossorigin'
+      },
+      {
+        input: 'use-credentials',
+        expected: 'use-credentials',
+        description: 'return use-credentials crossorigin'
+      },
+      {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none passed'
+      },
+      {
+        input: '    use-credentials   ',
+        expected: 'use-credentials',
+        description: 'return trimmed crossorigin'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      expect( parseCrossOrigin( input ) ).toBe( expected );
     } );
   } );
 
@@ -805,6 +842,11 @@ describe( 'Parsing functions', () => {
         description: 'return default placeholder when invalid'
       },
       {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none'
+      },
+      {
         input: 'preview',
         expected: 'preview',
         description: 'return specified placeholder'
@@ -818,6 +860,11 @@ describe( 'Parsing functions', () => {
         input: 'meancolor',
         expected: 'meancolor',
         description: 'return specified placeholder'
+      },
+      {
+        input: '    meancolor     ',
+        expected: 'meancolor',
+        description: 'return trimmed placeholder'
       },
     ] )( 'it should $description', ( { input, expected } ) => {
       expect( parsePlaceholder( input as Placeholder ) ).toBe( expected );

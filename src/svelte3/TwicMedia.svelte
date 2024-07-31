@@ -13,8 +13,8 @@ import {
     type VideoOptions,
 } from "./_utils.js";
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -105,8 +105,6 @@ $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTim
 $: parsedVideoOptions = videoOptions;
 
 $: parsedPlaceholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
-
-$: _alt = computeAlt( parsedAlt, parsedMediaTag );
 $: _data = computeData(
     parsedAnchor,
     parsedBot,
@@ -121,6 +119,10 @@ $: _data = computeData(
     parsedStep,
     parsedVideoOptions,
 );
+$: _mediaAttributes = computeMediaAttributes( {
+    alt: parsedAlt,
+    mediaTag: parsedMediaTag
+} );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,
@@ -166,9 +168,9 @@ if ( isBrowser ) {
 >
     <svelte:element this={ mediaTag }
         bind:this = { media }
-        alt = { _alt }
         style = { _style }
         { ..._data }
+        { ..._mediaAttributes }
     ></svelte:element>
     {#if parsedPlaceholder_ }
         <div style = { _placeholderStyle } />

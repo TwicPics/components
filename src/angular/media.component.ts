@@ -21,8 +21,8 @@ import type {
 import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
 
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -133,7 +133,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _transitionDuration: string = undefined;
     _transitionTimingFunct: string = undefined;
     _placeholder_: Placeholder = undefined;
-    description: string;
     mediaAttributes: Record<string, string>;
     mediaStyle: Record<string, string>;
     observer: Observer;
@@ -185,8 +184,11 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
         this._placeholder_ = preComputePlaceholder( this._placeholder, this._src );
-        this.description = computeAlt( this._alt, this._mediaTag );
         this.mediaAttributes = {
+            ...computeMediaAttributes( {
+                "alt": this._alt,
+                "mediaTag": this._mediaTag,
+            } ),
             ...computeData(
                 this._anchor,
                 this._bot,
@@ -237,8 +239,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
     private updateMedia(): void {
         if ( this._media ) {
-            // eslint-disable-next-line dot-notation
-            this.mediaAttributes[ `alt` ] = this.description;
             // updates attributes to this._media HTML element
             attributes( this.mediaAttributes, this._media, this.renderer );
             // updates style to this._media HTML element

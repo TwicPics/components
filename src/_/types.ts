@@ -1,6 +1,7 @@
 export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type BreakPoint = `xs` | `sm` | `md` | `lg` | `xl` | `2xl`;
+export type CrossOrigin = `anonymous` | `none` | `use-credentials`;
 export type Environment = `debug` | `offline` | `production`;
 export type FetchPriority = `high` | `low` | `auto`;
 export type Mode = `contain` | `cover`;
@@ -97,6 +98,11 @@ export interface HostAttributesData {
 export interface HostStyleData {
     style? : Record< string, unknown >,
     zoom?: boolean | number
+}
+
+export interface MediaAttributesData {
+  alt?: string,
+  mediaTag?: string,
 }
 
 export interface Options {
