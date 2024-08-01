@@ -4,6 +4,7 @@
 import type {
     Anchor,
     CrossOrigin,
+    Decoding,
     Mode,
 } from "./_utils.js";
 import {
@@ -17,6 +18,7 @@ import {
     parseAnchors,
     parseClassName,
     parseCrossOrigin,
+    parseDecoding,
     parseDraggable,
     parseEager,
     parseFetchPriority,
@@ -43,6 +45,7 @@ export let anchor: Anchor = undefined;
 let className: string = undefined;
 export { className as class };
 export let crossorigin: CrossOrigin = undefined;
+export let decoding: Decoding = undefined;
 export let draggable: boolean | string = undefined;
 export let eager: boolean = false;
 export let fetchpriority: string = undefined;
@@ -63,6 +66,7 @@ $: parsedAlt = parseAlt( alt );
 $: parsedAnchors = parseAnchors( anchor );
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedCrossOrigin = parseCrossOrigin( crossorigin );
+$: parsedDecoding = parseDecoding( decoding );
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedEager = parseEager( eager );
 $: parsedFetchPriority = parseFetchPriority( fetchpriority );
@@ -94,6 +98,7 @@ $: {
 $: _computedMediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
     crossOrigin: parsedCrossOrigin,
+    decoding: parsedDecoding,
     mediaTag: `img`
 } );
 $: _computedPictureData = computePicture(

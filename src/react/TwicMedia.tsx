@@ -32,6 +32,7 @@ import {
     parseClassName,
     parseRefit,
     parseCrossOrigin,
+    parseDecoding,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import type {
@@ -42,14 +43,16 @@ import type {
     State,
     VideoOptions,
     CrossOrigin,
+    Decoding,
 } from "../_/types";
-import { validAnchors, validCrossOrigins, validModes, validPlaceholders } from "../_/validate";
+import { validAnchors, validCrossOrigins, validDecodings, validModes, validPlaceholders } from "../_/validate";
 
 import { boolean, func, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
 
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
+    decoding?: Decoding,
     mediaTag: string,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
@@ -81,6 +84,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const bot = parseBot( props.bot );
     const className = parseClassName( props.className );
     const crossOrigin = parseCrossOrigin( props.crossorigin );
+    const decoding = parseDecoding( props.decoding );
     const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
@@ -136,6 +140,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                 { ...computeMediaAttributes( {
                     alt,
                     crossOrigin,
+                    decoding,
                     "mediaTag": MediaTag,
                 } ) }
             />
@@ -173,6 +178,7 @@ TwicMedia.propTypes = {
     "bot": string,
     "className": string,
     "crossorigin": oneOf< CrossOrigin >( validCrossOrigins ),
+    "decoding": oneOf< Decoding >( validDecodings ),
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),

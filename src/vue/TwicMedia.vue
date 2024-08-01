@@ -13,6 +13,7 @@ import {
     parseAnchor,
     parseBot,
     parseCrossOrigin,
+    parseDecoding,
     parseFocus,
     parseIntrinsic,
     parseMediaTag,
@@ -35,6 +36,7 @@ import { preComputePlaceholder } from "../_/preCompute";
 import {
     rValidAnchor,
     rValidCrossOrigin,
+    rValidDecoding,
     rValidIntrinsic,
     rValidMode,
     rValidPlaceholder,
@@ -52,6 +54,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
     [ `crossOrigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
+    [ `decoding`, defineStringProp( rValidDecoding ), parseDecoding ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mediaTag`, stringProp, parseMediaTag ],
@@ -95,7 +98,7 @@ for ( const [ propName, func, args ] of [
             `videoOptions`,
         ],
     ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossOrigin`, `mediaTag` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossOrigin`, `decoding`, `mediaTag` ] ] ],
     [
         `_style`,
         computeStyle,

@@ -1,5 +1,5 @@
 // Here are unit tests for verifying:
-// the correct functionality of the "crossorigin" property in the TwicImg, TwicVideo and TwicPicture components.
+// the correct functionality of the "decoding" property in the TwicImg and TwicPicture components.
 
 import { describe, expect } from 'vitest';
 import { assetSelector } from '../domSelector.js';
@@ -11,10 +11,6 @@ let components = [
       name: `TwicImg`
   },
   {
-      media: `video`,
-      name: `TwicVideo`
-  },
-  {
       media: `picture-img`,
       name: `TwicPicture`
   }
@@ -23,7 +19,7 @@ let components = [
 const testCases = [];
 components.forEach( component => {
     testCases.push( {
-        description: `${ component.name } should not render any crossorigin attribute`,
+        description: `${ component.name } should not render any decoding attribute`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
@@ -33,71 +29,71 @@ components.forEach( component => {
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
-            expect( assetData[ 'crossorigin' ] ).toBe( null );
+            expect( assetData[ 'decoding' ] ).toBe( null );
         },
     } );
     testCases.push( {
-        description: `${ component.name } should not render any crossorigin attribute when empty is passed`,
+        description: `${ component.name } should not render any decoding attribute when empty is passed`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
               src: getSrc( component.name ),
-              crossorigin: ``
+              decoding: ``
             };
         
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
-            expect( assetData[ 'crossorigin' ] ).toBe( null );
+            expect( assetData[ 'decoding' ] ).toBe( null );
         }
     } );
     testCases.push( {
-        description: `${ component.name } should not render any crossorigin attribute when invalid is passed`,
+        description: `${ component.name } should not render any decoding attribute when invalid is passed`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
               src: getSrc( component.name ),
-              crossorigin: ` in  valid`
+              decoding: ` in  valid`
             };
         
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
-            expect( assetData[ 'crossorigin' ] ).toBe( null );
+            expect( assetData[ 'decoding' ] ).toBe( null );
         }
     } );
     testCases.push( {
-        description: `${ component.name } should not render any crossorigin attribute when 'none' is passed`,
+        description: `${ component.name } should not render any decoding attribute when 'none' is passed`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
               src: getSrc( component.name ),
-              crossorigin: `none`
+              decoding: `none`
             };
         
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector( component.media ) );
-            expect( assetData[ 'crossorigin' ] ).toBe( null );
+            expect( assetData[ 'decoding' ] ).toBe( null );
         }
     } );
     testCases.push( {
-        description: `${ component.name } should render crossorigin attribute when valid`,
+        description: `${ component.name } should render decoding attribute when valid`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
               src: getSrc( component.name ),
-              crossorigin: "anonymous"
+              decoding: "async"
             };
         
             await goto( { page, params, port } );
 
             const assetData = await getAssetData ( page, assetSelector ( component.media ) );
-            expect( assetData[ 'crossorigin' ] ).toBe( "anonymous" );
+            expect( assetData[ 'decoding' ] ).toBe( "async" );
         }
     } );
 } );
 
-describe( `Crossorigin property test`, () => {
+describe( `Decoding property test`, () => {
     setupUnitTests( testCases );
 } );

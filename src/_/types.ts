@@ -2,6 +2,7 @@ export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type BreakPoint = `xs` | `sm` | `md` | `lg` | `xl` | `2xl`;
 export type CrossOrigin = `anonymous` | `none` | `use-credentials`;
+export type Decoding = `async` | `auto` | `none` | `sync`;
 export type Environment = `debug` | `offline` | `production`;
 export type FetchPriority = `high` | `low` | `auto`;
 export type Mode = `contain` | `cover`;
@@ -102,7 +103,8 @@ export interface HostStyleData {
 
 export interface MediaAttributesData {
   alt?: string,
-  crossOrigin?: CrossOrigin,
+  crossOrigin?: CrossOrigin | undefined,
+  decoding?: Decoding | undefined,
   mediaTag?: string,
 }
 

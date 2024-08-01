@@ -284,6 +284,55 @@
             <span>TwicImg crossorigin use-credentials</span>
         </div>
     </div>
+    <h2>Decoding</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Decoding default</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              alt="crossorigin use-credentials"
+              ratio="4/3"
+              decoding="none"
+          >
+          </TwicImg>
+          <span>TwicImg decoding none</span>
+      </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                decoding="invalid"
+            >
+            </TwicImg>
+            <span>TwicImg decoding invalid</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                decoding="sync"
+            >
+            </TwicImg>
+            <span>TwicImg deocing sync</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                alt="crossorigin use-credentials"
+                ratio="4/3"
+                decoding="auto"
+            >
+            </TwicImg>
+            <span>TwicImg decoding auto</span>
+        </div>
+    </div>
     <h2>Draggable</h2>
     <div class="samples">
         <div class="item">

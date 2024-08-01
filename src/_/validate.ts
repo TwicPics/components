@@ -1,4 +1,4 @@
-import type { Anchor, Mode, Placeholder, Environment, FetchPriority, CrossOrigin } from "./types";
+import type { Anchor, Mode, Placeholder, Environment, FetchPriority, CrossOrigin, Decoding } from "./types";
 import { trimRegExpFactory } from "./utils";
 
 export const validAnchors: Array< Anchor > = [ `center` ];
@@ -12,6 +12,8 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
 }
 export const rInvalidPath = /\?|^\/*$/;
 export const rValidAnchor = trimRegExpFactory( validAnchors );
+export const validDecodings: Array< Decoding > = [ `async`, `auto`, `none`, `sync` ];
+export const rValidDecoding = trimRegExpFactory( validDecodings );
 export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
 export const validCrossOrigins: Array< CrossOrigin > = [ `anonymous`, `none`, `use-credentials` ];
 export const rValidCrossOrigin = trimRegExpFactory( validCrossOrigins );

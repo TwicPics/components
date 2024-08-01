@@ -4,6 +4,7 @@ import type {
     Anchor,
     Attributes,
     CrossOrigin,
+    Decoding,
     Environment,
     Mode,
     Placeholder,
@@ -33,6 +34,7 @@ interface BackgroundAttributes extends BaseAttributes {
 
 export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
+    decoding?: Decoding,
     refit?: boolean | string,
     zoom?: number | string,
 }
@@ -44,6 +46,7 @@ export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
 
 export interface PictureAttributes extends BaseAttributes {
     crossorigin?: CrossOrigin,
+    decoding?: Decoding,
     fetchpriority?: string,
     sizes?: string
 }
@@ -56,7 +59,7 @@ export interface VideoAttributes extends BaseAttributes, ScriptAttributes {
     to?: number | string,
 }
 
-export type { Anchor, Environment, Mode, Placeholder, State, StateEvent };
+export type { Anchor, Decoding, CrossOrigin, Environment, Mode, Placeholder, State, StateEvent };
 const installTwicpics = installTwicPics;
 const TwicBackground = _TwicBackground as unknown as ComponentType < SvelteComponentTyped< BackgroundAttributes > >;
 const TwicImg = _TwicImg as unknown as ComponentType < SvelteComponentTyped< ImgAttributes > >;

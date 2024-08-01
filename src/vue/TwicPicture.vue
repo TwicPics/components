@@ -4,11 +4,12 @@ import {
     computeMediaAttributes,
     computePicture,
 } from "../_/compute";
-import { rValidCrossOrigin, rValidId } from "../_/validate";
+import { rValidCrossOrigin, rValidDecoding, rValidId } from "../_/validate";
 import {
     parseAlt,
     parseAnchors,
     parseCrossOrigin,
+    parseDecoding,
     parseDraggable,
     parseEager,
     parseFetchPriority,
@@ -33,6 +34,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
     [ `crossOrigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
+    [ `decoding`, defineStringProp( rValidDecoding ), parseDecoding ],
     [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
@@ -56,7 +58,7 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabIndex` ] ] ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossOrigin`, `mediaTag` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossOrigin`, `decoding`, `mediaTag` ] ] ],
     [
         `_pictureData`,
         computePicture,

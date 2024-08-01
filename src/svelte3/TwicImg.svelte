@@ -19,9 +19,11 @@ import {
     styleToString,
     type Anchor,
     type CrossOrigin,
+    type Decoding,
     type Mode,
     type Placeholder,
     type State,
+    parseDecoding,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { onMount } from "svelte";
@@ -33,6 +35,7 @@ export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
 export let crossorigin: CrossOrigin = undefined;
+export let decoding: Decoding = undefined;
 export let draggable: boolean | string = undefined;
 export let focus: string = undefined;
 export let id: string = undefined;
@@ -69,6 +72,7 @@ $: props = {
     anchor,
     bot,
     crossorigin,
+    decoding,
     focus,
     intrinsic,
     mode,

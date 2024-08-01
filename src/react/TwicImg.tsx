@@ -5,12 +5,13 @@ import type { BaseAttributes } from "./types";
 import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
-import type { CrossOrigin, ScriptAttributes } from "../_/types";
+import type { CrossOrigin, Decoding, ScriptAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
 interface ImgAttributes extends BaseAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
+    decoding?: Decoding,
     refit?: boolean | string,
     zoom?: number | string,
 }

@@ -13,6 +13,7 @@ import {
   parseClassName,
   parseCrossOrigin,
   parseDebug,
+  parseDecoding,
   parseDomain,
   parseDraggable,
   parseDuration,
@@ -345,7 +346,6 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
-  // `anonymous` | `none` | `use-credentials`;
   describe( 'parseCrossOrigin', () => {
     test.each( [
       {
@@ -377,6 +377,7 @@ describe( 'Parsing functions', () => {
         description: 'return trimmed crossorigin'
       },
     ] )( 'it should $description', ( { input, expected } ) => {
+      //@ts-ignore
       expect( parseCrossOrigin( input ) ).toBe( expected );
     } );
   } );
@@ -386,6 +387,47 @@ describe( 'Parsing functions', () => {
       test( `it should ${ description } `, () => {
         expect( parseDebug( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseDecoding', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 'async',
+        expected: 'async',
+        description: 'return async decoding'
+      },
+      {
+        input: 'auto',
+        expected: 'auto',
+        description: 'return auto decoding'
+      },
+      {
+        input: 'sync',
+        expected: 'sync',
+        description: 'return sync decoding'
+      },
+      {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none passed'
+      },
+      {
+        input: '    sync   ',
+        expected: 'sync',
+        description: 'return trimmed decoding'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+       //@ts-ignore
+      expect( parseDecoding( input ) ).toBe( expected );
     } );
   } );
 

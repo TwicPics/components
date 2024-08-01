@@ -4,6 +4,7 @@ import type {
     AnchorObject,
     BreakPoint,
     CrossOrigin,
+    Decoding,
     Environment,
     FetchPriority,
     Mode,
@@ -14,6 +15,7 @@ import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
     rValidCrossOrigin,
+    rValidDecoding,
     rValidDomain,
     rValidEnvironment,
     rValidFetchPriority,
@@ -130,6 +132,11 @@ export const parseCrossOrigin = regExpFinderFactory< CrossOrigin >( rValidCrossO
     } );
 
 export const parseDebug = parseBoolean;
+
+export const parseDecoding = regExpFinderFactory< Decoding >( rValidDecoding,
+    {
+        "filter": p => ( ( p === `none` ) ? undefined : p ),
+    } );
 
 export const parseDomain = ( value: string ) => {
     const domain = trimOrUndefined( value );

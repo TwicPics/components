@@ -12,6 +12,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             'alt' : asset?.alt,
             'aspect-ratio': aspectRatio,
             crossorigin: asset?.getAttribute( 'crossorigin' ),
+            decoding: asset?.getAttribute( 'decoding' ),
             'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
             'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
             'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),

@@ -13,7 +13,7 @@ import {
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
 import { parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
-import type { Anchor, CrossOrigin, Mode, Placeholder, StateEvent } from "../_/types";
+import type { Anchor, CrossOrigin, Decoding, Mode, Placeholder, StateEvent } from "../_/types";
 import { computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { updateHostElement } from "./utils";
@@ -50,6 +50,7 @@ import { updateHostElement } from "./utils";
             [anchor]="anchor"
             [bot]="bot"
             [crossorigin]="crossorigin"
+            [decoding]="decoding"
             [focus]="focus"
             [intrinsic]="intrinsic"
             [mode]="mode"
@@ -83,6 +84,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
     @Input() draggable: boolean | string;
     @Input() focus: string = undefined;
     @Input() id: string = undefined;

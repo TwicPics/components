@@ -16,7 +16,7 @@ import type {
     OnChanges,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, CrossOrigin, FetchPriority, Mode, Picture } from "../_/types";
+import type { Anchor, AnchorObject, CrossOrigin, Decoding, FetchPriority, Mode, Picture } from "../_/types";
 
 import {
     computeHostStyle,
@@ -28,6 +28,7 @@ import {
     parseAlt,
     parseAnchors,
     parseCrossOrigin,
+    parseDecoding,
     parseDraggable,
     parseEager,
     parseFocuses,
@@ -67,6 +68,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
     @Input() draggable: boolean | string;
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
@@ -100,6 +102,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _alt: string = undefined;
     _anchors: Record< number, AnchorObject > = undefined;
     _crossorigin: CrossOrigin = undefined;
+    _decoding: Decoding = undefined;
     _draggable: boolean | undefined = undefined;
     _eager: boolean;
     _fetchpriority: FetchPriority = undefined;
@@ -138,6 +141,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._alt = parseAlt( this.alt );
         this._anchors = parseAnchors( this.anchor );
         this._crossorigin = parseCrossOrigin( this.crossorigin );
+        this._decoding = parseDecoding( this.decoding );
         this._draggable = parseDraggable( this.draggable );
         this._focuses = parseFocuses( this.focus );
         this._id = parseId( this.id );
@@ -171,6 +175,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             ...computeMediaAttributes( {
                 "alt": this._alt,
                 "crossOrigin": this._crossorigin,
+                "decoding": this._decoding,
                 "mediaTag": `img`,
             } ),
         };
