@@ -26,7 +26,7 @@ for (
         [ `from`, floatProp, parseFrom ],
         [ `id`, defineStringProp( rValidId ), parseId ],
         [ `posterFrom`, floatProp, parseFrom ],
-        [ `tabIndex`, intProp, parseTabIndex ],
+        [ `tabindex`, intProp, parseTabIndex ],
         [ `to`, floatProp, parseTo ],
     ]
 ) {
@@ -34,7 +34,7 @@ for (
     props[ propName ] = type;
 }
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabIndex` ] ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
     [ `_videoOptions`, preComputeVideoOptions, [ `duration`, `from`, `posterFrom`, `to` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

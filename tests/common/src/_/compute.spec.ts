@@ -499,7 +499,7 @@ describe( 'Compute functions', () => {
               computeHostAttributes( {
                   draggable: undefined,
                   id: undefined,
-                  tabIndex: undefined
+                  tabindex: undefined
               })
           ).toEqual( {} )
       } );
@@ -508,7 +508,7 @@ describe( 'Compute functions', () => {
             computeHostAttributes( { 
                 draggable: false,
                 id: ``,
-                tabIndex: ``
+                tabindex: ``
             } )
           ).toEqual({
               "draggable": false
@@ -519,7 +519,7 @@ describe( 'Compute functions', () => {
             computeHostAttributes( { 
                 draggable: false,
                 id: `#my-id`,
-                tabIndex: `2`
+                tabindex: `2`
             } )
           ).toEqual({
               "draggable": false,
@@ -575,7 +575,7 @@ describe( 'Compute functions', () => {
       },
       {
         input: {
-          crossOrigin: `anonymous`
+          crossorigin: `anonymous`
         },
         expected: {
           crossOrigin: `anonymous`
@@ -585,7 +585,7 @@ describe( 'Compute functions', () => {
       {
         input: {
           alt: `alternative description`,
-          crossOrigin: `anonymous`,
+          crossorigin: `anonymous`,
           mediaTag: `img`
         },
         expected: {

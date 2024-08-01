@@ -95,7 +95,7 @@ $: {
     { ...computeHostAttributes( {
         draggable: parsedDraggable,
         id: parsedId,
-        tabIndex: parsedTabIndex,
+        tabindex: parsedTabIndex,
     } ) }
     style = { hostStyle }
 >

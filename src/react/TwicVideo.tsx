@@ -33,7 +33,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const from = parseFrom( props.from );
     const id = parseId( props.id );
     const posterFrom = parseFrom( props.posterFrom );
-    const tabIndex = parseTabIndex( props.tabindex );
+    const tabindex = parseTabIndex( props.tabindex );
     const to = parseTo( props.to );
     const style = parseStyle( props.style );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
@@ -43,7 +43,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
             { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabIndex,
+                tabindex,
             } ) }
             style={ computeHostStyle( {
                 style,

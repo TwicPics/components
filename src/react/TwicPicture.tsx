@@ -48,7 +48,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
     const anchors = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
-    const crossOrigin = parseCrossOrigin( props.crossorigin );
+    const crossorigin = parseCrossOrigin( props.crossorigin );
     const decoding = parseDecoding( props.decoding );
     const draggable = parseDraggable( props.draggable );
     const eager = parseEager( props.eager );
@@ -63,7 +63,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
     const style = parseStyle( props.style );
-    const tabIndex = parseTabIndex( props.tabindex );
+    const tabindex = parseTabIndex( props.tabindex );
     const title = parseTitle( props.title );
 
     const pictureData = computePicture(
@@ -85,7 +85,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const mediaAttributes = {
         ...computeMediaAttributes( {
             alt,
-            crossOrigin,
+            crossorigin,
             decoding,
             "mediaTag": `img`,
         } ),
@@ -98,7 +98,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
             { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabIndex,
+                tabindex,
             } ) }
             style={ computeHostStyle( {
                 style,

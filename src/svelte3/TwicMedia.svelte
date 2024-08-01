@@ -129,7 +129,7 @@ $: _data = computeData(
 );
 $: _mediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
-    crossOrigin: parsedCrossOrigin,
+    crossorigin: parsedCrossOrigin,
     decoding: parsedDecoding,
     mediaTag: parsedMediaTag
 } );

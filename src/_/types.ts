@@ -93,7 +93,7 @@ export interface CreateUrlData {
 export interface HostAttributesData {
     draggable?: boolean | undefined,
     id?: string,
-    tabIndex?: string,
+    tabindex?: string,
 }
 
 export interface HostStyleData {
@@ -103,7 +103,7 @@ export interface HostStyleData {
 
 export interface MediaAttributesData {
   alt?: string,
-  crossOrigin?: CrossOrigin | undefined,
+  crossorigin?: CrossOrigin | undefined,
   decoding?: Decoding | undefined,
   mediaTag?: string,
 }

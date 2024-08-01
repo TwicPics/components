@@ -13,7 +13,7 @@ for (
     const [ propName, type, parseMethod ] of [
         [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
         [ `id`, defineStringProp( rValidId ), parseId ],
-        [ `tabIndex`, intProp, parseTabIndex ],
+        [ `tabindex`, intProp, parseTabIndex ],
         [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ],
     ]
 ) {
@@ -22,7 +22,7 @@ for (
 }
 
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabIndex` ] ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
     [ `_hostStyle`, computeHostStyle, [ [ `zoom` ] ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

@@ -83,7 +83,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const anchor = parseAnchor( props.anchor );
     const bot = parseBot( props.bot );
     const className = parseClassName( props.className );
-    const crossOrigin = parseCrossOrigin( props.crossorigin );
+    const crossorigin = parseCrossOrigin( props.crossorigin );
     const decoding = parseDecoding( props.decoding );
     const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
@@ -139,7 +139,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                 ) }
                 { ...computeMediaAttributes( {
                     alt,
-                    crossOrigin,
+                    crossorigin,
                     decoding,
                     "mediaTag": MediaTag,
                 } ) }

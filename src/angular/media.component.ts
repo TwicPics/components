@@ -219,7 +219,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
             ),
             ...computeMediaAttributes( {
                 "alt": this._alt,
-                "crossOrigin": this._crossorigin,
+                "crossorigin": this._crossorigin,
                 "decoding": this._decoding,
                 "mediaTag": this._mediaTag,
             } ),

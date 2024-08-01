@@ -30,7 +30,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
     const draggable = parseDraggable( props.draggable );
     const id = parseId( props.id );
     const style = parseStyle( props.style );
-    const tabIndex = parseTabIndex( props.tabindex );
+    const tabindex = parseTabIndex( props.tabindex );
     const zoom = parseZoom( props.zoom );
     return (
         <div
@@ -39,7 +39,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
             { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabIndex,
+                tabindex,
             } ) }
             style={ computeHostStyle( {
                 style,

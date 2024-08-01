@@ -337,7 +337,7 @@ export const computeData = (
 
 /* eslint-disable object-curly-newline */
 export const computeHostAttributes = (
-    { draggable, id, tabIndex }: HostAttributesData
+    { draggable, id, "tabindex": tabIndex }: HostAttributesData
 ): Record< string, unknown > => ( {
     ...( ( draggable !== undefined ) && { draggable } ),
     ...( id && { id } ),
@@ -355,7 +355,7 @@ export const computeHostStyle = ( { style, zoom }: HostStyleData ) : Record < st
 
 /* eslint-disable object-curly-newline */
 export const computeMediaAttributes = (
-    { alt = ``, crossOrigin, decoding, mediaTag }: MediaAttributesData
+    { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag }: MediaAttributesData
 ): Record< string, string > => ( {
     ...( ( mediaTag === `img` ) && { alt } ),
     ...( { crossOrigin } ),

@@ -97,7 +97,7 @@ $: {
 }
 $: _computedMediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
-    crossOrigin: parsedCrossOrigin,
+    crossorigin: parsedCrossOrigin,
     decoding: parsedDecoding,
     mediaTag: `img`
 } );
@@ -134,7 +134,7 @@ $: _computedPictureData = computePicture(
     { ...computeHostAttributes( {
         draggable: parsedDraggable,
         id: parsedId,
-        tabIndex: parsedTabIndex,
+        tabindex: parsedTabIndex,
     } ) }
     style = { hostStyle }
 >
