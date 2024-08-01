@@ -66,7 +66,7 @@ import { attributes, updateHostElement } from "./utils";
 export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
-    @Input() crossorigin: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
     @Input() draggable: boolean | string;
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
@@ -170,7 +170,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             ...this.pictureData?.img,
             ...computeMediaAttributes( {
                 "alt": this._alt,
-                "crossorigin": this._crossorigin,
+                "crossOrigin": this._crossorigin,
                 "mediaTag": `img`,
             } ),
         };

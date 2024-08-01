@@ -3,6 +3,7 @@
 <script context="module" lang="ts">
 import type {
     Anchor,
+    CrossOrigin,
     Mode,
 } from "./_utils.js";
 import {
@@ -41,7 +42,7 @@ export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 let className: string = undefined;
 export { className as class };
-export let crossorigin: string = undefined;
+export let crossorigin: CrossOrigin = undefined;
 export let draggable: boolean | string = undefined;
 export let eager: boolean = false;
 export let fetchpriority: string = undefined;
@@ -92,7 +93,7 @@ $: {
 }
 $: _computedMediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
-    crossorigin: parsedCrossOrigin,
+    crossOrigin: parsedCrossOrigin,
     mediaTag: `img`
 } );
 $: _computedPictureData = computePicture(
@@ -128,7 +129,7 @@ $: _computedPictureData = computePicture(
     { ...computeHostAttributes( {
         draggable: parsedDraggable,
         id: parsedId,
-        tabindex: parsedTabIndex,
+        tabIndex: parsedTabIndex,
     } ) }
     style = { hostStyle }
 >

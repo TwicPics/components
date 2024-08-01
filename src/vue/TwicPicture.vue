@@ -32,7 +32,7 @@ const computed = {};
 for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
-    [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
+    [ `crossOrigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
     [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
@@ -45,7 +45,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `sizes`, stringProp, parseSizes ],
-    [ `tabindex`, intProp, parseTabIndex ],
+    [ `tabIndex`, intProp, parseTabIndex ],
     [ `title`, stringProp, parseTitle ],
 
 ] ) {
@@ -55,8 +55,8 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossorigin`, `mediaTag` ] ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabIndex` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossOrigin`, `mediaTag` ] ] ],
     [
         `_pictureData`,
         computePicture,

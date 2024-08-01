@@ -14,12 +14,12 @@ import { preComputeVideoOptions } from "../_/preCompute";
 import { number, propType } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import type { ScriptAttributes } from "../_/types";
+import type { CrossOrigin, ScriptAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
 interface VideoAttributes extends BaseAttributes, ScriptAttributes {
-    crossorigin?: string,
+    crossorigin?: CrossOrigin,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,
@@ -33,7 +33,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const from = parseFrom( props.from );
     const id = parseId( props.id );
     const posterFrom = parseFrom( props.posterFrom );
-    const tabindex = parseTabIndex( props.tabindex );
+    const tabIndex = parseTabIndex( props.tabindex );
     const to = parseTo( props.to );
     const style = parseStyle( props.style );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
@@ -43,7 +43,7 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
             { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabindex,
+                tabIndex,
             } ) }
             style={ computeHostStyle( {
                 style,

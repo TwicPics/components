@@ -14,7 +14,7 @@ for (
     const [ propName, type, parseMethod ] of [
         [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
         [ `id`, defineStringProp( rValidId ), parseId ],
-        [ `tabindex`, intProp, parseTabIndex ],
+        [ `tabIndex`, intProp, parseTabIndex ],
     ]
 ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
@@ -24,7 +24,7 @@ for (
 for ( const [ propName, func, args ] of [
     [
         `_hostAttributes`,
-        computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ],
+        computeHostAttributes, [ [ `draggable`, `id`, `tabIndex` ] ],
     ],
 ]
 ) {

@@ -337,11 +337,11 @@ export const computeData = (
 
 /* eslint-disable object-curly-newline */
 export const computeHostAttributes = (
-    { draggable, id, tabindex }: HostAttributesData
+    { draggable, id, tabIndex }: HostAttributesData
 ): Record< string, unknown > => ( {
     ...( ( draggable !== undefined ) && { draggable } ),
     ...( id && { id } ),
-    ...( tabindex && { tabindex } ),
+    ...( tabIndex && { tabIndex } ),
 } );
 /* eslint-enable object-curly-newline */
 
@@ -355,10 +355,10 @@ export const computeHostStyle = ( { style, zoom }: HostStyleData ) : Record < st
 
 /* eslint-disable object-curly-newline */
 export const computeMediaAttributes = (
-    { alt = ``, crossorigin, mediaTag }: MediaAttributesData
+    { alt = ``, crossOrigin, mediaTag }: MediaAttributesData
 ): Record< string, string > => ( {
     ...( ( mediaTag === `img` ) && { alt } ),
-    ...( { crossorigin } ),
+    ...( { crossOrigin } ),
 } );
 /* eslint-enable object-curly-newline */
 

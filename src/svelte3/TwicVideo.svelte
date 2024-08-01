@@ -19,6 +19,7 @@ import {
     setAttributes,
     styleToString,
     type Anchor,
+    type CrossOrigin,
     type Mode,
     type Placeholder,
     type State
@@ -30,7 +31,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
-export let crossorigin: string = undefined;
+export let crossorigin: CrossOrigin = undefined;
 export let draggable: boolean | string = undefined;
 export let duration: number | string = undefined;
 export let focus: string = undefined;
@@ -118,7 +119,7 @@ $: {
     { ...computeHostAttributes( {
         draggable: parsedDraggable,
         id: parsedId,
-        tabindex: parsedTabIndex,
+        tabIndex: parsedTabIndex,
     } ) }
     style = { hostStyle }
 >

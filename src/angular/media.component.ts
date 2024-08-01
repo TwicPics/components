@@ -86,7 +86,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() className: string = undefined;
-    @Input() crossorigin: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
@@ -205,7 +205,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
             ),
             ...computeMediaAttributes( {
                 "alt": this._alt,
-                "crossorigin": this._crossorigin,
+                "crossOrigin": this._crossorigin,
                 "mediaTag": this._mediaTag,
             } ),
         };

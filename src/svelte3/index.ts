@@ -3,6 +3,7 @@ import "../_/style.css";
 import type {
     Anchor,
     Attributes,
+    CrossOrigin,
     Environment,
     Mode,
     Placeholder,
@@ -31,24 +32,24 @@ interface BackgroundAttributes extends BaseAttributes {
 }
 
 export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
-    crossorigin?: string,
+    crossorigin?: CrossOrigin,
     refit?: boolean | string,
     zoom?: number | string,
 }
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
-    crossorigin?: string,
+    crossorigin?: CrossOrigin,
     mediaTag: string,
     refit?: boolean | string,
 }
 
 export interface PictureAttributes extends BaseAttributes {
-    crossorigin?: string,
+    crossorigin?: CrossOrigin,
     fetchpriority?: string,
     sizes?: string
 }
 
 export interface VideoAttributes extends BaseAttributes, ScriptAttributes {
-    crossorigin?: string,
+    crossorigin?: CrossOrigin,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,

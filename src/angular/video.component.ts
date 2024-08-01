@@ -13,7 +13,7 @@ import {
 import type { OnChanges } from "@angular/core";
 import { parseDraggable, parseDuration, parseFrom, parseId, parseStyle, parseTabIndex, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
-import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
+import type { Anchor, CrossOrigin, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
 import { computeHostStyle } from "../_/compute";
 import { updateHostElement } from "./utils";
 
@@ -54,7 +54,7 @@ export class TwicVideoComponent implements OnChanges {
     mediaTag = `video`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
-    @Input() crossorigin: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
     @Input() draggable: boolean | string;
     @Input() duration: number | string = undefined;
     @Input() focus: string = undefined;

@@ -31,7 +31,7 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
             { ...computeHostAttributes( {
                 "draggable": parsedDraggable,
                 "id": parsedId,
-                "tabindex": parsedTabIndex,
+                "tabIndex": parsedTabIndex,
             } ) }
             style={ computeHostStyle( {
                 style,

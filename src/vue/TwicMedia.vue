@@ -51,7 +51,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
-    [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
+    [ `crossOrigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mediaTag`, stringProp, parseMediaTag ],
@@ -95,7 +95,7 @@ for ( const [ propName, func, args ] of [
             `videoOptions`,
         ],
     ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossorigin`, `mediaTag` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossOrigin`, `mediaTag` ] ] ],
     [
         `_style`,
         computeStyle,

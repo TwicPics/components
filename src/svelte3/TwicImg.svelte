@@ -11,16 +11,17 @@ import {
     parseClassName,
     parseDraggable,
     parseId,
+    parseTabIndex,
     parseStyle,
     parseZoom,
+    sanitize,
+    setAttributes,
     styleToString,
     type Anchor,
+    type CrossOrigin,
     type Mode,
     type Placeholder,
     type State,
-    sanitize,
-    parseTabIndex,
-    setAttributes,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { onMount } from "svelte";
@@ -31,7 +32,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
-export let crossorigin: string = undefined;
+export let crossorigin: CrossOrigin = undefined;
 export let draggable: boolean | string = undefined;
 export let focus: string = undefined;
 export let id: string = undefined;
@@ -119,7 +120,7 @@ if ( isBrowser ) {
     { ...computeHostAttributes( {
         draggable: parsedDraggable,
         id: parsedId,
-        tabindex: parsedTabIndex,
+        tabIndex: parsedTabIndex,
     } ) }
     style = { hostStyle }
 >

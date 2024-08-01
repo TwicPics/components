@@ -60,6 +60,7 @@ export {
 export type {
     Attributes,
     Anchor,
+    CrossOrigin,
     Environment,
     Mode,
     Options,

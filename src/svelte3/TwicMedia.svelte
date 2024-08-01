@@ -43,6 +43,7 @@ import {
     parseTransitionTimingFunction,
     preComputePlaceholder,
     styleToString,
+    type CrossOrigin,
 } from "./_utils.js";
 /* eslint-disable-next-line camelcase */
 import { createEventDispatcher, onDestroy, onMount } from "svelte";
@@ -54,7 +55,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
-export let crossorigin: string = undefined;
+export let crossorigin: CrossOrigin = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let media: HTMLElement= undefined;
@@ -124,7 +125,7 @@ $: _data = computeData(
 );
 $: _mediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
-    crossorigin: parsedCrossOrigin,
+    crossOrigin: parsedCrossOrigin,
     mediaTag: parsedMediaTag
 } );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(

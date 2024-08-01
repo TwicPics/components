@@ -35,7 +35,7 @@ import type { BaseAttributes } from "./types";
 import { fetchPriorityName } from "./utils";
 
 export interface PictureAttributes extends BaseAttributes {
-    crossorigin?: string,
+    crossorigin?: CrossOrigin,
     fetchpriority?: string,
     mode?: string,
     refit?: boolean | string,
@@ -46,7 +46,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
     const anchors = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
-    const crossorigin = parseCrossOrigin( props.crossorigin );
+    const crossOrigin = parseCrossOrigin( props.crossorigin );
     const draggable = parseDraggable( props.draggable );
     const eager = parseEager( props.eager );
     const fetchPriority = parseFetchPriority( props.fetchpriority );
@@ -60,7 +60,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
     const style = parseStyle( props.style );
-    const tabindex = parseTabIndex( props.tabindex );
+    const tabIndex = parseTabIndex( props.tabindex );
     const title = parseTitle( props.title );
 
     const pictureData = computePicture(
@@ -82,7 +82,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const mediaAttributes = {
         ...computeMediaAttributes( {
             alt,
-            crossorigin,
+            crossOrigin,
             "mediaTag": `img`,
         } ),
         [ fetchPriorityName ]: _fetchPriority,
@@ -94,7 +94,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
             { ...computeHostAttributes( {
                 draggable,
                 id,
-                tabindex,
+                tabIndex,
             } ) }
             style={ computeHostStyle( {
                 style,
