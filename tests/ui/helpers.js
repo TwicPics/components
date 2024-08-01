@@ -90,7 +90,12 @@ const componentSourceMap = {
 export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
-    await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
+  process.env.FRAMEWORK_FILTERS
+    const url = `http://localhost:${ port }/?params=${ JSON.stringify( params ) }`;
+    await page.goto( url );
+    if ( process.env.FRAMEWORK_FILTERS ) {
+        console.log( { url } );
+    }
     await page.waitForSelector( `.twic-i, .twic-p` );
     await new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 }

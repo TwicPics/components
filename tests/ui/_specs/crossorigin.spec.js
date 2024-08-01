@@ -67,6 +67,21 @@ components.forEach( component => {
         }
     } );
     testCases.push( {
+        description: `${ component.name } should not render any crossorigin attribute when 'none' is passed`,
+        fn: async ( page, port ) => {
+            const params = {
+              component: component.name,
+              src: getSrc( component.name ),
+              crossorigin: `none`
+            };
+        
+            await goto( { page, params, port } );
+
+            const assetData = await getAssetData ( page, assetSelector( component.media ) );
+            expect( assetData[ 'crossorigin' ] ).toBe( null );
+        }
+    } );
+    testCases.push( {
         description: `${ component.name } should render crossorigin attribute when valid`,
         fn: async ( page, port ) => {
             const params = {
