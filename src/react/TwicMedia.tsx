@@ -31,6 +31,7 @@ import {
     parseMediaTag,
     parseClassName,
     parseRefit,
+    parseCrossOrigin,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import type {
@@ -40,13 +41,15 @@ import type {
     Placeholder,
     State,
     VideoOptions,
+    CrossOrigin,
 } from "../_/types";
-import { validAnchors, validModes, validPlaceholders } from "../_/validate";
+import { validAnchors, validCrossOrigins, validModes, validPlaceholders } from "../_/validate";
 
 import { boolean, func, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
 
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: string,
     mediaTag: string,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
@@ -77,6 +80,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const anchor = parseAnchor( props.anchor );
     const bot = parseBot( props.bot );
     const className = parseClassName( props.className );
+    const crossorigin = parseCrossOrigin( props.crossorigin );
     const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
@@ -130,8 +134,9 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                     videoOptions
                 ) }
                 { ...computeMediaAttributes( {
-                    "mediaTag": MediaTag,
                     alt,
+                    crossorigin,
+                    "mediaTag": MediaTag,
                 } ) }
             />
             { placeholder_ && (
@@ -167,6 +172,7 @@ TwicMedia.propTypes = {
     "anchor": oneOf< Anchor >( validAnchors ),
     "bot": string,
     "className": string,
+    "crossorigin": oneOf< CrossOrigin >( validCrossOrigins ),
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),

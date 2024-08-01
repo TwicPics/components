@@ -7,32 +7,33 @@ import type {
 } from "./_utils.js";
 import {
     computeHostAttributes,
+    computeHostStyle,
+    computeMediaAttributes,
+    computePicture,
     getCurrentComponent,
+    isWebComponents,
     parseAlt,
     parseAnchors,
     parseClassName,
+    parseCrossOrigin,
+    parseDraggable,
     parseEager,
+    parseFetchPriority,
     parseFocuses,
     parseId,
+    parseModes,
+    parsePositions,
     parsePreTransforms,
     parseRatios,
     parseRefit,
     parseSizes,
     parseSrc,
     parseStyle,
-    parseTitle,
-    computeMediaAttributes,
-    computePicture,
-    isWebComponents,
-    parseFetchPriority,
-    parseModes,
-    parsePositions,
-    parseDraggable,
-    sanitize,
     parseTabIndex,
+    parseTitle,
+    sanitize,
     setAttributes,
     styleToString,
-    computeHostStyle,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -40,6 +41,7 @@ export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: string = undefined;
 export let draggable: boolean | string = undefined;
 export let eager: boolean = false;
 export let fetchpriority: string = undefined;
@@ -59,6 +61,7 @@ export let title: string = undefined;
 $: parsedAlt = parseAlt( alt );
 $: parsedAnchors = parseAnchors( anchor );
 $: parsedClassName = parseClassName( className ) || ``;
+$: parsedCrossOrigin = parseCrossOrigin( crossorigin );
 $: parsedDraggable = parseDraggable( draggable );
 $: parsedEager = parseEager( eager );
 $: parsedFetchPriority = parseFetchPriority( fetchpriority );
@@ -89,6 +92,7 @@ $: {
 }
 $: _computedMediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
+    crossorigin: parsedCrossOrigin,
     mediaTag: `img`
 } );
 $: _computedPictureData = computePicture(

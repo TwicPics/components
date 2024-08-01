@@ -4,8 +4,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-    parseClassName,
-    parseMediaTag,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -24,8 +22,11 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
+    parseClassName,
+    parseCrossOrigin,
     parseFocus,
     parseIntrinsic,
+    parseMediaTag,
     parseMode,
     parseEager,
     parsePlaceholder,
@@ -53,6 +54,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: string = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let media: HTMLElement= undefined;
@@ -85,6 +87,7 @@ $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
 $: parsedClassName = parseClassName( className ) || ``;
+$: parsedCrossOrigin = parseCrossOrigin( crossorigin );
 $: parsedEager = parseEager( eager );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
@@ -121,6 +124,7 @@ $: _data = computeData(
 );
 $: _mediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
+    crossorigin: parsedCrossOrigin,
     mediaTag: parsedMediaTag
 } );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(

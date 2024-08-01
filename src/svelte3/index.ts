@@ -31,20 +31,24 @@ interface BackgroundAttributes extends BaseAttributes {
 }
 
 export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: string,
     refit?: boolean | string,
     zoom?: number | string,
 }
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: string,
     mediaTag: string,
     refit?: boolean | string,
 }
 
 export interface PictureAttributes extends BaseAttributes {
+    crossorigin?: string,
     fetchpriority?: string,
     sizes?: string
 }
 
 export interface VideoAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: string,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,

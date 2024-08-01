@@ -18,7 +18,7 @@ import type {
     OnDestroy,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
+import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions, CrossOrigin } from "../_/types";
 
 import {
     computeData,
@@ -53,6 +53,7 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
     parseTitle,
+    parseCrossOrigin,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import { attributes, styles } from "./utils";
@@ -85,6 +86,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() className: string = undefined;
+    @Input() crossorigin: string = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
@@ -114,6 +116,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _anchor: AnchorObject = undefined;
     _bot: string = undefined;
     _className: string = undefined;
+    _crossorigin: CrossOrigin = undefined;
     _eager: boolean;
     _focus: string = undefined;
     _intrinsic: string = undefined;
@@ -166,6 +169,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._anchor = parseAnchor( this.anchor );
         this._bot = parseBot( this.bot );
         this._className = parseClassName( this.className );
+        this._crossorigin = parseCrossOrigin( this.crossorigin );
         this._focus = parseFocus( this.focus );
         this._intrinsic = parseIntrinsic( this.intrinsic );
         this._mediaTag = parseMediaTag( this.mediaTag ) || `img`;
@@ -201,6 +205,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
             ),
             ...computeMediaAttributes( {
                 "alt": this._alt,
+                "crossorigin": this._crossorigin,
                 "mediaTag": this._mediaTag,
             } ),
         };

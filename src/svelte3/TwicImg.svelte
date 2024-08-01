@@ -31,6 +31,7 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: string = undefined;
 export let draggable: boolean | string = undefined;
 export let focus: string = undefined;
 export let id: string = undefined;
@@ -66,6 +67,7 @@ $: props = {
     alt,
     anchor,
     bot,
+    crossorigin,
     focus,
     intrinsic,
     mode,

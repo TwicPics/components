@@ -102,6 +102,7 @@ export interface HostStyleData {
 
 export interface MediaAttributesData {
   alt?: string,
+  crossorigin?: CrossOrigin,
   mediaTag?: string,
 }
 

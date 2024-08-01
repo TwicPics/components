@@ -11,6 +11,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
         return {
             'alt' : asset?.alt,
             'aspect-ratio': aspectRatio,
+            crossorigin: asset?.getAttribute( 'crossorigin' ),
             'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
             'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
             'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),
@@ -90,7 +91,6 @@ export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
     await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
-
     await page.waitForSelector( `.twic-i, .twic-p` );
     await new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 }

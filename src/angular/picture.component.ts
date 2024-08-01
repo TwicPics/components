@@ -16,7 +16,7 @@ import type {
     OnChanges,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, FetchPriority, Mode, Picture } from "../_/types";
+import type { Anchor, AnchorObject, CrossOrigin, FetchPriority, Mode, Picture } from "../_/types";
 
 import {
     computeHostStyle,
@@ -27,6 +27,7 @@ import {
 import {
     parseAlt,
     parseAnchors,
+    parseCrossOrigin,
     parseDraggable,
     parseEager,
     parseFocuses,
@@ -65,6 +66,7 @@ import { attributes, updateHostElement } from "./utils";
 export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
+    @Input() crossorigin: string = undefined;
     @Input() draggable: boolean | string;
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
@@ -97,6 +99,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     } ) imageRef!: ElementRef;
     _alt: string = undefined;
     _anchors: Record< number, AnchorObject > = undefined;
+    _crossorigin: CrossOrigin = undefined;
     _draggable: boolean | undefined = undefined;
     _eager: boolean;
     _fetchpriority: FetchPriority = undefined;
@@ -134,6 +137,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
         this._anchors = parseAnchors( this.anchor );
+        this._crossorigin = parseCrossOrigin( this.crossorigin );
         this._draggable = parseDraggable( this.draggable );
         this._focuses = parseFocuses( this.focus );
         this._id = parseId( this.id );
@@ -166,6 +170,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
             ...this.pictureData?.img,
             ...computeMediaAttributes( {
                 "alt": this._alt,
+                "crossorigin": this._crossorigin,
                 "mediaTag": `img`,
             } ),
         };

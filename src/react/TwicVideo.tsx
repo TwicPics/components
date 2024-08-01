@@ -19,6 +19,7 @@ import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
 interface VideoAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: string,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,

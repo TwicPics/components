@@ -25,15 +25,17 @@ import {
     parseId,
     parseTabIndex,
     parseStyle,
+    parseCrossOrigin,
 } from "../_/parse";
-import type { Anchor } from "../_/types";
+import type { Anchor, CrossOrigin } from "../_/types";
 import { sanitize } from "../_/utils";
-import { rValidId, validAnchors } from "../_/validate";
+import { rValidId, validAnchors, validCrossOrigins } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, propType, string } from "./props";
 import type { BaseAttributes } from "./types";
 import { fetchPriorityName } from "./utils";
 
 export interface PictureAttributes extends BaseAttributes {
+    crossorigin?: string,
     fetchpriority?: string,
     mode?: string,
     refit?: boolean | string,
@@ -44,6 +46,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
     const anchors = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
+    const crossorigin = parseCrossOrigin( props.crossorigin );
     const draggable = parseDraggable( props.draggable );
     const eager = parseEager( props.eager );
     const fetchPriority = parseFetchPriority( props.fetchpriority );
@@ -78,8 +81,9 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     const mediaAttributes = {
         ...computeMediaAttributes( {
-            "mediaTag": `img`,
             alt,
+            crossorigin,
+            "mediaTag": `img`,
         } ),
         [ fetchPriorityName ]: _fetchPriority,
     };
@@ -116,6 +120,7 @@ TwicPicture.propTypes = {
     "alt": string,
     "anchor": oneOf< Anchor >( validAnchors ),
     "className": string,
+    "crossorigin": oneOf< CrossOrigin >( validCrossOrigins ),
     "eager": oneOfType( [ boolean, string ] ),
     "fetchpriority": string,
     "focus": string,

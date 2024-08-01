@@ -499,7 +499,7 @@ describe( 'Compute functions', () => {
               computeHostAttributes( {
                   draggable: undefined,
                   id: undefined,
-                  tabindex: undefined
+                  tabIndex: undefined
               })
           ).toEqual( {} )
       } );
@@ -508,7 +508,7 @@ describe( 'Compute functions', () => {
             computeHostAttributes( { 
                 draggable: false,
                 id: ``,
-                tabindex: ``
+                tabIndex: ``
             } )
           ).toEqual({
               "draggable": false
@@ -519,12 +519,12 @@ describe( 'Compute functions', () => {
             computeHostAttributes( { 
                 draggable: false,
                 id: `#my-id`,
-                tabindex: `2`
+                tabIndex: `2`
             } )
           ).toEqual({
               "draggable": false,
               "id": "#my-id",
-              "tabindex": "2"
+              "tabIndex": "2"
           })
       } );
   } );
@@ -573,11 +573,33 @@ describe( 'Compute functions', () => {
         },
         description: 'should return alt with empty string'
       },
+      {
+        input: {
+          crossOrigin: `anonymous`
+        },
+        expected: {
+          crossOrigin: `anonymous`
+        },
+        description: 'should return correct crossOrigin'
+      },
+      {
+        input: {
+          alt: `alternative description`,
+          crossOrigin: `anonymous`,
+          mediaTag: `img`
+        },
+        expected: {
+          alt: "alternative description",
+          crossOrigin: `anonymous`
+        },
+        description: 'should return correct media attributes'
+      },
     ] )( 'it should $description', ( { 
         input,
         expected
       } ) => {
-      expect( computeMediaAttributes( input ) ).toEqual( expected );
+        // @ts-ignore
+        expect( computeMediaAttributes( input ) ).toEqual( expected );
     } );
   } );
 

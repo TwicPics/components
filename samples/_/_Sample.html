@@ -6,11 +6,12 @@
             <TwicImg
                 alt="A footballer"
                 src="football.jpg"
+                crossorigin="anonymous"
                 anchor="top"
                 mode="contain"
                 ratio="4/3">
             </TwicImg>
-            <span>anchor="top"</span>
+            <span>anchor="top" + crossorigin</span>
         </div>
         <div class="item">
             <TwicImg
@@ -1506,9 +1507,10 @@ Test"
         <div class="item">
             <TwicVideo
                 src="video/skater.mp4"
+                crossorigin="anonymous"
                 intrinsic="1280x720"
             ></TwicVideo>
-            <span>no ratio</span>
+            <span>no ratio + crossorigin</span>
         </div>
         <div class="item">
             <TwicVideo
@@ -1742,6 +1744,7 @@ Test"
       <div class="item">
         <TwicPicture
             src="football.jpg"
+            crossorigin="anonymous"
             eager
             sizes="
               (max-width: 750px) 100vm,
@@ -1750,7 +1753,7 @@ Test"
             "
         >
         </TwicPicture>
-        <span>Eager</span>
+        <span>Eager + crossorigin</span>
       </div>
       <div class="item">
         <TwicPicture

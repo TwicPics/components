@@ -23,6 +23,7 @@ import { updateHostElement } from "./utils";
         <TwicMedia
             [anchor]="anchor"
             [bot]="bot"
+            [crossorigin]="crossorigin"
             [focus]="focus"
             [intrinsic]="intrinsic"
             [mode]="mode"
@@ -53,6 +54,7 @@ export class TwicVideoComponent implements OnChanges {
     mediaTag = `video`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() crossorigin: string = undefined;
     @Input() draggable: boolean | string;
     @Input() duration: number | string = undefined;
     @Input() focus: string = undefined;

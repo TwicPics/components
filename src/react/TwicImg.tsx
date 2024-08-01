@@ -10,6 +10,7 @@ import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
 interface ImgAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: string,
     refit?: boolean | string,
     zoom?: number | string,
 }

@@ -12,6 +12,7 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
+    parseCrossOrigin,
     parseFocus,
     parseIntrinsic,
     parseMediaTag,
@@ -31,7 +32,14 @@ import {
     parseTransitionTimingFunction,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
-import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
+import {
+    rValidAnchor,
+    rValidCrossOrigin,
+    rValidIntrinsic,
+    rValidMode,
+    rValidPlaceholder,
+    rValidRatio,
+} from "../_/validate";
 import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProp } from "./props";
 import { callFactory } from "./utils";
 
@@ -43,6 +51,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
+    [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mediaTag`, stringProp, parseMediaTag ],
@@ -86,7 +95,7 @@ for ( const [ propName, func, args ] of [
             `videoOptions`,
         ],
     ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `mediaTag` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossorigin`, `mediaTag` ] ] ],
     [
         `_style`,
         computeStyle,

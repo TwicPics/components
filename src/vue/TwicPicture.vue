@@ -4,10 +4,11 @@ import {
     computeMediaAttributes,
     computePicture,
 } from "../_/compute";
-import { rValidId } from "../_/validate";
+import { rValidCrossOrigin, rValidId } from "../_/validate";
 import {
     parseAlt,
     parseAnchors,
+    parseCrossOrigin,
     parseDraggable,
     parseEager,
     parseFetchPriority,
@@ -31,6 +32,7 @@ const computed = {};
 for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
+    [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
     [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
@@ -54,7 +56,7 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `mediaTag` ] ] ],
+    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossorigin`, `mediaTag` ] ] ],
     [
         `_pictureData`,
         computePicture,
@@ -99,7 +101,6 @@ export default {
             </template>
             <template v-if="_pictureData && _pictureData.img">
                 <img
-                    :alt="_alt"
                     v-bind="{
                         ..._mediaAttributes,
                         ..._pictureData.img

@@ -49,6 +49,7 @@ import { updateHostElement } from "./utils";
             [alt]="alt"
             [anchor]="anchor"
             [bot]="bot"
+            [crossorigin]="crossorigin"
             [focus]="focus"
             [intrinsic]="intrinsic"
             [mode]="mode"
@@ -81,6 +82,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() crossorigin: string = undefined;
     @Input() draggable: boolean | string;
     @Input() focus: string = undefined;
     @Input() id: string = undefined;
