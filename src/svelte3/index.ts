@@ -6,6 +6,8 @@ import type {
     CrossOrigin,
     Decoding,
     Environment,
+    HtmlElementAttributes,
+    HtmlImageAttributes,
     Mode,
     Placeholder,
     ScriptAttributes,
@@ -20,38 +22,32 @@ import { default as _TwicPicture } from "./TwicPicture.svelte";
 import { default as _TwicVideo } from "./TwicVideo.svelte";
 import { default as _TwicView } from "./TwicView.svelte";
 export interface BaseAttributes extends Attributes {
-    id?: string;
     class?: string,
-    draggable?: boolean | string,
     state?: State,
-    style?: string | Record< string, unknown >,
-    tabindex?: number | string,
 }
 
 interface BackgroundAttributes extends BaseAttributes {
     mediaTag?: string,
 }
 
-export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
-    crossorigin?: CrossOrigin,
-    decoding?: Decoding,
+export interface ImgAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes, ScriptAttributes {
     refit?: boolean | string,
     zoom?: number | string,
 }
+
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
     mediaTag: string,
     refit?: boolean | string,
 }
 
-export interface PictureAttributes extends BaseAttributes {
-    crossorigin?: CrossOrigin,
-    decoding?: Decoding,
+export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes {
     fetchpriority?: string,
+    refit?: boolean | string,
     sizes?: string
 }
 
-export interface VideoAttributes extends BaseAttributes, ScriptAttributes {
+export interface VideoAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
     duration?: number | string,
     from?: number | string,

@@ -46,6 +46,18 @@ export interface Attributes {
     title?: string,
 }
 
+export interface HtmlElementAttributes {
+    id?: string,
+    draggable?: boolean | string,
+    style?: string | Record< string, unknown >,
+    tabindex?: number | string,
+}
+
+export interface HtmlImageAttributes {
+    crossorigin?: CrossOrigin,
+    decoding?: Decoding,
+}
+
 export interface ScriptAttributes {
     bot?: string,
     intrinsic?: string,

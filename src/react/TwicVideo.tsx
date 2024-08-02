@@ -14,11 +14,11 @@ import { preComputeVideoOptions } from "../_/preCompute";
 import { number, propType } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import type { CrossOrigin, ScriptAttributes } from "../_/types";
+import type { CrossOrigin, HtmlElementAttributes, ScriptAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
 
-interface VideoAttributes extends BaseAttributes, ScriptAttributes {
+interface VideoAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
     duration?: number | string,
     from?: number | string,

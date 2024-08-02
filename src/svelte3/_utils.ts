@@ -64,6 +64,8 @@ export type {
     CrossOrigin,
     Decoding,
     Environment,
+    HtmlElementAttributes,
+    HtmlImageAttributes,
     Mode,
     Options,
     Placeholder,

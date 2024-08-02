@@ -6,8 +6,9 @@ import type { BaseAttributes } from "./types";
 import { propType, string } from "./props";
 import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
+import type { HtmlElementAttributes, ScriptAttributes } from "../_/types";
 
-interface BackgroundAttributes extends BaseAttributes {
+interface BackgroundAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
     mediaTag?: string,
 }
 const defaultProps = {

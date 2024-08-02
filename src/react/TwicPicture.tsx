@@ -28,16 +28,14 @@ import {
     parseCrossOrigin,
     parseDecoding,
 } from "../_/parse";
-import type { Anchor, CrossOrigin, Decoding } from "../_/types";
+import type { Anchor, CrossOrigin, Decoding, HtmlElementAttributes, HtmlImageAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
 import { rValidId, validAnchors, validCrossOrigins, validDecodings } from "../_/validate";
 import { boolean, number, oneOf, oneOfType, propType, string } from "./props";
 import type { BaseAttributes } from "./types";
 import { fetchPriorityName } from "./utils";
 
-export interface PictureAttributes extends BaseAttributes {
-    crossorigin?: CrossOrigin,
-    decoding?: Decoding,
+export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes {
     fetchpriority?: string,
     mode?: string,
     refit?: boolean | string,
