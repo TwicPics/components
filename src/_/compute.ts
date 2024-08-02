@@ -358,8 +358,8 @@ export const computeMediaAttributes = (
     { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag }: MediaAttributesData
 ): Record< string, string > => ( {
     ...( ( mediaTag === `img` ) && { alt } ),
-    ...( { crossOrigin } ),
-    ...( { decoding } ),
+    ...( ( mediaTag !== `div` ) && { crossOrigin } ),
+    ...( ( mediaTag === `img` ) && { decoding } ),
 } );
 /* eslint-enable object-curly-newline */
 
