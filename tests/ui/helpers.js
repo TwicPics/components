@@ -23,6 +23,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             'data-twic-poster-transform' : asset?.getAttribute( 'data-twic-poster-transform' ),
             fetchpriority: asset?.getAttribute( 'fetchpriority' ),
             loading: asset?.loading,
+            referrerpolicy: asset?.getAttribute( 'referrerpolicy' ),
             src: asset ? asset.src : '',
             srcset: asset ? asset.srcset : '',
             'object-fit': styles?.getPropertyValue( `object-fit` ),
@@ -91,11 +92,10 @@ const componentSourceMap = {
 export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
-  process.env.FRAMEWORK_FILTERS
     const url = `http://localhost:${ port }/?params=${ JSON.stringify( params ) }`;
     await page.goto( url );
-    if ( process.env.FRAMEWORK_FILTERS ) {
-        console.log( { url } );
+    if ( process.env.DEBUG ) {
+        console.info( url );
     }
     await page.waitForSelector( `.twic-i, .twic-p` );
     await new Promise( ( resolve ) => setTimeout( resolve, 250 ) );

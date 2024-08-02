@@ -9,6 +9,7 @@ import type {
     FetchPriority,
     Mode,
     Placeholder,
+    ReferrerPolicy,
     Transition,
 } from "./types";
 import { urlInfos } from "./url";
@@ -25,6 +26,7 @@ import {
     rValidPath,
     rValidPlaceholder,
     rValidRatio,
+    rValidReferrerPolicy,
     rValidTabIndex,
     rValidZoom,
 } from "./validate";
@@ -246,6 +248,11 @@ export const parseRatio = ( value: number | string ): number => {
 };
 
 export const parseRatios = parseBreakpointsFactory<number, number>( parseRatio, 1 );
+
+export const parseReferrerPolicy = regExpFinderFactory< ReferrerPolicy >( rValidReferrerPolicy,
+    {
+        "filter": p => ( ( p === `none` ) ? undefined : p ),
+    } );
 
 export const parseRefit = ( value: boolean | string ): string => {
     const parsedBoolean = parseBoolean( value );

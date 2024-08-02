@@ -932,6 +932,44 @@ Test"
             <span>ratio="5:4"</span>
         </div>
     </div>
+    <h2>Referrer Policy</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Referrer Policy default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                referrerpolicy="invalid"
+            >
+            </TwicImg>
+            <span>TwicImg Referrer Policy invalid</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                referrerpolicy="same-origin"
+            >
+            </TwicImg>
+            <span>TwicImg referrerpolicy same-origin</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                referrerpolicy="no-referrer"
+            >
+            </TwicImg>
+            <span>TwicImg referrerpolicy no-referrer</span>
+        </div>
+    </div>
     <h2>Refit (mode="contain")</h2>
     <div class="samples">
       <div class="item">

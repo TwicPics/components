@@ -27,6 +27,7 @@ import {
     parseStyle,
     parseCrossOrigin,
     parseDecoding,
+    parseReferrerPolicy,
 } from "../_/parse";
 import type { Anchor, CrossOrigin, Decoding, HtmlElementAttributes, HtmlImageAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
@@ -57,6 +58,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const positions = parsePositions( props.position );
     const preTransforms = parsePreTransforms( props.preTransform );
     const ratios = parseRatios( props.ratio );
+    const referrerpolicy = parseReferrerPolicy( props.referrerpolicy );
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
@@ -86,6 +88,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
             crossorigin,
             decoding,
             "mediaTag": `img`,
+            referrerpolicy,
         } ),
         [ fetchPriorityName ]: _fetchPriority,
     };

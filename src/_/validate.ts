@@ -1,4 +1,13 @@
-import type { Anchor, Mode, Placeholder, Environment, FetchPriority, CrossOrigin, Decoding } from "./types";
+import type {
+    Anchor,
+    Mode,
+    Placeholder,
+    Environment,
+    FetchPriority,
+    CrossOrigin,
+    Decoding,
+    ReferrerPolicy,
+} from "./types";
 import { trimRegExpFactory } from "./utils";
 
 export const validAnchors: Array< Anchor > = [ `center` ];
@@ -29,6 +38,18 @@ export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor
 export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
 export const rValidPath = /^\/*(.+?)\/*$/;
 export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*[\\/:]\\s*(\\d+(?:\\.\\d+)?))?|(none)` );
+export const validReferrerPolicies: Array< ReferrerPolicy > = [
+    `no-referrer`,
+    `no-referrer-when-downgrade`,
+    `none`,
+    `origin`,
+    `origin-when-cross-origin`,
+    `same-origin`,
+    `strict-origin`,
+    `strict-origin-when-cross-origin`,
+    `unsafe-url`,
+];
+export const rValidReferrerPolicy = trimRegExpFactory( validReferrerPolicies );
 export const rValidTabIndex = trimRegExpFactory( `\\d*` );
 export const rValidZoom = trimRegExpFactory( `(\\d+\\.?\\d*)|(css)`, {
     "regExpFlags": `i`,

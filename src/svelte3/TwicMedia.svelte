@@ -5,9 +5,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
     type Anchor,
+    type CrossOrigin,
     type Decoding,
     type Mode,
     type Placeholder,
+    type ReferrerPolicy,
     type State,
     type VideoOptions,
 } from "./_utils.js";
@@ -35,6 +37,7 @@ import {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseReferrerPolicy,
     parseRefit,
     parseSrc,
     parseStep,
@@ -45,7 +48,6 @@ import {
     parseTransitionTimingFunction,
     preComputePlaceholder,
     styleToString,
-    type CrossOrigin,
 } from "./_utils.js";
 /* eslint-disable-next-line camelcase */
 import { createEventDispatcher, onDestroy, onMount } from "svelte";
@@ -69,6 +71,7 @@ export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let referrerpolicy: ReferrerPolicy = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
@@ -102,6 +105,7 @@ $: parsedPlaceholder = parsePlaceholder( placeholder );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
+$: parsedReferrerpolicy = parseReferrerPolicy ( referrerpolicy );
 $: parsedRefit = parseRefit( refit );
 $: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
@@ -131,7 +135,8 @@ $: _mediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
     crossorigin: parsedCrossOrigin,
     decoding: parsedDecoding,
-    mediaTag: parsedMediaTag
+    mediaTag: parsedMediaTag,
+    referrerpolicy: parsedReferrerpolicy,
 } );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,

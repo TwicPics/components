@@ -38,6 +38,7 @@ import {
   parsePreTransforms,
   parseRatio,
   parseRatios,
+  parseReferrerPolicy,
   parseRefit,
   parseSizes,
   parseSrc,
@@ -1154,6 +1155,72 @@ describe( 'Parsing functions', () => {
       },
     ] )( 'it should $description', ( { input, expected } ) => {
       expect( parseRatios( input ) ).toEqual( expected );
+    } );
+  } );
+
+  describe( 'parseReferrerPolicy', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 'no-referrer',
+        expected: 'no-referrer',
+        description: 'return no-referrer Referrer Policy'
+      },
+      {
+        input: 'no-referrer-when-downgrade',
+        expected: 'no-referrer-when-downgrade',
+        description: 'return no-referrer-when-downgrade Referrer Policy'
+      },
+      {
+        input: 'origin',
+        expected: 'origin',
+        description: 'return origin Referrer Policy'
+      },
+      {
+        input: 'origin-when-cross-origin',
+        expected: 'origin-when-cross-origin',
+        description: 'return origin-when-cross-origin Referrer Policy'
+      },
+      {
+        input: 'same-origin',
+        expected: 'same-origin',
+        description: 'return same-origin Referrer Policy'
+      },
+      {
+        input: 'strict-origin',
+        expected: 'strict-origin',
+        description: 'return strict-origin Referrer Policy'
+      },
+      {
+        input: 'strict-origin-when-cross-origin',
+        expected: 'strict-origin-when-cross-origin',
+        description: 'return strict-origin-when-cross-origin Referrer Policy'
+      },
+      {
+        input: 'unsafe-url',
+        expected: 'unsafe-url',
+        description: 'return unsafe-url Referrer Policy'
+      },
+      {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none passed'
+      },
+      {
+        input: '    unsafe-url   ',
+        expected: 'unsafe-url',
+        description: 'return trimmed Referrer Policy'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+        //@ts-ignore
+        expect( parseReferrerPolicy( input ) ).toBe( expected );
     } );
   } );
 

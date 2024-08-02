@@ -6,6 +6,7 @@ import type {
     CrossOrigin,
     Decoding,
     Mode,
+    ReferrerPolicy,
 } from "./_utils.js";
 import {
     computeHostAttributes,
@@ -28,6 +29,7 @@ import {
     parsePositions,
     parsePreTransforms,
     parseRatios,
+    parseReferrerPolicy,
     parseRefit,
     parseSizes,
     parseSrc,
@@ -55,6 +57,7 @@ export let mode: Mode = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let referrerpolicy: ReferrerPolicy = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let sizes: string = undefined;
@@ -76,6 +79,7 @@ $: parsedModes = parseModes( mode );
 $: parsedPositions = parsePositions( position );
 $: parsedPreTransforms = parsePreTransforms( preTransform );
 $: parsedRatios = parseRatios( ratio );
+$: parsedReferrerpolicy = parseReferrerPolicy( referrerpolicy );
 $: parsedRefit = parseRefit( refit );
 $: parsedSizes = parseSizes( sizes );
 $: parsedSrc = parseSrc( src );
@@ -99,7 +103,8 @@ $: _computedMediaAttributes = computeMediaAttributes( {
     alt: parsedAlt,
     crossorigin: parsedCrossOrigin,
     decoding: parsedDecoding,
-    mediaTag: `img`
+    mediaTag: `img`,
+    referrerpolicy: parsedReferrerpolicy,
 } );
 $: _computedPictureData = computePicture(
     parsedAnchors,

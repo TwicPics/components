@@ -23,6 +23,7 @@ import {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseReferrerPolicy,
     parseRefit,
     parseSrc,
     parseStep,
@@ -41,6 +42,7 @@ import {
     rValidMode,
     rValidPlaceholder,
     rValidRatio,
+    rValidReferrerPolicy,
 } from "../_/validate";
 import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProp } from "./props";
 import { callFactory } from "./utils";
@@ -64,6 +66,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `position`, stringProp, parsePosition ],
     [ `preTransform`, stringProp, parsePreTransform ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
+    [ `referrerpolicy`, defineStringProp( rValidReferrerPolicy ), parseReferrerPolicy ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
@@ -98,7 +101,11 @@ for ( const [ propName, func, args ] of [
             `videoOptions`,
         ],
     ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossorigin`, `decoding`, `mediaTag` ] ] ],
+    [
+        `_mediaAttributes`,
+        computeMediaAttributes,
+        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
+    ],
     [
         `_style`,
         computeStyle,

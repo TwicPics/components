@@ -16,7 +16,16 @@ import type {
     OnChanges,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, CrossOrigin, Decoding, FetchPriority, Mode, Picture } from "../_/types";
+import type {
+    Anchor,
+    AnchorObject,
+    CrossOrigin,
+    Decoding,
+    FetchPriority,
+    Mode,
+    Picture,
+    ReferrerPolicy,
+} from "../_/types";
 
 import {
     computeHostStyle,
@@ -37,6 +46,7 @@ import {
     parsePositions,
     parsePreTransforms,
     parseRatios,
+    parseReferrerPolicy,
     parseRefit,
     parseSizes,
     parseSrc,
@@ -78,6 +88,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() sizes: string;
     @Input() src: string;
@@ -112,6 +123,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _positions: Record< number, string > = undefined;
     _preTransforms: Record< number, string > = undefined;
     _ratios: Record< number, number > = undefined;
+    _referrerpolicy: ReferrerPolicy = undefined;
     _refit: string = undefined;
     _sizes: Record< number, string > = undefined;
     _sources: HTMLElement[] = [];
@@ -150,6 +162,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._positions = parsePositions( this.position );
         this._preTransforms = parsePreTransforms( this.preTransform );
         this._ratios = parseRatios( this.ratio );
+        this._referrerpolicy = parseReferrerPolicy( this.referrerpolicy );
         this._refit = parseRefit( this.refit );
         this._sizes = parseSizes( this.sizes );
         this._src = parseSrc( this.src );
@@ -177,6 +190,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
                 "crossorigin": this._crossorigin,
                 "decoding": this._decoding,
                 "mediaTag": `img`,
+                "referrerpolicy": this._referrerpolicy,
             } ),
         };
 

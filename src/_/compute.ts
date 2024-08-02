@@ -355,11 +355,12 @@ export const computeHostStyle = ( { style, zoom }: HostStyleData ) : Record < st
 
 /* eslint-disable object-curly-newline */
 export const computeMediaAttributes = (
-    { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag }: MediaAttributesData
+    { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag, "referrerpolicy": referrerPolicy }: MediaAttributesData
 ): Record< string, string > => ( {
     ...( ( mediaTag === `img` ) && { alt } ),
     ...( ( mediaTag !== `div` ) && { crossOrigin } ),
     ...( ( mediaTag === `img` ) && { decoding } ),
+    ...( ( mediaTag === `img` ) && { referrerPolicy } ),
 } );
 /* eslint-enable object-curly-newline */
 

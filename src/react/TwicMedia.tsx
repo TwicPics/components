@@ -33,17 +33,19 @@ import {
     parseRefit,
     parseCrossOrigin,
     parseDecoding,
+    parseReferrerPolicy,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import type {
     Anchor,
-    ScriptAttributes,
-    Mode,
-    Placeholder,
-    State,
-    VideoOptions,
     CrossOrigin,
     Decoding,
+    Mode,
+    Placeholder,
+    ReferrerPolicy,
+    ScriptAttributes,
+    State,
+    VideoOptions,
 } from "../_/types";
 import { validAnchors, validCrossOrigins, validDecodings, validModes, validPlaceholders } from "../_/validate";
 
@@ -54,6 +56,7 @@ export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
     crossorigin?: CrossOrigin,
     decoding?: Decoding,
     mediaTag: string,
+    referrerpolicy?: ReferrerPolicy,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
 }
@@ -95,6 +98,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const position = parsePosition( props.position );
     const preTransform = parsePreTransform( props.preTransform );
     const ratio = parseRatio( props.ratio );
+    const referrerpolicy = parseReferrerPolicy( props.referrerpolicy );
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const step = parseStep( props.step );
@@ -142,6 +146,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                     crossorigin,
                     decoding,
                     "mediaTag": MediaTag,
+                    referrerpolicy,
                 } ) }
             />
             { placeholder_ && (

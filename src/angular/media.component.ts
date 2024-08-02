@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable max-lines */
 import {
     ChangeDetectionStrategy,
@@ -25,6 +26,7 @@ import type {
     Decoding,
     Mode,
     Placeholder,
+    ReferrerPolicy,
     StateEvent,
     State,
     VideoOptions,
@@ -65,6 +67,7 @@ import {
     parseTitle,
     parseCrossOrigin,
     parseDecoding,
+    parseReferrerPolicy,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import { attributes, styles } from "./utils";
@@ -108,6 +111,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
@@ -140,6 +144,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _position: string = undefined;
     _preTransform: string = undefined;
     _ratio: number = undefined;
+    _referrerpolicy: ReferrerPolicy = undefined;
     _refit: string = undefined;
     _src: string;
     _step: number = undefined;
@@ -193,6 +198,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._position = parsePosition( this.position );
         this._preTransform = parsePreTransform( this.preTransform );
         this._ratio = parseRatio( this.ratio );
+        this._referrerpolicy = parseReferrerPolicy( this.referrerpolicy );
         this._refit = parseRefit( this.refit );
         this._src = parseSrc( this.src );
         this._step = parseStep( this.step );
@@ -222,6 +228,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 "crossorigin": this._crossorigin,
                 "decoding": this._decoding,
                 "mediaTag": this._mediaTag,
+                "referrerpolicy": this._referrerpolicy,
             } ),
         };
         this.mediaStyle = computeStyle(

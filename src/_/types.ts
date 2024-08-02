@@ -7,6 +7,8 @@ export type Environment = `debug` | `offline` | `production`;
 export type FetchPriority = `high` | `low` | `auto`;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
+export type ReferrerPolicy = `no-referrer` | `no-referrer-when-downgrade` | `none` | `origin` |
+    `origin-when-cross-origin` | `same-origin` | `strict-origin` | `strict-origin-when-cross-origin` | `unsafe-url`;
 export type StateEvent = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: any,
@@ -55,6 +57,7 @@ export interface HtmlElementAttributes {
 
 export interface HtmlImageAttributes {
     crossorigin?: CrossOrigin,
+    referrerpolicy?: ReferrerPolicy,
     decoding?: Decoding,
 }
 
@@ -118,6 +121,7 @@ export interface MediaAttributesData {
   crossorigin?: CrossOrigin | undefined,
   decoding?: Decoding | undefined,
   mediaTag?: string,
+  referrerpolicy?: ReferrerPolicy | undefined,
 }
 
 export interface Options {

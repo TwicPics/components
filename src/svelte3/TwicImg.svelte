@@ -23,7 +23,6 @@ import {
     type Mode,
     type Placeholder,
     type State,
-    parseDecoding,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { onMount } from "svelte";
@@ -46,6 +45,7 @@ export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let referrerpolicy: ReferrerPolicy = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
@@ -81,6 +81,7 @@ $: props = {
     position,
     preTransform,
     ratio,
+    referrerpolicy,
     refit,
     src,
     step,

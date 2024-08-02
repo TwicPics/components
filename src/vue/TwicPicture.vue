@@ -4,7 +4,7 @@ import {
     computeMediaAttributes,
     computePicture,
 } from "../_/compute";
-import { rValidCrossOrigin, rValidDecoding, rValidId } from "../_/validate";
+import { rValidCrossOrigin, rValidDecoding, rValidId, rValidReferrerPolicy } from "../_/validate";
 import {
     parseAlt,
     parseAnchors,
@@ -24,6 +24,7 @@ import {
     parseTitle,
     parseSizes,
     parseTabIndex,
+    parseReferrerPolicy,
 } from "../_/parse";
 import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import { callFactory } from "./utils";
@@ -44,6 +45,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `position`, stringProp, parsePositions ],
     [ `preTransform`, stringProp, parsePreTransforms ],
     [ `ratio`, stringProp, parseRatios ],
+    [ `referrerpolicy`, defineStringProp( rValidReferrerPolicy ), parseReferrerPolicy ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `sizes`, stringProp, parseSizes ],
@@ -58,7 +60,11 @@ computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
     [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
-    [ `_mediaAttributes`, computeMediaAttributes, [ [ `alt`, `crossorigin`, `decoding`, `mediaTag` ] ] ],
+    [
+        `_mediaAttributes`,
+        computeMediaAttributes,
+        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
+    ],
     [
         `_pictureData`,
         computePicture,
