@@ -21,11 +21,11 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
 }
 export const rInvalidPath = /\?|^\/*$/;
 export const rValidAnchor = trimRegExpFactory( validAnchors );
+export const validCrossOrigins: Array< CrossOrigin > = [ `anonymous`, `none`, `use-credentials` ];
+export const rValidCrossOrigin = trimRegExpFactory( validCrossOrigins );
 export const validDecodings: Array< Decoding > = [ `async`, `auto`, `none`, `sync` ];
 export const rValidDecoding = trimRegExpFactory( validDecodings );
 export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
-export const validCrossOrigins: Array< CrossOrigin > = [ `anonymous`, `none`, `use-credentials` ];
-export const rValidCrossOrigin = trimRegExpFactory( validCrossOrigins );
 export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
 export const rValidEnvironment = trimRegExpFactory( validEnvironment );
 export const validFetchPriorities: Array< FetchPriority > = [ `high`, `low`, `auto` ];
