@@ -81,18 +81,20 @@ import { get_current_component as getCurrentComponent } from "svelte/internal";
 export { getCurrentComponent };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setAttributes = ( attributes: string, value: any, hostElement: any ): void => {
-    if (
-        ( value === undefined ) ||
-        (
-            ( typeof value === `object` ) &&
-            ( Object.keys( value || {} ).length === 0 )
-        )
-    ) {
-        hostElement.removeAttribute( attributes );
-    } else {
-        hostElement.setAttribute( attributes, value );
-    }
+export const setAttributes = ( attributes: Record< string, unknown >, hostElement: any ): void => {
+    Object.entries( attributes ).forEach( ( [ attribute, value ] ) => {
+        if (
+            ( value === undefined ) ||
+            (
+                ( typeof value === `object` ) &&
+                ( Object.keys( value || {} ).length === 0 )
+            )
+        ) {
+            hostElement.removeAttribute( attribute );
+        } else {
+            hostElement.setAttribute( attribute, value );
+        }
+    } );
 };
 
 export const styleToString = ( properties: Record< string, unknown > ): string => (

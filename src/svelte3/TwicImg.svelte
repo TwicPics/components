@@ -22,6 +22,7 @@ import {
     type Decoding,
     type Mode,
     type Placeholder,
+    type ReferrerPolicy,
     type State,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
@@ -62,11 +63,17 @@ export let zoom: number | string = undefined;
 let hostElement:HTMLDivElement | any;
 
 $: parsedClassName = parseClassName( className ) || ``;
-$: parsedDraggable = parseDraggable( draggable );
-$: parsedId = parseId( id );
-$: parsedTabIndex = parseTabIndex( tabindex );
-$: parsedStyle = parseStyle( style );
 $: parsedZoom = parseZoom( zoom );
+$: hostAttributes = computeHostAttributes( {
+    draggable: parseDraggable( draggable ),
+    id: parseId( id ),
+    tabindex: parseTabIndex( tabindex ),
+} );
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parseStyle( style ),
+    zoom: parsedZoom,
+} ) );
+
 $: props = {
     alt,
     anchor,
@@ -91,18 +98,23 @@ $: props = {
     transitionDuration,
     transitionTimingFunction
 }
-$: hostStyle = styleToString( computeHostStyle( {
-    style: parsedStyle,
-    zoom: parsedZoom,
-} ) );
 $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
-        hostElement.className = sanitize( `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i` );
-        setAttributes( `draggable`, parsedDraggable, hostElement  );
-        setAttributes( `id`, parsedId, hostElement  );
-        setAttributes( `tabindex`, parsedTabIndex, hostElement  );
-        setAttributes( `style`, hostStyle, hostElement  );
+        setAttributes(
+            {
+                ...{
+                    id: undefined,
+                    tabindex: undefined,
+                    class: sanitize( `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i` ),
+                },
+                ...hostAttributes,
+                ...{
+                  style: hostStyle,
+                }
+            },
+            hostElement
+        );
     }
 }
 if ( isBrowser ) {
@@ -122,12 +134,8 @@ if ( isBrowser ) {
 <div
     bind:this={ hostElement }
     class = { sanitize( `twic-i ${ parsedClassName } ${ parsedZoom ? `twic-z` : `` }` ) }
-    { ...computeHostAttributes( {
-        draggable: parsedDraggable,
-        id: parsedId,
-        tabindex: parsedTabIndex,
-    } ) }
     style = { hostStyle }
+    { ...hostAttributes }
 >
     {#if parsedZoom}
         <TwicMedia { ...props } class="twic-m" mediaTag="div" mode="cover"></TwicMedia>

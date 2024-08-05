@@ -49,10 +49,14 @@ export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 
 $: parsedClassName = parseClassName( className ) || ``;
-$: parsedDraggable = parseDraggable( draggable );
-$: parsedId = parseId( id );
-$: parsedStyle = parseStyle( style );
-$: parsedTabIndex = parseTabIndex( tabindex );
+$: hostAttributes = computeHostAttributes( {
+    draggable: parseDraggable( draggable ),
+    id: parseId( id ),
+    tabindex: parseTabIndex( tabindex ),
+} );
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parseStyle( style ),
+} ) );
 
 $: props = {
     anchor,
@@ -73,17 +77,22 @@ $: props = {
     transitionDuration,
     transitionTimingFunction
 }
-$: hostStyle = styleToString( computeHostStyle( {
-    style: parsedStyle,
-} ) );
 $: {
     if ( isWebComponents ) {
-        const hostElement = getCurrentComponent();
-        hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
-        setAttributes( `draggable`, parsedDraggable, hostElement  );
-        setAttributes( `id`, parsedId, hostElement  );
-        setAttributes( `tabindex`, parsedTabIndex, hostElement  );
-        setAttributes( `style`, hostStyle, hostElement  );
+        setAttributes(
+            {
+                ...{
+                    id: undefined,
+                    tabindex: undefined,
+                    class: sanitize( `${ parsedClassName } twic-d twic-i` ),
+                },
+                ...hostAttributes,
+                ...{
+                  style: hostStyle,
+                }
+            },
+            getCurrentComponent()
+        );
     }
 }
 </script>
@@ -92,12 +101,8 @@ $: {
 {:else}
 <div
     class = { sanitize(`twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes( {
-        draggable: parsedDraggable,
-        id: parsedId,
-        tabindex: parsedTabIndex,
-    } ) }
     style = { hostStyle }
+    { ...hostAttributes }
 >
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>

@@ -70,11 +70,9 @@ $: parsedAnchors = parseAnchors( anchor );
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedCrossOrigin = parseCrossOrigin( crossorigin );
 $: parsedDecoding = parseDecoding( decoding );
-$: parsedDraggable = parseDraggable( draggable );
 $: parsedEager = parseEager( eager );
 $: parsedFetchPriority = parseFetchPriority( fetchpriority );
 $: parsedFocuses = parseFocuses( focus );
-$: parsedId = parseId( id );
 $: parsedModes = parseModes( mode );
 $: parsedPositions = parsePositions( position );
 $: parsedPreTransforms = parsePreTransforms( preTransform );
@@ -83,20 +81,31 @@ $: parsedReferrerpolicy = parseReferrerPolicy( referrerpolicy );
 $: parsedRefit = parseRefit( refit );
 $: parsedSizes = parseSizes( sizes );
 $: parsedSrc = parseSrc( src );
-$: parsedStyle = parseStyle( style );
-$: parsedTabIndex = parseTabIndex( tabindex );
 $: parsedTitle = parseTitle( title );
+$: hostAttributes = computeHostAttributes( {
+    draggable: parseDraggable( draggable ),
+    id: parseId( id ),
+    tabindex: parseTabIndex( tabindex ),
+} );
 $: hostStyle = styleToString( computeHostStyle( {
-    style: parsedStyle,
+    style: parseStyle( style ),
 } ) );
 $: {
     if ( isWebComponents ) {
-        const hostElement = getCurrentComponent();
-        hostElement.className = sanitize( `${ parsedClassName } twic-d twic-i` );
-        setAttributes( `draggable`, parsedDraggable, hostElement  );
-        setAttributes( `id`, parsedId, hostElement  );
-        setAttributes( `tabindex`, parsedTabIndex, hostElement  );
-        setAttributes( `style`, hostStyle, hostElement  );
+        setAttributes(
+            {
+                ...{
+                    id: undefined,
+                    tabindex: undefined,
+                    class: sanitize( `${ parsedClassName } twic-d twic-i` ),
+                },
+                ...hostAttributes,
+                ...{
+                  style: hostStyle,
+                }
+            },
+            getCurrentComponent()
+        );
     }
 }
 $: _computedMediaAttributes = computeMediaAttributes( {
@@ -136,12 +145,8 @@ $: _computedPictureData = computePicture(
 {:else}
 <div
     class = { sanitize( `twic-i ${ parsedClassName }` ) }
-    { ...computeHostAttributes( {
-        draggable: parsedDraggable,
-        id: parsedId,
-        tabindex: parsedTabIndex,
-    } ) }
     style = { hostStyle }
+    { ...hostAttributes }
 >
     <picture class="twic-p" title = { parsedTitle }>
         {#if _computedPictureData?.sources}
