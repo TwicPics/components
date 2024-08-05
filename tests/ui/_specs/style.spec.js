@@ -23,7 +23,7 @@ let components = [
 const testCases = [];
 components.forEach( component => {
     testCases.push( {
-        description: `${ component.name } should not render any id attribute`,
+        description: `${ component.name } should not render any style attribute`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
@@ -33,7 +33,7 @@ components.forEach( component => {
             await goto( { page, params, port } );
 
             const hostElementData = await getHostElementData ( page, hostSelector( component.media ) );
-            expect( hostElementData[ 'id' ] ).toBe( null );
+            expect( hostElementData[ 'style' ] ).toBe( null );
         },
     } );
     testCases.push( {
@@ -69,7 +69,7 @@ components.forEach( component => {
         }
     } );
     testCases.push( {
-        description: `${ component.name } should render id attribute when valid`,
+        description: `${ component.name } should render correct style`,
         fn: async ( page, port ) => {
             const params = {
               component: component.name,
