@@ -93,10 +93,10 @@ export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
     const url = `http://localhost:${ port }/?params=${ JSON.stringify( params ) }`;
-    await page.goto( url );
-    if ( process.env.DEBUG ) {
+    if ( process.env.DEBUG === `true` ) {
         console.info( url );
     }
+    await page.goto( url );
     await page.waitForSelector( `.twic-i, .twic-p` );
     await new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 }
