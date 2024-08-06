@@ -8,6 +8,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Adds `crossorigin` property to `TwicImg`, `TwicPicture`, and `TwicVideo`, allowing the configuration of [CORS](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS) settings. See the [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin).
+
+- Adds `decoding` property to `TwicImg` and `TwicPicture`, allowing the specification of how the browser should decode images. See the [`HTML image decoding attribute`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding).
+
+- Adds `draggable` property to `TwicImg`, `TwicPicture`, and `TwicVideo`, allowing the specification of whether image or video can be dragged. See the [`global attribute draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable).
+
+- Adds `id` property to `TwicImg`, `TwicPicture`, and `TwicVideo`, allowing the assignment of a unique identifier to image or video. See the [`global attribute id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
+
+- Adds `referrerpolicy` property to `TwicImg` and `TwicPicture`, allowing the specification of the referrer information to be sent when fetching image or video. See the [`HTML image referrerpolicy attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#referrerpolicy).
+
+- Adds `style` property to `TwicImg`, `TwicPicture`, and `TwicVideo`, allowing the application of inline `CSS` styles to image or video. See the [`global attribute style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style).
+
+- Adds `tabindex` property to `TwicImg`, `TwicPicture`, and `TwicVideo`, allowing the specification of the tab order of image or video. See the [`global attribute tabindex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex).
+
+
 ## [0.30.0] - 2024-07-26
 
 ### Added
