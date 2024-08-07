@@ -4,13 +4,14 @@ import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
 import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
+import { parseAria, parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
 import { rValidId, rValidZoom } from "../_/validate";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};
 for (
     const [ propName, type, parseMethod ] of [
+        [ `aria`, booleanProp( null, false ), parseAria ],
         [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
         [ `id`, defineStringProp( rValidId ), parseId ],
         [ `tabindex`, intProp, parseTabIndex ],
@@ -22,7 +23,7 @@ for (
 }
 
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `aria`, `draggable`, `id`, `tabindex` ] ] ],
     [ `_hostStyle`, computeHostStyle, [ [ `zoom` ] ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );

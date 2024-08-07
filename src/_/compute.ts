@@ -337,8 +337,10 @@ export const computeData = (
 
 /* eslint-disable object-curly-newline */
 export const computeHostAttributes = (
-    { draggable, id, "tabindex": tabIndex }: HostAttributesData
+    { aria, draggable, id, "tabindex": tabIndex }: HostAttributesData
 ): Record< string, unknown > => ( {
+    ...( ( aria !== undefined ) && { "role": `img` } ),
+    ...( ( aria ) && { "aria-label": aria } ),
     ...( ( draggable !== undefined ) && { draggable } ),
     ...( id && { id } ),
     ...( tabIndex && { tabIndex } ),

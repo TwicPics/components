@@ -1,5 +1,65 @@
 <main>
     <h1>Usages</h1>
+    <h2>Aria role"</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                alt="A footballer"
+                src="football.jpg"
+            >
+            </TwicImg>
+            <span>No aria</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                anchor="bottom"
+                aria
+            ></TwicImg>
+            <span>aria</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                anchor="bottom"
+                aria="true"
+            ></TwicImg>
+            <span>aria true</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                anchor="bottom"
+                aria=""
+            ></TwicImg>
+            <span>aria string empty</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                anchor="bottom"
+                aria="false"
+            ></TwicImg>
+            <span>aria false</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                anchor="bottom"
+                aria="A very footballer"
+            ></TwicImg>
+            <span>aria label A very footballer</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              anchor="bottom"
+              aria="A very footballer"
+              alt="Footbaler"
+          ></TwicImg>
+          <span>aria label A very footballer + alt</span>
+        </div>
+    </div>
     <h2>Anchor + mode="contain"</h2>
     <div class="samples">
         <div class="item">
@@ -1849,6 +1909,7 @@ Test"
     <div class="samples">
       <div class="item">
         <TwicPicture
+            aria="A very footballer"
             src="football.jpg"
             eager
             sizes="
@@ -1858,7 +1919,7 @@ Test"
             "
         >
         </TwicPicture>
-        <span>Eager</span>
+        <span>Eager with aria role</span>
       </div>
       <div class="item">
         <TwicPicture

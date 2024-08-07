@@ -28,6 +28,7 @@ import {
     parseCrossOrigin,
     parseDecoding,
     parseReferrerPolicy,
+    parseAria,
 } from "../_/parse";
 import type { Anchor, CrossOrigin, Decoding, HtmlElementAttributes, HtmlImageAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
@@ -46,6 +47,7 @@ export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes
 const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
     const anchors = parseAnchors( props.anchor );
+    const aria = parseAria( props.aria );
     const className = parseClassName( props.className ) || ``;
     const crossorigin = parseCrossOrigin( props.crossorigin );
     const decoding = parseDecoding( props.decoding );
@@ -97,6 +99,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
         <div
             className={ sanitize( `twic-i ${ className }` ) }
             { ...computeHostAttributes( {
+                aria,
                 draggable,
                 id,
                 tabindex,

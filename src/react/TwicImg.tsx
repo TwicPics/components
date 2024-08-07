@@ -4,7 +4,7 @@ import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
 import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
+import { parseAria, parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
 import type { HtmlElementAttributes, HtmlImageAttributes, ScriptAttributes } from "../_/types";
 import { sanitize } from "../_/utils";
 import { rValidId } from "../_/validate";
@@ -24,6 +24,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
         },
         []
     );
+    const aria = parseAria( props.aria );
     const className = parseClassName( props.className ) || ``;
     const draggable = parseDraggable( props.draggable );
     const id = parseId( props.id );
@@ -35,6 +36,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
             ref={ hostElement }
             className={ sanitize( `twic-i ${ className } ${ zoom ? `twic-z` : `` }` ) }
             { ...computeHostAttributes( {
+                aria,
                 draggable,
                 id,
                 tabindex,

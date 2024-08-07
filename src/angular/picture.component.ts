@@ -36,6 +36,7 @@ import {
 import {
     parseAlt,
     parseAnchors,
+    parseAria,
     parseCrossOrigin,
     parseDecoding,
     parseDraggable,
@@ -77,6 +78,7 @@ import { attributes, updateHostElement } from "./utils";
 export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
+    @Input() aria: boolean | string = undefined;
     @Input() crossorigin: CrossOrigin = undefined;
     @Input() decoding: Decoding = undefined;
     @Input() draggable: boolean | string;
@@ -95,6 +97,12 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() style: string | Record< string, unknown > = undefined;
     @Input() tabindex: number | string = undefined;
     @Input() title: string = undefined;
+    @HostBinding( `attr.aria-label` ) get twicAriaLabel() {
+        return this._aria || undefined;
+    }
+    @HostBinding( `attr.role` ) get twicRole() {
+        return ( this._aria === undefined ) ? undefined : `img`;
+    }
     @HostBinding( `attr.draggable` ) get twicDraggable() {
         return this._draggable;
     }
@@ -112,6 +120,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     } ) imageRef!: ElementRef;
     _alt: string = undefined;
     _anchors: Record< number, AnchorObject > = undefined;
+    _aria : string = undefined;
     _crossorigin: CrossOrigin = undefined;
     _decoding: Decoding = undefined;
     _draggable: boolean | undefined = undefined;
@@ -152,6 +161,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
         this._anchors = parseAnchors( this.anchor );
+        this._aria = parseAria( this.aria );
         this._crossorigin = parseCrossOrigin( this.crossorigin );
         this._decoding = parseDecoding( this.decoding );
         this._draggable = parseDraggable( this.draggable );

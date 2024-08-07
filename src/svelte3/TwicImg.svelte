@@ -24,6 +24,7 @@ import {
     type Placeholder,
     type ReferrerPolicy,
     type State,
+    parseAria,
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 import { onMount } from "svelte";
@@ -31,6 +32,7 @@ import { onMount } from "svelte";
 <script lang="ts">
 export let alt: string = undefined;
 export let anchor: Anchor = undefined;
+export let aria: boolean | string = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
@@ -65,6 +67,7 @@ let hostElement:HTMLDivElement | any;
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedZoom = parseZoom( zoom );
 $: hostAttributes = computeHostAttributes( {
+    aria: parseAria( aria ),
     draggable: parseDraggable( draggable ),
     id: parseId( id ),
     tabindex: parseTabIndex( tabindex ),

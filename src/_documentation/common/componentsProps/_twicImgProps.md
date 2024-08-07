@@ -13,6 +13,7 @@ It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  aria="<boolean|String>"
   bot="<String>"
   crossorigin="<anonymous|none|use-credentials>"
   decoding="<async|auto|none|sync>"

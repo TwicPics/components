@@ -766,6 +766,7 @@ It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  aria="<boolean|String>"
   bot="<String>"
   crossorigin="<anonymous|none|use-credentials>"
   decoding="<async|auto|none|sync>"
@@ -798,6 +799,7 @@ It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied **after** an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` | |
+| `aria` | Activates `role=img`. Can be `true`, `false`, or the image description used for `aria-label`. See [ARIA img role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role) for more information. | `boolean or String` | `false` |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-bot) for more information. | `String` | |
 `crossorigin` | Sets the [`CORS`](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) setting for the image fetch request. See [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). | `String` | |
 | `decoding` | Provides a hint to the browser on how to decode the image. See [`HTML image decoding attribute`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding). | `String` | |
@@ -836,6 +838,7 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  aria="<boolean|String>"
   crossorigin="<anonymous|none|use-credentials>"
   decoding="<async|auto|none|sync>"
   draggable="<boolean>"
@@ -860,6 +863,7 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied **after** an eventual `preTransform`. [Can be set at different breakpoints](#art-direction). | `String` |
+| `aria` | Activates `role=img`. Can be `true`, `false`, or the image description used for `aria-label`. See [ARIA img role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role) for more information. | `boolean or String` | `false` |
 `crossorigin` | Sets the [`CORS`](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) setting for the image fetch request. See [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). | `String` | |
 | `decoding` | Provides a hint to the browser on how to decode the image. See [`HTML image decoding attribute`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding). | `String` | |
 `draggable` | Specifies whether the image is draggable. See [`global attribute draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable). | `boolean` | `false` |

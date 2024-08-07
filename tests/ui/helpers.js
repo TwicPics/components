@@ -48,8 +48,10 @@ export const getHostElementData = async ( page, selector ) => {
   return await page.evaluate( ( arg ) => {
       const hostElement = document.querySelector( arg );
       return {
+          'aria-label' : hostElement?.getAttribute( 'aria-label' ),
           'draggable' : hostElement?.getAttribute( 'draggable' ),
           'id' : hostElement?.getAttribute( 'id' ),
+          'role' : hostElement?.getAttribute( 'role' ),
           'style' : hostElement?.getAttribute( 'style' ),
           'tabindex' : hostElement?.getAttribute( 'tabindex' ),
       };
