@@ -17,6 +17,7 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  aria="<boolean|String>"
   crossorigin="<anonymous|none|use-credentials>"
   decoding="<async|auto|none|sync>"
   draggable="<boolean>"
