@@ -52,6 +52,7 @@ import {
   parseTransitionDuration,
   parseTransitionTimingFunction,
   parseZoom,
+  parseAria,
 } from '../../../../src/_/parse';
 import { Mode, Placeholder } from '../../../../src/_/types';
 
@@ -297,6 +298,47 @@ describe( 'Parsing functions', () => {
         // @ts-ignore
         expect( parseAnticipation( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseAria', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'true',
+        expected: '',
+        description: 'return empty string when true as string'
+      },
+      {
+        input: '  ',
+        expected: '',
+        description: 'return empty string when only space in string'
+      },
+      {
+        input: true,
+        expected: '',
+        description: 'return empty string when true'
+      },
+      {
+        input: 'false',
+        expected: undefined,
+        description: 'return undefined when false as string'
+      },
+      {
+        input: false,
+        expected: undefined,
+        description: 'return undefined when false'
+      },
+      {
+        input: ' my aria label ',
+        expected: 'my aria label',
+        description: 'return a correct trimmed string'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      // @ts-ignore
+      expect( parseAria( input ) ).toBe( expected );
     } );
   } );
 
@@ -1235,6 +1277,11 @@ describe( 'Parsing functions', () => {
         description: 'return empty string when true as string'
       },
       {
+        input: '  ',
+        expected: '',
+        description: 'return empty string when only space in string'
+      },
+      {
         input: true,
         expected: '',
         description: 'return empty string when true'
@@ -1260,7 +1307,7 @@ describe( 'Parsing functions', () => {
         description: 'return a correct complex refit string'
       },
       {
-        input: ' 10,(5/100)s ',
+        input: ' 10, (5/100)s ',
         expected: '10,(5/100)s',
         description: 'return a correct trimmed refit string'
       },

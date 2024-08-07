@@ -25,6 +25,7 @@ import {
     parseSizes,
     parseTabIndex,
     parseReferrerPolicy,
+    parseAria,
 } from "../_/parse";
 import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import { callFactory } from "./utils";
@@ -34,6 +35,7 @@ const computed = {};
 for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
+    [ `aria`, booleanProp( null, false ), parseAria ],
     [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
     [ `decoding`, defineStringProp( rValidDecoding ), parseDecoding ],
     [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
@@ -59,7 +61,7 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
-    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `aria`, `draggable`, `id`, `tabindex` ] ] ],
     [
         `_mediaAttributes`,
         computeMediaAttributes,

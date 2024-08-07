@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
-import { parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
+import { parseAria, parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
 import type { Anchor, CrossOrigin, Decoding, Mode, Placeholder, ReferrerPolicy, StateEvent } from "../_/types";
 import { computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
@@ -82,6 +82,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     // eslint-disable-next-line no-useless-constructor
     mediaTag = `img`;
     @Input() alt: string = undefined;
+    @Input() aria: boolean | string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() crossorigin: CrossOrigin = undefined;
@@ -115,12 +116,19 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @HostBinding( `attr.id` ) get twicId() {
         return this._id;
     }
+    @HostBinding( `attr.aria-label` ) get twicAriaLabel() {
+        return this._aria || undefined;
+    }
+    @HostBinding( `attr.role` ) get twicRole() {
+        return ( this._aria === undefined ) ? undefined : `img`;
+    }
     @HostBinding( `attr.tabindex` ) get twicTabIndex() {
         return this._tabindex;
     }
     @HostBinding( `class.twic-z` ) get twicZoom() {
         return this._zoom;
     }
+    _aria : string = undefined;
     _draggable: boolean | undefined = undefined;
     _id: string | undefined = undefined;
     _tabindex: string | undefined = undefined;
@@ -133,6 +141,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
         }
     }
     ngOnChanges( ): void {
+        this._aria = parseAria( this.aria );
         this._draggable = parseDraggable( this.draggable );
         this._id = parseId( this.id );
         this._tabindex = parseTabIndex( this.tabindex );

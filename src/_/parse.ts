@@ -122,6 +122,14 @@ export const parseAlt = ( value: string ) => trimOrUndefined( value );
 
 export const parseAnticipation = parseNumber;
 
+export const parseAria = ( value: boolean | string ): string => {
+    const parsedBoolean = parseBoolean( value );
+    if ( parsedBoolean === undefined ) {
+        return trimOrUndefined( value.toString() ) || ``;
+    }
+    return parsedBoolean ? `` : undefined;
+};
+
 export const parseBot = ( value: string ) => ( typeof value === `string` ? value.trim() : undefined );
 
 export const parseClass = trimOrUndefined;

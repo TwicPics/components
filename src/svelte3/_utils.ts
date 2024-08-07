@@ -17,6 +17,7 @@ export {
     parseAlt,
     parseAnchor,
     parseAnchors,
+    parseAria,
     parseBot,
     parseClassName,
     parseCrossOrigin,

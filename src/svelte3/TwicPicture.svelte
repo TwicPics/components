@@ -17,6 +17,7 @@ import {
     isWebComponents,
     parseAlt,
     parseAnchors,
+    parseAria,
     parseClassName,
     parseCrossOrigin,
     parseDecoding,
@@ -44,6 +45,7 @@ import {
 <script lang="ts">
 export let alt: string = undefined;
 export let anchor: Anchor = undefined;
+export let aria: boolean | string = undefined;
 let className: string = undefined;
 export { className as class };
 export let crossorigin: CrossOrigin = undefined;
@@ -83,6 +85,7 @@ $: parsedSizes = parseSizes( sizes );
 $: parsedSrc = parseSrc( src );
 $: parsedTitle = parseTitle( title );
 $: hostAttributes = computeHostAttributes( {
+    aria: parseAria( aria ),
     draggable: parseDraggable( draggable ),
     id: parseId( id ),
     tabindex: parseTabIndex( tabindex ),

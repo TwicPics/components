@@ -56,6 +56,7 @@ export interface HtmlElementAttributes {
 }
 
 export interface HtmlImageAttributes {
+    aria?: boolean | string,
     crossorigin?: CrossOrigin,
     referrerpolicy?: ReferrerPolicy,
     decoding?: Decoding,
@@ -106,6 +107,7 @@ export interface CreateUrlData {
 }
 
 export interface HostAttributesData {
+    aria?: string,
     draggable?: boolean | undefined,
     id?: string,
     tabindex?: string,
