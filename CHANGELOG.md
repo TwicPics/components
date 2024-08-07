@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Adds `aria` property to `TwicImg` and `TwicPicture`, activating `role=img`. Can be `true`, `false`, or an image description used for `aria-label`. See [ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role).
+
 - Adds `crossorigin` property to `TwicImg`, `TwicPicture`, and `TwicVideo`, allowing the configuration of [CORS](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS) settings. See the [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin).
 
 - Adds `decoding` property to `TwicImg` and `TwicPicture`, allowing the specification of how the browser should decode images. See the [`HTML image decoding attribute`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding).
