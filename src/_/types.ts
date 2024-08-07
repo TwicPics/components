@@ -1,10 +1,14 @@
 export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type BreakPoint = `xs` | `sm` | `md` | `lg` | `xl` | `2xl`;
+export type CrossOrigin = `anonymous` | `none` | `use-credentials`;
+export type Decoding = `async` | `auto` | `none` | `sync`;
 export type Environment = `debug` | `offline` | `production`;
 export type FetchPriority = `high` | `low` | `auto`;
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
+export type ReferrerPolicy = `no-referrer` | `no-referrer-when-downgrade` | `none` | `origin` |
+    `origin-when-cross-origin` | `same-origin` | `strict-origin` | `strict-origin-when-cross-origin` | `unsafe-url`;
 export type StateEvent = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: any,
@@ -44,16 +48,29 @@ export interface Attributes {
     title?: string,
 }
 
+export interface HtmlElementAttributes {
+    id?: string,
+    draggable?: boolean | string,
+    style?: string | Record< string, unknown >,
+    tabindex?: number | string,
+}
+
+export interface HtmlImageAttributes {
+    crossorigin?: CrossOrigin,
+    referrerpolicy?: ReferrerPolicy,
+    decoding?: Decoding,
+}
+
 export interface ScriptAttributes {
-  bot?: string,
-  intrinsic?: string,
-  mode?: Mode,
-  placeholder?: Placeholder,
-  step?: number | string,
-  transition?: boolean | string,
-  transitionDelay?: string,
-  transitionDuration?: string,
-  transitionTimingFunction?: string,
+    bot?: string,
+    intrinsic?: string,
+    mode?: Mode,
+    placeholder?: Placeholder,
+    step?: number | string,
+    transition?: boolean | string,
+    transitionDelay?: string,
+    transitionDuration?: string,
+    transitionTimingFunction?: string,
 }
 
 // only for react-native
@@ -73,9 +90,9 @@ export interface Config {
 }
 
 export interface Context {
-  height?: number,
-  mode: string,
-  width?: number,
+    height?: number,
+    mode: string,
+    width?: number,
 }
 
 export interface CreateUrlData {
@@ -86,6 +103,25 @@ export interface CreateUrlData {
     quality?: number,
     transform?: string,
     src: string,
+}
+
+export interface HostAttributesData {
+    draggable?: boolean | undefined,
+    id?: string,
+    tabindex?: string,
+}
+
+export interface HostStyleData {
+    style? : Record< string, unknown >,
+    zoom?: boolean | number
+}
+
+export interface MediaAttributesData {
+  alt?: string,
+  crossorigin?: CrossOrigin | undefined,
+  decoding?: Decoding | undefined,
+  mediaTag?: string,
+  referrerpolicy?: ReferrerPolicy | undefined,
 }
 
 export interface Options {
@@ -103,8 +139,8 @@ export interface Options {
 }
 
 export interface Picture {
-  sources: Record< string, string >[],
-  img: Record< string, string >,
+    sources: Record< string, string >[],
+    img: Record< string, string >,
 }
 
 export interface PreTransformData {

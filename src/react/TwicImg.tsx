@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import { boolean, number, oneOfType, string } from "./props";
+import { boolean, number, oneOfType, propType, string } from "./props";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import { computeMagnifierStyle } from "../_/compute";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseClassName, parseZoom } from "../_/parse";
-import type { ScriptAttributes } from "../_/types";
+import { parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
+import type { HtmlElementAttributes, HtmlImageAttributes, ScriptAttributes } from "../_/types";
+import { sanitize } from "../_/utils";
+import { rValidId } from "../_/validate";
 
-interface ImgAttributes extends BaseAttributes, ScriptAttributes {
+interface ImgAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes, ScriptAttributes {
     refit?: boolean | string,
     zoom?: number | string,
 }
@@ -23,12 +25,24 @@ const TwicImg: React.FC< ImgAttributes > = props => {
         []
     );
     const className = parseClassName( props.className ) || ``;
+    const draggable = parseDraggable( props.draggable );
+    const id = parseId( props.id );
+    const style = parseStyle( props.style );
+    const tabindex = parseTabIndex( props.tabindex );
     const zoom = parseZoom( props.zoom );
     return (
         <div
             ref={ hostElement }
-            className={ `twic-i ${ className } ${ zoom ? `twic-z` : `` }` }
-            style={ computeMagnifierStyle( zoom ) }
+            className={ sanitize( `twic-i ${ className } ${ zoom ? `twic-z` : `` }` ) }
+            { ...computeHostAttributes( {
+                draggable,
+                id,
+                tabindex,
+            } ) }
+            style={ computeHostStyle( {
+                style,
+                zoom,
+            } ) }
         >
             { zoom && (
                 <TwicMedia
@@ -48,6 +62,7 @@ const TwicImg: React.FC< ImgAttributes > = props => {
 };
 
 TwicImg.propTypes = {
+    "id": propType( `string`, rValidId ),
     "refit": oneOfType( [ boolean, string ] ),
     "zoom": number,
 };

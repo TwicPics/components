@@ -1,32 +1,42 @@
 <script>
 import TwicMedia from "./TwicMedia.vue";
-import { floatProp } from "./props";
+import { booleanProp, defineStringProp, floatProp, intProp } from "./props";
 import { callFactory } from "./utils";
 import {
+    parseDraggable,
     parseDuration,
     parseFrom,
+    parseId,
+    parseTabIndex,
     parseTo,
 } from "../_/parse";
 import {
     preComputeVideoOptions,
 } from "../_/preCompute";
+import { computeHostAttributes } from "../_/compute";
+import { rValidId } from "../_/validate";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};
 for (
     const [ propName, type, parseMethod ] of
     [
+        [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
         [ `duration`, floatProp, parseDuration ],
         [ `from`, floatProp, parseFrom ],
+        [ `id`, defineStringProp( rValidId ), parseId ],
         [ `posterFrom`, floatProp, parseFrom ],
+        [ `tabindex`, intProp, parseTabIndex ],
         [ `to`, floatProp, parseTo ],
     ]
 ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
 }
-for ( const [ propName, func, args ] of
-    [ [ `_videoOptions`, preComputeVideoOptions, [ `duration`, `from`, `posterFrom`, `to` ] ] ] ) {
+for ( const [ propName, func, args ] of [
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
+    [ `_videoOptions`, preComputeVideoOptions, [ `duration`, `from`, `posterFrom`, `to` ] ],
+] ) {
     computed[ propName ] = callFactory( func, args );
 }
 
@@ -50,7 +60,10 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
+    <div
+        class="twic-i"
+        v-bind="{ ..._hostAttributes }"
+    >
         <TwicMedia
             media-tag="video"
             v-bind="{

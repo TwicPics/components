@@ -1,8 +1,8 @@
 import "../_/style.css";
 import React, { useEffect, useRef } from "react";
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -31,23 +31,32 @@ import {
     parseMediaTag,
     parseClassName,
     parseRefit,
+    parseCrossOrigin,
+    parseDecoding,
+    parseReferrerPolicy,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import type {
     Anchor,
-    ScriptAttributes,
+    CrossOrigin,
+    Decoding,
     Mode,
     Placeholder,
+    ReferrerPolicy,
+    ScriptAttributes,
     State,
     VideoOptions,
 } from "../_/types";
-import { validAnchors, validModes, validPlaceholders } from "../_/validate";
+import { validAnchors, validCrossOrigins, validDecodings, validModes, validPlaceholders } from "../_/validate";
 
 import { boolean, func, number, oneOf, oneOfType, string } from "./props";
 import type { BaseAttributes } from "./types";
 
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: CrossOrigin,
+    decoding?: Decoding,
     mediaTag: string,
+    referrerpolicy?: ReferrerPolicy,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
 }
@@ -77,6 +86,8 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const anchor = parseAnchor( props.anchor );
     const bot = parseBot( props.bot );
     const className = parseClassName( props.className );
+    const crossorigin = parseCrossOrigin( props.crossorigin );
+    const decoding = parseDecoding( props.decoding );
     const eager = parseEager( props.eager );
     // eslint-disable-next-line no-shadow
     const focus = parseFocus( props.focus );
@@ -87,6 +98,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
     const position = parsePosition( props.position );
     const preTransform = parsePreTransform( props.preTransform );
     const ratio = parseRatio( props.ratio );
+    const referrerpolicy = parseReferrerPolicy( props.referrerpolicy );
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const step = parseStep( props.step );
@@ -106,7 +118,6 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
         >
             <MediaTag
                 ref={ media }
-                alt={ computeAlt( alt, MediaTag ) }
                 style={ computeStyle(
                     anchor,
                     MediaTag,
@@ -130,6 +141,13 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                     step,
                     videoOptions
                 ) }
+                { ...computeMediaAttributes( {
+                    alt,
+                    crossorigin,
+                    decoding,
+                    "mediaTag": MediaTag,
+                    referrerpolicy,
+                } ) }
             />
             { placeholder_ && (
                 <div
@@ -164,6 +182,8 @@ TwicMedia.propTypes = {
     "anchor": oneOf< Anchor >( validAnchors ),
     "bot": string,
     "className": string,
+    "crossorigin": oneOf< CrossOrigin >( validCrossOrigins ),
+    "decoding": oneOf< Decoding >( validDecodings ),
     "focus": string,
     "intrinsic": string,
     "mode": oneOf< Mode >( validModes ),

@@ -1,7 +1,9 @@
 import "../_/style.css";
 import React from "react";
 import {
-    computeAlt,
+    computeHostAttributes,
+    computeHostStyle,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 import {
@@ -19,14 +21,22 @@ import {
     parseSrc,
     parseTitle,
     parseSizes,
+    parseDraggable,
+    parseId,
+    parseTabIndex,
+    parseStyle,
+    parseCrossOrigin,
+    parseDecoding,
+    parseReferrerPolicy,
 } from "../_/parse";
-import type { Anchor } from "../_/types";
-import { validAnchors } from "../_/validate";
-import { boolean, number, oneOf, oneOfType, string } from "./props";
+import type { Anchor, CrossOrigin, Decoding, HtmlElementAttributes, HtmlImageAttributes } from "../_/types";
+import { sanitize } from "../_/utils";
+import { rValidId, validAnchors, validCrossOrigins, validDecodings } from "../_/validate";
+import { boolean, number, oneOf, oneOfType, propType, string } from "./props";
 import type { BaseAttributes } from "./types";
 import { fetchPriorityName } from "./utils";
 
-export interface PictureAttributes extends BaseAttributes {
+export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes {
     fetchpriority?: string,
     mode?: string,
     refit?: boolean | string,
@@ -37,17 +47,23 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const alt = parseAlt( props.alt );
     const anchors = parseAnchors( props.anchor );
     const className = parseClassName( props.className ) || ``;
+    const crossorigin = parseCrossOrigin( props.crossorigin );
+    const decoding = parseDecoding( props.decoding );
+    const draggable = parseDraggable( props.draggable );
     const eager = parseEager( props.eager );
     const fetchPriority = parseFetchPriority( props.fetchpriority );
-    // eslint-disable-next-line no-shadow
     const focuses = parseFocuses( props.focus );
+    const id = parseId( props.id );
     const modes = parseModes( props.mode );
     const positions = parsePositions( props.position );
     const preTransforms = parsePreTransforms( props.preTransform );
     const ratios = parseRatios( props.ratio );
+    const referrerpolicy = parseReferrerPolicy( props.referrerpolicy );
     const refit = parseRefit( props.refit );
     const src = parseSrc( props.src );
     const sizes = parseSizes( props.sizes );
+    const style = parseStyle( props.style );
+    const tabindex = parseTabIndex( props.tabindex );
     const title = parseTitle( props.title );
 
     const pictureData = computePicture(
@@ -66,8 +82,29 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     const { "fetchPriority": _fetchPriority, ...rest } = pictureData?.img || {};
 
+    const mediaAttributes = {
+        ...computeMediaAttributes( {
+            alt,
+            crossorigin,
+            decoding,
+            "mediaTag": `img`,
+            referrerpolicy,
+        } ),
+        [ fetchPriorityName ]: _fetchPriority,
+    };
+
     return (
-        <div className={ `twic-i ${ className }` } >
+        <div
+            className={ sanitize( `twic-i ${ className }` ) }
+            { ...computeHostAttributes( {
+                draggable,
+                id,
+                tabindex,
+            } ) }
+            style={ computeHostStyle( {
+                style,
+            } ) }
+        >
             <picture className="twic-p" title={ title }>
                 { pictureData?.sources && pictureData.sources.map(
                     ( data, key ) => (
@@ -76,10 +113,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 ) }
                 <img
                     suppressHydrationWarning
-                    alt={ computeAlt( alt, `img` ) }
-                    { ...{
-                        [ fetchPriorityName ]: _fetchPriority,
-                    } }
+                    { ...mediaAttributes }
                     { ...rest }
                 />
             </picture>
@@ -91,9 +125,12 @@ TwicPicture.propTypes = {
     "alt": string,
     "anchor": oneOf< Anchor >( validAnchors ),
     "className": string,
+    "crossorigin": oneOf< CrossOrigin >( validCrossOrigins ),
+    "decoding": oneOf< Decoding >( validDecodings ),
     "eager": oneOfType( [ boolean, string ] ),
     "fetchpriority": string,
     "focus": string,
+    "id": propType( `string`, rValidId ),
     "mode": string,
     "position": string,
     "preTransform": string,

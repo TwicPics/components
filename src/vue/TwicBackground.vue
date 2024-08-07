@@ -1,10 +1,35 @@
 <script>
+import { computeHostAttributes } from "../_/compute";
+import { parseDraggable, parseId, parseTabIndex } from "../_/parse";
+import { rValidId } from "../_/validate";
 import TwicMedia from "./TwicMedia.vue";
-import { defineStringProp } from "./props";
+import { booleanProp, defineStringProp, intProp } from "./props";
+import { callFactory } from "./utils";
 const emits = [ `stateChange` ];
 const props = {
     "mediaTag": defineStringProp( undefined, `div` ),
 };
+const computed = {};
+for (
+    const [ propName, type, parseMethod ] of [
+        [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
+        [ `id`, defineStringProp( rValidId ), parseId ],
+        [ `tabindex`, intProp, parseTabIndex ],
+    ]
+) {
+    computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
+    props[ propName ] = type;
+}
+
+for ( const [ propName, func, args ] of [
+    [
+        `_hostAttributes`,
+        computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ],
+    ],
+]
+) {
+    computed[ propName ] = callFactory( func, args );
+}
 
 export default {
     "components": {
@@ -12,6 +37,7 @@ export default {
     },
     props,
     emits,
+    computed,
     "methods": {
         // eslint-disable-next-line no-shadow
         handleStateChange( event ) {
@@ -25,7 +51,10 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
+    <div
+        class="twic-i"
+        v-bind="{ ..._hostAttributes }"
+    >
         <TwicMedia
             :media-tag="mediaTag"
             v-bind="{

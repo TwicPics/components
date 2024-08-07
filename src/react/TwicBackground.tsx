@@ -1,9 +1,14 @@
 import React from "react";
-import { parseClassName } from "../_/parse";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
+import { parseClassName, parseDraggable, parseId, parseStyle, parseTabIndex } from "../_/parse";
 import TwicMedia from "./TwicMedia";
 import type { BaseAttributes } from "./types";
-import { string } from "./props";
-interface BackgroundAttributes extends BaseAttributes {
+import { propType, string } from "./props";
+import { sanitize } from "../_/utils";
+import { rValidId } from "../_/validate";
+import type { HtmlElementAttributes, ScriptAttributes } from "../_/types";
+
+interface BackgroundAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
     mediaTag?: string,
 }
 const defaultProps = {
@@ -12,19 +17,34 @@ const defaultProps = {
 
 const TwicBackground: React.FC< BackgroundAttributes > = props => {
 
-    const { className, ...mediaAttributes } = {
+    const { className, draggable, id, tabindex, ...mediaAttributes } = {
         ...defaultProps,
         ...props,
     };
     const parsedClassName = parseClassName( className ) || ``;
+    const parsedDraggable = parseDraggable( draggable );
+    const parsedId = parseId( id );
+    const style = parseStyle( props.style );
+    const parsedTabIndex = parseTabIndex( tabindex );
     return (
-        <div className={ `twic-i ${ parsedClassName }` }>
+        <div
+            className={ sanitize( `twic-i ${ parsedClassName }` ) }
+            { ...computeHostAttributes( {
+                "draggable": parsedDraggable,
+                "id": parsedId,
+                "tabindex": parsedTabIndex,
+            } ) }
+            style={ computeHostStyle( {
+                style,
+            } ) }
+        >
             <TwicMedia { ...mediaAttributes } className="" />
         </div>
     );
 };
 
 TwicBackground.propTypes = {
+    "id": propType( `string`, rValidId ),
     "mediaTag": string,
 };
 

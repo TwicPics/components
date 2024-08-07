@@ -4,17 +4,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-    parseClassName,
-    parseMediaTag,
     type Anchor,
+    type CrossOrigin,
+    type Decoding,
     type Mode,
     type Placeholder,
+    type ReferrerPolicy,
     type State,
     type VideoOptions,
 } from "./_utils.js";
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -24,14 +25,19 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
+    parseClassName,
+    parseCrossOrigin,
+    parseDecoding,
     parseFocus,
     parseIntrinsic,
+    parseMediaTag,
     parseMode,
     parseEager,
     parsePlaceholder,
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseReferrerPolicy,
     parseRefit,
     parseSrc,
     parseStep,
@@ -53,6 +59,8 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: CrossOrigin = undefined;
+export let decoding: Decoding = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let media: HTMLElement= undefined;
@@ -63,6 +71,7 @@ export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let referrerpolicy: ReferrerPolicy = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
@@ -85,6 +94,8 @@ $: parsedAlt = parseAlt( alt );
 $: parsedAnchor = parseAnchor( anchor );
 $: parsedBot = parseBot( bot );
 $: parsedClassName = parseClassName( className ) || ``;
+$: parsedCrossOrigin = parseCrossOrigin( crossorigin );
+$: parsedDecoding = parseDecoding( decoding );
 $: parsedEager = parseEager( eager );
 $: parsedFocus = parseFocus( focus );
 $: parsedIntrinsic = parseIntrinsic( intrinsic );
@@ -94,6 +105,7 @@ $: parsedPlaceholder = parsePlaceholder( placeholder );
 $: parsedPosition = parsePosition( position );
 $: parsedPreTransform = parsePreTransform( preTransform );
 $: parsedRatio = parseRatio( ratio );
+$: parsedReferrerpolicy = parseReferrerPolicy ( referrerpolicy );
 $: parsedRefit = parseRefit( refit );
 $: parsedSrc = parseSrc( src );
 $: parsedStep = parseStep( step );
@@ -105,8 +117,6 @@ $: parsedTransitionTimingFunction = parseTransitionTimingFunction( transitionTim
 $: parsedVideoOptions = videoOptions;
 
 $: parsedPlaceholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
-
-$: _alt = computeAlt( parsedAlt, parsedMediaTag );
 $: _data = computeData(
     parsedAnchor,
     parsedBot,
@@ -121,6 +131,13 @@ $: _data = computeData(
     parsedStep,
     parsedVideoOptions,
 );
+$: _mediaAttributes = computeMediaAttributes( {
+    alt: parsedAlt,
+    crossorigin: parsedCrossOrigin,
+    decoding: parsedDecoding,
+    mediaTag: parsedMediaTag,
+    referrerpolicy: parsedReferrerpolicy,
+} );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,
@@ -166,9 +183,9 @@ if ( isBrowser ) {
 >
     <svelte:element this={ mediaTag }
         bind:this = { media }
-        alt = { _alt }
         style = { _style }
         { ..._data }
+        { ..._mediaAttributes }
     ></svelte:element>
     {#if parsedPlaceholder_ }
         <div style = { _placeholderStyle } />

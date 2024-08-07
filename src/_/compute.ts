@@ -5,6 +5,9 @@ import type {
     AnchorObject,
     ArtDirective,
     FetchPriority,
+    HostAttributesData,
+    HostStyleData,
+    MediaAttributesData,
     Mode,
     Picture,
     Placeholder,
@@ -267,9 +270,6 @@ const preComputeStyle = (
 };
 /* eslint-enable dot-notation */
 
-export const computeAlt =
-    ( alt: string, mediaTag: string ): string => ( ( mediaTag === `img` ) ? alt : undefined );
-
 export const computeData = (
     anchor: AnchorObject,
     bot: string,
@@ -334,6 +334,35 @@ export const computeData = (
     }
     return attributes;
 };
+
+/* eslint-disable object-curly-newline */
+export const computeHostAttributes = (
+    { draggable, id, "tabindex": tabIndex }: HostAttributesData
+): Record< string, unknown > => ( {
+    ...( ( draggable !== undefined ) && { draggable } ),
+    ...( id && { id } ),
+    ...( tabIndex && { tabIndex } ),
+} );
+/* eslint-enable object-curly-newline */
+
+export const computeHostStyle = ( { style, zoom }: HostStyleData ) : Record < string, unknown > => {
+    const hostStyle = style || {};
+    if ( ( typeof zoom !== `boolean` ) && zoom ) {
+        hostStyle[ `--twic-zoom` ] = `${ zoom }`;
+    }
+    return hostStyle;
+};
+
+/* eslint-disable object-curly-newline */
+export const computeMediaAttributes = (
+    { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag, "referrerpolicy": referrerPolicy }: MediaAttributesData
+): Record< string, string > => ( {
+    ...( ( mediaTag === `img` ) && { alt } ),
+    ...( ( mediaTag !== `div` ) && { crossOrigin } ),
+    ...( ( mediaTag === `img` ) && { decoding } ),
+    ...( ( mediaTag === `img` ) && { referrerPolicy } ),
+} );
+/* eslint-enable object-curly-newline */
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (
@@ -506,11 +535,3 @@ export const computeWrapperStyle = ( ratio: number ): Record< string, string > =
         "paddingTop": ( ratio === undefined ) ? `` : `${ ratio * 100 }%`,
     }
 );
-
-export const computeMagnifierStyle = ( zoom: boolean | number ) : Record < string, string > => {
-    const magnifierStyle: Record< string, string > = {};
-    if ( ( typeof zoom !== `boolean` ) && zoom ) {
-        magnifierStyle[ `--twic-zoom` ] = `${ zoom }`;
-    }
-    return magnifierStyle;
-};

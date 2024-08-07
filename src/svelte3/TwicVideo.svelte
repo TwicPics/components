@@ -2,14 +2,24 @@
 
 <script context="module" lang="ts">
 import {
+    computeHostAttributes,
+    computeHostStyle,
     getCurrentComponent,
     isWebComponents,
     parseClassName,
+    parseDraggable,
     parseDuration,
     parseFrom,
+    parseId,
+    parseStyle,
+    parseTabIndex,
     parseTo,
     preComputeVideoOptions,
+    sanitize,
+    setAttributes,
+    styleToString,
     type Anchor,
+    type CrossOrigin,
     type Mode,
     type Placeholder,
     type State
@@ -21,9 +31,12 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: CrossOrigin = undefined;
+export let draggable: boolean | string = undefined;
 export let duration: number | string = undefined;
 export let focus: string = undefined;
 export let from: number | string = undefined;
+export let id: string = undefined;
 export let intrinsic: string = undefined;
 export let mode: Mode = undefined;
 export let eager: boolean = false;
@@ -34,8 +47,10 @@ export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
+export let style: string | Record< string, unknown >;
 export let state: State = undefined;
 export let title: string = undefined;
+export let tabindex: number | string = undefined;
 export let to: number | string = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
@@ -47,10 +62,19 @@ $: parsedDuration = parseDuration( duration );
 $: parsedFrom = parseFrom( from );
 $: parsedPosterFrom = parseFrom( posterFrom );
 $: parsedTo = parseTo( to );
+$: hostAttributes = computeHostAttributes( {
+    draggable: parseDraggable( draggable ),
+    id: parseId( id ),
+    tabindex: parseTabIndex( tabindex ),
+} );
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parseStyle( style ),
+} ) );
 
 $: props = {
     anchor,
     bot,
+    crossorigin,
     focus,
     intrinsic,
     mode,
@@ -72,7 +96,20 @@ $: videoOptions = preComputeVideoOptions( parsedDuration, parsedFrom, parsedPost
 
 $: {
     if ( isWebComponents ) {
-        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
+        setAttributes(
+            {
+                ...{
+                    id: undefined,
+                    tabindex: undefined,
+                    class: sanitize( `${ parsedClassName } twic-d twic-i` ),
+                },
+                ...hostAttributes,
+                ...{
+                  style: hostStyle,
+                }
+            },
+            getCurrentComponent()
+        );
     }
 }
 </script>
@@ -85,7 +122,11 @@ $: {
     on:statechange
 ></TwicMedia>
 {:else}
-<div class = {`twic-i ${ parsedClassName }`}>
+<div
+    class = { sanitize( `twic-i ${ parsedClassName }` ) }
+    style = { hostStyle }
+    { ...hostAttributes }
+>
     <TwicMedia
         mediaTag="video"
         bind:state

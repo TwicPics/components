@@ -12,11 +12,11 @@ import {
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
-import { parseZoom } from "../_/parse";
-import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
-import { computeMagnifierStyle } from "../_/compute";
+import { parseDraggable, parseId, parseStyle, parseTabIndex, parseZoom } from "../_/parse";
+import type { Anchor, CrossOrigin, Decoding, Mode, Placeholder, ReferrerPolicy, StateEvent } from "../_/types";
+import { computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { styles } from "./utils";
+import { updateHostElement } from "./utils";
 
 @Component( {
     "selector": `TwicImg`,
@@ -43,12 +43,14 @@ import { styles } from "./utils";
             [transitionDelay]="transitionDelay"
             [transitionDuration]="transitionDuration"
             [transitionTimingFunction]="transitionTimingFunction"
-            [ngStyle]="magnifierStyle"
+            [ngStyle]="magnifiedStyle"
         ></TwicMedia>
         <TwicMedia
             [alt]="alt"
             [anchor]="anchor"
             [bot]="bot"
+            [crossorigin]="crossorigin"
+            [decoding]="decoding"
             [focus]="focus"
             [intrinsic]="intrinsic"
             [mode]="mode"
@@ -58,6 +60,7 @@ import { styles } from "./utils";
             [position]="position"
             [preTransform]="preTransform"
             [ratio]="ratio"
+            [referrerpolicy]="referrerpolicy"
             [refit]="refit"
             [src]="src"
             [step]="step"
@@ -81,7 +84,11 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
+    @Input() draggable: boolean | string;
     @Input() focus: string = undefined;
+    @Input() id: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
     @Input() eager: boolean | string;
@@ -89,40 +96,59 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
+    @Input() style: string | Record< string, unknown > = undefined;
     @Input() title: string = undefined;
+    @Input() tabindex: number | string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     @Input() zoom: number | string = undefined;
     @Output() stateChangeEvent = new EventEmitter< StateEvent >();
+    @HostBinding( `attr.draggable` ) get twicDraggable() {
+        return this._draggable;
+    }
+    @HostBinding( `attr.id` ) get twicId() {
+        return this._id;
+    }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
+    }
     @HostBinding( `class.twic-z` ) get twicZoom() {
         return this._zoom;
     }
+    _draggable: boolean | undefined = undefined;
+    _id: string | undefined = undefined;
+    _tabindex: string | undefined = undefined;
     _zoom: boolean | number = false;
-    magnifierStyle: Record<string, string>;
+    magnifiedStyle: Record<string, unknown> = undefined;
     constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
         if ( this._zoom ) {
             initMagnifier( this.hostElement.nativeElement.firstElementChild );
         }
-        this.updateTemplate();
+    }
+    ngOnChanges( ): void {
+        this._draggable = parseDraggable( this.draggable );
+        this._id = parseId( this.id );
+        this._tabindex = parseTabIndex( this.tabindex );
+        this._zoom = parseZoom( this.zoom );
+        this.magnifiedStyle = computeHostStyle( {
+            "zoom": this._zoom,
+        } );
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
     }
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );
-    }
-    ngOnChanges( ): void {
-        this._zoom = parseZoom( this.zoom );
-        this.magnifierStyle = computeMagnifierStyle( this._zoom );
-        this.updateTemplate();
-    }
-    updateTemplate(): void {
-        if ( this.hostElement?.nativeElement ) {
-            // updates style to this.hostElement.nativeElement HTML element
-            styles( this.magnifierStyle, this.hostElement.nativeElement, this.renderer );
-        }
     }
 }

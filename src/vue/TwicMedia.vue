@@ -1,7 +1,7 @@
 <script>
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -12,6 +12,8 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
+    parseCrossOrigin,
+    parseDecoding,
     parseFocus,
     parseIntrinsic,
     parseMediaTag,
@@ -21,6 +23,7 @@ import {
     parsePosition,
     parsePreTransform,
     parseRatio,
+    parseReferrerPolicy,
     parseRefit,
     parseSrc,
     parseStep,
@@ -31,7 +34,16 @@ import {
     parseTransitionTimingFunction,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
-import { rValidAnchor, rValidIntrinsic, rValidMode, rValidPlaceholder, rValidRatio } from "../_/validate";
+import {
+    rValidAnchor,
+    rValidCrossOrigin,
+    rValidDecoding,
+    rValidIntrinsic,
+    rValidMode,
+    rValidPlaceholder,
+    rValidRatio,
+    rValidReferrerPolicy,
+} from "../_/validate";
 import { booleanProp, defineStringProp, intProp, stringProp, videoOptionsProp } from "./props";
 import { callFactory } from "./utils";
 
@@ -43,6 +55,8 @@ for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
+    [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
+    [ `decoding`, defineStringProp( rValidDecoding ), parseDecoding ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mediaTag`, stringProp, parseMediaTag ],
@@ -52,6 +66,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `position`, stringProp, parsePosition ],
     [ `preTransform`, stringProp, parsePreTransform ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
+    [ `referrerpolicy`, defineStringProp( rValidReferrerPolicy ), parseReferrerPolicy ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
@@ -68,7 +83,6 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_undefined` ] = () => undefined;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
     [
         `_dataAttributes`,
         computeData,
@@ -86,6 +100,11 @@ for ( const [ propName, func, args ] of [
             `step`,
             `videoOptions`,
         ],
+    ],
+    [
+        `_mediaAttributes`,
+        computeMediaAttributes,
+        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
     ],
     [
         `_style`,
@@ -166,9 +185,11 @@ export default {
         <component
             :is="p_mediaTag"
             ref="media"
-            :alt="p_mediaTag === `img` ? _alt : undefined"
             :style="_style"
-            v-bind="{ ..._dataAttributes }"
+            v-bind="{
+                ..._dataAttributes,
+                ..._mediaAttributes
+            }"
         />
         <div
             v-if="p_placeholder_"

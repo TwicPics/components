@@ -85,6 +85,8 @@ export const regExpFinderFactory = < T = string > (
         return ( filter ? filter( found ) : found ) || defaultValue;
     };
 
+export const sanitize = ( value: string | undefined ) => value && value.split( ` ` ).filter( Boolean ).join( ` ` );
+
 export const throwError = ( message: string ): never => {
     throw new Error( buildErrorMessage( message ) );
 };

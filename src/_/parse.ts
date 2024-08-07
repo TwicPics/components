@@ -1,17 +1,33 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, BreakPoint, Environment, FetchPriority, Mode, Placeholder, Transition } from "./types";
+import type {
+    AnchorObject,
+    BreakPoint,
+    CrossOrigin,
+    Decoding,
+    Environment,
+    FetchPriority,
+    Mode,
+    Placeholder,
+    ReferrerPolicy,
+    Transition,
+} from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
+    rValidCrossOrigin,
+    rValidDecoding,
     rValidDomain,
     rValidEnvironment,
     rValidFetchPriority,
+    rValidId,
     rValidIntrinsic,
     rValidMode,
     rValidPath,
     rValidPlaceholder,
     rValidRatio,
+    rValidReferrerPolicy,
+    rValidTabIndex,
     rValidZoom,
 } from "./validate";
 
@@ -102,7 +118,7 @@ export const parseAnchor = ( anchor: string ) : AnchorObject => {
 
 export const parseAnchors = parseBreakpointsFactory<AnchorObject>( parseAnchor );
 
-export const parseAlt = ( value: string ) => trimOrUndefined( value ) || ``;
+export const parseAlt = ( value: string ) => trimOrUndefined( value );
 
 export const parseAnticipation = parseNumber;
 
@@ -112,12 +128,26 @@ export const parseClass = trimOrUndefined;
 
 export const parseClassName = trimOrUndefined;
 
+export const parseCrossOrigin = regExpFinderFactory< CrossOrigin >( rValidCrossOrigin,
+    {
+        "filter": p => ( ( p === `none` ) ? undefined : p ),
+    } );
+
 export const parseDebug = parseBoolean;
+
+export const parseDecoding = regExpFinderFactory< Decoding >( rValidDecoding,
+    {
+        "filter": p => ( ( p === `none` ) ? undefined : p ),
+    } );
 
 export const parseDomain = ( value: string ) => {
     const domain = trimOrUndefined( value );
     return rValidDomain.test( domain ) ? domain.replace( rValidDomain, `$1` ) : undefined;
 };
+
+export const parseDraggable = ( value: boolean | string | undefined ): boolean => (
+    value === undefined ? undefined : parseBoolean( value )
+);
 
 export const parseDuration = parseNumber;
 
@@ -137,6 +167,8 @@ export const parseFocuses = parseBreakpointsFactory<string>( parseFocus );
 export const parseFrom = parseNumber;
 
 export const parseHandleShadowDom = parseBoolean;
+
+export const parseId = regExpFinderFactory( rValidId );
 
 export const parseIntrinsic = ( value: string ): string => {
     if ( !value ) {
@@ -170,11 +202,12 @@ export const parsePath = ( value: string ): string => {
     return path ? path.replace( rValidPath, `$1/` ) : ``;
 };
 
-export const parsePlaceholder = ( placeholder: Placeholder ) : Placeholder => {
-    if ( ( config.env === `offline` ) || ( placeholder === `none` ) ) {
+export const parsePlaceholder = ( value: string ) : Placeholder | undefined => {
+    const parsedPlaceholder = regExpFinderFactory< Placeholder >( rValidPlaceholder )( value );
+    if ( ( config.env === `offline` ) || ( parsedPlaceholder === `none` ) ) {
         return undefined;
     }
-    return rValidPlaceholder.test( placeholder ) ? placeholder : `preview`;
+    return parsedPlaceholder || `preview`;
 };
 
 export const parsePosition = trimOrUndefined;
@@ -216,6 +249,11 @@ export const parseRatio = ( value: number | string ): number => {
 
 export const parseRatios = parseBreakpointsFactory<number, number>( parseRatio, 1 );
 
+export const parseReferrerPolicy = regExpFinderFactory< ReferrerPolicy >( rValidReferrerPolicy,
+    {
+        "filter": p => ( ( p === `none` ) ? undefined : p ),
+    } );
+
 export const parseRefit = ( value: boolean | string ): string => {
     const parsedBoolean = parseBoolean( value );
     if ( parsedBoolean === undefined ) {
@@ -232,8 +270,6 @@ const parseSize = ( value: string ) => {
 
 export const parseSizes = parseBreakpointsFactory<string>( parseSize );
 
-export const parseStep = parseNumber;
-
 export const parseSrc = ( value: string ): string => {
     if ( ( config.env === `offline` ) && !isReactNative ) {
         return ``;
@@ -248,6 +284,32 @@ export const parseSrc = ( value: string ): string => {
             src.replace( rMedia, `media:${ config.path }` );
 
 };
+
+export const parseStep = parseNumber;
+
+export const parseStyle = (
+    value: Record< string, unknown > | string | undefined
+): Record< string, unknown > | undefined => {
+    if ( value === undefined ) {
+        return undefined;
+    }
+    if ( typeof value === `string` ) {
+        return value.split( `;` ).reduce( ( parsedStyle: Record< string, unknown >, item ) => {
+            const [ key, _value ] = item
+                .split( `:` )
+                .map( s => s && s.trim() );
+            if ( key && _value ) {
+                // eslint-disable-next-line no-param-reassign
+                parsedStyle[ key ] = _value;
+            }
+            return parsedStyle;
+        }, {} );
+    }
+    return value;
+};
+
+export const parseTabIndex = ( value: number | string = `` ): string =>
+    regExpFinderFactory( rValidTabIndex )( value.toString() );
 
 export const parseTo = parseNumber;
 

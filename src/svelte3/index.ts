@@ -3,7 +3,11 @@ import "../_/style.css";
 import type {
     Anchor,
     Attributes,
+    CrossOrigin,
+    Decoding,
     Environment,
+    HtmlElementAttributes,
+    HtmlImageAttributes,
     Mode,
     Placeholder,
     ScriptAttributes,
@@ -26,28 +30,32 @@ interface BackgroundAttributes extends BaseAttributes {
     mediaTag?: string,
 }
 
-export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
+export interface ImgAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes, ScriptAttributes {
     refit?: boolean | string,
     zoom?: number | string,
 }
+
 export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
+    crossorigin?: CrossOrigin,
     mediaTag: string,
     refit?: boolean | string,
 }
 
-export interface PictureAttributes extends BaseAttributes {
+export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes, HtmlImageAttributes {
     fetchpriority?: string,
+    refit?: boolean | string,
     sizes?: string
 }
 
-export interface VideoAttributes extends BaseAttributes, ScriptAttributes {
+export interface VideoAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
+    crossorigin?: CrossOrigin,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,
     to?: number | string,
 }
 
-export type { Anchor, Environment, Mode, Placeholder, State, StateEvent };
+export type { Anchor, Decoding, CrossOrigin, Environment, Mode, Placeholder, State, StateEvent };
 const installTwicpics = installTwicPics;
 const TwicBackground = _TwicBackground as unknown as ComponentType < SvelteComponentTyped< BackgroundAttributes > >;
 const TwicImg = _TwicImg as unknown as ComponentType < SvelteComponentTyped< ImgAttributes > >;

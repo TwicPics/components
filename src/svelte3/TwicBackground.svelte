@@ -2,9 +2,18 @@
 
 <script context="module" lang="ts">
 import {
+    computeHostAttributes,
+    computeHostStyle,
     getCurrentComponent,
     isWebComponents,
     parseClassName,
+    parseDraggable,
+    parseId,
+    parseStyle,
+    parseTabIndex,
+    sanitize,
+    setAttributes,
+    styleToString,
     type Anchor,
     type Mode,
     type Placeholder,
@@ -17,7 +26,9 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let draggable: boolean | string = undefined;
 export let focus: string = undefined;
+export let id: string = undefined;
 export let intrinsic: string = undefined;
 export let mediaTag: string = `div`;
 export let mode: Mode = undefined;
@@ -29,6 +40,8 @@ export let ratio: number | string = undefined;
 export let src: string;
 export let step: number | string = undefined;
 export let state: State = undefined;
+export let style: string | Record< string, unknown >;
+export let tabindex: number | string = undefined;
 export let title: string = undefined;
 export let transition: boolean | string = undefined;
 export let transitionDelay: string = undefined;
@@ -36,6 +49,14 @@ export let transitionDuration: string = undefined;
 export let transitionTimingFunction: string = undefined;
 
 $: parsedClassName = parseClassName( className ) || ``;
+$: hostAttributes = computeHostAttributes( {
+    draggable: parseDraggable( draggable ),
+    id: parseId( id ),
+    tabindex: parseTabIndex( tabindex ),
+} );
+$: hostStyle = styleToString( computeHostStyle( {
+    style: parseStyle( style ),
+} ) );
 
 $: props = {
     anchor,
@@ -58,14 +79,31 @@ $: props = {
 }
 $: {
     if ( isWebComponents ) {
-        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
+        setAttributes(
+            {
+                ...{
+                    id: undefined,
+                    tabindex: undefined,
+                    class: sanitize( `${ parsedClassName } twic-d twic-i` ),
+                },
+                ...hostAttributes,
+                ...{
+                  style: hostStyle,
+                }
+            },
+            getCurrentComponent()
+        );
     }
 }
 </script>
 {#if isWebComponents}
 <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 {:else}
-<div class = {`twic-i ${ parsedClassName }`}>
+<div
+    class = { sanitize(`twic-i ${ parsedClassName }` ) }
+    style = { hostStyle }
+    { ...hostAttributes }
+>
     <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
 </div>
 {/if}

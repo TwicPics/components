@@ -1,14 +1,20 @@
 <script>
 import {
-    computeAlt,
+    computeHostAttributes,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
+import { rValidCrossOrigin, rValidDecoding, rValidId, rValidReferrerPolicy } from "../_/validate";
 import {
     parseAlt,
     parseAnchors,
+    parseCrossOrigin,
+    parseDecoding,
+    parseDraggable,
     parseEager,
     parseFetchPriority,
     parseFocuses,
+    parseId,
     parseModes,
     parsePositions,
     parsePreTransforms,
@@ -17,8 +23,10 @@ import {
     parseSrc,
     parseTitle,
     parseSizes,
+    parseTabIndex,
+    parseReferrerPolicy,
 } from "../_/parse";
-import { booleanProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, intProp, stringProp } from "./props";
 import { callFactory } from "./utils";
 
 const props = {};
@@ -26,16 +34,22 @@ const computed = {};
 for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
+    [ `crossorigin`, defineStringProp( rValidCrossOrigin ), parseCrossOrigin ],
+    [ `decoding`, defineStringProp( rValidDecoding ), parseDecoding ],
+    [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
+    [ `id`, defineStringProp( rValidId ), parseId ],
     [ `mode`, stringProp, parseModes ],
     [ `eager`, booleanProp( null, false ), parseEager ],
     [ `position`, stringProp, parsePositions ],
     [ `preTransform`, stringProp, parsePreTransforms ],
     [ `ratio`, stringProp, parseRatios ],
+    [ `referrerpolicy`, defineStringProp( rValidReferrerPolicy ), parseReferrerPolicy ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `sizes`, stringProp, parseSizes ],
+    [ `tabindex`, intProp, parseTabIndex ],
     [ `title`, stringProp, parseTitle ],
 
 ] ) {
@@ -45,7 +59,12 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
+    [
+        `_mediaAttributes`,
+        computeMediaAttributes,
+        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
+    ],
     [
         `_pictureData`,
         computePicture,
@@ -73,7 +92,10 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
+    <div
+        class="twic-i"
+        v-bind="{ ..._hostAttributes }"
+    >
         <picture
             class="twic-p"
             :title="p_title"
@@ -87,8 +109,10 @@ export default {
             </template>
             <template v-if="_pictureData && _pictureData.img">
                 <img
-                    :alt="_alt"
-                    v-bind="{ ..._pictureData.img }"
+                    v-bind="{
+                        ..._mediaAttributes,
+                        ..._pictureData.img
+                    }"
                 >
             </template>
         </picture>

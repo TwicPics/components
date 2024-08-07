@@ -1,23 +1,32 @@
 <script>
-import { defineNumberProp } from "./props";
+import { booleanProp, defineNumberProp, defineStringProp, intProp } from "./props";
 import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
-import { computeMagnifierStyle } from "../_/compute";
+import { computeHostAttributes, computeHostStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseZoom } from "../_/parse";
-import { rValidZoom } from "../_/validate";
+import { parseDraggable, parseId, parseTabIndex, parseZoom } from "../_/parse";
+import { rValidId, rValidZoom } from "../_/validate";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};
 for (
-    const [ propName, type, parseMethod ] of
-    [ [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ] ]
+    const [ propName, type, parseMethod ] of [
+        [ `draggable`, booleanProp( null, undefined ), parseDraggable ],
+        [ `id`, defineStringProp( rValidId ), parseId ],
+        [ `tabindex`, intProp, parseTabIndex ],
+        [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ],
+    ]
 ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
 }
 
-computed._magnifierStyle = callFactory( computeMagnifierStyle, [ `zoom` ] );
+for ( const [ propName, func, args ] of [
+    [ `_hostAttributes`, computeHostAttributes, [ [ `draggable`, `id`, `tabindex` ] ] ],
+    [ `_hostStyle`, computeHostStyle, [ [ `zoom` ] ] ],
+] ) {
+    computed[ propName ] = callFactory( func, args );
+}
 
 export default {
     "components": {
@@ -49,7 +58,8 @@ export default {
         ref="hostElement"
         class="twic-i"
         :class="{ 'twic-z': p_zoom }"
-        :style="_magnifierStyle"
+        :style="_hostStyle"
+        v-bind="{ ..._hostAttributes }"
     >
         <TwicMedia
             v-if="p_zoom"

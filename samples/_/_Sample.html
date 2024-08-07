@@ -245,6 +245,123 @@
             <span>preTransform="flip=y" + bot=""</span>
         </div>
     </div>
+    <h2>Crossorigin</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Crossorigin default</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              ratio="4/3"
+              crossorigin="none"
+          >
+          </TwicImg>
+          <span>TwicImg crossorigin none</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                crossorigin="anonymous"
+            >
+            </TwicImg>
+            <span>TwicImg crossorigin anonymous</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                alt="crossorigin use-credentials"
+                ratio="4/3"
+                crossorigin="use-credentials"
+            >
+            </TwicImg>
+            <span>TwicImg crossorigin use-credentials</span>
+        </div>
+    </div>
+    <h2>Decoding</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Decoding default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                alt="crossorigin use-credentials"
+                ratio="4/3"
+                decoding="none"
+            >
+            </TwicImg>
+            <span>TwicImg decoding none</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                decoding="sync"
+            >
+            </TwicImg>
+            <span>TwicImg deocing sync</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                alt="crossorigin use-credentials"
+                ratio="4/3"
+                decoding="auto"
+            >
+            </TwicImg>
+            <span>TwicImg decoding auto</span>
+        </div>
+    </div>
+    <h2>Draggable</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Draggable default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                draggable
+            >
+            </TwicImg>
+          <span>TwicImg Draggable</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                draggable="true"
+            >
+            </TwicImg>
+            <span>TwicImg Draggable "true"</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                draggable="false"
+            >
+            </TwicImg>
+          <span>TwicImg Draggable "false"</span>
+        </div>
+    </div>
     <h2>Flex layout</h2>
     <div class="flex">
         <div class="flex-item">
@@ -359,6 +476,44 @@
             ratio="none"
         >
         </TwicVideo>
+    </div>
+    <h2>Id</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg id default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                id
+            >
+            </TwicImg>
+          <span>TwicImg empty id</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                id="inv lid"
+            >
+            </TwicImg>
+            <span>TwicImg invalid id</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                id="#a-valid-id"
+            >
+            </TwicImg>
+          <span>TwicImg with valid id</span>
+        </div>
     </div>
     <h2>Isolation Test</h2>
     <div class="samples">
@@ -768,6 +923,35 @@ Test"
             <span>ratio="5:4"</span>
         </div>
     </div>
+    <h2>Referrer Policy</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg Referrer Policy default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                referrerpolicy="same-origin"
+            >
+            </TwicImg>
+            <span>TwicImg referrerpolicy same-origin</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                referrerpolicy="no-referrer"
+            >
+            </TwicImg>
+            <span>TwicImg referrerpolicy no-referrer</span>
+        </div>
+    </div>
     <h2>Refit (mode="contain")</h2>
     <div class="samples">
       <div class="item">
@@ -929,6 +1113,82 @@ Test"
           </TwicImg>
           <span>refit="2p" + anchor="left" + background=remove</span>
       </div>
+    </div>
+    <h2>Style</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg style default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                style=""
+            >
+            </TwicImg>
+            <span>TwicImg style=""</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              ratio="none"
+              style="height:100px;"
+          >
+          </TwicImg>
+          <span>TwicImg style="height:100px"</span>
+        </div>
+        <div class="item">
+          <TwicImg
+              src="football.jpg"
+              ratio="none"
+              style="height:100px; width:100px"
+          >
+          </TwicImg>
+          <span>TwicImg style="height:100px;width:100px"</span>
+      </div>
+    </div>
+    <h2>Tabindex</h2>
+    <div class="samples">
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+            >
+            </TwicImg>
+            <span>TwicImg tabindex default</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                tabindex
+            >
+            </TwicImg>
+          <span>TwicImg empty tabindex</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                tabindex="1"
+            >
+            </TwicImg>
+            <span>TwicImg tabindex=1</span>
+        </div>
+        <div class="item">
+            <TwicImg
+                src="football.jpg"
+                ratio="4/3"
+                tabindex="2"
+            >
+            </TwicImg>
+          <span>TwicImg tabindex=2</span>
+        </div>
     </div>
     <h2>Style Driven - Classical & contain</h2>
     <div class="samples">
@@ -1244,27 +1504,30 @@ Test"
         <div class="item">
             <TwicBackground
                 ___state___
+                draggable
                 src="https://assets.twicpics.com/examples/football.jpg"
                 focus="auto"
                 title="Title test">
             </TwicBackground>
-            <span>no ratio (state emitter) + title</span>
+            <span>no ratio (state emitter) + title + draggable</span>
         </div>
         <div class="item">
             <TwicBackground
                 src="https://assets.twicpics.com/examples/football.jpg"
+                draggable="false"
                 focus="auto"
                 ratio="16/9">
             </TwicBackground>
-            <span>ratio="16/9"</span>
+            <span>ratio="16/9" + draggable = false</span>
         </div>
         <div class="item">
             <TwicBackground
                 src="https://assets.twicpics.com/examples/football.jpg"
+                draggable="true"
                 focus="auto"
                 ratio="4/3">
             </TwicBackground>
-            <span>ratio="4/3"</span>
+            <span>ratio="4/3" + draggable=true</span>
         </div>
         <div class="item">
             <TwicBackground
@@ -1358,12 +1621,13 @@ Test"
         <div class="item">
             <TwicVideo
                 src="video/skater.mp4"
+                draggable="true"
                 intrinsic="1280x720"
                 ratio="16/9"
                 placeholder="maincolor"
                 title="Title test"
             ></TwicVideo>
-            <span>ratio="16/9" + placeholder = "main" + title</span>
+            <span>ratio="16/9" + placeholder = "main" + title + draggable</span>
         </div>
         <div class="item">
             <TwicVideo
@@ -1447,9 +1711,10 @@ Test"
             <TwicImg
                 src="https://assets.twicpics.com/examples/football.jpg"
                 focus="auto"
+                style="width:100px"
                 zoom="3.1">
             </TwicImg>
-            <span>Zoom = 3.1</span>
+            <span>Zoom = 3.1 + width=100</span>
         </div>
         <div class="item">
             <TwicImg

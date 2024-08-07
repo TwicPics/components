@@ -1,12 +1,21 @@
+/* eslint-disable no-useless-constructor */
 import {
     ChangeDetectionStrategy,
     Component,
+    ElementRef,
     EventEmitter,
+    HostBinding,
     Input,
     Output,
+    Renderer2,
     ViewEncapsulation,
 } from "@angular/core";
+// eslint-disable-next-line no-duplicate-imports
+import type { OnChanges } from "@angular/core";
 import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
+import { parseDraggable, parseId, parseStyle, parseTabIndex } from "../_/parse";
+import { computeHostStyle } from "../_/compute";
+import { updateHostElement } from "./utils";
 
 @Component( {
     "selector": `TwicBackground`,
@@ -38,10 +47,12 @@ import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
         "class": `twic-i twic-d`,
     },
 } )
-export class TwicBackgroundComponent {
+export class TwicBackgroundComponent implements OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() draggable: boolean | string;
     @Input() focus: string = undefined;
+    @Input() id: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mediaTag = `div`;
     @Input() mode: Mode = undefined;
@@ -52,11 +63,38 @@ export class TwicBackgroundComponent {
     @Input() ratio: number | string = undefined;
     @Input() src: string;
     @Input() step: number | string = undefined;
+    @Input() style: string | Record< string, unknown > = undefined;
+    @Input() tabindex: number | string = undefined;
     @Input() transition:boolean | string;
     @Input() transitionDelay: string = undefined;
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     @Output() stateChangeEvent = new EventEmitter< StateEvent >();
+    @HostBinding( `attr.draggable` ) get twicDraggable() {
+        return this._draggable;
+    }
+    @HostBinding( `attr.id` ) get twicId() {
+        return this._id;
+    }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
+    }
+    _draggable: boolean | undefined = undefined;
+    _id: string | undefined = undefined;
+    _tabindex: string | undefined = undefined;
+    constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
+    ngOnChanges(): void {
+        this._draggable = parseDraggable( this.draggable );
+        this._id = parseId( this.id );
+        this._tabindex = parseTabIndex( this.tabindex );
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
+    }
     onStateChange( stateEvent: StateEvent ) {
         this.stateChangeEvent.emit( stateEvent );
     }

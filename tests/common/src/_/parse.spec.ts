@@ -11,8 +11,11 @@ import {
   parseBot,
   parseClass,
   parseClassName,
+  parseCrossOrigin,
   parseDebug,
+  parseDecoding,
   parseDomain,
+  parseDraggable,
   parseDuration,
   parseEager,
   parseEnv,
@@ -21,6 +24,7 @@ import {
   parseFocuses,
   parseFrom,
   parseHandleShadowDom,
+  parseId,
   parseIntrinsic,
   parseMaxDrp,
   parseMediaTag,
@@ -34,10 +38,13 @@ import {
   parsePreTransforms,
   parseRatio,
   parseRatios,
+  parseReferrerPolicy,
   parseRefit,
   parseSizes,
-  parseStep,
   parseSrc,
+  parseStep,
+  parseStyle,
+  parseTabIndex,
   parseTo,
   parseTitle,
   parseTransition,
@@ -60,7 +67,7 @@ const testUndefined = ( expected: any ) => (
   { 
       input: undefined,
       expected: expected,
-      description: `return ${ expected } when string empty`,
+      description: `return ${ expected } when string undefined`,
   }
 );
 
@@ -83,9 +90,9 @@ const testTrimOrUndefinedCases = [
   },
 ]
 
-const testParseBooleanCases = [
+const testParseBooleanCasesFactory = ( expectedWhenUndefined: boolean | undefined ) => [
   {
-    ...testUndefined( false ),
+    ...testUndefined( expectedWhenUndefined ),
   },
   {
     input: true,
@@ -111,6 +118,8 @@ const testParseBooleanCases = [
     description: 'return false when false is passed as string'
   },
 ];
+
+const testParseBooleanCases = testParseBooleanCasesFactory( false );
 
 const testParseNumberCases = [
   {
@@ -261,10 +270,10 @@ describe( 'Parsing functions', () => {
   describe( 'parseAlt', () => {
     test.each( [
       {
-        ...testUndefined( '' ),
+        ...testUndefined( undefined ),
       },
       {
-        ...testEmptyString(''),
+        ...testEmptyString( undefined ),
       },
       {
         input: 'an image description',
@@ -338,11 +347,88 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
+  describe( 'parseCrossOrigin', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 'anonymous',
+        expected: 'anonymous',
+        description: 'return anonymous crossorigin'
+      },
+      {
+        input: 'use-credentials',
+        expected: 'use-credentials',
+        description: 'return use-credentials crossorigin'
+      },
+      {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none passed'
+      },
+      {
+        input: '    use-credentials   ',
+        expected: 'use-credentials',
+        description: 'return trimmed crossorigin'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      //@ts-ignore
+      expect( parseCrossOrigin( input ) ).toBe( expected );
+    } );
+  } );
+
   describe( 'parseDebug', () => {
     testParseBooleanCases.forEach(( { description, input, expected } ) => {
       test( `it should ${ description } `, () => {
         expect( parseDebug( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseDecoding', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 'async',
+        expected: 'async',
+        description: 'return async decoding'
+      },
+      {
+        input: 'auto',
+        expected: 'auto',
+        description: 'return auto decoding'
+      },
+      {
+        input: 'sync',
+        expected: 'sync',
+        description: 'return sync decoding'
+      },
+      {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none passed'
+      },
+      {
+        input: '    sync   ',
+        expected: 'sync',
+        description: 'return trimmed decoding'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+       //@ts-ignore
+      expect( parseDecoding( input ) ).toBe( expected );
     } );
   } );
 
@@ -377,6 +463,14 @@ describe( 'Parsing functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( parseDomain( input ) ).toBe( expected );
+    } );
+  } );
+
+  describe( 'parseDraggable', () => {
+    testParseBooleanCasesFactory( undefined ).forEach(( { description, input, expected } ) => {
+      test( `it should ${ description } `, () => {
+        expect( parseDraggable( input ) ).toBe( expected );
+      } );
     } );
   } );
 
@@ -550,6 +644,35 @@ describe( 'Parsing functions', () => {
       test( `it should ${ description } `, () => {
         expect( parseHandleShadowDom( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseId', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        ...testEmptyString( undefined ),
+      },
+      {
+        input: 'my-id',
+        expected: 'my-id',
+        description: 'return a correct id'
+      },
+      {
+        input: '  my-id  ',
+        expected: 'my-id',
+        description: 'return a correct trimed id'
+      },
+      {
+        input: 'inv alid',
+        expected: undefined,
+        description: 'return undefined for invalid values'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      // @ts-ignore
+      expect( parseId( input ) ).toBe( expected );
     } );
   } );
 
@@ -762,6 +885,11 @@ describe( 'Parsing functions', () => {
         description: 'return default placeholder when invalid'
       },
       {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none'
+      },
+      {
         input: 'preview',
         expected: 'preview',
         description: 'return specified placeholder'
@@ -775,6 +903,11 @@ describe( 'Parsing functions', () => {
         input: 'meancolor',
         expected: 'meancolor',
         description: 'return specified placeholder'
+      },
+      {
+        input: '    meancolor     ',
+        expected: 'meancolor',
+        description: 'return trimmed placeholder'
       },
     ] )( 'it should $description', ( { input, expected } ) => {
       expect( parsePlaceholder( input as Placeholder ) ).toBe( expected );
@@ -1025,6 +1158,72 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
+  describe( 'parseReferrerPolicy', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 'no-referrer',
+        expected: 'no-referrer',
+        description: 'return no-referrer Referrer Policy'
+      },
+      {
+        input: 'no-referrer-when-downgrade',
+        expected: 'no-referrer-when-downgrade',
+        description: 'return no-referrer-when-downgrade Referrer Policy'
+      },
+      {
+        input: 'origin',
+        expected: 'origin',
+        description: 'return origin Referrer Policy'
+      },
+      {
+        input: 'origin-when-cross-origin',
+        expected: 'origin-when-cross-origin',
+        description: 'return origin-when-cross-origin Referrer Policy'
+      },
+      {
+        input: 'same-origin',
+        expected: 'same-origin',
+        description: 'return same-origin Referrer Policy'
+      },
+      {
+        input: 'strict-origin',
+        expected: 'strict-origin',
+        description: 'return strict-origin Referrer Policy'
+      },
+      {
+        input: 'strict-origin-when-cross-origin',
+        expected: 'strict-origin-when-cross-origin',
+        description: 'return strict-origin-when-cross-origin Referrer Policy'
+      },
+      {
+        input: 'unsafe-url',
+        expected: 'unsafe-url',
+        description: 'return unsafe-url Referrer Policy'
+      },
+      {
+        input: 'none',
+        expected: undefined,
+        description: 'return undefined when none passed'
+      },
+      {
+        input: '    unsafe-url   ',
+        expected: 'unsafe-url',
+        description: 'return trimmed Referrer Policy'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+        //@ts-ignore
+        expect( parseReferrerPolicy( input ) ).toBe( expected );
+    } );
+  } );
+
   describe( 'parseRefit', () => {
     test.each( [
       {
@@ -1099,15 +1298,6 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
-  describe( 'parseStep', () => {
-    testParseNumberCases.forEach(( { description, input, expected } ) => {
-      test( `it should ${ description } `, () => {
-        // @ts-ignore
-        expect( parseStep( input ) ).toBe( expected );
-      } );
-    } );
-  } );
-
   describe( 'parseSrc', () => {
     const originalConfig = { ...config };
     test.each( [
@@ -1166,12 +1356,112 @@ describe( 'Parsing functions', () => {
     } );
   } );
 
+  describe( 'parseStep', () => {
+    testParseNumberCases.forEach(( { description, input, expected } ) => {
+      test( `it should ${ description } `, () => {
+        // @ts-ignore
+        expect( parseStep( input ) ).toBe( expected );
+      } );
+    } );
+  } );
+
+  describe( 'parseStyle', () => {
+    test.each( [
+      {
+        input: undefined,
+        expected: undefined,
+        description: 'return empty object when undefined'
+      },
+      {
+        input: ``,
+        expected: {},
+        description: 'return empty object when empty string'
+      },
+      {
+        input: `invalid`,
+        expected: {},
+        description: 'return empty object when invalid'
+      },
+      {
+        input: `width:100%;height:auto;max-width:300px;`,
+        expected: {
+            "height": "auto",
+            "max-width": "300px",
+            "width": "100%",
+        },
+        description: 'return correct style from string'
+      },
+      {
+        input: ` width : 100% ;   height:auto;    max-width:  300px ; `,
+        expected: {
+            "height": "auto",
+            "max-width": "300px",
+            "width": "100%",
+        },
+        description: 'return correct trimmed style from string'
+      },
+      {
+        input: {
+            width: `100%`,
+            "max-width": `300px`,
+            height: `auto`
+        },
+        expected: {
+            "height": "auto",
+            "max-width": "300px",
+            "width": "100%",
+        },
+        description: 'return correct style from object'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+        expect( parseStyle( input ) ).toEqual( expected );
+    } );
+  } );
+
   describe( 'parseTo', () => {
     testParseNumberCases.forEach(( { description, input, expected } ) => {
       test( `it should ${ description } `, () => {
         // @ts-ignore
         expect( parseTo( input ) ).toBe( expected );
       } );
+    } );
+  } );
+
+  describe( 'parseTabIndex', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        ...testEmptyString( undefined ),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined when invalid'
+      },
+      {
+        input: 12,
+        expected: '12',
+        description: 'return a correct tabindex from num'
+      },
+      {
+        input: '23',
+        expected: '23',
+        description: 'return a correct tabindex from string'
+      },
+      {
+        input: '  23  ',
+        expected: '23',
+        description: 'return a correct trimed tabindex from string'
+      },
+      {
+        input: '  23.3  ',
+        expected: undefined,
+        description: 'return undefined as input is not an interger'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+        expect( parseTabIndex( input ) ).toBe( expected );
     } );
   } );
 

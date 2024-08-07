@@ -3,6 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    HostBinding,
     Input,
     Renderer2,
     ViewChild,
@@ -15,28 +16,45 @@ import type {
     OnChanges,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, FetchPriority, Mode, Picture } from "../_/types";
+import type {
+    Anchor,
+    AnchorObject,
+    CrossOrigin,
+    Decoding,
+    FetchPriority,
+    Mode,
+    Picture,
+    ReferrerPolicy,
+} from "../_/types";
 
 import {
-    computeAlt,
+    computeHostStyle,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 
 import {
     parseAlt,
     parseAnchors,
+    parseCrossOrigin,
+    parseDecoding,
+    parseDraggable,
     parseEager,
     parseFocuses,
+    parseId,
     parseModes,
     parsePositions,
     parsePreTransforms,
     parseRatios,
+    parseReferrerPolicy,
     parseRefit,
     parseSizes,
     parseSrc,
+    parseStyle,
+    parseTabIndex,
     parseTitle,
 } from "../_/parse";
-import { attributes } from "./utils";
+import { attributes, updateHostElement } from "./utils";
 
 @Component( {
     "selector": `TwicPicture`,
@@ -46,7 +64,7 @@ import { attributes } from "./utils";
           class="twic-p"
           [attr.title]="_title"
       >
-        <img #image [attr.alt]="description"/>
+        <img #image/>
       </picture>
   `,
     "styleUrls": [ `../_/style.css` ],
@@ -59,17 +77,33 @@ import { attributes } from "./utils";
 export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
+    @Input() draggable: boolean | string;
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
     @Input() focus: string = undefined;
+    @Input() id: string = undefined;
     @Input() mode: string = undefined;
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() sizes: string;
     @Input() src: string;
+    @Input() style: string | Record< string, unknown > = undefined;
+    @Input() tabindex: number | string = undefined;
     @Input() title: string = undefined;
+    @HostBinding( `attr.draggable` ) get twicDraggable() {
+        return this._draggable;
+    }
+    @HostBinding( `attr.id` ) get twicId() {
+        return this._id;
+    }
+    @HostBinding( `attr.tabindex` ) get twicTabIndex() {
+        return this._tabindex;
+    }
     @ViewChild( `container`, {
         "static": true,
     } ) containerRef!: ElementRef;
@@ -78,24 +112,28 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     } ) imageRef!: ElementRef;
     _alt: string = undefined;
     _anchors: Record< number, AnchorObject > = undefined;
+    _crossorigin: CrossOrigin = undefined;
+    _decoding: Decoding = undefined;
+    _draggable: boolean | undefined = undefined;
     _eager: boolean;
     _fetchpriority: FetchPriority = undefined;
     _focuses: Record< number, string > = undefined;
+    _id: string | undefined = undefined;
     _modes: Record< number, Mode > = undefined;
     _positions: Record< number, string > = undefined;
     _preTransforms: Record< number, string > = undefined;
     _ratios: Record< number, number > = undefined;
+    _referrerpolicy: ReferrerPolicy = undefined;
     _refit: string = undefined;
     _sizes: Record< number, string > = undefined;
     _sources: HTMLElement[] = [];
     _src: string;
+    _tabindex: string | undefined = undefined;
     _title: string = undefined;
-    description: string;
+    mediaAttributes: Record<string, string>;
     pictureData: Picture;
     // eslint-disable-next-line no-useless-constructor
-    constructor(
-        private renderer: Renderer2
-    ) { }
+    constructor( private renderer: Renderer2, private hostElement: ElementRef ) {}
     ngAfterViewInit(): void {
         if ( this.pictureData?.sources ) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
@@ -114,17 +152,22 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     ngOnChanges(): void {
         this._alt = parseAlt( this.alt );
         this._anchors = parseAnchors( this.anchor );
+        this._crossorigin = parseCrossOrigin( this.crossorigin );
+        this._decoding = parseDecoding( this.decoding );
+        this._draggable = parseDraggable( this.draggable );
         this._focuses = parseFocuses( this.focus );
+        this._id = parseId( this.id );
         this._modes = parseModes( this.mode );
         this._eager = parseEager( this.eager );
         this._positions = parsePositions( this.position );
         this._preTransforms = parsePreTransforms( this.preTransform );
         this._ratios = parseRatios( this.ratio );
+        this._referrerpolicy = parseReferrerPolicy( this.referrerpolicy );
         this._refit = parseRefit( this.refit );
         this._sizes = parseSizes( this.sizes );
         this._src = parseSrc( this.src );
+        this._tabindex = parseTabIndex( this.tabindex );
         this._title = parseTitle( this.title );
-        this.description = computeAlt( this._alt, `img` );
         this.pictureData = {
             ...computePicture(
                 this._anchors,
@@ -140,16 +183,33 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
                 this._src
             ),
         };
+        this.mediaAttributes = {
+            ...this.pictureData?.img,
+            ...computeMediaAttributes( {
+                "alt": this._alt,
+                "crossorigin": this._crossorigin,
+                "decoding": this._decoding,
+                "mediaTag": `img`,
+                "referrerpolicy": this._referrerpolicy,
+            } ),
+        };
+
         this.updateMedia();
+
+        // updates host element (ie twicpicture)
+        updateHostElement(
+            computeHostStyle( {
+                "style": parseStyle( this.style ),
+            } ),
+            this.hostElement,
+            this.renderer
+        );
     }
     private updateMedia(): void {
-        if ( this.imageRef.nativeElement ) {
-            // updates attributes to this.imageRef.nativeElement HTML element
-            attributes( this.pictureData?.img, this.imageRef.nativeElement, this.renderer );
-        }
-        for ( const index in this._sources ) {
-            const actualSourceElement = this._sources[ index ];
-            // updates attributes to actualSourceElement HTML element
+        // updates img tag
+        attributes( this.mediaAttributes, this.imageRef.nativeElement, this.renderer );
+        // updates each source tag
+        for ( const [ index, actualSourceElement ] of this._sources.entries() ) {
             attributes( this.pictureData?.sources[ index ], actualSourceElement, this.renderer );
         }
     }

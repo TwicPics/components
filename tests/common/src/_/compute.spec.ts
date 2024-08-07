@@ -1,6 +1,18 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { setConfig } from '../../../../src/_/config';
-import { computeAlt, computeData, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
+import {
+    computeData,
+    computeHostAttributes,
+    computeHostStyle,
+    computeMediaAttributes,
+    computePicture,
+    computePlaceholderBackground,
+    computePlaceholderStyle,
+    computePreTransform,
+    computeStyle,
+    computeWrapperClass,
+    computeWrapperStyle
+} from '../../../../src/_/compute';
 import { Mode, PlaceholderData } from '../../../../src/_/types';
 
 const dummyAnchor = { x: 'center', y: 'top' };
@@ -222,15 +234,6 @@ describe( 'Compute functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( computePreTransform( input ) ).toBe( expected );
-    } );
-  } );
-
-  describe( 'computeAlt', () => {
-    it( 'should compute alt correctly for img tag', () => {
-        expect( computeAlt( 'alt text', 'img' ) ).toBe( 'alt text' );
-    });
-    it( 'should return undefined for video tag', () => {
-        expect( computeAlt( 'alt text', 'video' ) ).toBeUndefined();
     } );
   } );
 
@@ -482,6 +485,121 @@ describe( 'Compute functions', () => {
 
       expect( result  ).toEqual( expected );
       
+    } );
+  } );
+
+  describe ( 'computeHostAttributes', () => {
+      it( 'should return empty object when no data passed ', () => {
+          expect(
+            computeHostAttributes( {} )
+          ).toEqual( {} )
+      } );
+      it( 'should return empty object when data without value', () => {
+          expect(
+              computeHostAttributes( {
+                  draggable: undefined,
+                  id: undefined,
+                  tabindex: undefined
+              })
+          ).toEqual( {} )
+      } );
+      it( 'should only not return id nor tabindex' , () => {
+          expect(
+            computeHostAttributes( { 
+                draggable: false,
+                id: ``,
+                tabindex: ``
+            } )
+          ).toEqual({
+              "draggable": false
+          })
+      } );
+      it( 'should draggable, id and tabindex' , () => {
+          expect(
+            computeHostAttributes( { 
+                draggable: false,
+                id: `#my-id`,
+                tabindex: `2`
+            } )
+          ).toEqual({
+              "draggable": false,
+              "id": "#my-id",
+              "tabIndex": "2"
+          })
+      } );
+  } );
+
+  describe( 'computeMediaAttributes', () => {
+    test.each( [
+      {
+        input: {},
+        expected: {},
+        description: 'return empty object'
+      },
+      {
+        input: { 
+          mediaTag: `video`,
+          alt: `a video`,
+        },
+        expected: {},
+        description: 'should not return alt as mediatag is video'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+          alt: `my image`,
+        },
+        expected: {
+          alt: `my image`
+        },
+        description: 'should return alt with given value'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+        },
+        expected: {
+          alt: ``
+        },
+        description: 'should return alt with empty string as default value'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+          alt: ``,
+        },
+        expected: {
+          alt: ``
+        },
+        description: 'should return alt with empty string'
+      },
+      {
+        input: {
+          crossorigin: `anonymous`
+        },
+        expected: {
+          crossOrigin: `anonymous`
+        },
+        description: 'should return correct crossOrigin'
+      },
+      {
+        input: {
+          alt: `alternative description`,
+          crossorigin: `anonymous`,
+          mediaTag: `img`
+        },
+        expected: {
+          alt: "alternative description",
+          crossOrigin: `anonymous`
+        },
+        description: 'should return correct media attributes'
+      },
+    ] )( 'it should $description', ( { 
+        input,
+        expected
+      } ) => {
+        // @ts-ignore
+        expect( computeMediaAttributes( input ) ).toEqual( expected );
     } );
   } );
 
@@ -958,21 +1076,49 @@ describe( 'Compute functions', () => {
     } );
   } );
 
-  describe( 'computeMagnifierStyle', () => {
+  describe( 'computeHostStyle', () => {
     test.each( [
       {
-        input: { zoom : undefined},
+        input: {},
         expected: {},
-        description: 'return empty stule as there is no zoom',
+        description: 'return empty style as there is no zoom nor style',
       },
       {
-        input: { zoom : 2},
+        input: { zoom: 2},
         expected: { "--twic-zoom": "2" },
-        description: 'return correct zoom style',
+        description: 'return correct style with zoom',
       },
-    ] )( 'it should $description', ( { input: { zoom }, expected } ) => {
+      {
+        input: {
+          style: {
+            "width":`100%`,
+            "height": `300px` 
+          } 
+        },
+        expected: {
+            "height": `300px`,
+            "width":`100%`,  
+        },
+        description: 'return correct style from given style',
+      },
+      {
+        input: {
+          style: {
+            "width":`100%`,
+            "height": `300px` 
+          },
+          zoom : 2 
+        },
+        expected: {
+            "height": `300px`,
+            "width":`100%`,
+            "--twic-zoom": `2`, 
+        },
+        description: 'return correct merged style from given style + zoom',
+      },
+    ] )( 'it should $description', ( { input: { style, zoom }, expected } ) => {
       // @ts-ignore
-      expect( computeMagnifierStyle( zoom ) ).toEqual( expected );
+      expect( computeHostStyle( { style, zoom } ) ).toEqual( expected );
     } );
   } );
 } );

@@ -11,6 +11,8 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
         return {
             'alt' : asset?.alt,
             'aspect-ratio': aspectRatio,
+            crossorigin: asset?.getAttribute( 'crossorigin' ),
+            decoding: asset?.getAttribute( 'decoding' ),
             'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
             'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
             'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),
@@ -21,6 +23,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             'data-twic-poster-transform' : asset?.getAttribute( 'data-twic-poster-transform' ),
             fetchpriority: asset?.getAttribute( 'fetchpriority' ),
             loading: asset?.loading,
+            referrerpolicy: asset?.getAttribute( 'referrerpolicy' ),
             src: asset ? asset.src : '',
             srcset: asset ? asset.srcset : '',
             'object-fit': styles?.getPropertyValue( `object-fit` ),
@@ -40,6 +43,19 @@ export const getBackgoundImageData = ( backgroundImage ) => {
         width,
     }
 }
+
+export const getHostElementData = async ( page, selector ) => {
+  return await page.evaluate( ( arg ) => {
+      const hostElement = document.querySelector( arg );
+      return {
+          'draggable' : hostElement?.getAttribute( 'draggable' ),
+          'id' : hostElement?.getAttribute( 'id' ),
+          'style' : hostElement?.getAttribute( 'style' ),
+          'tabindex' : hostElement?.getAttribute( 'tabindex' ),
+      };
+  }, selector );
+};
+
 export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
     const result =  await page.evaluate( ( arg ) => {
         const placeholder = document.querySelector( arg );
@@ -76,8 +92,11 @@ const componentSourceMap = {
 export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
-    await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
-
+    const url = `http://localhost:${ port }/?params=${ JSON.stringify( params ) }`;
+    if ( process.env.DEBUG === `true` ) {
+        console.info( url );
+    }
+    await page.goto( url );
     await page.waitForSelector( `.twic-i, .twic-p` );
     await new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 }
@@ -107,6 +126,16 @@ export const setupUnitTests = async ( testCases ) => {
             } );
 
             testCases.forEach( testCase => {
+                const { excluded } = testCase;
+                if (
+                    excluded && 
+                    excluded.some(
+                        excludedItem => new RegExp( `^${ excludedItem && excludedItem.trim() }`, `i` ).test( framework )
+                    )
+                ) {
+                  return;
+                }
+
                 test( testCase.description, async () => {
                     const { fn } = testCase;
                     await fn( page, port );

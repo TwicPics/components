@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable max-lines */
 import {
     ChangeDetectionStrategy,
@@ -18,11 +19,22 @@ import type {
     OnDestroy,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
+import type {
+    Anchor,
+    AnchorObject,
+    CrossOrigin,
+    Decoding,
+    Mode,
+    Placeholder,
+    ReferrerPolicy,
+    StateEvent,
+    State,
+    VideoOptions,
+} from "../_/types";
 
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -53,6 +65,9 @@ import {
     parseTransitionDuration,
     parseTransitionTimingFunction,
     parseTitle,
+    parseCrossOrigin,
+    parseDecoding,
+    parseReferrerPolicy,
 } from "../_/parse";
 import { preComputePlaceholder } from "../_/preCompute";
 import { attributes, styles } from "./utils";
@@ -85,6 +100,8 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() className: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
@@ -94,6 +111,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
@@ -114,6 +132,8 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _anchor: AnchorObject = undefined;
     _bot: string = undefined;
     _className: string = undefined;
+    _crossorigin: CrossOrigin = undefined;
+    _decoding: Decoding = undefined;
     _eager: boolean;
     _focus: string = undefined;
     _intrinsic: string = undefined;
@@ -124,6 +144,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _position: string = undefined;
     _preTransform: string = undefined;
     _ratio: number = undefined;
+    _referrerpolicy: ReferrerPolicy = undefined;
     _refit: string = undefined;
     _src: string;
     _step: number = undefined;
@@ -133,7 +154,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _transitionDuration: string = undefined;
     _transitionTimingFunct: string = undefined;
     _placeholder_: Placeholder = undefined;
-    description: string;
     mediaAttributes: Record<string, string>;
     mediaStyle: Record<string, string>;
     observer: Observer;
@@ -167,6 +187,8 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._anchor = parseAnchor( this.anchor );
         this._bot = parseBot( this.bot );
         this._className = parseClassName( this.className );
+        this._crossorigin = parseCrossOrigin( this.crossorigin );
+        this._decoding = parseDecoding( this.decoding );
         this._focus = parseFocus( this.focus );
         this._intrinsic = parseIntrinsic( this.intrinsic );
         this._mediaTag = parseMediaTag( this.mediaTag ) || `img`;
@@ -176,6 +198,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._position = parsePosition( this.position );
         this._preTransform = parsePreTransform( this.preTransform );
         this._ratio = parseRatio( this.ratio );
+        this._referrerpolicy = parseReferrerPolicy( this.referrerpolicy );
         this._refit = parseRefit( this.refit );
         this._src = parseSrc( this.src );
         this._step = parseStep( this.step );
@@ -185,7 +208,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
         this._placeholder_ = preComputePlaceholder( this._placeholder, this._src );
-        this.description = computeAlt( this._alt, this._mediaTag );
         this.mediaAttributes = {
             ...computeData(
                 this._anchor,
@@ -201,6 +223,13 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this._step,
                 this.videoOptions
             ),
+            ...computeMediaAttributes( {
+                "alt": this._alt,
+                "crossorigin": this._crossorigin,
+                "decoding": this._decoding,
+                "mediaTag": this._mediaTag,
+                "referrerpolicy": this._referrerpolicy,
+            } ),
         };
         this.mediaStyle = computeStyle(
             this._anchor,
@@ -236,13 +265,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.observer.destroy();
     }
     private updateMedia(): void {
-        if ( this._media ) {
-            // eslint-disable-next-line dot-notation
-            this.mediaAttributes[ `alt` ] = this.description;
-            // updates attributes to this._media HTML element
-            attributes( this.mediaAttributes, this._media, this.renderer );
-            // updates style to this._media HTML element
-            styles( this.mediaStyle, this._media, this.renderer );
-        }
+        attributes( this.mediaAttributes, this._media, this.renderer );
+        styles( this.mediaStyle, this._media, this.renderer );
     }
 }
