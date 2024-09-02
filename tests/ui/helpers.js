@@ -58,32 +58,34 @@ export const getPlaceholderData = async ( page, selector = `.twic-w div` ) => {
 };
 
 export const getWrapperData = async ( page, selector = `.twic-w` ) => {
-  return await page.evaluate( ( arg ) => {
-      const wrapper = document.querySelector( arg );
-      const styles = wrapper && window.getComputedStyle( wrapper );
-      return {
-          'padding-top': styles?.getPropertyValue( `padding-top` ),
-          'title': ( wrapper && wrapper.hasAttribute( `title` ) ) ? wrapper.title : undefined,
-      };
-  }, selector );
+    return await page.evaluate( ( arg ) => {
+        const wrapper = document.querySelector( arg );
+        const styles = wrapper && window.getComputedStyle( wrapper );
+        return {
+            'padding-top': styles?.getPropertyValue( `padding-top` ),
+            'title': ( wrapper && wrapper.hasAttribute( `title` ) ) ? wrapper.title : undefined,
+        };
+    }, selector );
 };
 
 const componentSourceMap = {
-  TwicImg: `football.jpg`,
-  TwicVideo: `video/skater.mp4`,
-  TwicPicture: `football.jpg`,
+    TwicImg: `football.jpg`,
+    TwicVideo: `video/skater.mp4`,
+    TwicPicture: `football.jpg`,
 }
 export const getSrc = ( component ) => componentSourceMap[ component ];
 
 export const goto = async ( { page, params = {}, port } ) => {
-    await page.goto( `http://localhost:${ port }/?params=${ encodeURIComponent( JSON.stringify( params ) ) }`);
-
+    const url = `http://localhost:${ port }/?params=${ JSON.stringify( params ) }`;
+    if ( process.env.DEBUG === `true` ) {
+        console.info( url );
+    }
+    await page.goto( url );
     await page.waitForSelector( `.twic-i, .twic-p` );
     await new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 }
 
 export const setupUnitTests = async ( testCases ) => {
-
     let browser;
     beforeAll( async () => {
         browser = await puppeteer.launch({
@@ -107,6 +109,16 @@ export const setupUnitTests = async ( testCases ) => {
             } );
 
             testCases.forEach( testCase => {
+                const { excluded } = testCase;
+                if (
+                    excluded && 
+                    excluded.some(
+                        excludedItem => new RegExp( `^${ excludedItem && excludedItem.trim() }`, `i` ).test( framework )
+                    )
+                ) {
+                  return;
+                }
+
                 test( testCase.description, async () => {
                     const { fn } = testCase;
                     await fn( page, port );

@@ -4,8 +4,21 @@ import { fileURLToPath } from "url";
 import { getFrameworks } from "./units.js";
 import { checkPort, killports } from "./utils.js";
 
-const FRAMEWORK_FILTERS = process.argv.slice(2).join(',');
+const ARGS = process.argv.slice(2);
+const DEBUG = ARGS.some( arg => arg === `debug` );
 
+const rTest = /(.*)\.spec/;
+// look for an optionnal unique test to run
+const TEST_TO_RUN = ARGS.map( arg => {
+    const match = rTest.exec( arg );
+    return match ? match[ 1 ] : null;
+} ).filter( p => p )[0];
+
+// generated frameworks list removing debug and a potential unique test to be run
+const FRAMEWORK_FILTERS = ARGS.
+    filter( arg => arg !== `debug` ).
+    filter( arg => !rTest.test( arg ) ).
+    join(',');
 // stop servers if needed
 await killports();
 
@@ -36,16 +49,23 @@ console.log( `All servers running.` );
 // starts tests
 const vitestProcess = spawn(
     'npx',
-    [ 'vitest', 'run', 'tests/ui' ],
+    [
+        'vitest',
+        'run',
+        `tests/ui${ TEST_TO_RUN ? `/_specs/${ TEST_TO_RUN }.spec.js` : `` }`
+    ],
     {
         stdio: 'inherit',
         env: {
             ...process.env,
             FRAMEWORK_FILTERS,
+            DEBUG,
         },
     } 
 );
 
 vitestProcess.on('close', async () => {
-    await killports();
+    if ( !DEBUG ) {
+      await killports();
+    }
 } );
