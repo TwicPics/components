@@ -1,4 +1,5 @@
 import React from 'react';
+import type { HtmlElementAttributes } from './types';
 
 /**
  * in React 19+ and Canary (versions that expose `use`) we must use camelCase attribute
@@ -9,3 +10,24 @@ import React from 'react';
  * see https://github.com/vercel/next.js/pull/65235
  */
 export const fetchPriorityName = React.use ? `fetchPriority` : `fetchpriority`;
+
+export const splitProperties = < T extends HtmlElementAttributes >(
+    { id, draggable, role, style, tabIndex, ...props }: T
+) => (
+        {
+            "hostProps": {
+                ...Object.fromEntries(
+                    Object.entries( props )
+                        .filter( ( [ key ] ) => key.startsWith( `aria-` ) )
+                ),
+                id,
+                draggable,
+                role,
+                style,
+                tabIndex,
+            },
+            "mediaProps": {
+                ...props,
+            },
+        }
+    );

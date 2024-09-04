@@ -1,19 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import { boolean, number, oneOfType, string } from "./props";
-import TwicMedia from "./TwicMedia";
-import type { BaseAttributes } from "./types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { parseClassName, parseZoom } from "../_/parse";
-import type { ScriptAttributes } from "../_/types";
-
-interface ImgAttributes extends BaseAttributes, ScriptAttributes {
-    refit?: boolean | string,
-    zoom?: number | string,
-}
+import { boolean, number, oneOfType, string } from "./props";
+import TwicMedia from "./TwicMedia";
+import type { ImgAttributes } from "./types";
+import { splitProperties } from "./utils";
 
 const TwicImg: React.FC< ImgAttributes > = props => {
     const hostElement = useRef< HTMLDivElement >( null );
+    const { hostProps, mediaProps } = splitProperties( props );
     useEffect(
         () => {
             if ( parseZoom( props.zoom ) ) {
@@ -27,19 +23,23 @@ const TwicImg: React.FC< ImgAttributes > = props => {
     return (
         <div
             ref={ hostElement }
+            { ...hostProps }
             className={ `twic-i ${ className } ${ zoom ? `twic-z` : `` }` }
-            style={ computeMagnifierStyle( zoom ) }
+            style={ {
+                ...hostProps.style,
+                ...computeMagnifierStyle( zoom ),
+            } }
         >
             { zoom && (
                 <TwicMedia
-                    { ...props }
+                    { ...mediaProps }
                     className="twic-m"
                     mediaTag="div"
                     mode="cover"
                 />
             ) }
             <TwicMedia
-                { ...props }
+                { ...mediaProps }
                 className=""
                 mediaTag="img"
             />
