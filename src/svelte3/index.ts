@@ -17,7 +17,8 @@ import { default as _TwicImg } from "./TwicImg.svelte";
 import { default as _TwicPicture } from "./TwicPicture.svelte";
 import { default as _TwicVideo } from "./TwicVideo.svelte";
 import { default as _TwicView } from "./TwicView.svelte";
-export interface BaseAttributes extends Attributes {
+
+interface BaseAttributes extends Attributes {
     class?: string,
     state?: State,
 }
@@ -29,10 +30,6 @@ interface BackgroundAttributes extends BaseAttributes {
 export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
     refit?: boolean | string,
     zoom?: number | string,
-}
-export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
-    mediaTag: string,
-    refit?: boolean | string,
 }
 
 export interface PictureAttributes extends BaseAttributes {

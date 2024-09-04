@@ -3,15 +3,8 @@ import { parseClassName, parseDuration, parseFrom, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import { number } from "./props";
 import TwicMedia from "./TwicMedia";
-import type { BaseAttributes } from "./types";
-import type { ScriptAttributes } from "../_/types";
-
-interface VideoAttributes extends BaseAttributes, ScriptAttributes {
-    duration?: number | string,
-    from?: number | string,
-    posterFrom?: number | string,
-    to?: number | string,
-}
+import type { VideoAttributes } from "./types";
+import { splitProperties } from "./utils";
 
 const TwicVideo: React.FC< VideoAttributes > = props => {
     const className = parseClassName( props.className ) || ``;
@@ -20,10 +13,14 @@ const TwicVideo: React.FC< VideoAttributes > = props => {
     const posterFrom = parseFrom( props.posterFrom );
     const to = parseTo( props.to );
     const videoOptions = preComputeVideoOptions( duration, from, posterFrom, to );
+    const { hostProps, mediaProps } = splitProperties( props );
     return (
-        <div className={ `twic-i ${ className }` }>
+        <div
+            { ...hostProps }
+            className={ `twic-i ${ className }` }
+        >
             <TwicMedia
-                { ...props }
+                { ...mediaProps }
                 className=""
                 mediaTag="video"
                 refit={ false }

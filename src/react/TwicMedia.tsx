@@ -35,22 +35,14 @@ import {
 import { preComputePlaceholder } from "../_/preCompute";
 import type {
     Anchor,
-    ScriptAttributes,
     Mode,
     Placeholder,
     State,
-    VideoOptions,
 } from "../_/types";
 import { validAnchors, validModes, validPlaceholders } from "../_/validate";
 
 import { boolean, func, number, oneOf, oneOfType, string } from "./props";
-import type { BaseAttributes } from "./types";
-
-export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
-    mediaTag: string,
-    refit?: boolean | string,
-    videoOptions?: VideoOptions,
-}
+import type { MediaAttributes } from "./types";
 
 const TwicMedia: React.FC< MediaAttributes > = props => {
     const media = useRef< HTMLElement >( null );
