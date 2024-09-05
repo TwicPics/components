@@ -2,11 +2,9 @@ import type { ComponentType, SvelteComponentTyped } from "svelte";
 import "../_/style.css";
 import type {
     Anchor,
-    Attributes,
     Environment,
     Mode,
     Placeholder,
-    ScriptAttributes,
     State,
     StateEvent,
 } from "./_utils.js";
@@ -17,33 +15,7 @@ import { default as _TwicImg } from "./TwicImg.svelte";
 import { default as _TwicPicture } from "./TwicPicture.svelte";
 import { default as _TwicVideo } from "./TwicVideo.svelte";
 import { default as _TwicView } from "./TwicView.svelte";
-
-interface BaseAttributes extends Attributes {
-    class?: string,
-    state?: State,
-}
-
-interface BackgroundAttributes extends BaseAttributes {
-    mediaTag?: string,
-}
-
-export interface ImgAttributes extends BaseAttributes, ScriptAttributes {
-    refit?: boolean | string,
-    zoom?: number | string,
-}
-
-export interface PictureAttributes extends BaseAttributes {
-    fetchpriority?: string,
-    sizes?: string
-}
-
-export interface VideoAttributes extends BaseAttributes, ScriptAttributes {
-    duration?: number | string,
-    from?: number | string,
-    posterFrom?: number | string,
-    to?: number | string,
-}
-
+import type { BackgroundAttributes, ImgAttributes, PictureAttributes, VideoAttributes } from "./type";
 export type { Anchor, Environment, Mode, Placeholder, State, StateEvent };
 const installTwicpics = installTwicPics;
 const TwicBackground = _TwicBackground as unknown as ComponentType < SvelteComponentTyped< BackgroundAttributes > >;

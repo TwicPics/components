@@ -12,12 +12,12 @@ import {
     parseClassName,
     parseFocuses,
     parseEager,
-    parsePreTransform,
     parsePreTransforms,
     parseRatios,
     parseRefit,
     parseSizes,
     parseSrc,
+    parseStyle,
     parseTitle,
     computePicture,
     computeAlt,
@@ -25,6 +25,8 @@ import {
     parseFetchPriority,
     parseModes,
     parsePositions,
+    splitProperties,
+    styleToString,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -41,6 +43,7 @@ export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
+export let style: string | Record< string, unknown > = {};
 export let sizes: string = undefined;
 export let title: string = undefined;
 
@@ -57,11 +60,21 @@ $: parsedRatios = parseRatios( ratio );
 $: parsedRefit = parseRefit( refit );
 $: parsedSizes = parseSizes( sizes );
 $: parsedSrc = parseSrc( src );
+$: parsedStyle = parseStyle( style );
 $: parsedTitle = parseTitle( title );
 
+let hostElement:HTMLDivElement | any;
+let hostProps;
+
+$: ( { hostProps } = splitProperties( $$props ) );
+
+$: _hostStyle = styleToString( parsedStyle );
+
 $: {
-    if ( isWebComponents ) {;
-        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
+    if ( isWebComponents ) {
+        hostElement = getCurrentComponent();
+        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.style = _hostStyle;
     }
 }
 
@@ -93,7 +106,11 @@ $: _computePictureData = computePicture(
       />
     </picture>
 {:else}
-<div class = {`twic-i ${ parsedClassName }`}>
+<div
+    { ...hostProps }
+    class = { `twic-i ${ parsedClassName }` }
+    style = { _hostStyle }
+>
   <picture class="twic-p" title = { parsedTitle }>
     {#if _computePictureData?.sources}
         {#each _computePictureData.sources as data }
