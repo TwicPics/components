@@ -64,7 +64,7 @@ export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
 export let refit: boolean | string = undefined;
-export let src: string;
+export let src: string = undefined;
 export let step: number | string = undefined;
 export let state: State = undefined;
 export let title: string = undefined;

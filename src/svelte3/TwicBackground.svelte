@@ -5,67 +5,47 @@ import {
     getCurrentComponent,
     isWebComponents,
     parseClassName,
-    type Anchor,
-    type Mode,
-    type Placeholder,
+    parseStyle,
+    splitProperties,
+    styleToString,
     type State
 } from "./_utils.js";
 import TwicMedia from "./TwicMedia.svelte";
 </script>
 <script lang="ts">
-export let anchor: Anchor = undefined;
-export let bot: string = undefined;
+
 let className: string = undefined;
 export { className as class };
-export let focus: string = undefined;
-export let intrinsic: string = undefined;
 export let mediaTag: string = `div`;
-export let mode: Mode = undefined;
-export let eager: boolean = false;
-export let placeholder: Placeholder = undefined;
-export let position: string = undefined;
-export let preTransform: string = undefined;
-export let ratio: number | string = undefined;
-export let src: string;
-export let step: number | string = undefined;
 export let state: State = undefined;
-export let title: string = undefined;
-export let transition: boolean | string = undefined;
-export let transitionDelay: string = undefined;
-export let transitionDuration: string = undefined;
-export let transitionTimingFunction: string = undefined;
+export let style: string | Record< string, unknown > = {};
 
 $: parsedClassName = parseClassName( className ) || ``;
+$: parsedStyle = parseStyle( style );
 
-$: props = {
-    anchor,
-    bot,
-    focus,
-    intrinsic,
-    mode,
-    eager,
-    placeholder,
-    position,
-    preTransform,
-    ratio,
-    title,
-    src,
-    step,
-    transition,
-    transitionDelay,
-    transitionDuration,
-    transitionTimingFunction
-}
+$: _hostStyle = styleToString( parsedStyle );
+
+let hostElement:HTMLDivElement | any;
+let hostProps, mediaProps;
+
+$: ( { hostProps, mediaProps } = splitProperties( $$props ) );
+
 $: {
     if ( isWebComponents ) {
-        getCurrentComponent().className = `${ parsedClassName } twic-d twic-i`;
+        hostElement = getCurrentComponent();
+        hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.style = _hostStyle;
     }
 }
 </script>
 {#if isWebComponents}
-<TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
+<TwicMedia { mediaTag } bind:state { ...mediaProps } on:statechange></TwicMedia>
 {:else}
-<div class = {`twic-i ${ parsedClassName }`}>
-    <TwicMedia { mediaTag } bind:state { ...props } on:statechange></TwicMedia>
+<div
+    { ...hostProps }
+    class = { `twic-i ${ parsedClassName }` }
+    style={ _hostStyle }
+>
+    <TwicMedia { mediaTag } bind:state { ...mediaProps } on:statechange></TwicMedia>
 </div>
 {/if}

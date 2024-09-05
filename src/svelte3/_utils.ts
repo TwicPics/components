@@ -37,6 +37,7 @@ export {
     parseRatios,
     parseRefit,
     parseSizes,
+    parseStyle,
     parseTo,
     parseSrc,
     parseStep,
@@ -65,16 +66,35 @@ export type {
 } from "../_/types.js";
 export { isBrowser, isWebComponents } from "../_/utils.js";
 import { get_current_component as getCurrentComponent } from "svelte/internal";
+import type { HtmlElementAttributes } from "./type.js";
 export { getCurrentComponent };
 
-export const styleToString = ( properties: Record< string, string > ): string => (
-    Object.keys( properties ).length ?
-        Object.entries( properties ).flatMap(
-            ( [ p, v ] ) => (
-                v ?
-                    [ `${ p.replace( /([a-z]|(?=[A-Z]))([A-Z])/g, `$1-$2` ).toLowerCase() }:${ v };` ] :
-                    []
-            )
-        ).join( `` ) :
-        undefined
-);
+export const styleToString = ( style: Record< string, unknown > ): string | undefined => {
+    if ( ( !style ) || ( Object.keys( style ).length === 0 ) ) {
+        return undefined;
+    }
+    return Object.entries( style )
+        .filter( ( [ , v ] ) => v )
+        .map( ( [ p, v ] ) => `${ p.replace( /([a-z])([A-Z])/g, `$1-$2` ).toLowerCase() }:${ v };` )
+        .join( `` );
+};
+
+export const splitProperties = < T extends HtmlElementAttributes >(
+    { id, draggable, role, tabindex, ...props }: T
+) => (
+        {
+            "hostProps": {
+                ...Object.fromEntries(
+                    Object.entries( props )
+                        .filter( ( [ key ] ) => key.startsWith( `aria-` ) )
+                ),
+                id,
+                draggable,
+                role,
+                tabindex,
+            },
+            "mediaProps": {
+                ...props,
+            },
+        }
+    );

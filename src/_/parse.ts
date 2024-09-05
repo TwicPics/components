@@ -232,8 +232,6 @@ const parseSize = ( value: string ) => {
 
 export const parseSizes = parseBreakpointsFactory<string>( parseSize );
 
-export const parseStep = parseNumber;
-
 export const parseSrc = ( value: string ): string => {
     if ( ( config.env === `offline` ) && !isReactNative ) {
         return ``;
@@ -247,6 +245,29 @@ export const parseSrc = ( value: string ): string => {
             `media:${ src.slice( `${ config.domain }/`.length ) }` :
             src.replace( rMedia, `media:${ config.path }` );
 
+};
+
+export const parseStep = parseNumber;
+
+export const parseStyle = (
+    value: Record< string, unknown > | string | undefined
+): Record< string, unknown > => {
+    if ( !value ) {
+        return {};
+    }
+    if ( typeof value === `string` ) {
+        return value.split( `;` ).reduce( ( parsedStyle: Record< string, unknown >, item ) => {
+            const [ key, _value ] = item
+                .split( `:` )
+                .map( s => s && s.trim() );
+            if ( key && _value ) {
+                // eslint-disable-next-line no-param-reassign
+                parsedStyle[ key ] = _value;
+            }
+            return parsedStyle;
+        }, {} );
+    }
+    return value;
 };
 
 export const parseTo = parseNumber;
