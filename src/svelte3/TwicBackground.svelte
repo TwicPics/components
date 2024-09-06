@@ -28,12 +28,16 @@ $: _hostStyle = styleToString( parsedStyle );
 let hostElement:HTMLDivElement | any;
 let hostProps, mediaProps;
 
-$: ( { hostProps, mediaProps } = splitProperties( $$props ) );
+$: ( { hostProps, mediaProps } = splitProperties( {
+    role: 'img',
+    ...$$props
+} ) );
 
 $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.role = hostProps.role;
         hostElement.style = _hostStyle;
     }
 }

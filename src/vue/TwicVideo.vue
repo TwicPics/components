@@ -1,10 +1,11 @@
 <script>
 import TwicMedia from "./TwicMedia.vue";
-import { floatProp } from "./props";
+import { defineStringProp, floatProp } from "./props";
 import { callFactory } from "./utils";
 import {
     parseDuration,
     parseFrom,
+    parseRole,
     parseTo,
 } from "../_/parse";
 import {
@@ -19,6 +20,7 @@ for (
         [ `duration`, floatProp, parseDuration ],
         [ `from`, floatProp, parseFrom ],
         [ `posterFrom`, floatProp, parseFrom ],
+        [ `role`, defineStringProp( undefined ), parseRole ],
         [ `to`, floatProp, parseTo ],
     ]
 ) {
@@ -50,7 +52,10 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
+    <div
+        class="twic-i"
+        :role="p_role"
+    >
         <TwicMedia
             media-tag="video"
             v-bind="{

@@ -2,13 +2,14 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
+    HostBinding,
     Input,
     Output,
     ViewEncapsulation,
 } from "@angular/core";
 // eslint-disable-next-line no-duplicate-imports
 import type { OnChanges } from "@angular/core";
-import { parseDuration, parseFrom, parseTo } from "../_/parse";
+import { parseDuration, parseFrom, parseRole, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
 import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
 
@@ -59,6 +60,7 @@ export class TwicVideoComponent implements OnChanges {
     @Input() posterFrom: number | string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() role: string;
     @Input() src: string;
     @Input() step: number | string = undefined;
     @Input() title: string = undefined;
@@ -68,15 +70,20 @@ export class TwicVideoComponent implements OnChanges {
     @Input() transitionDuration: string = undefined;
     @Input() transitionTimingFunction: string = undefined;
     @Output() stateChangeEvent = new EventEmitter< StateEvent >();
+    @HostBinding( `attr.role` ) get twicRole() {
+        return this._role;
+    }
     _duration: number;
     _from: number;
     _posterFrom: number;
+    _role: string;
     _to: number;
     videoOption: VideoOptions;
     ngOnChanges( ): void {
         this._duration = parseDuration( this.duration );
         this._from = parseFrom( this.from );
         this._posterFrom = parseDuration( this.posterFrom );
+        this._role = parseRole( this.role );
         this._to = parseTo( this.to );
         this.videoOption = preComputeVideoOptions( this._duration, this._from, this._posterFrom, this._to );
     }

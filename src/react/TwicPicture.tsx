@@ -59,7 +59,10 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     const { "fetchPriority": _fetchPriority, ...rest } = pictureData?.img || {};
 
-    const { hostProps } = splitProperties( props );
+    const { hostProps } = splitProperties( {
+        "role": `img`,
+        ...props,
+    } );
 
     return (
         <div

@@ -27,7 +27,10 @@ export let zoom: number | string = undefined;
 let hostElement:HTMLDivElement | any;
 let hostProps, mediaProps;
 
-$: ( { hostProps, mediaProps } = splitProperties( $$props ) );
+$: ( { hostProps, mediaProps } = splitProperties( {
+    role: 'img',
+    ...$$props
+} ) );
 
 $: parsedClassName = parseClassName( className ) || ``;
 $: parsedStyle = parseStyle( style );
@@ -40,6 +43,7 @@ $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
+        hostElement.role = hostProps.role;
         hostElement.style = _hostStyle;
     }
 }
