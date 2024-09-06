@@ -3,6 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    HostBinding,
     Input,
     Renderer2,
     ViewChild,
@@ -32,6 +33,7 @@ import {
     parsePreTransforms,
     parseRatios,
     parseRefit,
+    parseRole,
     parseSizes,
     parseSrc,
     parseTitle,
@@ -67,9 +69,13 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
     @Input() refit: boolean | string;
+    @Input() role: string = `img`;
     @Input() sizes: string;
     @Input() src: string;
     @Input() title: string = undefined;
+    @HostBinding( `attr.role` ) get twicRole() {
+        return this._role;
+    }
     @ViewChild( `container`, {
         "static": true,
     } ) containerRef!: ElementRef;
@@ -86,6 +92,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _preTransforms: Record< number, string > = undefined;
     _ratios: Record< number, number > = undefined;
     _refit: string = undefined;
+    _role: string;
     _sizes: Record< number, string > = undefined;
     _sources: HTMLElement[] = [];
     _src: string;
@@ -121,6 +128,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._preTransforms = parsePreTransforms( this.preTransform );
         this._ratios = parseRatios( this.ratio );
         this._refit = parseRefit( this.refit );
+        this._role = parseRole( this.role );
         this._sizes = parseSizes( this.sizes );
         this._src = parseSrc( this.src );
         this._title = parseTitle( this.title );

@@ -1,3 +1,4 @@
+import { parseRole } from "../_/parse.js";
 export {
     computeAlt,
     computeData,
@@ -12,6 +13,7 @@ export { getDataAttributeName } from "../_/config.js";
 export { installTwicPics } from "../_/install.js";
 export { default as initMagnifier } from "../_/magnifier";
 export { Observer } from "../_/Observer.js";
+// eslint-disable-next-line no-duplicate-imports
 export {
     parseAlt,
     parseAnchor,
@@ -48,6 +50,7 @@ export {
     parseTransitionTimingFunction,
     parseZoom,
 } from "../_/parse.js";
+export { parseRole };
 export {
     preComputePlaceholder,
     preComputeVideoOptions,
@@ -90,7 +93,7 @@ export const splitProperties = < T extends HtmlElementAttributes >(
                 ),
                 id,
                 draggable,
-                role,
+                "role": parseRole( role ),
                 tabindex,
             },
             "mediaProps": {

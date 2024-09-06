@@ -17,8 +17,9 @@ import {
     parseSrc,
     parseTitle,
     parseSizes,
+    parseRole,
 } from "../_/parse";
-import { booleanProp, stringProp } from "./props";
+import { booleanProp, defineStringProp, stringProp } from "./props";
 import { callFactory } from "./utils";
 
 const props = {};
@@ -34,6 +35,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `preTransform`, stringProp, parsePreTransforms ],
     [ `ratio`, stringProp, parseRatios ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
+    [ `role`, defineStringProp( undefined, `img` ), parseRole ],
     [ `src`, stringProp, parseSrc ],
     [ `sizes`, stringProp, parseSizes ],
     [ `title`, stringProp, parseTitle ],
@@ -73,7 +75,10 @@ export default {
 };
 </script>
 <template>
-    <div class="twic-i">
+    <div
+        class="twic-i"
+        :role="p_role"
+    >
         <picture
             class="twic-p"
             :title="p_title"

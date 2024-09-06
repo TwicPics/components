@@ -66,7 +66,10 @@ $: parsedTitle = parseTitle( title );
 let hostElement:HTMLDivElement | any;
 let hostProps;
 
-$: ( { hostProps } = splitProperties( $$props ) );
+$: ( { hostProps } = splitProperties( {
+    role: 'img',
+    ...$$props
+} ) );
 
 $: _hostStyle = styleToString( parsedStyle );
 
@@ -74,6 +77,7 @@ $: {
     if ( isWebComponents ) {
         hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } twic-d twic-i`;
+        hostElement.role = hostProps.role;
         hostElement.style = _hostStyle;
     }
 }

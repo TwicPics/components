@@ -1,17 +1,19 @@
 <script>
-import { defineNumberProp } from "./props";
+import { defineNumberProp, defineStringProp } from "./props";
 import { callFactory } from "./utils";
 import TwicMedia from "./TwicMedia.vue";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
-import { parseZoom } from "../_/parse";
+import { parseRole, parseZoom } from "../_/parse";
 import { rValidZoom } from "../_/validate";
 const emits = [ `stateChange` ];
 const props = {};
 const computed = {};
 for (
-    const [ propName, type, parseMethod ] of
-    [ [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ] ]
+    const [ propName, type, parseMethod ] of [
+        [ `zoom`, defineNumberProp( rValidZoom ), parseZoom ],
+        [ `role`, defineStringProp( undefined, `img` ), parseRole ],
+    ]
 ) {
     computed[ `p_${ propName }` ] = callFactory( parseMethod, [ `*${ propName }*` ] );
     props[ propName ] = type;
@@ -49,6 +51,7 @@ export default {
         ref="hostElement"
         class="twic-i"
         :class="{ 'twic-z': p_zoom }"
+        :role="p_role"
         :style="_magnifierStyle"
     >
         <TwicMedia

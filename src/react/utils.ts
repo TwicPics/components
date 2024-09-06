@@ -1,4 +1,5 @@
 import React from 'react';
+import { parseRole } from '../_/parse';
 import type { HtmlElementAttributes } from './types';
 
 /**
@@ -22,7 +23,7 @@ export const splitProperties = < T extends HtmlElementAttributes >(
                 ),
                 id,
                 draggable,
-                role,
+                "role": parseRole( role ),
                 style,
                 tabIndex,
             },

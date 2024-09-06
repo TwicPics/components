@@ -9,7 +9,10 @@ import { splitProperties } from "./utils";
 
 const TwicImg: React.FC< ImgAttributes > = props => {
     const hostElement = useRef< HTMLDivElement >( null );
-    const { hostProps, mediaProps } = splitProperties( props );
+    const { hostProps, mediaProps } = splitProperties( {
+        "role": `img`,
+        ...props,
+    } );
     useEffect(
         () => {
             if ( parseZoom( props.zoom ) ) {

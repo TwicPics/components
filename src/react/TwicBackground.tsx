@@ -15,7 +15,10 @@ const TwicBackground: React.FC< BackgroundAttributes > = props => {
         ...defaultProps,
         ...props,
     };
-    const { hostProps, mediaProps } = splitProperties( others );
+    const { hostProps, mediaProps } = splitProperties( {
+        "role": `img`,
+        ...others,
+    } );
     const parsedClassName = parseClassName( className ) || ``;
     return (
         <div
