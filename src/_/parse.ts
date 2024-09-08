@@ -17,7 +17,7 @@ import {
 
 const isPositiveNumber = ( value: number ) => !isNaN( value ) && ( value > 0 );
 const rMedia = /^((image|media|video):)?\/*/;
-export const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `(?:.|\n)+?` ) );
+export const trimOrUndefined = regExpFinderFactory( trimRegExpFactory( `(?:.|\n)*?` ) );
 const trimTransformOrUndefined = trimRegExpFactory( `.+?`, {
     "border": `[\\s\\/]`,
 } );
