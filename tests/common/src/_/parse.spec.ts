@@ -45,6 +45,7 @@ import {
   parseTransitionDuration,
   parseTransitionTimingFunction,
   parseZoom,
+  parseRole,
 } from '../../../../src/_/parse';
 import { Mode, Placeholder } from '../../../../src/_/types';
 
@@ -1069,6 +1070,37 @@ describe( 'Parsing functions', () => {
       // @ts-ignore
       expect( parseRefit( input ) ).toBe( expected );
     } );
+  } );
+
+  describe( 'parseRole', () => {
+      test.each( [
+        {
+          ...testUndefined( null ),
+        },
+        {
+          input: '',
+          expected: null,
+          description: 'return null string when string empty'
+        },
+        {
+          input: '  ',
+          expected: null,
+          description: 'return null string when only space'
+        },
+        {
+          input: 'my-role',
+          expected: 'my-role',
+          description: 'return specified role'
+        },
+        {
+          input: '   my-role-with-space   ',
+          expected: 'my-role-with-space',
+          description: 'return trimmed role'
+        },
+      ] )( 'it should $description', ( { input, expected } ) => {
+        // @ts-ignore
+        expect( parseRole( input ) ).toBe( expected );
+      } );
   } );
 
   describe( 'parseSizes', () => {

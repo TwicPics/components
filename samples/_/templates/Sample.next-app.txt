@@ -2,6 +2,8 @@
 // /(\s)class="/g => "$1className=\""
 // /(\b)transition=false(\b)/g => "transition='false'"
 // /(\b)transition=true(\b)/g => "transition='true'"
+// /(\b)tabindex(\b)/g => "tabIndex"
+// /style="width:200px"/g => "style={{ width: '200px' }}"
 // /___state___/g => ""
 // /___eager_true___/ => "eager={true}"
 // /___eager_false___/ => "eager={false}"
