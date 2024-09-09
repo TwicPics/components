@@ -16,6 +16,20 @@ export const assetSelector = ( media ) => {
     }
 }
 
+export const hostSelector = ( media ) => {
+    if ( media === `img` || media === `video`) {
+        return (
+            `.twic-i `
+        );
+    }
+    if ( media === `picture-img` || media === `picture-source` ) {
+        return (
+            `.twic-i, ` + // non angular
+            `twicpicture` // angular
+        );
+    }
+}
+
 export const placeholderSelector = ( media ) => `${ media }~div`;
 
 export const wrapperSelector = () => `.twic-w, .twic-p`;
