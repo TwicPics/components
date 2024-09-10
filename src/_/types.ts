@@ -1,10 +1,25 @@
+type LiteralUnion< T extends P, P = string > = T | ( P & {_?: never} );
+
 export type Anchor =
     `bottom` | `bottom-left` | `bottom-right` | `center` | `left` | `top` | `top-left` | `top-right` | `right`;
 export type BreakPoint = `xs` | `sm` | `md` | `lg` | `xl` | `2xl`;
+export type CrossOrigin = LiteralUnion< `anonymous` | `use-credentials` >;
+export type Decoding = LiteralUnion< `sync` | `async` | `auto` >;
 export type Environment = `debug` | `offline` | `production`;
 export type FetchPriority = `high` | `low` | `auto`;
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type Mode = `contain` | `cover`;
 export type Placeholder = `maincolor` | `meancolor` | `none` | `preview`;
+export type ReferrerPolicy = LiteralUnion<
+    `no-referrer`
+    | `no-referrer-when-downgrade`
+    | `origin`
+    | `origin-when-cross-origin`
+    | `same-origin`
+    | `strict-origin`
+    | `strict-origin-when-cross-origin`
+    | `unsafe-url`
+>;
 export type StateEvent = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: any,
