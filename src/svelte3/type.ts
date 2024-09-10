@@ -1,4 +1,4 @@
-import type { Attributes, ScriptAttributes, State } from "./_utils";
+import type { Attributes, Mode, ScriptAttributes, State } from "./_utils";
 
 interface BaseAttributes extends Attributes {
     class?: string,
@@ -26,6 +26,8 @@ export interface BackgroundAttributes extends BaseAttributes, HtmlElementAttribu
 
 export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes {
     fetchpriority?: string,
+    mode?: Mode,
+    refit?: boolean | string,
     sizes?: string
 }
 
