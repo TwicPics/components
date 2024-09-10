@@ -1,5 +1,5 @@
 import type React from "react";
-import type { Attributes, ScriptAttributes, StateEvent, VideoOptions } from "../_/types";
+import type { Attributes, Mode, ScriptAttributes, StateEvent, VideoOptions } from "../_/types";
 
 export type onStateChangeType = ( stateEvent: StateEvent ) => void;
 
@@ -34,7 +34,7 @@ export interface MediaAttributes extends BaseAttributes, ScriptAttributes {
 
 export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes {
     fetchpriority?: string,
-    mode?: string,
+    mode?: Mode,
     refit?: boolean | string,
     sizes?: string
 }
