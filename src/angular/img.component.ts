@@ -13,7 +13,7 @@ import {
 // eslint-disable-next-line no-duplicate-imports
 import type { AfterViewInit, OnChanges } from "@angular/core";
 import { parseRole, parseZoom } from "../_/parse";
-import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
+import type { Anchor, CrossOrigin, Decoding, Mode, Placeholder, ReferrerPolicy, StateEvent } from "../_/types";
 import { computeMagnifierStyle } from "../_/compute";
 import initMagnifier from "../_/magnifier";
 import { styles } from "./utils";
@@ -49,6 +49,8 @@ import { styles } from "./utils";
             [alt]="alt"
             [anchor]="anchor"
             [bot]="bot"
+            [crossorigin]="crossorigin"
+            [decoding]="decoding"
             [focus]="focus"
             [intrinsic]="intrinsic"
             [mode]="mode"
@@ -58,6 +60,7 @@ import { styles } from "./utils";
             [position]="position"
             [preTransform]="preTransform"
             [ratio]="ratio"
+            [referrerpolicy]="referrerpolicy"
             [refit]="refit"
             [src]="src"
             [step]="step"
@@ -81,6 +84,8 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
@@ -89,6 +94,7 @@ export class TwicImgComponent implements AfterViewInit, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() role: string = `img`;
     @Input() src: string;
