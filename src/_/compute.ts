@@ -5,6 +5,7 @@ import type {
     AnchorObject,
     ArtDirective,
     FetchPriority,
+    MediaAttributesData,
     Mode,
     Picture,
     Placeholder,
@@ -334,6 +335,21 @@ export const computeData = (
     }
     return attributes;
 };
+
+/* eslint-disable object-curly-newline */
+export const computeMediaAttributes = (
+    { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag, "referrerpolicy": referrerPolicy }: MediaAttributesData
+): Record< string, string > => ( {
+    ...( ( mediaTag === `img` ) && { alt } ),
+    ...( (
+        ( mediaTag === `img` ) || ( mediaTag === `video` ) ) &&
+        { crossOrigin }
+    ),
+    ...( ( mediaTag === `img` ) && { decoding } ),
+    ...( ( mediaTag === `img` ) && { referrerPolicy } ),
+} );
+
+/* eslint-enable object-curly-newline */
 
 /* eslint-disable dot-notation */
 export const computePlaceholderStyle = (

@@ -18,11 +18,22 @@ import type {
     OnDestroy,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, Mode, Placeholder, StateEvent, State, VideoOptions } from "../_/types";
+import type {
+    Anchor,
+    AnchorObject,
+    Mode,
+    Placeholder,
+    StateEvent,
+    State,
+    VideoOptions,
+    CrossOrigin,
+    Decoding,
+    ReferrerPolicy,
+} from "../_/types";
 
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -85,6 +96,8 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
     @Input() className: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
     @Input() focus: string = undefined;
     @Input() intrinsic: string = undefined;
     @Input() mode: Mode = undefined;
@@ -94,6 +107,7 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
@@ -133,7 +147,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     _transitionDuration: string = undefined;
     _transitionTimingFunct: string = undefined;
     _placeholder_: Placeholder = undefined;
-    description: string;
     mediaAttributes: Record<string, string>;
     mediaStyle: Record<string, string>;
     observer: Observer;
@@ -185,7 +198,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
         this._transitionDuration = parseTransitionDuration( this.transitionDuration );
         this._transitionTimingFunct = parseTransitionTimingFunction( this.transitionTimingFunction );
         this._placeholder_ = preComputePlaceholder( this._placeholder, this._src );
-        this.description = computeAlt( this._alt, this._mediaTag );
         this.mediaAttributes = {
             ...computeData(
                 this._anchor,
@@ -201,6 +213,13 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this._step,
                 this.videoOptions
             ),
+            ...computeMediaAttributes( {
+                "alt": this._alt,
+                "crossorigin": this.crossorigin,
+                "decoding": this.decoding,
+                "mediaTag": this._mediaTag,
+                "referrerpolicy": this.referrerpolicy,
+            } ),
         };
         this.mediaStyle = computeStyle(
             this._anchor,
@@ -237,8 +256,6 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
     private updateMedia(): void {
         if ( this._media ) {
-            // eslint-disable-next-line dot-notation
-            this.mediaAttributes[ `alt` ] = this.description;
             // updates attributes to this._media HTML element
             attributes( this.mediaAttributes, this._media, this.renderer );
             // updates style to this._media HTML element

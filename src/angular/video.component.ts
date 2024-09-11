@@ -11,7 +11,7 @@ import {
 import type { OnChanges } from "@angular/core";
 import { parseDuration, parseFrom, parseRole, parseTo } from "../_/parse";
 import { preComputeVideoOptions } from "../_/preCompute";
-import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
+import type { Anchor, CrossOrigin, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
 
 @Component( {
     "selector": `TwicVideo`,
@@ -19,6 +19,7 @@ import type { Anchor, Mode, Placeholder, StateEvent, VideoOptions } from "../_/t
         <TwicMedia
             [anchor]="anchor"
             [bot]="bot"
+            [crossorigin]="crossorigin"
             [focus]="focus"
             [intrinsic]="intrinsic"
             [mode]="mode"
@@ -49,6 +50,7 @@ export class TwicVideoComponent implements OnChanges {
     mediaTag = `video`;
     @Input() anchor: Anchor = undefined;
     @Input() bot: string = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
     @Input() duration: number | string = undefined;
     @Input() focus: string = undefined;
     @Input() from: number | string = undefined;
