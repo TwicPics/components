@@ -16,10 +16,19 @@ import type {
     OnChanges,
 } from "@angular/core";
 
-import type { Anchor, AnchorObject, FetchPriority, Mode, Picture } from "../_/types";
+import type {
+    Anchor,
+    AnchorObject,
+    CrossOrigin,
+    Decoding,
+    FetchPriority,
+    Mode,
+    Picture,
+    ReferrerPolicy,
+} from "../_/types";
 
 import {
-    computeAlt,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 
@@ -48,7 +57,7 @@ import { attributes } from "./utils";
           class="twic-p"
           [attr.title]="_title"
       >
-        <img #image [attr.alt]="description"/>
+        <img #image/>
       </picture>
   `,
     "styleUrls": [ `../_/style.css` ],
@@ -61,6 +70,8 @@ import { attributes } from "./utils";
 export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() alt: string = undefined;
     @Input() anchor: Anchor = undefined;
+    @Input() crossorigin: CrossOrigin = undefined;
+    @Input() decoding: Decoding = undefined;
     @Input() eager: boolean | string;
     @Input() fetchpriority: string = undefined;
     @Input() focus: string = undefined;
@@ -68,6 +79,7 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() referrerpolicy: ReferrerPolicy = undefined;
     @Input() refit: boolean | string;
     @Input() role: string = `img`;
     @Input() sizes: string;
@@ -97,7 +109,6 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     _sources: HTMLElement[] = [];
     _src: string;
     _title: string = undefined;
-    description: string;
     pictureData: Picture;
     // eslint-disable-next-line no-useless-constructor
     constructor(
@@ -132,7 +143,6 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         this._sizes = parseSizes( this.sizes );
         this._src = parseSrc( this.src );
         this._title = parseTitle( this.title );
-        this.description = computeAlt( this._alt, `img` );
         this.pictureData = {
             ...computePicture(
                 this._anchors,
@@ -152,8 +162,18 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
     }
     private updateMedia(): void {
         if ( this.imageRef.nativeElement ) {
+            const imgAttributes = {
+                ...this.pictureData?.img,
+                ...computeMediaAttributes( {
+                    "alt": this._alt,
+                    "crossorigin": this.crossorigin,
+                    "decoding": this.decoding,
+                    "mediaTag": `img`,
+                    "referrerpolicy": this.referrerpolicy,
+                } ),
+            };
             // updates attributes to this.imageRef.nativeElement HTML element
-            attributes( this.pictureData?.img, this.imageRef.nativeElement, this.renderer );
+            attributes( imgAttributes, this.imageRef.nativeElement, this.renderer );
         }
         for ( const index in this._sources ) {
             const actualSourceElement = this._sources[ index ];
