@@ -23,6 +23,7 @@ import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
             [position]="position"
             [preTransform]="preTransform"
             [ratio]="ratio"
+            [refit]="refit"
             [src]="src"
             [step]="step"
             [transition]="transition"
@@ -50,6 +51,7 @@ export class TwicBackgroundComponent {
     @Input() position: string = undefined;
     @Input() preTransform: string = undefined;
     @Input() ratio: number | string = undefined;
+    @Input() refit: boolean | string;
     @Input() src: string;
     @Input() step: number | string = undefined;
     @Input() transition:boolean | string;
