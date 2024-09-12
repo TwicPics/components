@@ -1,8 +1,8 @@
 import "../_/style.css";
 import React, { useEffect, useRef } from "react";
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -98,7 +98,6 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
         >
             <MediaTag
                 ref={ media }
-                alt={ computeAlt( alt, MediaTag ) }
                 style={ computeStyle(
                     anchor,
                     MediaTag,
@@ -122,6 +121,13 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                     step,
                     videoOptions
                 ) }
+                { ...computeMediaAttributes( {
+                    alt,
+                    "crossorigin": props.crossOrigin,
+                    "decoding": props.decoding,
+                    "mediaTag": MediaTag,
+                    "referrerpolicy": props.referrerPolicy,
+                } ) }
             />
             { placeholder_ && (
                 <div
