@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { setConfig } from '../../../../src/_/config';
-import { computeAlt, computeData, computeMagnifierStyle, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
+import { computeAlt, computeData, computeMagnifierStyle, computeMediaAttributes, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
 import { Mode, PlaceholderData } from '../../../../src/_/types';
 
 const dummyAnchor = { x: 'center', y: 'top' };
@@ -482,6 +482,138 @@ describe( 'Compute functions', () => {
 
       expect( result  ).toEqual( expected );
       
+    } );
+  } );
+
+  describe( 'computeMediaAttributes', () => {
+    test.each( [
+      {
+        input: {},
+        expected: {},
+        description: 'return empty object'
+      },
+      {
+        input: { 
+          mediaTag: `video`,
+          alt: `a video`,
+        },
+        expected: {},
+        description: 'should not return alt as mediatag is video'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+          alt: `my image`,
+        },
+        expected: {
+          alt: `my image`
+        },
+        description: 'should return alt with given value'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+        },
+        expected: {
+          alt: ``
+        },
+        description: 'should return alt with empty string as default value'
+      },
+      {
+        input: { 
+          mediaTag: `img`,
+          alt: ``,
+        },
+        expected: {
+          alt: ``
+        },
+        description: 'should return alt with empty string'
+      },
+      {
+        input: {
+          mediaTag: `img`,
+          crossorigin: `anonymous`
+        },
+        expected: {
+          alt: ``,
+          crossOrigin: `anonymous`,
+          decoding: undefined,
+          referrerPolicy: undefined,
+        },
+        description: 'should return only crossOrigin'
+      },
+      {
+        input: {
+          mediaTag: `img`,
+          decoding: `async`
+        },
+        expected: {
+          alt: ``,
+          crossOrigin: undefined,
+          decoding: `async`,
+          referrerPolicy: undefined,
+        },
+        description: 'should return only decoding'
+      },
+      {
+        input: {
+          mediaTag: `img`,
+          referrerpolicy: `origin`
+        },
+        expected: {
+          alt: ``,
+          crossOrigin: undefined,
+          decoding: undefined,
+          referrerPolicy: `origin`,
+        },
+        description: 'should return only referrerpolicy'
+      },
+      {
+        input: {
+          alt: `alternative description`,
+          crossorigin: `anonymous`,
+          decoding: `async`,
+          referrerpolicy: `origin`,
+          mediaTag: `img`
+        },
+        expected: {
+          alt: "alternative description",
+          crossOrigin: `anonymous`,
+          decoding: `async`,
+          referrerPolicy: `origin`,
+        },
+        description: 'should return correct media attributes for img tag'
+      },
+      {
+        input: {
+          alt: `alternative description`,
+          crossorigin: `anonymous`,
+          decoding: `async`,
+          referrerpolicy: `origin`,
+          mediaTag: `video`
+        },
+        expected: {
+          crossOrigin: `anonymous`,
+        },
+        description: 'should return correct media attributes for video tag'
+      },
+      {
+        input: {
+          alt: `alternative description`,
+          crossorigin: `anonymous`,
+          decoding: `async`,
+          referrerpolicy: `origin`,
+          mediaTag: `div`
+        },
+        expected: {},
+        description: 'should return correct media attributes for non img nor video tag'
+      },
+    ] )( 'it should $description', ( { 
+        input,
+        expected
+      } ) => {
+        // @ts-ignore
+        expect( computeMediaAttributes( input ) ).toEqual( expected );
     } );
   } );
 

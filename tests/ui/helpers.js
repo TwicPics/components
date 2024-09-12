@@ -11,6 +11,8 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
         return {
             'alt' : asset?.alt,
             'aspect-ratio': aspectRatio,
+            crossorigin: asset?.getAttribute( 'crossorigin' ),
+            decoding: asset?.getAttribute( 'decoding' ),
             'data-twic-bot' : asset?.getAttribute( 'data-twic-bot' ),
             'data-twic-eager' : asset?.getAttribute( 'data-twic-eager' ),
             'data-twic-intrinsic' : asset?.getAttribute( 'data-twic-intrinsic' ),
@@ -21,6 +23,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             'data-twic-poster-transform' : asset?.getAttribute( 'data-twic-poster-transform' ),
             fetchpriority: asset?.getAttribute( 'fetchpriority' ),
             loading: asset?.loading,
+            referrerpolicy: asset?.getAttribute( 'referrerpolicy' ),
             src: asset ? asset.src : '',
             srcset: asset ? asset.srcset : '',
             'object-fit': styles?.getPropertyValue( `object-fit` ),
