@@ -1,6 +1,6 @@
 import React from 'react';
 import { parseRole } from '../_/parse';
-import type { HtmlElementAttributes } from './types';
+import type { HtmlDivAttributes } from './types';
 
 /**
  * in React 19+ and Canary (versions that expose `use`) we must use camelCase attribute
@@ -12,7 +12,7 @@ import type { HtmlElementAttributes } from './types';
  */
 export const fetchPriorityName = React.use ? `fetchPriority` : `fetchpriority`;
 
-export const splitProperties = < T extends HtmlElementAttributes >(
+export const splitProperties = < T extends HtmlDivAttributes >(
     { id, draggable, role, style, tabIndex, ...props }: T
 ) => (
         {

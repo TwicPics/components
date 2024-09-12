@@ -1,7 +1,7 @@
 import "../_/style.css";
 import React from "react";
 import {
-    computeAlt,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 import {
@@ -59,6 +59,17 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
 
     const { "fetchPriority": _fetchPriority, ...rest } = pictureData?.img || {};
 
+    const mediaAttributes = {
+        ...computeMediaAttributes( {
+            alt,
+            "crossorigin": props.crossOrigin,
+            "decoding": props.decoding,
+            "mediaTag": `img`,
+            "referrerpolicy": props.referrerPolicy,
+        } ),
+        [ fetchPriorityName ]: _fetchPriority,
+    };
+
     const { hostProps } = splitProperties( {
         "role": `img`,
         ...props,
@@ -77,10 +88,7 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
                 ) }
                 <img
                     suppressHydrationWarning
-                    alt={ computeAlt( alt, `img` ) }
-                    { ...{
-                        [ fetchPriorityName ]: _fetchPriority,
-                    } }
+                    { ...mediaAttributes }
                     { ...rest }
                 />
             </picture>
