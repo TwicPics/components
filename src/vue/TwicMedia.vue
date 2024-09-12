@@ -12,7 +12,7 @@ import {
     parseAlt,
     parseAnchor,
     parseBot,
-    parseClass,
+    parseClassName,
     parseFocus,
     parseIntrinsic,
     parseMediaTag,
@@ -44,7 +44,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
-    [ `class`, stringProp, parseClass ],
+    [ `className`, stringProp, parseClassName ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mediaTag`, stringProp, parseMediaTag ],
@@ -131,7 +131,7 @@ for ( const [ propName, func, args ] of [
             `src`,
         ],
     ],
-    [ `_wrapperClass`, computeWrapperClass, [ `class`, `src`, `transition` ] ],
+    [ `_wrapperClass`, computeWrapperClass, [ `className`, `src`, `transition` ] ],
     [ `_wrapperStyle`, computeWrapperStyle, [ `ratio` ] ],
 ] ) {
     computed[ propName ] = callFactory( func, args );
