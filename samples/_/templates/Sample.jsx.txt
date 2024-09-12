@@ -1,4 +1,6 @@
 // /(\s)class="/g => "$1className=\""
+// /(\b)crossorigin(\b)/g => "crossOrigin"
+// /(\b)referrerpolicy(\b)/g => "referrerPolicy"
 // /(\b)transition=false(\b)/g => "transition='false'"
 // /(\b)transition=true(\b)/g => "transition='true'"
 // /(\b)tabindex(\b)/g => "tabIndex"
