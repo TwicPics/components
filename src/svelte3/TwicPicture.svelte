@@ -3,6 +3,8 @@
 <script context="module" lang="ts">
 import type {
     Anchor,
+    CrossOrigin,
+    Decoding,
     Mode,
 } from "./_utils.js";
 import {
@@ -20,13 +22,13 @@ import {
     parseStyle,
     parseTitle,
     computePicture,
-    computeAlt,
     isWebComponents,
     parseFetchPriority,
     parseModes,
     parsePositions,
     splitProperties,
     styleToString,
+    computeMediaAttributes,
 } from "./_utils.js";
 </script>
 <script lang="ts">
@@ -34,6 +36,8 @@ export let alt: string = undefined;
 export let anchor: Anchor = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: CrossOrigin = undefined;
+export let decoding: Decoding = undefined;
 export let eager: boolean = false;
 export let fetchpriority: string = undefined;
 export let focus: string = undefined;
@@ -41,6 +45,7 @@ export let mode: Mode = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let referrerpolicy: ReferrerPolicy = undefined;
 export let refit: boolean | string = undefined;
 export let src: string;
 export let style: string | Record< string, unknown > = {};
@@ -81,8 +86,13 @@ $: {
         _hostStyle && hostElement.setAttribute( 'style', _hostStyle );
     }
 }
-
-$: _alt = computeAlt( parsedAlt, `img` );
+$: _computedMediaAttributes = computeMediaAttributes( {
+    alt: parsedAlt,
+    crossorigin,
+    decoding,
+    mediaTag: `img`,
+    referrerpolicy,
+} );
 $: _computePictureData = computePicture(
     parsedAnchors,
     parsedEager,
@@ -105,8 +115,8 @@ $: _computePictureData = computePicture(
           {/each}
       {/if}
       <img
-          alt = { _alt }
           { ..._computePictureData?.img }
+          { ..._computedMediaAttributes }
       />
     </picture>
 {:else}
@@ -122,8 +132,8 @@ $: _computePictureData = computePicture(
         {/each}
     {/if}
     <img
-        alt = { _alt }
         { ..._computePictureData?.img }
+        { ..._computedMediaAttributes }
     />
   </picture>
 </div>
