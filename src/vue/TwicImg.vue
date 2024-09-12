@@ -59,7 +59,7 @@ export default {
             media-tag="div"
             v-bind="{
                 ...$attrs,
-                class: `twic-m`,
+                className: `twic-m`,
                 mode: `cover`,
             }"
         />
@@ -67,7 +67,7 @@ export default {
             media-tag="img"
             v-bind="{
                 ...$attrs,
-                class: ``,
+                className: ``,
             }"
             @stateChange="handleStateChange"
         />

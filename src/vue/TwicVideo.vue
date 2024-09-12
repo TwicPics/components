@@ -60,7 +60,7 @@ export default {
             media-tag="video"
             v-bind="{
                 ...$attrs,
-                class: ``,
+                className: ``,
             }"
             :refit="false"
             :video-options="_videoOptions"
