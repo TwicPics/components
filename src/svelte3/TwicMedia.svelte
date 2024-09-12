@@ -4,16 +4,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
+    computeMediaAttributes,
     parseClassName,
     parseMediaTag,
     type Anchor,
+    type CrossOrigin,
+    type Decoding,
     type Mode,
     type Placeholder,
     type State,
     type VideoOptions,
 } from "./_utils.js";
 import {
-    computeAlt,
     computeData,
     computePlaceholderStyle,
     computeStyle,
@@ -53,6 +55,8 @@ export let anchor: Anchor = undefined;
 export let bot: string = undefined;
 let className: string = undefined;
 export { className as class };
+export let crossorigin: CrossOrigin = undefined;
+export let decoding: Decoding = undefined;
 export let focus: string = undefined;
 export let intrinsic: string = undefined;
 export let media: HTMLElement= undefined;
@@ -63,6 +67,7 @@ export let placeholder: Placeholder = undefined;
 export let position: string = undefined;
 export let preTransform: string = undefined;
 export let ratio: number | string = undefined;
+export let referrerpolicy: ReferrerPolicy = undefined;
 export let refit: boolean | string = undefined;
 export let src: string = undefined;
 export let step: number | string = undefined;
@@ -106,7 +111,6 @@ $: parsedVideoOptions = videoOptions;
 
 $: parsedPlaceholder_ = preComputePlaceholder( parsedPlaceholder, parsedSrc );
 
-$: _alt = computeAlt( parsedAlt, parsedMediaTag );
 $: _data = computeData(
     parsedAnchor,
     parsedBot,
@@ -121,6 +125,13 @@ $: _data = computeData(
     parsedStep,
     parsedVideoOptions,
 );
+$: _mediaAttributes = computeMediaAttributes( {
+    alt: parsedAlt,
+    crossorigin,
+    decoding,
+    mediaTag: parsedMediaTag,
+    referrerpolicy,
+} );
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,
@@ -166,9 +177,9 @@ if ( isBrowser ) {
 >
     <svelte:element this={ mediaTag }
         bind:this = { media }
-        alt = { _alt }
         style = { _style }
         { ..._data }
+        { ..._mediaAttributes }
     ></svelte:element>
     {#if parsedPlaceholder_ }
         <div style = { _placeholderStyle } />

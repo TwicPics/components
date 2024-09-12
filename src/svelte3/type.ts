@@ -1,4 +1,13 @@
-import type { Attributes, Mode, ScriptAttributes, State } from "./_utils";
+
+import type {
+    Attributes,
+    CrossOrigin,
+    Decoding,
+    Mode,
+    ReferrerPolicy,
+    ScriptAttributes,
+    State,
+} from "./_utils";
 
 interface BaseAttributes extends Attributes {
     class?: string,
@@ -6,7 +15,7 @@ interface BaseAttributes extends Attributes {
     style?: string | Record< string, unknown >,
 }
 
-export interface HtmlElementAttributes {
+export interface HtmlDivAttributes {
     draggable?: boolean | `true` | `false`,
     id?: string,
     role?: string,
@@ -14,24 +23,31 @@ export interface HtmlElementAttributes {
     [ key: string ]: unknown,
 }
 
-export interface ImgAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
+interface HtmlImageAttributes {
+  crossorigin?: CrossOrigin,
+  decoding?: Decoding,
+  referrerpolicy?: ReferrerPolicy,
+}
+
+export interface ImgAttributes extends BaseAttributes, HtmlDivAttributes, HtmlImageAttributes, ScriptAttributes {
     refit?: boolean | string,
     zoom?: number | string,
 }
 
-export interface BackgroundAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
+export interface BackgroundAttributes extends BaseAttributes, HtmlDivAttributes, ScriptAttributes {
     refit?: boolean | string,
     mediaTag?: string,
 }
 
-export interface PictureAttributes extends BaseAttributes, HtmlElementAttributes {
+export interface PictureAttributes extends BaseAttributes, HtmlDivAttributes, HtmlImageAttributes {
     fetchpriority?: string,
     mode?: Mode,
     refit?: boolean | string,
     sizes?: string
 }
 
-export interface VideoAttributes extends BaseAttributes, HtmlElementAttributes, ScriptAttributes {
+export interface VideoAttributes extends BaseAttributes, HtmlDivAttributes, ScriptAttributes {
+    crossorigin?: CrossOrigin,
     duration?: number | string,
     from?: number | string,
     posterFrom?: number | string,

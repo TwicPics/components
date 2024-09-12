@@ -1,8 +1,8 @@
 import { parseRole } from "../_/parse.js";
 export {
-    computeAlt,
     computeData,
     computeMagnifierStyle,
+    computeMediaAttributes,
     computePicture,
     computePlaceholderStyle,
     computeStyle,
@@ -58,10 +58,13 @@ export {
 export type {
     Attributes,
     Anchor,
+    CrossOrigin,
+    Decoding,
     Environment,
     Mode,
     Options,
     Placeholder,
+    ReferrerPolicy,
     ScriptAttributes,
     State,
     StateEvent,
@@ -69,7 +72,7 @@ export type {
 } from "../_/types.js";
 export { isBrowser, isWebComponents } from "../_/utils.js";
 import { get_current_component as getCurrentComponent } from "svelte/internal";
-import type { HtmlElementAttributes } from "./type.js";
+import type { HtmlDivAttributes } from "./type.js";
 export { getCurrentComponent };
 
 export const styleToString = ( style: Record< string, unknown > ): string | undefined => {
@@ -82,7 +85,7 @@ export const styleToString = ( style: Record< string, unknown > ): string | unde
         .join( `` );
 };
 
-export const splitProperties = < T extends HtmlElementAttributes >(
+export const splitProperties = < T extends HtmlDivAttributes >(
     { id, draggable, role, tabindex, ...props }: T
 ) => (
         {
