@@ -1,6 +1,6 @@
 <script>
 import {
-    computeAlt,
+    computeMediaAttributes,
     computePicture,
 } from "../_/compute";
 import {
@@ -27,6 +27,8 @@ const computed = {};
 for ( const [ propName, type, parseMethod ] of [
     [ `alt`, stringProp, parseAlt ],
     [ `anchor`, stringProp, parseAnchors ],
+    [ `crossorigin`, stringProp, v => v ],
+    [ `decoding`, stringProp, v => v ],
     [ `fetchpriority`, stringProp, parseFetchPriority ],
     [ `focus`, stringProp, parseFocuses ],
     [ `mode`, stringProp, parseModes ],
@@ -34,6 +36,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `position`, stringProp, parsePositions ],
     [ `preTransform`, stringProp, parsePreTransforms ],
     [ `ratio`, stringProp, parseRatios ],
+    [ `referrerpolicy`, stringProp, v => v ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `role`, defineStringProp( undefined, `img` ), parseRole ],
     [ `src`, stringProp, parseSrc ],
@@ -47,7 +50,11 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_mediaTag` ] = () => `img`;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
+    [
+        `_mediaAttributes`,
+        computeMediaAttributes,
+        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
+    ],
     [
         `_pictureData`,
         computePicture,
@@ -92,8 +99,10 @@ export default {
             </template>
             <template v-if="_pictureData && _pictureData.img">
                 <img
-                    :alt="_alt"
-                    v-bind="{ ..._pictureData.img }"
+                    v-bind="{
+                        ..._mediaAttributes,
+                        ..._pictureData.img
+                    }"
                 >
             </template>
         </picture>
