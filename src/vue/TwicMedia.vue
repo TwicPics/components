@@ -1,7 +1,7 @@
 <script>
 import {
-    computeAlt,
     computeData,
+    computeMediaAttributes,
     computePlaceholderStyle,
     computeStyle,
     computeWrapperClass,
@@ -45,6 +45,8 @@ for ( const [ propName, type, parseMethod ] of [
     [ `anchor`, defineStringProp( rValidAnchor ), parseAnchor ],
     [ `bot`, stringProp, parseBot ],
     [ `className`, stringProp, parseClassName ],
+    [ `crossorigin`, stringProp, v => v ],
+    [ `decoding`, stringProp, v => v ],
     [ `focus`, stringProp, parseFocus ],
     [ `intrinsic`, defineStringProp( rValidIntrinsic ), parseIntrinsic ],
     [ `mediaTag`, stringProp, parseMediaTag ],
@@ -54,6 +56,7 @@ for ( const [ propName, type, parseMethod ] of [
     [ `position`, stringProp, parsePosition ],
     [ `preTransform`, stringProp, parsePreTransform ],
     [ `ratio`, defineStringProp( rValidRatio ), parseRatio ],
+    [ `referrerpolicy`, stringProp, v => v ],
     [ `refit`, booleanProp( null, false ), parseRefit ],
     [ `src`, stringProp, parseSrc ],
     [ `step`, intProp, parseStep ],
@@ -70,7 +73,6 @@ for ( const [ propName, type, parseMethod ] of [
 computed[ `p_undefined` ] = () => undefined;
 
 for ( const [ propName, func, args ] of [
-    [ `_alt`, computeAlt, [ `alt`, `mediaTag` ] ],
     [
         `_dataAttributes`,
         computeData,
@@ -88,6 +90,11 @@ for ( const [ propName, func, args ] of [
             `step`,
             `videoOptions`,
         ],
+    ],
+    [
+        `_mediaAttributes`,
+        computeMediaAttributes,
+        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
     ],
     [
         `_style`,
@@ -169,9 +176,11 @@ export default {
         <component
             :is="p_mediaTag"
             ref="media"
-            :alt="p_mediaTag === `img` ? _alt : undefined"
             :style="_style"
-            v-bind="{ ..._dataAttributes }"
+            v-bind="{
+                ..._dataAttributes,
+                ..._mediaAttributes
+            }"
         />
         <div
             v-if="p_placeholder_"
