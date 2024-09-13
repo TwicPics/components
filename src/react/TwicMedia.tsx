@@ -121,13 +121,13 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
                     step,
                     videoOptions
                 ) }
-                { ...computeMediaAttributes( {
+                { ...computeMediaAttributes(
                     alt,
-                    "crossorigin": props.crossOrigin,
-                    "decoding": props.decoding,
-                    "mediaTag": MediaTag,
-                    "referrerpolicy": props.referrerPolicy,
-                } ) }
+                    props.crossOrigin,
+                    props.decoding,
+                    MediaTag,
+                    props.referrerPolicy
+                ) }
             />
             { placeholder_ && (
                 <div

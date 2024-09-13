@@ -213,13 +213,13 @@ export class TwicMediaComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this._step,
                 this.videoOptions
             ),
-            ...computeMediaAttributes( {
-                "alt": this._alt,
-                "crossorigin": this.crossorigin,
-                "decoding": this.decoding,
-                "mediaTag": this._mediaTag,
-                "referrerpolicy": this.referrerpolicy,
-            } ),
+            ...computeMediaAttributes(
+                this._alt,
+                this.crossorigin,
+                this.decoding,
+                this._mediaTag,
+                this.referrerpolicy
+            ),
         };
         this.mediaStyle = computeStyle(
             this._anchor,

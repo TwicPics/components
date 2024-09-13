@@ -60,13 +60,13 @@ const TwicPicture: React.FC< PictureAttributes > = props => {
     const { "fetchPriority": _fetchPriority, ...rest } = pictureData?.img || {};
 
     const mediaAttributes = {
-        ...computeMediaAttributes( {
+        ...computeMediaAttributes(
             alt,
-            "crossorigin": props.crossOrigin,
-            "decoding": props.decoding,
-            "mediaTag": `img`,
-            "referrerpolicy": props.referrerPolicy,
-        } ),
+            props.crossOrigin,
+            props.decoding,
+            `img`,
+            props.referrerPolicy
+        ),
         [ fetchPriorityName ]: _fetchPriority,
     };
 

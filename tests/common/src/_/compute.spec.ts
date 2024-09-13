@@ -612,8 +612,9 @@ describe( 'Compute functions', () => {
         input,
         expected
       } ) => {
-        // @ts-ignore
-        expect( computeMediaAttributes( input ) ).toEqual( expected );
+        const { alt, crossorigin, decoding, referrerpolicy, mediaTag } = input;
+         // @ts-ignore
+        expect( computeMediaAttributes( alt, crossorigin, decoding, mediaTag, referrerpolicy ) ).toEqual( expected );
     } );
   } );
 

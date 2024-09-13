@@ -164,13 +164,13 @@ export class TwicPictureComponent implements AfterViewInit, OnChanges {
         if ( this.imageRef.nativeElement ) {
             const imgAttributes = {
                 ...this.pictureData?.img,
-                ...computeMediaAttributes( {
-                    "alt": this._alt,
-                    "crossorigin": this.crossorigin,
-                    "decoding": this.decoding,
-                    "mediaTag": `img`,
-                    "referrerpolicy": this.referrerpolicy,
-                } ),
+                ...computeMediaAttributes(
+                    this._alt,
+                    this.crossorigin,
+                    this.decoding,
+                    `img`,
+                    this.referrerpolicy
+                ),
             };
             // updates attributes to this.imageRef.nativeElement HTML element
             attributes( imgAttributes, this.imageRef.nativeElement, this.renderer );

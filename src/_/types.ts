@@ -103,14 +103,6 @@ export interface CreateUrlData {
     src: string,
 }
 
-export interface MediaAttributesData {
-    alt?: string,
-    crossorigin?: CrossOrigin,
-    decoding?: Decoding,
-    mediaTag?: string,
-    referrerpolicy?: ReferrerPolicy,
-}
-
 export interface Options {
     anticipation?: number,
     breakpoints?: { [ key in BreakPoint ]?: number },

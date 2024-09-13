@@ -94,7 +94,7 @@ for ( const [ propName, func, args ] of [
     [
         `_mediaAttributes`,
         computeMediaAttributes,
-        [ [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ] ],
+        [ `alt`, `crossorigin`, `decoding`, `mediaTag`, `referrerpolicy` ],
     ],
     [
         `_style`,
