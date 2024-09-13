@@ -125,13 +125,13 @@ $: _data = computeData(
     parsedStep,
     parsedVideoOptions,
 );
-$: _mediaAttributes = computeMediaAttributes( {
-    alt: parsedAlt,
+$: _mediaAttributes = computeMediaAttributes(
+    parsedAlt,
     crossorigin,
     decoding,
-    mediaTag: parsedMediaTag,
+    parsedMediaTag,
     referrerpolicy,
-} );
+);
 $: _placeholderStyle = styleToString( computePlaceholderStyle(
     parsedAnchor,
     parsedFocus,
