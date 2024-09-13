@@ -21,7 +21,7 @@ import {
     parseTransitionTimingFunction,
 } from './parse';
 import {
-    computeAlt,
+    computeMediaAttributes,
     computePosition,
     computeTimingConfig,
     computeUrls,
@@ -60,7 +60,7 @@ export default ( props: MediaAttributes ) => {
     const MediaComponent = mediaTag === `img` ?
         ( cachePolicy === `none` ? Image : ImageCache ) :
         Video;
-    const computedAlt = computeAlt( alt, mediaTag );
+    const { "alt": computedAlt } = computeMediaAttributes( alt, undefined, undefined, mediaTag, undefined );
     const { media, inspect, poster } = computeUrls(
         mediaTag, {
             anchor,
