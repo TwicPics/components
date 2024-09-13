@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { setConfig } from '../../../../src/_/config';
-import { computeAlt, computeData, computeMagnifierStyle, computeMediaAttributes, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
+import { computeData, computeMagnifierStyle, computeMediaAttributes, computePicture, computePlaceholderBackground, computePlaceholderStyle, computePreTransform, computeStyle, computeWrapperClass, computeWrapperStyle } from '../../../../src/_/compute';
 import { Mode, PlaceholderData } from '../../../../src/_/types';
 
 const dummyAnchor = { x: 'center', y: 'top' };
@@ -222,15 +222,6 @@ describe( 'Compute functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-ignore
       expect( computePreTransform( input ) ).toBe( expected );
-    } );
-  } );
-
-  describe( 'computeAlt', () => {
-    it( 'should compute alt correctly for img tag', () => {
-        expect( computeAlt( 'alt text', 'img' ) ).toBe( 'alt text' );
-    });
-    it( 'should return undefined for video tag', () => {
-        expect( computeAlt( 'alt text', 'video' ) ).toBeUndefined();
     } );
   } );
 
