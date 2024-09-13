@@ -6,10 +6,12 @@ import { isSameAsset } from "./utils";
 import { styles } from "./styles";
 
 // eslint-disable-next-line react/display-name
-export default React.memo( ( { alt, uri, onLoad }: AssetAttributes ) => (
+export default React.memo( ( { alt, crossOrigin, uri, onLoad, referrerPolicy }: AssetAttributes ) => (
     uri && <Image
         alt = { alt }
+        crossOrigin = { crossOrigin }
         onLoad={ onLoad }
+        referrerPolicy= { referrerPolicy }
         source={ {
             uri,
         } }
