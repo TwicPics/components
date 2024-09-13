@@ -39,7 +39,7 @@ import { styles } from './styles';
 import VisibilityDetector from './visibilityDetector';
 
 export default ( props: MediaAttributes ) => {
-    const { mediaTag, videoOptions, viewSize } = props;
+    const { crossOrigin, mediaTag, referrerPolicy, videoOptions, viewSize } = props;
     const alt = parseAlt( props.alt );
     const anchor = parseAnchor( props.anchor );
     const cachePolicy = parseCachePolicy( props.cachePolicy ) || config.cachePolicy;
@@ -165,7 +165,9 @@ export default ( props: MediaAttributes ) => {
                     <MediaComponent
                         alt={ computedAlt }
                         cachePolicy={ cachePolicy }
+                        crossOrigin={ crossOrigin }
                         onLoad={ onLoad }
+                        referrerPolicy={ referrerPolicy }
                         uri={ actualUri }
                         poster={ poster }
                     />

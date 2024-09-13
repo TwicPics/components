@@ -1,17 +1,27 @@
 import type * as React from 'react';
 import type { EasingFunction } from "react-native";
-import type { AnchorObject, Mode, Options as BaseOptions, Placeholder, VideoOptions, CachePolicy } from "../_/types";
+import type {
+    AnchorObject,
+    CachePolicy,
+    CrossOrigin,
+    Mode,
+    Options as BaseOptions,
+    Placeholder,
+    ReferrerPolicy,
+    VideoOptions,
+} from "../_/types";
 
 export type MediaTag = `img` | `video`;
 
 export interface AssetAttributes {
   alt?: string,
   cachePolicy?: CachePolicy,
+  crossOrigin?: CrossOrigin,
   onLoad: ( ( ) => void ) ;
   poster?: string,
+  referrerPolicy?: ReferrerPolicy,
   uri: string,
 }
-
 export interface BaseAttributes {
     anchor?: string,
     eager?: boolean,
@@ -32,6 +42,8 @@ export interface BaseAttributes {
 export interface ImgAttributes extends BaseAttributes {
     alt?: string,
     cachePolicy?: CachePolicy,
+    crossOrigin?: CrossOrigin;
+    referrerPolicy?: ReferrerPolicy,
     refit?: boolean | string,
 }
 
@@ -49,7 +61,9 @@ export interface VideoAttributes extends BaseAttributes {
 export interface MediaAttributes extends BaseAttributes {
     alt?: string,
     cachePolicy? : CachePolicy,
+    crossOrigin?: CrossOrigin,
     mediaTag: MediaTag,
+    referrerPolicy?: ReferrerPolicy,
     refit?: boolean | string,
     videoOptions?: VideoOptions,
     viewSize: SizeObject,
