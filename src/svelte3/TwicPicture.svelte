@@ -78,7 +78,7 @@ $: {
         hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } twic-d twic-i`;
         hostElement.role = hostProps.role;
-        hostElement.style = _hostStyle;
+        _hostStyle && hostElement.setAttribute( 'style', _hostStyle );
     }
 }
 
