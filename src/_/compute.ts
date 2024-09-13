@@ -4,13 +4,15 @@
 import type {
     AnchorObject,
     ArtDirective,
+    CrossOrigin,
+    Decoding,
     FetchPriority,
-    MediaAttributesData,
     Mode,
     Picture,
     Placeholder,
     PlaceholderData,
     PreTransformData,
+    ReferrerPolicy,
     VideoOptions,
 } from "./types";
 
@@ -338,9 +340,9 @@ export const computeData = (
 
 /* eslint-disable object-curly-newline */
 export const computeMediaAttributes = (
-    { alt = ``, "crossorigin": crossOrigin, decoding, mediaTag, "referrerpolicy": referrerPolicy }: MediaAttributesData
+    alt: string, crossOrigin: CrossOrigin, decoding: Decoding, mediaTag: string, referrerPolicy: ReferrerPolicy
 ): Record< string, string > => ( {
-    ...( ( mediaTag === `img` ) && { alt } ),
+    ...( ( mediaTag === `img` ) && { "alt": alt || `` } ),
     ...( (
         ( mediaTag === `img` ) || ( mediaTag === `video` ) ) &&
         { crossOrigin }

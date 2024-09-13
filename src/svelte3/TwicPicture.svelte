@@ -86,13 +86,13 @@ $: {
         _hostStyle && hostElement.setAttribute( 'style', _hostStyle );
     }
 }
-$: _computedMediaAttributes = computeMediaAttributes( {
-    alt: parsedAlt,
+$: _computedMediaAttributes = computeMediaAttributes(
+    parsedAlt,
     crossorigin,
     decoding,
-    mediaTag: `img`,
+    `img`,
     referrerpolicy,
-} );
+);
 $: _computePictureData = computePicture(
     parsedAnchors,
     parsedEager,
