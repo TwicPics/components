@@ -270,9 +270,6 @@ const preComputeStyle = (
 };
 /* eslint-enable dot-notation */
 
-export const computeAlt =
-    ( alt: string, mediaTag: string ): string => ( ( mediaTag === `img` ) ? alt : undefined );
-
 export const computeData = (
     anchor: AnchorObject,
     bot: string,
