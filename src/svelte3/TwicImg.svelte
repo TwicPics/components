@@ -44,7 +44,7 @@ $: {
         hostElement = getCurrentComponent();
         hostElement.className = `${ parsedClassName } ${ parsedZoom ? `twic-z` : `` } twic-d twic-i`;
         hostElement.role = hostProps.role;
-        hostElement.style = _hostStyle;
+        _hostStyle && hostElement.setAttribute( 'style', _hostStyle );
     }
 }
 if ( isBrowser ) {
