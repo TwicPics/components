@@ -24,9 +24,9 @@ export interface HtmlDivAttributes {
 }
 
 interface HtmlImageAttributes {
-  crossorigin?: CrossOrigin,
-  decoding?: Decoding,
-  referrerpolicy?: ReferrerPolicy,
+    crossorigin?: CrossOrigin,
+    decoding?: Decoding,
+    referrerpolicy?: ReferrerPolicy,
 }
 
 export interface ImgAttributes extends BaseAttributes, HtmlDivAttributes, HtmlImageAttributes, ScriptAttributes {
