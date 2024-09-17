@@ -21,14 +21,14 @@ import type {
 import type {
     Anchor,
     AnchorObject,
+    CrossOrigin,
+    Decoding,
     Mode,
     Placeholder,
+    ReferrerPolicy,
     StateEvent,
     State,
     VideoOptions,
-    CrossOrigin,
-    Decoding,
-    ReferrerPolicy,
 } from "../_/types";
 
 import {
