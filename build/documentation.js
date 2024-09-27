@@ -50,7 +50,21 @@ const getDocumentationsToBuild = async () =>
  * returns modified content
  */
 const replacer = async file => {
-    const rTransform = /^\/\/\s*(?:<(.*)>)?\s*\/((?:\\.|[^/])+)\/([a-z]+)?\s*=>\s*("(?:\\.|[^"])+")\s*$/gm;
+    const leadingAndScopeRegExp = /^\/\/\s*(?:<(.*)>)?\s*/;
+    const expressionAndFlagRegExp = /\s*\/((?:\\.|[^/])+)\/([a-z]+)?\s*/;
+    const targetRegExp = /\s*(?:§="(.*)")?\s*/;
+    const transformRegExp = /\s*=>\s*("(?:\\.|[^"])+")\s*$/;
+
+    const rTransform = new RegExp( `${
+            leadingAndScopeRegExp.source
+        }${
+            expressionAndFlagRegExp.source
+        }${
+            targetRegExp.source
+        }${
+            transformRegExp.source
+        }`,
+        `gm` );
     const replacers = [
         {
             "regExp": /(\b)__GITHUB_RAW_PATH__(\b)/gm,
@@ -72,7 +86,7 @@ const replacer = async file => {
     const scopedReplacers = [];
 
     let content = ( await readFile( file, `utf8` ) ).replace(
-        rTransform, ( _, scope, regExpExpression, regExpFlags, string ) => {
+        rTransform, ( _, scope, regExpExpression, regExpFlags, target, string ) => {
             if ( scope ) {
                 scopedReplacers.push( {
                     scope,
@@ -81,6 +95,7 @@ const replacer = async file => {
                 } );
             } else {
                 replacers.push( {
+                    target,
                     "regExp": new RegExp( regExpExpression, regExpFlags ),
                     "transform": JSON.parse( string ),
                 } );
@@ -107,8 +122,15 @@ const replacer = async file => {
     }
 
     // execute global replacers
-    for ( const { regExp, transform } of replacers ) {
-        content = content.replace( regExp, transform );
+    for ( const { regExp, target, transform } of replacers ) {
+        if ( target ) {
+            content = content.replace(
+                regExp,
+                match => match.replace( target, transform )
+            );
+        } else {
+            content = content.replace( regExp, transform );
+        }
     }
 
     return content;

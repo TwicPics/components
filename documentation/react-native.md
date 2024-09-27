@@ -371,13 +371,15 @@ This component can be used in instead of an `<Image>` component.
   src="<path>"
   alt="<String>"
   anchor="<String>"
-  cachePolicy="<none|disk|memory|memory-disk>" 
+  cachePolicy="<none|disk|memory|memory-disk>"
+  crossOrigin="<anonymous|use-credentials>"
   eager="<boolean>"
   focus="<auto|coordinates>"
   mode="<contain|cover>"
   placeholder="<preview|maincolor|meancolor|none>"
   preTransform="<String>"
   ratio="<ratio>"
+  referrerPolicy="<no-referrer|no-referrer-when-downgrade|origin|`origin-when-cross-origin|same-origin|strict-origin|strict-origin-when-cross-origin|unsafe-url>"
   refit="<boolean|String>"
   step="<integer>"
   style="<Object>"
@@ -393,6 +395,7 @@ This component can be used in instead of an `<Image>` component.
 | `alt` | `alt` attribute content | `String` | based on `src` |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left` and `bottom-right`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied __after__ an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` |
 | `cachePolicy` | Overrides the [global cache policy configuration](setting-up-twicpics-components-in-your-react-native-project) and determines whether to cache the image and where: no caching, on disk, in memory or both. Possible values are respectively `none`, `disk`, `memory` or `memory-disk`. When using a value different from `none`, you need to add [Expo Image](https://docs.expo.dev/versions/latest/sdk/image/) as a dependency to your project (see [Installing Expo Modules](#installing-expo-modules)). | `String` | `none` |
+`crossOrigin` | Specifies the [`CORS`](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) setting for the image fetch request. See [`crossOrigin property`](https://reactnative.dev/docs/image#crossorigin). | `String` | |
 | `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
@@ -400,6 +403,7 @@ This component can be used in instead of an `<Image>` component.
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied __after__ `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. You are responsible for properly sizing the component when `ratio="none"`. | `String` | `1` |
 | `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String ` | `false` |
+`referrerPolicy` | Specifies the [referrer](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) to use when fetching the image. See the [`image referrerpolicy property`](https://reactnative.dev/docs/image#referrerpolicy). | `String` | |
 | `src` | Path to the image. | `String` | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-step) for more information. | `Integer` | `10` |
 | `style` | Accepts styles defined in a JavaScript object in the usual React Native style, see [React Native docs](https://reactnative.dev/docs/style). | `Object` | `null` |

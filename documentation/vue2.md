@@ -706,9 +706,14 @@ It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low
   src="<path>"
   alt="<String>"
   anchor="<String>"
+  aria-*="<String>"
   bot="<String>"
+  crossorigin="<anonymous|use-credentials>"
+  decoding="<async|auto|sync>"
+  draggable="<boolean>"
   eager="<boolean>"
   focus="<auto|coordinates>"
+  id="<String>"
   intrinsic="<String>"
   mode="<contain|cover>"
   position="<css position>"
@@ -716,14 +721,18 @@ It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low
   preTransform="<String>"
   ratio="<ratio>"
   @stateChange="<function>"
+  referrerpolicy="<no-referrer|no-referrer-when-downgrade|origin|`origin-when-cross-origin|same-origin|strict-origin|strict-origin-when-cross-origin|unsafe-url>"
   refit="<boolean|String>"
+  role="<String>"
   step="<integer>"
+  style="<Object|String>"
+  tabindex="<integer>"
   title="<String>"
   transition="<fade|zoom|none>"
   transitionDelay="<String>"
   transitionDuration="<String>"
   transitionTimingFunction="<String>"
-  zoom="<String | Number>"
+  zoom="<number|String>"
 />
 ```
 
@@ -731,20 +740,29 @@ It offers advanced features like optimized _Cumulative Layout Shift_ (CLS), _Low
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied **after** an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` | |
+`aria-*` | Specifies accessibility information for assistive technologies. See [ARIA Attributes page](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes). | `String` | |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-bot) for more information. | `String` | |
+`crossorigin` | Specifies the [`CORS`](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) setting for the image fetch request. See [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). | `String` | |
+| `decoding` | Specifies how the browser should decode the image. See [`HTML image decoding attribute`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding). | `String` |  |
+`draggable` | Specifies whether the image is draggable. See [`global attribute draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable). | `boolean` | `false` |
 | `eager` | Load the image as soon as the component is mounted. This effectively means disabling lazy loading for this image. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positioning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
+`id` | Specifies a unique `id` for the image. See [`global attribute id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id). | `String` | |
 | `intrinsic` | Dimensions in pixels of the **original** image, formatted `<width>x<height>` (eg. 1920x1080). It prevents image upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the **resulting** image. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-intrinsic).| `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/reference/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` | 
 | `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Syntax is the same as for CSS position properties [`background-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position) and [`object-position`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-position). Only use this attribute if you need precise positionning: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | `center` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied **after** `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
+| `referrerpolicy` | Specifies the [referrer](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) to use when fetching the image. See the [`HTML image referrerpolicy attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#referrerpolicy). | `String` | |
 | `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String` | `false` |
+| `role` | Specifies the [ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) of the container. | `String` | `img` |
 | `src` | Path to the image. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent image. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `stateChange` | An event dispatched each time the asset loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`( stateEvent: StateEvent ) => void`](#loading-state-values) | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-step) for more information. | `Integer` | `10` |
+`style` | Defines inline `CSS` styles for the image. See [`global attribute style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style). | `Object or String` | |
 | `title` | `title` representing information related to the image. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
+`tabindex` | Specifies the tab order of the image. See [`global attribute tabindex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex). | `Integer` | |
 | `transition` | Determines how the image will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
@@ -760,17 +778,26 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
 ```html
 <TwicPicture
   src="<path>"
+  aria-*="<String>"
   alt="<String>"
   anchor="<String>"
+  crossorigin="<anonymous|use-credentials>"
+  decoding="<async|auto|none|sync>"
+  draggable="<boolean>"
   eager="<boolean>"
   fetchpriority="<high|low|auto>"
   focus="<auto|coordinates>"
+  id="<String>"
   mode="<contain|cover>"
   position="<String>"
   preTransform="<String>"
   ratio="<ratio>"
+  referrerpolicy="<no-referrer|no-referrer-when-downgrade|origin|`origin-when-cross-origin|same-origin|strict-origin|strict-origin-when-cross-origin|unsafe-url>"
   refit="<boolean|String>"
+  role="<String>"
   sizes="<String>"
+  style="<Object|String>"
+  tabindex="<integer>"
   title="<String>"
 />
 ```
@@ -779,17 +806,26 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
 |:-|:-|:-|:-|
 | `alt` | `alt` attribute content | `String` | |
 | `anchor` | Positions the image in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied **after** an eventual `preTransform`. [Can be set at different breakpoints](#art-direction). | `String` |
+`aria-*` | Specifies accessibility information for assistive technologies. See [ARIA Attributes page](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes). | `String` | |
+`crossorigin` | Specifies the [`CORS`](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) setting for the image fetch request. See [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). | `String` | |
+| `decoding` | Specifies how the browser should decode the image. See [`HTML image decoding attribute`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding). | `String` |  |
+`draggable` | Specifies whether the image is draggable. See [`global attribute draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable). | `boolean` | `false` |
 | `eager` | Load the image as soon as the `picture` element is processed and set `fetchpriority` to `high`. This effectively means disabling lazy loading for this image. Recommended for optimal Largest Contentful Paint (LCP) display. | `boolean` | `false` |
 | `fetchpriority` | Acts as standard [fetchpriority property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/fetchPriority). Can be `high`, `low`or `auto`. Defaults to `high` when `eager` is true. | `string` | |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positionning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. [Can be set at different breakpoints](#art-direction). | `String` | |
+`id` | Specifies a unique `id` for the image. See [`global attribute id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id). | `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the image fills the area and is cropped accordingly (`cover`) or if the image will sit inside the area with no cropping (`contain`). [Can be set at different breakpoints](#art-direction). | `String` | `cover` |
 | `position` | Positions the image in `contain` mode. `position` takes precedence over `anchor` when both are provided. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. [Can be set at different breakpoints](#art-direction). | `String` | `center` |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the image (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied **after** `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! [Can be set at different breakpoints](#art-direction).| `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, the image is displayed with its intrinsic aspect ratio. In this case, you are responsible for optimizing the Cumulative Layout Shift (CLS). [Can be set at different breakpoints](#art-direction). | `String or number` | `1` |
+| `referrerpolicy` | Specifies the [referrer](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) to use when fetching the image. See the [`HTML image referrerpolicy attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#referrerpolicy). | `String` | |
 | `refit` | Reframes the image to maximize the area occupied by the main object(s) while respecting `ratio` in `cover` mode. Crops the image as close as possible to the main object(s) in `contain` mode. Can be `true`, `false` or a list of comma-separated [length](https://www.twicpics.com/docs/reference/parameters#length) defining padding. See the [TwicPics refit documentation](https://www.twicpics.com/docs/reference/transformations#refit) for more information.| `boolean or String` | `false` |
+| `role` | Specifies the [ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) of the container. | `String` | `img` |
 | `sizes` | Specifies the layout width of the image for each breakpoints using media query syntax. The value of this parameter has a significant impact on performance. Ensure to configure it carefully. See [sizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes).| `String` | |
 | `src` | Path to the image. | `String` | |
+`style` | Defines inline `CSS` styles for the image. See [`global attribute style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style). | `Object or String` | |
 | `title` | `title` representing information related to the image. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
+`tabindex` | Specifies the tab order of the image. See [`global attribute tabindex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex). | `Integer` | |
 ### TwicVideo
 
 This component is a drop-in replacement for `video`.
@@ -800,11 +836,15 @@ It provides seamless playback for [videos optimized with TwicPics](https://www.t
 <TwicVideo
   src="<path>"
   anchor="<String>"
+  aria-*="<String>"
   bot="<String>"
+  crossorigin="<anonymous|use-credentials>"
+  draggable="<boolean>"
   duration="<String|number>"
   eager="<boolean>"
   from="<String|number>"
   focus="<auto|coordinates>"
+  id="<String>"
   intrinsic="<String>"
   mode="<contain|cover>"
   position="<css position>"
@@ -813,7 +853,10 @@ It provides seamless playback for [videos optimized with TwicPics](https://www.t
   preTransform="<String>"
   ratio="<ratio>"
   @stateChange="<function>"
+  role="<String>"
   step="<integer>"
+  style="<Object|String>"
+  tabindex="<integer>"
   title="<String>"
   to="<String|number>"
   transition="<fade|zoom|none>"
@@ -826,11 +869,15 @@ It provides seamless playback for [videos optimized with TwicPics](https://www.t
 | Attribute | Description | Type | Default |
 |:-|:-|:-|:-|
 | `anchor` | Positions the video in both `contain` and `cover` mode. Accepted values are `top`, `bottom`, `left`, `right`, `top-left`, `top-right`, `bottom-left`, `bottom-right` and `center`. `position` and `focus` take precedence in `contain` and `cover` mode respectively. Please note that `anchor` is applied **after** an eventual `preTransform`. When using `refit` in `cover` mode, `anchor` aligns the main object(s) with the given border side. | `String` | |
+`aria-*` | Specifies accessibility information for assistive technologies. See [ARIA Attributes page](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes). | `String` | |
 | `bot` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed for search engine bots. This overrides all other transformations when provided, even if empty (i.e `bot=""`). See the [TwicPics bot attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-bot) for more information. | `String` | |
+`crossorigin` | Specifies the [`CORS`](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) setting for the video fetch request. See [`HTML crossorigin attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). | `String` | |
+`draggable` | Specifies whether the video is draggable. See [`global attribute draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable). | `boolean` | `false` |
 | `duration` | Limits the duration of the video. `duration` is expressed in seconds and must be a positive number. `duration` will not move the starting point of the video: to do so, you'll have to use the `from` property. See [duration documentation](https://www.twicpics.com/docs/reference/transformations#duration). | `String or number` | |
 | `eager` | Load the video as soon as the component is mounted. This effectively means disabling lazy loading for this video. | `boolean` | `false` |
 | `focus` | Sets the focus point in `cover` mode. `focus` takes precedence over `anchor` when both are provided. See the [TwicPics focus attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-focus) for more information. Only use this attribute if you need a specific focus point or if you want to leverage smart cropping with `focus="auto"`: if you only need border-based positioning (`top`, `bottom`, `left`, `right`, etc), use `anchor` instead. | `String` | |
 | `from` | Moves the starting point of the video. `from` is expressed in seconds and must be a positive number. `from` will not move the end point of the video: to do so, you'll have to use the `duration` or `to` properties. See from documentation. See [from documentation](https://www.twicpics.com/docs/reference/transformations#from). | `String or number` | |
+`id` | Specifies a unique `id` for the video. See [`global attribute id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id). | `String` | |
 | `intrinsic` | Dimensions in pixels of the **original** video, formatted `<width>x<height>` (eg. 1920x1080). It prevents video upscaling and limits the number of generated variants. If using `preTransform`, you should specify the intrinsic dimensions of the **resulting** video. Using incorrect values can lead to display issues, see the [intrinsic attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-intrinsic).| `String` | |
 | `mode` | Can be `contain` or `cover` and determines if the video fills the area and is cropped accordingly (`cover`) or if the video will sit inside the area with no cropping (`contain`). | `String` | `cover` |
 | `placeholder` | Can be `preview`, `meancolor`, `maincolor` or `none`. See the [TwicPics output transformation documentation](https://www.twicpics.com/docs/reference/transformations#output) for more information. Setting will be overridden to `none` when using `zoom` `transition`. | `String` | `preview` | 
@@ -838,11 +885,14 @@ It provides seamless playback for [videos optimized with TwicPics](https://www.t
 | `posterFrom` | Determines which frame of the source video should be used as a poster / preview. `posterFrom` is expressed in seconds and must be a positive number. By default `posterFrom` is equal to 0, meaning the very first frame of the video is used. `posterFrom` will not modify the video in any way: to do so, you'll have to use the `duration`, `from` or `to` properties. | `String or number` | |
 | `preTransform` | A slash-separated list of [TwicPics API transformations](https://www.twicpics.com/docs/reference/transformations) to be performed before resizing the video (see the [TwicPics Manipulation documentation](https://www.twicpics.com/docs/reference/transformations)). Note that `anchor` and `focus` are applied **after** `preTransform`: if you need to specify a specific focus point for your `preTransform` then it needs to be part of the expression (like `preTransform="focus=auto/crop=50px50p"` for instance). Be aware that using this option can lead to unexpected results so use with caution! | `String` | |
 | `ratio` | A unitless `width/height` or `width:height` value pair (as in `4/3` or `4:3`) that defines the aspect ratio of the display area. If `height` is not specified, it is assumed to be `1`. A square area will be created by default. When set to `none`, ratio is determined based on width and height as computed by the browser following your `CSS` definitions. The `--twic-ratio` CSS variable is ignored in this instance. You are responsible for properly sizing the component when `ratio="none"`. | `String or number` | `1` |
+| `role` | Specifies the [ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) of the container. | `String` | |
 | `src` | Path to the video. When not provided, a red lightweight `svg` [placeholder](https://www.twicpics.com/docs/reference/placeholders) that displays its intrinsic dimensions is displayed in place of the absent video. When [env](#setup-options) is set to `offline`, that red lightweight `svg` is replaced by a simple red placeholder. | `String` | |
 | `stateChange` | An event dispatched each time the asset loading state is updated. State can be `new`, `loading`, `done` or `error`.| [`( stateEvent: StateEvent ) => void`](#loading-state-values) | |
 | `step` | See the [TwicPics step attribute documentation](https://www.twicpics.com/docs/reference/native-attributes#data-twic-step) for more information. | `Integer` | `10` |
+`style` | Defines inline `CSS` styles for the video. See [`global attribute style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style). | `Object or String` | |
 | `title` | `title` representing information related to the video. See [`global attribute title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title). | `String` | |
 | `to` | Moves the end point of the video. `to` is expressed in seconds and must be a positive number. `to` will not move the starting point of the video: to do so, you'll have to use the `from` property. See [to documentation](https://www.twicpics.com/docs/reference/transformations#to). | `String or number` | |
+`tabindex` | Specifies the tab order of the video. See [`global attribute tabindex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex). | `Integer` | |
 | `transition` | Determines how the video will be revealed once loaded. With a fade in effect (`fade`), a zoom effect (`zoom`) or without any transition (`none`). Unsupported values are handled as `fade`. | `String` | `fade` |
 | `transitionDuration` | Duration of the transition effect. | `String` | `400ms` |
 | `transitionTimingFunction` | CSS timing function applied to the transition effect. | `String` | `ease` |
