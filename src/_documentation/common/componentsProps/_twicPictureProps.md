@@ -15,17 +15,26 @@ With a primary focus on maximizing the _Largest Contentful Paint_ (LCP) score wi
 ```html
 <TwicPicture
   src="<path>"
+  aria-*="<String>"
   alt="<String>"
   anchor="<String>"
+  crossorigin="<anonymous|use-credentials>"
+  decoding="<async|auto|none|sync>"
+  draggable="<boolean>"
   eager="<boolean>"
   fetchpriority="<high|low|auto>"
   focus="<auto|coordinates>"
+  id="<String>"
   mode="<contain|cover>"
   position="<String>"
   preTransform="<String>"
   ratio="<ratio>"
+  referrerpolicy="<no-referrer|no-referrer-when-downgrade|origin|`origin-when-cross-origin|same-origin|strict-origin|strict-origin-when-cross-origin|unsafe-url>"
   refit="<boolean|String>"
+  role="<String>"
   sizes="<String>"
+  style="<Object|String>"
+  tabindex="<integer>"
   title="<String>"
 />
 ```
