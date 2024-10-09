@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@twicpics/components": "file:../../../dist",
-    "vue": "3.4.29"
+    "vue": "3.5.11"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "5.0.5",
-    "vite": "5.2.12"
+    "@vitejs/plugin-vue": "5.1.4",
+    "vite": "5.4.8"
   }
 }
