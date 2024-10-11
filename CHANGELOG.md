@@ -8,6 +8,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.31.0] - 2024-10-11
+
+### Added
+
+- Adds support for generic HTML attributes
+  - `aria-*`: Improves accessibility by allowing ARIA attributes.
+  - `crossorigin`: Controls the resource fetch mode for images and videos.
+  - `draggable`: Enables or disables dragging functionality.
+  - `id`: Provides unique DOM identification.
+  - `role`: Defines ARIA roles for better accessibility.
+  - `style`: Allows inline CSS styling.
+  - `tabindex`: Controls keyboard navigation for focusable elements.
+  - `decoding`: Manages the image decoding strategy **(only for `TwicImg` and `TwicPicture`)**.
+  - `referrerpolicy`: Sets referrer policies when fetching images **(only for `TwicImg` and `TwicPicture`)**.
+
+### Changed
+
+- Updates sample projects dependencies.
+
+- **TwicImg and TwicPicture** now have a default `role` of `img`.
+
 ## [0.30.0] - 2024-07-26
 
 ### Added
@@ -673,6 +694,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.30.1]: https://github.com/TwicPics/components/compare/0.30.0...0.31.0
 [0.30.0]: https://github.com/TwicPics/components/compare/0.29.3...0.30.0
 [0.29.3]: https://github.com/TwicPics/components/compare/0.29.2...0.29.3
 [0.29.2]: https://github.com/TwicPics/components/compare/0.29.1...0.29.2
