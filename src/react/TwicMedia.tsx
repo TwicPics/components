@@ -97,6 +97,7 @@ const TwicMedia: React.FC< MediaAttributes > = props => {
             title={ title }
         >
             <MediaTag
+                suppressHydrationWarning
                 ref={ media }
                 style={ computeStyle(
                     anchor,

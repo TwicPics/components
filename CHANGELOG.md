@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.31.1-beta.0] - 2024-11-02
+
+### Fixed
+
+- Attempt to Fix Hydration Warnings in `Next15` + `React19`.
+
 ## [0.31.0] - 2024-10-11
 
 ### Added

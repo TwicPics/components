@@ -6,7 +6,7 @@
     ],
     "dependencies": {
         "@twicpics/components": "file:../../../dist",
-        "next": "14.2.15",
+        "next": "15.0.2",
         "react": "18.3.1",
         "react-dom": "18.3.1"
     },
