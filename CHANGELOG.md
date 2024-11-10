@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-## [0.31.1-beta.0] - 2024-11-02
+## [0.31.1] - 2024-11-10
 
 ### Fixed
 
-- Attempt to Fix Hydration Warnings in `Next15` + `React19`.
+- Fix Hydration Warnings in `Next`.
 
 ## [0.31.0] - 2024-10-11
 
@@ -700,7 +700,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
-[0.30.1]: https://github.com/TwicPics/components/compare/0.30.0...0.31.0
+[0.31.1]: https://github.com/TwicPics/components/compare/0.31.0...0.31.1
+[0.31.0]: https://github.com/TwicPics/components/compare/0.30.0...0.31.0
 [0.30.0]: https://github.com/TwicPics/components/compare/0.29.3...0.30.0
 [0.29.3]: https://github.com/TwicPics/components/compare/0.29.2...0.29.3
 [0.29.2]: https://github.com/TwicPics/components/compare/0.29.1...0.29.2
