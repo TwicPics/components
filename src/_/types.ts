@@ -94,7 +94,6 @@ export interface Context {
 }
 
 export interface CreateUrlData {
-    domain: string,
     context?: Context,
     inspect?: boolean,
     output?: string,

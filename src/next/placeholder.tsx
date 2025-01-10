@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-import { config } from '../_/config';
 import { parseSrc } from '../_/parse';
 import { createUrl } from '../_/url';
 
@@ -12,7 +11,6 @@ export default async ( src: string ): Promise< string > => {
                 "mode": `resize`,
                 "width": PLACEHOLDER_SIZE,
             },
-            "domain": config.domain,
             "output": `preview`,
             "src": parseSrc( src ),
             "transform": `*`,
