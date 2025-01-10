@@ -1,14 +1,21 @@
-import { describe, expect, it, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { config, setConfig } from '../../../../src/_/config';
 import { createUrl, finalTransform, urlInfos } from '../../../../src/_/url';
 
 describe( 'Url functions', () => {
 
+  beforeEach( () => {
+      setConfig( {
+          domain: 'https://demo.twic.it'
+      } );
+  } );
+
   describe( 'urlInfos', () => {
+    const originalConfig = { ...config };
     test.each( [
       {
         src: 'media:image.jpg',
-        domain: 'https://demo.twic.it',
         expected: {
           isAbsolute: false,
           isSpecial: false,
@@ -17,7 +24,6 @@ describe( 'Url functions', () => {
       },
       {
         src: 'https://demo.twic.it/image.jpg',
-        domain: 'https://demo.twic.it',
         expected: {
           isAbsolute: true,
           isSpecial: false,
@@ -25,25 +31,58 @@ describe( 'Url functions', () => {
         description: 'identify absolute path and non special asset'
       },
       {
+          src: 'https://demo.twic.it/image.jpg',
+          before: () => {
+              config.domain = 'https://my-custom-domain.com';
+          },
+          after: () => {
+              Object.assign(config, originalConfig);
+          },
+          expected: {
+              isAbsolute: false,
+              isSpecial: false,
+          },
+          description: 'take domain from config when src is not absolute'
+      },
+      {
+          src: 'https://my-custom-domain.com/image.jpg',
+          before: () => {
+              config.domain = 'https://my-custom-domain.com';
+          },
+          after: () => {
+              Object.assign(config, originalConfig);
+          },
+          expected: {
+              isAbsolute: true,
+              isSpecial: false,
+          },
+          description: 'take domain from config when src is absolute'
+      },
+      {
         src: 'placeholder:blue',
-        domain: 'https://demo.twic.it',
         expected: {
           isAbsolute: false,
           isSpecial: true,
         },
         description: 'identify relative path and special asset'
       },
-    ] )( 'it should $description', ( { src, domain, expected } ) => {
+    ] )( 'it should $description', ( { after, before, src, expected } ) => {
+      if ( before ) {
+          before();
+      }
       // @ts-ignore
-      expect( urlInfos( src, domain ) ).toEqual( expected );
+      expect( urlInfos( src ) ).toEqual( expected );
+      if ( after ) {
+          after();
+      }
     } );
   } );
 
   describe( 'createUrl', () => {
+    const originalConfig = { ...config };
     test.each( [
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             width: 200,
@@ -56,7 +95,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             mode: `contain`,
@@ -70,7 +108,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             width: 200,
@@ -83,7 +120,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             width: 200,
@@ -96,7 +132,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             mode: 'cover',
@@ -111,7 +146,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             mode: 'cover',
@@ -126,7 +160,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             mode: 'cover',
@@ -140,7 +173,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             width: 200,
@@ -153,7 +185,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             width: 200,
@@ -166,7 +197,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             mode: 'contain',
@@ -180,7 +210,6 @@ describe( 'Url functions', () => {
       },
       {
         input: {
-          domain: 'https://demo.twic.it',
           context: {
             height: 100,
             mode: 'cover',
@@ -191,10 +220,35 @@ describe( 'Url functions', () => {
         },
         expected: 'https://demo.twic.it/v1/cover=200x100/placeholder:red',
         description: 'create TwicPics api url for special asset'
+      },
+      {
+        input: {
+            context: {
+                height: 100,
+                mode: 'cover',
+                width: 200,
+            },
+            src: 'placeholder:red',
+            transform: '*',
+        },
+        before: () => {
+            config.domain = 'https://my-custom-domain.com';
+        },
+        after: () => {
+            Object.assign(config, originalConfig);
+        },
+        expected: 'https://my-custom-domain.com/v1/cover=200x100/placeholder:red',
+        description: 'take domain from config'
       }
-    ] )( 'it should $description', ( { input, expected } ) => {
+    ] )( 'it should $description', ( { after, before, input, expected } ) => {
+      if (before) {
+          before();
+      }
       // @ts-ignore
       expect( createUrl( input ) ).toBe( expected );
+      if (after) {
+          after();
+      }
     } );
   } );
 

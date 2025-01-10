@@ -201,7 +201,6 @@ export const computePicture = (
                                 "mode": actualMode,
                                 "width": _width,
                             },
-                            "domain": config.domain,
                             "transform": actualPreTransform,
                             src,
                         } )
@@ -472,7 +471,6 @@ export const computePlaceholderBackground = (
                 "mode": actualMode,
                 "width": Math.max( 1, Math.round( width ) ),
             },
-            "domain": config.domain,
             "transform": actualTransform,
             src,
             "output": placeholder,

@@ -239,7 +239,7 @@ export const parseSrc = ( value: string ): string => {
         return ``;
     }
     const src = trimOrUndefined( value ) || `placeholder:red`;
-    const { isAbsolute, isSpecial } = urlInfos( src, config.domain );
+    const { isAbsolute, isSpecial } = urlInfos( src );
     // eslint-disable-next-line no-nested-ternary
     return isSpecial ?
         src :

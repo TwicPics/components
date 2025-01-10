@@ -106,7 +106,6 @@ const computeUrl = ( { anchor,
     step,
     viewSize,
     videoOptions }: UrlData ) => {
-    const { domain } = config;
     const lqip = inspect && !urlInfos( src ).isSpecial;
     const { width, height } = actualSize( step, lqip, viewSize );
     const { posterTransform, videoTransform } = videoOptions || {};
@@ -133,7 +132,6 @@ const computeUrl = ( { anchor,
     return createUrl(
         {
             context,
-            domain,
             inspect,
             "transform": actualTransform,
             src,

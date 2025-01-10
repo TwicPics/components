@@ -1,3 +1,4 @@
+import { config } from "./config";
 import type { Context, CreateUrlData } from "./types";
 
 const rPath = /^(?:(auth|placeholder|rel)|(image|media|video)|[^:]*):(\/*)((v[0-9]+(?=[/?]))?[^?]*(\?.*)?)$/;
@@ -8,8 +9,9 @@ const RESERVED = 5;
 const SPECIAL = 1;
 const VERSION = `v1`;
 
-export const urlInfos = ( src: string, domain = `` ) => {
+export const urlInfos = ( src: string ) => {
     const parsed = src && rPath.exec( src );
+    const { domain = `` } = config;
     return {
         "isAbsolute": src.slice( 0, domain.length + 1 ) === `${ domain }/`,
         "isSpecial": parsed && ( parsed[ SPECIAL ] !== undefined ),
@@ -35,9 +37,10 @@ const computeTransform = (
 };
 
 export const createUrl = (
-    { domain, context, inspect, output, quality, src, transform }: CreateUrlData
+    { context, inspect, output, quality, src, transform }: CreateUrlData
 ): string => {
-    const { isAbsolute } = urlInfos( src, domain );
+    const { domain } = config;
+    const { isAbsolute } = urlInfos( src );
     const path = isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
     const parsed = rPath.exec( path );
     const isMedia = parsed && parsed[ MEDIA ];
