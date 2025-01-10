@@ -20,6 +20,7 @@ describe( 'Config function', () => {
           "2xl": 1536,
       } );
       expect(config.class).toBe( `twic` );
+      expect(config.brand).toBe( `twic` );
       expect(config.maxDPR).toBe( 2 );
       expect(config.handleShadowDom).toEqual( noop );
   } );

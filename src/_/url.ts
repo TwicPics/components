@@ -39,7 +39,7 @@ const computeTransform = (
 export const createUrl = (
     { context, inspect, output, quality, src, transform }: CreateUrlData
 ): string => {
-    const { domain } = config;
+    const { brand, domain } = config;
     const { isAbsolute } = urlInfos( src );
     const path = isAbsolute ? `media:${ src.slice( `${ domain }/`.length ) }` : src;
     const parsed = rPath.exec( path );
@@ -72,7 +72,9 @@ export const createUrl = (
             actualPath
         }${
             parsed && parsed[ QUERY ] ? `&` : `?`
-        }twic=${
+        }${
+            brand
+        }=${
             VERSION
         }${
             actualTransform

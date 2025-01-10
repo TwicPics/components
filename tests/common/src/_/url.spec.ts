@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, test } from 'vitest';
-
 import { config, setConfig } from '../../../../src/_/config';
 import { createUrl, finalTransform, urlInfos } from '../../../../src/_/url';
 
@@ -207,6 +206,24 @@ describe( 'Url functions', () => {
         },
         expected: 'https://demo.twic.it/cat.jpg?twic=v1/refit=auto/contain=200x100',
         description: 'create TwicPics api url with refit auto'
+      },{
+        input: {
+          context: {
+            height: 100,
+            mode: 'contain',
+            width: 200,
+          },
+          src: 'media:cat.jpg',
+          transform: '/refit=auto/*',
+        },
+        before: () => {
+            config.brand = 'mod';
+        },
+        after: () => {
+            Object.assign(config, originalConfig);
+        },
+        expected: 'https://demo.twic.it/cat.jpg?mod=v1/refit=auto/contain=200x100',
+        description: 'create TwicPics api url with specific brand'
       },
       {
         input: {

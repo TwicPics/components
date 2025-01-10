@@ -11,6 +11,7 @@ const defaultConfig: Config = {
         "xl": 1280,
         "2xl": 1536,
     },
+    "brand": `twic`,
     "class": `twic`,
     "domain": undefined,
     "env": `production`,
