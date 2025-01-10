@@ -77,6 +77,7 @@ export type CachePolicy = `memory-disk` | `memory` | `none` | `disk`;
 export interface Config {
     anticipation?: number,
     cachePolicy?: CachePolicy,
+    brand: string,
     breakpoints: { [ key in BreakPoint ]: number },
     class: string,
     domain: string,
