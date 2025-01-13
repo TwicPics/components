@@ -19,10 +19,12 @@ await replaceInFile( {
   "files": `${ tmpTestDirectory }/_/*.*`,
   "from": [
       /\bFRAMEWORK([^:])/g,
+      /\bBRAND([^:])/g,
       /(\.\.\/){4}src\/_/g,
   ],
   "to": [
       `'react'`,
+      `'twic'`,
       '.'
   ],
 } );

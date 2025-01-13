@@ -1,3 +1,4 @@
+declare const BRAND: string;
 declare const FRAMEWORK: string;
 
 const buildErrorMessage = ( message: string ): string => `twicpics-components ${ message }`;
@@ -52,6 +53,7 @@ export const debounce = ( fn: ( ...args:any[] ) => void, options: DebounceOption
     };
 };
 
+export const isTwicPics = ( BRAND === `twicpics` );
 export const isReact = ( FRAMEWORK === `react` );
 export const isReactNative = ( FRAMEWORK === `react-native` );
 export const isWebComponents = ( FRAMEWORK === `webcomponents` );
