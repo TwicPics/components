@@ -42,6 +42,7 @@ export default ( { bundleCss = true,
     // eslint-disable-next-line no-shadow
     external = [],
     framework,
+    brand = `twicpics`,
     javascript = false,
     plugins = [],
     postDefinitions,
@@ -70,7 +71,10 @@ export default ( { bundleCss = true,
             } ) ),
             "plugins": [
                 replacer( {
-                    "replacer": [ /\bFRAMEWORK([^:])/g, `${ JSON.stringify( framework ) }$1` ],
+                    "replacers": [
+                        [ /\bFRAMEWORK([^:])/g, `${ JSON.stringify( framework ) }$1` ],
+                        [ /\bBRAND([^:])/g, `${ JSON.stringify( brand ) }$1` ],
+                    ],
                 } ),
                 ...( javascript ? [] : [
                     typeScript(

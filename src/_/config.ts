@@ -1,6 +1,6 @@
 import { createElement } from "./dom";
 import type { Config, Options } from "./types";
-import { isBrowser, isReactNative, noop } from "./utils";
+import { isBrowser, isTwicPics, isReactNative, noop } from "./utils";
 
 const defaultConfig: Config = {
     "breakpoints": {
@@ -11,8 +11,8 @@ const defaultConfig: Config = {
         "xl": 1280,
         "2xl": 1536,
     },
-    "brand": `twic`,
-    "class": `twic`,
+    "brand": isTwicPics ? `twic` : `mod`,
+    "class": isTwicPics ? `twic` : `ffy`,
     "domain": undefined,
     "env": `production`,
     "handleShadowDom": noop,
@@ -20,7 +20,9 @@ const defaultConfig: Config = {
     "path": ``,
     "step": undefined,
 };
+
 const w = isBrowser && window as unknown as Record< string, Config >;
+
 export const config: Config = isBrowser ?
     (
         w[ `~ TPCC` ] || ( w[ `~ TPCC` ] = defaultConfig )
@@ -74,7 +76,7 @@ const handleShadowDomFactory = ( attributeName: string ) => {
 };
 
 const DEFAULT_MAX_DPR = 2;
-export const setConfig = ( options: Options ): void => {
+export const setConfig = ( options: Options, scriptElementId?: string ): void => {
     const { breakpoints = {}, debug, domain, "class": _class, env, handleShadowDom, maxDPR, path } = options;
     config.breakpoints = {
         ...config.breakpoints,
@@ -85,6 +87,7 @@ export const setConfig = ( options: Options ): void => {
     config.env = debug ? `debug` : env;
     config.maxDPR = Math.max( 1, maxDPR || DEFAULT_MAX_DPR );
     config.path = path;
+    config.scriptElementId = scriptElementId;
     config.handleShadowDom = ( handleShadowDom && isBrowser && !isReactNative ) ?
         handleShadowDomFactory( getDataAttributeName( `component` ) ) :
         noop;

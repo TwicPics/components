@@ -136,6 +136,7 @@
     },
     "scripts": {
         "build": "$npm_execpath install && node build/documentation.js && node build",
+        "build:ffy": "$npm_execpath install && node build/documentation.js && node build ffy",
         "documentation": "node build/documentation.js",
         "lint": "eslint .",
         "postinstall": "node build/postinstall.js",
