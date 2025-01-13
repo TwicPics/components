@@ -218,7 +218,7 @@ const typeDefinitions = async angularDirectory => {
  * @param angularDirectory : directory of related project to build
  * @param angularConfig : config of angular projet to build
  */
-const buildAngularProject = async ( angularDirectory, angularConfig ) => {
+const buildAngularProject = async ( angularDirectory, angularConfig, brand = `twicpics` ) => {
     const { sourceRoot } = angularConfig.project;
     const { ngcDist } = getDistFolder( angularDirectory );
     const libraryName = ` ${ angularConfig.projectName }/${ angularDirectory.name }`;
@@ -256,9 +256,16 @@ const buildAngularProject = async ( angularDirectory, angularConfig ) => {
     // 5 - replace FRAMEWORK by ANGULAR in built library
     replaceOptions = {
         "files": `${ ngcDist }/**/*.*`,
-        "from": /\bFRAMEWORK([^:])/g,
-        "to": `'ANGULAR'`,
+        "from": [
+            /\bFRAMEWORK([^:])/g,
+            /\bBRAND\b/g,
+        ],
+        "to": [
+            `'ANGULAR'`,
+            `'${ brand }'`,
+        ],
     };
+
     await replaceInFile( replaceOptions );
 
     // 6 - apply sourcemap transform (to point to github)
@@ -287,7 +294,7 @@ const buildAngularProject = async ( angularDirectory, angularConfig ) => {
  * For each angular library to build, call buildAngularProject
  * @returns {Promise<void>}
  */
-export const buildComponents = async () => {
+export const buildComponents = async ( { brand = `ffy` } = {} ) => {
     // retreive angular directories containing a library to build
     const angularDirectories = await getAngularDirectories();
     // loop on angular directories
@@ -297,7 +304,7 @@ export const buildComponents = async () => {
         if ( angularProjects ) {
             // loop on angular projects to build
             for await ( const project of angularProjects ) {
-                await buildAngularProject( angularDirectory, project );
+                await buildAngularProject( angularDirectory, project, brand );
             }
         } else {
             console.warn( `No angular configuration for ${ angularDirectory.name }` );

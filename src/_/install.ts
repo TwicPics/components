@@ -2,7 +2,7 @@ import { config, configBasedStyle, setConfig } from "./config";
 import { VERSION } from "./const";
 import { createElement } from "./dom";
 import { parseDomain, parseEnv, parsePath } from "./parse";
-import type { Options } from "./types";
+import type { Config, Options } from "./types";
 import { isBrowser, isReactNative, throwError } from "./utils";
 import { rInvalidPath, rValidDomain, rValidEnvironment } from "./validate";
 
@@ -13,20 +13,20 @@ const parametersMap = [
     [ `step`, `step` ],
 ];
 
-export const register = ( options: Options ): void => {
+export const register = (): void => {
     if ( isBrowser && !isReactNative ) {
         // register script
         const parts = [ `${ config.domain }/?${ VERSION }` ];
         parametersMap.forEach( p => {
             const [ key, actualKey ] = p;
-            if ( options.hasOwnProperty( key ) ) {
-                const value = options[ key as keyof Options ];
+            if ( config.hasOwnProperty( key ) ) {
+                const value = config[ key as keyof Config ];
                 if ( value ) {
-                    parts.push( `${ actualKey }=${ options[ key as keyof Options ] }` );
+                    parts.push( `${ actualKey }=${ config[ key as keyof Config ] }` );
                 }
             }
         } );
-        const { scriptElementId } = options;
+        const { scriptElementId } = config;
         createElement( {
             "element": document.head,
             "value": [
@@ -90,5 +90,5 @@ export const installTwicPics = ( options: Options ): void => {
             "path": parsePath( path ),
         },
     } );
-    register( options );
+    register();
 };

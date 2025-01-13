@@ -13,7 +13,7 @@ import {
 } from "../_/parse";
 import type { BreakPoint, Environment } from "../_/types";
 import { boolean, number, string } from "./props";
-import { setConfig } from "../_/config";
+import { config, setConfig } from "../_/config";
 
 interface InstallAttributes {
     anticipation?: number | string,
@@ -44,14 +44,13 @@ const TwicInstall: React.FC< InstallAttributes > = props => {
         "handleShadowDom": parseHandleShadowDom( props.handleShadowDom ),
         "maxDPR": parseMaxDrp( props.maxDPR ),
         "path": parsePath( props.path ),
-        "scriptElementId": `twicpics-script`,
         "step": parseStep( props.step ),
     };
-    setConfig( options );
+    setConfig( options, `twicpics-script` );
     useEffect(
         () => {
-            if ( !document.getElementById( options.scriptElementId ) ) {
-                register( options );
+            if ( !document.getElementById( config.scriptElementId ) ) {
+                register();
             }
         },
         []

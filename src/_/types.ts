@@ -85,6 +85,7 @@ export interface Config {
     handleShadowDom: ( item?: Element ) => void,
     maxDPR: number;
     path: string,
+    scriptElementId?: string,
     step: number,
 }
 
@@ -113,7 +114,6 @@ export interface Options {
     handleShadowDom?: boolean,
     maxDPR?: number,
     path?: string,
-    scriptElementId?: string,
     step?: number,
 }
 

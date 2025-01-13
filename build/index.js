@@ -20,6 +20,11 @@ import { getJsonFromPath, writeJson } from "./json.js";
 import { formats, getFormatInfo } from "./formats.js";
 import postBuild from "./postBuild.js";
 
+// eslint-disable-next-line no-magic-numbers, no-undef
+const ARGS = process.argv.slice( 2 ) || [];
+
+const isFrontify = ARGS.some( arg => arg === `ffy` );
+
 /**
  * generates and returns exports field used in package.json
  * for the given @param framework and the given @param customFormats
@@ -53,6 +58,12 @@ const exportsPackageJson = () => units.flatMap(
     }
 );
 
+const options = isFrontify ? {
+    "brand": `ffy`,
+} : {};
+
+console.log( `*** Starting to build components for ${ isFrontify ? `ffy` : `TwicPics` }. ***` );
+
 console.log( `clearing dist directory...` );
 await remove( `${ __dirname }/../dist` );
 
@@ -63,7 +74,10 @@ console.log( `generating components for ${
 })...` );
 await Promise.all( units.map( async unit => {
     const { framework, javascript, "formats": customFormats } = unit;
-    const { component, typeScript } = configFactory( unit, ...( customFormats || formats ) );
+    const { component, typeScript } = configFactory( {
+        ...options,
+        ...unit,
+    }, ...( customFormats || formats ) );
     try {
         await rollup( component );
         console.log( `${ framework } components generated` );
@@ -88,14 +102,14 @@ await Promise.all( units.map(
 ) );
 
 try {
-    await buildAngularComponents();
+    await buildAngularComponents( options );
     console.log( `angular components generated` );
 } catch ( error ) {
     console.error( `angular components generation error:`, error );
 }
 
 try {
-    await buildSveltekitComponents();
+    await buildSveltekitComponents( options );
     console.log( `sveltekit components generated` );
 } catch ( error ) {
     console.error( `sveltekit components generation error:`, error );
