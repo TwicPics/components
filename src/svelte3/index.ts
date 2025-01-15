@@ -17,10 +17,19 @@ import { default as _TwicVideo } from "./TwicVideo.svelte";
 import { default as _TwicView } from "./TwicView.svelte";
 import type { BackgroundAttributes, ImgAttributes, PictureAttributes, VideoAttributes } from "./type";
 export type { Anchor, Environment, Mode, Placeholder, State, StateEvent };
-const installTwicpics = installTwicPics;
-const TwicBackground = _TwicBackground as unknown as ComponentType < SvelteComponentTyped< BackgroundAttributes > >;
-const TwicImg = _TwicImg as unknown as ComponentType < SvelteComponentTyped< ImgAttributes > >;
-const TwicPicture = _TwicPicture as unknown as ComponentType < SvelteComponentTyped< PictureAttributes > >;
-const TwicVideo = _TwicVideo as unknown as ComponentType < SvelteComponentTyped< VideoAttributes > >;
-const TwicView = _TwicView as unknown as ComponentType < SvelteComponentTyped >;
-export { installTwicpics, installTwicPics, TwicBackground, TwicImg, TwicPicture, TwicVideo, TwicView };
+const __INSTALL_FUNCTION__ = installTwicPics;
+const __BACKGROUND_COMPONENT__ =
+    _TwicBackground as unknown as ComponentType < SvelteComponentTyped< BackgroundAttributes > >;
+const __IMG_COMPONENT__ = _TwicImg as unknown as ComponentType < SvelteComponentTyped< ImgAttributes > >;
+const __PICTURE_COMPONENT__ = _TwicPicture as unknown as ComponentType < SvelteComponentTyped< PictureAttributes > >;
+const __VIDEO_COMPONENT__ = _TwicVideo as unknown as ComponentType < SvelteComponentTyped< VideoAttributes > >;
+const __VIEW_COMPONENT__ = _TwicView as unknown as ComponentType < SvelteComponentTyped >;
+export {
+    __INSTALL_FUNCTION__,
+    installTwicPics,
+    __BACKGROUND_COMPONENT__,
+    __IMG_COMPONENT__,
+    __PICTURE_COMPONENT__,
+    __VIDEO_COMPONENT__,
+    __VIEW_COMPONENT__,
+};

@@ -17,9 +17,10 @@ import { existsSync } from "fs";
 import { readFile } from "fs/promises";
 import { copy, outputFile, remove } from "fs-extra";
 import path from "path";
-import replaceInFile from "replace-in-file";
 import dts from "rollup-plugin-dts";
 import uglify from "uglify-js";
+import replaceInFiles from "../replaceInFiles.js";
+import brandConfiguration from "../brandConfiguration.js";
 
 /**
  * copy files from gcc dist folder to twicpics dist folder
@@ -166,19 +167,15 @@ const minify = async angularDirectory => {
 const sourcemapPathTransform = async angularDirectory => {
     const { ngcDist } = getDistFolder( angularDirectory );
     // commons sources
-    let replaceOptions = {
+    await replaceInFiles( {
         "files": `${ ngcDist }/**/*.map`,
-        "from": /..\/..\/lib\/src\/_\//g,
-        "to": `${ gitHubRawPath }/src/_/`,
-    };
-    await replaceInFile( replaceOptions );
+        "replacer": [ /..\/..\/lib\/src\/_\//g, `${ gitHubRawPath }/src/_/` ],
+    } );
     // angular sources
-    replaceOptions = {
+    await replaceInFiles( {
         "files": `${ ngcDist }/**/*.map`,
-        "from": /..\/..\/lib\/src\//g,
-        "to": `${ gitHubRawPath }/src/angular/`,
-    };
-    await replaceInFile( replaceOptions );
+        "replacer": [ /..\/..\/lib\/src\//g, `${ gitHubRawPath }/src/angular/` ],
+    } );
 };
 
 /**
@@ -218,7 +215,7 @@ const typeDefinitions = async angularDirectory => {
  * @param angularDirectory : directory of related project to build
  * @param angularConfig : config of angular projet to build
  */
-const buildAngularProject = async ( angularDirectory, angularConfig, brand = `twicpics` ) => {
+const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => {
     const { sourceRoot } = angularConfig.project;
     const { ngcDist } = getDistFolder( angularDirectory );
     const libraryName = ` ${ angularConfig.projectName }/${ angularDirectory.name }`;
@@ -234,13 +231,11 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand = `tw
     await copy( masterSourcePath, masterDestinationPath );
 
     // 2 - change imports in library project to build
-    let replaceOptions = {
-        "files": `${ masterDestinationPath }/**/*.*`,
-        "from": /\.\.\/_\//g,
-        "to": `./_/`,
-    };
     try {
-        await replaceInFile( replaceOptions );
+        await replaceInFiles( {
+            "files": `${ masterDestinationPath }/**/*.*`,
+            "replacer": [ /\.\.\/_\//g, `./_/` ],
+        } );
     } catch ( error ) {
         console.error( `Angular replacement error occurred:`, error );
     }
@@ -254,19 +249,14 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand = `tw
     execSync( `cd ${ angularDirectory.path } && npx ng build ${ angularConfig.projectName }` );
 
     // 5 - replace FRAMEWORK by ANGULAR in built library
-    replaceOptions = {
+    await replaceInFiles( {
         "files": `${ ngcDist }/**/*.*`,
-        "from": [
-            /\bFRAMEWORK([^:])/g,
-            /\bBRAND\b/g,
+        "replacers": [
+            [ /\bFRAMEWORK([^:])/g, `'ANGULAR'` ],
+            [ /\bBRAND\b/g, `'${ brand }'` ],
+            ...brandConfiguration( brand ),
         ],
-        "to": [
-            `'ANGULAR'`,
-            `'${ brand }'`,
-        ],
-    };
-
-    await replaceInFile( replaceOptions );
+    } );
 
     // 6 - apply sourcemap transform (to point to github)
     await sourcemapPathTransform( angularDirectory );
@@ -294,7 +284,7 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand = `tw
  * For each angular library to build, call buildAngularProject
  * @returns {Promise<void>}
  */
-export const buildComponents = async ( { brand = `ffy` } = {} ) => {
+export const buildComponents = async ( { brand } = {} ) => {
     // retreive angular directories containing a library to build
     const angularDirectories = await getAngularDirectories();
     // loop on angular directories

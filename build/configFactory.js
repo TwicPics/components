@@ -20,6 +20,7 @@ import terser from '@rollup/plugin-terser';
 import typeScript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
+import brandConfiguration from "./brandConfiguration.js";
 import minifier from "./minifier.js";
 import replacer from "./replacer.js";
 
@@ -42,7 +43,7 @@ export default ( { bundleCss = true,
     // eslint-disable-next-line no-shadow
     external = [],
     framework,
-    brand = `twicpics`,
+    brand,
     javascript = false,
     plugins = [],
     postDefinitions,
@@ -73,7 +74,7 @@ export default ( { bundleCss = true,
                 replacer( {
                     "replacers": [
                         [ /\bFRAMEWORK([^:])/g, `${ JSON.stringify( framework ) }$1` ],
-                        [ /\bBRAND([^:])/g, `${ JSON.stringify( brand ) }$1` ],
+                        ...brandConfiguration( brand ),
                     ],
                 } ),
                 ...( javascript ? [] : [
@@ -87,11 +88,6 @@ export default ( { bundleCss = true,
                     "minified": true,
                 } ),
                 ...plugins,
-                terser( {
-                    "compress": {
-                        "passes": MINIFY_PASSES,
-                    },
-                } ),
                 ...postTerser,
                 {
                     ...( bundleCss ? {
@@ -124,7 +120,10 @@ export default ( { bundleCss = true,
             },
             "plugins": [
                 replacer( {
-                    "replacer": [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ],
+                    "replacers": [
+                        [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ],
+                        ...brandConfiguration( brand ),
+                    ],
                 } ),
                 dts(),
                 {

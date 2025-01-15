@@ -38,23 +38,23 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
 
     register( VueObject, {
         "component": TwicBackground,
-        "componentName": options.TwicBackground || `TwicBackground`,
+        "componentName": options.TwicBackground || `__BACKGROUND_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicImg,
-        "componentName": options.TwicImg || `TwicImg`,
+        "componentName": options.TwicImg || `__IMG_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicPicture,
-        "componentName": options.TwicPicture || `TwicPicture`,
+        "componentName": options.TwicPicture || `__PICTURE_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicVideo,
-        "componentName": options.TwicVideo || `TwicVideo`,
+        "componentName": options.TwicVideo || `__VIDEO_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicView,
-        "componentName": options.TwicView || `TwicView`,
+        "componentName": options.TwicView || `__VIEW_COMPONENT__`,
     } );
 };
 export default plugin;
