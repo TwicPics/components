@@ -10,8 +10,9 @@ import terser from '@rollup/plugin-terser';
 import { execSync } from "child_process";
 import fs from 'fs-extra';
 import { readFile, writeFile } from "fs/promises";
-import replaceInFile from "replace-in-file";
 import dts from "rollup-plugin-dts";
+import brandConfiguration from "../brandConfiguration.js";
+import replaceInFiles from "../replaceInFiles.js";
 
 const { copy, remove } = fs;
 const { components = [], versions = [] } = config;
@@ -33,19 +34,14 @@ export const buildComponents = async ( { brand = `twicpics` } = {} ) => {
     await copy( `${ __dirname }/../src/svelte3/`, srcPath );
 
     // 3 - adaptation of Svelte3 sources
-    await replaceInFile( {
+    await replaceInFiles( {
         "files": `${ srcPath }/*.*`,
-        "from": [
-            /\.\.\/_\//g,
-            /import\s*".\/_\/style.css"\s*;/,
-            /<svelte:options tag=.*\/>/gm,
-            /import.*"svelte\/internal"\s*;/gm,
-        ],
-        "to": [
-            `./_/`,
-            ``,
-            ``,
-            `const getCurrentComponent = () :HTMLElement => undefined;`,
+        "replacers": [
+            [ /\.\.\/_\//g, `./_/` ],
+            [ /import\s*".\/_\/style.css"\s*;/, `` ],
+            [ /<svelte:options tag=.*\/>/gm, `` ],
+            [ /import.*"svelte\/internal"\s*;/gm, `const getCurrentComponent = () :HTMLElement => undefined;` ],
+            ...brandConfiguration( brand ),
         ],
     } );
 
@@ -71,10 +67,6 @@ export const buildComponents = async ( { brand = `twicpics` } = {} ) => {
         "plugins": [
             replacer( {
                 "replacer": [ /\bFRAMEWORK([^:])/g, `"SVELTEKIT"` ],
-                "replacers": [
-                    [ /\bFRAMEWORK([^:])/g, `"SVELTEKIT"` ],
-                    [ /\bBRAND([^:])/g, `${ JSON.stringify( brand ) }$1` ],
-                ],
             } ),
             typeScript(
                 {
