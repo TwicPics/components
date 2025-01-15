@@ -23,7 +23,9 @@ import postBuild from "./postBuild.js";
 // eslint-disable-next-line no-magic-numbers, no-undef
 const ARGS = process.argv.slice( 2 ) || [];
 
-const isFrontify = ARGS.some( arg => arg === `ffy` );
+const options = {
+    "brand": ARGS.some( arg => arg === `ffy` ) ? `ffy` : `twicpics`,
+};
 
 /**
  * generates and returns exports field used in package.json
@@ -58,11 +60,7 @@ const exportsPackageJson = () => units.flatMap(
     }
 );
 
-const options = isFrontify ? {
-    "brand": `ffy`,
-} : {};
-
-console.log( `*** Starting to build components for ${ isFrontify ? `ffy` : `TwicPics` }. ***` );
+console.log( `*** Starting to build components for ${ options.brand }. ***` );
 
 console.log( `clearing dist directory...` );
 await remove( `${ __dirname }/../dist` );
