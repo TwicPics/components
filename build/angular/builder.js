@@ -252,8 +252,7 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => 
     await replaceInFiles( {
         "files": `${ ngcDist }/**/*.*`,
         "replacers": [
-            [ /\bFRAMEWORK([^:])/g, `'ANGULAR'` ],
-            [ /\bBRAND\b/g, `'${ brand }'` ],
+            [ /\bFRAMEWORK[^:]/g, `'ANGULAR'` ],
             ...brandConfiguration( brand ),
         ],
     } );
