@@ -88,6 +88,11 @@ export default ( { bundleCss = true,
                     "minified": true,
                 } ),
                 ...plugins,
+                terser( {
+                    "compress": {
+                        "passes": MINIFY_PASSES,
+                    },
+                } ),
                 ...postTerser,
                 {
                     ...( bundleCss ? {
