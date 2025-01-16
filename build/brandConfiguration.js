@@ -1,5 +1,5 @@
 export default ( brand = `twicpics` ) => [
-    [ /\bBRAND([^:])/g, `${ JSON.stringify( brand ) }$1` ],
+    [ /\bBRAND[^:]/g, `'${ brand }'` ],
     [ /\b__INSTALL_FUNCTION__/g, `${ brand === `ffy` ? `installFrontify` : `installTwicpics` }` ],
     [ /\b__BACKGROUND_COMPONENT__/g, `${ brand === `ffy` ? `FfyBackground` : `TwicBackground` }` ],
     [ /\b__IMG_COMPONENT__/g, `${ brand === `ffy` ? `FfyImg` : `TwicImg` }` ],

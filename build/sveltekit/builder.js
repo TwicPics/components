@@ -19,7 +19,7 @@ const { copy, remove } = fs;
 const { versions = [] } = config;
 
 /* eslint-disable no-console */
-export const buildComponents = async ( { brand = `twicpics` } = {} ) => {
+export const buildComponents = async ( { brand } = {} ) => {
     console.log( `Building ${ versions.join( `,` ) } components` );
 
     // source path within building project
@@ -67,7 +67,10 @@ export const buildComponents = async ( { brand = `twicpics` } = {} ) => {
         ],
         "plugins": [
             replacer( {
-                "replacer": [ /\bFRAMEWORK([^:])/g, `"SVELTEKIT"` ],
+                "replacers": [
+                    ...brandConfiguration( brand ),
+                    [ /\bFRAMEWORK[^:]/g, `"SVELTEKIT"` ],
+                ],
             } ),
             typeScript(
                 {
