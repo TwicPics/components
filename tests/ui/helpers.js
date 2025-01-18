@@ -26,6 +26,7 @@ export const getAssetData = async ( page, selector = `.twic-w img` ) => {
             referrerpolicy: asset?.getAttribute( 'referrerpolicy' ),
             src: asset ? asset.src : '',
             srcset: asset ? asset.srcset : '',
+            style: asset?.getAttribute( 'style' ),
             'object-fit': styles?.getPropertyValue( `object-fit` ),
             'object-position': styles?.getPropertyValue( `object-position` )
         };
@@ -49,6 +50,7 @@ export const getHostElementData = async ( page, selector ) => {
         const hostElement = document.querySelector( arg );
         return {
             'aria-label' : hostElement?.getAttribute( 'aria-label' ),
+            'class' : hostElement?.getAttribute( 'class' ),
             'draggable' : hostElement?.getAttribute( 'draggable' ),
             'id' : hostElement?.getAttribute( 'id' ),
             'role' : hostElement?.getAttribute( 'role' ),
@@ -80,7 +82,9 @@ export const getWrapperData = async ( page, selector = `.twic-w` ) => {
         const wrapper = document.querySelector( arg );
         const styles = wrapper && window.getComputedStyle( wrapper );
         return {
+            class: wrapper?.getAttribute( 'class' ),
             'padding-top': styles?.getPropertyValue( `padding-top` ),
+            style: wrapper?.getAttribute( 'style' ),
             'title': ( wrapper && wrapper.hasAttribute( `title` ) ) ? wrapper.title : undefined,
         };
     }, selector );

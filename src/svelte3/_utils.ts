@@ -86,7 +86,8 @@ export const styleToString = ( style: Record< string, unknown > ): string | unde
 };
 
 export const splitProperties = < T extends HtmlDivAttributes >(
-    { id, draggable, role, tabindex, ...props }: T
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    { id, "class": _class, draggable, role, tabindex, ...props }: T
 ) => (
         {
             "hostProps": {

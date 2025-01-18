@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TwicImgComponent, TwicPictureComponent, TwicVideoComponent } from '@twicpics/components/angular18';
 import '@twicpics/components/style.css';
 
@@ -15,6 +15,7 @@ import '@twicpics/components/style.css';
             [attr.aria-label]="params['aria-label'] ?? null"
             [anchor]="params.anchor"
             [bot]="params.bot"
+            [class]="params.class"
             [crossorigin]="params.crossorigin"
             [decoding]="params.decoding"
             [attr.draggable]="params.draggable ?? null"
@@ -46,6 +47,7 @@ import '@twicpics/components/style.css';
             [src]="params.src"
             [anchor]="params.anchor"
             [bot]="params.bot"
+            [class]="params.class"
             [crossorigin]="params.crossorigin"
             [attr.draggable]="params.draggable ?? null"
             [duration]="params.duration"
@@ -77,6 +79,7 @@ import '@twicpics/components/style.css';
             [alt]="params.alt"
             [anchor]="params.anchor"
             [attr.aria-label]="params['aria-label'] ?? null"
+            [class]="params.class"
             [crossorigin]="params.crossorigin"
             [decoding]="params.decoding"
             [attr.draggable]="params.draggable ?? null"
@@ -103,6 +106,7 @@ export class SampleComponent implements OnInit, AfterViewInit {
     @ViewChild( `twicVideo`, { "static": false,} ) twicVideoRef!: TwicVideoComponent;
     @ViewChild( `twicPicture`, { "static": false,} ) twicPictureRef!: TwicPictureComponent;
     params: any = {};
+    constructor(private renderer: Renderer2) {}
     ngOnInit(): void {
         const queryParams = new URLSearchParams(window.location.search);
         this.params = {
@@ -115,7 +119,7 @@ export class SampleComponent implements OnInit, AfterViewInit {
     }
 
     /**
-     * Managing prope
+     * Managing prop
      * ie: we need to be able to test the component without passing the `role` property if it is not defined
      */
     ngAfterViewInit(): void {

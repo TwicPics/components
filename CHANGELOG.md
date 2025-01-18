@@ -8,11 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixes the issue where `class` could be applied twice in `Svelte` components.
+
 ## [0.31.1] - 2024-11-10
 
 ### Fixed
 
-- Fix Hydration Warnings in `Next`.
+- Fixes Hydration Warnings in `Next`.
 
 ## [0.31.0] - 2024-10-11
 
