@@ -1,7 +1,16 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-console */
+import { execSync } from "child_process";
+import { existsSync } from "fs";
+import { readFile } from "fs/promises";
+import { copy, outputFile, remove } from "fs-extra";
+import path from "path";
+import dts from "rollup-plugin-dts";
+import uglify from "uglify-js";
 import __dirname from "../__dirname.js";
+import brandConfiguration from "../brandConfiguration.js";
 import { getJsonFromPath, writeJson } from "../json.js";
+import replaceInFiles from "../replaceInFiles.js";
 import rollup from "../rollup.js";
 import { gitHubRawPath, packageAuthor, packageName, packageVersion } from "../version.js";
 import {
@@ -12,15 +21,7 @@ import {
     getProjectsByDirectory,
     getVersionAliases,
 } from "./utils.js";
-import { execSync } from "child_process";
-import { existsSync } from "fs";
-import { readFile } from "fs/promises";
-import { copy, outputFile, remove } from "fs-extra";
-import path from "path";
-import dts from "rollup-plugin-dts";
-import uglify from "uglify-js";
-import replaceInFiles from "../replaceInFiles.js";
-import brandConfiguration from "../brandConfiguration.js";
+
 
 /**
  * copy files from gcc dist folder to twicpics dist folder

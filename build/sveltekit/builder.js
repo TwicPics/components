@@ -1,18 +1,18 @@
+import { execSync } from "child_process";
+import fs from 'fs-extra';
+import { readFile, writeFile } from "fs/promises";
+import typeScript from "@rollup/plugin-typescript";
+import terser from '@rollup/plugin-terser';
+import dts from "rollup-plugin-dts";
 import __dirname from "../__dirname.js";
 import minifier from "../minifier.js";
+import replaceInFiles from "../replaceInFiles.js";
 import replacer from "../replacer.js";
 import rollup from "../rollup.js";
 import { gitHubRawPath } from "../version.js";
 import config from "./config.js";
 import { templatePath } from "./utils.js";
-import typeScript from "@rollup/plugin-typescript";
-import terser from '@rollup/plugin-terser';
-import { execSync } from "child_process";
-import fs from 'fs-extra';
-import { readFile, writeFile } from "fs/promises";
-import dts from "rollup-plugin-dts";
 import brandConfiguration from "../brandConfiguration.js";
-import replaceInFiles from "../replaceInFiles.js";
 
 const { copy, remove } = fs;
 const { components = [], versions = [] } = config;
