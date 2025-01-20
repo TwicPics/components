@@ -8,9 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.31.2] - 2025-01-20
+
+### Changed
+
+- Updates dependencies for sample and unit test projects.
+
 ### Fixed
 
-- Fixes the issue where `class` could be applied twice in `Svelte` components.
+- Fixes the issue where `class` was applied twice in `Svelte` components.
 
 ## [0.31.1] - 2024-11-10
 
@@ -704,6 +710,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.31.2]: https://github.com/TwicPics/components/compare/0.31.1...0.31.2
 [0.31.1]: https://github.com/TwicPics/components/compare/0.31.0...0.31.1
 [0.31.0]: https://github.com/TwicPics/components/compare/0.30.0...0.31.0
 [0.30.0]: https://github.com/TwicPics/components/compare/0.29.3...0.30.0

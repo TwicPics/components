@@ -4,7 +4,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][license-url]
 
-![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.31.1/documentation/resources/components-cover.png)
+![TwicPics Components](https://raw.githubusercontent.com/twicpics/components/0.31.2/documentation/resources/components-cover.png)
 
 
 
@@ -87,11 +87,11 @@ For seamless playback of [videos optimized with TwicPics](https://www.twicpics.c
 
 ## Supported frameworks
 
-- [Angular](https://github.com/TwicPics/components/blob/0.31.1/documentation/angular.md) (version 11+)
-- [React](https://github.com/TwicPics/components/blob/0.31.1/documentation/react.md), [React Native](https://github.com/TwicPics/components/blob/0.31.1/documentation/react-native.md), [Gatsby](https://github.com/TwicPics/components/blob/0.31.1/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.31.1/documentation/next.md)
-- [Svelte (version 3)](https://github.com/TwicPics/components/blob/0.31.1/documentation/svelte3.md), [Svelte (version 4)](https://github.com/TwicPics/components/blob/0.31.1/documentation/svelte4.md), [Svelte (version 5)](https://github.com/TwicPics/components/blob/0.31.1/documentation/svelte5.md) and [SvelteKit](https://github.com/TwicPics/components/blob/0.31.1/documentation/svelteKit.md)
-- [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.31.1/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.31.1/documentation/vue3.md), [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.31.1/documentation/nuxt2.md) and [Nuxt.js (version 3)](https://github.com/TwicPics/components/blob/0.31.1/documentation/nuxt3.md)
-- [Web Components](https://github.com/TwicPics/components/blob/0.31.1/documentation/webComponents.md)
+- [Angular](https://github.com/TwicPics/components/blob/0.31.2/documentation/angular.md) (version 11+)
+- [React](https://github.com/TwicPics/components/blob/0.31.2/documentation/react.md), [React Native](https://github.com/TwicPics/components/blob/0.31.2/documentation/react-native.md), [Gatsby](https://github.com/TwicPics/components/blob/0.31.2/documentation/gatsby.md) and [Next.js](https://github.com/TwicPics/components/blob/0.31.2/documentation/next.md)
+- [Svelte (version 3)](https://github.com/TwicPics/components/blob/0.31.2/documentation/svelte3.md), [Svelte (version 4)](https://github.com/TwicPics/components/blob/0.31.2/documentation/svelte4.md), [Svelte (version 5)](https://github.com/TwicPics/components/blob/0.31.2/documentation/svelte5.md) and [SvelteKit](https://github.com/TwicPics/components/blob/0.31.2/documentation/svelteKit.md)
+- [Vue.js (version 2)](https://github.com/TwicPics/components/blob/0.31.2/documentation/vue2.md), [Vue.js (version 3)](https://github.com/TwicPics/components/blob/0.31.2/documentation/vue3.md), [Nuxt.js (version 2)](https://github.com/TwicPics/components/blob/0.31.2/documentation/nuxt2.md) and [Nuxt.js (version 3)](https://github.com/TwicPics/components/blob/0.31.2/documentation/nuxt3.md)
+- [Web Components](https://github.com/TwicPics/components/blob/0.31.2/documentation/webComponents.md)
 
 ## Online demonstrations
 
@@ -112,5 +112,5 @@ Feel free to submit an [issue](https://github.com/TwicPics/components/issues) or
 
 [license-image]: https://img.shields.io/npm/l/@twicpics/components.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/twicpics/components/master/LICENSE
-[npm-image]: https://img.shields.io/badge/npm-v0.31.1-orange.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.31.1
+[npm-image]: https://img.shields.io/badge/npm-v0.31.2-orange.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@twicpics/components/v/0.31.2
