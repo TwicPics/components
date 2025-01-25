@@ -8,7 +8,7 @@ import path from "path";
 import dts from "rollup-plugin-dts";
 import uglify from "uglify-js";
 import __dirname from "../__dirname.js";
-import brandConfiguration from "../brandConfiguration.js";
+import { replacersConfiguration } from "../brand.js";
 import { getJsonFromPath, writeJson } from "../json.js";
 import replaceInFiles from "../replaceInFiles.js";
 import rollup from "../rollup.js";
@@ -254,7 +254,7 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => 
         "files": `${ ngcDist }/**/*.*`,
         "replacers": [
             [ /\bFRAMEWORK[^:]/g, `'ANGULAR'` ],
-            ...brandConfiguration( brand ),
+            ...replacersConfiguration( brand ),
         ],
     } );
 
