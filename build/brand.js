@@ -1,4 +1,4 @@
-export default ( brand = `twicpics` ) => [
+export const replacersConfiguration = ( brand = `twicpics` ) => [
     [ /\bBRAND[^:]/g, `'${ brand }'` ],
     [ /\b__INSTALL_FUNCTION__/g, `${ brand === `ffy` ? `installFrontify` : `installTwicpics` }` ],
     [ /\b__BACKGROUND_COMPONENT__/g, `${ brand === `ffy` ? `FfyBackground` : `TwicBackground` }` ],

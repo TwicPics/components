@@ -20,7 +20,7 @@ import terser from '@rollup/plugin-terser';
 import typeScript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-porter";
 import dts from "rollup-plugin-dts";
-import brandConfiguration from "./brandConfiguration.js";
+import { replacersConfiguration } from "./brand.js";
 import minifier from "./minifier.js";
 import replacer from "./replacer.js";
 
@@ -74,7 +74,7 @@ export default ( { bundleCss = true,
                 replacer( {
                     "replacers": [
                         [ /\bFRAMEWORK([^:])/g, `${ JSON.stringify( framework ) }$1` ],
-                        ...brandConfiguration( brand ),
+                        ...replacersConfiguration( brand ),
                     ],
                 } ),
                 ...( javascript ? [] : [
@@ -127,7 +127,7 @@ export default ( { bundleCss = true,
                 replacer( {
                     "replacers": [
                         [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ],
-                        ...brandConfiguration( brand ),
+                        ...replacersConfiguration( brand ),
                     ],
                 } ),
                 dts(),
