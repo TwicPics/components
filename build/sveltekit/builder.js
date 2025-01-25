@@ -5,6 +5,7 @@ import typeScript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import dts from "rollup-plugin-dts";
 import __dirname from "../__dirname.js";
+import { replacersConfiguration } from "../brand.js";
 import minifier from "../minifier.js";
 import replaceInFiles from "../replaceInFiles.js";
 import replacer from "../replacer.js";
@@ -12,7 +13,6 @@ import rollup from "../rollup.js";
 import { gitHubRawPath } from "../version.js";
 import config from "./config.js";
 import { templatePath } from "./utils.js";
-import brandConfiguration from "../brandConfiguration.js";
 
 const { copy, remove } = fs;
 const { components = [], versions = [] } = config;
@@ -41,7 +41,7 @@ export const buildComponents = async ( { brand } = {} ) => {
             [ /import\s*".\/_\/style.css"\s*;/, `` ],
             [ /<svelte:options tag=.*\/>/gm, `` ],
             [ /import.*"svelte\/internal"\s*;/gm, `const getCurrentComponent = () :HTMLElement => undefined;` ],
-            ...brandConfiguration( brand ),
+            ...replacersConfiguration( brand ),
         ],
     } );
 
@@ -67,7 +67,7 @@ export const buildComponents = async ( { brand } = {} ) => {
         "plugins": [
             replacer( {
                 "replacers": [
-                    ...brandConfiguration( brand ),
+                    ...replacersConfiguration( brand ),
                     [ /\bFRAMEWORK[^:]/g, `"SVELTEKIT"` ],
                 ],
             } ),
