@@ -1,15 +1,4 @@
 {
-    "author": "TwicPics <hello@twic.pics> (https://www.twicpics.com)",
-    "bugs": {
-        "url": "https://github.com/twicpics/components/issues"
-    },
-    "description": "A Sveltekit module for a quick and intuitive integration of TwicPics.",
-    "keywords": [
-        "sveltekit",
-        "image",
-        "responsive image",
-        "twicpics"
-    ],
     "scripts": {
         "package": "svelte-kit sync && svelte-package -o package"
     },
@@ -26,48 +15,5 @@
     "peerDependencies": {
         "svelte": ">3.46"
     },
-    "type": "module",
-    "license": "MIT",
-    "exports": {
-        "./package.json": "./package.json",
-        "./TwicBackground.svelte": {
-            "types": "./TwicBackground.svelte.d.ts",
-            "svelte": "./TwicBackground.svelte",
-            "default": "./TwicBackground.svelte"
-        },
-        "./TwicImg.svelte": {
-            "types": "./TwicImg.svelte.d.ts",
-            "svelte": "./TwicImg.svelte",
-            "default": "./TwicImg.svelte"
-        },
-        "./TwicVideo.svelte": {
-            "types": "./TwicVideo.svelte.d.ts",
-            "svelte": "./TwicVideo.svelte",
-            "default": "./TwicVideo.svelte"
-        },
-        "./TwicView.svelte": {
-            "types": "./TwicView.svelte.d.ts",
-            "svelte": "./TwicView.svelte",
-            "default": "./TwicView.svelte"
-        }
-    },
-    "files": [
-        "package"
-    ],
-    "typesVersions": {
-        ">4.0": {
-            "TwicBackground.svelte": [
-                "./TwicBackground.svelte.d.ts"
-            ],
-            "TwicImg.svelte": [
-                "./TwicImg.svelte.d.ts"
-            ],
-            "TwicVideo.svelte": [
-                "./TwicVideo.svelte.d.ts"
-            ],
-            "TwicView.svelte": [
-                "./TwicView.svelte.d.ts"
-            ]
-        }
-    }
+    "type": "module"
 }
