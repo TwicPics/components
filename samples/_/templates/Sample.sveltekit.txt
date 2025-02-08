@@ -3,10 +3,10 @@
 // /___eager_false___/ => "eager={false}"
 <script context="module">
     import { TwicBackground } from "@twicpics/components/sveltekit";
-    import { TwicPicture} from "@twicpics/components/sveltekit";
-    import { TwicImg} from "@twicpics/components/sveltekit";
-    import { TwicVideo } from "@twicpics/components/sveltekit";
-    import { TwicView } from "@twicpics/components/sveltekit";
+    import TwicPicture from "@twicpics/components/sveltekit/TwicPicture.svelte";
+    import TwicImg from "@twicpics/components/sveltekit/TwicImg.svelte";
+    import TwicVideo from "@twicpics/components/sveltekit/TwicVideo.svelte";
+    import TwicView from "@twicpics/components/sveltekit/TwicView.svelte";
     import "@twicpics/components-sample/Sample.css";
 </script>
 <script>
