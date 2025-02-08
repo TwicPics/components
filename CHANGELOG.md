@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+- Fixes import issue in **SvelteKit** projects causing `ts(2307)` errors.
+- Fixes typing issue in **SvelteKit** components.
+
+### Fixed
+
+- Fixes the issue where `class` was applied twice in **Svelte** components.
+
 ## [0.31.2] - 2025-01-20
 
 ### Changed
@@ -16,13 +23,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
-- Fixes the issue where `class` was applied twice in `Svelte` components.
+- Fixes the issue where `class` was applied twice in **Svelte** components.
 
 ## [0.31.1] - 2024-11-10
 
 ### Fixed
 
-- Fixes Hydration Warnings in `Next`.
+- Fixes Hydration Warnings in **Next**.
 
 ## [0.31.0] - 2024-10-11
 
