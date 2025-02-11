@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { execSync } from "child_process";
-import { svelteKitInfos } from "./utils.js";
+import { templatePath } from "./utils.js";
 
 export default () => {
-    console.log( `installing SvelteKit from ${ svelteKitInfos.templatePath }` );
-    execSync( `cd ${ svelteKitInfos.templatePath } && $npm_execpath install` );
+    console.log( `installing SvelteKit from ${ templatePath }` );
+    execSync( `cd ${ templatePath } && $npm_execpath install` );
     console.log( `SvelteKit installation done` );
 };

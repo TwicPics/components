@@ -1,11 +1,10 @@
 import __dirname from "../__dirname.js";
-import { getJsonFromPath, writeJson } from "../json.js";
 import minifier from "../minifier.js";
 import replacer from "../replacer.js";
 import rollup from "../rollup.js";
-import { gitHubRawPath, packageVersion } from "../version.js";
+import { gitHubRawPath } from "../version.js";
 import config from "./config.js";
-import { svelteKitInfos } from "./utils.js";
+import { templatePath } from "./utils.js";
 import typeScript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import { execSync } from "child_process";
@@ -15,14 +14,14 @@ import replaceInFile from "replace-in-file";
 import dts from "rollup-plugin-dts";
 
 const { copy, remove } = fs;
-const { versions = [] } = config;
+const { components = [], versions = [] } = config;
 
 /* eslint-disable no-console */
 export const buildComponents = async () => {
     console.log( `Building ${ versions.join( `,` ) } components` );
 
     // source path within building project
-    const srcPath = `${ svelteKitInfos.templatePath }src/lib`;
+    const srcPath = `${ templatePath }src/lib`;
 
     // 0 - remove old source from previous build
     await remove( srcPath );
@@ -116,21 +115,15 @@ export const buildComponents = async () => {
     );
 
     // 7 - launches official builder
-    execSync( `cd ${ svelteKitInfos.templatePath } && $npm_execpath package` );
+    execSync( `cd ${ templatePath } && $npm_execpath package` );
 
     const distFolder = `${ __dirname }/../dist/sveltekit/`;
 
-    // 8 - handles package version and package name
-    const packageJSON = await getJsonFromPath( `${ svelteKitInfos.templatePath }/package.json` );
-    packageJSON.version = packageVersion;
-    packageJSON.name = `@twicpics/components/sveltekit`;
-    await writeJson( `${ distFolder }package.json`, packageJSON );
-
     // 9 - copies generated files to twicPics dist folder
-    await copy( `${ svelteKitInfos.templatePath }/package/`, distFolder );
+    await copy( `${ templatePath }/package/`, distFolder );
 
-    // 10 - removes working files
-    await Promise.all( [ srcPath, `${ svelteKitInfos.templatePath }/package` ].map( d => remove( d ) ) );
+    // 9 - removes working files
+    await Promise.all( [ srcPath, `${ templatePath }/package` ].map( d => remove( d ) ) );
 };
 
 /**
@@ -146,6 +139,12 @@ export const exportsPackageJson = () => {
             "types": `./sveltekit/index.d.ts`,
         } );
     }
-    exports.set( `./sveltekit/`, `./sveltekit/` );
+    for ( const component of components ) {
+        exports.set( `./sveltekit/${ component }.svelte`, {
+            "types": `./sveltekit/${ component }.svelte.d.ts`,
+            "svelte": `./sveltekit/${ component }.svelte`,
+        } );
+    }
     return exports;
 };
+
