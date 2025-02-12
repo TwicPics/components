@@ -5,72 +5,118 @@ import type { ReactNode, FC } from 'react';
 import { View, Dimensions } from 'react-native';
 import { config } from '../_/config';
 
+type OnVisibilityChanged = ( visible: boolean ) => void;
 export interface Props {
   children: ReactNode;
   eager?: boolean,
-  onVisibilityChanged( visible: boolean ): unknown;
+  onVisibilityChanged: OnVisibilityChanged;
 }
 
 const MEASUREMENT_INTERVAL = 100;
 
+const visibilityDetectors = new Map< View, OnVisibilityChanged>();
+
+let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+let isMeasuring = false;
+
+const measure = () => {
+    if ( isMeasuring ) {
+        return;
+    }
+    isMeasuring = true;
+
+    const viewport = Dimensions.get( `window` );
+    const { anticipation } = config;
+
+    const viewportBox = {
+        "top": anticipation * viewport.height * -1,
+        "bottom": viewport.height * ( 1 + anticipation ),
+        "left": anticipation * viewport.width * -1,
+        "right": viewport.width * ( 1 + anticipation ),
+    };
+
+    const toRemove: View[] = [];
+
+    const measurementPromises: Promise<void>[] = [];
+
+    visibilityDetectors.forEach( ( onVisibilityChanged, visibilityDetector ) => {
+        const measurePromise = new Promise<void>( resolve => {
+            visibilityDetector.measure( ( _, __, width, height, pageX, pageY ) => {
+                if ( height === 0 ) {
+                    return resolve();
+                }
+
+                const mediaBox = {
+                    "top": pageY,
+                    "bottom": pageY + height,
+                    "right": pageX + width,
+                    "left": pageX,
+                };
+
+                const isVisible =
+                        ( mediaBox.bottom >= viewportBox.top ) &&
+                        ( mediaBox.top <= viewportBox.bottom ) &&
+                        ( mediaBox.right >= viewportBox.left ) &&
+                        ( mediaBox.left <= viewportBox.right );
+
+                if ( isVisible ) {
+                    onVisibilityChanged( true );
+                    toRemove.push( visibilityDetector );
+                }
+
+                resolve();
+            } );
+        } );
+
+        measurementPromises.push( measurePromise );
+    } );
+
+    Promise.all( measurementPromises ).then( () => {
+        toRemove.forEach( detector => visibilityDetectors.delete( detector ) );
+        isMeasuring = false;
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        observe();
+    } );
+};
+
+const unobserve = () => {
+    if ( ( visibilityDetectors.size === 0 ) && timeoutId ) {
+        clearTimeout( timeoutId );
+        timeoutId = null;
+    }
+};
+
+const observe = () => {
+    if ( timeoutId || ( visibilityDetectors.size === 0 ) ) {
+        return;
+    }
+
+    timeoutId = setTimeout( () => {
+        timeoutId = null;
+        measure();
+    }, MEASUREMENT_INTERVAL );
+};
+
 const VisibilityDetector: FC<Props> = (
     { eager, children, onVisibilityChanged }
 ) => {
-    const { anticipation } = config;
+
     const detector = useRef< View >( null );
-    const timeout = useRef< ReturnType< typeof setTimeout > >( null );
-
-    const observe = () => {
-        if ( !detector?.current ) {
-            return;
-        }
-        const viewport = Dimensions.get( `window` );
-        // eslint-disable-next-line max-params
-        detector.current.measure( ( _, __, width, height, pageX, pageY ) => {
-            const mediaBox = {
-                "top": pageY,
-                "bottom": pageY + height,
-                "right": pageX + width,
-                "left": pageX,
-            };
-            const viewportBox = {
-                "top": anticipation * viewport.height * -1,
-                "bottom": viewport.height * ( 1 + anticipation ),
-                "left": anticipation * viewport.width * -1,
-                "right": viewport.width * ( 1 + anticipation ),
-            };
-            if (
-                // handles the case of media boxes with no size yet defined
-                ( height > 0 ) &&
-                // checks that media box is in the viewport box
-                ( mediaBox.bottom >= viewportBox.top ) &&
-                ( mediaBox.top <= viewportBox.bottom ) &&
-                ( mediaBox.right >= viewportBox.left ) &&
-                ( mediaBox.left <= viewportBox.right )
-            ) {
-                onVisibilityChanged( true );
-            } else {
-                timeout.current = setTimeout( () => {
-                    observe();
-                }, MEASUREMENT_INTERVAL );
-            }
-        } );
-    };
-
-    const unobserve = () => {
-        if ( timeout?.current ) {
-            clearTimeout( timeout.current );
-            timeout.current = null;
-        }
-    };
+    const detectorKeyRef = useRef<View | null>( null );
 
     // eslint-disable-next-line consistent-return
     useEffect( () => {
         if ( !eager ) {
+            detectorKeyRef.current = detector.current;
+            visibilityDetectors.set( detectorKeyRef.current, onVisibilityChanged );
             observe();
-            return unobserve;
+            return () => {
+                visibilityDetectors.delete( detectorKeyRef.current );
+                unobserve();
+            };
         }
-    }, [] );
+    }, [ eager ] );
 
     return (
         <View
