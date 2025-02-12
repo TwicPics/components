@@ -36,7 +36,7 @@ const measure = () => {
         "right": viewport.width * ( 1 + anticipation ),
     };
 
-    const toRemove: View[] = [];
+    const detectorsToRemove: View[] = [];
 
     const measurementPromises: Promise<void>[] = [];
 
@@ -62,7 +62,7 @@ const measure = () => {
 
                 if ( isVisible ) {
                     onVisibilityChanged( true );
-                    toRemove.push( visibilityDetector );
+                    detectorsToRemove.push( visibilityDetector );
                 }
 
                 resolve();
@@ -73,7 +73,7 @@ const measure = () => {
     } );
 
     Promise.all( measurementPromises ).then( () => {
-        toRemove.forEach( detector => visibilityDetectors.delete( detector ) );
+        detectorsToRemove.forEach( visibilityDetector => visibilityDetectors.delete( visibilityDetector ) );
         isMeasuring = false;
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         observe();
@@ -92,10 +92,13 @@ const observe = () => {
         return;
     }
 
-    timeoutId = setTimeout( () => {
-        timeoutId = null;
-        measure();
-    }, MEASUREMENT_INTERVAL );
+    timeoutId = setTimeout(
+        () => {
+            measure();
+            timeoutId = null;
+        },
+        MEASUREMENT_INTERVAL
+    );
 };
 
 const VisibilityDetector: FC<Props> = (

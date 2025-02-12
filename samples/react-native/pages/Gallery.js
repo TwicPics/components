@@ -201,7 +201,7 @@ const seed = [
         "focus": `50px40p`,
     },
 ];
-const images = [ ...seed, ...seed ];
+const images = [ ...seed, ...seed, ...seed, ...seed, ...seed, ...seed, ...seed, ...seed ];
 
 class Gallery extends Component {
     // eslint-disable-next-line class-methods-use-this
