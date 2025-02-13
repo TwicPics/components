@@ -7,9 +7,9 @@ import { config } from '../_/config';
 
 type OnVisibilityChanged = ( visible: boolean ) => void;
 export interface Props {
-  children: ReactNode;
-  eager?: boolean,
-  onVisibilityChanged: OnVisibilityChanged;
+    children: ReactNode;
+    eager?: boolean,
+    onVisibilityChanged: OnVisibilityChanged;
 }
 
 const MEASUREMENT_INTERVAL = 100;
@@ -20,7 +20,7 @@ let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
 let isMeasuring = false;
 
-const measure = () => {
+const observe = () => {
     if ( isMeasuring ) {
         return;
     }
@@ -41,7 +41,8 @@ const measure = () => {
     const measurementPromises: Promise<void>[] = [];
 
     visibilityDetectors.forEach( ( onVisibilityChanged, visibilityDetector ) => {
-        const measurePromise = new Promise<void>( resolve => {
+        const measurePromise = new Promise< void >( resolve => {
+            // eslint-disable-next-line max-params, consistent-return
             visibilityDetector.measure( ( _, __, width, height, pageX, pageY ) => {
                 if ( height === 0 ) {
                     return resolve();
@@ -55,10 +56,10 @@ const measure = () => {
                 };
 
                 const isVisible =
-                        ( mediaBox.bottom >= viewportBox.top ) &&
-                        ( mediaBox.top <= viewportBox.bottom ) &&
-                        ( mediaBox.right >= viewportBox.left ) &&
-                        ( mediaBox.left <= viewportBox.right );
+                    ( mediaBox.bottom >= viewportBox.top ) &&
+                    ( mediaBox.top <= viewportBox.bottom ) &&
+                    ( mediaBox.right >= viewportBox.left ) &&
+                    ( mediaBox.left <= viewportBox.right );
 
                 if ( isVisible ) {
                     onVisibilityChanged( true );
@@ -75,8 +76,16 @@ const measure = () => {
     Promise.all( measurementPromises ).then( () => {
         detectorsToRemove.forEach( visibilityDetector => visibilityDetectors.delete( visibilityDetector ) );
         isMeasuring = false;
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        observe();
+        if ( visibilityDetectors.size > 0 ) {
+            timeoutId = setTimeout(
+                () => {
+                    observe();
+                    timeoutId = null;
+                },
+                MEASUREMENT_INTERVAL
+            );
+        }
+
     } );
 };
 
@@ -85,20 +94,6 @@ const unobserve = () => {
         clearTimeout( timeoutId );
         timeoutId = null;
     }
-};
-
-const observe = () => {
-    if ( timeoutId || ( visibilityDetectors.size === 0 ) ) {
-        return;
-    }
-
-    timeoutId = setTimeout(
-        () => {
-            measure();
-            timeoutId = null;
-        },
-        MEASUREMENT_INTERVAL
-    );
 };
 
 const VisibilityDetector: FC<Props> = (
