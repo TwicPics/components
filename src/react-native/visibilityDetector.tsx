@@ -6,7 +6,7 @@ import { View, Dimensions } from 'react-native';
 import { config } from '../_/config';
 
 type OnVisibilityChanged = ( visible: boolean ) => void;
-export interface Props {
+interface VisibilityDetectorProps {
     children: ReactNode;
     eager?: boolean,
     onVisibilityChanged: OnVisibilityChanged;
@@ -36,8 +36,6 @@ const observe = () => {
         "right": viewport.width * ( 1 + anticipation ),
     };
 
-    const detectorsToRemove: View[] = [];
-
     const measurementPromises: Promise<void>[] = [];
 
     visibilityDetectors.forEach( ( onVisibilityChanged, visibilityDetector ) => {
@@ -63,7 +61,7 @@ const observe = () => {
 
                 if ( isVisible ) {
                     onVisibilityChanged( true );
-                    detectorsToRemove.push( visibilityDetector );
+                    visibilityDetectors.delete( visibilityDetector );
                 }
 
                 resolve();
@@ -74,7 +72,6 @@ const observe = () => {
     } );
 
     Promise.all( measurementPromises ).then( () => {
-        detectorsToRemove.forEach( visibilityDetector => visibilityDetectors.delete( visibilityDetector ) );
         isMeasuring = false;
         if ( visibilityDetectors.size > 0 ) {
             timeoutId = setTimeout(
@@ -85,7 +82,6 @@ const observe = () => {
                 MEASUREMENT_INTERVAL
             );
         }
-
     } );
 };
 
@@ -96,7 +92,7 @@ const unobserve = () => {
     }
 };
 
-const VisibilityDetector: FC<Props> = (
+const VisibilityDetector: FC< VisibilityDetectorProps > = (
     { eager, children, onVisibilityChanged }
 ) => {
 
