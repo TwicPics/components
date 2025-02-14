@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line no-shadow
-import { Animated, View } from 'react-native';
+import { Animated, Platform, View } from 'react-native';
 import {
     parseAlt,
     parseAnchor,
@@ -84,7 +84,6 @@ export default ( props: MediaAttributes ) => {
     const _debounce = useRef(
         debounce(
             _media => {
-                opacityTransition.setValue( transition.hasOwnProperty( `fade` ) ? 1 : 0 );
                 setActualUri( _media );
                 if ( config.env === `debug` ) {
                     // eslint-disable-next-line no-console
@@ -92,9 +91,9 @@ export default ( props: MediaAttributes ) => {
                 }
             },
             {
-                "leading": false,
+                "leading": Platform.OS !== `web`,
                 "ms": 100,
-                "trailing": true,
+                "trailing": Platform.OS === `web`,
             }
         )
     ).current;
