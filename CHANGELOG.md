@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Removes latency before displaying images and videos in **React Native** components on **iOS/Android**.
+
 ### Fixed
 
 - Fixes **React Native** (#120) causing `RangeError` when lazy loading a large number of images or videos.
