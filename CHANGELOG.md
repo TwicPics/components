@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixes **React Native** (#120) causing `RangeError` when lazy loading a large number of images or videos.
+
 ## [0.31.3] - 2025-02-11
 
 ### Fixed
