@@ -18,13 +18,13 @@ const visibilityDetectors = new Map< View, OnVisibilityChanged>();
 
 let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-let isMeasuring = false;
+let isObserving = false;
 
 const observe = () => {
-    if ( isMeasuring ) {
+    if ( isObserving ) {
         return;
     }
-    isMeasuring = true;
+    isObserving = true;
 
     const viewport = Dimensions.get( `window` );
     const { anticipation } = config;
@@ -72,7 +72,7 @@ const observe = () => {
     } );
 
     Promise.all( measurementPromises ).then( () => {
-        isMeasuring = false;
+        isObserving = false;
         if ( visibilityDetectors.size > 0 ) {
             timeoutId = setTimeout(
                 () => {
