@@ -37,6 +37,7 @@ import ImageCache from './_ImageCache';
 import Video from './_Video';
 import { styles } from './styles';
 import VisibilityDetector from './visibilityDetector';
+import { useIsInCache } from './Cache';
 
 export default ( props: MediaAttributes ) => {
     const { crossOrigin, mediaTag, referrerPolicy, videoOptions, viewSize } = props;
@@ -60,6 +61,7 @@ export default ( props: MediaAttributes ) => {
     const MediaComponent = mediaTag === `img` ?
         ( cachePolicy === `none` ? Image : ImageCache ) :
         Video;
+
     const { "alt": computedAlt } = computeMediaAttributes( alt, undefined, undefined, mediaTag, undefined );
     const { media, inspect, poster } = computeUrls(
         mediaTag, {
@@ -81,13 +83,16 @@ export default ( props: MediaAttributes ) => {
     const [ mediaInfos, setMediaInfos ] = useState( undefined );
     const [ visible, setVisible ] = useState( false );
 
+    const isInCache = ( mediaTag === `img` ) && ( cachePolicy !== `none` ) && useIsInCache( media );
+
     const _debounce = useRef(
         debounce(
             _media => {
                 setActualUri( _media );
                 if ( config.env === `debug` ) {
                     // eslint-disable-next-line no-console
-                    console.debug( `Displaying: `, _media );
+                    console.debug( `Displaying: `, _media, isInCache ? `(from cache)` : `` );
+
                 }
             },
             {
@@ -140,6 +145,7 @@ export default ( props: MediaAttributes ) => {
 
     return (
         <VisibilityDetector
+            isInCache= { isInCache }
             eager={ eager }
             onVisibilityChanged={ () => {
                 setVisible( true );
@@ -170,7 +176,7 @@ export default ( props: MediaAttributes ) => {
                         uri={ actualUri }
                         poster={ poster }
                     />
-                    { mediaInfos?.placeholder && (
+                    { mediaInfos?.placeholder && !isInCache && (
                         <Animated.Image
                             blurRadius={ mediaInfos.placeholder.blurRadius || 0}
                             style={ [

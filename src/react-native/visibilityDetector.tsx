@@ -5,7 +5,7 @@ import type { ReactNode, FC } from 'react';
 import { View, Dimensions } from 'react-native';
 import { config } from '../_/config';
 
-type OnVisibilityChanged = ( visible: boolean ) => void;
+type OnVisibilityChanged = () => void;
 type ViewportBox = {
     top: number;
     bottom: number;
@@ -16,6 +16,7 @@ type ViewportBox = {
 interface VisibilityDetectorProps {
     children: ReactNode;
     eager?: boolean,
+    isInCache: boolean,
     onVisibilityChanged: OnVisibilityChanged;
 }
 
@@ -79,7 +80,7 @@ const observe = () => {
                     ( mediaBox.left <= viewportBox.right );
 
                 if ( isVisible ) {
-                    onVisibilityChanged( true );
+                    onVisibilityChanged();
                     visibilityDetectors.delete( visibilityDetector );
                 }
 
@@ -112,7 +113,7 @@ const unobserve = () => {
 };
 
 const VisibilityDetector: FC< VisibilityDetectorProps > = (
-    { eager, children, onVisibilityChanged }
+    { eager, children, isInCache, onVisibilityChanged }
 ) => {
 
     const detector = useRef< View >( null );
@@ -120,16 +121,24 @@ const VisibilityDetector: FC< VisibilityDetectorProps > = (
 
     // eslint-disable-next-line consistent-return
     useEffect( () => {
-        if ( !eager ) {
+        if ( !eager && detector.current ) {
             detectorKeyRef.current = detector.current;
             visibilityDetectors.set( detectorKeyRef.current, onVisibilityChanged );
             observe();
-            return () => {
-                visibilityDetectors.delete( detectorKeyRef.current );
-                unobserve();
-            };
         }
-    }, [ eager ] );
+
+        if ( isInCache && detectorKeyRef.current ) {
+            visibilityDetectors.delete( detectorKeyRef.current );
+            onVisibilityChanged();
+        }
+
+        return () => {
+            if ( detectorKeyRef.current ) {
+                visibilityDetectors.delete( detectorKeyRef.current );
+            }
+            unobserve();
+        };
+    }, [ eager, isInCache ] );
 
     return (
         <View
