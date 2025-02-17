@@ -1,4 +1,4 @@
-import type { Anchor, Mode, Placeholder, Environment, FetchPriority } from "./types";
+import type { Anchor, Mode, Placeholder, Environment, FetchPriority, CachePolicy } from "./types";
 import { trimRegExpFactory } from "./utils";
 
 export const validAnchors: Array< Anchor > = [ `center` ];
@@ -12,7 +12,11 @@ for ( const y of [ ``, `bottom`, `top` ] ) {
 }
 export const rInvalidPath = /\?|^\/*$/;
 export const rValidAnchor = trimRegExpFactory( validAnchors );
+export const validCachePolicy: Array< CachePolicy > = [ `none`, `disk`, `memory`, `memory-disk` ];
+export const rValidCachePolicy = trimRegExpFactory( validCachePolicy );
 export const rValidDomain = /(^https?:\/\/[^/]+)\/*$/;
+export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
+export const rValidEnvironment = trimRegExpFactory( validEnvironment );
 export const validFetchPriorities: Array< FetchPriority > = [ `high`, `low`, `auto` ];
 export const rValidFetchPriority = trimRegExpFactory( validFetchPriorities );
 export const rValidIntrinsic = trimRegExpFactory( `\\s*(\\d+)\\s*[x]\\s*(\\d+)\\s*` );
@@ -22,8 +26,6 @@ export const validPlaceholders: Array< Placeholder > = [ `maincolor`, `meancolor
 export const rValidPlaceholder = trimRegExpFactory( validPlaceholders );
 export const rValidPath = /^\/*(.+?)\/*$/;
 export const rValidRatio = trimRegExpFactory( `(\\d+(?:\\.\\d+)?)(?:\\s*[\\/:]\\s*(\\d+(?:\\.\\d+)?))?|(none)` );
-export const validEnvironment: Array< Environment > = [ `debug`, `offline`, `production` ];
-export const rValidEnvironment = trimRegExpFactory( validEnvironment );
 export const rValidZoom = trimRegExpFactory( `(\\d+\\.?\\d*)|(css)`, {
     "regExpFlags": `i`,
 } );
