@@ -1,9 +1,19 @@
 /* eslint max-lines: "off", no-shadow: [ "error", { "allow": [ "focus" ] } ] */
 import { config } from "./config";
-import type { AnchorObject, BreakPoint, Environment, FetchPriority, Mode, Placeholder, Transition } from "./types";
+import type {
+    AnchorObject,
+    BreakPoint,
+    CachePolicy,
+    Environment,
+    FetchPriority,
+    Mode,
+    Placeholder,
+    Transition,
+} from "./types";
 import { urlInfos } from "./url";
 import { isReactNative, regExpFinderFactory, trimRegExpFactory } from "./utils";
 import {
+    rValidCachePolicy,
     rValidDomain,
     rValidEnvironment,
     rValidFetchPriority,
@@ -107,6 +117,8 @@ export const parseAlt = ( value: string ) => trimOrUndefined( value ) || ``;
 export const parseAnticipation = parseNumber;
 
 export const parseBot = ( value: string ) => ( typeof value === `string` ? value.trim() : undefined );
+
+export const parseCachePolicy = regExpFinderFactory< CachePolicy >( rValidCachePolicy );
 
 export const parseClass = trimOrUndefined;
 

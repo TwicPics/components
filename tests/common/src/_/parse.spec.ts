@@ -9,6 +9,7 @@ import {
   parseAlt,
   parseAnticipation,
   parseBot,
+  parseCachePolicy,
   parseClass,
   parseClassName,
   parseDebug,
@@ -318,6 +319,50 @@ describe( 'Parsing functions', () => {
     ] )( 'it should $description', ( { input, expected } ) => {
       // @ts-expect-error
       expect( parseBot( input  ) ).toBe( expected );
+    } );
+  } );
+
+  describe( 'parseCachePolicy', () => {
+    test.each( [
+      {
+        ...testUndefined( undefined ),
+      },
+      {
+        ...testEmptyString(undefined),
+      },
+      {
+        input: 'invalid',
+        expected: undefined,
+        description: 'return undefined for invalid Cache Policy'
+      },
+      {
+        input: 'none',
+        expected: 'none',
+        description: 'parse none'
+      },
+      {
+        input: 'memory',
+        expected: 'memory',
+        description: 'parse memory'
+      },
+      {
+        input: 'disk',
+        expected: 'disk',
+        description: 'parse disk'
+      },
+      {
+        input: 'memory-disk',
+        expected: 'memory-disk',
+        description: 'parse memory-disk'
+      },
+      {
+        input: '  memory-disk  ',
+        expected: 'memory-disk',
+        description: 'trim and parse memory-disk'
+      },
+    ] )( 'it should $description', ( { input, expected } ) => {
+      // @ts-ignore
+      expect( parseCachePolicy( input ) ).toBe( expected );
     } );
   } );
 
