@@ -10,7 +10,6 @@ type ImageWithCache = {
 const isImageWithCache = ( _image: unknown ): _image is ImageWithCache =>
     _image && ( ( Platform.OS === `ios` ) || ( Platform.OS === `android` ) );
 
-// hook to get the cache path from expo-image
 export const useIsInCache = ( uri: string | undefined ) => {
     const [ isInCache, setIsInCache ] = useState<boolean>( false );
     // eslint-disable-next-line no-shadow

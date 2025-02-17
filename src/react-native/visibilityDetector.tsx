@@ -159,7 +159,6 @@ const VisibilityDetector: FC< VisibilityDetectorProps > = (
     const detector = useRef< View >( null );
     const detectorKeyRef = useRef<View | null>( null );
 
-    // eslint-disable-next-line consistent-return
     useEffect( () => {
         if ( !eager && !isInCache ) {
             detectorKeyRef.current = detector.current;
