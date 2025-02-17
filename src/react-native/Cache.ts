@@ -1,7 +1,7 @@
-// cache.ts
 import { useState, useEffect } from 'react';
-import useExpo from './useExpo';
 import { Platform } from 'react-native';
+
+import useExpo from './useExpo';
 
 type ImageWithCache = {
     getCachePathAsync: ( uri: string ) => Promise<string | null>;

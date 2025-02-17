@@ -25,13 +25,18 @@ const MEASUREMENT_INTERVAL = 100;
 
 const visibilityDetectors = new Map< View, OnVisibilityChanged>();
 
+let isObserving = false;
+
 let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-let isObserving = false;
+let viewportBox: ViewportBox;
+
+let viewportChangeListener: ReturnType< typeof Dimensions.addEventListener > | null = null;
 
 const computeViewportBox = (): ViewportBox => {
     const viewport = Dimensions.get( `window` );
     const { anticipation } = config;
+
     return {
         "top": anticipation * viewport.height * -1,
         "bottom": viewport.height * ( 1 + anticipation ),
@@ -40,25 +45,54 @@ const computeViewportBox = (): ViewportBox => {
     };
 };
 
-let viewportBox: ViewportBox;
+const removeViewPortListener = () => {
+    if ( viewportChangeListener ) {
+        viewportChangeListener.remove();
+        viewportChangeListener = null;
+        viewportBox = null;
+    }
+};
 
-Dimensions.addEventListener( `change`, () => {
+const setupViewportListener = () => {
+    removeViewPortListener();
+    viewportChangeListener = Dimensions.addEventListener( `change`, () => {
+        viewportBox = computeViewportBox();
+    } );
     viewportBox = computeViewportBox();
-} );
+};
+
+const unobserve = ( visibilityDetector: View ) => {
+    if ( visibilityDetector ) {
+        visibilityDetectors.delete( visibilityDetector );
+    }
+    if ( visibilityDetectors.size === 0 ) {
+        if ( timeoutId ) {
+            clearTimeout( timeoutId );
+            timeoutId = null;
+        }
+
+        removeViewPortListener();
+    }
+};
 
 const observe = () => {
-    if ( isObserving && ( visibilityDetectors.size > MAX_IMMEDIATE_DETECTION ) ) {
+    if (
+        ( visibilityDetectors.size === 0 ) ||
+        ( isObserving && ( visibilityDetectors.size > MAX_IMMEDIATE_DETECTION ) )
+    ) {
         return;
     }
+
     isObserving = true;
 
-    const measurementPromises: Promise<void>[] = [];
-
     if ( !viewportBox ) {
-        viewportBox = computeViewportBox();
+        setupViewportListener();
     }
 
-    visibilityDetectors.forEach( ( onVisibilityChanged, visibilityDetector ) => {
+    const measurementPromises: Promise<void>[] = [];
+    const detectorsSnapshot = new Map( visibilityDetectors );
+
+    detectorsSnapshot.forEach( ( onVisibilityChanged, visibilityDetector ) => {
         const measurePromise = new Promise< void >( resolve => {
             // eslint-disable-next-line max-params, consistent-return
             visibilityDetector.measure( ( _, __, width, height, pageX, pageY ) => {
@@ -81,7 +115,7 @@ const observe = () => {
 
                 if ( isVisible ) {
                     onVisibilityChanged();
-                    visibilityDetectors.delete( visibilityDetector );
+                    unobserve( visibilityDetector );
                 }
 
                 resolve();
@@ -105,13 +139,6 @@ const observe = () => {
     } );
 };
 
-const unobserve = () => {
-    if ( ( visibilityDetectors.size === 0 ) && timeoutId ) {
-        clearTimeout( timeoutId );
-        timeoutId = null;
-    }
-};
-
 const VisibilityDetector: FC< VisibilityDetectorProps > = (
     { eager, children, isInCache, onVisibilityChanged }
 ) => {
@@ -121,22 +148,19 @@ const VisibilityDetector: FC< VisibilityDetectorProps > = (
 
     // eslint-disable-next-line consistent-return
     useEffect( () => {
-        if ( !eager && detector.current ) {
+        if ( !eager ) {
             detectorKeyRef.current = detector.current;
             visibilityDetectors.set( detectorKeyRef.current, onVisibilityChanged );
             observe();
         }
 
-        if ( isInCache && detectorKeyRef.current ) {
-            visibilityDetectors.delete( detectorKeyRef.current );
+        if ( isInCache ) {
             onVisibilityChanged();
+            unobserve( detector.current );
         }
 
         return () => {
-            if ( detectorKeyRef.current ) {
-                visibilityDetectors.delete( detectorKeyRef.current );
-            }
-            unobserve();
+            unobserve( detectorKeyRef?.current );
         };
     }, [ eager, isInCache ] );
 

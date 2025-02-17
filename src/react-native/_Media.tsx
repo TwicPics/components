@@ -89,11 +89,6 @@ export default ( props: MediaAttributes ) => {
         debounce(
             _media => {
                 setActualUri( _media );
-                if ( config.env === `debug` ) {
-                    // eslint-disable-next-line no-console
-                    console.debug( `Displaying: `, _media, isInCache ? `(from cache)` : `` );
-
-                }
             },
             {
                 "leading": Platform.OS !== `web`,
@@ -131,6 +126,11 @@ export default ( props: MediaAttributes ) => {
     useEffect( () => {
         if ( visible || eager ) {
             _debounce( media );
+            if ( config.env === `debug` ) {
+                // eslint-disable-next-line no-console
+                console.debug( `Displaying: ${ media }${ isInCache ? `(from cache)` : `` } ` );
+
+            }
         }
     }, [ media, visible ] );
 
