@@ -3,7 +3,9 @@ import React, { useEffect, useRef } from 'react';
 import type { ReactNode, FC } from 'react';
 // eslint-disable-next-line no-shadow
 import { View, Dimensions } from 'react-native';
+
 import { config } from '../_/config';
+import { debounce } from '../_/utils';
 
 type OnVisibilityChanged = () => void;
 type ViewportBox = {
@@ -46,19 +48,26 @@ const computeViewportBox = (): ViewportBox => {
 };
 
 const removeViewPortListener = () => {
-    if ( viewportChangeListener ) {
-        viewportChangeListener.remove();
-        viewportChangeListener = null;
-        viewportBox = null;
-    }
+    viewportChangeListener?.remove();
+    viewportChangeListener = null;
 };
 
 const setupViewportListener = () => {
     removeViewPortListener();
-    viewportChangeListener = Dimensions.addEventListener( `change`, () => {
-        viewportBox = computeViewportBox();
-    } );
     viewportBox = computeViewportBox();
+    viewportChangeListener = Dimensions.addEventListener(
+        `change`,
+        debounce(
+            () => {
+                viewportBox = computeViewportBox();
+            }, {
+
+                "leading": true,
+                "ms": 100,
+                "trailing": false,
+            }
+        )
+    );
 };
 
 const unobserve = ( visibilityDetector: View ) => {
@@ -85,7 +94,7 @@ const observe = () => {
 
     isObserving = true;
 
-    if ( !viewportBox ) {
+    if ( !viewportChangeListener ) {
         setupViewportListener();
     }
 
@@ -94,32 +103,36 @@ const observe = () => {
 
     detectorsSnapshot.forEach( ( onVisibilityChanged, visibilityDetector ) => {
         const measurePromise = new Promise< void >( resolve => {
-            // eslint-disable-next-line max-params, consistent-return
-            visibilityDetector.measure( ( _, __, width, height, pageX, pageY ) => {
-                if ( height === 0 ) {
-                    return resolve();
-                }
+            try {
+                // eslint-disable-next-line max-params, consistent-return
+                visibilityDetector.measure( ( _, __, width, height, pageX, pageY ) => {
+                    if ( height === 0 ) {
+                        return resolve();
+                    }
 
-                const mediaBox = {
-                    "top": pageY,
-                    "bottom": pageY + height,
-                    "right": pageX + width,
-                    "left": pageX,
-                };
+                    const mediaBox = {
+                        "top": pageY,
+                        "bottom": pageY + height,
+                        "right": pageX + width,
+                        "left": pageX,
+                    };
 
-                const isVisible =
-                    ( mediaBox.bottom >= viewportBox.top ) &&
-                    ( mediaBox.top <= viewportBox.bottom ) &&
-                    ( mediaBox.right >= viewportBox.left ) &&
-                    ( mediaBox.left <= viewportBox.right );
+                    const isVisible =
+                        ( mediaBox.bottom >= viewportBox.top ) &&
+                        ( mediaBox.top <= viewportBox.bottom ) &&
+                        ( mediaBox.right >= viewportBox.left ) &&
+                        ( mediaBox.left <= viewportBox.right );
 
-                if ( isVisible ) {
-                    onVisibilityChanged();
-                    unobserve( visibilityDetector );
-                }
+                    if ( isVisible ) {
+                        onVisibilityChanged();
+                        unobserve( visibilityDetector );
+                    }
 
+                    resolve();
+                } );
+            } catch {
                 resolve();
-            } );
+            }
         } );
 
         measurementPromises.push( measurePromise );
@@ -148,7 +161,7 @@ const VisibilityDetector: FC< VisibilityDetectorProps > = (
 
     // eslint-disable-next-line consistent-return
     useEffect( () => {
-        if ( !eager ) {
+        if ( !eager && !isInCache ) {
             detectorKeyRef.current = detector.current;
             visibilityDetectors.set( detectorKeyRef.current, onVisibilityChanged );
             observe();
