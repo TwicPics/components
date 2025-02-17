@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.32.0] - 2025-02-17
+
 ### Changed
 
 - Improves cache usage in **React Native**: `LQIP` is no longer shown for images already cached.
@@ -731,6 +733,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.32.0]: https://github.com/TwicPics/components/compare/0.31.4...0.32.0
 [0.31.4]: https://github.com/TwicPics/components/compare/0.31.3...0.31.4
 [0.31.3]: https://github.com/TwicPics/components/compare/0.31.2...0.31.3
 [0.31.2]: https://github.com/TwicPics/components/compare/0.31.1...0.31.2
