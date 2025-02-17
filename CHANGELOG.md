@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Improves cache usage in **React Native**: `LQIP` is no longer shown for images already cached.
+
 ## [0.31.4] - 2025-02-14
 
 ### Changed
