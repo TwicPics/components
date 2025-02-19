@@ -1,9 +1,9 @@
 import { execSync } from "child_process";
-import fs from 'fs-extra';
+import fs from "fs-extra";
 import { readFile, writeFile } from "fs/promises";
-import typeScript from "@rollup/plugin-typescript";
-import terser from '@rollup/plugin-terser';
 import dts from "rollup-plugin-dts";
+import terser from "@rollup/plugin-terser";
+import typeScript from "@rollup/plugin-typescript";
 import __dirname from "../__dirname.js";
 import { replacersConfiguration } from "../brand.js";
 import minifier from "../minifier.js";
