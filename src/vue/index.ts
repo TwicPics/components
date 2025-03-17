@@ -10,15 +10,20 @@ import TwicView from "./TwicView.vue";
 import { throwError } from "../_/utils";
 
 interface Options extends BaseOptions {
-    TwicBackground?: string,
-    TwicImg?: string,
-    TwicPicture?: string,
-    TwicVideo?: string,
-    TwicView?: string,
+    __BACKGROUND_COMPONENT__?: string,
+    __IMG_COMPONENT__?: string,
+    __PICTURE_COMPONENT__?: string,
+    __VIDEO_COMPONENT__?: string,
+    __VIEW_COMPONENT__?: string,
     [ key: string]: number | boolean | string | { [ key in BreakPoint ]?: number };
 }
 
-const componentNames: string[] = [ `TwicImg`, `TwicView`, `TwicVideo`, `TwicPicture` ];
+const componentNames: string[] = [
+    `__IMG_COMPONENT__`,
+    `__VIEW_COMPONENT__`,
+    `__VIDEO_COMPONENT__`,
+    `__PICTURE_COMPONENT__`,
+];
 
 const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Options ): void => {
     installTwicPics( options );
@@ -38,23 +43,23 @@ const plugin: PluginFunction< Options > = ( VueObject: typeof Vue, options?: Opt
 
     register( VueObject, {
         "component": TwicBackground,
-        "componentName": options.TwicBackground || `__BACKGROUND_COMPONENT__`,
+        "componentName": options.__BACKGROUND_COMPONENT__ || `__BACKGROUND_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicImg,
-        "componentName": options.TwicImg || `__IMG_COMPONENT__`,
+        "componentName": options.__IMG_COMPONENT__ || `__IMG_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicPicture,
-        "componentName": options.TwicPicture || `__PICTURE_COMPONENT__`,
+        "componentName": options.__PICTURE_COMPONENT__ || `__PICTURE_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicVideo,
-        "componentName": options.TwicVideo || `__VIDEO_COMPONENT__`,
+        "componentName": options.__VIDEO_COMPONENT__ || `__VIDEO_COMPONENT__`,
     } );
     register( VueObject, {
         "component": TwicView,
-        "componentName": options.TwicView || `__VIEW_COMPONENT__`,
+        "componentName": options.__VIDEO_COMPONENT__ || `__VIEW_COMPONENT__`,
     } );
 };
 export default plugin;
