@@ -14,7 +14,7 @@ import { preComputeVideoOptions } from "../_/preCompute";
 import type { Anchor, CrossOrigin, Mode, Placeholder, StateEvent, VideoOptions } from "../_/types";
 
 @Component( {
-    "selector": `TwicVideo`,
+    "selector": `__VIDEO_COMPONENT__`,
     "template": `
         <TwicMedia
             [anchor]="anchor"

@@ -4,7 +4,7 @@ import type { OnInit } from "@angular/core";
 import { getDataAttributeName } from "../_/config";
 
 @Component( {
-    "selector": `TwicView`,
+    "selector": `__VIEW_COMPONENT__`,
     "template": `<ng-content></ng-content>`,
 } )
 export class TwicViewComponent implements OnInit {

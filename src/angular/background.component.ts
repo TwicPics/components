@@ -13,7 +13,7 @@ import type { Anchor, Mode, Placeholder, StateEvent } from "../_/types";
 import { parseRole } from "../_/parse";
 
 @Component( {
-    "selector": `TwicBackground`,
+    "selector": `__BACKGROUND_COMPONENT__`,
     "template": `
         <TwicMedia
             [anchor]="anchor"

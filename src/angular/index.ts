@@ -20,5 +20,8 @@ export * from "./video.component";
 export * from "./view.component";
 export * from "./components.module";
 import { installTwicPics } from "../_/install";
-const installTwicpics = installTwicPics;
-export { installTwicpics, installTwicPics };
+const __INSTALL_FUNCTION__ = installTwicPics;
+export {
+    __INSTALL_FUNCTION__,
+    installTwicPics,
+};

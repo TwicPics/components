@@ -19,7 +19,7 @@ import initMagnifier from "../_/magnifier";
 import { styles } from "./utils";
 
 @Component( {
-    "selector": `TwicImg`,
+    "selector": `__IMG_COMPONENT__`,
     "template": `
         <TwicMedia
             *ngIf="_zoom"

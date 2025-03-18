@@ -22,7 +22,6 @@ import {
     getVersionAliases,
 } from "./utils.js";
 
-
 /**
  * copy files from gcc dist folder to twicpics dist folder
  * @param {*} angularDirectory : current angular project informations
@@ -231,11 +230,14 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => 
     const masterSourcePath = `${ __dirname }/../src/angular/`;
     await copy( masterSourcePath, masterDestinationPath );
 
-    // 2 - change imports in library project to build
+    // 2 - change imports in library project and handles brand (components name)
     try {
         await replaceInFiles( {
             "files": `${ masterDestinationPath }/**/*.*`,
-            "replacer": [ /\.\.\/_\//g, `./_/` ],
+            "replacers": [
+                [ /\.\.\/_\//g, `./_/` ],
+                ...replacersConfiguration( brand ),
+            ],
         } );
     } catch ( error ) {
         console.error( `Angular replacement error occurred:`, error );
@@ -249,7 +251,7 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => 
     // 4 - launch official ng build
     execSync( `cd ${ angularDirectory.path } && npx ng build ${ angularConfig.projectName }` );
 
-    // 5 - replace FRAMEWORK by ANGULAR in built library
+    // 5 - replace FRAMEWORK by ANGULAR in built library and handles brand (script class)
     await replaceInFiles( {
         "files": `${ ngcDist }/**/*.*`,
         "replacers": [

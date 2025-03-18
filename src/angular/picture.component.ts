@@ -50,7 +50,7 @@ import {
 import { attributes } from "./utils";
 
 @Component( {
-    "selector": `TwicPicture`,
+    "selector": `__PICTURE_COMPONENT__`,
     "template": `
       <picture
           #container

@@ -25,4 +25,4 @@ import { TwicViewComponent } from "./view.component";
         TwicViewComponent,
     ],
 } )
-export class TwicPicsComponentsModule { }
+export class __NG_MODULE__ { }
