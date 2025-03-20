@@ -346,12 +346,14 @@ export const exportsPackageJson = async () => {
         if ( noDirectoryImport ) {
             // handles no directory import issue
             const packageJson = packageJsonMap.get( reference );
-            const exportsKeys = getExportsKeys( packageJson );
-            _exports = exportsKeys.reduce( ( acc, key ) => {
-                // eslint-disable-next-line no-param-reassign
-                acc[ key === `typings` ? `types` : key ] = `./angular${ reference }/${ packageJson[ key ] }`;
-                return acc;
-            }, {} );
+            _exports = Object.fromEntries(
+                getExportsKeys( packageJson ).flatMap( key => {
+                    const value = `./angular${ reference }/${ packageJson[ key ] }`;
+                    return key === `typings` ?
+                        [ [ key, value ], [ `types`, value ] ] :
+                        [ [ key, value ] ];
+                } )
+            );
         }
         exports.set( `./angular${ version }`, _exports );
     }
