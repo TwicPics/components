@@ -24,25 +24,45 @@ await killports();
 
 const __dirname = dirname( fileURLToPath( import.meta.url ) );
 
-await Promise.all( getFrameworks( FRAMEWORK_FILTERS ).map( async unit => { 
+await Promise.all( getFrameworks( FRAMEWORK_FILTERS ).map( async ( unit ) => {
     const { framework, port } = unit;
-    console.log( `Starting ${ framework } on port ${ port }.` );
-    await new Promise( ( resolve ) => {
-        exec( `cd ${ __dirname }/${ framework } && $npm_execpath install`, () => {
-            const server = spawn( `$npm_execpath`, [ 'serve', '--port', port ], {
-                cwd: `${ __dirname }/${ framework }`,
-                shell: true,
-                detached: true,
-                stdio: 'ignore'
-            } );
-            checkPort( port, true ).then( () => {
+    console.log( `Starting ${ framework} on port ${ port }.` );
+
+    await new Promise( ( resolve, reject ) => {
+        exec( `cd ${ __dirname }/${ framework } && $npm_execpath install`, ( err, stderr ) => {
+            if ( err ) {
+                console.error( `Error installing dependencies for ${ framework }:`, stderr );
+                return reject( err );
+            }
+
+            const server = spawn(
+                `$npm_execpath`,
+                ['serve', '--port', port],
+                {
+                    cwd: `${ __dirname }/${ framework }`,
+                    shell: true,
+                    detached: true,
+                    stdio: [ 'ignore', 'pipe', 'pipe' ]
+                }
+            );
+
+            server.stdout.on( 'data', data => console.log( `[ ${framework} ]: ${data.toString()}` ) );
+            server.stderr.on( 'data', data => console.error(`[ ${ framework } ERROR ]: ${ data.toString() }` ) );
+
+            server.on('error', error => {
+                console.error( `Failed to start ${ framework }:`, error );
+                reject( error );
+            });
+
+            checkPort( port, true ).then(() => {
                 console.log( `${ framework } started on http://localhost:${ port }.` );
                 server.unref();
                 resolve();
-            } );
+            }).catch( reject );
         } );
     } );
 } ) );
+
 
 console.log( `All servers running.` );
 
