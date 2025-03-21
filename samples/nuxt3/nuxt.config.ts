@@ -1,8 +1,8 @@
-
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig( {
     "modules": [ `@twicpics/components/nuxt3` ],
     "telemetry": false,
+
     "twicpics": {
         "domain": `https://demo.twic.it`,
         "anticipation": 0.5,
@@ -13,4 +13,6 @@ export default defineNuxtConfig( {
             "2xl": 4000,
         },
     },
+
+    "compatibilityDate": `2025-03-21`,
 } );
