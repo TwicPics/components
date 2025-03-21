@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.33.0] - 2025-03-21
+
 ### Added
 
 - Adds support for **Angular 19**.
@@ -741,6 +743,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Support for **React**, **Next**, **Vue 2**, **Vue 3**, and **Nuxt 2**
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.33.0]: https://github.com/TwicPics/components/compare/0.32.0...0.33.0
 [0.32.0]: https://github.com/TwicPics/components/compare/0.31.4...0.32.0
 [0.31.4]: https://github.com/TwicPics/components/compare/0.31.3...0.31.4
 [0.31.3]: https://github.com/TwicPics/components/compare/0.31.2...0.31.3

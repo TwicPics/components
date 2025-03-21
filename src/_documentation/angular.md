@@ -20,7 +20,7 @@
 #include "src/_documentation/common/_installation.md"
 
 > [!NOTE]
-> TwicPics Components are available in Angular **version 11 to 17**. Discover our demonstrations and integration examples [in a standalone components based project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic). For an example of integration into an NgModule-based project, please refer to [this repo](https://github.com/TwicPics/components-demo-angular/tree/ng-module-based-application).
+> TwicPics Components are available in Angular **version 11 to 19**. Discover our demonstrations and integration examples [in a standalone components based project](https://twicpics-angular-demo.netlify.app/home?utm_source=github&utm_campaign=components&utm_medium=organic). For an example of integration into an NgModule-based project, please refer to [this repo](https://github.com/TwicPics/components-demo-angular/tree/ng-module-based-application).
 
 ## Setup
 
@@ -32,7 +32,7 @@
 Add the import part:
 
 ```ts
-import { installTwicPics } from '@twicpics/components/angular18'
+import { installTwicPics } from '@twicpics/components/angular19'
 ```
 
 And the configuration part (see [Setup Options](#setup-options)):
@@ -51,7 +51,7 @@ into the main component of your `Angular` project.
 ```ts
 //here is an example of a `Angular` app.component.ts configured with TwicPics.
 import { Component } from '@angular/core'
-import { installTwicPics } from '@twicpics/components/angular18'
+import { installTwicPics } from '@twicpics/components/angular19'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -86,7 +86,7 @@ Depending on the nature of your application, you'll need to import them either:
 ```ts
 // src/app/example/example.component.ts
 import { Component } from '@angular/core';
-import { TwicPicsComponentsModule } from '@twicpics/components/angular18';
+import { TwicPicsComponentsModule } from '@twicpics/components/angular19';
 
 @Component({
   // example is a standalone component
@@ -108,7 +108,7 @@ export class ExampleComponent {
 // src/app/app.module.ts
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
-import { TwicPicsComponentsModule } from '@twicpics/components/angular14'
+import { TwicPicsComponentsModule } from '@twicpics/components/angular19'
 // other imports
 
 @NgModule({
@@ -260,7 +260,7 @@ Here are the values the Component will emit ([see State Type definition](#loadin
 ```ts
   // component.ts
   import { ChangeDetectorRef, Component } from "@angular/core";
-  import { State, StateEvent, TwicPicsComponentsModule, TwicImgComponent } from "@twicpics/components/angular13";
+  import { State, StateEvent, TwicPicsComponentsModule, TwicImgComponent } from "@twicpics/components/angular19";
 
   @Component({
     ...
@@ -297,7 +297,7 @@ Here are the values the Component will emit ([see State Type definition](#loadin
 ```ts
   // component.ts
   import { ChangeDetectorRef, Component } from "@angular/core";
-  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular13";
+  import { State, StateEvent, TwicImgComponent } from "@twicpics/components/angular19";
 
   export class Component {
 
@@ -427,7 +427,7 @@ To dynamically set the `anchor` property with the `TwicImg`, `TwicPicture` or `T
 
 ```ts
 // component.ts
-import { Anchor } from "@twicpics/components/angular14";
+import { Anchor } from "@twicpics/components/angular19";
 
 @Component({
   selector: ...,
@@ -459,7 +459,7 @@ To dynamically set the `mode` property with the `TwicImg`, `TwicPicture` or `Twi
 
 ```ts
 // component.ts
-import { Mode } from "@twicpics/components/angular14";
+import { Mode } from "@twicpics/components/angular19";
 
 @Component({
   selector: ...,
@@ -490,7 +490,7 @@ To dynamically set the `mode` property with the `TwicImg`, `TwicPicture` or `Twi
 
 ```ts
   // component.ts
-  import { Placeholder } from "@twicpics/components/angular14";
+  import { Placeholder } from "@twicpics/components/angular19";
 
   @Component({
     selector: ...,
