@@ -341,17 +341,17 @@ export const exportsPackageJson = async () => {
     const packageJsonMap = await getPackageJsonMap();
     const versionAliases = getVersionAliases();
     for ( const { noDirectoryImport, reference, version } of versionAliases ) {
-        // classical case: import from directory
-        let _exports = `./angular${ version }`;
-        if ( noDirectoryImport ) {
-            // handles no directory import issue
-            const packageJson = packageJsonMap.get( reference );
-            _exports = getExportsKeys( packageJson ).reduce( ( acc, key ) => {
-                // eslint-disable-next-line no-param-reassign
-                acc[ key ] = `./angular${ reference }/${ packageJson[ key ] }`;
-                return acc;
-            }, {} );
-        }
+        const packageJson = packageJsonMap.get( reference );
+
+        const _exports = noDirectoryImport ? Object.fromEntries(
+            getExportsKeys( packageJson ).flatMap( key => {
+                const value = `./angular${ reference }/${ packageJson[ key ] }`;
+                return key === `typings` ?
+                    [ [ key, value ], [ `types`, value ] ] :
+                    [ [ key, value ] ];
+            } )
+        ) : `./angular${ version }`;
+
         exports.set( `./angular${ version }`, _exports );
     }
     return exports;
