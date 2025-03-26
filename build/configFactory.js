@@ -74,7 +74,9 @@ export default ( { bundleCss = true,
                 replacer( {
                     "replacers": [
                         [ /\bFRAMEWORK([^:])/g, `${ JSON.stringify( framework ) }$1` ],
-                        ...replacersConfiguration( brand ),
+                        ...replacersConfiguration( {
+                            brand,
+                        } ),
                     ],
                 } ),
                 ...( javascript ? [] : [
@@ -127,7 +129,9 @@ export default ( { bundleCss = true,
                 replacer( {
                     "replacers": [
                         [ /(\n|^)import\s*"..\/_\/style.css"\s*;(?:\n|$)/, `$1` ],
-                        ...replacersConfiguration( brand ),
+                        ...replacersConfiguration( {
+                            brand,
+                        } ),
                     ],
                 } ),
                 dts(),

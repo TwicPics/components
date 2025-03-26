@@ -13,8 +13,9 @@ import rollup from "../rollup.js";
 import { gitHubRawPath } from "../version.js";
 import config from "./config.js";
 import { templatePath } from "./utils.js";
+import path from "path";
 
-const { copy, remove } = fs;
+const { copy, copyFile, readdir, remove } = fs;
 const { components = [], versions = [] } = config;
 
 /* eslint-disable no-console */
@@ -22,36 +23,62 @@ export const buildComponents = async ( { brand } = {} ) => {
     console.log( `Building ${ versions.join( `,` ) } components` );
 
     // source path within building project
-    const srcPath = `${ templatePath }src/lib`;
+    const actualSrcPath = `${ templatePath }src/lib`;
 
     // 0 - remove old source from previous build
-    await remove( srcPath );
+    await remove( actualSrcPath );
 
     // 1 - copy common sources to library lib folder
-    await copy( `${ __dirname }/../src/_/`, `${ srcPath }/_` );
+    await copy( `${ __dirname }/../src/_/`, `${ actualSrcPath }/_` );
 
-    // 2 - copy svelte3 sources files
-    await copy( `${ __dirname }/../src/svelte3/`, srcPath );
+    // 2 - copy svelte3 sources files from origineSrcPath to actualSrcPath
+
+    const origineSrcPath = `${ __dirname }/../src/svelte3/`;
+
+    const files = await readdir( origineSrcPath );
+    const replacers = replacersConfiguration( {
+        brand,
+        "isSvelteKit": true,
+    } );
+
+    await Promise.all(
+        files.map( file => {
+            let newFileName = file;
+
+            // renames files according to brand configuration
+            for ( const [ pattern, replacement ] of replacers ) {
+                newFileName = newFileName.replace( pattern, replacement );
+            }
+
+            return copyFile(
+                path.join( origineSrcPath, file ),
+                path.join( actualSrcPath, newFileName )
+            );
+        } )
+    );
 
     // 3 - adaptation of Svelte3 sources
     await replaceInFiles( {
-        "files": `${ srcPath }/*.*`,
+        "files": `${ actualSrcPath }/*.*`,
         "replacers": [
             [ /\.\.\/_\//g, `./_/` ],
             [ /import\s*".\/_\/style.css"\s*;/, `` ],
             [ /<svelte:options tag=.*\/>/gm, `` ],
             [ /import.*"svelte\/internal"\s*;/gm, `const getCurrentComponent = () :HTMLElement => undefined;` ],
-            ...replacersConfiguration( brand ),
+            ...replacersConfiguration( {
+                brand,
+                "isSvelteKit": true,
+            } ),
         ],
     } );
 
     // 4 - rollup utils.ts
     const SVELTE_UTILS = `_utils`;
     await rollup( {
-        "input": `${ srcPath }/${ SVELTE_UTILS }.ts`,
+        "input": `${ actualSrcPath }/${ SVELTE_UTILS }.ts`,
         "output": [
             {
-                "file": `${ srcPath }/${ SVELTE_UTILS }.js`,
+                "file": `${ actualSrcPath }/${ SVELTE_UTILS }.js`,
                 "format": `esm`,
                 "sourcemap": true,
                 "sourcemapPathTransform": path => path
@@ -67,7 +94,10 @@ export const buildComponents = async ( { brand } = {} ) => {
         "plugins": [
             replacer( {
                 "replacers": [
-                    ...replacersConfiguration( brand ),
+                    ...replacersConfiguration( {
+                        brand,
+                        "isSvelteKit": true,
+                    } ),
                     [ /\bFRAMEWORK[^:]/g, `"SVELTEKIT"` ],
                 ],
             } ),
@@ -84,10 +114,10 @@ export const buildComponents = async ( { brand } = {} ) => {
 
     // 5 - rollup utils.d.ts
     await rollup( {
-        "input": `${ srcPath }/dts/${ SVELTE_UTILS }.d.ts`,
+        "input": `${ actualSrcPath }/dts/${ SVELTE_UTILS }.d.ts`,
         "output": [
             {
-                "file": `${ srcPath }/dts/${ SVELTE_UTILS }.d.ts`,
+                "file": `${ actualSrcPath }/dts/${ SVELTE_UTILS }.d.ts`,
                 "format": `es`,
             },
         ],
@@ -96,10 +126,10 @@ export const buildComponents = async ( { brand } = {} ) => {
             {
                 "writeBundle": async ( { file } ) => {
                     writeFile(
-                        `${ srcPath }/${ SVELTE_UTILS }.d.ts`,
+                        `${ actualSrcPath }/${ SVELTE_UTILS }.d.ts`,
                         minifier( await readFile( file, `utf8` ) )
                     );
-                    await remove( `${ srcPath }/dts` );
+                    await remove( `${ actualSrcPath }/dts` );
                 },
             },
         ],
@@ -108,8 +138,8 @@ export const buildComponents = async ( { brand } = {} ) => {
     // 6 - deletes files we don't want to be packaged
     await Promise.all(
         [
-            `${ srcPath }/_`,
-            `${ srcPath }/${ SVELTE_UTILS }.ts`,
+            `${ actualSrcPath }/_`,
+            `${ actualSrcPath }/${ SVELTE_UTILS }.ts`,
         ].map( d => remove( d ) )
     );
 
@@ -122,7 +152,7 @@ export const buildComponents = async ( { brand } = {} ) => {
     await copy( `${ templatePath }/package/`, distFolder );
 
     // 9 - removes working files
-    await Promise.all( [ srcPath, `${ templatePath }/package` ].map( d => remove( d ) ) );
+    await Promise.all( [ actualSrcPath, `${ templatePath }/package` ].map( d => remove( d ) ) );
 };
 
 /**

@@ -236,7 +236,9 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => 
             "files": `${ masterDestinationPath }/**/*.*`,
             "replacers": [
                 [ /\.\.\/_\//g, `./_/` ],
-                ...replacersConfiguration( brand ),
+                ...replacersConfiguration( {
+                    brand,
+                } ),
             ],
         } );
     } catch ( error ) {
@@ -256,7 +258,9 @@ const buildAngularProject = async ( angularDirectory, angularConfig, brand ) => 
         "files": `${ ngcDist }/**/*.*`,
         "replacers": [
             [ /\bFRAMEWORK[^:]/g, `'ANGULAR'` ],
-            ...replacersConfiguration( brand ),
+            ...replacersConfiguration( {
+                brand,
+            } ),
         ],
     } );
 
