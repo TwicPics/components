@@ -18,6 +18,14 @@ import path from "path";
 const { copy, copyFile, readdir, remove } = fs;
 const { components = [], versions = [] } = config;
 
+const brandRenamer = ( genericName, brandReplacers ) => {
+    let brandedName = genericName;
+    for ( const [ pattern, replacement ] of brandReplacers ) {
+        brandedName = brandedName.replace( pattern, replacement );
+    }
+    return brandedName;
+};
+
 /* eslint-disable no-console */
 export const buildComponents = async ( { brand } = {} ) => {
     console.log( `Building ${ versions.join( `,` ) } components` );
@@ -36,25 +44,17 @@ export const buildComponents = async ( { brand } = {} ) => {
     const origineSrcPath = `${ __dirname }/../src/svelte3/`;
 
     const files = await readdir( origineSrcPath );
-    const replacers = replacersConfiguration( {
+    const brandReplacers = replacersConfiguration( {
         brand,
         "isSvelteKit": true,
     } );
 
+    // copies and renames files according to brand configuration
     await Promise.all(
-        files.map( file => {
-            let newFileName = file;
-
-            // renames files according to brand configuration
-            for ( const [ pattern, replacement ] of replacers ) {
-                newFileName = newFileName.replace( pattern, replacement );
-            }
-
-            return copyFile(
-                path.join( origineSrcPath, file ),
-                path.join( actualSrcPath, newFileName )
-            );
-        } )
+        files.map( file => copyFile(
+            path.join( origineSrcPath, file ),
+            path.join( actualSrcPath, brandRenamer( file, brandReplacers ) )
+        ) )
     );
 
     // 3 - adaptation of Svelte3 sources
@@ -65,10 +65,7 @@ export const buildComponents = async ( { brand } = {} ) => {
             [ /import\s*".\/_\/style.css"\s*;/, `` ],
             [ /<svelte:options tag=.*\/>/gm, `` ],
             [ /import.*"svelte\/internal"\s*;/gm, `const getCurrentComponent = () :HTMLElement => undefined;` ],
-            ...replacersConfiguration( {
-                brand,
-                "isSvelteKit": true,
-            } ),
+            ...brandReplacers,
         ],
     } );
 
@@ -81,7 +78,7 @@ export const buildComponents = async ( { brand } = {} ) => {
                 "file": `${ actualSrcPath }/${ SVELTE_UTILS }.js`,
                 "format": `esm`,
                 "sourcemap": true,
-                "sourcemapPathTransform": path => path
+                "sourcemapPathTransform": sourcemapPath => sourcemapPath
                     .replace(
                         /^_\//,
                         `${ gitHubRawPath }/src/_/`
@@ -94,10 +91,7 @@ export const buildComponents = async ( { brand } = {} ) => {
         "plugins": [
             replacer( {
                 "replacers": [
-                    ...replacersConfiguration( {
-                        brand,
-                        "isSvelteKit": true,
-                    } ),
+                    ...brandReplacers,
                     [ /\bFRAMEWORK[^:]/g, `"SVELTEKIT"` ],
                 ],
             } ),
@@ -158,8 +152,9 @@ export const buildComponents = async ( { brand } = {} ) => {
 /**
  * generates and returns exports attributes to be added to generated package.json
  */
-export const exportsPackageJson = () => {
+export const exportsPackageJson = ( { brand } ) => {
     const exports = new Map();
+    console.log( brand );
     for ( const version of versions ) {
         exports.set( `./${ version }`, {
             "main": `./sveltekit/index.js`,
@@ -168,10 +163,17 @@ export const exportsPackageJson = () => {
             "types": `./sveltekit/index.d.ts`,
         } );
     }
+
+    const brandReplacers = replacersConfiguration( {
+        brand,
+        "isSvelteKit": true,
+    } );
+
     for ( const component of components ) {
-        exports.set( `./sveltekit/${ component }.svelte`, {
-            "types": `./sveltekit/${ component }.svelte.d.ts`,
-            "svelte": `./sveltekit/${ component }.svelte`,
+        const componentName = brandRenamer( `${ component }.svelte`, brandReplacers );
+        exports.set( `./sveltekit/${ componentName }`, {
+            "types": `./sveltekit/${ componentName }.d.ts`,
+            "svelte": `./sveltekit/${ componentName }`,
         } );
     }
     return exports;

@@ -119,7 +119,7 @@ packageJSON.exports = Object.fromEntries( [
     [ `./style.css`, `./style.css` ],
     ...exportsPackageJson(),
     ...await exportsAngularPackageJson(),
-    ...exportsSveltekitPackageJson(),
+    ...exportsSveltekitPackageJson( options ),
 ] );
 await writeJson( `${ __dirname }/../dist/package.json`, packageJSON );
 
