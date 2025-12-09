@@ -6,9 +6,9 @@
     ],
     "dependencies": {
         "@twicpics/components": "file:../../../dist",
-        "next": "15.1.5",
-        "react": "19.0.0",
-        "react-dom": "19.0.0"
+        "next": "16.0.8",
+        "react": "19.2.1",
+        "react-dom": "19.2.1"
     },
     "license": "MIT",
     "scripts": {
