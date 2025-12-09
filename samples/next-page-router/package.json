@@ -7,10 +7,10 @@
     "dependencies": {
         "@twicpics/components": "file:../../dist",
         "@twicpics/components-sample": "file:../_",
-        "next": "15.1.5",
+        "next": "16.0.8",
         "next-transpile-modules": "10.0.1",
-        "react": "19.0.0",
-        "react-dom": "19.0.0"
+        "react": "19.2.1",
+        "react-dom": "19.2.1"
     },
     "license": "MIT",
     "scripts": {
